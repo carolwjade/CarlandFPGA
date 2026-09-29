@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fpga-mesh"
+version = "0.1.0"
+description = "Deterministic three-node FPGA multi-agent controller"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+fpga-mesh = "fpga_mesh.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["fpga_mesh*"]

@@ -1,0 +1,16 @@
+node_id = "A"
+project_id = "fpga-main"
+state_dir = ".local/node-a"
+default_children = 2
+hardware_enabled = false
+
+[peers]
+B = ""
+C = ""
+
+[security]
+secret_env = "FPGA_MESH_SHARED_SECRET"
+
+[feishu]
+enabled = false
+group_id = ""
