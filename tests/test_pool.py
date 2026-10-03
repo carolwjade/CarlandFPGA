@@ -1,3 +1,4 @@
+import asyncio
 import tempfile
 import unittest
 from pathlib import Path
@@ -12,10 +13,14 @@ from datetime import datetime, timezone
 class CountingGateway:
     def __init__(self):
         self.calls = []
+        self.closed = False
 
     async def handle(self, message: Envelope) -> ActionResult:
         self.calls.append(message.message_id)
         return ActionResult(accepted=True)
+
+    async def close(self):
+        self.closed = True
 
 
 def message(message_id: str) -> Envelope:
@@ -118,11 +123,84 @@ class InstancePoolTests(unittest.IsolatedAsyncioTestCase):
         await pool.ensure_standby(2)
         ids = [item["instance_id"] for item in pool.snapshot()["instances"]]
         await pool.wake(ids[0], message("first"))
+        await pool.return_to_standby(ids[0])
         await pool.wake(ids[0], message("second"))
+        await pool.return_to_standby(ids[0])
         await pool.wake(ids[1], message("third"))
+        await pool.return_to_standby(ids[1])
         self.assertEqual(len(gateways), 2)
         self.assertEqual(gateways[0].calls, ["first", "second"])
         self.assertEqual(gateways[1].calls, ["third"])
+        await pool.close()
+        self.assertTrue(all(gateway.closed for gateway in gateways))
+
+    async def test_scale_down_rejects_below_busy_count_without_partial_reap(self):
+        await self.pool.ensure_standby(3)
+        ids = [item["instance_id"] for item in self.pool.snapshot()["instances"]]
+        await self.pool.reserve(ids[1])
+        await self.pool.reserve(ids[2])
+        with self.assertRaises(RuntimeError):
+            await self.pool.scale_to(0)
+        self.assertEqual([item["instance_id"] for item in
+                          self.pool.snapshot()["instances"]], ids)
+
+    async def test_unclean_restart_retires_inflight_instance(self):
+        await self.pool.ensure_standby(2)
+        busy_id = self.pool.snapshot()["instances"][0]["instance_id"]
+        await self.pool.reserve(busy_id)
+        restarted = InstancePool(
+            node_id="A", gateway=self.gateway,
+            home_factory=CodexHomeFactory(self.root / "homes"),
+            state_path=self.root / "pool.json",
+        )
+        await restarted.ensure_standby(2)
+        self.assertIn(busy_id, restarted.snapshot()["retired_ids"])
+        self.assertNotIn(busy_id, [item["instance_id"] for item in
+                                   restarted.snapshot()["instances"]])
+        self.assertEqual(restarted.snapshot()["standby"], 2)
+
+    async def test_scale_down_is_atomic_against_direct_reservation(self):
+        class DelayedCloseGateway(CountingGateway):
+            def __init__(self):
+                super().__init__()
+                self.closing = asyncio.Event()
+                self.release = asyncio.Event()
+
+            async def close(self):
+                self.closing.set()
+                await self.release.wait()
+                await super().close()
+
+        gateways = {}
+
+        def factory(instance):
+            gateway = DelayedCloseGateway()
+            gateways[instance.instance_id] = gateway
+            return gateway
+
+        pool = InstancePool(
+            node_id="B", gateway_factory=factory,
+            home_factory=CodexHomeFactory(self.root / "race-homes"),
+            state_path=self.root / "race-pool.json",
+        )
+        await pool.ensure_standby(3)
+        first, second, _third = [
+            item["instance_id"] for item in pool.snapshot()["instances"]
+        ]
+        await pool.wake(first, message("prepare-gateway"))
+        await pool.return_to_standby(first)
+        scale = asyncio.create_task(pool.scale_to(0))
+        try:
+            await asyncio.wait_for(gateways[first].closing.wait(), 1)
+            reserve = asyncio.create_task(pool.reserve(second))
+            await asyncio.sleep(0)
+            self.assertFalse(reserve.done())
+        finally:
+            gateways[first].release.set()
+        await asyncio.wait_for(scale, 1)
+        with self.assertRaises(KeyError):
+            await reserve
+        self.assertEqual(pool.snapshot()["instances"], [])
 
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ class JsonRpcError(RuntimeError):
 class JsonRpcNotification:
     method: str
     params: dict[str, Any]
+    request_id: int | str | None = None
 
 
 class Transport(Protocol):
@@ -63,8 +64,9 @@ class JsonRpcSession:
     def __init__(self, transport: Transport):
         self.transport = transport
         self._next_id = 1
-        self._pending: dict[int, tuple[str, asyncio.Future[Any]]] = {}
+        self._pending: dict[int | str, tuple[str, asyncio.Future[Any]]] = {}
         self._notifications: asyncio.Queue[JsonRpcNotification] = asyncio.Queue()
+        self._closed = False
         self._reader = asyncio.create_task(self._read_loop())
 
     async def request(self, method: str, params: dict[str, Any] | None = None) -> Any:
@@ -79,7 +81,10 @@ class JsonRpcSession:
             "params": params or {},
         }
         await self.transport.send(json.dumps(payload, ensure_ascii=False))
-        return await future
+        try:
+            return await future
+        finally:
+            self._pending.pop(request_id, None)
 
     async def notify(self, method: str, params: dict[str, Any] | None = None) -> None:
         await self.transport.send(
@@ -93,10 +98,19 @@ class JsonRpcSession:
             )
         )
 
+    async def respond(self, request_id: int | str, result: Any) -> None:
+        await self.transport.send(json.dumps({
+            "jsonrpc": "2.0", "id": request_id, "result": result,
+        }, ensure_ascii=False))
+
     async def next_notification(self) -> JsonRpcNotification:
         return await self._notifications.get()
 
     async def close(self) -> None:
+        self._closed = True
+        for _, future in self._pending.values():
+            future.cancel()
+        self._pending.clear()
         if self._reader is not None:
             self._reader.cancel()
             try:
@@ -107,28 +121,44 @@ class JsonRpcSession:
         await self.transport.close()
 
     async def _read_loop(self) -> None:
-        while True:
-            payload = await self.transport.recv()
-            if not payload:
-                return
-            data = json.loads(payload)
-            if "id" in data and "method" not in data:
-                request_id = int(data["id"])
-                entry = self._pending.pop(request_id, None)
-                if entry is None:
-                    continue
-                method, future = entry
-                if "error" in data:
-                    future.set_exception(JsonRpcError(method, data["error"]))
-                else:
-                    future.set_result(data.get("result"))
-            elif "method" in data:
-                await self._notifications.put(
-                    JsonRpcNotification(
-                        method=data["method"],
-                        params=data.get("params") or {},
+        failure: Exception = ConnectionError("Codex app-server closed the connection")
+        try:
+            while True:
+                payload = await self.transport.recv()
+                if not payload:
+                    break
+                data = json.loads(payload)
+                if "id" in data and "method" not in data:
+                    request_id = data["id"]
+                    entry = self._pending.pop(request_id, None)
+                    if entry is None:
+                        continue
+                    method, future = entry
+                    if "error" in data:
+                        future.set_exception(JsonRpcError(method, data["error"]))
+                    else:
+                        future.set_result(data.get("result"))
+                elif "method" in data:
+                    await self._notifications.put(
+                        JsonRpcNotification(
+                            method=data["method"],
+                            params=data.get("params") or {},
+                            request_id=data.get("id"),
+                        )
                     )
-                )
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:  # noqa: BLE001 - surface transport failure
+            failure = ConnectionError(f"Codex app-server read failed: {exc}")
+        finally:
+            if not self._closed:
+                for _, future in self._pending.values():
+                    if not future.done():
+                        future.set_exception(failure)
+                self._pending.clear()
+                self._notifications.put_nowait(JsonRpcNotification(
+                    method="error", params={"message": str(failure)},
+                ))
 
 
 class StdioTransport:
@@ -138,6 +168,7 @@ class StdioTransport:
         self.command = command
         self.env = env
         self.process: asyncio.subprocess.Process | None = None
+        self._stderr_task: asyncio.Task[None] | None = None
         self._lock = asyncio.Lock()
 
     async def start(self) -> None:
@@ -148,6 +179,15 @@ class StdioTransport:
             stderr=asyncio.subprocess.PIPE,
             env=self.env,
         )
+        if self.process.stderr is not None:
+            self._stderr_task = asyncio.create_task(
+                self._drain_stderr(self.process.stderr),
+            )
+
+    @staticmethod
+    async def _drain_stderr(stream: asyncio.StreamReader) -> None:
+        while await stream.read(65536):
+            pass
 
     async def send(self, payload: str) -> None:
         if self.process is None or self.process.stdin is None:
@@ -174,4 +214,7 @@ class StdioTransport:
             except asyncio.TimeoutError:
                 self.process.kill()
                 await self.process.wait()
+        if self._stderr_task is not None:
+            await self._stderr_task
+            self._stderr_task = None
         self.process = None

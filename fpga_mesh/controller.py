@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 from .protocol import Envelope, MessageKind, SourceKind
 from .store import SQLiteStore
@@ -25,9 +25,13 @@ class ModelGateway(Protocol):
 class Controller:
     """Dispatches only pending messages that require model reasoning."""
 
-    def __init__(self, store: SQLiteStore, gateway: ModelGateway):
+    def __init__(
+        self, store: SQLiteStore, gateway: ModelGateway,
+        on_human_instruction: Callable[[Envelope], None] | None = None,
+    ):
         self.store = store
         self.gateway = gateway
+        self.on_human_instruction = on_human_instruction
         self.dispatch_blocked = False
         self._paused_at: datetime | None = None
         self._pause_scope: str | None = None
@@ -39,8 +43,19 @@ class Controller:
         accepted = self.store.accept_inbound(message)
         if not accepted:
             return False
-        self._apply_control(message)
         self._wakeup.set()
+        if (message.source == SourceKind.HUMAN and
+                message.kind == MessageKind.HUMAN_INSTRUCTION and
+                self.on_human_instruction is not None):
+            try:
+                self.on_human_instruction(message)
+            except Exception as exc:  # noqa: BLE001 - inbox retries version update
+                self.store.mark_inbound_failed(
+                    message.message_id, f"{type(exc).__name__}: {exc}",
+                    retry_at=None,
+                )
+                raise
+        self._apply_control(message)
         return True
 
     async def run_until_idle(self) -> None:
@@ -62,6 +77,19 @@ class Controller:
                 if self._is_control_message(message):
                     self.store.mark_inbound_processed(message.message_id)
                     continue
+                if (message.source == SourceKind.HUMAN and
+                        message.kind == MessageKind.HUMAN_INSTRUCTION and
+                        self.on_human_instruction is not None):
+                    try:
+                        # Reapplying is safe and recovers a crash after inbox
+                        # persistence but before the child-version write.
+                        self.on_human_instruction(message)
+                    except Exception as exc:  # noqa: BLE001 - keep inbox pending
+                        self.store.mark_inbound_failed(
+                            message.message_id,
+                            f"{type(exc).__name__}: {exc}", retry_at=None,
+                        )
+                        continue
                 if self.dispatch_blocked:
                     continue
                 try:

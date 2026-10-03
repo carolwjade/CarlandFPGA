@@ -165,6 +165,8 @@ def _config_template(node: str) -> str:
         'project_id = "fpga-main"\n'
         f'state_dir = ".local/node-{node.lower()}"\n'
         'default_children = 2\n'
+        'mode = "app_server"\n'
+        'deepseek_key_file = ""\n'
         "hardware_enabled = false\n"
         "\n"
         "[peers]\n"

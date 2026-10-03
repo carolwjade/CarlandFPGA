@@ -1,8 +1,9 @@
 import asyncio
 import json
+import sys
 import unittest
 
-from fpga_mesh.rpc import InMemoryTransport, JsonRpcError, JsonRpcSession
+from fpga_mesh.rpc import InMemoryTransport, JsonRpcError, JsonRpcSession, StdioTransport
 
 
 class JsonRpcSessionTests(unittest.IsolatedAsyncioTestCase):
@@ -61,6 +62,60 @@ class JsonRpcSessionTests(unittest.IsolatedAsyncioTestCase):
         )
         with self.assertRaises(JsonRpcError):
             await pending
+
+    async def test_eof_fails_pending_request_instead_of_hanging(self):
+        transport = InMemoryTransport()
+        session = JsonRpcSession(transport)
+        pending = asyncio.create_task(session.request("thread/start", {}))
+        await asyncio.sleep(0)
+        await transport.next_client_message()
+        await transport.inject_server_message("")
+        with self.assertRaises(ConnectionError):
+            await asyncio.wait_for(pending, 1)
+        await session.close()
+
+    async def test_server_dynamic_tool_request_can_be_answered(self):
+        transport = InMemoryTransport()
+        session = JsonRpcSession(transport)
+        await transport.inject_server_message(json.dumps({
+            "jsonrpc": "2.0", "id": 51, "method": "item/tool/call",
+            "params": {"tool": "child_status", "arguments": {}},
+        }))
+        request = await asyncio.wait_for(session.next_notification(), 1)
+        self.assertEqual(request.request_id, 51)
+        await session.respond(51, {"contentItems": [
+            {"type": "inputText", "text": "ok"},
+        ], "success": True})
+        reply = json.loads(await transport.next_client_message())
+        self.assertEqual(reply["id"], 51)
+        self.assertTrue(reply["result"]["success"])
+        await session.close()
+
+    async def test_unmatched_string_response_id_does_not_kill_reader(self):
+        transport = InMemoryTransport()
+        session = JsonRpcSession(transport)
+        pending = asyncio.create_task(session.request("thread/start", {}))
+        request = json.loads(await transport.next_client_message())
+        await transport.inject_server_message(json.dumps({
+            "jsonrpc": "2.0", "id": "not-our-id", "result": {},
+        }))
+        await transport.inject_server_message(json.dumps({
+            "jsonrpc": "2.0", "id": request["id"], "result": {"ok": True},
+        }))
+        self.assertEqual(await asyncio.wait_for(pending, 1), {"ok": True})
+        await session.close()
+
+    async def test_stdio_transport_drains_large_stderr_without_hanging_stdout(self):
+        command = [sys.executable, "-c", (
+            "import sys; sys.stderr.write('x' * 8000000); "
+            "sys.stderr.flush(); sys.stdout.write('READY\\n'); sys.stdout.flush()"
+        )]
+        transport = StdioTransport(command)
+        await transport.start()
+        try:
+            self.assertEqual(await asyncio.wait_for(transport.recv(), 2), "READY")
+        finally:
+            await transport.close()
 
 
 if __name__ == "__main__":

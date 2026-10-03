@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 from dataclasses import asdict, dataclass
@@ -75,9 +76,14 @@ class InstancePool:
         self._active: dict[str, ManagedInstance] = {}
         self._retired: set[str] = set()
         self._gateways: dict[str, Gateway] = {}
+        self._allocation_lock = asyncio.Lock()
         self._load()
 
     async def ensure_standby(self, count: int) -> None:
+        async with self._allocation_lock:
+            self._ensure_standby_unlocked(count)
+
+    def _ensure_standby_unlocked(self, count: int) -> None:
         if count < 0:
             raise ValueError("count must not be negative")
         while len(self._active) < count:
@@ -85,22 +91,57 @@ class InstancePool:
         self._save()
 
     async def scale_to(self, count: int) -> None:
+        async with self._allocation_lock:
+            await self._scale_to_unlocked(count)
+
+    async def _scale_to_unlocked(self, count: int) -> None:
         if count < 0:
             raise ValueError("count must not be negative")
         if count < len(self._active):
-            for instance_id in list(self._active)[count:]:
-                await self.reap(instance_id)
+            standby = [instance_id for instance_id, instance in self._active.items()
+                       if instance.state == "standby"]
+            to_reap = len(self._active) - count
+            if len(standby) < to_reap:
+                raise RuntimeError("cannot scale below the number of assigned children")
+            for instance_id in standby[-to_reap:]:
+                await self._reap_unlocked(instance_id)
         else:
-            await self.ensure_standby(count)
+            self._ensure_standby_unlocked(count)
+
+    async def close(self) -> None:
+        gateways = list(self._gateways.values())
+        self._gateways.clear()
+        for gateway in gateways:
+            if hasattr(gateway, "close"):
+                await gateway.close()
 
     async def reap(self, instance_id: str) -> None:
-        self._ensure_active(instance_id)
+        async with self._allocation_lock:
+            await self._reap_unlocked(instance_id)
+
+    async def _reap_unlocked(self, instance_id: str) -> None:
+        instance = self._ensure_active(instance_id)
+        if instance.state != "standby":
+            raise RuntimeError("cannot reap a non-standby child")
         self._active.pop(instance_id)
         self._retired.add(instance_id)
+        gateway = self._gateways.pop(instance_id, None)
         self._save()
+        if gateway is not None and hasattr(gateway, "close"):
+            await gateway.close()
+
+    async def reserve(self, instance_id: str) -> None:
+        async with self._allocation_lock:
+            instance = self._ensure_active(instance_id)
+            if instance.state != "standby":
+                raise RuntimeError("child is already assigned")
+            instance.state = "reserved"
+            self._save()
 
     async def wake(self, instance_id: str, message: Envelope) -> ActionResult:
         instance = self._ensure_active(instance_id)
+        if instance.state not in {"standby", "reserved"}:
+            raise RuntimeError("child is already working")
         if instance.model != "deepseek-flash" or instance.reasoning_effort != "max":
             raise RuntimeError(f"instance {instance_id} is not route-compliant")
         instance.state = "working"
@@ -175,6 +216,11 @@ class InstancePool:
         self._next_sequence = int(data.get("next_sequence", 1))
         self._retired = set(data.get("retired_ids", []))
         for item in data.get("instances", []):
+            if item["state"] != "standby":
+                # A prior process died while this instance was assigned. Keep
+                # its identity retired so a late result cannot enter a new job.
+                self._retired.add(item["instance_id"])
+                continue
             self._active[item["instance_id"]] = ManagedInstance(**item)
 
     def _save(self) -> None:

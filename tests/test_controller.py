@@ -165,6 +165,24 @@ class ControllerTests(unittest.IsolatedAsyncioTestCase):
         await self.controller.run_until_idle()
         self.assertEqual(self.gateway.calls, [])
 
+    async def test_failed_human_version_callback_is_retried_from_persisted_inbox(self):
+        attempts = []
+
+        def update_version(message):
+            attempts.append(message.task_version)
+            if len(attempts) == 1:
+                raise RuntimeError("child database temporarily locked")
+
+        controller = Controller(self.store, self.gateway,
+                                on_human_instruction=update_version)
+        with self.assertRaisesRegex(RuntimeError, "temporarily locked"):
+            await controller.offer(instruction("version-retry"))
+        self.assertEqual(len(self.store.pending_inbound()), 1)
+        await controller.run_until_idle()
+        self.assertEqual(attempts, [1, 1])
+        self.assertEqual(self.gateway.calls, ["version-retry"])
+        self.assertEqual(self.store.pending_inbound(), [])
+
 
 if __name__ == "__main__":
     unittest.main()

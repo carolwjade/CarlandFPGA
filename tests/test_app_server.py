@@ -1,6 +1,8 @@
 import unittest
+import tempfile
+from pathlib import Path
 
-from fpga_mesh.app_server import AppServerClient
+from fpga_mesh.app_server import AppServerClient, build_codex_env, resolve_codex_command
 
 
 class FakeSession:
@@ -60,6 +62,70 @@ class AppServerClientTests(unittest.IsolatedAsyncioTestCase):
             self.session.requests[0],
             ("account/rateLimits/read", {}),
         )
+
+    async def test_turn_interrupt_targets_the_active_turn(self):
+        await self.client.turn_interrupt(thread_id="thread-1", turn_id="turn-1")
+        self.assertEqual(self.session.requests[0], (
+            "turn/interrupt", {"threadId": "thread-1", "turnId": "turn-1"},
+        ))
+
+    async def test_parent_thread_can_register_local_child_tools(self):
+        overrides = {"mcp_servers": {"fpga_children": {
+            "command": "python", "args": ["-m", "fpga_mesh.mcp_children"],
+        }}}
+        await self.client.thread_start(
+            cwd="C:/workspace", model="gpt-6-astra", model_provider="openai",
+            config=overrides,
+        )
+        self.assertEqual(self.session.requests[0][1]["config"], overrides)
+
+    async def test_parent_thread_can_register_dynamic_tools(self):
+        tools = [{"type": "function", "name": "fpga_child_status",
+                  "description": "status", "inputSchema": {"type": "object"}}]
+        await self.client.thread_start(
+            cwd="C:/workspace", model="gpt-6-astra", model_provider="openai",
+            dynamic_tools=tools,
+        )
+        self.assertEqual(self.session.requests[0][1]["dynamicTools"], tools)
+
+    async def test_parent_environment_never_inherits_deepseek_key(self):
+        source = {"DEEPSEEK_API_KEY": "a-secret", "OPENAI_API_KEY": "other",
+                  "CODEX_API_KEY": "another", "SAFE": "kept"}
+        astra = build_codex_env("C:/astra", source=source,
+                                role="astra", extra={"CONTROL": "present"})
+        child = build_codex_env("C:/child", source=source,
+                                role="deepseek_child", extra={"DEEPSEEK_API_KEY": "new"})
+        self.assertNotIn("DEEPSEEK_API_KEY", astra)
+        self.assertEqual(astra["CONTROL"], "present")
+        self.assertEqual(child["DEEPSEEK_API_KEY"], "new")
+        self.assertNotIn("OPENAI_API_KEY", child)
+        self.assertNotIn("CODEX_API_KEY", child)
+
+    async def test_extra_environment_cannot_reintroduce_cross_role_credentials(self):
+        astra = build_codex_env(
+            "C:/astra", source={}, role="astra",
+            extra={"DEEPSEEK_API_KEY": "forbidden", "CODEX_HOME": "wrong"},
+        )
+        child = build_codex_env(
+            "C:/child", source={}, role="deepseek_child",
+            extra={"OPENAI_API_KEY": "forbidden", "CODEX_API_KEY": "forbidden"},
+        )
+        self.assertNotIn("DEEPSEEK_API_KEY", astra)
+        self.assertEqual(astra["CODEX_HOME"], "C:/astra")
+        self.assertNotIn("OPENAI_API_KEY", child)
+        self.assertNotIn("CODEX_API_KEY", child)
+
+    async def test_codex_binary_prefers_bundled_host_over_broken_npm_shim(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bundle = Path(tmp) / "OpenAI" / "Codex" / "bin" / "release"
+            bundle.mkdir(parents=True)
+            (bundle / "codex.exe").touch()
+            (bundle / "codex-code-mode-host.exe").touch()
+            command = resolve_codex_command(
+                platform="win32", local_appdata=tmp, explicit=None,
+            )
+            self.assertEqual(command, [str(bundle / "codex.exe"),
+                                       "app-server", "--stdio"])
 
 
 if __name__ == "__main__":

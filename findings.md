@@ -45,3 +45,12 @@ These values are intentionally left blank in generated configuration.
 - OpenAI documentation pages attempted on 2026-09-30 timed out or returned HTTP 403 from this environment. The implementation uses the locally generated `codex app-server` JSON Schema for the fixed local CLI version.
 - DeepSeek official documentation was fetched successfully on 2026-09-30: `deepseek-flash` is the V4.1 Flash alias, supports reasoning effort `max`, and the Responses API base URL is `https://api.deepseek.com`.
 - No real Feishu, Tailscale, GitHub private repository or FPGA operation may be claimed from local tests.
+
+## 2026-10-03 Follow-up: Native parent-child calling
+
+- Current Desktop-bundled Codex is `0.160.0` and this machine now reports ChatGPT login. Astra live turns use `modelProvider=openai` and `gpt-6-astra`; isolated children use `deepseek-flash` / `deepseek` / `max`.
+- `thread/start.dynamicTools` exposes five child-control tools to a native Astra turn. A live Astra turn delegated to DeepSeek, waited for the job, and returned the persisted `CHILD_OK` result. Per-thread MCP registration worked at protocol level but the Code Mode tool catalog did not expose it; the CLI/MCP bridges remain fallback interfaces.
+- A separate Astra selector turn chose `low` then `high` for simple and complex tasks on one thread; `thread/read.reasoningEffort` reflected each choice. The selector itself costs a GPT call, so a net usage-saving claim still requires a representative comparison.
+- The Codex Desktop bottom-right picker could not be visually verified through allowed tooling. The backend metadata evidence does not establish that this current chat's picker changes when an independent background Astra thread changes effort.
+- A Windows scheduled task cannot see the AppData installation path created in this execution context, while it can see the workspace. Installing under ignored `.local/deployment` fixed the service: task running, live DeepSeek assignment returned `SERVICE_OK` at `max`, stop/start recovered two standby children and persisted result. Scheduled tasks are triggered at logon, not before login.
+- Feishu credentials, B/C machines, Tailscale, GitHub private remote, real FPGA board and quality/usage/time comparison remain external gates.
