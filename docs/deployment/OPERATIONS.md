@@ -6,6 +6,8 @@
 
 将无凭据分发包交给 B/C 的 Codex 会话，附上 `deploy/TEAMMATE_PROMPT.md`。在各自 Windows 电脑上运行 `deploy/Join-FPGAMesh.ps1 -Node B` 或 `-Node C`。脚本从公开 GitHub 仓库克隆源码，创建被 Git 忽略的 `.local/venv`，安装飞书 SDK，生成该机配置，运行自检并注册登录后常驻任务。现有工作区只在干净时快进，不覆盖队友的修改。
 
+脚本依次尝试 `py`、系统 Python 和 Codex 捆绑的 Python 3.12+；若路径特殊，可用 `-PythonExe 'C:\path\to\python.exe'` 指定解释器。本机 B 无凭据烟测已验证 Codex 捆绑解释器可完成虚拟环境与安装。
+
 完整参数示例（路径和值由各机填写，绝不要把密钥内容贴进命令行或 Git）：
 
 ```powershell

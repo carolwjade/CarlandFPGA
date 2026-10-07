@@ -4,7 +4,7 @@
 
 公开源码仓库：[carolwjade/CarlandFPGA](https://github.com/carolwjade/CarlandFPGA)。公开克隆不等于写入权限；其他成员默认在自己的 fork 上提交并向此仓库发 PR。API 密钥、飞书应用 Secret、跨机共享密钥和各机 SQLite 状态都只保存在本机被忽略的 `.local/` 路径。
 
-队友把 [分发提示](deploy/TEAMMATE_PROMPT.md) 和分发 ZIP 交给自己的 Codex 会话。安装入口是 [Join-FPGAMesh.ps1](deploy/Join-FPGAMesh.ps1)，可克隆仓库、建立依赖环境、生成本地配置、注册开机任务，并在成员授权后注册本机两个飞书应用。授权、群 ID、共享网络、GitHub fork 登录和板卡工具链仍须由对应的人/电脑提供；程序不会把本地模拟写成线上验收。
+队友把 [分发提示](deploy/TEAMMATE_PROMPT.md) 和分发 ZIP 交给自己的 Codex 会话。安装入口是 [Join-FPGAMesh.ps1](deploy/Join-FPGAMesh.ps1)，可克隆仓库、建立依赖环境、生成本地配置、注册开机任务，并在成员授权后注册本机两个飞书应用。群 ID 已由 A 机取得并内置；飞书应用授权、共享网络、GitHub fork 登录和板卡工具链仍须由对应的人/电脑提供；程序不会把本地模拟写成线上验收。
 
 本机回归：
 

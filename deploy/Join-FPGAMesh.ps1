@@ -9,6 +9,7 @@ param(
     [string]$Node,
     [string]$Repository = 'https://github.com/carolwjade/CarlandFPGA.git',
     [string]$Workspace = (Join-Path $HOME 'Documents\CarlandFPGA'),
+    [string]$PythonExe = '',
     [string]$DeepSeekKeyFile = '',
     [string]$SharedSecretFile = '',
     [string]$GroupId = 'oc_e0de73230fd64dd2da3e52fc781dffb1',
@@ -59,12 +60,26 @@ $venvPython = Join-Path $repoRoot '.local\venv\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $venvPython -PathType Leaf)) {
     $created = $false
     if (Get-Command py -ErrorAction SilentlyContinue) {
-        & py -3.12 -m venv (Join-Path $repoRoot '.local\venv')
+        & py -3 -m venv (Join-Path $repoRoot '.local\venv')
         $created = ($LASTEXITCODE -eq 0)
     }
-    if (-not $created -and (Get-Command python -ErrorAction SilentlyContinue)) {
-        & python -m venv (Join-Path $repoRoot '.local\venv')
-        $created = ($LASTEXITCODE -eq 0)
+    if (-not $created) {
+        $candidates = @()
+        if ($PythonExe) { $candidates += $PythonExe }
+        $installedPython = Get-Command python -ErrorAction SilentlyContinue
+        if ($installedPython) { $candidates += $installedPython.Source }
+        $runtimeRoot = Join-Path $HOME '.cache\codex-runtimes'
+        if (Test-Path -LiteralPath $runtimeRoot) {
+            $candidates += @(Get-ChildItem -Path (Join-Path $runtimeRoot '*\dependencies\python\python.exe') -File -ErrorAction SilentlyContinue |
+                Select-Object -ExpandProperty FullName)
+        }
+        foreach ($candidate in ($candidates | Select-Object -Unique)) {
+            if (-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { continue }
+            & $candidate -c 'import sys; assert sys.version_info >= (3,12)' 2>$null
+            if ($LASTEXITCODE -ne 0) { continue }
+            & $candidate -m venv (Join-Path $repoRoot '.local\venv')
+            if ($LASTEXITCODE -eq 0) { $created = $true; break }
+        }
     }
     if (-not $created -or -not (Test-Path -LiteralPath $venvPython)) {
         throw 'Python 3.12+ is required. Install it, then rerun this command.'
@@ -128,7 +143,7 @@ try {
         @('deepseek-secret-file', $DeepSeekSecretFile),
         @('peer-a', $PeerA), @('peer-b', $PeerB), @('peer-c', $PeerC)
     )) {
-        if ($entry[1]) { $arguments += @('--' + $entry[0], [string]$entry[1]) }
+        if ($entry[1]) { $arguments += @(('--' + $entry[0]), [string]$entry[1]) }
     }
     & $venvPython -m fpga_mesh.onboarding @arguments
     if ($LASTEXITCODE -ne 0) { throw 'Node config generation failed.' }

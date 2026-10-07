@@ -9,6 +9,7 @@
 | 推理深度显示 | 早前真实 Astra 同线程 `low`→`high` 且 app-server `thread/read.reasoningEffort` 对应 | **后端元数据通过**；本聊天右下角下拉框联动仍无可视证据 |
 | A 机后台常驻 | 计划任务改为直接管理 Python 服务；重启后 `100.121.238.56:8787` 监听，签名健康接口返回 A，服务内 DeepSeek 派工返回 `DEPLOYED_OK`，待命数仍为 2 | **本机实测通过** |
 | GitHub 仓库 | `https://github.com/carolwjade/CarlandFPGA.git` 公开；GitHub Desktop 发布 `main` 后，`git ls-remote origin refs/heads/main` 读回 `88930ff6a33eaad1636514292c888f11ed49abd4` | **A 机推送/读回通过**；B/C 走 fork/PR，队友实机仍待验收 |
+| 队友分发包与接入 | 已从提交生成 405 文件 ZIP，CRC 与逐文件 SHA-256 通过；解包副本 167/167 测试通过；B 机接入烟测从 GitHub 公开仓库成功克隆、从 Codex 捆绑 Python 建虚拟环境、安装依赖、生成配置并通过 167/167 测试 | **无凭据本机烟测通过**；队友真实登录、密钥、Tailscale 与飞书授权仍待各机完成 |
 | 飞书六机器人 | 飞书桌面端已核实群 `FPGA/AI/DEV` 的 Chat ID `oc_e0de73230fd64dd2da3e52fc781dffb1`，Bots 列表为空；Add Bot 明示这是外部群，只允许自定义机器人或已开启外部共享的应用机器人；A 的 Astra 设备授权流程已发起 | **未上线**；还须创设应用、核对外部共享/权限/事件、入群并真实收发 |
 | 跨网 B/C 与 Tailscale | A 已安装并登录 Tailscale 1.102.4，取得 `100.121.238.56`；只允许 Tailscale 接口/地址、100.64.0.0/10 来源访问 TCP 8787 的防火墙规则已生效 | **A 机就绪**；B/C 尚未入网，无法验收真实跨机互通 |
 | 板卡烧录及日志 | A 为唯一可烧录电脑，但未得到型号、工具链与实机接口 | **未实测**，`hardware_enabled=false` |
