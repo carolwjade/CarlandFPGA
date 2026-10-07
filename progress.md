@@ -56,3 +56,5 @@
 - 完成 B/C 引导脚本、角色指令、队友 Codex 提示和本地配置生成器。密钥仅保存在本地文件，公开仓库采用 fork/PR。
 - A 已安装/登录 Tailscale，创建限于 Tailscale 的 Windows 防火墙规则，本地签名健康端点与后台 DeepSeek 派工通过。计划任务改为直接管理 Python，清理旧孤儿进程。
 - 全量本地回归 152/152 通过；真实 Astra→DeepSeek 返回 `CHILD_OK`，父 `low`、子 `max`。下一步：远端 GitHub 首推/读回、分发包解包烟测、飞书授权与群 ID 到位后的联调。
+- 从飞书桌面端 `FPGA/AI/DEV` 群设置读出 Chat ID `oc_e0de73230fd64dd2da3e52fc781dffb1`；Bots 页面为空，并提示这是外部群，仅接受自定义机器人或允许外部共享的应用机器人。群邀请链接无需提供给应用机器人，且短期过期。
+- 全量回归增至 167/167，通过本地 Git 快进认领、失联节点恢复、永久暂停及过期消息等测试。GitHub Desktop 发布 `main`，远端 `git ls-remote` 读回 `88930ff6a33eaad1636514292c888f11ed49abd4`。
