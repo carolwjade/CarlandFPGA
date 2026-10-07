@@ -8,8 +8,8 @@
 | Astra→DeepSeek 实际调用 | 2026-10-07 `python -m scripts.smoke_parent_child --key-file <本机密钥路径>` 返回 `CHILD_OK`；父 `gpt-6-astra/openai` 选择 `low`，子 `deepseek-flash/deepseek/max` | **A 机真实路由通过** |
 | 推理深度显示 | 早前真实 Astra 同线程 `low`→`high` 且 app-server `thread/read.reasoningEffort` 对应 | **后端元数据通过**；本聊天右下角下拉框联动仍无可视证据 |
 | A 机后台常驻 | 计划任务改为直接管理 Python 服务；重启后 `100.121.238.56:8787` 监听，签名健康接口返回 A，服务内 DeepSeek 派工返回 `DEPLOYED_OK`，待命数仍为 2 | **本机实测通过** |
-| GitHub 仓库 | `https://github.com/carolwjade/CarlandFPGA.git` 公开；GitHub Desktop 发布 `main` 后，`git ls-remote origin refs/heads/main` 读回 `88930ff6a33eaad1636514292c888f11ed49abd4` | **A 机推送/读回通过**；B/C 走 fork/PR，队友实机仍待验收 |
-| 队友分发包与接入 | 入口增加逐身份发信及读回的上线门槛；发送回执写在被 Git 忽略的本机目录，读回失败不会重复发信。此前无凭据 B 机接入烟测已通过；本次更新后仍需重新打包及解包复测 | **本地逻辑验证通过**；新版 ZIP 和队友实机仍待验收 |
+| GitHub 仓库 | `https://github.com/carolwjade/CarlandFPGA.git` 公开；A 机具备 GitHub Desktop 推送路径，远端当前版本以 `git ls-remote origin refs/heads/main` 与分发包 `MANIFEST.json` 的 revision 对照验收 | **A 机既有推送路径通过**；本次版本是否同步以远端回读为准，B/C 走 fork/PR |
+| 队友分发包与接入 | 入口增加逐身份发信及读回的上线门槛；发送回执写在被 Git 忽略的本机目录，读回失败不会重复发信。无凭据 B 机接入烟测已通过；新版 ZIP 的 CRC 与逐文件 SHA-256 已核验，解包副本 170/170 测试通过 | **新版 ZIP 本地验收通过**；队友实机仍待验收 |
 | 飞书六机器人 | A 机已创建 `FPGA Astra A`（`cli_aa4c9f58dd385cc9`）及 `FPGA DeepSeek A`（`cli_aa4c9f8c59785cd1`），两者机器人能力已添加，Secret 仅保存在被 Git 忽略的本机目录。两应用目前待上线，权限列表为空；用各自凭据获取 tenant token 后实际发群消息均返回 HTTP 400 / `99991672`（缺少 API scope）。群 `FPGA/AI/DEV` 是外部群，Bots 列表仍为空 | **未上线、未入群、未发/读成功**；需开通并发布消息权限、外部共享、加入群，再运行逐身份自测 |
 | 跨网 B/C 与 Tailscale | A 已安装并登录 Tailscale 1.102.4，取得 `100.121.238.56`；只允许 Tailscale 接口/地址、100.64.0.0/10 来源访问 TCP 8787 的防火墙规则已生效 | **A 机就绪**；B/C 尚未入网，无法验收真实跨机互通 |
 | 板卡烧录及日志 | A 为唯一可烧录电脑，但未得到型号、工具链与实机接口 | **未实测**，`hardware_enabled=false` |
