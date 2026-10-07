@@ -91,6 +91,20 @@ class AppServerGatewayTests(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(result.accepted)
         self.assertEqual(result.output["text"], "done")
 
+    async def test_astra_receives_authoritative_task_identity_for_delegation(self):
+        self.session.notifications.append(JsonRpcNotification(
+            method="turn/completed",
+            params={"turn": {"id": "turn-1", "status": "completed", "items": []}},
+        ))
+        await self.gateway.handle(message())
+        turn = next(params for method, params in self.session.requests
+                    if method == "turn/start")
+        prompt = turn["input"][0]["text"] if "input" in turn else turn["text"]
+        self.assertIn("task_id: task-1", prompt)
+        self.assertIn("task_version: 1", prompt)
+        self.assertIn("source: human", prompt)
+        self.assertIn("inspect", prompt)
+
     async def test_second_message_reuses_the_same_thread(self):
         self.session.notifications.extend(
             [
@@ -154,6 +168,21 @@ class AppServerGatewayTests(unittest.IsolatedAsyncioTestCase):
         start = [params for method, params in self.session.requests
                  if method == "thread/start"][0]
         self.assertEqual(start["config"], tool_config)
+        await gateway.close()
+
+    async def test_parent_gateway_installs_node_policy_on_thread_start(self):
+        gateway = AppServerGateway(
+            self.config, client_factory=lambda: self.client,
+            developer_instructions="Astra-A: prioritize humans and verify child work",
+        )
+        self.session.notifications.append(JsonRpcNotification(
+            method="turn/completed",
+            params={"turn": {"status": "completed", "items": []}},
+        ))
+        await gateway.handle(message())
+        start = next(params for method, params in self.session.requests
+                     if method == "thread/start")
+        self.assertIn("prioritize humans", start["developerInstructions"])
         await gateway.close()
 
     async def test_failed_turn_is_not_reported_as_accepted(self):

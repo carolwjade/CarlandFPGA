@@ -11,7 +11,6 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repo = Split-Path -Parent $PSScriptRoot
-$runner = Join-Path $PSScriptRoot "run-node.ps1"
 $configPath = [System.IO.Path]::GetFullPath($Config)
 $pythonPath = [System.IO.Path]::GetFullPath($Python)
 if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) {
@@ -25,16 +24,12 @@ $existing = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 if ($existing -and $existing.Description -notlike "FPGA Mesh $Node controller*") {
     throw "Scheduled task exists and is not owned by FPGA Mesh: $taskName"
 }
-$shell = (Get-Command pwsh -ErrorAction Stop).Source
 $nodeDir = Split-Path -Parent $configPath
-$installedRunner = Join-Path $nodeDir "run-node.ps1"
-$workspaceFile = Join-Path $nodeDir "workspace.txt"
 $readyFile = Join-Path $nodeDir "ready.json"
-Copy-Item -LiteralPath $runner -Destination $installedRunner -Force
-[System.IO.File]::WriteAllText($workspaceFile, "$repo`n", [System.Text.UTF8Encoding]::new($false))
-$arguments = '-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File "{0}" -Node {1} -Config "{2}" -Python "{3}" -ReadyFile "{4}" -WorkspaceFile "{5}"' -f `
-    $installedRunner, $Node, $configPath, $pythonPath, $readyFile, $workspaceFile
-$action = New-ScheduledTaskAction -Execute $shell -Argument $arguments
+$arguments = '-m fpga_mesh.cli serve --config "{0}" --ready-file "{1}"' -f `
+    $configPath, $readyFile
+$action = New-ScheduledTaskAction -Execute $pythonPath -Argument $arguments `
+    -WorkingDirectory $repo
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
 $settings = New-ScheduledTaskSettingsSet `
     -ExecutionTimeLimit (New-TimeSpan -Seconds 0) `

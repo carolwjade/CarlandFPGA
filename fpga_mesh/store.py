@@ -106,26 +106,177 @@ class SQLiteStore:
                     payload TEXT NOT NULL,
                     created_at TEXT NOT NULL
                 );
+
+                CREATE TABLE IF NOT EXISTS group_outbox (
+                    operation_id TEXT PRIMARY KEY,
+                    text TEXT NOT NULL,
+                    role TEXT NOT NULL DEFAULT 'astra',
+                    job_id TEXT,
+                    created_at TEXT NOT NULL,
+                    sent_at TEXT,
+                    platform_message_id TEXT,
+                    cancelled_at TEXT
+                );
+
+                CREATE TABLE IF NOT EXISTS human_task_versions (
+                    task_id TEXT PRIMARY KEY,
+                    version INTEGER NOT NULL
+                );
+
+                CREATE TABLE IF NOT EXISTS controller_state (
+                    key TEXT PRIMARY KEY,
+                    payload TEXT NOT NULL
+                );
                 """
             )
+            columns = {
+                str(row["name"]) for row in self._connection.execute(
+                    "PRAGMA table_info(group_outbox)"
+                )
+            }
+            if "role" not in columns:
+                self._connection.execute(
+                    "ALTER TABLE group_outbox ADD COLUMN role TEXT NOT NULL DEFAULT 'astra'"
+                )
+            if "job_id" not in columns:
+                self._connection.execute("ALTER TABLE group_outbox ADD COLUMN job_id TEXT")
+            if "cancelled_at" not in columns:
+                self._connection.execute("ALTER TABLE group_outbox ADD COLUMN cancelled_at TEXT")
+            # Rebuild the revision index for databases created before this table
+            # existed; a processed newer edit must still supersede an older retry.
+            for row in self._connection.execute("SELECT payload FROM inbound"):
+                message = Envelope.from_json(row["payload"])
+                if message.source.value == "human" and message.kind.value == "human_instruction":
+                    self._connection.execute(
+                        "INSERT INTO human_task_versions (task_id, version) VALUES (?, ?) "
+                        "ON CONFLICT(task_id) DO UPDATE SET version = MAX(version, excluded.version)",
+                        (message.task_id, message.task_version),
+                    )
+
+    def enqueue_group_report(
+        self, operation_id: str, text: str, *, role: str = "astra",
+        job_id: str | None = None,
+    ) -> bool:
+        if not operation_id or not text.strip():
+            raise ValueError("group report needs operation_id and nonempty text")
+        if role not in {"astra", "deepseek"}:
+            raise ValueError("unknown group sender role")
+        with self._connection:
+            cursor = self._connection.execute(
+                "INSERT OR IGNORE INTO group_outbox "
+                "(operation_id, text, role, job_id, created_at) VALUES (?, ?, ?, ?, ?)",
+                (operation_id, text, role, job_id, _format_datetime(_utc_now())),
+            )
+        return cursor.rowcount == 1
+
+    def pending_group_reports(self) -> list[tuple[str, str]]:
+        rows = self._connection.execute(
+            "SELECT operation_id, text FROM group_outbox "
+            "WHERE sent_at IS NULL AND cancelled_at IS NULL "
+            "ORDER BY created_at, operation_id"
+        ).fetchall()
+        return [(str(row["operation_id"]), str(row["text"])) for row in rows]
+
+    def pending_group_messages(self) -> list[tuple[str, str, str]]:
+        rows = self._connection.execute(
+            "SELECT operation_id, text, role FROM group_outbox "
+            "WHERE sent_at IS NULL AND cancelled_at IS NULL "
+            "ORDER BY created_at, operation_id"
+        ).fetchall()
+        return [
+            (str(row["operation_id"]), str(row["text"]), str(row["role"]))
+            for row in rows
+        ]
+
+    def ack_group_report(self, operation_id: str, platform_message_id: str) -> None:
+        with self._connection:
+            self._connection.execute(
+                "UPDATE group_outbox SET sent_at = ?, platform_message_id = ? "
+                "WHERE operation_id = ? AND sent_at IS NULL",
+                (_format_datetime(_utc_now()), platform_message_id, operation_id),
+            )
+
+    def group_report_job(self, operation_id: str) -> str | None:
+        row = self._connection.execute(
+            "SELECT job_id FROM group_outbox WHERE operation_id = ?",
+            (operation_id,),
+        ).fetchone()
+        return str(row["job_id"]) if row and row["job_id"] else None
+
+    def cancel_group_report(self, operation_id: str) -> None:
+        with self._connection:
+            self._connection.execute(
+                "UPDATE group_outbox SET cancelled_at = ? "
+                "WHERE operation_id = ? AND sent_at IS NULL",
+                (_format_datetime(_utc_now()), operation_id),
+            )
+
+    def group_report_status(self, operation_id: str) -> str | None:
+        row = self._connection.execute(
+            "SELECT sent_at, cancelled_at FROM group_outbox WHERE operation_id = ?",
+            (operation_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        return "cancelled" if row["cancelled_at"] else "sent" if row["sent_at"] else "pending"
 
     def accept_inbound(self, message: Envelope) -> bool:
-        cursor = self._connection.execute(
-            """
-            INSERT OR IGNORE INTO inbound (
-                message_id, dedupe_key, payload, received_at, expires_at
-            ) VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                message.message_id,
-                message.dedupe_key,
-                message.to_json(),
-                _format_datetime(_utc_now()),
-                _format_datetime(message.expires_at),
-            ),
-        )
-        self._connection.commit()
+        with self._connection:
+            cursor = self._connection.execute(
+                """
+                INSERT OR IGNORE INTO inbound (
+                    message_id, dedupe_key, payload, received_at, expires_at
+                ) VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    message.message_id,
+                    message.dedupe_key,
+                    message.to_json(),
+                    _format_datetime(_utc_now()),
+                    _format_datetime(message.expires_at),
+                ),
+            )
+            if cursor.rowcount == 1 and message.source.value == "human" and message.kind.value == "human_instruction":
+                self._connection.execute(
+                    "INSERT INTO human_task_versions (task_id, version) VALUES (?, ?) "
+                    "ON CONFLICT(task_id) DO UPDATE SET version = MAX(version, excluded.version)",
+                    (message.task_id, message.task_version),
+                )
         return cursor.rowcount == 1
+
+    def latest_human_task_version(self, task_id: str) -> int | None:
+        row = self._connection.execute(
+            "SELECT version FROM human_task_versions WHERE task_id = ?", (task_id,),
+        ).fetchone()
+        return int(row["version"]) if row else None
+
+    def load_control_state(self) -> tuple[datetime | None, datetime | None, str | None]:
+        row = self._connection.execute(
+            "SELECT payload FROM controller_state WHERE key = 'human_pause'"
+        ).fetchone()
+        if row is None:
+            return None, None, None
+        data = json.loads(row["payload"])
+        return (
+            _parse_datetime(data.get("last_control_at")),
+            _parse_datetime(data.get("paused_at")),
+            data.get("scope"),
+        )
+
+    def save_control_state(
+        self, last_control_at: datetime, paused_at: datetime | None,
+        scope: str | None,
+    ) -> None:
+        payload = json.dumps({
+            "last_control_at": _format_datetime(last_control_at),
+            "paused_at": _format_datetime(paused_at), "scope": scope,
+        }, sort_keys=True)
+        with self._connection:
+            self._connection.execute(
+                "INSERT INTO controller_state (key, payload) VALUES ('human_pause', ?) "
+                "ON CONFLICT(key) DO UPDATE SET payload = excluded.payload",
+                (payload,),
+            )
 
     def pending_inbound(self, *, now: datetime | None = None) -> list[StoredMessage]:
         current = _format_datetime(now or _utc_now())
@@ -167,35 +318,54 @@ class SQLiteStore:
             )
 
     def enqueue_outbound(self, message: Envelope, peer_id: str) -> bool:
-        cursor = self._connection.execute(
-            """
-            INSERT OR IGNORE INTO outbox (
-                message_id, dedupe_key, peer_id, payload, created_at
-            ) VALUES (?, ?, ?, ?, ?)
-            """,
-            (
-                message.message_id,
-                f"{peer_id}:{message.dedupe_key}",
-                peer_id,
-                message.to_json(),
-                _format_datetime(_utc_now()),
-            ),
-        )
-        self._connection.commit()
+        payload = message.to_json()
+        with self._connection:
+            cursor = self._connection.execute(
+                """
+                INSERT OR IGNORE INTO outbox (
+                    message_id, dedupe_key, peer_id, payload, created_at
+                ) VALUES (?, ?, ?, ?, ?)
+                """,
+                (
+                    message.message_id,
+                    f"{peer_id}:{message.dedupe_key}",
+                    peer_id,
+                    payload,
+                    _format_datetime(_utc_now()),
+                ),
+            )
+            if cursor.rowcount == 0:
+                existing = self._connection.execute(
+                    "SELECT peer_id, payload FROM outbox WHERE message_id = ?",
+                    (message.message_id,),
+                ).fetchone()
+                if existing and existing["peer_id"] != peer_id:
+                    raise ValueError("outbound message ID already belongs to a different peer")
+                if existing and existing["payload"] != payload:
+                    raise ValueError("outbound message ID already has different content")
         return cursor.rowcount == 1
 
-    def next_outbound(self, *, now: datetime | None = None) -> OutboxItem | None:
+    def next_outbound(
+        self, *, now: datetime | None = None,
+        exclude_peer_ids: set[str] | None = None,
+    ) -> OutboxItem | None:
         current = _format_datetime(now or _utc_now())
+        excluded = sorted(exclude_peer_ids or ())
+        exclusion = (
+            f" AND peer_id NOT IN ({','.join('?' for _ in excluded)})"
+            if excluded else ""
+        )
         with self._connection:
             row = self._connection.execute(
-                """
+                f"""
                 SELECT * FROM outbox
                 WHERE acked_at IS NULL
                   AND (next_attempt_at IS NULL OR next_attempt_at <= ?)
+                  {exclusion}
                 ORDER BY created_at, message_id
                 LIMIT 1
                 """,
-                (current,),
+                (current, *excluded),
             ).fetchone()
             if row is None:
                 return None

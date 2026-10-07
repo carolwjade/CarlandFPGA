@@ -122,7 +122,7 @@ class Envelope:
     @property
     def dedupe_key(self) -> str:
         if self.platform_group_id and self.platform_message_id:
-            return f"feishu:{self.platform_group_id}:{self.platform_message_id}"
+            return f"feishu:{self.platform_group_id}:{self.platform_message_id}:{self.revision}"
         return f"internal:{self.message_id}"
 
     def to_json(self) -> str:

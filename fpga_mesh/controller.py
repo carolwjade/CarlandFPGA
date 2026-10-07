@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import inspect
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Protocol
 
 from .protocol import Envelope, MessageKind, SourceKind
@@ -28,16 +29,22 @@ class Controller:
     def __init__(
         self, store: SQLiteStore, gateway: ModelGateway,
         on_human_instruction: Callable[[Envelope], None] | None = None,
+        on_result: Callable[[Envelope, ActionResult], Any] | None = None,
+        claim_ownership: Callable[[Envelope], Any] | None = None,
     ):
         self.store = store
         self.gateway = gateway
         self.on_human_instruction = on_human_instruction
-        self.dispatch_blocked = False
-        self._paused_at: datetime | None = None
-        self._pause_scope: str | None = None
+        self.on_result = on_result
+        self.claim_ownership = claim_ownership
+        self._last_control_at, self._paused_at, self._pause_scope = (
+            self.store.load_control_state()
+        )
+        self.dispatch_blocked = self._paused_at is not None
         self._wakeup = asyncio.Event()
         self._stop = asyncio.Event()
         self._serve_task: asyncio.Task[None] | None = None
+        self._active_dispatch: asyncio.Task[ActionResult] | None = None
 
     async def offer(self, message: Envelope) -> bool:
         accepted = self.store.accept_inbound(message)
@@ -52,10 +59,14 @@ class Controller:
             except Exception as exc:  # noqa: BLE001 - inbox retries version update
                 self.store.mark_inbound_failed(
                     message.message_id, f"{type(exc).__name__}: {exc}",
-                    retry_at=None,
+                    retry_at=self._retry_at(0),
                 )
                 raise
         self._apply_control(message)
+        if (message.source == SourceKind.HUMAN
+                and self._active_dispatch is not None
+                and not self._active_dispatch.done()):
+            self._active_dispatch.cancel()
         return True
 
     async def run_until_idle(self) -> None:
@@ -68,6 +79,11 @@ class Controller:
             ]
             if not pending:
                 return
+            pending.sort(key=lambda item: (
+                not self._is_control_message(item.message),
+                item.message.source != SourceKind.HUMAN,
+                item.message.sent_at,
+            ))
             for stored in pending:
                 message = stored.message
                 observed.add(message.message_id)
@@ -75,6 +91,13 @@ class Controller:
                     self.store.mark_inbound_processed(message.message_id)
                     continue
                 if self._is_control_message(message):
+                    self._apply_control(message)
+                    self.store.mark_inbound_processed(message.message_id)
+                    continue
+                if (message.source == SourceKind.HUMAN
+                        and message.kind == MessageKind.HUMAN_INSTRUCTION
+                        and (self.store.latest_human_task_version(message.task_id) or 0)
+                        > message.task_version):
                     self.store.mark_inbound_processed(message.message_id)
                     continue
                 if (message.source == SourceKind.HUMAN and
@@ -87,20 +110,65 @@ class Controller:
                     except Exception as exc:  # noqa: BLE001 - keep inbox pending
                         self.store.mark_inbound_failed(
                             message.message_id,
-                            f"{type(exc).__name__}: {exc}", retry_at=None,
+                            f"{type(exc).__name__}: {exc}",
+                            retry_at=self._retry_at(stored.attempts),
                         )
                         continue
                 if self.dispatch_blocked:
                     continue
+                if (message.source == SourceKind.HUMAN
+                        and message.kind == MessageKind.HUMAN_INSTRUCTION
+                        and message.payload.get("ownership_required")):
+                    try:
+                        owner = (self.claim_ownership(message)
+                                 if self.claim_ownership is not None else None)
+                        owner = await owner if inspect.isawaitable(owner) else owner
+                    except Exception as exc:  # noqa: BLE001 - wait for coordination recovery
+                        self.store.mark_inbound_failed(
+                            message.message_id,
+                            f"ownership: {type(exc).__name__}: {exc}",
+                            retry_at=self._retry_at(stored.attempts),
+                        )
+                        continue
+                    if owner is False:
+                        self.store.mark_inbound_processed(message.message_id)
+                        continue
+                    if owner is not True:
+                        self.store.mark_inbound_failed(
+                            message.message_id, "ownership not confirmed",
+                            retry_at=self._retry_at(stored.attempts),
+                        )
+                        continue
+                    if self.dispatch_blocked or (
+                        (self.store.latest_human_task_version(message.task_id) or 0)
+                        > message.task_version
+                    ):
+                        continue
                 try:
-                    await self.gateway.handle(message)
+                    self._active_dispatch = asyncio.create_task(
+                        self.gateway.handle(message),
+                        name=f"fpga-dispatch-{message.message_id}",
+                    )
+                    result = await self._active_dispatch
+                    if self.on_result is not None:
+                        callback_result = self.on_result(message, result)
+                        if inspect.isawaitable(callback_result):
+                            await callback_result
+                except asyncio.CancelledError:
+                    if asyncio.current_task().cancelling():
+                        raise
+                    # A newly accepted human instruction interrupted this turn.
+                    # It stays in the inbox and will be retried after that instruction.
+                    break
                 except Exception as exc:  # noqa: BLE001 - persisted as recovery state
                     self.store.mark_inbound_failed(
                         message.message_id,
                         f"{type(exc).__name__}: {exc}",
-                        retry_at=None,
+                        retry_at=self._retry_at(stored.attempts),
                     )
                     continue
+                finally:
+                    self._active_dispatch = None
                 self.store.mark_inbound_processed(message.message_id)
 
     async def wait_for_work(self, timeout: float | None = None) -> bool:
@@ -152,6 +220,12 @@ class Controller:
     def _apply_control(self, message: Envelope) -> None:
         if message.source != SourceKind.HUMAN:
             return
+        if self._last_control_at is not None:
+            if message.sent_at < self._last_control_at:
+                return
+            if (message.sent_at == self._last_control_at
+                    and message.kind != MessageKind.STOP_REQUEST):
+                return
         if message.kind == MessageKind.STOP_REQUEST:
             self.dispatch_blocked = True
             self._paused_at = message.sent_at
@@ -170,3 +244,14 @@ class Controller:
                 self.dispatch_blocked = False
                 self._paused_at = None
                 self._pause_scope = None
+        else:
+            return
+        self._last_control_at = message.sent_at
+        self.store.save_control_state(
+            self._last_control_at, self._paused_at, self._pause_scope,
+        )
+
+    @staticmethod
+    def _retry_at(attempts: int) -> datetime:
+        seconds = min(3600, 30 * 2 ** min(attempts, 7))
+        return datetime.now(timezone.utc) + timedelta(seconds=seconds)

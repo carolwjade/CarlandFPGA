@@ -1,36 +1,19 @@
 # FPGA 三机多 Agent 部署状态
 
-日期：2026-10-03。分支：`codex/fpga-multi-agent-deploy`。依据：`docs/superpowers/specs/2026-09-29-fpga-multi-agent-design.md` v0.6。
+更新：2026-10-07。设计基线：`docs/superpowers/specs/2026-09-29-fpga-multi-agent-design.md` v0.6；仓库可见性按用户后续决定改为**公开**。
 
-## 已验证
-
-| 范围 | 实证 | 结果 |
+| 范围 | 当前证据 | 状态 |
 | --- | --- | --- |
-| 协议、控制器、主从调用及回归 | `python -m unittest discover -s tests -q` | 116/116 通过；包含并行派工、取消、恢复、任务版本、动态扩缩、JSON-RPC 异常与凭据隔离 |
-| 三节点本地模拟 | `artifacts/verification/local_simulation_20261003.json` | A/B/C 本地替身处理消息；去重、离线补发、空闲零模型调用通过 |
-| 本机 Codex 协议 | Desktop 随附 Codex `0.160.0` app-server；`.local/protocol-ts` 协议产物 | 支持 `thread/start.dynamicTools`、`turn/start.effort` 和 `thread/read.reasoningEffort` |
-| 本机 Astra 身份与路由 | `codex login status`，真实 Astra 回合元数据 | 本机使用 ChatGPT 登录；父实例走 `openai` / `gpt-6-astra`，未继承 DeepSeek API key |
-| 真实 Astra→DeepSeek 调用 | `python -m scripts.smoke_parent_child --key-file <本机密钥文件>` | Astra 原生调用 `fpga_child_delegate`、`fpga_child_wait`，子任务完成并回传 `CHILD_OK`；父回合选 `medium`，子实例固定 `max` |
-| 真实 DeepSeek 路由 | app-server 回合、`scripts.smoke_installed_node`、计划任务后台派工 | `deepseek-flash` / `deepseek` / `max`；最终后台任务返回 `FINAL_RUNTIME_OK`，密钥仅供隔离子进程使用 |
-| 动态子池 | `scripts.smoke_dynamic_pool` | 三个不同子实例并行完成 `CHILD_1/2/3`，由默认 2 个扩到 3 个再缩到 2 个，均为 `max` |
-| Astra 自主选择推理深度 | `python -m scripts.smoke_effort_switch` | 同一个真实线程先后选择 `low` 与 `high`，每次 `thread/read.reasoningEffort` 与所选档位一致；无效选择退回 `max`，超时中断选择回合，无法确认中断时关闭会话并阻止后续主任务 |
-| A 节点本机常驻 | Windows 计划任务 `FPGA-Mesh-Node-A`，工作区 `.local/deployment/node-a` | 已注册、运行、手动停止后重启；重启后 2 个待命子实例和已完成任务记录仍在，后台派工实测通过 |
-| 飞书、同伴、Git、板卡的本地协议 | 对应测试及原先模拟结果 | 六个固定身份、Astra-only 订阅、HMAC 通信、追加认领、Git 检查点、独占烧录队列的程序行为通过；尚不是外部服务实测 |
+| 控制器、飞书适配、三节点协议、离线队列与分发包 | `python -m unittest discover -s tests -q`，167/167 通过；包含同伴 B 离线而 C 可继续、人类指令抢占、Git 快进认领、重启后暂停、编辑版本失效、签名健康探针、群发队列、六角色权限和 ZIP 完整性 | **本地验证通过**，不是跨机/飞书线上验收 |
+| Astra→DeepSeek 实际调用 | 2026-10-07 `python -m scripts.smoke_parent_child --key-file <本机密钥路径>` 返回 `CHILD_OK`；父 `gpt-6-astra/openai` 选择 `low`，子 `deepseek-flash/deepseek/max` | **A 机真实路由通过** |
+| 推理深度显示 | 早前真实 Astra 同线程 `low`→`high` 且 app-server `thread/read.reasoningEffort` 对应 | **后端元数据通过**；本聊天右下角下拉框联动仍无可视证据 |
+| A 机后台常驻 | 计划任务改为直接管理 Python 服务；重启后 `100.121.238.56:8787` 监听，签名健康接口返回 A，服务内 DeepSeek 派工返回 `DEPLOYED_OK`，待命数仍为 2 | **本机实测通过** |
+| GitHub 仓库 | `https://github.com/carolwjade/CarlandFPGA.git` 公开、`main`、初始空仓库；本机 `origin` 已连接 | **远端推送/读回待验收**；B/C 走 fork/PR |
+| 飞书六机器人 | 飞书桌面端已核实群 `FPGA/AI/DEV` 的 Chat ID `oc_e0de73230fd64dd2da3e52fc781dffb1`，Bots 列表为空；Add Bot 明示这是外部群，只允许自定义机器人或已开启外部共享的应用机器人；A 的 Astra 设备授权流程已发起 | **未上线**；还须创设应用、核对外部共享/权限/事件、入群并真实收发 |
+| 跨网 B/C 与 Tailscale | A 已安装并登录 Tailscale 1.102.4，取得 `100.121.238.56`；只允许 Tailscale 接口/地址、100.64.0.0/10 来源访问 TCP 8787 的防火墙规则已生效 | **A 机就绪**；B/C 尚未入网，无法验收真实跨机互通 |
+| 板卡烧录及日志 | A 为唯一可烧录电脑，但未得到型号、工具链与实机接口 | **未实测**，`hardware_enabled=false` |
+| 使用量、质量、耗时改善 | 子池动态扩缩、最高 `max`、零模型调用等待等单项行为已有测试；尚无三机代表任务对照 | **成效量化未验收**，不能声称已节省 GPT 套餐用量 |
 
-计划任务的状态码 `267009` 表示任务正在运行。A 机运行目录在仓库的 `.local/deployment` 内，未跟踪进 Git；原先的 AppData 安装路径在该执行环境中无法被 Windows 计划任务读取，已不作为当前常驻入口。
+飞书接入使用官方 `lark-channel-sdk` 长连接仅给 Astra，DeepSeek 应用仅按主 Agent 显式要求发送；真实消息、权限、编辑补收仍需应用创建和群 ID 后联调。HTTP 同伴连接由各机直连，HMAC 认证且对来源/项目/接收者做检查；各机 SQLite 出站队列可在断线后补发。后台健康探针和配额读取都不调用模型，额度阈值 20%/10% 报告会持久排队。
 
-## 尚未验收的条件
-
-| 条件 | 当前状态 |
-| --- | --- |
-| Codex Desktop 右下角下拉框的可视同步 | **未获可视验收**。app-server 已实测每回合设置及线程元数据变化；当前工具不能读取或驱动 Codex Desktop 的该控件，也没有证据表明本聊天窗口会自动切换到后台 Astra 线程。不能把线程元数据验证写成 UI 验收。 |
-| 协作带来的 GPT 套餐 usage 降低、质量保持与总耗时提升 | **未验证**。真实父子调用已通，但仍需有代表性的成组任务、质量基准、完整 GPT usage 与端到端时间对照。 |
-| B/C 两台电脑及各自的 ChatGPT 登录 | **SKIPPED**。当前仅有 A 机；B/C 仍须在各自电脑安装和登录。 |
-| 飞书六应用、群消息与人类指令 | **SKIPPED**。缺群 ID、三位成员身份、六应用凭据及权限；仅本地协议测试通过。 |
-| 跨网 Tailscale 与 A 离线的 B/C 实测 | **SKIPPED**。缺另两台电脑及组网身份。 |
-| GitHub 共用私有仓库及 LFS | **SKIPPED**。仓库尚未创建，缺 URL、成员权限和 LFS 配额；仅本地 Git 行为测试通过。 |
-| FPGA 板卡和工具链 | **SKIPPED**。缺型号、驱动、烧录与采集接口；硬件执行开关保持关闭。 |
-
-## 凭据与边界
-
-本机安装配置仅保存 `DeepCodex.txt` 的绝对路径，不保存 API key 明文；Astra 进程环境不包含 `DEEPSEEK_API_KEY`，子实例不继承 OpenAI API key。`.local/`、`artifacts/`、日志和 SQLite 状态被 Git 忽略。没有把本地替身测试记为飞书、GitHub、跨机或板卡真实通过。
+队友入口 `deploy/Join-FPGAMesh.ps1` 与 `deploy/TEAMMATE_PROMPT.md` 不含 Secret。它能配置本地节点，但 ChatGPT 登录、飞书授权、Tailscale 加入同一 tailnet、GitHub fork 登录、跨机密钥交换以及 A 机板卡验收需要对应成员/平台参与。公开克隆不提供直接写权限。

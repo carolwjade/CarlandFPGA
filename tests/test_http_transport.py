@@ -1,6 +1,7 @@
 import asyncio
 import tempfile
 import unittest
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -52,6 +53,7 @@ class HttpPeerTests(unittest.IsolatedAsyncioTestCase):
         controller = Controller(store, gateway)
         peer = HttpPeer(
             node_id=node,
+            project_id="fpga-main",
             store=store,
             controller=controller,
             peer_urls=urls or {},
@@ -88,6 +90,90 @@ class HttpPeerTests(unittest.IsolatedAsyncioTestCase):
             self.assertFalse(await a.send("B", envelope("msg-1")))
             await b.controller.run_until_idle()
             self.assertEqual(b_gateway.calls, [])
+        finally:
+            await server.close()
+
+    async def test_peer_rejects_cross_project_misdirected_and_human_messages(self):
+        peer, gateway = self.make_peer("B")
+        base = envelope("valid")
+        invalid = (
+            replace(base, message_id="wrong-project", project_id="other"),
+            replace(base, message_id="wrong-recipient", recipient="A/Astra-A"),
+            replace(base, message_id="forged-human", source=SourceKind.HUMAN,
+                    kind=MessageKind.HUMAN_INSTRUCTION),
+            replace(base, message_id="wrong-sender", sender="A/DeepSeek-A"),
+        )
+        for item in invalid:
+            self.assertFalse(await peer.receive(item))
+        self.assertEqual(peer.store.pending_inbound(), [])
+        self.assertTrue(await peer.receive(base))
+        await peer.controller.run_until_idle()
+        self.assertEqual(gateway.calls, ["valid"])
+
+    async def test_semantic_rejection_keeps_sender_outbox_for_retry(self):
+        b, _ = self.make_peer("B")
+        server = HttpPeerServer(b, shared_secret="shared-secret", port=0)
+        await server.start()
+        try:
+            a, _ = self.make_peer("A", urls={
+                "B": f"http://127.0.0.1:{server.port}",
+            })
+            invalid = replace(envelope("wrong-project"), project_id="other")
+            self.assertFalse(await a.send("B", invalid))
+            self.assertEqual(
+                [item.message.message_id for item in a.store.pending_outbound()],
+                ["wrong-project"],
+            )
+            self.assertEqual(b.store.pending_inbound(), [])
+        finally:
+            await server.close()
+
+    async def test_duplicate_after_lost_ack_is_safe_to_ack(self):
+        b, b_gateway = self.make_peer("B")
+        server = HttpPeerServer(b, shared_secret="shared-secret", port=0)
+        await server.start()
+        try:
+            a, _ = self.make_peer("A", urls={
+                "B": f"http://127.0.0.1:{server.port}",
+            })
+            duplicate = envelope("duplicate")
+            self.assertTrue(await b.receive(duplicate))
+            self.assertTrue(await a.send("B", duplicate))
+            await b.controller.run_until_idle()
+            self.assertEqual(b_gateway.calls, ["duplicate"])
+            self.assertEqual(a.store.pending_outbound(), [])
+        finally:
+            await server.close()
+
+    async def test_signed_health_probe_tracks_peer_online_and_offline(self):
+        b, _ = self.make_peer("B")
+        server = HttpPeerServer(b, shared_secret="shared-secret", port=0)
+        await server.start()
+        a, _ = self.make_peer("A", urls={
+            "B": f"http://127.0.0.1:{server.port}",
+        })
+        self.assertTrue(await a.check("B"))
+        await server.close()
+        self.assertFalse(await a.check("B"))
+
+    async def test_offline_peer_does_not_block_other_peer_outbox(self):
+        c, c_gateway = self.make_peer("C")
+        server = HttpPeerServer(c, shared_secret="shared-secret", port=0)
+        await server.start()
+        try:
+            a, _ = self.make_peer("A", urls={
+                "B": "http://127.0.0.1:9",
+                "C": f"http://127.0.0.1:{server.port}",
+            })
+            self.assertFalse(await a.send("B", envelope("offline-b")))
+            to_c = replace(envelope("online-c"), recipient="C/Astra-C")
+            self.assertTrue(await a.send("C", to_c))
+            await c.controller.run_until_idle()
+            self.assertEqual(c_gateway.calls, ["online-c"])
+            self.assertEqual(
+                [item.message.message_id for item in a.store.pending_outbound()],
+                ["offline-b"],
+            )
         finally:
             await server.close()
 

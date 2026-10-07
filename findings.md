@@ -54,3 +54,10 @@ These values are intentionally left blank in generated configuration.
 - The Codex Desktop bottom-right picker could not be visually verified through allowed tooling. The backend metadata evidence does not establish that this current chat's picker changes when an independent background Astra thread changes effort.
 - A Windows scheduled task cannot see the AppData installation path created in this execution context, while it can see the workspace. Installing under ignored `.local/deployment` fixed the service: task running, live DeepSeek assignment returned `SERVICE_OK` at `max`, stop/start recovered two standby children and persisted result. Scheduled tasks are triggered at logon, not before login.
 - Feishu credentials, B/C machines, Tailscale, GitHub private remote, real FPGA board and quality/usage/time comparison remain external gates.
+
+## 2026-10-07 Deployment refresh
+
+- 用户把仓库最终设为 **public**：`https://github.com/carolwjade/CarlandFPGA.git`，B/C 可直接克隆，但没有自动写权限，分发包采用 fork/PR。
+- A 已安装并登录 Tailscale 1.102.4，地址 `100.121.238.56`。本机跨机密钥只在 `.local/deployment/node-a`，未进入 Git；防火墙规则限制到 Tailscale 接口、地址和 100.64.0.0/10 的 TCP 8787。
+- 旧计划任务包装器停止时曾留下 Python 子进程，使本地控制发现文件指向已退出 PID。改为 Task Scheduler 直接执行 Python；运行时端口绑定失败会清理控制文件。签名健康探针和实机后台子派工已重新通过。
+- 真实 A 机 Astra→DeepSeek 调用返回 `CHILD_OK`，父选 `low`，子固定 `max`。本轮 150/150 回归通过。飞书六应用尚未授权创建，群 ID 未提供；B/C、板卡与界面下拉框仍不可宣称实测。

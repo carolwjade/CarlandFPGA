@@ -1,51 +1,50 @@
-# FPGA Mesh 运行说明
+# FPGA Mesh 部署与运行
 
-每台电脑运行一个本地控制器、一个用该成员 ChatGPT 登录的 Astra 主实例，以及由 Astra 按任务自主伸缩的 DeepSeek V4.1 Flash 子实例池。默认有两个**配置就绪但未发起模型请求**的子实例；Astra 可保留一个、增加到两个以上或暂不调用。所有子实例的实际回合固定 `deepseek-flash` / `deepseek` / `max`。
+每台电脑运行一个本地控制器和一个用该成员 ChatGPT 订阅登录的 Astra 主实例。Astra 根据任务调用本机 DeepSeek V4.1 Flash 子池，默认两个待命，但没有数量上限规则；子实例只用 `deepseek-flash` / `deepseek` / `max`。等待飞书、同伴、子结果和硬件时由网络与本地事件唤醒，不进行模型轮询。
 
-## 本机安装与登录后自启
+## 队友入网
 
-在仓库根目录执行；A/B/C 各机选择自己的节点字母和密钥文件。`-Python` 必须指向能运行该工程的 Python 可执行文件，不能使用 Windows Store 占位别名。
+将无凭据分发包交给 B/C 的 Codex 会话，附上 `deploy/TEAMMATE_PROMPT.md`。在各自 Windows 电脑上运行 `deploy/Join-FPGAMesh.ps1 -Node B` 或 `-Node C`。脚本从公开 GitHub 仓库克隆源码，创建被 Git 忽略的 `.local/venv`，安装飞书 SDK，生成该机配置，运行自检并注册登录后常驻任务。现有工作区只在干净时快进，不覆盖队友的修改。
+
+完整参数示例（路径和值由各机填写，绝不要把密钥内容贴进命令行或 Git）：
 
 ```powershell
-$python = 'C:\path\to\python.exe'
-pwsh -NoProfile -File deploy\install.ps1 -Node A -DeepSeekKeyFile 'C:\path\to\DeepCodex.txt'
-$config = (Resolve-Path '.local\deployment\node-a\node-a.toml').Path
-pwsh -NoProfile -File deploy\register-autostart.ps1 -Node A -Config $config -Python $python -StartNow
+pwsh -NoProfile -File deploy\Join-FPGAMesh.ps1 -Node B `
+  -DeepSeekKeyFile 'C:\secure\deepseek-key.txt' `
+  -SharedSecretFile 'C:\secure\fpga-mesh-secret.txt' `
+  -GroupId 'oc_e0de73230fd64dd2da3e52fc781dffb1' -RegisterApps `
+  -PeerA 'http://100.x.x.a:8787' -PeerC 'http://100.x.x.c:8787' `
+  -SetUpFork
+```
+
+`-RegisterApps` 对每机的 Astra 和 DeepSeek 形象使用飞书官方设备授权流程建两个应用；成员须在网页确认。Astra 应用订阅群消息，DeepSeek 应用仅有发送用途，不监听群。六个应用都要在飞书开发者后台核对实际生效的机器人能力、消息权限、事件订阅和可用范围，然后在群设置 → Bots → Add Bot 中加入 `FPGA/AI/DEV`；真实收发成功才算上线。群 ID 已从飞书桌面端「群设置 → 底部 Chat ID」核实为 `oc_e0de73230fd64dd2da3e52fc781dffb1`，脚本已将它设为默认值。群分享链接是给人类加入用的临时链接，机器人入群不依赖它。缺少 Astra 凭据时脚本保持飞书关闭；补齐后重跑脚本。A 机的本地路径为 `.local/deployment/node-a`，可使用相同配置生成器补入应用凭据，不在仓库提交本地配置。
+
+未指明节点的新共享任务只在 `codex/coordination` 分支的追加认领记录快进推送成功后执行；其他节点读取胜出的负责人并跳过重复执行。公开仓库允许克隆却不授予推送权限，所以 B/C 在获得写入该协调分支的权限前不能独立认领新的共享任务。明确写 `/fpga B ...`、`/fpga C ...` 或 `Astra-B:`、`Astra-C:` 的指令无需认领分支。`/fpga pause`、`/fpga resume` 会发送到全部在线主节点；暂停状态跨服务重启保存。模型或网络错误按持久退避重试，不会每秒发起新模型请求。
+
+三台电脑在不同网络，使用同一 Tailscale tailnet，三个节点都要有可互访的 100.x 地址。每机配置另两台的 URL，B/C 不经过 A 中转。HMAC 共享密钥文件必须由三位成员通过可信渠道放在本机；公开分发包没有这个文件。健康探针和持久发件箱在无模型调用的后台运行，某节点离线时其他节点仍可相互收发。Windows 防火墙和 tailnet 权限须允许节点的 8787 端口。
+
+仓库为**公开**。队友可直接克隆；没有写权限时，用 `gh auth login` 登录自己的 GitHub，再运行带 `-SetUpFork` 的入口创建 fork，用 `codex/b/<task-id>` 或 `codex/c/<task-id>` 分支向 `carolwjade/CarlandFPGA` 提交 PR。代码、约束、日志和可公开的实验结果进入远端；密钥、令牌、SQLite、私有硬件标识不进入公开仓库。
+
+## 运行与诊断
+
+本机配置位于 `.local/deployment/node-<a|b|c>/node-<a|b|c>.toml`。计划任务 `FPGA-Mesh-Node-<A|B|C>` 在成员登录 Windows 后运行。检查：
+
+```powershell
 Get-ScheduledTask -TaskName 'FPGA-Mesh-Node-A' | Select-Object State
+& .local\venv\Scripts\python.exe -m unittest discover -s tests -q
 ```
 
-`install.ps1` 默认安装到仓库内被 Git 忽略的 `.local/deployment`，配置只记录密钥文件路径。计划任务会复制启动脚本到本地安装目录，并保存工作区路径；重复注册会更新本工程自己的任务。移动仓库后须从新位置重新注册，否则计划任务会在 `runner-error.log` 记录找不到源代码。控制器停止后，SQLite 中的任务与结果仍在。计划任务强制停止可能暂留旧的 `child-control.json`；重启时会以新端口和令牌覆盖，停机期间的本地调用会失败并可重试。
-
-若只需前台运行：
+不经计划任务也可前台运行：
 
 ```powershell
-pwsh -NoProfile -File deploy\run-node.ps1 -Node A -Config $config -Python $python
+$config = (Resolve-Path '.local\deployment\node-a\node-a.toml').Path
+pwsh -NoProfile -File deploy\run-node.ps1 -Node A -Config $config -Python '.local\venv\Scripts\python.exe'
 ```
 
-## 主从调用接口
+主 Astra 回合有五个 `fpga_child_*` 动态工具，以及 `fpga_group_report`、`fpga_peer_send`、`fpga_child_group_report`。子实例不能主动读取飞书群或发消息；父 Astra 显式发布一个当前、已完成的子任务结果时，使用本机共用的 DeepSeek 飞书形象。父实例对重要子结果独立验证。人类新指令会排在同伴报告之前，并中断当前较早回合；暂停/恢复命令立即改变分派状态。每个回合有故障看门狗，不会因等待无限占用模型。
 
-Astra 线程注册五个原生动态工具：`fpga_child_status`、`fpga_child_scale`、`fpga_child_delegate`、`fpga_child_wait`、`fpga_child_cancel`。同样的本地控制接口可由 MCP 或 CLI 调用；各项结果按 `job_id`、`instance_id`、`task_id` 和 `task_version` 持久关联。Astra 自行决定何时派工、分给几个子实例以及如何采用结果。`wait` 等待异步事件，不在等待期间持续请求模型。新的人类任务版本会使旧版本结果标记为 stale，并阻止认领过程中的旧派工落地。父子工作回合另有默认一小时的故障看门狗，可通过本机配置 `turn_timeout_seconds` 调整；超时只使当前回合失败并请求中断，不停止整个控制器。
+A 机是唯一烧录者。当前 `hardware_enabled = false`，直到板卡型号、驱动、烧录命令、日志采集与操作授权完成实机联调；B/C 只能请求 A 实测。后台配额读取不发起模型回合，剩余 20% 和 10% 时在飞书队列生成预警。Astra 的工作回合推理档位由选择器按任务选择，子回合始终是 `max`。当前仅验证 app-server 线程实际档位变化；Codex Desktop 当前聊天窗口右下角下拉框的视觉联动仍未确认。
 
-诊断后台服务可使用 CLI；实际派工由 Astra 的工具调用完成：
+当前群在飞书客户端被标为**外部群**。Add Bot 页面明确限定只能添加自定义机器人或已开启 external sharing 的应用机器人。六个应用因此还需核对外部共享资格；自定义 Webhook 机器人只能主动推送，不能替代需接收群内新指令的 Astra 应用机器人。参见[飞书群机器人说明](https://www.feishu.cn/hc/zh-CN/articles/360024984973-%E5%9C%A8%E7%BE%A4%E7%BB%84%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E4%BA%BA)。
 
-```powershell
-$control = (Resolve-Path '.local\deployment\node-a\.local\node-a\child-control.json').Path
-& $python -m fpga_mesh.child_cli --control-file $control status
-& $python -m fpga_mesh.child_cli --control-file $control scale 3
-& $python -m fpga_mesh.child_cli --control-file $control delegate --task-id check-1 --task-version 1 --text '分析时序报告'
-& $python -m fpga_mesh.child_cli --control-file $control wait --job-id '<上一命令返回的 job_id>'
-```
-
-如需直接检查某个 Astra 线程的当前持久推理档位，可用 `scripts/check_thread_effort.py`。Astra 的选择回合只判断下一任务应使用 `low`、`medium`、`high`、`xhigh` 或 `max`；实际工作回合以该档位调用。选择器无法判断或超时则用 `max`。该控制作用于后台 Astra 线程；Codex Desktop 当前聊天窗口的右下角下拉框是否视觉同步仍需单独验收，不能从 `thread/read` 结果推断。
-
-## 仍需提供的部署输入
-
-| 输入 | 存放方式 |
-| --- | --- |
-| B/C 成员登录与 DeepSeek 密钥 | 各自电脑本地，不提交仓库 |
-| 飞书群 ID、三位人类身份、六应用凭据与权限 | 各机本地凭据配置；子实例共用本机一个 DeepSeek 飞书身份 |
-| 跨网地址与共享通信密钥 | 各机配置和环境变量；B/C 需能不经 A 互连 |
-| GitHub 私有仓库 URL、权限和 Git 作者信息 | 本地 Git 配置 |
-| A 的板卡型号、驱动、工具链及采集方式 | 仅 A 的硬件服务配置 |
-
-真实飞书、B/C 跨网、GitHub、FPGA 烧录的验收状态以 [部署状态](DEPLOYMENT_STATUS.md) 为准。当前这些缺少输入的功能保持关闭；本地协议测试不代表线上服务已经连通。
+线上与本地验证的区别见 [部署状态](DEPLOYMENT_STATUS.md)。

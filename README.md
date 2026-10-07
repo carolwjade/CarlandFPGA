@@ -1,52 +1,15 @@
-# FPGA 三机多 Agent 控制器
+# CarlandFPGA 三机协作控制器
 
-本仓库实现 `docs/superpowers/specs/2026-09-29-fpga-multi-agent-design.md`
-中可在一台机器上验证的 P0-P5 控制平面。模型、飞书、Tailscale、GitHub
-私有仓库和 FPGA 板卡属于外接系统，缺少凭据或硬件时不会伪造通过。
+本项目把三位成员各自的 Codex/ChatGPT 订阅用作 Astra 主 Agent。每台电脑有由该 Astra 自主调度的 DeepSeek V4.1 Flash 子实例池，默认两个待命，实际数量可伸缩；子实例工作回合固定最高 `max` 推理档位。六个飞书角色分别是三位 Astra 与每机一个共用的 DeepSeek 形象。只有 A 机接板卡，B/C 通过同伴消息提交方案并获取实测结果。
 
-## Quick Start
+公开源码仓库：[carolwjade/CarlandFPGA](https://github.com/carolwjade/CarlandFPGA)。公开克隆不等于写入权限；其他成员默认在自己的 fork 上提交并向此仓库发 PR。API 密钥、飞书应用 Secret、跨机共享密钥和各机 SQLite 状态都只保存在本机被忽略的 `.local/` 路径。
 
-```powershell
-$py = "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
-& $py -m unittest discover -s tests -v
-& $py -m fpga_mesh.cli simulate --root .local/sim --output artifacts/local_simulation.json
-& $py -m fpga_mesh.cli init-configs --output deploy/configs
-```
+队友把 [分发提示](deploy/TEAMMATE_PROMPT.md) 和分发 ZIP 交给自己的 Codex 会话。安装入口是 [Join-FPGAMesh.ps1](deploy/Join-FPGAMesh.ps1)，可克隆仓库、建立依赖环境、生成本地配置、注册开机任务，并在成员授权后注册本机两个飞书应用。授权、群 ID、共享网络、GitHub fork 登录和板卡工具链仍须由对应的人/电脑提供；程序不会把本地模拟写成线上验收。
 
-DeepSeek 真实路由检查只在 `DEEPSEEK_API_KEY` 已通过环境变量注入时执行：
+本机回归：
 
 ```powershell
-& $py -m fpga_mesh.cli live-check-deepseek `
-  --root .local/live-check `
-  --output artifacts/deepseek_live_verification.json
+& .local\venv\Scripts\python.exe -m unittest discover -s tests -q
 ```
 
-## Runtime
-
-- `fpga_mesh.protocol`: 版本化消息、任务所有权、委托和硬件操作模型。
-- `fpga_mesh.store`: SQLite 事件、收件箱、发件箱和任务版本。
-- `fpga_mesh.controller`: 只对有新输入的事件启动模型回合，空闲等待不轮询。
-- `fpga_mesh.codex`: 隔离 Codex Home、`deepseek-flash` / `deepseek` / `max` 路由守卫。
-- `fpga_mesh.pool`: 默认两个待命子实例、动态扩缩、回收身份不复用。
-- `fpga_mesh.gateway`: 仅在收到可操作消息后连接 app-server。
-- `fpga_mesh.feishu`: 六个固定身份、人类来源校验、委托和恢复缺口。
-- `fpga_mesh.http_transport`: HMAC 校验的节点间 HTTP 收发与离线补发。
-- `fpga_mesh.coordination`: 追加式认领、普通快进语义和回执丢失核对。
-- `fpga_mesh.git_manager`: 任务分支、检查点、推送失败保留本地提交。
-- `fpga_mesh.hardware`: 独占实验队列、`operation_id` 幂等和状态不明恢复。
-
-## Deployment
-
-1. 复制 `deploy/configs/node-*.toml`，填写本机节点、Tailscale URL 和非敏感引用。
-2. 将 `FPGA_MESH_SHARED_SECRET` 和 `DEEPSEEK_API_KEY` 放入本机凭据存储或进程环境，不写入 Git。
-3. 每个成员在自己的机器完成 ChatGPT 官方登录；子实例使用独立 DeepSeek API 账户关系。
-4. 安装并登录 Tailscale，确认 A-B、A-C、B-C 双向可达。
-5. 配置 GitHub 私有仓库、提交身份和 Git LFS；仓库 URL 与账号只写本地配置。
-6. A 机连接并配置 FPGA 工具链，启用 `hardware_enabled = true`。
-7. 启动节点：
-
-```powershell
-pwsh -File scripts\run-node.ps1 -Node A -Config deploy\configs\node-a.toml
-```
-
-所有 `*.local`、`.local/`、`artifacts/` 和凭据文件均被 `.gitignore` 排除。
+详细操作和逐项验收见 [运行说明](docs/deployment/OPERATIONS.md) 与 [部署状态](docs/deployment/DEPLOYMENT_STATUS.md)。设计依据见 [多 Agent 设计稿](docs/superpowers/specs/2026-09-29-fpga-multi-agent-design.md)。

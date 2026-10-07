@@ -150,6 +150,7 @@ class HumanMessageRouter:
             platform_group_id=message.group_id,
             platform_message_id=message.message_id,
             platform_event_id=message.event_id,
+            revision=message.revision,
         )
         return RouteDecision(
             action=action,

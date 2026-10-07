@@ -86,6 +86,7 @@ class HumanMessageRouterTests(unittest.TestCase):
         self.assertEqual(edited.action, "revision")
         self.assertEqual(edited.task_id, first.task_id)
         self.assertEqual(edited.task_version, 2)
+        self.assertEqual(edited.envelope.revision, 2)
 
     def test_bot_and_attachment_like_messages_are_evidence_not_instructions(self):
         decision = self.router.ingest(

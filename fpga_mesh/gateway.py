@@ -36,6 +36,7 @@ class AppServerGateway:
         | None = None,
         thread_config_factory: Callable[[], dict] | None = None,
         dynamic_tools: list[dict] | None = None,
+        developer_instructions: str | None = None,
         dynamic_tool_handler: Callable[
             [str, dict], dict | Awaitable[dict]
         ] | None = None,
@@ -46,6 +47,7 @@ class AppServerGateway:
         self.client_factory = client_factory
         self.thread_config_factory = thread_config_factory
         self.dynamic_tools = dynamic_tools
+        self.developer_instructions = developer_instructions
         self.dynamic_tool_handler = dynamic_tool_handler
         self.effort_selector = effort_selector
         self.timeout_seconds = timeout_seconds
@@ -63,13 +65,28 @@ class AppServerGateway:
     async def handle(self, message: Envelope) -> ActionResult:
         async with self._lock:
             client = await self._ensure_client()
-            prompt = str(message.payload.get("text", message.message_id))
+            event_text = str(message.payload.get("text", message.message_id))
+            prompt = event_text
+            if self.config.role == "astra":
+                prompt = (
+                    "Controller event metadata (authoritative IDs for delegation "
+                    "and peer tools):\n"
+                    f"project_id: {message.project_id}\n"
+                    f"task_id: {message.task_id}\n"
+                    f"task_version: {message.task_version}\n"
+                    f"message_id: {message.message_id}\n"
+                    f"source: {message.source.value}\n"
+                    f"kind: {message.kind.value}\n"
+                    f"sender: {message.sender}\n"
+                    "Event text:\n"
+                    f"{event_text}"
+                )
             effort = self.config.reasoning_effort
             if self.config.role == "astra" and self.effort_selector is not None:
                 try:
                     chosen = await self.effort_selector.choose(
                         client, cwd=self.config.cwd, model=self.config.model,
-                        text=prompt,
+                        text=event_text,
                     )
                 except (Exception, asyncio.CancelledError):
                     try:
@@ -86,6 +103,7 @@ class AppServerGateway:
                     config=(self.thread_config_factory()
                             if self.thread_config_factory is not None else None),
                     dynamic_tools=self.dynamic_tools,
+                    developer_instructions=self.developer_instructions,
                 ))
                 self._thread_id = response["thread"]["id"]
             started = await self._start_request(client.turn_start(
@@ -134,6 +152,12 @@ class AppServerGateway:
         self._thread_id = None
         if client is not None:
             await client.close()
+
+    async def read_rate_limits(self) -> dict:
+        """Read account quota through app-server without starting a model turn."""
+        async with self._lock:
+            client = await self._ensure_client()
+            return await client.account_rate_limits()
 
     async def _start_request(self, request: Awaitable[dict]) -> dict:
         try:

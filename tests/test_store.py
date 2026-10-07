@@ -54,6 +54,15 @@ class SQLiteStoreTests(unittest.TestCase):
         self.assertFalse(self.store.accept_inbound(duplicate))
         self.assertEqual(len(self.store.pending_inbound()), 1)
 
+    def test_edited_feishu_message_is_new_revision_but_duplicate_edit_is_not(self):
+        first = make_message("first")
+        edited = replace(first, message_id="edited", task_version=2, revision=2)
+        duplicate_edit = replace(edited, message_id="edited-redelivery")
+        self.assertTrue(self.store.accept_inbound(first))
+        self.assertTrue(self.store.accept_inbound(edited))
+        self.assertFalse(self.store.accept_inbound(duplicate_edit))
+        self.assertEqual([m.message.revision for m in self.store.pending_inbound()], [1, 2])
+
     def test_unprocessed_inbound_survives_reopen(self):
         self.store.accept_inbound(make_message("internal-1"))
         self.store.close()
@@ -64,6 +73,22 @@ class SQLiteStoreTests(unittest.TestCase):
         self.assertEqual(
             [stored.message.message_id for stored in pending],
             ["internal-1"],
+        )
+
+    def test_group_report_outbox_survives_reopen_and_is_idempotent(self):
+        self.assertTrue(self.store.enqueue_group_report("op-1", "finished"))
+        self.assertFalse(self.store.enqueue_group_report("op-1", "finished"))
+        self.store.close()
+        self.store = SQLiteStore(self.db_path)
+        self.assertEqual(self.store.pending_group_reports(), [("op-1", "finished")])
+        self.store.ack_group_report("op-1", "om_sent")
+        self.assertEqual(self.store.pending_group_reports(), [])
+
+    def test_group_report_can_retain_shared_deepseek_sender_identity(self):
+        self.store.enqueue_group_report("child-op", "child result", role="deepseek")
+        self.assertEqual(
+            self.store.pending_group_messages(),
+            [("child-op", "child result", "deepseek")],
         )
 
     def test_outbox_retry_and_ack_are_persistent(self):
@@ -81,6 +106,13 @@ class SQLiteStoreTests(unittest.TestCase):
         self.assertEqual(retry.attempts, 2)
         reopened.ack_outbound(message.message_id)
         self.assertEqual(reopened.pending_outbound(), [])
+
+    def test_outbox_rejects_cross_peer_message_id_collision(self):
+        first = make_message("shared-op")
+        self.assertTrue(self.store.enqueue_outbound(first, peer_id="B"))
+        with self.assertRaisesRegex(ValueError, "different peer"):
+            self.store.enqueue_outbound(first, peer_id="C")
+        self.assertEqual(len(self.store.pending_outbound()), 1)
 
     def test_task_update_rejects_stale_version(self):
         task = TaskRecord(

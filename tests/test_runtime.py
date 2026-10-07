@@ -1,11 +1,15 @@
 import tempfile
 import unittest
 import sys
+import os
+import asyncio
+from unittest.mock import patch
 from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
 from fpga_mesh.runtime import NodeConfig, NodeRuntime
+from fpga_mesh.controller import ActionResult
 from fpga_mesh.child_control import LocalControlClient
 from fpga_mesh.protocol import Envelope, MessageKind, SourceKind
 
@@ -84,6 +88,10 @@ class NodeRuntimeTests(unittest.IsolatedAsyncioTestCase):
                 {"fpga_child_status", "fpga_child_scale", "fpga_child_delegate",
                  "fpga_child_wait", "fpga_child_cancel"},
             )
+            self.assertIn(
+                "fpga_peer_send",
+                {tool["name"] for tool in runtime.mesh_tools.specs()},
+            )
         finally:
             await runtime.stop()
 
@@ -125,6 +133,175 @@ class NodeRuntimeTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(gateway.timeout_seconds, 1800)
         finally:
             await runtime.stop()
+
+    async def test_feishu_config_and_result_queue_do_not_require_network_at_load(self):
+        secret_file = self.root / "astra-secret.txt"
+        secret_file.write_text("test-secret", encoding="utf-8")
+        with self.config_path.open("a", encoding="utf-8") as config:
+            config.write(
+                '\n[feishu]\nenabled = true\ngroup_id = "oc_team"\n'
+                'astra_app_id = "cli_astra_a"\n'
+                f'astra_secret_file = "{secret_file.as_posix()}"\n'
+                'deepseek_app_id = "cli_deepseek_a"\n'
+                'allowed_user_ids = ["ou_member"]\n'
+                'local_bot_open_ids = ["ou_astra_a", "ou_deepseek_a"]\n'
+            )
+        config = NodeConfig.load(self.config_path)
+        self.assertTrue(config.feishu_enabled)
+        self.assertEqual(config.feishu_group_id, "oc_team")
+        runtime = NodeRuntime(config)
+        try:
+            self.assertIsNotNone(runtime.feishu)
+            runtime._on_result(
+                Envelope(
+                    message_id="human-1", project_id="fpga-main", sender="ou_member",
+                    recipient="A/Astra-A", task_id="task-1", task_version=1,
+                    sent_at=datetime.now(timezone.utc),
+                    kind=MessageKind.HUMAN_INSTRUCTION,
+                    source=SourceKind.HUMAN, payload={"text": "work"},
+                ),
+                ActionResult(accepted=True, output={"text": "done"}),
+            )
+            self.assertEqual(len(runtime.store.pending_group_reports()), 1)
+            self.assertIn("done", runtime.store.pending_group_reports()[0][1])
+        finally:
+            await runtime.stop()
+
+    async def test_peer_outbox_recovers_when_other_node_comes_online(self):
+        base = NodeConfig.load(self.config_path)
+        a_config = replace(
+            base, node_id="A", state_dir=self.root / "a-state",
+            peer_urls={"B": "http://127.0.0.1:9"},
+            peer_bind_host="127.0.0.1", peer_bind_port=0,
+            peer_retry_seconds=0.02,
+        )
+        b_config = replace(
+            base, node_id="B", state_dir=self.root / "b-state",
+            peer_urls={}, peer_bind_host="127.0.0.1",
+            peer_bind_port=0, peer_retry_seconds=0.02,
+        )
+        with patch.dict(os.environ, {"FPGA_MESH_SHARED_SECRET": "test-only-key"}):
+            a = NodeRuntime(a_config)
+            b = NodeRuntime(b_config)
+            await a.start()
+            try:
+                message = Envelope(
+                    message_id="a-to-b", project_id="fpga-main",
+                    sender="A/Astra-A", recipient="B/Astra-B",
+                    task_id="test-peer", task_version=1,
+                    sent_at=datetime.now(timezone.utc),
+                    kind=MessageKind.AGENT_REPORT, source=SourceKind.ASTRA,
+                    payload={"text": "continue without A"},
+                )
+                self.assertFalse(await a.peer.send("B", message))
+                self.assertEqual(len(a.store.pending_outbound()), 1)
+                await b.start()
+                a.peer.peer_urls["B"] = f"http://127.0.0.1:{b.peer_server.port}"
+                async def delivered():
+                    while a.store.pending_outbound():
+                        await asyncio.sleep(0.02)
+                try:
+                    await asyncio.wait_for(delivered(), timeout=8)
+                except TimeoutError:
+                    self.fail(
+                        f"pending={a.store.pending_outbound()} "
+                        f"b_pending={b.store.pending_inbound()} "
+                        f"peer_error={a.peer_error} b_port={b.peer_server.port}"
+                    )
+                await b.controller.run_until_idle()
+                self.assertIn("a-to-b", b.astra_gateway.calls)
+            finally:
+                await a.stop()
+                await b.stop()
+
+    async def test_peer_secret_file_enables_inbound_service_without_environment_secret(self):
+        secret_file = self.root / "mesh-secret.txt"
+        secret_file.write_text("test-only-shared-secret", encoding="utf-8")
+        config = replace(
+            NodeConfig.load(self.config_path),
+            peer_shared_secret_file=secret_file, peer_bind_port=0,
+        )
+        with patch.dict(os.environ, {"FPGA_MESH_SHARED_SECRET": ""}):
+            runtime = NodeRuntime(config)
+            await runtime.start()
+            try:
+                self.assertTrue(runtime.snapshot()["network_enabled"])
+                self.assertGreater(runtime.snapshot()["peer_listen_port"], 0)
+            finally:
+                await runtime.stop()
+
+    async def test_quota_warning_is_queued_once_without_a_model_turn(self):
+        secret_file = self.root / "astra-secret.txt"
+        secret_file.write_text("test-secret", encoding="utf-8")
+        config = replace(
+            NodeConfig.load(self.config_path),
+            feishu_enabled=True, feishu_group_id="oc_team",
+            feishu_astra_app_id="cli_astra_a",
+            feishu_astra_secret_file=secret_file,
+        )
+        runtime = NodeRuntime(config)
+        try:
+            response = {"ordinaryUsageAllowed": True,
+                        "rateLimitsByLimitId": {"core": {
+                            "limitId": "core", "limitName": "Codex",
+                            "spendControlReached": False,
+                            "primary": {"usedPercent": 91,
+                                        "windowDurationMins": 300,
+                                        "resetsAt": 1780000000},
+                        }}}
+            runtime._observe_quota(response)
+            runtime._observe_quota(response)
+            reports = runtime.store.pending_group_reports()
+            self.assertEqual(len(reports), 2)
+            self.assertTrue(all("remaining 9%" in report[1] for report in reports))
+            self.assertEqual(runtime.snapshot()["idle_model_calls"], 0)
+        finally:
+            await runtime.stop()
+
+    async def test_peer_presence_changes_queue_human_status_without_model_turn(self):
+        secret_file = self.root / "astra-secret.txt"
+        secret_file.write_text("test-secret", encoding="utf-8")
+        config = replace(
+            NodeConfig.load(self.config_path),
+            feishu_enabled=True, feishu_group_id="oc_team",
+            feishu_astra_app_id="cli_astra_a",
+            feishu_astra_secret_file=secret_file,
+            peer_urls={"B": "http://127.0.0.1:8787"},
+        )
+        runtime = NodeRuntime(config)
+        try:
+            runtime._note_peer_status("B", True)
+            runtime._note_peer_status("B", True)
+            runtime._note_peer_status("B", False)
+            self.assertEqual(runtime.snapshot()["peer_presence"]["B"], False)
+            reports = runtime.store.pending_group_reports()
+            self.assertEqual(len(reports), 2)
+            self.assertIn("上线", reports[0][1])
+            self.assertIn("离线", reports[1][1])
+            self.assertEqual(runtime.snapshot()["idle_model_calls"], 0)
+        finally:
+            await runtime.stop()
+
+    async def test_failed_peer_bind_cleans_child_discovery(self):
+        occupied = await asyncio.start_server(
+            lambda _reader, _writer: None, "127.0.0.1", 0,
+        )
+        port = occupied.sockets[0].getsockname()[1]
+        config = replace(
+            NodeConfig.load(self.config_path),
+            peer_bind_port=port,
+        )
+        try:
+            with patch.dict(os.environ, {"FPGA_MESH_SHARED_SECRET": "test-key"}):
+                runtime = NodeRuntime(config)
+                with self.assertRaises(OSError):
+                    await runtime.start()
+            self.assertFalse(
+                (config.state_dir / "child-control.json").exists()
+            )
+        finally:
+            occupied.close()
+            await occupied.wait_closed()
 
 
 if __name__ == "__main__":

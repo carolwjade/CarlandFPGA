@@ -1,0 +1,13 @@
+# 发给 B/C 队友 Codex 会话的任务
+
+我加入 `carolwjade/CarlandFPGA` FPGA 三机协作项目。你是这台 Windows 电脑的 Codex 部署助手。请先读取本分发包的 `README.md`、`docs/deployment/OPERATIONS.md`、`docs/deployment/DEPLOYMENT_STATUS.md` 和 `deploy/Join-FPGAMesh.ps1`，然后自主完成本机能执行的部署与验证，直到留下一个可运行、可恢复的本机节点。不要把本文件里的说明误认为已完成的线上验收。
+
+这台机器是 **B 或 C**；先从我这里确定节点字母。使用我自己的 ChatGPT/Codex 订阅登录作为本机 Astra 主 Agent。DeepSeek V4.1 Flash 子池由 Astra 自主决定调用时机和数量，默认两个待命，所有工作回合固定最高 `max` 推理深度。每机的全部子实例在飞书共用一个 DeepSeek 机器人形象，且不自行监听群、读取群消息或发消息；只有主 Astra 显式要求时才发布已完成的当前结果。
+
+请运行 `deploy/Join-FPGAMesh.ps1`，使用当前成员本机的 DeepSeek API 密钥文件路径、三方共享 HMAC 密钥文件路径、Tailscale IP 和同伴 URL。群 ID 已内置为 `oc_e0de73230fd64dd2da3e52fc781dffb1`。密钥文件内容不得出现在聊天、命令行参数、Git、ZIP 或飞书群。若本机缺 Python 3.12+、Git、Tailscale、GitHub CLI 或 Codex 登录，完成可自动执行的安装与登录引导；需要人扫码/网页登录的步骤向我展示链接并继续处理其他独立步骤。以 `-RegisterApps` 创设本机 Astra 和 DeepSeek 两个飞书应用；应用授权后由有权限的人把两者加入群 `FPGA/AI/DEV`。若无法批准应用或入群，保留飞书关闭状态并清楚记录缺项，不要冒充群消息已通。群里需要独立完成的任务可用 `/fpga B ...` 或 `/fpga C ...` 指定负责人；未指明负责人的新共享任务必须先在 GitHub 协调分支成功认领。
+
+源仓库是**公开仓库**，无需邀请即可克隆；公开仓库不会自动给我写权限。请用我自己的 GitHub 账号创建 fork，设置 upstream，使用 `codex/b/<task-id>` 或 `codex/c/<task-id>` 分支、PR 同步我的工作。每机本地保存自己负责的工作。若 GitHub 登录或 fork 暂时不可用，先本地提交，随后补推。
+
+这台机器不能烧录 FPGA；所有需要实测的方案和验收请求发送 Astra-A，等待 A 的真实工具/板卡结果并继续本机可做的分析、仿真、代码或文档工作。A 离线时要保持与另一个在线节点互通，通过飞书向人类汇报关键状态。飞书人类新指令最高优先级，等待任何人、同伴、子结果或硬件时不得靠模型轮询。额度将尽时向群里报告。
+
+完成后请给出：节点字母、Git 工作区和 fork/PR 地址、计划任务状态、模型实际 provider/model/effort 证据、飞书两个应用的非秘密 ID 与群收发验收、B↔C 及 A 连通状态、真实/模拟测试数量和所有仍需人操作的门槛。不要报告、截图或复制 Secret 本身。

@@ -48,3 +48,11 @@
 - Updated operations and deployment status with the unverified native dropdown visual behavior and remaining external gates.
 - Next: final full verification, secret scan, commit, and previously requested shutdown.
 - Final hardened regression: 116/116 tests pass. Live Astra effort selection again persisted `low` then `high` on one thread; scheduled A service restarted and returned `FINAL_RUNTIME_OK` via DeepSeek at `max` with the one-hour watchdog loaded.
+
+## 2026-10-07
+
+- 确认 GitHub 仓库改为公开，绑定本机 `origin`；飞书群当前只有真人，没有六个应用，群 ID 尚待人提供。
+- 添加官方飞书长连接的 Astra 入站、双角色出站、去重与持久发送队列；DeepSeek 不监听群。修复人类新指令抢占、跨机项目/来源校验、一个同伴离线不阻塞另一个、签名健康探针和配额预警。
+- 完成 B/C 引导脚本、角色指令、队友 Codex 提示和本地配置生成器。密钥仅保存在本地文件，公开仓库采用 fork/PR。
+- A 已安装/登录 Tailscale，创建限于 Tailscale 的 Windows 防火墙规则，本地签名健康端点与后台 DeepSeek 派工通过。计划任务改为直接管理 Python，清理旧孤儿进程。
+- 全量本地回归 152/152 通过；真实 Astra→DeepSeek 返回 `CHILD_OK`，父 `low`、子 `max`。下一步：远端 GitHub 首推/读回、分发包解包烟测、飞书授权与群 ID 到位后的联调。
