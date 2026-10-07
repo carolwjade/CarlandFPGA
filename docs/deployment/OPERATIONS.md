@@ -48,5 +48,6 @@ pwsh -NoProfile -File deploy\run-node.ps1 -Node A -Config $config -Python '.loca
 A 机是唯一烧录者。当前 `hardware_enabled = false`，直到板卡型号、驱动、烧录命令、日志采集与操作授权完成实机联调；B/C 只能请求 A 实测。后台配额读取不发起模型回合，剩余 20% 和 10% 时在飞书队列生成预警。Astra 的工作回合推理档位由选择器按任务选择，子回合始终是 `max`。当前仅验证 app-server 线程实际档位变化；Codex Desktop 当前聊天窗口右下角下拉框的视觉联动仍未确认。
 
 当前群在飞书客户端被标为**外部群**。Add Bot 页面明确限定只能添加自定义机器人或已开启 external sharing 的应用机器人。六个应用因此还需核对外部共享资格；自定义 Webhook 机器人只能主动推送，不能替代需接收群内新指令的 Astra 应用机器人。参见[飞书群机器人说明](https://www.feishu.cn/hc/zh-CN/articles/360024984973-%E5%9C%A8%E7%BE%A4%E7%BB%84%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E4%BA%BA)。
+当前登录的飞书开发者后台在「创建企业自建应用」表单中提示：新应用仅当前组织内部可用，发布需企业管理员审核。因此创建表单本身不能证明应用具备外部群资格；需管理员发布并实际开启外部共享后在群里搜索、添加、收发验证。
 
 线上与本地验证的区别见 [部署状态](DEPLOYMENT_STATUS.md)。
