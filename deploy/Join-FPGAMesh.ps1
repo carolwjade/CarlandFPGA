@@ -116,6 +116,40 @@ try {
         $DeepSeekSecretFile = $saved.secret_file
     }
 
+    # A newly joined identity is not marked online until it has posted one
+    # marked group message and read that exact message back as the same app.
+    # The local receipt makes retries safe if the read fails after the send.
+    if ($GroupId -and $AstraAppId -and $AstraSecretFile) {
+        $astraState = Join-Path $feishuRoot 'astra-selftest.json'
+        & $venvPython -m fpga_mesh.feishu_selftest --node $Node --role astra `
+            --app-id $AstraAppId --secret-file $AstraSecretFile --group-id $GroupId `
+            --state-file $astraState
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning 'Astra Feishu send/read self-test is incomplete; Feishu remains disabled. Publish and add the bot to the group, then rerun.'
+            $AstraAppId = ''
+            $AstraSecretFile = ''
+        }
+    } elseif ($AstraAppId -or $AstraSecretFile) {
+        Write-Warning 'Astra Feishu identity is incomplete; Feishu remains disabled.'
+        $AstraAppId = ''
+        $AstraSecretFile = ''
+    }
+    if ($GroupId -and $DeepSeekAppId -and $DeepSeekSecretFile) {
+        $deepseekState = Join-Path $feishuRoot 'deepseek-selftest.json'
+        & $venvPython -m fpga_mesh.feishu_selftest --node $Node --role deepseek `
+            --app-id $DeepSeekAppId --secret-file $DeepSeekSecretFile --group-id $GroupId `
+            --state-file $deepseekState
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning 'DeepSeek Feishu send/read self-test is incomplete; its group identity remains disabled. Publish and add the bot to the group, then rerun.'
+            $DeepSeekAppId = ''
+            $DeepSeekSecretFile = ''
+        }
+    } elseif ($DeepSeekAppId -or $DeepSeekSecretFile) {
+        Write-Warning 'DeepSeek Feishu identity is incomplete; its group identity remains disabled.'
+        $DeepSeekAppId = ''
+        $DeepSeekSecretFile = ''
+    }
+
     if (-not $SkipTailscale) {
         $tailscale = Get-Command tailscale -ErrorAction SilentlyContinue
         if (-not $tailscale) {

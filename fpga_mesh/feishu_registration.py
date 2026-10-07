@@ -19,6 +19,9 @@ def registration_addons(role: str) -> dict[str, Any]:
     if role == "astra":
         scopes.extend(["im:message", "im:message.group_msg"])
         result["events"] = {"items": {"tenant": ["im.message.receive_v1"]}}
+    else:
+        # One-time read-back during onboarding; no event subscription is added.
+        scopes.extend(["im:message:readonly", "im:message.group_msg"])
     return result
 
 
