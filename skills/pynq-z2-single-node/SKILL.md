@@ -10,7 +10,7 @@ description: Use when developing or verifying an FPGA design for the AMD PYNQ-Z2
 ## 开始一次迭代
 
 1. 记录任务 ID/版本、代码提交与未提交改动、实际器件/板卡、输入输出、时钟与复位、接口和本轮验收指标。由当前需求确定阈值；未确定的项标为待定，不生成声称达标的结果。
-2. 运行 `python <skill-dir>/scripts/preflight.py`，保存 JSON。它只探测 Vivado/ModelSim 命令路径，板卡恒为 `not_checked`；另行核实工具版本、镜像、线缆、外围电路和真实板卡状态。查板卡与工具细节时读 [PYNQ-Z2 参考](references/pynq-z2.md)。
+2. 运行 `python <skill-dir>/scripts/preflight.py`，保存 JSON。工具不在 PATH 时传 `--vivado-home` 或 `--modelsim-home` 指向安装目录；脚本只探测命令路径，板卡恒为 `not_checked`。另行核实工具版本、镜像、线缆、外围电路和真实板卡状态。查板卡与工具细节时读 [PYNQ-Z2 参考](references/pynq-z2.md) 和 [Windows 工具链](references/windows-toolchain.md)。
 3. 建立独立于 RTL 的黄金模型和可重放激励，再实现 RTL。按实际模块验证边界值、协议字段/CRC/序号、背压及 FIFO 满空。涉及多个时钟/复位时，核对 CDC/RDC 与所选 FIFO 的复位契约；异步复位按域同步释放，覆盖时钟延迟/停止、不同释放顺序、FIFO 空/满/传输中重启和单侧复位策略。对 XPM FIFO 遵守其 `rst`/`wr_rst_busy`/`rd_rst_busy` 门控要求。仿真不能代替亚稳态或板上证明。
 4. 用现有 Vivado Tcl/命令行或 GUI 复现综合、实现和 bitstream；记录实际约束、工具版本、LUT/FF/BRAM/DSP、未约束路径、DRC 与实现后时序报告，含适用的复位 recovery/removal 检查。指标由本轮批准的设计目标给出，不能只用综合估计声称时序收敛。若系统使用 PYNQ Overlay，保留同一次构建的 `.bit` 与 `.hwh`。
 5. 有实板和必需外围条件时，在板上加载、执行并保存版本、串口/程序日志、测量数据及异常恢复结果。没有工具、镜像、外围器件或板卡时，分别记 `blocked` 或 `not_run`，不写成板测通过。

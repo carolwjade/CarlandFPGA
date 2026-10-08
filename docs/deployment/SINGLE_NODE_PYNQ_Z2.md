@@ -14,6 +14,8 @@
 
 preflight 输出 JSON，报告 Vivado、ModelSim 的本机发现结果。board.status 为 not_checked 时，表示脚本没有连接或操作开发板。环境探测不能代替仿真、综合、时序和实板测量。
 
+本机已安装的 ModelSim 不在 PATH 中，可加 `--modelsim-home C:\modeltech64_2020.4`。本次 Windows 上位机软件、板卡资料、Vivado 账号门槛和实际验证记录见 [HOST_TOOLCHAIN_2026-10-08.md](HOST_TOOLCHAIN_2026-10-08.md)。
+
 确定本次任务后，先锁定代码提交、目标板、外设和接口，再逐层保留记录：
 
 1. RTL 和独立黄金模型：保留刺激、期望值、日志和失败最小反例；在设计采用 CDC/FIFO/复位时验证这些路径。

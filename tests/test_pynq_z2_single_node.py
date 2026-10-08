@@ -63,6 +63,52 @@ class PreflightTests(unittest.TestCase):
         self.assertIn("local", result.stdout.lower())
         self.assertIn("board", result.stdout.lower())
 
+    def test_explicit_tool_home_discovers_existing_executable(self):
+        preflight = load_script("preflight")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            model_bin = root / "win64"
+            model_bin.mkdir()
+            executable = model_bin / "vsim.exe"
+            executable.write_bytes(b"stub")
+            result = preflight.collect_preflight(
+                which=lambda _: None,
+                environ={},
+                modelsim_home=root,
+            )
+            self.assertEqual(result["tools"]["modelsim"], {
+                "available": True,
+                "path": str(executable.resolve()),
+            })
+
+    def test_explicit_tool_home_rejects_nonexistent_executable(self):
+        preflight = load_script("preflight")
+        with tempfile.TemporaryDirectory() as temp:
+            result = preflight.collect_preflight(
+                which=lambda _: None,
+                environ={},
+                modelsim_home=Path(temp),
+            )
+            self.assertEqual(result["tools"]["modelsim"], {
+                "available": False,
+                "path": None,
+            })
+
+    def test_explicit_tool_home_rejects_unrelated_file(self):
+        preflight = load_script("preflight")
+        with tempfile.TemporaryDirectory() as temp:
+            unrelated = Path(temp) / "python.exe"
+            unrelated.write_bytes(b"stub")
+            result = preflight.collect_preflight(
+                which=lambda _: None,
+                environ={},
+                modelsim_home=unrelated,
+            )
+            self.assertEqual(result["tools"]["modelsim"], {
+                "available": False,
+                "path": None,
+            })
+
 
 class HandoffTests(unittest.TestCase):
     def setUp(self):
