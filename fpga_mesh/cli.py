@@ -315,6 +315,14 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 0
     if args.command == "serve":
+        from .runtime import NodeConfig
+
+        if NodeConfig.load(args.config).feishu_enabled:
+            # lark_channel.ws.client captures an asyncio loop at import time and
+            # runs it in its own worker thread.  Import it before asyncio.run()
+            # creates the controller loop, or its WS client tries to run the
+            # already-running controller loop and stops the whole service.
+            import lark_channel.ws.client  # noqa: F401
         asyncio.run(serve_node(args.config, args.ready_file))
         return 0
     if args.command == "balance-check-deepseek":

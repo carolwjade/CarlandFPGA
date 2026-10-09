@@ -252,7 +252,22 @@ class FeishuNodeService:
                 security=SecurityConfig(mode="strict"),
             )
         channel = self.channel_factory(app_id=self.astra_app_id, app_secret=secret)
-        channel.on("message", self.ingress.ingest)
+        controller_loop = asyncio.get_running_loop()
+
+        async def deliver_message(msg: Any) -> bool:
+            # The SDK dispatches WS events from its own event-loop thread.
+            # Controller, child coordinator and SQLite state belong to the
+            # runtime loop and must never be called on that SDK thread.
+            if asyncio.get_running_loop() is controller_loop:
+                return await self.ingress.ingest(msg)
+            if not controller_loop.is_running():
+                return False
+            delivery = asyncio.run_coroutine_threadsafe(
+                self.ingress.ingest(msg), controller_loop,
+            )
+            return await asyncio.wrap_future(delivery)
+
+        channel.on("message", deliver_message)
         await channel.connect_until_ready(timeout=30)
         self.channel = channel
         self.connected = True

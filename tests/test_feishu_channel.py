@@ -128,6 +128,35 @@ class FeishuIngressTests(unittest.IsolatedAsyncioTestCase):
 
 
 class FeishuNodeServiceTests(unittest.IsolatedAsyncioTestCase):
+    async def test_sdk_worker_delivers_message_on_controller_loop(self):
+        owner_loop = asyncio.get_running_loop()
+
+        class LoopCheckingController(RecordingController):
+            async def offer(self, message):
+                if asyncio.get_running_loop() is not owner_loop:
+                    raise RuntimeError("controller called from SDK worker loop")
+                return await super().offer(message)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            secret_file = Path(tmp) / "astra-secret.txt"
+            secret_file.write_text("test-secret", encoding="utf-8")
+            channel = FakeChannel()
+            controller = LoopCheckingController()
+            service = FeishuNodeService(
+                node_id="A", project_id="fpga-main", group_id="oc_team",
+                astra_app_id="cli_astra_a", astra_secret_file=secret_file,
+                controller=controller, channel_factory=lambda **_: channel,
+            )
+            await service.start()
+            try:
+                accepted = await asyncio.to_thread(
+                    lambda: asyncio.run(channel.handlers["message"](FakeMessage()))
+                )
+                self.assertTrue(accepted)
+                self.assertEqual(len(controller.messages), 1)
+            finally:
+                await service.stop()
+
     async def test_only_astra_channel_connects_and_sends_to_fixed_group(self):
         with tempfile.TemporaryDirectory() as tmp:
             secret_file = Path(tmp) / "astra-secret.txt"
