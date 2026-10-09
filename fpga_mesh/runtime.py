@@ -86,6 +86,8 @@ class NodeConfig:
             key_file = Path(key_file)
             if not key_file.is_absolute():
                 key_file = config_path.parent / key_file
+        else:
+            key_file = None
         feishu_data = data.get("feishu", {})
         security_data = data.get("security", {})
         secret_file = security_data.get("secret_file")

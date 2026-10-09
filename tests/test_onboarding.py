@@ -43,6 +43,7 @@ class OnboardingTests(unittest.TestCase):
             write_node_config(config_path, OnboardingInputs(node="C"))
             config = NodeConfig.load(config_path)
             self.assertFalse(config.feishu_enabled)
+            self.assertIsNone(config.deepseek_key_file)
             self.assertIsNone(config.peer_shared_secret_file)
             self.assertEqual(config.peer_urls, {})
 
