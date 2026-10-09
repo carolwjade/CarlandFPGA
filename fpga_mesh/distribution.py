@@ -15,8 +15,23 @@ from pathlib import Path
 _KEY_PATTERN = re.compile(rb"sk-[A-Za-z0-9_-]{24,}")
 
 
+def select_package_paths(paths: list[str], profile: str) -> list[str]:
+    """Keep the machine mesh and the standalone board skill in separate ZIPs."""
+    if profile == "pynq-skill":
+        return [path for path in paths if path.startswith("skills/pynq-z2-single-node/")]
+    if profile == "mesh":
+        return [path for path in paths if not (
+            path.startswith("skills/pynq-z2-single-node/")
+            or path.startswith("docs/deployment/SINGLE_NODE_")
+            or path.startswith("docs/deployment/HOST_TOOLCHAIN_")
+            or path == "tests/test_pynq_z2_single_node.py"
+        )]
+    raise ValueError(f"unknown package profile: {profile}")
+
+
 def build_archive(
     root: Path, paths: list[str], output: Path, *, revision: str = "uncommitted",
+    profile: str = "mesh",
 ) -> Path:
     root = Path(root).resolve()
     output = Path(output).resolve()
@@ -46,6 +61,7 @@ def build_archive(
         })
     manifest = {
         "project": "CarlandFPGA",
+        "profile": profile,
         "revision": revision,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "files": files,
@@ -69,6 +85,7 @@ def build_archive(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--profile", choices=("mesh", "pynq-skill"), default="mesh")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     dirty = subprocess.run(
@@ -85,11 +102,14 @@ def main() -> None:
         ["git", "rev-parse", "HEAD"], cwd=root,
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    path = build_archive(root, [name for name in listed.split("\0") if name],
-                         args.output, revision=revision)
+    paths = select_package_paths(
+        [name for name in listed.split("\0") if name], args.profile,
+    )
+    path = build_archive(root, paths, args.output, revision=revision,
+                         profile=args.profile)
     print(json.dumps({
-        "archive": str(path), "revision": revision,
-        "files": len([name for name in listed.split("\0") if name]),
+        "archive": str(path), "profile": args.profile,
+        "revision": revision, "files": len(paths),
         "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
     }, ensure_ascii=False))
 

@@ -12,11 +12,31 @@ from fpga_mesh.protocol import Envelope, MessageKind, SourceKind
 from fpga_mesh.runtime import NodeConfig, NodeRuntime
 
 
-async def run(key_file: Path) -> None:
+def build_smoke_message(node: str) -> Envelope:
+    if node not in {"A", "B", "C"}:
+        raise ValueError("node must be A, B, or C")
+    instruction = (
+        "Use the native fpga_child_delegate dynamic tool with task_id "
+        "smoke-parent-child, task_version 1, and text 'Reply exactly "
+        "CHILD_OK.' Read the returned job_id and use fpga_child_wait to "
+        "read the persisted child result. Report only its actual text. "
+        "Do not guess, do not answer yourself, and do not print secrets."
+    )
+    return Envelope(
+        message_id=f"live-parent-child-{node}", project_id="fpga-main",
+        sender="human-smoke", recipient=f"{node}/Astra-{node}",
+        task_id="smoke-parent-child", task_version=1,
+        sent_at=datetime.now(timezone.utc),
+        kind=MessageKind.HUMAN_INSTRUCTION, source=SourceKind.HUMAN,
+        payload={"text": instruction},
+    )
+
+
+async def run(key_file: Path, node: str = "A") -> None:
     root = Path(__file__).resolve().parent.parent
     runtime = NodeRuntime(NodeConfig(
-        node_id="A", project_id="fpga-main",
-        state_dir=root / ".local" / "live-parent-child-native",
+        node_id=node, project_id="fpga-main",
+        state_dir=root / ".local" / f"live-parent-child-{node.lower()}",
         default_children=2, mode="app_server",
         hardware_enabled=False, peer_urls={},
         shared_secret_env="FPGA_MESH_SHARED_SECRET",
@@ -24,21 +44,7 @@ async def run(key_file: Path) -> None:
     ))
     await runtime.start()
     try:
-        instruction = (
-            "Use the native fpga_child_delegate dynamic tool with task_id "
-            "smoke-parent-child, task_version 1, and text 'Reply exactly "
-            "CHILD_OK.' Read the returned job_id and use fpga_child_wait to "
-            "read the persisted child result. Report only its actual text. "
-            "Do not guess, do not answer yourself, and do not print secrets."
-        )
-        message = Envelope(
-            message_id="live-parent-child", project_id="fpga-main",
-            sender="human-smoke", recipient="A/Astra-A",
-            task_id="smoke-parent-child", task_version=1,
-            sent_at=datetime.now(timezone.utc),
-            kind=MessageKind.HUMAN_INSTRUCTION, source=SourceKind.HUMAN,
-            payload={"text": instruction},
-        )
+        message = build_smoke_message(node)
         parent = await runtime.astra_gateway.handle(message)
         jobs = runtime.children.status()["jobs"]
         print(json.dumps({
@@ -59,5 +65,6 @@ async def run(key_file: Path) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--key-file", type=Path, required=True)
+    parser.add_argument("--node", choices="ABC", default="A")
     args = parser.parse_args()
-    asyncio.run(run(args.key_file))
+    asyncio.run(run(args.key_file, args.node))

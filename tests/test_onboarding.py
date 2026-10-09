@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from fpga_mesh.onboarding import OnboardingInputs, write_node_config
+from fpga_mesh.onboarding import OnboardingInputs, reuse_local_settings, write_node_config
 from fpga_mesh.runtime import NodeConfig
 
 
@@ -51,3 +51,23 @@ class OnboardingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "node"):
                 write_node_config(Path(temp) / "config.toml",
                                   OnboardingInputs(node="D"))
+
+    def test_retry_keeps_local_key_and_peer_settings_without_reentering_them(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            config_path = root / "node-b.toml"
+            first = OnboardingInputs(
+                node="B", deepseek_key_file=root / "key.txt",
+                shared_secret_file=root / "shared.txt", bind_host="100.64.0.2",
+                peer_urls={"A": "http://100.64.0.1:8787"},
+            )
+            write_node_config(config_path, first)
+            retry = reuse_local_settings(config_path, OnboardingInputs(
+                node="B", bind_host="", peer_urls={"C": "http://100.64.0.3:8787"},
+            ))
+            self.assertEqual(retry.deepseek_key_file, first.deepseek_key_file)
+            self.assertEqual(retry.shared_secret_file, first.shared_secret_file)
+            self.assertEqual(retry.bind_host, first.bind_host)
+            self.assertEqual(retry.peer_urls, {
+                "A": "http://100.64.0.1:8787", "C": "http://100.64.0.3:8787",
+            })

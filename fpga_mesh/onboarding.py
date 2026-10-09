@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
-from dataclasses import dataclass, field
+import tomllib
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 
@@ -25,6 +26,28 @@ class OnboardingInputs:
     astra_secret_file: Path | None = None
     deepseek_app_id: str = ""
     deepseek_secret_file: Path | None = None
+
+
+def reuse_local_settings(path: Path, values: OnboardingInputs) -> OnboardingInputs:
+    """Keep key paths and peer addresses on a repeat onboarding run."""
+    path = Path(path)
+    if not path.is_file():
+        return replace(values, bind_host=values.bind_host or "127.0.0.1")
+    data = tomllib.loads(path.read_text(encoding="utf-8-sig"))
+    if data.get("node_id") != values.node:
+        raise ValueError("existing config belongs to another node")
+    security = data.get("security", {})
+    peers = {peer: url for peer, url in data.get("peers", {}).items() if url}
+    peers.update(values.peer_urls)
+    key = values.deepseek_key_file or data.get("deepseek_key_file")
+    secret = values.shared_secret_file or security.get("secret_file")
+    return replace(
+        values,
+        deepseek_key_file=Path(key) if key else None,
+        shared_secret_file=Path(secret) if secret else None,
+        bind_host=values.bind_host or security.get("bind_host") or "127.0.0.1",
+        peer_urls=peers,
+    )
 
 
 def write_node_config(path: Path, values: OnboardingInputs) -> Path:
@@ -85,7 +108,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--deepseek-key-file", type=Path)
     parser.add_argument("--shared-secret-file", type=Path)
-    parser.add_argument("--bind-host", default="127.0.0.1")
+    parser.add_argument("--bind-host", default="")
     parser.add_argument("--bind-port", type=int, default=8787)
     for peer in "ABC":
         parser.add_argument(f"--peer-{peer.lower()}", default="")
@@ -94,6 +117,7 @@ def main() -> None:
     parser.add_argument("--astra-secret-file", type=Path)
     parser.add_argument("--deepseek-app-id", default="")
     parser.add_argument("--deepseek-secret-file", type=Path)
+    parser.add_argument("--reuse-existing", action="store_true")
     args = parser.parse_args()
     values = OnboardingInputs(
         node=args.node, deepseek_key_file=args.deepseek_key_file,
@@ -106,6 +130,10 @@ def main() -> None:
         deepseek_app_id=args.deepseek_app_id,
         deepseek_secret_file=args.deepseek_secret_file,
     )
+    if args.reuse_existing:
+        values = reuse_local_settings(args.output, values)
+    elif not values.bind_host:
+        values = replace(values, bind_host="127.0.0.1")
     print(write_node_config(args.output, values))
 
 

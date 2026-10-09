@@ -1,15 +1,15 @@
 # 发给 B/C 队友 Codex 会话的任务
 
-我加入 `carolwjade/CarlandFPGA` FPGA 三机协作项目。你是这台 Windows 电脑的 Codex 部署助手。请先读取本分发包的 `README.md`、`docs/deployment/OPERATIONS.md`、`docs/deployment/DEPLOYMENT_STATUS.md` 和 `deploy/Join-FPGAMesh.ps1`，然后自主完成本机能执行的部署与验证，直到留下一个可运行、可恢复的本机节点。不要把本文件里的说明误认为已完成的线上验收。
+我加入 `carolwjade/CarlandFPGA` FPGA 三机协作项目。你是这台 Windows 电脑的 Codex 部署助手。请解压**多机协作 ZIP**，读取其中 `README.md`、`docs/deployment/OPERATIONS.md`、`deploy/HUMAN_STEPS.md`、`docs/deployment/DEPLOYMENT_STATUS.md` 和 `deploy/Join-FPGAMesh.ps1`，然后自主完成本机能执行的部署与验证，直到留下可运行、可恢复的本机节点。另一个 **PYNQ-Z2 单机技能 ZIP** 独立安装，仅在本机需要单机开发时使用；它不是多机接入的前置条件。不要把说明文字误认为已完成的线上验收。
 
 这台机器是 **B 或 C**；先从我这里确定节点字母。使用我自己的 ChatGPT/Codex 订阅登录作为本机 Astra 主 Agent。DeepSeek V4.1 Flash 子池由 Astra 自主决定调用时机和数量，默认两个待命，所有工作回合固定最高 `max` 推理深度。每机的全部子实例在飞书共用一个 DeepSeek 机器人形象，且不自行监听群、读取群消息或发消息；只有主 Astra 显式要求时才发布已完成的当前结果。
 
-请运行 `deploy/Join-FPGAMesh.ps1`，使用当前成员本机的 DeepSeek API 密钥文件路径、三方共享 HMAC 密钥文件路径、Tailscale IP 和同伴 URL。群 ID 已内置为 `oc_e0de73230fd64dd2da3e52fc781dffb1`。密钥文件内容不得出现在聊天、命令行参数、Git、ZIP 或飞书群。若本机缺 Python 3.12+、Git、Tailscale、GitHub CLI 或 Codex 登录，完成可自动执行的安装与登录引导；需要人扫码/网页登录的步骤向我展示链接并继续处理其他独立步骤。以 `-RegisterApps` 创设本机 Astra 和 DeepSeek 两个飞书应用，开通并发布相应权限。目标群是外部群；若“允许机器人被添加到外部群中使用”被禁用，飞书可能要求账号本人先完成个人实名认证。认证后开启外部共享并发布变更，再由有权限的人把两者加入群 `FPGA/AI/DEV`。**每个新入群的应用身份必须先分别完成一次真实发信及同身份读回测试，才标记上线。**入口脚本会自动运行该自测；如果未入群、权限未发布或读回失败，就保持该身份关闭并在补齐条件后重跑。DeepSeek 的一次性入群读回是部署检查，不开启群事件订阅，也不授权子实例自主读群。若无法批准应用或入群，保留飞书关闭状态并清楚记录缺项，不要冒充群消息已通。群里需要独立完成的任务可用 `/fpga B ...` 或 `/fpga C ...` 指定负责人；未指明负责人的新共享任务必须先在 GitHub 协调分支成功认领。
+从解压目录运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B`，C 机改为 C；按本机条件传入 DeepSeek API 密钥**文件路径**、三方共享 HMAC 密钥**文件路径**和同伴 Tailscale URL。群 ID 已内置为 `oc_e0de73230fd64dd2da3e52fc781dffb1`。入口默认尝试安装工具、建 GitHub fork、注册两个飞书应用、分别发信读回、验证真实主从调用、注册常驻任务；授权超时或某一外部条件未完成时继续其他独立步骤。密钥内容不得出现在聊天、命令行参数、Git、ZIP 或飞书群。涉及本人扫码/登录/实名认证、飞书发布与群管理员加机器人，以及仓库所有者邀请协作者的步骤，按 `deploy/HUMAN_STEPS.md` 展示准确页面并等待相应真人完成；不得代替本人确认。每轮结束读 `.local/deployment/node-<b|c>/setup-status.json` 和 `NEXT_STEPS.md`，补齐后原命令重跑，保留原本机路径及同伴地址。**每个新入群的应用身份分别真实发信并同身份读回后才标记上线。** DeepSeek 一次性读回不启用其群事件订阅；子实例不主动读群。群里明确 `/fpga B ...` 或 `/fpga C ...` 的指令可直接执行；未指定节点的新共享任务须先在 GitHub 协调分支成功认领。
 
 A 机两个应用已经通过外部群入群、各自发信读回，Astra 也通过真人群指令收发；这些证据只覆盖 A。请对本机新建的两个应用各自重复验收，并用真人 `/fpga B` 或 `/fpga C` 指令核验本机 Astra 常驻服务。若服务刚启用飞书就退出，先确认本分发包中的 CLI 已在 `asyncio.run()` 前加载飞书 SDK；若群事件出现 SQLite 跨线程错误，先确认消息回调已投递到控制器事件循环，再重跑真人指令。
 
-源仓库是**公开仓库**，无需邀请即可克隆；公开仓库不会自动给我写权限。请用我自己的 GitHub 账号创建 fork，设置 upstream，使用 `codex/b/<task-id>` 或 `codex/c/<task-id>` 分支、PR 同步我的工作。每机本地保存自己负责的工作。若 GitHub 登录或 fork 暂时不可用，先本地提交，随后补推。
+源仓库是**公开仓库**，无需邀请即可克隆；公开仓库不会自动给我写权限。入口会检查当前账号上游权限，没有时用我自己的 GitHub 账号创建 fork 并设置 upstream。以 `codex/b/<task-id>` 或 `codex/c/<task-id>` 分支、PR 同步工作，每机本地保存自己负责的内容。要自动认领未指派的共享任务，仍需仓库所有者邀请当前成员为 collaborator 并由成员接受；fork/PR 不能替代该分支的上游写权限。GitHub 登录或 fork 暂不可用时先本地提交，随后补推。
 
 这台机器不能烧录 FPGA；所有需要实测的方案和验收请求发送 Astra-A，等待 A 的真实工具/板卡结果并继续本机可做的分析、仿真、代码或文档工作。A 离线时要保持与另一个在线节点互通，通过飞书向人类汇报关键状态。飞书人类新指令最高优先级，等待任何人、同伴、子结果或硬件时不得靠模型轮询。额度将尽时向群里报告。
 
-完成后请给出：节点字母、Git 工作区和 fork/PR 地址、计划任务状态、模型实际 provider/model/effort 证据、飞书两个应用的非秘密 ID 与群收发验收、B↔C 及 A 连通状态、真实/模拟测试数量和所有仍需人操作的门槛。不要报告、截图或复制 Secret 本身。
+完成后请给出：节点字母、Git 工作区和 fork/PR 地址、计划任务状态、模型实际 provider/model/effort 证据、飞书两个应用的非秘密 ID 与群收发验收、B↔C 及 A 连通状态、真实/模拟测试数量，以及 `NEXT_STEPS.md` 尚待真人处理的项目。不要报告、截图或复制 Secret 本身。只在证据齐全时报告“完整上线”；A 机成功不能代替 B/C 线上验证。
