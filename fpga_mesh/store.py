@@ -285,7 +285,7 @@ class SQLiteStore:
             SELECT * FROM inbound
             WHERE processed_at IS NULL
               AND (next_attempt_at IS NULL OR next_attempt_at <= ?)
-            ORDER BY received_at, message_id
+            ORDER BY received_at, rowid
             """,
             (current,),
         ).fetchall()

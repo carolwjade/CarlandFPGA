@@ -3,6 +3,7 @@ import unittest
 from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 from fpga_mesh.protocol import Envelope, MessageKind, SourceKind
 from fpga_mesh.store import SQLiteStore
@@ -62,6 +63,18 @@ class SQLiteStoreTests(unittest.TestCase):
         self.assertTrue(self.store.accept_inbound(edited))
         self.assertFalse(self.store.accept_inbound(duplicate_edit))
         self.assertEqual([m.message.revision for m in self.store.pending_inbound()], [1, 2])
+
+    def test_inbound_same_timestamp_keeps_arrival_order(self):
+        first = make_message("first")
+        edited = replace(first, message_id="edited", task_version=2, revision=2)
+        instant = datetime(2026, 10, 9, 8, 0, tzinfo=timezone.utc)
+        with patch("fpga_mesh.store._utc_now", return_value=instant):
+            self.assertTrue(self.store.accept_inbound(first))
+            self.assertTrue(self.store.accept_inbound(edited))
+            self.assertEqual(
+                [item.message.message_id for item in self.store.pending_inbound()],
+                ["first", "edited"],
+            )
 
     def test_unprocessed_inbound_survives_reopen(self):
         self.store.accept_inbound(make_message("internal-1"))
