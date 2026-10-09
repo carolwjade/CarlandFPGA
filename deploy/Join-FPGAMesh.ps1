@@ -304,7 +304,9 @@ try {
     Write-Host "Workspace: $repoRoot"
     Write-Host "Local config: $configPath"
     Write-Host "Feishu enabled: $([bool]($GroupId -and $AstraAppId -and $AstraSecretFile))"
-    Write-Host "Direct mesh enabled: $([bool]$SharedSecretFile)"
+    $sharedFileReady = $SharedSecretFile -and (Test-Path -LiteralPath $SharedSecretFile -PathType Leaf) -and
+        ((Get-Item -LiteralPath $SharedSecretFile).Length -gt 0)
+    Write-Host "Shared mesh secret file present: $([bool]$sharedFileReady)"
     Write-Host 'The public repository can be cloned by anyone; write access requires a fork and pull request or an explicit collaborator grant.'
     $statusPath = Join-Path $nodeRoot 'setup-status.json'
     $stepsPath = Join-Path $nodeRoot 'NEXT_STEPS.md'

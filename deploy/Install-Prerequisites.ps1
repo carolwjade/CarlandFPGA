@@ -1,4 +1,5 @@
 <# Idempotently install machine tools required by a teammate node where possible. #>
+param([ValidateRange(30, 1800)][int]$InstallTimeoutSeconds = 180)
 $ErrorActionPreference = 'Stop'
 
 function Refresh-UserPath {
@@ -27,8 +28,17 @@ function Ensure-Package([string]$Tool, [string]$Package, [string[]]$Candidates) 
     }
     Write-Host "Installing $Package through winget..."
     try {
-        & winget install --id $Package -e --source winget --accept-package-agreements --accept-source-agreements --silent
-        if ($LASTEXITCODE -ne 0) { Write-Warning "winget could not install $Package; retry after any Windows approval." }
+        $winget = (Get-Command winget).Source
+        $installer = Start-Process -FilePath $winget -WindowStyle Hidden -PassThru -ArgumentList @(
+            'install', '--id', $Package, '-e', '--source', 'winget',
+            '--accept-package-agreements', '--accept-source-agreements', '--silent'
+        )
+        if (-not $installer.WaitForExit($InstallTimeoutSeconds * 1000)) {
+            Stop-Process -Id $installer.Id -Force -ErrorAction SilentlyContinue
+            Write-Warning "Installation of $Package needs Windows approval or more time. Continuing other setup; approve/install it and rerun."
+        } elseif ($installer.ExitCode -ne 0) {
+            Write-Warning "winget could not install $Package; complete any Windows approval and rerun."
+        }
     } catch {
         Write-Warning "Could not install $Package automatically: $($_.Exception.Message)"
     }

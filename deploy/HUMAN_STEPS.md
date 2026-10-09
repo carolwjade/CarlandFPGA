@@ -1,6 +1,6 @@
 # B/C 机接入时需要本人完成的步骤
 
-先把多机 ZIP 解压到本机，让自己的 Codex 会话读取 `deploy/TEAMMATE_PROMPT.md`，确定机器字母 B 或 C，然后运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B`（C 机把 B 换成 C）。脚本会尝试安装 Git、Python 3.12、GitHub CLI 和 Tailscale，克隆最新源码、安装依赖、创建本机配置、注册应用、实测主从调用、注册常驻任务，并在 `.local/deployment/node-b/` 或 `node-c/` 写出 `setup-status.json` 和 `NEXT_STEPS.md`。授权暂未完成时继续独立步骤，补齐后重跑同一命令；重跑会保留本机密钥文件路径、同伴地址与现有改动。
+先把多机 ZIP 解压到本机，让自己的 Codex 会话读取 `deploy/TEAMMATE_PROMPT.md`，确定机器字母 B 或 C，然后运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B`（C 机把 B 换成 C）。脚本会尝试安装 Git、Python 3.12、GitHub CLI 和 Tailscale，克隆最新源码、安装依赖、创建本机配置、注册应用、实测主从调用、注册常驻任务，并在 `.local/deployment/node-b/` 或 `node-c/` 写出 `setup-status.json` 和 `NEXT_STEPS.md`。若 Windows 在安装工具时弹出管理员权限确认，须由本机成员批准；长时间未批准，安装器会超时并继续其余步骤，成员之后可手动完成安装再重跑。授权暂未完成时继续独立步骤，补齐后重跑同一命令；重跑会保留本机密钥文件路径、同伴地址与现有改动。
 
 以下项目不能由分发包替个人完成。对应成员操作完成后，通知本机 Codex 重跑并核验状态报告。不要把任何 Secret、API Key 或共享 HMAC 明文发送到飞书群、Codex 聊天、GitHub 或分发 ZIP。
 
