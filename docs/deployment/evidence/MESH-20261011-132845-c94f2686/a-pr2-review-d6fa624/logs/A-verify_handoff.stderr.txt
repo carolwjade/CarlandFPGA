@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<A_INITIAL_CHECKOUT>\handoffs\b\MESH-20261011-132845-c94f2686\assigned-task\test-recovery-20261012-v1\verify_handoff.py", line 64, in <module>
+    main()
+  File "<A_INITIAL_CHECKOUT>\handoffs\b\MESH-20261011-132845-c94f2686\assigned-task\test-recovery-20261012-v1\verify_handoff.py", line 46, in main
+    evidence = helper.verify_manifest(ROOT, HERE / "evidence-manifest.json")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<A_INITIAL_CHECKOUT>\skills\pynq-z2-single-node\scripts\handoff.py", line 220, in verify_manifest
+    raise ValueError(f"hash or size mismatch for {name}")
+ValueError: hash or size mismatch for handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/.gitattributes
