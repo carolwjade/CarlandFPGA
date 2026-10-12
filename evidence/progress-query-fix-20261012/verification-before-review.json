@@ -1,0 +1,28 @@
+{
+  "task_id": "MESH-20261011-132845-c94f2686-A-progress-query-fix",
+  "task_version": 1,
+  "work_id": "A-progress-query-fix-20261012-v1",
+  "base_commit": "920ab357ee77f96b8751a593407eb329affc3dcb",
+  "started_at": "2026-10-12T09:00:56.645159+00:00",
+  "finished_at": "2026-10-12T09:01:27.524037+00:00",
+  "versions": {
+    "python": "Python 3.12.14",
+    "git": "git version 2.53.0.windows.3",
+    "gh": "gh version 2.102.0 (2026-09-30)"
+  },
+  "command": "python -m unittest discover -s tests -q",
+  "exit_code": 0,
+  "source_sha256": {
+    "fpga_mesh/controller.py": "2de4a82348283fef2bbb38fecb782a6df1a8c130d8a99467d38d2ac1275e5a78",
+    "fpga_mesh/protocol.py": "892b01e3f9880611f76b18f084fc7dcbc12e5a4508d8eac86a673321ef420da9",
+    "fpga_mesh/feishu.py": "6a0bd8430afa7ecee910ba127904b582323dc1f625d60120fdcc09b174246923",
+    "fpga_mesh/feishu_channel.py": "3d922d0f67e382b1ea409de7ba3b1b7a1f3e9b2ccabfc394055f830103e01ca4",
+    "fpga_mesh/runtime.py": "b95d2532fe3bfcf806e3f4e3ffa4d5ca4297b7ad7ca714b7105d1abfa735adab",
+    "fpga_mesh/project_control.py": "1d4424c4521543a363a3179b02cb662a14d69b013e71b1726b87a7a8211e56bd",
+    "fpga_mesh/store.py": "ffcb0b3eb93701b9ab93e0ae96a3f4dc1350ee3ef09a01a08da7da01990e38de",
+    "fpga_mesh/sessions.py": "f06f554fe6e8088db5781d1e3fe66f18437cecfffcc49086076c36b741278df4",
+    "fpga_mesh/progress.py": "0fb907aa4f361d527bbcc3da5172921ce72d5bbb247a85cf15bb2b2b04630319",
+    "tests/test_progress_query.py": "793ce902004e9e8074789c1136a3afe14a1f616cd05429500f7df5759452dfc1"
+  },
+  "scope": "local integration; fake provider; no deployment, remote acceptance or hardware"
+}

@@ -18,7 +18,7 @@ backoff rows, so its length alone is not a queue count.
 ## Options and main decision
 
 1. Selected: strict query classification before persistence, immediate local
-   snapshot callback, plus authenticated CLI status. Covers the original phrase
+   snapshot callback, plus authenticated CLI progress_status. Covers the original phrase
    and bypasses version updates, claims, cancellation and model inference.
 2. Cancel-condition-only change: rejected because queries would still mutate
    versions, acquire ownership and wait for/start inference.
@@ -33,6 +33,9 @@ mentions. Use known mention metadata to remove platform placeholder prefixes.
 Extra words, punctuation, attachments or compound stop/change requests remain
 instructions. Normal target routing remains in force; unaddressed queries report
 each receiving node's local status and require no shared ownership claim.
+The routed shorthand `/fpga A|B|C status` is also accepted. SDK content_text and
+resources are inspected before accepting a query; an ingress rejection flag
+prevents the controller fallback from reclassifying a lossy body_text view.
 
 Normalize direct Controller.offer human instructions too, before accept_inbound.
 Persist the query as status_query for dedupe and crash recovery, without changing
@@ -41,6 +44,8 @@ Handle accepted queries immediately even while busy or paused; process persisted
 status_query entries before pause/claim/model dispatch on recovery. Existing old
 instruction rows and failed/interrupted work are never reclassified or replayed.
 Keep callback failure in the inbox with bounded existing backoff.
+On recovery, pause/resume controls sort first, then saved queries, then work;
+an older blocked work item must not delay a saved query.
 
 The snapshot reads live controller active identity/cancellation flag, all pending
 inbox rows including backoff, main run ledger summaries, and child ledger status.
@@ -53,7 +58,7 @@ process proof. Completion percentage and remote/board progress are unknown.
 No result text, prompts, credentials or arbitrary errors enter the public report.
 
 Use one durable report operation per query dedupe identity; delivery retries use
-the existing sender. CLI `status` returns the same snapshot without a group post,
+the existing sender. CLI `progress_status` returns the same snapshot without a group post,
 model catalog lookup, thread creation or any task write.
 
 ## Ownership and scope

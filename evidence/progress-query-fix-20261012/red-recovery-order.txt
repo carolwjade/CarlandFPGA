@@ -1,0 +1,27 @@
+test_persisted_query_is_answered_before_older_work_dispatch_on_recovery (test_progress_query.ProgressQueryTests.test_persisted_query_is_answered_before_older_work_dispatch_on_recovery) ... FAIL
+
+======================================================================
+FAIL: test_persisted_query_is_answered_before_older_work_dispatch_on_recovery (test_progress_query.ProgressQueryTests.test_persisted_query_is_answered_before_older_work_dispatch_on_recovery)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\progress-query-fix-20261012\tests\test_progress_query.py", line 412, in test_persisted_query_is_answered_before_older_work_dispatch_on_recovery
+    self.assertEqual(observations, [0])
+AssertionError: Lists differ: [1] != [0]
+
+First differing element 0:
+1
+0
+
+- [1]
++ [0]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.112s
+
+FAILED (failures=1)

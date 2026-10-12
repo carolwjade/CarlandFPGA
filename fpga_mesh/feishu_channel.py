@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-from .protocol import Envelope, MessageKind, SourceKind, task_id_from_message
+from .protocol import Envelope, MessageKind, SourceKind, task_id_from_message, is_progress_query
 
 
 def _message_uuid(app_id: str, operation_id: str) -> str:
@@ -104,6 +104,33 @@ class FeishuIngress:
                     target_node = self.node_id
             if target_node is not None and target_node != self.node_id:
                 return False
+        # The SDK may leave mention placeholders in body_text. Remove only
+        # leading placeholders bound to a recognized bot by message metadata.
+        query_text = str(getattr(msg, "content_text", "") or text).strip()
+        mention_keys = set()
+        for mention in getattr(msg, "mentions", ()):
+            key = str(getattr(mention, "key", "") or "")
+            name = str(getattr(mention, "name", "") or "")
+            if (key and getattr(mention, "is_bot", False)
+                    and re.fullmatch(r"FPGA\s+(?:Astra|DeepSeek)\s+[ABC]", name, re.I)):
+                mention_keys.add(key)
+        while True:
+            key = next((key for key in mention_keys if query_text.startswith(key)
+                        and query_text[len(key):len(key) + 1].isspace()), None)
+            if key is None:
+                break
+            query_text = query_text[len(key):].lstrip()
+        attachments = list(getattr(msg, "attachment_refs", ()) or ())
+        has_resources = bool(getattr(msg, "resources", ()))
+        if (kind == MessageKind.HUMAN_INSTRUCTION and is_progress_query(query_text)
+                and not attachments and not has_resources):
+            # Some normalized messages contain display names without metadata.
+            # Preserve routing for those complete queries as well.
+            named_queries = {m.group(1).upper() for m in re.finditer(
+                r"@FPGA[ \t]+(?:Astra|DeepSeek)[ \t]+([ABC])\b", query_text, re.I)}
+            if target_node is None and named_queries and self.node_id not in named_queries:
+                return False
+            kind = MessageKind.STATUS_QUERY
         envelope = Envelope(
             message_id=f"feishu:{self.group_id}:{platform_message_id}:{revision}",
             project_id=self.project_id,
@@ -117,7 +144,9 @@ class FeishuIngress:
             kind=kind,
             source=SourceKind.HUMAN,
             payload={
-                "text": text, "scope": "all",
+                "text": query_text if kind == MessageKind.STATUS_QUERY else text,
+                "status_query_eligible": kind == MessageKind.STATUS_QUERY,
+                "scope": "all", "attachment_refs": attachments,
                 "ownership_required": (
                     kind == MessageKind.HUMAN_INSTRUCTION
                     and target_node is None

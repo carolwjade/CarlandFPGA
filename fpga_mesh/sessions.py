@@ -194,6 +194,12 @@ class MainSessionRouter:
         return {'message_id': message_id, 'task_id': row['task_id'], 'status': row['status'],
                 'result': json.loads(row['result_json']) if row['result_json'] else None, 'error': row['error']}
 
+    def run_summaries(self) -> list[dict]:
+        """Read ledger metadata only; never expose prompts, results or errors."""
+        return [dict(row) for row in self.db.execute(
+            'SELECT message_id, task_id, status, updated_at FROM main_runs ORDER BY updated_at DESC'
+        )]
+
     def record(self, message_id: str, task_id: str, status: str, *, result=None, error=None) -> None:
         with self.db:
             self.db.execute('INSERT INTO main_runs VALUES (?,?,?,?,?,?) ON CONFLICT(message_id) DO UPDATE SET status=excluded.status,result_json=excluded.result_json,error=excluded.error,updated_at=excluded.updated_at',
