@@ -166,6 +166,7 @@ class NodeRuntime:
             on_human_instruction=self._on_human_instruction,
             on_result=self._on_result,
             claim_ownership=self._claim_ownership,
+            on_status_query=self._on_status_query,
         )
         self.feishu: FeishuNodeService | None = (
             FeishuNodeService(
@@ -356,6 +357,18 @@ class NodeRuntime:
             "hardware_enabled": self.hardware is not None,
             "hardware_queue": self.hardware.queue() if self.hardware else [],
         }
+
+    def progress_snapshot(self) -> dict[str, Any]:
+        from .progress import progress_snapshot
+        return progress_snapshot(self)
+
+    def _on_status_query(self, message) -> None:
+        from .progress import format_progress
+        self.store.enqueue_group_report(
+            f"progress:{message.dedupe_key}", format_progress(self.progress_snapshot()),
+        )
+        if self.feishu is not None:
+            self.feishu.notify_report()
 
     def astra_tool_config(self) -> dict[str, Any]:
         if self.child_control.port is None:

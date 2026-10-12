@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import asyncio
 import inspect
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Protocol
 
-from .protocol import Envelope, MessageKind, SourceKind
+from .protocol import Envelope, MessageKind, SourceKind, is_progress_query
 from .store import SQLiteStore
 
 
@@ -31,12 +31,14 @@ class Controller:
         on_human_instruction: Callable[[Envelope], None] | None = None,
         on_result: Callable[[Envelope, ActionResult], Any] | None = None,
         claim_ownership: Callable[[Envelope], Any] | None = None,
+        on_status_query: Callable[[Envelope], None] | None = None,
     ):
         self.store = store
         self.gateway = gateway
         self.on_human_instruction = on_human_instruction
         self.on_result = on_result
         self.claim_ownership = claim_ownership
+        self.on_status_query = on_status_query
         self._last_control_at, self._paused_at, self._pause_scope = (
             self.store.load_control_state()
         )
@@ -45,11 +47,23 @@ class Controller:
         self._stop = asyncio.Event()
         self._serve_task: asyncio.Task[None] | None = None
         self._active_dispatch: asyncio.Task[ActionResult] | None = None
+        self._active_message: Envelope | None = None
 
     async def offer(self, message: Envelope) -> bool:
+        # Normalize before persistence: accept_inbound advances human versions.
+        if (message.source == SourceKind.HUMAN
+                and message.kind in {MessageKind.HUMAN_INSTRUCTION, MessageKind.STATUS_QUERY}):
+            query = (is_progress_query(str(message.payload.get("text", "")))
+                     and not message.payload.get("attachment_refs")
+                     and message.payload.get("status_query_eligible", True))
+            message = replace(message, kind=(MessageKind.STATUS_QUERY if query
+                                             else MessageKind.HUMAN_INSTRUCTION))
         accepted = self.store.accept_inbound(message)
         if not accepted:
             return False
+        if self._is_status_query(message):
+            self._answer_status_query(message)
+            return True
         self._wakeup.set()
         if (message.source == SourceKind.HUMAN and
                 message.kind == MessageKind.HUMAN_INSTRUCTION and
@@ -81,6 +95,7 @@ class Controller:
                 return
             pending.sort(key=lambda item: (
                 not self._is_control_message(item.message),
+                not self._is_status_query(item.message),
                 item.message.source != SourceKind.HUMAN,
                 item.message.sent_at,
             ))
@@ -89,6 +104,9 @@ class Controller:
                 observed.add(message.message_id)
                 if self._is_expired(message):
                     self.store.mark_inbound_processed(message.message_id)
+                    continue
+                if self._is_status_query(message):
+                    self._answer_status_query(message, attempts=stored.attempts)
                     continue
                 if self._is_control_message(message):
                     self._apply_control(message)
@@ -145,6 +163,7 @@ class Controller:
                     ):
                         continue
                 try:
+                    self._active_message = message
                     self._active_dispatch = asyncio.create_task(
                         self.gateway.handle(message),
                         name=f"fpga-dispatch-{message.message_id}",
@@ -169,7 +188,35 @@ class Controller:
                     continue
                 finally:
                     self._active_dispatch = None
+                    self._active_message = None
                 self.store.mark_inbound_processed(message.message_id)
+
+    @staticmethod
+    def _is_status_query(message: Envelope) -> bool:
+        return message.source == SourceKind.HUMAN and message.kind == MessageKind.STATUS_QUERY
+
+    def _answer_status_query(self, message: Envelope, *, attempts: int = 0) -> None:
+        try:
+            if not self._is_expired(message):
+                if self.on_status_query is None:
+                    raise RuntimeError("status callback is not configured")
+                # Synchronous local snapshot + outbox write; never wait on a model/network.
+                self.on_status_query(message)
+            self.store.mark_inbound_processed(message.message_id)
+        except Exception as exc:  # noqa: BLE001 - retry delivery bookkeeping only
+            self.store.mark_inbound_failed(
+                message.message_id, f"status: {type(exc).__name__}: {exc}",
+                retry_at=self._retry_at(attempts),
+            )
+            self._wakeup.set()
+
+    def active_snapshot(self) -> dict[str, Any]:
+        task, message = self._active_dispatch, self._active_message
+        if task is None or task.done() or message is None:
+            return {"state": "idle", "message_id": None, "task_id": None}
+        return {"state": "interrupt_requested" if task.cancelling() else "running",
+                "message_id": message.message_id, "task_id": message.task_id,
+                "task_version": message.task_version}
 
     async def wait_for_work(self, timeout: float | None = None) -> bool:
         if self.store.pending_inbound():

@@ -1,0 +1,53 @@
+test_cli_status_is_read_only_and_does_not_open_gateway (test_progress_query.ProgressQueryTests.test_cli_status_is_read_only_and_does_not_open_gateway) ... ok
+test_compounds_and_new_work_and_pause_still_interrupt (test_progress_query.ProgressQueryTests.test_compounds_and_new_work_and_pause_still_interrupt) ... ok
+test_display_mention_query_is_only_answered_by_addressed_node (test_progress_query.ProgressQueryTests.test_display_mention_query_is_only_answered_by_addressed_node) ... FAIL
+test_duplicate_after_controller_restart_keeps_original_reply (test_progress_query.ProgressQueryTests.test_duplicate_after_controller_restart_keeps_original_reply) ... ok
+test_failed_and_interrupted_ledgers_are_not_replayed_by_query_or_drain (test_progress_query.ProgressQueryTests.test_failed_and_interrupted_ledgers_are_not_replayed_by_query_or_drain) ... ok
+test_failed_snapshot_source_is_unknown_without_mutating_work (test_progress_query.ProgressQueryTests.test_failed_snapshot_source_is_unknown_without_mutating_work) ... ok
+test_full_match_grammar_and_routing (test_progress_query.ProgressQueryTests.test_full_match_grammar_and_routing) ... ok
+test_ingress_classifies_query_without_claim (test_progress_query.ProgressQueryTests.test_ingress_classifies_query_without_claim) ... ok
+test_multiple_placeholder_mentions_are_independent_of_metadata_order (test_progress_query.ProgressQueryTests.test_multiple_placeholder_mentions_are_independent_of_metadata_order) ... FAIL
+test_nonhuman_and_attachments_are_not_queries (test_progress_query.ProgressQueryTests.test_nonhuman_and_attachments_are_not_queries) ... ok
+test_original_query_does_not_cancel_real_app_gateway_and_work_completes (test_progress_query.ProgressQueryTests.test_original_query_does_not_cancel_real_app_gateway_and_work_completes) ... ok
+test_paused_query_is_answered_and_does_not_release_pause_or_claim (test_progress_query.ProgressQueryTests.test_paused_query_is_answered_and_does_not_release_pause_or_claim) ... ok
+test_platform_mentions_only_strip_known_prefix_and_preserve_compound (test_progress_query.ProgressQueryTests.test_platform_mentions_only_strip_known_prefix_and_preserve_compound) ... ok
+test_query_bypasses_task_version_callback_and_model (test_progress_query.ProgressQueryTests.test_query_bypasses_task_version_callback_and_model) ... ok
+test_query_callback_failure_is_recoverable_while_paused_without_inference (test_progress_query.ProgressQueryTests.test_query_callback_failure_is_recoverable_while_paused_without_inference) ... ok
+test_snapshot_distinguishes_terminal_unknown_and_delayed_queue (test_progress_query.ProgressQueryTests.test_snapshot_distinguishes_terminal_unknown_and_delayed_queue) ... ok
+test_status_is_durable_once_and_reports_snapshot_without_model (test_progress_query.ProgressQueryTests.test_status_is_durable_once_and_reports_snapshot_without_model) ... ok
+
+======================================================================
+FAIL: test_display_mention_query_is_only_answered_by_addressed_node (test_progress_query.ProgressQueryTests.test_display_mention_query_is_only_answered_by_addressed_node)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\progress-query-fix-20261012\tests\test_progress_query.py", line 246, in test_display_mention_query_is_only_answered_by_addressed_node
+    self.assertFalse(await ingress.ingest(FakeMessage(body_text="@FPGA Astra B 当前工作进度")))
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_multiple_placeholder_mentions_are_independent_of_metadata_order (test_progress_query.ProgressQueryTests.test_multiple_placeholder_mentions_are_independent_of_metadata_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\progress-query-fix-20261012\tests\test_progress_query.py", line 240, in test_multiple_placeholder_mentions_are_independent_of_metadata_order
+    self.assertEqual(recorder.messages[0].kind.value, "status_query")
+AssertionError: 'human_instruction' != 'status_query'
+- human_instruction
++ status_query
+
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.049s
+
+FAILED (failures=2)

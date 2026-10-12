@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import StrEnum
@@ -41,6 +42,7 @@ def _parse_datetime(value: str | None) -> datetime | None:
 
 class MessageKind(StrEnum):
     HUMAN_INSTRUCTION = "human_instruction"
+    STATUS_QUERY = "status_query"
     AGENT_REPORT = "agent_report"
     TASK_CLAIM = "task_claim"
     STATUS = "status"
@@ -56,6 +58,17 @@ class SourceKind(StrEnum):
     ASTRA = "astra"
     DEEPSEEK_POOL = "deepseek_pool"
     SYSTEM = "system"
+
+
+def is_progress_query(text: str) -> bool:
+    """Only complete allowlisted queries; additional instructions never match."""
+    return re.fullmatch(
+        r"(?:@FPGA[ \t]+(?:Astra|DeepSeek)[ \t]+[ABC][ \t]+)*"
+        r"(?:/fpga[ \t]+(?:[ABC][ \t]+)?status|"
+        r"(?:(?:/fpga[ \t]+[ABC][ \t]+|Astra-[ABC][ \t]*[:：][ \t]*))?"
+        r"(?:当前工作进度|/fpga[ \t]+status))",
+        text.strip(), re.IGNORECASE,
+    ) is not None
 
 
 class DelegationScope(StrEnum):

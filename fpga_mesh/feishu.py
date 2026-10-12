@@ -14,6 +14,7 @@ from .protocol import (
     MessageKind,
     SourceKind,
     task_id_from_message,
+    is_progress_query,
 )
 
 
@@ -141,7 +142,8 @@ class HumanMessageRouter:
             task_id=task_id,
             task_version=message.revision,
             sent_at=message.created_at.astimezone(timezone.utc),
-            kind=MessageKind.HUMAN_INSTRUCTION,
+            kind=(MessageKind.STATUS_QUERY if is_progress_query(message.text)
+                  and not message.attachment_refs else MessageKind.HUMAN_INSTRUCTION),
             source=SourceKind.HUMAN,
             payload={
                 "text": message.text,

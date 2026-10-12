@@ -298,6 +298,13 @@ class SQLiteStore:
                 (_format_datetime(_utc_now()), message_id),
             )
 
+    def inbound_progress(self) -> list[StoredMessage]:
+        """Read every unprocessed row, including retries not yet eligible to run."""
+        rows = self._connection.execute(
+            "SELECT * FROM inbound WHERE processed_at IS NULL ORDER BY received_at, rowid"
+        ).fetchall()
+        return [self._stored_message(row) for row in rows]
+
     def mark_inbound_failed(
         self,
         message_id: str,
