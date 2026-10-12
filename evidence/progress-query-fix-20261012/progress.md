@@ -108,3 +108,12 @@ replaying work. B/C use their own original node updater. Post-update verify
 version + status JSON, busy query completion, pause state, new-human priority
 and report dedupe with new operation identities. No claim of three-machine
 acceptance or physical-board evidence is made by this checkpoint.
+
+## Published reviewed source
+
+PR: https://github.com/carolwjade/CarlandFPGA/pull/3 (OPEN, base main).
+Tested source and initial verified remote head:
+`2c3e5a3350b7142704b66817391a6ac57b16fd6d`.
+Branch: `codex/a/progress-query-fix-20261012`.
+The publication-metadata commit follows this source commit; no tested code changed.
+No deployment performed. `publication.json` preserves the initial GitHub receipt.

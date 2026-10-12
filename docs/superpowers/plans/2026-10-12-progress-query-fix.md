@@ -31,10 +31,10 @@ evidence/progress-query-fix-20261012 are explicitly included in this plan.
   no claims/versions/inference, actual AppServerGateway with blocked provider,
   failed/interrupted/stale running/unknown/queued and original no-replay behavior.
 - [x] Run relevant regression modules, then full unittest discovery and diff check.
-- [ ] Main code/requirements review, evidence commands and hashes, commit/push/PR.
+- [x] Main code/requirements review, evidence commands and hashes, commit/push/PR.
 - [ ] Verify remote SHA; one feedback session_open to B-git-handoff v1 with exact
   paths, tests, commit and undeployed state; one final group report if useful.
 
 ## Next step
 
-Collect final independent inspection result and full-suite receipt, then commit and publish.
+Publish the metadata checkpoint and send the single requested B-git-handoff feedback.
