@@ -1,0 +1,125 @@
+[
+  {
+    "name": "version",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "-c",
+      "import sys; print(sys.version); print(sys.getrecursionlimit())"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout_sha256": "220177d37b5382890cf600ce7df7aba866f2b4bd63641867f18fb06ca1a5a0aa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "verify_handoff",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "verify_handoff.py"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 1,
+    "expected_exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "a54cdaadbf28636d2fba95c73c40dce325fdd2671f514dc52e64032d84426c8f",
+    "stderr_public_copy_sha256": "9c64dd4067ef859b299197f6a49e9d85bad5d69953427bb80279f63845336a44",
+    "stderr_redaction": "absolute checkout path only; original raw SHA256 retained above"
+  },
+  {
+    "name": "unittest",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "test_recovery.py",
+      "-v"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "b32a0e510f0ec9ed6fefd44889be037a3de207dd40ebdf23a924f12bfdbcf8e2"
+  },
+  {
+    "name": "valid",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "../recovery-20261012-v1/canonical_json.py",
+      "../fixtures/ok_basic.json",
+      "../fixtures/ok_empty_object.json",
+      "../fixtures/ok_escaped_newline.json",
+      "../fixtures/ok_nested.json",
+      "../fixtures/ok_no_normalization.json",
+      "../fixtures/ok_numbers.json",
+      "../fixtures/ok_top_level_array.json",
+      "../fixtures/ok_unicode_keys.json"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout_sha256": "cf9e9bea0cd27e78df22bde0237a11cb1aedc6fb5b63935a7773b28fe0c02ea2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "invalid",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "../recovery-20261012-v1/canonical_json.py",
+      "../fixtures/bad_bom.json",
+      "../fixtures/bad_crlf_terminal.json",
+      "../fixtures/bad_doubled_terminal_lf.json",
+      "../fixtures/bad_duplicate_key.json",
+      "../fixtures/bad_duplicate_key_nested.json",
+      "../fixtures/bad_escaped_unicode.json",
+      "../fixtures/bad_invalid_utf8.json",
+      "../fixtures/bad_key_order_utf16.json",
+      "../fixtures/bad_missing_terminal_lf.json",
+      "../fixtures/bad_nan.json",
+      "../fixtures/bad_negative_infinity.json",
+      "../fixtures/bad_not_json.json",
+      "../fixtures/bad_raw_newline_in_string.json",
+      "../fixtures/bad_surrogate_key.json",
+      "../fixtures/bad_surrogate_value.json",
+      "../fixtures/bad_whitespace_pretty.json",
+      "../fixtures/bad_whitespace_space.json"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "stdout_sha256": "f3091ffd3135eae709bfec9e246f74dd74e71926848e0af767ba1f64dc941bca",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "deep",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "../recovery-20261012-v1/canonical_json.py",
+      "deep_2000.json"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "stdout_sha256": "78405844cd1d31e96e73d3ceb70057c8a149ded08a2b94b556147c71e176d12b",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "overflow_mixed",
+    "argv": [
+      "<A_PYTHON_3.12.9>",
+      "-B",
+      "../recovery-20261012-v1/canonical_json.py",
+      "../recovery-20261012-v1/overflow.json",
+      "../fixtures/ok_basic.json"
+    ],
+    "cwd": "<A_INITIAL_CHECKOUT>/handoffs/b/MESH-20261011-132845-c94f2686/assigned-task/test-recovery-20261012-v1",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "stdout_sha256": "51e7c6246652aa88866c4071e287162d50ae4022c4f3a6e57ed676fb0ff61eae",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
