@@ -26,3 +26,7 @@
 
 - Existing nodes use `deploy/Update-FPGAMesh.ps1`: update changed source files only, preserve local configuration/credentials/state, and do not rerun onboarding. The updater fences ledger admission and verifies idle before stopping the existing service.
 - Astra requires tenant scope `im:resource` for file upload/readback. Astra-A received explicit human authorization and its grant was verified. Existing B/C must obtain their own app owner's authorization on the existing Astra app; an update ZIP cannot grant a cloud scope. Run `python -m fpga_mesh.feishu_permissions --config <existing-config>` for a read-only audit. Never add file scope to DeepSeek or change the human > main > child priority.
+
+## Quiet presence (2026-10-13)
+
+静默在场：未经人类主动询问，不主动群发任何本机或同伴的上线、离线、恢复、重连、健康探针观测；内部健康检查、私下 peer 协同与任务持久补发照常，人类明确询问按当前证据答复，确有任务阻塞只简洁报告任务影响。A/B/C 与 DeepSeek 均适用。

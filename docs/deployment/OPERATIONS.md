@@ -16,6 +16,8 @@ DeepSeek 派工提供稳定 work_id 和写入文件 ownership，按需扩展。�
 
 子代理用于保持质量地减少 GPT usage、分担执行压力和提高效率。质量主模型保留关键判断与验收，不以子代理结论代替验收，不报告未测量的节约比例。项目不规定数量；供应商、物理资源和原生 Codex 的限制仍有效。
 
+静默在场（2026-10-13）：未经人类主动询问，不主动群发任何本机或同伴的上线、离线、恢复、重连、健康探针观测；内部健康检查、私下 peer 协同与任务持久补发照常，人类明确询问按当前证据答复，确有任务阻塞只简洁报告任务影响。A/B/C 与 DeepSeek 均适用。
+
 ## 队友入网
 
 把**多机协作 ZIP**和 `deploy/TEAMMATE_PROMPT.md` 交给 B/C 的 Codex 会话；单机技能分别发 `pynq-client-b`、`pynq-client-c` ZIP，不能把 A 机可上传的 `pynq-skill` ZIP 给客机。B/C 各自从对应 ZIP 运行 `skills/pynq-z2-single-node/Install.ps1`。在各自 Windows 电脑上运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B` 或 `-Node C`。入口先尝试用 winget 安装缺失的 Git、Python、GitHub CLI 和 Tailscale，再从公开 GitHub 仓库克隆源码，创建被 Git 忽略的 `.local/venv`，安装飞书 SDK，生成该机配置，运行自检、真实主从调用，并在登录与密钥就绪时注册常驻任务。工具安装、网页授权或账号权限失败时，保留已完成步骤；入口每次生成 `.local/deployment/node-<字母>/setup-status.json` 和 `NEXT_STEPS.md`，详细本人操作见 [人工步骤](../../deploy/HUMAN_STEPS.md)。重跑会沿用已有本机密钥文件路径、同伴地址，不覆盖队友改动；现有工作区只在干净时快进。
