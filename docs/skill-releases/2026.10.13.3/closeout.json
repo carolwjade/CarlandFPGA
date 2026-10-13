@@ -73,12 +73,46 @@
     "installer_absent_and_os_lock_released_before_install_reported": true,
     "new_human_resume_arrangement_reported": true,
     "prior_failed_operation_replayed_reported": false,
+    "discovery_correction": {
+      "authenticated_receipt": "A:C:SKILLS-20261013-UNIFIED:discovery-correction-v3",
+      "task_version": 2,
+      "status": "peer_reported_discovery_interface_pass",
+      "prior_acceptance_gap": "Installed file verification did not check skill discovery for the saved outer Desktop project.",
+      "checked_at_reported": "2026-10-13T14:19:26Z",
+      "method_reported": "Codex skills/list(forceReload=true)",
+      "saved_project_root_name": "FPGA",
+      "formal_project_relative_to_saved_root": "CarlandFPGA-node-c",
+      "roots_verified_reported": ["saved_outer_project", "formal_child_project"],
+      "skills_discovered_in_both_roots_reported": ["fpga-multi-node", "pynq-z2-single-node"],
+      "discovery_scope_reported": "repo",
+      "enabled_reported": true,
+      "errors_reported": [],
+      "installed_manifest_files_still_matching_reported": 19,
+      "evidence_path_on_C": ".local/skill-install-2026.10.13.3/discovery-after.json",
+      "evidence_file_downloaded_by_A": false,
+      "active_discovery_junctions_relative_to_saved_root": [
+        {
+          "entry": ".agents/skills/fpga-multi-node",
+          "target": "CarlandFPGA-node-c/.agents/skills/fpga-multi-node"
+        },
+        {
+          "entry": ".agents/skills/pynq-z2-single-node",
+          "target": "CarlandFPGA-node-c/.agents/skills/pynq-z2-single-node"
+        }
+      ],
+      "junction_classification": "active_discovery_entries_not_legacy_residue",
+      "upgrade_boundary": "Preserve both discovery junctions and update only their canonical targets in the formal project; never recursively clean these active entries.",
+      "old_ancestor_cleanup_interpretation": "Historical removal applied to obsolete copied contents; the same ancestor path now contains an active junction and must not be expected to remain absent.",
+      "desktop_visual_refresh_screenshot_verified": false,
+      "current_turn_hot_reload_claimed": false,
+      "board_operator": "A"
+    },
     "new_conversation_load_verified": false,
     "remaining_old_request_scope": "readback_or_same_version_no_op_only; no_downgrade",
     "original_operation_id": "SKILLS-20261013-UNIFIED:C:install-2026.10.13.3-v2",
     "status_query_operation_id": "SKILLS-20261013-UNIFIED:C:status-query-v2-once",
     "previous_status": "install_request_delivered_awaiting_receipt",
-    "state_boundary": "C final installation report and subsequent controller independent-readback report supersede waiting status. A independently matched release bytes and reported entry hashes; installed files, backups, cleanup and runtime preservation remain C-reported, with the controller evidence file path/hash recorded but not downloaded by A. The controller reused the completed Desktop installation and executed only a same-version no-op. Original outbound queue states and failed/interrupted operations remain historical; new-conversation loading remains unverified and current-turn hot reload is not claimed."
+    "state_boundary": "C installation and controller readback remain peer-reported verified; A independently matched the release bytes and reported entry hashes. A later C correction identifies the missed saved-project discovery check and reports skills/list success for both roots after adding two active discovery junctions. These junctions are protected maintenance entries, not old residue. Original cleanup evidence describes the earlier obsolete contents and does not require the ancestor entry to stay absent. Remote evidence files have not been downloaded by A. Desktop screenshot refresh and actual new-conversation loading remain unverified; current-turn hot reload is not claimed. Original outbound queue states and failed/interrupted operations remain historical."
   },
   "group": {
     "status": "peer_reported_message_readback_and_download_verified",
