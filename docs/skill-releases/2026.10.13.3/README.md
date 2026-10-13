@@ -9,3 +9,5 @@
 [代码PR12](https://github.com/carolwjade/CarlandFPGA/pull/12)未合并；[当前角色包发行](https://github.com/carolwjade/CarlandFPGA/releases/tag/project-skills-2026.10.13.3)。2版已标superseded，原字节与失败回证作为历史保留，当前A及桌面交付已统一3版。
 
 C 的 `SKILLS-20261013-UNIFIED-C/v2` 最终 Desktop 回执已替代旧等待状态：报告正式项目 19 文件安装校验通过、旧发现入口先归档后清理、同版 `unchanged`，配置、AGENTS 与服务不变。A 已独立复核本地发布 ZIP 的 CRC、MANIFEST 全部文件、角色及两个报告入口哈希；C 的安装现场和备份保留为客机报告证据，新会话加载尚未验证。原失败/中断操作保留，旧待处理请求仅可读回或同版 no-op，不得降级。具体消息 ID、版本及证据边界见 [closeout.json](closeout.json)。
+
+随后 C 控制器报告独立回读通过，复用 Desktop 已完成安装，仅实际执行同版 no-op（exit 0 / `unchanged`），未再次安装或清理。回报覆盖全部 19 个安装文件、两份安装器备份、四项旧目录归档清理、472 个工程文件范围检查及 38 个配置/凭据/无关技能文件不变；原 Desktop 发件回执的 `queued` 状态不作为验收依据。完整回读 JSON 的 C 本地路径与报告 SHA-256 已记录，A 未下载该文件；不将 C 独立回读表述为 A 远程现场验证，也不声称当前回合热重载。
