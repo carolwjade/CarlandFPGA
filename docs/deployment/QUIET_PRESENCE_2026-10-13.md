@@ -40,8 +40,10 @@ appropriate; the live database fence does not require waiting for that restart.
   existing sent receipts and nonmatching IDs/text were preserved.
 - Relevant tests: 43 passed. Full repository suite: 315 passed on Windows.
 - A live readback at 2026-10-13 07:07 UTC confirmed the trigger and zero pending
-  automatic presence reports. The board owner had independently installed its
-  narrower A-only emergency guard at 07:05 UTC; both guards were preserved.
+  automatic presence reports. The board owner had independently installed an
+  A-only emergency guard at 07:05 UTC. At 07:15 UTC it verified the formal fence
+  with a rolled-back live transaction and removed only its temporary guard;
+  a manual board report sharing the ID prefix remained unaffected.
 - First post-install evidence serialization failed on a SQLite Row. The installed
   transaction was inspected read-only afterward; it was not blindly replayed.
 - B's private receipt at 07:09 UTC reports its live fence cancelled five newly
@@ -49,5 +51,8 @@ appropriate; the live database fence does not require waiting for that restart.
   updated. C's receipt at 07:11 UTC reports one pending announcement cancelled,
   pending=0, and its installed C skill updated. These are node-reported results,
   distinct from A's local readback and tests.
+- A's installed PYNQ skill was updated and its rule read back. Repository host
+  and client skill templates, main/child policy and operational instructions
+  contain the same rule.
 - This change contains no physical board measurements. Board execution remains
   with the existing A board-task owner under the original operation/commit IDs.
