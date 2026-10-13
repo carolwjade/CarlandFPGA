@@ -1,5 +1,7 @@
 # 给 B/C 队友
 
+协作技能统一使用 B/C 共用客机包 `mesh-skill-bc`；在原项目运行其 `scripts/install.py --project-root <原工作区> --node B`（C 改 C）。它独立于下述运行包，不重新入网、不重启服务。新项目会话读项目根 `.agents/skills/fpga-multi-node/SKILL.md`；旧零散协作说明已归入该技能。
+
 这是**多机协作 ZIP**，与 `pynq-z2-single-node` **单机技能 ZIP** 分开。把本 ZIP 和[队友 Codex 提示](deploy/TEAMMATE_PROMPT.md)交给各自的 Codex 会话，说明本机是 B 还是 C。Codex 从解压目录运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B`（C 机改 C），脚本同步公开仓库、尝试安装缺失工具、配置本机主从与跨机服务，并逐项产生真实验收证据。单机技能需要时另从技能 ZIP 安装，不影响多机接入。
 
 每个新飞书身份先发布并加入 `FPGA/AI/DEV`，再由入口脚本用该身份**发送一条入群自测消息，并读回同一条消息**。两个身份分别通过才报告六角色中的本机两角色已上线；失败会留下本机回执供重试，不把网络/权限失败误报为成功。DeepSeek 只在此部署检查中读取一次，不开常驻群监听。

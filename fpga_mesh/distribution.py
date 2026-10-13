@@ -20,6 +20,7 @@ _KEY_PATTERN = re.compile(
 _PRIVATE_FILENAMES = {"auth.json", "deepcodex.txt", "id_ed25519", "id_rsa", "id_ecdsa", "id_dsa"}
 _PRIVATE_SUFFIXES = ("-secret.txt", ".p12", ".pfx", ".pem", ".key", ".lic")
 _CLIENT_DEST = "skills/pynq-z2-single-node/"
+_MESH_SKILL_DEST = ".agents/skills/fpga-multi-node/"
 _CLIENT_SOURCES = {
     "INSTALL.md": "packaging/pynq-client/INSTALL.md",
     "Install.ps1": "skills/pynq-z2-single-node/Install.ps1",
@@ -39,6 +40,9 @@ def select_package_paths(paths: list[str], profile: str) -> list[str]:
     if profile == "mesh":
         return [path for path in paths if not (
             path.startswith("skills/pynq-z2-single-node/")
+            or path.startswith(_MESH_SKILL_DEST)
+            or path.startswith("packaging/multi-node-client/")
+            or path == "tests/test_mesh_skill_distribution.py"
             or path.startswith("docs/deployment/SINGLE_NODE_")
             or path.startswith("docs/deployment/HOST_TOOLCHAIN_")
             or path.startswith("docs/deployment/evidence/pynq-z2-")
@@ -47,6 +51,48 @@ def select_package_paths(paths: list[str], profile: str) -> list[str]:
             or path.startswith("tests/test_pynq_z2_")
         )]
     raise ValueError(f"unknown package profile: {profile}")
+
+
+def build_mesh_skill_archive(
+    root: Path, role: str, output: Path, *, revision: str, paths: list[str] | None = None,
+) -> Path:
+    """One A host package and one shared B/C client package from common sources."""
+    if role not in {"a", "bc"}:
+        raise ValueError("mesh skill role must be a or bc")
+    root = Path(root).resolve()
+    source = root / _MESH_SKILL_DEST
+    selected = ([root / name for name in paths if name.startswith(_MESH_SKILL_DEST)]
+                if paths is not None else list(source.rglob("*")))
+    with tempfile.TemporaryDirectory(prefix="mesh-skill-") as temporary:
+        staging = Path(temporary)
+        files = []
+        for item in sorted(selected):
+            if item.is_symlink():
+                raise ValueError("symlink cannot enter skill package")
+            if not item.is_file() or "__pycache__" in item.parts or item.suffix == ".pyc":
+                continue
+            relative = item.relative_to(source).as_posix()
+            replacement = {
+                "SKILL.md": "SKILL.md", "skill-role.json": "skill-role.json",
+                "agents/openai.yaml": "openai.yaml",
+            }.get(relative)
+            original = (root / "packaging/multi-node-client" / replacement
+                        if role == "bc" and replacement else item)
+            if paths is not None and original.relative_to(root).as_posix() not in paths:
+                raise ValueError("skill source is not tracked")
+            target = staging / _MESH_SKILL_DEST / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(original.read_bytes())
+            files.append(_MESH_SKILL_DEST + relative)
+        # Reuse the existing standard-library evidence tool; no board executors.
+        handoff = _MESH_SKILL_DEST + "scripts/handoff.py"
+        if paths is not None and "skills/pynq-z2-single-node/scripts/handoff.py" not in paths:
+            raise ValueError("handoff source is not tracked")
+        (staging / handoff).write_bytes(
+            (root / "skills/pynq-z2-single-node/scripts/handoff.py").read_bytes())
+        files.append(handoff)
+        return build_archive(staging, files, output, revision=revision,
+                             profile=f"mesh-skill-{role}")
 
 
 def build_archive(
@@ -165,7 +211,7 @@ def build_client_archive(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--profile", choices=("mesh", "pynq-skill", "pynq-client-b", "pynq-client-c"), default="mesh")
+    parser.add_argument("--profile", choices=("mesh", "mesh-skill-a", "mesh-skill-bc", "pynq-skill", "pynq-client-b", "pynq-client-c"), default="mesh")
     parser.add_argument("--previous-archive", type=Path, action="append", default=[],
                         help="Known previously distributed ZIP; repeat for compatibility")
     args = parser.parse_args()
@@ -184,7 +230,13 @@ def main() -> None:
         ["git", "rev-parse", "HEAD"], cwd=root,
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    if args.profile.startswith("pynq-client-"):
+    if args.profile.startswith("mesh-skill-"):
+        path = build_mesh_skill_archive(root, args.profile.removeprefix("mesh-skill-"),
+                                        args.output, revision=revision,
+                                        paths=[name for name in listed.split("\0") if name])
+        with zipfile.ZipFile(path) as archive:
+            file_count = len(archive.namelist()) - 1
+    elif args.profile.startswith("pynq-client-"):
         path = build_client_archive(root, args.profile[-1].upper(),
                                     args.output, revision=revision)
         with zipfile.ZipFile(path) as archive:

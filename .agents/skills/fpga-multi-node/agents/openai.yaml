@@ -1,0 +1,6 @@
+interface:
+  display_name: "FPGA 三机协作 · A 主机"
+  short_description: "Host A coordination, peer work, PR and evidence handoff"
+  default_prompt: "使用 $fpga-multi-node 处理本项目的 A 主机协作任务，沿用现有身份和服务。"
+policy:
+  allow_implicit_invocation: true

@@ -1,5 +1,7 @@
 # CarlandFPGA 三机协作控制器
 
+项目多机协作知识统一在 [fpga-multi-node](.agents/skills/fpga-multi-node/SKILL.md)。技能分为 A 主机与 B/C 共用客机两个独立 ZIP；安装到既有项目的 `.agents/skills`，根 AGENTS 将其设为所有项目会话入口。操作协议、PR/板卡交接及本轮实际故障处理在该技能按需读取；PYNQ 单机设计工具保持独立。技能安装不更换身份、凭据或重启服务。
+
 本项目把三位成员各自的 Codex/ChatGPT 订阅用于 GPT 主会话。独立任务自动建立会话，模型与推理深度按任务选择；本机所有主会话共享原 Astra 飞书身份。执行工作优先交给指定 API key 的 DeepSeek Flash，始终为最高 `max`；没有默认数量，按需启用与回收。特殊需要保留 GPT 原生 subagent 入口，两入口共享任务去重和文件所有权账本。决策、验收、重难点、关键优化、评估由质量主模型完成。全部 DeepSeek 实例共用本机 DeepSeek 群身份，六个群角色及权限不变。只有 A 机接板卡。
 
 GPT 主会话与原生角色均使用 Codex 官方 `openai` 通道。双击 [更新官方模型](deploy/更新官方模型.cmd)，再点击页面的“更新官方模型”，即可重新读取官方目录、推理档位及新模型的原生入口；`official-latest` 跟随官方默认。更新失败保留旧目录、角色和正在执行的任务，不修改账号凭据。新模型须已由官方向当前账号/客户端开放，原生角色定义在新加载的会话生效。十个旧角色的实际迁移及双入口验收见 [官方模型路由验收](docs/deployment/OFFICIAL_MODEL_ROUTING_ACCEPTANCE_2026-10-10.md)。
@@ -14,6 +16,8 @@ GPT 主会话与原生角色均使用 Codex 官方 `openai` 通道。双击 [更
 
 ```powershell
 python -m fpga_mesh.distribution --profile mesh --output artifacts/CarlandFPGA-mesh.zip
+python -m fpga_mesh.distribution --profile mesh-skill-a --output artifacts/fpga-multi-node-host-a.zip
+python -m fpga_mesh.distribution --profile mesh-skill-bc --output artifacts/fpga-multi-node-client-bc.zip
 python -m fpga_mesh.distribution --profile pynq-skill --output artifacts/pynq-z2-single-node.zip
 python -m fpga_mesh.distribution --profile pynq-client-b --output artifacts/pynq-z2-client-b.zip
 python -m fpga_mesh.distribution --profile pynq-client-c --output artifacts/pynq-z2-client-c.zip

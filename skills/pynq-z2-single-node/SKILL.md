@@ -25,4 +25,4 @@ description: Use when developing or verifying an FPGA design for the AMD PYNQ-Z2
 
 本地已可用的仿真器与 Vivado Tcl 是默认执行通道；发现并验证 AMD 官方 Vivado MCP 后可选用，仍以真实工具输出为证据。公众号的 Codex + DeepSeek + Vivado MCP 组合是可参考的协作形式，不要求特定模型、全局权限设置或 MCP 才能运行本技能。
 
-三机使用时，B/C 可开发、仿真并交付代码与测试建议；只有 A 安排物理 PYNQ-Z2 操作。按 [交接清单](references/handoff.md) 生成并核验请求、日志与文件哈希。该清单不自动提交现有 `HardwareService`，也不启用 `hardware_enabled`；`passed` 必须对应非空、真实可审阅的运行日志。若课题采用随钻测井链路，另读 [遥测方案选项](references/telemetry-option.md)。
+按 [本机证据清单](references/handoff.md) 生成并核验请求、日志与文件哈希；`passed` 必须对应非空、真实可审阅的运行日志。多机派工、PR 与共享板卡职责统一读取项目根 `.agents/skills/fpga-multi-node/SKILL.md`，本技能只维护单机设计与 A 的物理执行入口。清单不自动提交硬件队列或启用 `hardware_enabled`。若课题采用随钻测井链路，另读 [遥测方案选项](references/telemetry-option.md)。
