@@ -15,7 +15,7 @@ description: Use when developing or verifying PYNQ-Z2 FPGA work on client node @
 
 ## 提交 A 机板测
 
-按 [Git 交接与反馈](references/handoff.md) 完成以下闭环：先提交设计与本机证据，记录源码提交 SHA；用 `scripts/handoff.py` 为仓库内文件生成并校验包含 `request_hash` 与 SHA-256 的清单；再提交清单、推送节点 @NODE@ 分支，向 `carolwjade/CarlandFPGA` 的 `main` 发 PR。PR 写明 operation ID、源码 SHA、清单路径、测试步骤与预期结果。公开仓库不提交凭据、私人板卡标识或未脱敏日志。现有多机控制器可用时，把 PR 地址和 request hash 通知 Astra-A；PR 是可追溯的正式交接，不依赖飞书在线。
+按 [Git 交接与反馈](references/handoff.md) 完成以下闭环：先提交设计与本机证据，记录源码提交 SHA；用 `scripts/handoff.py` 为仓库内文件生成并校验包含 `request_hash` 与 SHA-256 的清单；再提交清单、推送节点 @NODE@ 分支，向 `carolwjade/CarlandFPGA` 的 `main` 发 PR。PR 写明 operation ID、源码 SHA、清单路径、测试步骤与预期结果。公开仓库不提交凭据、私人板卡标识或未脱敏日志。现有多机控制器可用时，把 PR 地址和 request hash 通知 Astra-A；PR 是可追溯的正式交接，不依赖飞书在线。多机协作使用静默在场：未经人类主动询问，不主动群发任何节点上线、离线、恢复、重连或健康探针观测；人类明确询问按当前证据答复，确有任务阻塞只简洁报告任务影响。A/B/C 与 DeepSeek 均适用。
 
 A 在 A 机核对 PR、上传并测试同一提交后，将包含 operation ID、request hash、实测提交 SHA、阶段状态及证据位置/哈希的反馈留在该 PR。节点 @NODE@ 收到通知再读取反馈，核对身份与版本；只有引用真实板卡日志且对应本次提交的 A 机结果，才可把硬件阶段标记为实测。失败时修正代码，提交新版本和新 operation ID/清单，请 A 重测。等待期间继续本机可做的开发，避免轮询或重复提交。
 

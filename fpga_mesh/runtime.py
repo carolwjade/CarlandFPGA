@@ -149,6 +149,9 @@ class NodeRuntime:
     def __init__(self, config: NodeConfig):
         self.config = config
         self.store = SQLiteStore(config.state_dir / "state.sqlite")
+        # Retain unsent legacy presence rows as cancelled audit evidence.
+        from .presence_policy import install_fence
+        install_fence(config.state_dir / "state.sqlite")
         self.main_sessions = MainSessionRouter(config.state_dir / 'main_sessions.sqlite')
         self._recording_gateways: list[RecordingGateway] = []
         self.dynamic_children = ChildDynamicTools(LocalControlFileClient(
@@ -528,18 +531,8 @@ class NodeRuntime:
                 pass
 
     def _note_peer_status(self, peer_id: str, online: bool) -> None:
-        previous = self._peer_presence.get(peer_id)
+        # Health observations are internal; explicit human queries use snapshot.
         self._peer_presence[peer_id] = online
-        if previous is online or self.feishu is None:
-            return
-        status = "上线" if online else "离线"
-        self.store.enqueue_group_report(
-            f"peer:{self.config.node_id}:{peer_id}:{uuid.uuid4().hex}",
-            f"Astra-{self.config.node_id} 观察到 Astra-{peer_id} {status}。"
-            + ("可继续交换任务和实测结果。" if online else
-               "本机继续独立推进；发给该节点的消息会排队补发。"),
-        )
-        self.feishu.notify_report()
 
     def _observe_quota(self, response: dict) -> None:
         state = self._quota_monitor.observe(
