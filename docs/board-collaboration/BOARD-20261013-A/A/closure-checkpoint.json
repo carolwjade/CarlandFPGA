@@ -1,0 +1,44 @@
+{
+  "task_id": "BOARD-20261013-A",
+  "recorded_at": "2026-10-13T09:35:14.721040+00:00",
+  "basic_physical_execution_and_error_feedback": "verified",
+  "B_functional_BRAM": "failed_at_metadata_zero_comparisons",
+  "C_controlled_error_feedback": "passed_expected_error",
+  "B_C_readback": [
+    {
+      "message_id": "A:BOARD-20261013-A:B:actual-board-result-r1-readback-confirmed",
+      "sender": "B/Astra-B",
+      "received_at": "2026-10-13T08:58:17.940133Z",
+      "same_pr_readback_url": "https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6142007242",
+      "authenticated_mesh_inbox": true
+    },
+    {
+      "message_id": "A:BOARD-20261013-A:C:pr8-formal-readback-v3",
+      "sender": "C/Astra-C",
+      "received_at": "2026-10-13T09:27:45.229453Z",
+      "same_pr_readback_url": "https://github.com/carolwjade/CarlandFPGA/pull/8#issuecomment-6142506646",
+      "authenticated_mesh_inbox": true
+    }
+  ],
+  "A_group_summary": {
+    "operation_id": "BOARD-20261013-A:measured-board-feedback-v1",
+    "created_at": "2026-10-13T08:54:21.369261Z",
+    "sent_at": null,
+    "platform_message_id": null,
+    "cancelled_at": null
+  },
+  "A_token_recovery": {
+    "status": "blocked_by_access_control_21001",
+    "app_enabled_and_published": true,
+    "application_ip_allowlist": "empty",
+    "current_account_admin_console": "requires_organization",
+    "root_cause": "not_determined"
+  },
+  "C_authorized_relay": {
+    "operation_id": "BOARD-20261013-A:C:authorized-measured-summary-v1",
+    "status": "requested_not_yet_verified"
+  },
+  "duplicate_PR10": "closed_not_merged_not_executed",
+  "acceptance_scope": "basic A-led shared-board execution and actual error feedback; functional validation and group delivery remain separately tracked",
+  "raw_log_anchor_commit": "0757235a288a1ec7ee657429f0d701a4f8e7102c"
+}
