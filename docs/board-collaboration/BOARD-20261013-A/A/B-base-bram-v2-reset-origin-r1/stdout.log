@@ -1,0 +1,59 @@
+{
+  "code_commit": "3f9e9a52c950c0bbac24675e7fb49c8fe46a50c7",
+  "errors": [
+    {
+      "message": "'iop_pmoda/mb_bram_ctrl'",
+      "phase": "metadata",
+      "type": "KeyError"
+    }
+  ],
+  "evidence_kind": "hardware",
+  "expected_samples": 384,
+  "files": {
+    "bit": {
+      "path": "/usr/local/share/pynq-venv/lib/python3.10/site-packages/pynq/overlays/base/base.bit",
+      "sha256": "ecabdcb5d483c75335ab6f043824a2386971c7b0ffd6e3315f24860bf5088eb6"
+    },
+    "hwh": {
+      "path": "/usr/local/share/pynq-venv/lib/python3.10/site-packages/pynq/overlays/base/base.hwh",
+      "sha256": "cbd90c84f3a46d1eba95dff7ba7d0079812f7e46641a08e2318c9928cd36ce8f"
+    }
+  },
+  "finished_utc": "2022-10-22T01:15:17.325317+00:00",
+  "matching_samples": 0,
+  "observed_samples": 0,
+  "operation_id": "BOARD-20261013-A:B:base-bram-v2-reset-origin-r1",
+  "original_configuration_restored": false,
+  "post_load_overlay": {
+    "bitfile_name": "/usr/local/share/pynq-venv/lib/python3.10/site-packages/pynq/overlays/base/base.bit",
+    "identity_status": "known",
+    "timestamp": "2022/10/22 1:15:17 +324159"
+  },
+  "pre_load_overlay": {
+    "bitfile_name": null,
+    "identity_status": "unknown",
+    "timestamp": null
+  },
+  "request_hash": "ee52a9f5330b8a5a8a04367a5bd1f18b233d739b1b865941850846fef53dc28d",
+  "restoration": {
+    "reset_restore_withheld": false,
+    "reset_restored": false,
+    "words": []
+  },
+  "runtime": {
+    "machine": "armv7l",
+    "pynq": "3.0.1",
+    "pynq_import_path": "/usr/local/share/pynq-venv/lib/python3.10/site-packages/pynq/__init__.py",
+    "python": "3.10.4",
+    "system": "Linux"
+  },
+  "samples": [],
+  "schema_version": 2,
+  "script_sha256": "fde7bc99aca19ef32ff0137c5045e4262fa5a3eac1b080465f964105a7c6384f",
+  "started_utc": "2022-10-22T01:14:44.969814+00:00",
+  "status": "failed",
+  "task_id": "BOARD-20261013-A-B",
+  "task_version": 2,
+  "tested_commit": "bb0d302331785defb59fc8d47eeea5d27fb33e81",
+  "work_id": "B-base-overlay-bramtest-v2"
+}
