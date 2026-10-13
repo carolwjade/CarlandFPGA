@@ -1,6 +1,8 @@
 # BOARD-20261013-A: actual board feedback
 
-Status: BASIC_SHARED_BOARD_ACCEPTED_WITH_CHANNEL_FALLBACK. Actual A-led shared-board execution, error feedback, B/C readback and original-group delivery are verified. Functional BRAM validation failed at metadata lookup, with zero comparisons. The human explicitly accepted existing Tailscale, GitHub and Feishu chat substitutes and excluded repair of every API limitation from this basic acceptance.
+Current status: **BRAM_FUNCTIONAL_PASSED** for the authorized v3 metadata repair. A verified exit0, 384/384 actual MMIO comparisons and all16 restored original words, observed reset restoration and export cleanup. See [current v3 measured evidence](metadata-v3-board-run-r1/README.md). B has independently read this result back. The PASS summary is visibly published in the original group by Astra-B, independently observed by A. C completed the frozen pre-board source/request review; its extra post-measurement readback remains a separately tracked optional confirmation.
+
+Prior basic workchain phase: BASIC_SHARED_BOARD_ACCEPTED_WITH_CHANNEL_FALLBACK. The v2 BRAM attempt failed at metadata lookup with zero comparisons; the authentic error feedback and original-group delivery were accepted separately. The following earlier records remain preserved as historical evidence.
 
 The human scope is to let B/C submit content to A, have A execute it through the actual connected PYNQ-Z2, and return results and errors to the same PR and group. A alone performs physical operations.
 
