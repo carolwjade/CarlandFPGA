@@ -1,0 +1,46 @@
+{
+  "version": "2026.10.13.3",
+  "source_commit": "111781bf9939ee15fced924c09eb680a101ff1ad",
+  "package_sha256": "da5e35d00b5bf8dc34cf950671a08bb368661dfdca81e03a2bf8f42abc220b19",
+  "expected_client_skill_sha256": {
+    "fpga-multi-node": "45040df3a8eeb1156c7a01b05d8ee905d8a22a62fc0ca9e886bd669fdb00df03",
+    "pynq-z2-single-node": "1c330146bf0f9192eb6ebada38fb96527a6f68c5c5a61b2a32c1fd5bb55b1c5b"
+  },
+  "A": {
+    "status": "installed_verified",
+    "config_and_service_unchanged": true,
+    "legacy_remaining": 0,
+    "same_version_reinstall": "unchanged"
+  },
+  "B": {
+    "status": "peer_reported_installed_verified",
+    "authenticated_receipt": "A:B:SKILLS-20261013-UNIFIED:B:install-2026.10.13.3-v2:verified",
+    "received_at": "2026-10-13T12:08:02.941502Z",
+    "reported_skill_hashes_match_release": true,
+    "config_and_service_unchanged_reported": true,
+    "legacy_remaining_reported": 0,
+    "same_version_reinstall_reported": "unchanged"
+  },
+  "C": {
+    "status": "install_request_delivered_awaiting_receipt",
+    "original_operation_id": "SKILLS-20261013-UNIFIED:C:install-2026.10.13.3-v2",
+    "status_query_operation_id": "SKILLS-20261013-UNIFIED:C:status-query-v2-once",
+    "state_boundary": "transport delivery confirmed; no final installation receipt yet"
+  },
+  "group": {
+    "status": "peer_reported_message_readback_and_download_verified",
+    "publisher": "B/Astra-B",
+    "authorized_relay_for": "A",
+    "operation_id": "SKILLS-20261013-UNIFIED:group:bc-package-2026.10.13.3-v1",
+    "file_message_id": "om_x100b63d5b0c5a8b0c3f2ace942c8234",
+    "text_message_id": "om_x100b63d5b0eb48acde24c23df78d089",
+    "download_bytes": 43624,
+    "download_sha256": "da5e35d00b5bf8dc34cf950671a08bb368661dfdca81e03a2bf8f42abc220b19",
+    "authenticated_receipt": "A:B:SKILLS-20261013-UNIFIED:B:publish-bc-file-2026.10.13.3-v2:verified",
+    "received_at": "2026-10-13T12:12:01.882026Z",
+    "A_token_API_recovery_claimed": false
+  },
+  "new_conversation_required": true,
+  "hardware_action_this_task": false,
+  "main_branch_merged": false
+}
