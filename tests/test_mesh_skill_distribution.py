@@ -155,6 +155,17 @@ class MeshSkillTests(unittest.TestCase):
             self.assertEqual((project / "AGENTS.md").read_bytes(), before)
             self.assertFalse((project / ".agents").exists())
 
+    def test_saved_config_snapshot_is_not_an_extra_node(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            package = self.make_package(root, "a")
+            project = self.project(root, "A")
+            snapshot = project / ".local/deployment/node-a/node-a-before-reload-v2.toml"
+            snapshot.write_text('node_id = "A"\n', encoding="utf-8")
+            result = self.installer(package).install(package / PREFIX, project, "A")
+            self.assertEqual(result["status"], "installed")
+            self.assertEqual(snapshot.read_text(), 'node_id = "A"\n')
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -101,7 +101,8 @@ def install(source: Path, project: Path, node: str) -> dict:
     verify_package(source)
     if not (project / ".git").exists():
         raise ValueError("project must be an existing Git checkout")
-    configs = list((project / ".local/deployment").glob("node-*/node-*.toml"))
+    configs = [p for p in (project / ".local/deployment").glob("node-*/node-*.toml")
+               if p.name == p.parent.name + ".toml"]
     if len(configs) != 1 or tomllib.loads(configs[0].read_text(encoding="utf-8-sig")).get("node_id") != node:
         raise ValueError("existing node identity does not match installation role")
     with installation_lock(project):
