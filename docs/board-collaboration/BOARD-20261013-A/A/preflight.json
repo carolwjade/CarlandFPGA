@@ -1,0 +1,22 @@
+{
+  "task_id": "BOARD-20261013-A",
+  "owner": "A/root",
+  "status": "runtime_probe_passed; physical_PL_test_not_run",
+  "board": {
+    "type": "PYNQ-Z2",
+    "python": "3.10.4",
+    "pynq": "3.0.1",
+    "kernel": "5.15.19-xilinx-v2022.1",
+    "bit_sha256": "ecabdcb5d483c75335ab6f043824a2386971c7b0ffd6e3315f24860bf5088eb6",
+    "hwh_sha256": "cbd90c84f3a46d1eba95dff7ba7d0079812f7e46641a08e2318c9928cd36ce8f"
+  },
+  "runtime_probe_stdout_sha256": "6215330dcc108c3732d391fa61eb63733a2189491ea352c64b483a859d9bb7e9",
+  "tool_versions": {
+    "Vivado": "2026.1 SW Build6511674; read-only catalog exit0, version wrapper exit1 retained",
+    "ModelSim": "SE-64 2020.4; vsim/vlog version exit0"
+  },
+  "new_custom_synthesis": "not_run",
+  "new_custom_implementation": "not_run",
+  "physical_overlay_load": "not_run",
+  "prior_PL_identity": "bitfile_name and timestamp unknown/null, manager operating"
+}
