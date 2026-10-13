@@ -14,7 +14,7 @@ import uuid
 import zipfile
 from pathlib import Path
 
-VERSION = "2026.10.13.2"
+VERSION = "2026.10.13.3"
 SKILLS = ("fpga-multi-node", "pynq-z2-single-node")
 PREFIX = ".agents/skills/"
 BEGIN, END = "<!-- fpga-project-skills:begin -->", "<!-- fpga-project-skills:end -->"
@@ -288,7 +288,9 @@ def install(source: Path, project: Path, node: str, *, cleanup_legacy: bool = Fa
         raise ValueError("exactly one existing formal node configuration is required")
     plain_path(configs[0])
     config_bytes = configs[0].read_bytes()
-    if tomllib.loads(config_bytes.decode("utf-8-sig")).get("node_id") != node:
+    # Match the controller's universal-newline text reading, but retain raw bytes
+    # for race detection and exact configuration preservation.
+    if tomllib.loads(config_bytes.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n")).get("node_id") != node:
         raise ValueError("existing node identity does not match installation role")
     with installation_lock(project):
         if verify_package(source) != (manifest, sources) or configs[0].read_bytes() != config_bytes:

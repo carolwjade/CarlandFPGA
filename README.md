@@ -1,6 +1,6 @@
 # CarlandFPGA 三机协作控制器
 
-本项目只有两个项目级技能：[fpga-multi-node](.agents/skills/fpga-multi-node/SKILL.md) 管理协作、模型、交接与恢复；[pynq-z2-single-node](.agents/skills/pynq-z2-single-node/SKILL.md) 管理设计、工具、metadata 与实板方法。两者统一放在项目 `.agents/skills`，分 A 主机和 B/C 共用客机两个角色 ZIP；按既有 node_id 安装，根 AGENTS 配置全部项目新会话入口。版本 2026.10.13.2 的经验含真实 metadata/BRAM 修复，安装同时清理旧全局副本与可发现备份；凭据、状态和运行服务保留。
+本项目只有两个项目级技能：[fpga-multi-node](.agents/skills/fpga-multi-node/SKILL.md) 管理协作、模型、交接与恢复；[pynq-z2-single-node](.agents/skills/pynq-z2-single-node/SKILL.md) 管理设计、工具、metadata 与实板方法。两者统一放在项目 `.agents/skills`，分 A 主机和 B/C 共用客机两个角色 ZIP；按既有 node_id 安装，根 AGENTS 配置全部项目新会话入口。版本 2026.10.13.3 的经验含真实 metadata/BRAM 修复，安装同时清理旧全局副本与可发现备份；凭据、状态和运行服务保留。
 
 本项目把三位成员各自的 Codex/ChatGPT 订阅用于 GPT 主会话。独立任务自动建立会话，模型与推理深度按任务选择；本机所有主会话共享原 Astra 飞书身份。执行工作优先交给指定 API key 的 DeepSeek Flash，始终为最高 `max`；没有默认数量，按需启用与回收。特殊需要保留 GPT 原生 subagent 入口，两入口共享任务去重和文件所有权账本。决策、验收、重难点、关键优化、评估由质量主模型完成。全部 DeepSeek 实例共用本机 DeepSeek 群身份，六个群角色及权限不变。只有 A 机接板卡。
 
@@ -16,8 +16,8 @@ GPT 主会话与原生角色均使用 Codex 官方 `openai` 通道。双击 [更
 
 ```powershell
 python -m fpga_mesh.distribution --profile mesh --output artifacts/CarlandFPGA-mesh.zip
-python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/skills-2026.10.13.2-a.zip
-python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/skills-2026.10.13.2-bc.zip
+python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/skills-2026.10.13.3-a.zip
+python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/skills-2026.10.13.3-bc.zip
 ```
 
 本机回归：

@@ -80,7 +80,7 @@ class MeshSkillTests(unittest.TestCase):
                 nodes = ["A"] if role == "a" else ["B", "C"]
                 manifest = json.loads((package / "MANIFEST.json").read_text())
                 self.assertEqual(manifest["profile"], "project-skills-" + role)
-                self.assertEqual(manifest["version"], "2026.10.13.2")
+                self.assertEqual(manifest["version"], "2026.10.13.3")
                 self.assertEqual(manifest["revision"], "a" * 40)
                 self.assertEqual({p.parent.name for p in (package / PREFIX).glob("*/SKILL.md")}, set(SKILLS))
                 for skill in SKILLS:
@@ -108,7 +108,7 @@ class MeshSkillTests(unittest.TestCase):
                 config_before = config.read_bytes()
                 first = installer.install(package, project, node)
                 self.assertTrue((project / "AGENTS.md").read_bytes().startswith(before))
-                self.assertEqual(first["version"], "2026.10.13.2")
+                self.assertEqual(first["version"], "2026.10.13.3")
                 self.assertTrue(first["new_conversation_required"])
                 backups = list((project / ".local/skill-backups").iterdir())
                 second = installer.install(package / PREFIX / SKILLS[0], project, node,
@@ -214,6 +214,21 @@ class MeshSkillTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     self.installer(package).install(package, project, "A")
                 self.assertFalse((project / ".agents").exists())
+
+    def test_existing_config_universal_newlines_preserve_original_bytes(self):
+        for ending, bom in ((b"\r\r\n", b""), (b"\r\n", b""), (b"\r", b""), (b"\r\r\n", b"\xef\xbb\xbf")):
+            with self.subTest(ending=ending, bom=bool(bom)), tempfile.TemporaryDirectory() as temp:
+                root = Path(temp)
+                package = self.make_package(root, "bc")
+                project = self.project(root, "B")
+                config = project / ".local/deployment/node-b/node-b.toml"
+                raw = bom + ending.join((b'node_id = "B"', b'project_id = "fpga-main"', b''))
+                config.write_bytes(raw)
+                self.assertEqual(__import__("tomllib").loads(config.read_text(encoding="utf-8-sig"))["node_id"], "B")
+                result = self.installer(package).install(package, project, "B")
+                self.assertEqual(result["status"], "installed")
+                self.assertEqual(config.read_bytes(), raw)
+                self.assertEqual(self.installer(package).install(package, project, "B")["status"], "unchanged")
 
     def test_second_publish_failure_rolls_back_both_skills_and_rules(self):
         with tempfile.TemporaryDirectory() as temp:
