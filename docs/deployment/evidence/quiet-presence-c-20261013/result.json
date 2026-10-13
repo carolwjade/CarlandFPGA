@@ -1,0 +1,33 @@
+{
+  "node": "C",
+  "task_id": "task-e204f9f5357a1e6b9dc5a8d5",
+  "task_version": 1791874858245,
+  "verified_at": "2026-10-13T07:09:32.411010+00:00",
+  "isolated_cases_passed": 7,
+  "trigger": "suppress_unsolicited_peer_presence_C",
+  "trigger_installed": true,
+  "cancelled_existing": 1,
+  "pending_automatic_presence": 0,
+  "service_restarted": false,
+  "history_deleted": false,
+  "match": "legacy C Astra presence operation prefix plus exact generated text",
+  "subsequent_runtime_observation": {
+    "at": "2026-10-13T07:23:40.609573+00:00",
+    "generated": 23,
+    "cancelled": 23,
+    "sent": 0
+  },
+  "common_fix_commit": "ba2725890179be264c261d315012f4acf8718732",
+  "common_fix_regression": {
+    "command": "python -m unittest tests.test_presence_policy tests.test_runtime -q",
+    "tests": 13,
+    "result": "passed"
+  },
+  "skill_validation": {
+    "manual_skill_validation": "passed",
+    "yaml_validator": "not_run_PyYAML_unavailable",
+    "client_role": "C",
+    "board_access": false,
+    "skill_sha256": "606f5fd8e07c2695232041e6fd76e10b6a7c48379d35f644c0ea4a6e7eb7293d"
+  }
+}

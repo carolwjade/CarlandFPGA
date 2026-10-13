@@ -51,6 +51,16 @@ appropriate; the live database fence does not require waiting for that restart.
   updated. C's receipt at 07:11 UTC reports one pending announcement cancelled,
   pending=0, and its installed C skill updated. These are node-reported results,
   distinct from A's local readback and tests.
+- C's subsequent [result](evidence/quiet-presence-c-20261013/result.json) records
+  23 generated announcements cancelled and zero sent at 07:23 UTC, plus 13
+  presence/runtime tests passing against `ba2725890179be264c261d315012f4acf8718732`.
+  Its [installed skill rule](evidence/quiet-presence-c-20261013/installed-skill-rule.md)
+  is included unchanged. C supplied these two files as a format-patch because
+  its GitHub push timed out, reporting source commit
+  `f9bad22d629e9b8c7c7ae6a6a25e3ff2757c8523`. A verified the decoded file sizes
+  (720 and 1128 bytes), exact Git blob IDs and JSON identity before importing
+  them. This verifies received artifact integrity, not independent access to
+  C's live database; its unavailable YAML validator remains explicitly not run.
 - A's installed PYNQ skill was updated and its rule read back. Repository host
   and client skill templates, main/child policy and operational instructions
   contain the same rule.
