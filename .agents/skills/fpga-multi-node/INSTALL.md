@@ -1,13 +1,23 @@
-# 项目级技能安装
+# 两技能项目安装与升级
 
-这是 A 主机包；B/C 使用共用客机包。技能只更新知识和本项目入口，依赖各机既有控制器，不安装/重启服务、不迁移凭据、不重新入网。
-
-解压后使用已有 Python 3.12+，以实际项目路径与节点运行：
+版本 `2026.10.13.2`：项目只配置 fpga-multi-node 与 pynq-z2-single-node。A 主机包允许 A，B/C 共用包按本机既有 node_id 选择 B 或 C；不另建全局技能。解压到临时目录，从解压根使用实际 Python 3.12+：
 
 ```powershell
-python -X utf8 .agents/skills/fpga-multi-node/scripts/install.py --project-root <现有CarlandFPGA目录> --node A
+python -X utf8 .agents/skills/fpga-multi-node/scripts/install.py --project-root <现有项目绝对路径> --node A --cleanup-legacy
+# 客机同一命令将 --node 改为 B 或 C，必须使用客机 ZIP。
 ```
 
-B/C 同一命令将 `--node` 改为本机 B 或 C。安装器先校验 MANIFEST 的完整 revision 和文件哈希，再核对既有节点配置与允许角色。只复制 `.agents/skills/fpga-multi-node` 并在根 AGENTS 维护一个入口块，其他项目规则保留；原技能备份在本项目 `.local/skill-backups/`，同版重装不重复备份。配置、账本与服务不修改。
+安装器校验完整 MANIFEST revision、版本、文件集合/原始字节哈希、两个角色和正式节点配置后，互斥更新项目 `.agents/skills` 中这两个目录与根 AGENTS 入口。同版重装保持不变，旧内容存本项目 `.local/skill-backups` 的非发现备份；其他项目规则和不相关技能保留。既有配置、凭据、账本、任务、服务和人工暂停不修改。
 
-项目根及子目录的新会话自动发现统一技能；根 AGENTS 要求全部会话遵循它。已生成的回合保持原上下文，不要求为技能升级中断活动会话。只按需载入参考文档。
+`--cleanup-legacy` 清除确属本项目的旧全局同名技能与备份（既有 CODEX_HOME/skills、用户 .codex/skills、用户 .agents/skills），先保存项目内 ZIP 和清理记录。拒绝目录链接/越界路径；未知名称或身份不明的技能不删除。旧项目 `skills/pynq-z2-single-node` 由本轮迁移清除，保留历史 Git 与测量证据；旧桌面交付包先归档进项目再替换新版。不要把备份的 SKILL.md 目录放进任何技能发现根。
+
+两个角色 ZIP 从干净、已提交、跟踪的源码构建：
+
+```powershell
+python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/skills-2026.10.13.2-a.zip
+python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/skills-2026.10.13.2-bc.zip
+```
+
+B/C 上线后读取新版本与 SHA-256，保存本地改动，在现有项目执行安装和旧残留清理，然后回报本机 node_id、revision、两个技能文件哈希、清理结果与新会话入口。只有发送/ACK 不能称已更新。使用既有持久通信，API 不可用按协作协议的替代链路处理。
+
+新版在开启本项目的新会话后生效。根 AGENTS 要求全部会话读取统一协作入口，单机开发按任务读取 PYNQ 技能；当前生成回合不重载。安装只升级技能，不重新 Join，不重启控制器，不授予云 scope，不开启 hardware_enabled。

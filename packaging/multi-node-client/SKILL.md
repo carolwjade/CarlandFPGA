@@ -11,7 +11,7 @@ description: Use for CarlandFPGA multi-machine tasks on client B or C, including
 
 1. 明确最新人类需求、task_id/task_version、负责人、work_id 与写入归属。接收 A 派工仍须核对本机授权及最新人类指令；纯进度询问只读当前节点证据，不新派工、抢占或修改任务版本。
 2. 按 [协作协议](references/protocol.md) 创建或复用独立主会话，选择允许的下一回合模型/深度。关键判断由质量主模型最高可用深度完成；执行优先按需使用 Flash/max，无默认数量。原生 GPT 仅特殊能力且先 reserve、再 validate、最后 complete。
-3. 在 `codex/b/<task-id>` 或 `codex/c/<task-id>` 的独立任务目录设计、仿真、构建或完成其他真实任务；只写明确归属的文件。需要 PYNQ 设计细节时使用已有对应客机 `pynq-z2-single-node`；本包不提供板卡上传入口。
+3. 在 `codex/b/<task-id>` 或 `codex/c/<task-id>` 的独立任务目录设计、仿真、构建或完成其他真实任务；只写明确归属的文件。需要 PYNQ 设计细节时读取 [单机客机技能](../pynq-z2-single-node/SKILL.md)；本包不提供板卡上传入口。
 4. 按 [交接闭环](references/handoff.md) 提交源码、可公开日志、清单与哈希，推送现有 fork 分支并向现有上游发 PR，用 `fpga_peer_send` 告知 A。取得 A 在同一 PR 的反馈，核对 operation_id/request_hash/tested_commit 及真实证据后回执。A 离线时保留板测请求并继续本机可做的任务，不自行连接、复位、烧录或宣称板测通过。
 5. 成功、失败和等待原因持久保存。queued 和传输 ACK 不代表模型/验收完成。只执行本轮明确范围；任务结束停止模型回合，保留本机常驻监听，等待不调用模型。
 
@@ -27,3 +27,5 @@ description: Use for CarlandFPGA multi-machine tasks on client B or C, including
 - [已发生问题的处理](references/recovery.md)：仅在症状出现时查阅。
 
 安装仅改变本项目技能和入口，不重做入网、不更换凭据、不启动服务或启用硬件队列。B 和 C 使用同一个 ZIP，安装时依据自己的既有 node_id 选择节点。
+
+安装与项目外旧残留清理统一见 [安装/升级](INSTALL.md)，新版在本项目新会话中生效。

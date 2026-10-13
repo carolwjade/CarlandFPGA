@@ -17,11 +17,11 @@ C 改 `-Node C`。原脚本保留本机登录、密钥引用和同伴地址；�
 协作技能独立于运行包，以两个 profile 从已提交源码生成：
 
 ```powershell
-python -m fpga_mesh.distribution --profile mesh-skill-a --output artifacts/fpga-multi-node-host-a.zip
-python -m fpga_mesh.distribution --profile mesh-skill-bc --output artifacts/fpga-multi-node-client-bc.zip
+python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/fpga-multi-node-host-a.zip
+python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/fpga-multi-node-client-bc.zip
 ```
 
-解压对应包，按包内 `INSTALL.md` 使用现有 Python 执行 `scripts/install.py --project-root <原项目> --node <本机>`。它只安装项目技能与 AGENTS 入口，不重启控制器。PYNQ 单机工具仍独立，B/C 不能安装 A 的板卡上传包。
+解压对应包，按包内 `INSTALL.md` 使用现有 Python 从角色包解压根执行 `.agents/skills/fpga-multi-node/scripts/install.py --project-root <原项目> --node <本机> --cleanup-legacy`。它只安装项目技能与 AGENTS 入口，不重启控制器。同一角色包包含多机与单机两个技能；B/C 包不含 A 的板卡入口。新版在新会话生效，旧全局技能按 --cleanup-legacy 清理。
 
 ## 常驻服务诊断
 

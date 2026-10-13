@@ -1,8 +1,10 @@
 {
   "schema": 1,
-  "allowed_nodes": ["A"],
-  "role": "host",
+  "version": "2026.10.13.2",
   "scope": "project",
-  "board_operator": "A",
-  "handoff": "github_pull_request"
+  "role": "host",
+  "allowed_nodes": [
+    "A"
+  ],
+  "board_operator": "A"
 }

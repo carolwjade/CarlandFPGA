@@ -1,11 +1,15 @@
 # 给 B/C 队友
 
-协作技能统一使用 B/C 共用客机包 `mesh-skill-bc`；在原项目运行其 `scripts/install.py --project-root <原工作区> --node B`（C 改 C）。它独立于下述运行包，不重新入网、不重启服务。新项目会话读项目根 `.agents/skills/fpga-multi-node/SKILL.md`；旧零散协作说明已归入该技能。
+既有节点使用 B/C 共用双技能包 `project-skills-bc`。解压到临时目录，从该解压根运行：
 
-这是**多机协作 ZIP**，与 `pynq-z2-single-node` **单机技能 ZIP** 分开。把本 ZIP 和[队友 Codex 提示](deploy/TEAMMATE_PROMPT.md)交给各自的 Codex 会话，说明本机是 B 还是 C。Codex 从解压目录运行 `pwsh -NoProfile -File deploy/Join-FPGAMesh.ps1 -Node B`（C 机改 C），脚本同步公开仓库、尝试安装缺失工具、配置本机主从与跨机服务，并逐项产生真实验收证据。单机技能需要时另从技能 ZIP 安装，不影响多机接入。
+```powershell
+python -X utf8 .agents/skills/fpga-multi-node/scripts/install.py --project-root <原项目绝对路径> --node B --cleanup-legacy
+```
 
-每个新飞书身份先发布并加入 `FPGA/AI/DEV`，再由入口脚本用该身份**发送一条入群自测消息，并读回同一条消息**。两个身份分别通过才报告六角色中的本机两角色已上线；失败会留下本机回执供重试，不把网络/权限失败误报为成功。DeepSeek 只在此部署检查中读取一次，不开常驻群监听。
+C 改 --node C；必须匹配本机正式配置中的 node_id。一次安装项目内 fpga-multi-node 与 pynq-z2-single-node 两个技能，核对版本/清单哈希并清理已确认的旧全局与旧项目路径。保留本地身份、凭据、配置、账本、改动和服务。新版在本项目的新会话生效；单机技能已经在同包中，客机无实板入口。
 
-公开 ZIP **没有** DeepSeek API key、飞书应用 Secret、跨机 HMAC 密钥或 ChatGPT 登录信息。成员在本机准备密钥文件并完成自己的网页登录/飞书授权。群 `FPGA/AI/DEV` 的 ID 已内置为 `oc_e0de73230fd64dd2da3e52fc781dffb1`；A 当前观察到的 Tailscale 地址是 `100.121.238.56`，使用前仍应重新向 A 核验。队友取得各自 100.x 地址后互填另外两台的 URL。授权暂缺时脚本继续可独立完成的步骤，输出本机 `setup-status.json` 和 `NEXT_STEPS.md`，补齐后原命令重跑；具体真人操作见[人工步骤](deploy/HUMAN_STEPS.md)。
+运行控制器 ZIP 与技能包分开。仅升级技能不要 Join 或重启服务；需要更新已有控制器源码时使用原 Update 的 CheckOnly 与空闲栅栏。首次入网才读 [队友提示](deploy/TEAMMATE_PROMPT.md) 和 [人工步骤](deploy/HUMAN_STEPS.md)，完成 Join 后安装本机客机技能，再开始设计任务。
 
-仓库：<https://github.com/carolwjade/CarlandFPGA>。公开克隆不等于写权限，B/C 默认使用自己的 fork 和 PR；自动认领未指定负责人的共享任务还需仓库所有者给予上游 collaborator 权限。
+公开包没有 API key、飞书 Secret、HMAC、SSH 私钥或官方登录信息。成员沿用自己的认证；地址/权限看本轮真实读回，不使用历史 IP。飞书 API 受限可用既有 peer、GitHub 与已授权群直发补齐，分别记录发送、读回、下载哈希和本机安装完成。默认静默在场，等待由常驻程序完成。
+
+仓库：[carolwjade/CarlandFPGA](https://github.com/carolwjade/CarlandFPGA)。公开克隆不等于写权限；B/C 使用现有 fork/PR。详细升级见 [.agents/skills/fpga-multi-node/INSTALL.md](.agents/skills/fpga-multi-node/INSTALL.md)。

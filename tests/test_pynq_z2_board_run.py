@@ -13,7 +13,7 @@ from pathlib import Path
 from unittest import mock
 
 
-SCRIPT = Path(__file__).resolve().parents[1] / "skills/pynq-z2-single-node/scripts/board_run.py"
+SCRIPT = Path(__file__).resolve().parents[1] / ".agents/skills/pynq-z2-single-node/scripts/board_run.py"
 
 
 def board_run():

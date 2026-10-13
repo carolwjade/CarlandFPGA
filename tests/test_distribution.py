@@ -18,7 +18,7 @@ class DistributionTests(unittest.TestCase):
                 self.assertIsNone(archive.testzip())
                 self.assertIn("fpga_mesh/distribution.py", archive.namelist())
 
-    def test_mesh_and_single_node_skill_are_separate_packages(self):
+    def test_controller_and_project_skill_pair_are_separate_packages(self):
         tracked = [
             "README.md", "deploy/Join-FPGAMesh.ps1",
             "docs/deployment/OPERATIONS.md",
@@ -27,6 +27,9 @@ class DistributionTests(unittest.TestCase):
             "docs/deployment/evidence/pynq-z2-live-2026-10-09/result.json",
             "skills/pynq-z2-single-node/SKILL.md",
             "skills/pynq-z2-single-node/scripts/preflight.py",
+            ".agents/skills/fpga-multi-node/SKILL.md",
+            ".agents/skills/pynq-z2-single-node/SKILL.md",
+            ".agents/skills/pynq-z2-single-node/scripts/preflight.py",
             "packaging/pynq-client/SKILL.md",
             "tests/test_pynq_z2_board_run.py",
             "tests/test_pynq_client_distribution.py",
@@ -36,9 +39,12 @@ class DistributionTests(unittest.TestCase):
             "docs/deployment/OPERATIONS.md",
         ])
         self.assertEqual(select_package_paths(tracked, "pynq-skill"), [
-            "skills/pynq-z2-single-node/SKILL.md",
-            "skills/pynq-z2-single-node/scripts/preflight.py",
+            ".agents/skills/fpga-multi-node/SKILL.md",
+            ".agents/skills/pynq-z2-single-node/SKILL.md",
+            ".agents/skills/pynq-z2-single-node/scripts/preflight.py",
         ])
+        self.assertEqual(select_package_paths(tracked, "project-skills-a"),
+                         select_package_paths(tracked, "pynq-skill"))
 
     def test_unknown_package_profile_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "profile"):
