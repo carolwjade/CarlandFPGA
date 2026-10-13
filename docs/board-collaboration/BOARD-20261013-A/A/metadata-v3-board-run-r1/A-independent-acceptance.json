@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-13T10:41:48.036482+00:00",
+  "operation_id": "BOARD-20261013-A:B:base-bram-v3-metadata-r1",
+  "request_hash": "69380c4062746f68bd35d6f1823ad98df6a72927a8a8f010d738319938171e7f",
+  "source": "9b618204473c8fda1bffbaf436080d77a34db5fc",
+  "tested_commit": "692f58bce38ff81d03204e46faf3c3792c5ff8f2",
+  "status": "BRAM_FUNCTIONAL_PASSED",
+  "test_comparisons_verified": 384,
+  "restore_word_comparisons_verified": 16,
+  "patterns": [
+    "zero",
+    "ones",
+    "55",
+    "aa",
+    "index",
+    "inverse",
+    "walking_one",
+    "random_20261013"
+  ],
+  "rounds": 3,
+  "tested_window_bytes": 64,
+  "offset_first": "0xFC00",
+  "offset_last": "0xFC3C",
+  "original_words_restored": true,
+  "reset_observed_restored": {
+    "direction": "in",
+    "value": 0
+  },
+  "new_export_removed_independently": true,
+  "fpga_manager_post_state": "operating",
+  "stdout_and_board_report_sha256": "4f5828285f254df7d9ffe29122e11b1eee1e455f074d2705f00810d0085641f1",
+  "stderr_bytes": 0,
+  "previous_overlay_restored": false,
+  "board_clock_retained": "2022-10-22T03:07:27.943535+00:00",
+  "A_host_start": "2026-10-13T10:40:15.731699+00:00",
+  "A_host_end": "2026-10-13T10:40:42.227697+00:00",
+  "scope": "base-overlay assigned 16-word BRAM window only; no all-64KiB, MicroBlaze application, new synthesis or throughput claim"
+}

@@ -1,0 +1,44 @@
+{
+  "operation_id": "BOARD-20261013-A:C:error-feedback-v3",
+  "request_hash": "1b06302e466b1de03513bc42f87c1ed111d026c40552e43a4878cbbdbc843070",
+  "code_commit": "0bbb9645af869d23b6e6863fc4148a57162be4f1",
+  "tested_commit": "78f3c7b5b823184c8a4cbffffb24d4dfb98a63f4",
+  "submitted_pr": "https://github.com/carolwjade/CarlandFPGA/pull/8",
+  "feedback_chain_status": "passed_expected_error",
+  "payload_result": "expected_nonzero_exit_1",
+  "runtime_observed": "CPython3.10.4; sys.platform=linux",
+  "overlay_load": "not_requested",
+  "peripheral_access": "not_requested",
+  "verification": "10 raw Git blob files and canonical HardwareRequest hash matched before formal run",
+  "run_count": 2,
+  "runs": [
+    {
+      "label": "archive-converted-first-run",
+      "timestamp_utc": "2026-10-13T08:40:25.965555+00:00",
+      "exit_code": 1,
+      "timed_out": false,
+      "script_sha256": "8d84e3f5da0395388c4bdc350472d29b8c0b53ac6ba7c121a604586e1c4da1d2",
+      "interpreter": "/usr/local/share/pynq-venv/bin/python3",
+      "stdout_file": "archive-converted-first-run-stdout.log",
+      "stdout_sha256": "b972fa883929279bf277c51b0058858c8388982e51d72836199678a5348ea8a6",
+      "stderr_file": "archive-converted-first-run-stderr.log",
+      "stderr_sha256": "13563993eeb2359191218211136961d8b9efa7a98366e27dbcc8855160845fb8",
+      "exact_manifest_bytes_verified": false
+    },
+    {
+      "label": "raw-git-blob-verified-run",
+      "timestamp_utc": "2026-10-13T08:43:59.560207+00:00",
+      "exit_code": 1,
+      "timed_out": false,
+      "script_sha256": "20693221700ca4f60dfb5ad4acea43de9967d0a84d3f441cba2e67becbd27436",
+      "interpreter": "/usr/local/share/pynq-venv/bin/python3",
+      "stdout_file": "raw-git-blob-verified-run-stdout.log",
+      "stdout_sha256": "b972fa883929279bf277c51b0058858c8388982e51d72836199678a5348ea8a6",
+      "stderr_file": "raw-git-blob-verified-run-stderr.log",
+      "stderr_sha256": "98f3c0d4ddb4617b3829a3776e03fcff0eabaaa8fe7be0794725d7598deee1bc",
+      "exact_manifest_bytes_verified": true
+    }
+  ],
+  "first_run_limitation": "Windows Git archive applied newline conversion; PowerShell continued after failed verification. First logs retained and excluded from exact-byte handoff acceptance. A explicitly verified raw blobs then ran the reviewed side-effect-free exception probe once for formal acceptance.",
+  "later_submission_conflict": "PR10 later advertises this same operation ID with a different request hash; it is not executed or merged into the first accepted PR8 request."
+}

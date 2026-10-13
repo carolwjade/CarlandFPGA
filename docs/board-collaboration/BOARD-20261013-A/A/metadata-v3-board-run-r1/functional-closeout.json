@@ -1,0 +1,62 @@
+{
+  "recorded_at": "2026-10-13T10:57:21.427888+00:00",
+  "task_id": "BOARD-20261013-A",
+  "status": "BRAM_FUNCTIONAL_PASSED",
+  "tested_commit": "692f58bce38ff81d03204e46faf3c3792c5ff8f2",
+  "source_commit": "9b618204473c8fda1bffbaf436080d77a34db5fc",
+  "operation_id": "BOARD-20261013-A:B:base-bram-v3-metadata-r1",
+  "request_hash": "69380c4062746f68bd35d6f1823ad98df6a72927a8a8f010d738319938171e7f",
+  "measured_evidence_commit": "7246b2e0af33840df5f077a725f441c9240740a2",
+  "A_measured_result_comment": "https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143800341",
+  "B_implementation_host_regression": "28 passed; exact physical script b0b6eef6064812deb34639306143972e740ed1e4dc38bfeb979ff31cdfd90eda",
+  "C_frozen_source_request_review": {
+    "status": "complete_no_blocker",
+    "public_comment": "https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143537386"
+  },
+  "A_physical_acceptance": {
+    "exit_code": 0,
+    "timed_out": false,
+    "matching_actual_MMIO_samples": 384,
+    "restored_original_words": 16,
+    "reset_observed_restored": true,
+    "new_export_removed_independently": true,
+    "window_bytes": 64
+  },
+  "B_measured_result_readback": {
+    "message_id": "A:BOARD-20261013-A:B:metadata-v3-actual-pass-readback",
+    "sender": "B/Astra-B",
+    "received_at": "2026-10-13T10:46:25.987672Z",
+    "text": "B简短正式回读：已fetch固定证据7246b2e0af33840df5f077a725f441c9240740a2并逐项验证原Git bytes，已API读回同PR9实际评论 https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143800341（carolwjade）。身份一致：head692f58bce38ff81d03204e46faf3c3792c5ff8f2/source9b618204473c8fda1bffbaf436080d77a34db5fc/op BOARD-20261013-A:B:base-bram-v3-metadata-r1/request69380c4062746f68bd35d6f1823ad98df6a72927a8a8f010d738319938171e7f。独立重算31工件绑定、canonical请求及script；遍历384样本的round/pattern/index/expected/observed/offset/physical/read_source/write_completed全部吻合，16恢复值等于原快照；reset in/0与初观察一致、restoration三项true、errors[]，exit0/no timeout。stdout=board-report原字节SHA4f5828285f254df7d9ffe29122e11b1eee1e455f074d2705f00810d0085641f1，stderr空/e3b0c442...。A-independent-acceptance记录export移除，post-cleanup原stdout operating。确认限定64字节BRAM_FUNCTIONAL_PASSED；不扩大为全64KiB/新综合/原overlay恢复。B仅证据回读，无代码/冻结身份修改、无重跑/新worker。",
+    "status": "verified_original_evidence_readback"
+  },
+  "C_post_measurement_additional_readback": {
+    "status": "verified",
+    "message_id": "A:BOARD-20261013-A:C:7246b2e-measured-readback-and-group-blocker-v4",
+    "sender": "C/Astra-C",
+    "received_at": "2026-10-13T10:57:53.455416Z",
+    "text": "C已实际读回A fixed evidence7246b2e0af33840df5f077a725f441c9240740a2的11个raw blobs；同PR9回读已发布并API核验：https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143858736 。严格绑定head692f58bce38ff81d03204e46faf3c3792c5ff8f2/source9b618204473c8fda1bffbaf436080d77a34db5fc/op BOARD-20261013-A:B:base-bram-v3-metadata-r1/request69380c4062746f68bd35d6f1823ad98df6a72927a8a8f010d738319938171e7f/script b0b6eef...。C独立重算核对384条round/pattern/index/expected/observed/address和16恢复记录全一致，exit0/no timeout/no errors；reset in/0，report export cleanup true，A独立验收记载新增gpio960 export移除，raw post-cleanup=operating。stdout=report 115685bytes/SHA4f5828285f254df7d9ffe29122e11b1eee1e455f074d2705f00810d0085641f1；stderr空SHAe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855。确认A的BRAM_FUNCTIONAL_PASSED只限16字64bytes/C无上板重跑。\n群摘要实际阻塞（不能称送达）：按A明确授权唯一stable op BOARD-20261013-A:C:metadata-v3-measured-pass-summary-v1已原控制器入队，created2026-10-13T10:47:49.230235Z，sent_at=null/platform_message_id=null/cancelled_at=null。原C长连接日志持续21001；经主判断仅为同原队列/原Astra-C/原uuid做一次官方API发送尝试，tenant-token endpoint也返回21001，尚未调用message-create。无群平台内容可读回；原队列/正文原样保留，无新身份/凭据改动/重启/修限制。消息内容SHAfb4216d1a9b0817754ea0d0fca3c0baf6ddb358dd72be72a260037090e255327。C本地回读+群阻塞证据commit a67a1dde1d5827fd6d0912b2e312f4c79f0f8858。实板PR回读职责完成，群送达仍未完成；后续由A决定原授权替代渠道，勿误将queued当sent。",
+    "same_pr_comment": "https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143858736",
+    "public_comment_readback_verified": true
+  },
+  "group_delivery": {
+    "status": "actual_summary_visible_in_original_group",
+    "actual_sender": "FPGA Astra B",
+    "independent_evidence": "A-group-pass-observation.json",
+    "platform_message_id": null,
+    "evidence_layer": "A native Feishu original-group UI, distinct from transport ACK or API receipt"
+  },
+  "C_additional_group_relay": {
+    "operation_id": "BOARD-20261013-A:C:metadata-v3-measured-pass-summary-v1",
+    "status": "queued_not_sent_token_21001",
+    "required_for_functional_acceptance": false,
+    "created_at": "2026-10-13T10:47:49.230235Z",
+    "sent_at": null,
+    "platform_message_id": null,
+    "message_create_called": false,
+    "queue_preserved": true
+  },
+  "API_repair": "excluded_by_human_scope_existing_channels_used",
+  "board_runs_for_this_request": 1,
+  "PR_merged": false,
+  "limits": "Assigned16-word/64-byte window only; preserve oldv2 failure; no all64KiB, throughput, new synthesis or prior-overlay restoration claim."
+}
