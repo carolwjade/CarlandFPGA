@@ -1,0 +1,47 @@
+{
+    "observed_at":  "2026-10-14T16:46:12.5863814Z",
+    "cpu":  [
+                {
+                    "Name":  "AMD Ryzen 7 8845H w/ Radeon 780M Graphics",
+                    "NumberOfCores":  8,
+                    "NumberOfLogicalProcessors":  16
+                }
+            ],
+    "os":  [
+               {
+                   "Caption":  "Microsoft Windows 11 Home",
+                   "Version":  "10.0.26200",
+                   "BuildNumber":  "26200",
+                   "TotalVisibleMemorySize":  32814440
+               }
+           ],
+    "gpu":  [
+                {
+                    "Name":  "AMD Radeon 780M Graphics",
+                    "DriverVersion":  "32.0.31035.1003"
+                },
+                {
+                    "Name":  "NVIDIA GeForce RTX 4070 Laptop GPU",
+                    "DriverVersion":  "32.0.15.7283"
+                }
+            ],
+    "disks":  [
+                  {
+                      "DriveLetter":  "C",
+                      "Size":  213729144832,
+                      "SizeRemaining":  39986147328
+                  }
+              ],
+    "evidence_scope":  "read-only host inventory; no model/board/runtime acceptance",
+    "task_id":  "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version":  1,
+    "requirements_sha256":  "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "gates":  {
+                  "R02":  "incomplete_preflight_only",
+                  "NPU_optional":  "not_run",
+                  "PGA_eligibility_R01":  "not_run",
+                  "PGA_measurement_A05":  "not_run",
+                  "ROCm_project_C03":  "not_run",
+                  "FPGA_board":  "not_run"
+              }
+}

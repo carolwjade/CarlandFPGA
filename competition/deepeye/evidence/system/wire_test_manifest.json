@@ -1,0 +1,21 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "command": [
+    "python",
+    "-X",
+    "utf8",
+    "integration/test_wire.py"
+  ],
+  "exit_code": 0,
+  "scope": "ABI3 framing only; no motion/profile/hardware acceptance",
+  "files": {
+    "integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+    "integration/test_wire.py": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9",
+    "docs/interface.json": "f57b7a6ac034459195bfaa5caa6f4c854aa270f5357d8756c790c9cfa73d895b",
+    "evidence/system/wire_tests.txt": "d413ca6ff385c7e1ac3b19c9f99b7ee0bc4ad1cab3b1c81c81186c8dd8b1038f"
+  },
+  "product_card_R03": "not_run"
+}
