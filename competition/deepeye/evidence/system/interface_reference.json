@@ -1,0 +1,32 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "R03": "not_run",
+  "scope": "reference_only",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "integration/test_wire.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "d413ca6ff385c7e1ac3b19c9f99b7ee0bc4ad1cab3b1c81c81186c8dd8b1038f",
+      "output": "test_all_fixed_lengths (__main__.WireTests.test_all_fixed_lengths) ... ok\r\ntest_bounded_resynchronization_and_embedded_magic (__main__.WireTests.test_bounded_resynchronization_and_embedded_magic) ... ok\r\ntest_crc_independent_vectors (__main__.WireTests.test_crc_independent_vectors) ... ok\r\ntest_crc_version_magic_size_and_unknown_rejected (__main__.WireTests.test_crc_version_magic_size_and_unknown_rejected) ... ok\r\ntest_every_chunk_boundary (__main__.WireTests.test_every_chunk_boundary) ... ok\r\ntest_exact_hello_frame (__main__.WireTests.test_exact_hello_frame) ... ok\r\ntest_input_cap_preserves_partial_state (__main__.WireTests.test_input_cap_preserves_partial_state) ... ok\r\ntest_integer_overflow_does_not_wrap (__main__.WireTests.test_integer_overflow_does_not_wrap) ... ok\r\ntest_legacy_is_explicit_diagnostic_only (__main__.WireTests.test_legacy_is_explicit_diagnostic_only) ... ok\r\ntest_motion_signed_payload_is_preserved (__main__.WireTests.test_motion_signed_payload_is_preserved) ... ok\r\ntest_unfrozen_trace_rejected (__main__.WireTests.test_unfrozen_trace_rejected) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 11 tests in 0.005s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "integration/test_motion.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "149049deea02f6a687b4985b00054d1dfd24e9b16c4d51ce40e3501d7d9f34e5",
+      "output": "test_acceleration_and_deceleration_bound (__main__.MotionTests.test_acceleration_and_deceleration_bound) ... ok\r\ntest_frozen_stress_axis_and_diagonal_boundaries (__main__.MotionTests.test_frozen_stress_axis_and_diagonal_boundaries) ... ok\r\ntest_integer_and_range_checks_reject_not_clip (__main__.MotionTests.test_integer_and_range_checks_reject_not_clip) ... ok\r\ntest_profile_mapping_does_not_mix (__main__.MotionTests.test_profile_mapping_does_not_mix) ... ok\r\ntest_rate_scales_with_actual_speed_and_stops_at_zero (__main__.MotionTests.test_rate_scales_with_actual_speed_and_stops_at_zero) ... ok\r\ntest_rom_against_independent_formula_every_speed (__main__.MotionTests.test_rom_against_independent_formula_every_speed) ... ok\r\ntest_zero_speed_never_turns (__main__.MotionTests.test_zero_speed_never_turns) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 7 tests in 0.000s\r\n\r\nOK\r\n"
+    }
+  ],
+  "status": "passed"
+}

@@ -10,6 +10,9 @@ This initial checkpoint provides the A-owned project/resource boundary and prere
 - `docs/rules.json`, `docs/requirements_trace.csv`: verified saved rules mapped to implementation cards; current online refresh, ROCm project execution and physical-task eligibility are separate gates.
 - `hardware/environment.json`: current read-only A host inventory; device presence is not inference execution.
 - `simulator/`: Windows Godot application. The required engine is 4.7.2-stable with matching templates. Exact executable hashes and runtime verification are pending. The initial scene has controls disabled until the authoritative bridge is ready.
+- `integration/wire.py` and `motion.py`: bounded ABI3 byte framing and quantized curvature references. These do not authorize motion or inspect world geometry.
+
+Run `python tools/check_interface.py --reference-only` for the implemented software reference checks (18 unit cases). The full `python tools/check_interface.py` intentionally returns `blocked` with exit code 2 until the remaining R03 gates have evidence. The motion vectors cover the frozen STRESS `(57,0)/(58,0)` and `(40,40)/(41,41)` boundaries, zero-speed turn rejection, both speed profiles and acceleration scaling.
 
 A owns public schemas, orchestration, simulator authority/physics, and all board operations. B owns FPGA/codec and world/assets. C owns PC AI/planning and control broker. Neither B nor C connects to the board. See the frozen taskbook section 9 for the full path map and section 10 for evidence and execution requirements.
 
