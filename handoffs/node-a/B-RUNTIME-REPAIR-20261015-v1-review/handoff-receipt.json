@@ -1,0 +1,36 @@
+{
+  "tested_commit": "30de232e66b984d13acdcbf7788631ed49be2151",
+  "evidence_commit_verified": "d7a9eb3777bf78816ba5f7d822de6785992710a6",
+  "evidence_indexed_git_blob_hashes_verified": 11,
+  "review_comment": "https://github.com/carolwjade/CarlandFPGA/pull/28#issuecomment-6196468971",
+  "comment_body_sha256": "7b18b365cd14d12ae8cefb2b9b93dcc56658f04c7b7d3f3eeea60b7c03bc57dc",
+  "comment_readback_matches": true,
+  "native_auxiliary_review": {
+    "job_id": "child-fb2778489493403194b4bcc43e3c96b0",
+    "agent_status": "interrupted",
+    "job_status": "cancelled",
+    "job_terminal": true,
+    "review_completed": false,
+    "no_source_access": true
+  },
+  "B_transport": {
+    "operation_id": "A-PR28-REVIEW-30de232-B-v1",
+    "delivered": true,
+    "queued": false,
+    "duplicate": false
+  },
+  "C_transport": {
+    "operation_id": "A-PR28-REVIEW-30de232-C-v1",
+    "delivered": true,
+    "queued": false,
+    "duplicate": false
+  },
+  "group_report": {
+    "operation_id": "A-PR28-REVIEW-30de232-GROUP-v1",
+    "queued": true,
+    "actual_platform_readback": "not_verified"
+  },
+  "B_substantive_readback": "pending",
+  "service_or_board_actions": "not_run",
+  "note": "Stalled MCP waiters were stopped. Read-only original ledger check found no matching prior outbound operations; used existing authenticated project-control API with the same operation IDs and original text. No second sender, lock changes or SQL writes. The earlier auxiliary status record is preserved as a pre-cancellation snapshot."
+}
