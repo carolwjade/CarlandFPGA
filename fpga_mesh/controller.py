@@ -41,18 +41,23 @@ class Controller:
             self.store.load_control_state()
         )
         self.dispatch_blocked = self._paused_at is not None
+        self._gateway_retry_at = self.store.load_gateway_retry()
         self._wakeup = asyncio.Event()
         self._stop = asyncio.Event()
         self._serve_task: asyncio.Task[None] | None = None
         self._active_dispatch: asyncio.Task[ActionResult] | None = None
+        self._active_message: Envelope | None = None
 
     async def offer(self, message: Envelope) -> bool:
         accepted = self.store.accept_inbound(message)
         if not accepted:
             return False
         self._wakeup.set()
+        if self._is_expired(message):
+            return True
         if (message.source == SourceKind.HUMAN and
                 message.kind == MessageKind.HUMAN_INSTRUCTION and
+                self._active_message is None and
                 self.on_human_instruction is not None):
             try:
                 self.on_human_instruction(message)
@@ -63,11 +68,35 @@ class Controller:
                 )
                 raise
         self._apply_control(message)
-        if (message.source == SourceKind.HUMAN
-                and self._active_dispatch is not None
-                and not self._active_dispatch.done()):
-            self._active_dispatch.cancel()
+        reason = self._preemption_reason(message)
+        if reason is not None:
+            self._active_dispatch.cancel(reason)
+            self.store.append_event(
+                f"dispatch-preempt:{self._active_message.message_id}:{message.message_id}",
+                "dispatch_preempted",
+                {
+                    "reason": reason,
+                    "active_message_id": self._active_message.message_id,
+                    "active_task_id": self._active_message.task_id,
+                    "active_task_version": self._active_message.task_version,
+                    "trigger_message_id": message.message_id,
+                    "trigger_task_version": message.task_version,
+                },
+            )
         return True
+
+    def _preemption_reason(self, message: Envelope) -> str | None:
+        """Human work queues at turn boundaries; only an explicit stop interrupts."""
+        if (message.source != SourceKind.HUMAN
+                or self._active_dispatch is None
+                or self._active_dispatch.done()
+                or self._active_message is None):
+            return None
+        if (message.kind == MessageKind.STOP_REQUEST
+                and self.dispatch_blocked
+                and self._last_control_at == message.sent_at):
+            return "human_stop"
+        return None
 
     async def run_until_idle(self) -> None:
         observed: set[str] = set()
@@ -116,6 +145,11 @@ class Controller:
                         continue
                 if self.dispatch_blocked:
                     continue
+                # A dead backend is node-wide, not a failure of every queued
+                # task. Controls above still apply immediately during backoff.
+                if (self._gateway_retry_at is not None
+                        and self._gateway_retry_at > datetime.now(timezone.utc)):
+                    continue
                 if (message.source == SourceKind.HUMAN
                         and message.kind == MessageKind.HUMAN_INSTRUCTION
                         and message.payload.get("ownership_required")):
@@ -145,11 +179,15 @@ class Controller:
                     ):
                         continue
                 try:
+                    self._active_message = message
                     self._active_dispatch = asyncio.create_task(
                         self.gateway.handle(message),
                         name=f"fpga-dispatch-{message.message_id}",
                     )
                     result = await self._active_dispatch
+                    if self._gateway_retry_at is not None:
+                        self._gateway_retry_at = None
+                        self.store.save_gateway_retry(None)
                     if self.on_result is not None:
                         callback_result = self.on_result(message, result)
                         if inspect.isawaitable(callback_result):
@@ -157,19 +195,60 @@ class Controller:
                 except asyncio.CancelledError:
                     if asyncio.current_task().cancelling():
                         raise
-                    # A newly accepted human instruction interrupted this turn.
-                    # It stays in the inbox and will be retried after that instruction.
+                    # Preserve interrupted work for the gateway's recovery audit;
+                    # never turn an explicit stop into a blind side-effect replay.
                     break
                 except Exception as exc:  # noqa: BLE001 - persisted as recovery state
+                    if getattr(exc, 'safe_to_retry', False):
+                        retry_at = max(
+                            self._retry_at(stored.attempts),
+                            datetime.now(timezone.utc) + timedelta(seconds=max(
+                                1.0, float(getattr(exc, 'retry_after_seconds', 30)),
+                            )),
+                        )
+                        self._gateway_retry_at = retry_at
+                        self.store.save_gateway_retry(retry_at)
+                        self.store.mark_inbound_failed(
+                            message.message_id, f'deferred before execution: {exc}',
+                            retry_at=retry_at,
+                        )
+                        self.store.append_event(
+                            f'gateway-deferred:{message.message_id}:{stored.attempts}',
+                            'gateway_deferred',
+                            {'message_id': message.message_id,
+                             'reason': getattr(exc, 'reason', 'backend_unavailable'),
+                             'retry_at': retry_at.isoformat(),
+                             'execution_started': False},
+                        )
+                        break
+                    if getattr(exc, 'reason', None) == 'server_overloaded':
+                        # This turn may have run tools: it must stay terminal
+                        # for reconciliation, while untouched work waits for
+                        # provider capacity without being failed in a cascade.
+                        self._gateway_retry_at = datetime.now(timezone.utc) + timedelta(
+                            seconds=max(1.0, float(getattr(exc, 'retry_after_seconds', 30))),
+                        )
+                        self.store.save_gateway_retry(self._gateway_retry_at)
+                        self.store.append_event(
+                            f'gateway-capacity:{message.message_id}:{stored.attempts}',
+                            'gateway_capacity_interrupted',
+                            {'message_id': message.message_id,
+                             'retry_at': self._gateway_retry_at.isoformat(),
+                             'execution_started': True, 'automatic_replay': False},
+                        )
                     self.store.mark_inbound_failed(
                         message.message_id,
                         f"{type(exc).__name__}: {exc}",
                         retry_at=self._retry_at(stored.attempts),
                     )
-                    continue
+                    break
                 finally:
                     self._active_dispatch = None
+                    self._active_message = None
                 self.store.mark_inbound_processed(message.message_id)
+                # Re-read priorities at the turn boundary. A human followup may
+                # have arrived while this old snapshot still contained peers.
+                break
 
     async def wait_for_work(self, timeout: float | None = None) -> bool:
         if self.store.pending_inbound():
