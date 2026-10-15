@@ -33,7 +33,8 @@ def main():
     result['source_base_commit']=head
     result['source_identity_note']='Base commit plus actual artifact SHA256; uncommitted files are not relabeled as committed.'
     commands=[['integration/'+name] for name in ('test_wire.py','test_motion.py','test_host_schema.py',
-        'test_host_envelope.py','test_pc_direct_heartbeat.py','test_clock_bounds.py',
+        'test_host_envelope.py','test_pc_direct_heartbeat.py','test_pc_direct_watchdog.py',
+        'test_sensor_source.py','test_trace_payload.py','test_clock_bounds.py',
         'test_boot_binding.py','test_contract_vectors.py')]
     commands.extend([['tests/test_boot_profile.py'],['tools/pipeline.py','verify','--selftest']])
     code=0
