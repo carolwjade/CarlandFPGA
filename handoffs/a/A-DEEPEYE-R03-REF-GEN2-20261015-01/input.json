@@ -1,0 +1,132 @@
+{
+  "request": {
+    "operation_id": "A-DEEPEYE-R03-REF-GEN2-20261015-01",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "requester": "node-a",
+    "code_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71",
+    "test_steps": [
+      "Use isolated Python with competition/deepeye/requirements-host.txt installed. From competition/deepeye run python -B tools/check_interface.py; expected exit2 while software_checks=passed and full R03 blocked.",
+      "Run python -B tests/simulation/test_forward_profile.py; expected33 passed.",
+      "Use Godot4.7.2-stable --headless --path competition/deepeye/simulator --script res://tests/test_editor_document.gd; expected672 checks,0 failures.",
+      "Independently decode tests/vectors/abi3_reference.json, review BOOT binding, STATE8 PC_DIRECT and precise missing-register/TRACE boundaries; return exact-head feedback."
+    ],
+    "expected_result": "Bounded software reference checkpoint only. No product card acceptance or board operation. Preserve DEEPEYE-HUMAN-LOCK-20261014/revision1 H01-H15 SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804."
+  },
+  "artifacts": [
+    "competition/deepeye/.gitattributes",
+    "competition/deepeye/.gitignore",
+    "competition/deepeye/README.md",
+    "competition/deepeye/docs/boot_profiles.json",
+    "competition/deepeye/docs/enums.json",
+    "competition/deepeye/docs/host_contract.json",
+    "competition/deepeye/docs/host_timing_contract.md",
+    "competition/deepeye/docs/interface.json",
+    "competition/deepeye/docs/reference_checkpoint.md",
+    "competition/deepeye/docs/registers.csv",
+    "competition/deepeye/docs/requirements_trace.csv",
+    "competition/deepeye/docs/resource_contract.json",
+    "competition/deepeye/docs/rules.json",
+    "competition/deepeye/evidence/game/editor_foundation.txt",
+    "competition/deepeye/evidence/game/ui_add_single.png",
+    "competition/deepeye/evidence/game/ui_after_startup.png",
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.json",
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.txt",
+    "competition/deepeye/evidence/reviews/director_checkpoint_20261015.json",
+    "competition/deepeye/evidence/simulation/forward_profile_tests.txt",
+    "competition/deepeye/evidence/system/all_mode_schedule_proof.json",
+    "competition/deepeye/evidence/system/boot_profile_selftest.txt",
+    "competition/deepeye/evidence/system/director_review/boot_binding_red.txt",
+    "competition/deepeye/evidence/system/director_review/heartbeat_green.txt",
+    "competition/deepeye/evidence/system/director_review/heartbeat_red.txt",
+    "competition/deepeye/evidence/system/director_review/mode_directions_red.txt",
+    "competition/deepeye/evidence/system/director_review/pipeline_green.txt",
+    "competition/deepeye/evidence/system/director_review/pipeline_selftest.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_exact_commit.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_fault_green.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_fault_red.txt",
+    "competition/deepeye/evidence/system/director_review/ui_exact_commit.txt",
+    "competition/deepeye/evidence/system/host_envelope_selftest.txt",
+    "competition/deepeye/evidence/system/host_schema_green.txt",
+    "competition/deepeye/evidence/system/host_schema_red.txt",
+    "competition/deepeye/evidence/system/interface_gate_behavior.json",
+    "competition/deepeye/evidence/system/interface_reference.json",
+    "competition/deepeye/evidence/system/layout_check_initial.txt",
+    "competition/deepeye/evidence/system/pipeline_selftest.txt",
+    "competition/deepeye/evidence/system/r03_validation.json",
+    "competition/deepeye/evidence/system/wire_test_manifest.json",
+    "competition/deepeye/evidence/system/wire_tests.txt",
+    "competition/deepeye/hardware/environment.json",
+    "competition/deepeye/integration/boot_profile.py",
+    "competition/deepeye/integration/clock_bounds.py",
+    "competition/deepeye/integration/host_envelope.py",
+    "competition/deepeye/integration/motion.py",
+    "competition/deepeye/integration/test_boot_binding.py",
+    "competition/deepeye/integration/test_clock_bounds.py",
+    "competition/deepeye/integration/test_contract_vectors.py",
+    "competition/deepeye/integration/test_host_envelope.py",
+    "competition/deepeye/integration/test_host_schema.py",
+    "competition/deepeye/integration/test_motion.py",
+    "competition/deepeye/integration/test_pc_direct_heartbeat.py",
+    "competition/deepeye/integration/test_wire.py",
+    "competition/deepeye/integration/wire.py",
+    "competition/deepeye/requirements-host.txt",
+    "competition/deepeye/simulation/sensors/forward_profile.py",
+    "competition/deepeye/simulator/editor/scene_document.gd",
+    "competition/deepeye/simulator/editor/scene_document.gd.uid",
+    "competition/deepeye/simulator/export_presets.cfg",
+    "competition/deepeye/simulator/project.godot",
+    "competition/deepeye/simulator/tests/test_editor_document.gd",
+    "competition/deepeye/simulator/tests/test_editor_document.gd.uid",
+    "competition/deepeye/simulator/ui/shell.gd",
+    "competition/deepeye/simulator/ui/shell.gd.uid",
+    "competition/deepeye/simulator/viewer/main.gd",
+    "competition/deepeye/simulator/viewer/main.gd.uid",
+    "competition/deepeye/simulator/viewer/main.tscn",
+    "competition/deepeye/tests/simulation/test_forward_profile.py",
+    "competition/deepeye/tests/test_boot_profile.py",
+    "competition/deepeye/tests/test_pipeline.py",
+    "competition/deepeye/tests/vectors/abi3_reference.json",
+    "competition/deepeye/tools/check_interface.py",
+    "competition/deepeye/tools/generate_vectors.py",
+    "competition/deepeye/tools/pipeline.py",
+    "docs/competition/deepeye-2026/immutable_scope.json",
+    "docs/competition/deepeye-2026/immutable_scope.md",
+    "docs/competition/deepeye-2026/taskbook_final.md",
+    "docs/competition/deepeye-2026/execution_plan_final.json",
+    "docs/competition/deepeye-2026/simulation_contract_final.json"
+  ],
+  "stages": {
+    "software_reference": {
+      "status": "passed",
+      "log": "competition/deepeye/evidence/system/r03_validation.json"
+    },
+    "full_R03": {
+      "status": "blocked",
+      "log": "competition/deepeye/evidence/system/r03_validation.json"
+    },
+    "sensor_software": {
+      "status": "passed",
+      "log": "competition/deepeye/evidence/system/director_review/sensor_exact_commit.txt"
+    },
+    "ui_editor_checks": {
+      "status": "passed",
+      "log": "competition/deepeye/evidence/system/director_review/ui_exact_commit.txt"
+    },
+    "rtl_simulation": {
+      "status": "not_run"
+    },
+    "synthesis": {
+      "status": "not_run"
+    },
+    "implementation": {
+      "status": "not_run"
+    },
+    "board": {
+      "status": "not_run"
+    },
+    "full_product": {
+      "status": "not_run"
+    }
+  }
+}
