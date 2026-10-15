@@ -1,0 +1,23 @@
+{
+  "task_id": "B-RUNTIME-REPAIR-20261015",
+  "task_version": 1,
+  "work_id": "A-PR28-REPLAY-REVIEW",
+  "agent_id": "/root/pr28_replay_review",
+  "thread_id": "01a1403f-7ffc-7e33-b7fc-616af836bfaa",
+  "job_id": "child-fb2778489493403194b4bcc43e3c96b0",
+  "scope": "Read-only infrastructure review; sole owned output child-review.md",
+  "status": "not_completed",
+  "evidence": "Initial completed turn refused execution without a lease. Followup turn awaited fpga_native_validate without returning; persisted transcript had no project reads. Parent interrupted the agent, then collaboration.list_agents reported interrupted. No child-review.md exists.",
+  "completed_initial_turn": {
+    "turn_id": "01a1403f-80a7-7281-baf7-6ff1d70cc222",
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "result": "lease missing; no work performed"
+  },
+  "followup_turn": {
+    "turn_id": "01a14040-42a4-7a80-89b4-dd290e543f1c",
+    "result": "interrupted while awaiting tool; no completed review claim"
+  },
+  "mesh_cancel": "requested_once; result_pending; ownership_not_released_or_reassigned"
+}

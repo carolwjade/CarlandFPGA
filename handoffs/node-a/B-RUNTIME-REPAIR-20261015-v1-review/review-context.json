@@ -1,0 +1,43 @@
+{
+  "task_id": "B-RUNTIME-REPAIR-20261015",
+  "task_version": 1,
+  "work_id": "A-PR28-REVIEW-30de232",
+  "operation_id": "B-RUNTIME-REPAIR-20261015-v1",
+  "request_hash": "1bb259466270cbcc6a5e6cb2f55366a24bb0945fb4b2c2caff3e4d23541a221e",
+  "tested_commit": "30de232e66b984d13acdcbf7788631ed49be2151",
+  "source_commit": "4de6736d9726fe80f4eec8d6d9749785d740fddf",
+  "incremental_baseline": "8afeaed96c28730466bb353317bdc9a479c3b50c",
+  "owner": "Astra-A",
+  "parent_thread_id": "01a1403d-2555-7361-9d8f-4062538f9185",
+  "scope": "Independent infrastructure code and software regression review only",
+  "no_product_director_transfer": true,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "standard_manifest_verifier": {
+    "command": "python -X utf8 .agents/skills/fpga-multi-node/scripts/handoff.py verify --root .local/a-pr28-review --manifest handoffs/node-b/B-RUNTIME-REPAIR-20261015-v1/manifest.json",
+    "files_checked": 19,
+    "valid": true,
+    "exit_code": 0
+  },
+  "stages": {
+    "manifest_and_git_blob_verification": "passed",
+    "software_regression": "passed",
+    "code_review": "changes_requested_P2_cache_integrity_queue_preservation",
+    "A_service_deployment": "not_run",
+    "B_final_service_deployment": "not_independently_verified",
+    "B_earlier_native_tool_smoke": "sender_evidence_only; predates_final_crash_fence",
+    "RTL_simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "board": "not_run",
+    "product_or_system_acceptance": "not_run",
+    "independent_native_child_review": "not_completed_tool_blocked_agent_interrupted"
+  },
+  "offline_cache_failure_probe": {
+    "exit_code": 0,
+    "result": "defect_reproduced",
+    "turn_requests_sent": 0,
+    "distinct_messages_failed": 2,
+    "command": "python -X utf8 handoffs/node-a/B-RUNTIME-REPAIR-20261015-v1-review/probe_cache_failure.py"
+  }
+}

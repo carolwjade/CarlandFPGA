@@ -1,0 +1,30 @@
+{
+  "tested_commit": "30de232e66b984d13acdcbf7788631ed49be2151",
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "tests.test_rpc",
+    "tests.test_rpc_frames",
+    "tests.test_app_server",
+    "tests.test_app_gateway",
+    "tests.test_controller",
+    "tests.test_controller_continuity",
+    "tests.test_store",
+    "tests.test_runtime",
+    "tests.test_sessions",
+    "tests.test_routing_hardening",
+    "tests.test_project_control",
+    "tests.test_work_leases",
+    "-q"
+  ],
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "exit_code": 0,
+  "elapsed_seconds": 11.0,
+  "logs": {
+    "regression-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "regression-stderr.txt": "0329df7911ce15630882a171fe6135871b4c01a58aaa67f904ba5a2521af0744"
+  }
+}
