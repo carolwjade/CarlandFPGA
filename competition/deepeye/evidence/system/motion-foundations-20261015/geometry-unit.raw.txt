@@ -1,0 +1,29 @@
+test_ambient_decimal_context_cannot_corrupt_bounds (test_gate_geometry.GateGeometryTests.test_ambient_decimal_context_cannot_corrupt_bounds) ... ok
+test_arbitrary_plane_normal_is_normalized (test_gate_geometry.GateGeometryTests.test_arbitrary_plane_normal_is_normalized) ... ok
+test_axis_sign_and_scale_do_not_change_solid (test_gate_geometry.GateGeometryTests.test_axis_sign_and_scale_do_not_change_solid) ... ok
+test_bad_vectors_shapes_and_numbers_are_rejected (test_gate_geometry.GateGeometryTests.test_bad_vectors_shapes_and_numbers_are_rejected) ... ok
+test_candidate_capsule_is_104m_not_080m (test_gate_geometry.GateGeometryTests.test_candidate_capsule_is_104m_not_080m) ... ok
+test_circle_tangency_never_clear (test_gate_geometry.GateGeometryTests.test_circle_tangency_never_clear) ... ok
+test_eccentric_section_catches_centre_only_false_clear (test_gate_geometry.GateGeometryTests.test_eccentric_section_catches_centre_only_false_clear) ... ok
+test_exact_normal_section_is_radius (test_gate_geometry.GateGeometryTests.test_exact_normal_section_is_radius) ... ok
+test_finite_cap_cannot_use_infinite_cylinder (test_gate_geometry.GateGeometryTests.test_finite_cap_cannot_use_infinite_cylinder) ... ok
+test_five_degree_section_is_not_whole_projection (test_gate_geometry.GateGeometryTests.test_five_degree_section_is_not_whole_projection) ... ok
+test_invalid_gates_and_solver_limits_are_rejected (test_gate_geometry.GateGeometryTests.test_invalid_gates_and_solver_limits_are_rejected) ... ok
+test_no_section_is_not_gate_passage (test_gate_geometry.GateGeometryTests.test_no_section_is_not_gate_passage) ... ok
+test_parallel_axis_has_finite_stadium_section (test_gate_geometry.GateGeometryTests.test_parallel_axis_has_finite_stadium_section) ... ok
+test_parallel_offset_plane_section_has_smaller_radius (test_gate_geometry.GateGeometryTests.test_parallel_offset_plane_section_has_smaller_radius) ... ok
+test_pivot_radius_bound_rounds_outward (test_gate_geometry.GateGeometryTests.test_pivot_radius_bound_rounds_outward) ... ok
+test_plane_near_tangency_is_not_falsely_empty (test_gate_geometry.GateGeometryTests.test_plane_near_tangency_is_not_falsely_empty) ... ok
+test_plane_support_requires_whole_body_to_cross (test_gate_geometry.GateGeometryTests.test_plane_support_requires_whole_body_to_cross) ... ok
+test_same_face_circle_overlap_is_rejected_not_auto_moved (test_gate_geometry.GateGeometryTests.test_same_face_circle_overlap_is_rejected_not_auto_moved) ... ok
+test_six_face_mapping_and_all_36_directed_pairs (test_gate_geometry.GateGeometryTests.test_six_face_mapping_and_all_36_directed_pairs) ... ok
+test_solver_budget_exhaustion_cannot_clear (test_gate_geometry.GateGeometryTests.test_solver_budget_exhaustion_cannot_clear) ... ok
+test_sphere_degenerate_segment (test_gate_geometry.GateGeometryTests.test_sphere_degenerate_segment) ... ok
+test_tighter_error_bound_cannot_widen_interval (test_gate_geometry.GateGeometryTests.test_tighter_error_bound_cannot_widen_interval) ... ok
+test_tiny_positive_and_negative_clearance (test_gate_geometry.GateGeometryTests.test_tiny_positive_and_negative_clearance) ... ok
+test_values_are_immutable_and_input_lists_are_copied (test_gate_geometry.GateGeometryTests.test_values_are_immutable_and_input_lists_are_copied) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.161s
+
+OK

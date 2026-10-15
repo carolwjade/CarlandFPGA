@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "suite": "editor",
+  "evidence_level": "reference_only",
+  "formal_acceptance": false,
+  "status": "reference_passed",
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "missing_evidence": [
+    "G02: 200-step real UI recording/replay and saved/reopened layout hashes",
+    "G02/G06: independent 36 directed face-pair geometry cases",
+    "G02: 1080p/1440p, 125%/150% scaling and camera/control isolation evidence"
+  ],
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--version"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "exit_code": 0,
+      "timed_out": false,
+      "status": "passed",
+      "expectation": "version",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUTF8": "1",
+        "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+        "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262"
+      },
+      "duration_seconds": 0.047,
+      "stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\godot-version.stdout.log",
+        "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+        "bytes": 33
+      },
+      "stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\godot-version.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator",
+        "--editor",
+        "--import",
+        "--log-file",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\godot-import.engine.log"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "exit_code": 0,
+      "timed_out": false,
+      "status": "passed",
+      "expectation": null,
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUTF8": "1",
+        "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+        "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262"
+      },
+      "duration_seconds": 2.531,
+      "stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\godot-import.stdout.log",
+        "sha256": "df41becfea8368c56ec473c1a340440d7b25fa4090f39cdbc43dec1cb5ed7e49",
+        "bytes": 1474
+      },
+      "stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\godot-import.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator",
+        "--script",
+        "res://tests/test_editor_document.gd",
+        "--log-file",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\editor-document.engine.log"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "exit_code": 0,
+      "timed_out": false,
+      "status": "passed",
+      "expectation": "editor",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUTF8": "1",
+        "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+        "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+        "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262"
+      },
+      "duration_seconds": 0.641,
+      "stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\editor-document.stdout.log",
+        "sha256": "316dc75e1f67652d6d5f24deae29cc26b98b3503ff3b201ff790b5cb1cb9a2ce",
+        "bytes": 711
+      },
+      "stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\editor-document.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "product_checkout": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+  "interpreter": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+  "interpreter_sha256": "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2",
+  "thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "started_utc": "2026-10-15T15:44:44.041083+00:00",
+  "run_dir": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+  "requested_actions": null,
+  "requested_trials_per_cell": null,
+  "source_before": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\editor\\scene_document.gd": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\editor\\scene_document.gd.uid": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\export_presets.cfg": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\project.godot": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\tests\\test_editor_document.gd": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\tests\\test_editor_document.gd.uid": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\ui\\shell.gd": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\ui\\shell.gd.uid": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.gd": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.gd.uid": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.tscn": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\verify_game.py": "c4abcdaff7fc8c6e937ee888ce7ce9333d235b3703055b2f78b35820b1c7dd22",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.md": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+  },
+  "git_head_command": {
+    "command": [
+      "git",
+      "-C",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+    "exit_code": 0,
+    "timed_out": false,
+    "status": "passed",
+    "expectation": null,
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONUTF8": "1",
+      "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+      "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262",
+      "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262"
+    },
+    "duration_seconds": 0.031,
+    "stdout": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\git-head.stdout.log",
+      "sha256": "878c5aa4723501bb729febeaaea87419b72f658bed11614596878079d48e593b",
+      "bytes": 41
+    },
+    "stderr": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\git-head.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "product_head": "d5bf26adcf76f8c9af3165cdd7043cb3ff19649b",
+  "engine_sha256": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424"
+  },
+  "staged_source_before": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\editor\\scene_document.gd": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\editor\\scene_document.gd.uid": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\export_presets.cfg": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\project.godot": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\tests\\test_editor_document.gd": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\tests\\test_editor_document.gd.uid": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\ui\\shell.gd": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\ui\\shell.gd.uid": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.gd": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.gd.uid": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.tscn": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db"
+  },
+  "source_after": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\editor\\scene_document.gd": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\editor\\scene_document.gd.uid": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\export_presets.cfg": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\project.godot": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\tests\\test_editor_document.gd": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\tests\\test_editor_document.gd.uid": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\ui\\shell.gd": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\ui\\shell.gd.uid": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.gd": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.gd.uid": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator\\viewer\\main.tscn": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\verify_game.py": "c4abcdaff7fc8c6e937ee888ce7ce9333d235b3703055b2f78b35820b1c7dd22",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.md": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+  },
+  "changed_sources": [],
+  "staged_source_after": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\editor\\scene_document.gd": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\editor\\scene_document.gd.uid": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\export_presets.cfg": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\project.godot": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\tests\\test_editor_document.gd": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\tests\\test_editor_document.gd.uid": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\ui\\shell.gd": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\ui\\shell.gd.uid": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.gd": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.gd.uid": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\simulator\\viewer\\main.tscn": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db"
+  },
+  "changed_staged_sources": [],
+  "engine_sha256_after": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643"
+  },
+  "finished_utc": "2026-10-15T15:44:47.677028+00:00",
+  "report_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\game-runner-main-review-20261015\\editor\\run-b3a9c8e7df4f4e06b415aa56c7fc8262\\report.json"
+}
