@@ -26,3 +26,10 @@ python -m fpga_mesh.distribution --profile pynq-client-c --output artifacts/pynq
 ```
 
 详细操作和逐项验收见 [运行说明](docs/deployment/OPERATIONS.md) 与 [部署状态](docs/deployment/DEPLOYMENT_STATUS.md)。设计依据见 [多 Agent 设计稿](docs/superpowers/specs/2026-09-29-fpga-multi-agent-design.md)。
+
+
+## 矿脉深瞳参赛项目：最终任务书完整版
+
+**[打开完整任务书（18章正文、29张任务卡、固定合同、全部规范附录与评审证据）](docs/competition/deepeye-2026/TASKBOOK_FULL.md)**。
+
+版本5／技术修订1；冻结源提交 `1011259415a0916054eb580687612580bc1e5f09`。人类及agent均从上述单文件入口完整阅读；[原版PDF（正文29页）](docs/competition/deepeye-2026/deepeye_taskbook_final.pdf)、[机器可读执行计划](docs/competition/deepeye-2026/execution_plan_final.json)、[三维与控制契约](docs/competition/deepeye-2026/simulation_contract_final.json)及[发布完整性清单](docs/competition/deepeye-2026/publication_manifest.json)同时保留。H01–H15不可删改；本次文档发布不代表产品已经实现或验收通过。

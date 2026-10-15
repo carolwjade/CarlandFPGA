@@ -1,0 +1,3 @@
+# 自动化契约入口
+
+唯一规范为taskbook_final.md版本5、execution_plan_final.json、simulation_contract_final.json及execution_orchestration_v5.md。最高人类合同DEEPEYE-HUMAN-LOCK-20261014/revision1，SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804。旧版本只作历史。全部29张产品卡初始not_run，状态查询不得提交模型或改变运行。物理板仅A，现有硬件队列/账号权限不因任务书自动改变。
