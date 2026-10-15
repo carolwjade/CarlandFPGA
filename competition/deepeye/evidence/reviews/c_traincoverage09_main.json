@@ -1,0 +1,146 @@
+{
+  "operation_id": "C-DEEPEYE-TRAINCOVERAGE-20261015-09",
+  "request_hash": "008dafc2914ec40019a0c906d69b23d3a9cb3219808c44812a6fca026947a12d",
+  "tested_commit": "6e1624d0b0ae3f46adaded330f0bc23840ac9886",
+  "source_commit": "c0fe52fd0bb7207fc5597b64eac53c8239ed10c5",
+  "manifest": "handoffs/c/C-DEEPEYE-TRAINCOVERAGE-20261015-09/manifest.json",
+  "manifest_sha256": "cb6c293ace44475afaad5632061e5e7f591cdc5c940cb949d32675a27f3ce662",
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+  "main_handoff_verify": {
+    "exit_code": 0,
+    "files_checked": 71
+  },
+  "input_worktree_clean": true,
+  "child_portable_results": {
+    "discovered": 359,
+    "passed": 356,
+    "skipped": 3,
+    "suites": [
+      {
+        "suite": "motion",
+        "discovered": 16,
+        "passed": 16,
+        "skipped": 0,
+        "raw_sha256": "ec2f9085b7eb10946b64cd57c3fc53d979a4a9bb624a3e420198e0068a407916"
+      },
+      {
+        "suite": "graph",
+        "discovered": 30,
+        "passed": 30,
+        "skipped": 0,
+        "raw_sha256": "26f06cd30767fb6a475a4ca8b6a8b45d6ba64592a9eccc16ae1f12c408f27f45"
+      },
+      {
+        "suite": "broker-deadlines",
+        "discovered": 34,
+        "passed": 34,
+        "skipped": 0,
+        "raw_sha256": "ef87ff662381f96ba78de9dd0ca7a610c6e8686f709000d25e253a3a0411896e"
+      },
+      {
+        "suite": "broker-mailbox",
+        "discovered": 44,
+        "passed": 44,
+        "skipped": 0,
+        "raw_sha256": "0c33e74f0d3b63edee9e337e83578c7c9a1c1f1a28ec1f198828077ff095b915"
+      },
+      {
+        "suite": "causal",
+        "discovered": 64,
+        "passed": 64,
+        "skipped": 0,
+        "raw_sha256": "e82c7887f828ca056d4fd90ffb1c69b8efd48086460802b63de9a747e61ef062"
+      },
+      {
+        "suite": "curve",
+        "discovered": 28,
+        "passed": 28,
+        "skipped": 0,
+        "raw_sha256": "303da60b21ba121e2c0e365204ed85beb47c43c185bbedbdb8a110a7854445ad"
+      },
+      {
+        "suite": "grouping",
+        "discovered": 12,
+        "passed": 12,
+        "skipped": 0,
+        "raw_sha256": "314747b4952b8613f4343b457aaefec7421639649d8b3f3a03a416af08c5a1e6"
+      },
+      {
+        "suite": "LAS-inventory",
+        "discovered": 23,
+        "passed": 23,
+        "skipped": 0,
+        "raw_sha256": "7e22e188553a7ba60633d8587d5cc9b1ecf1893f558939e20161ead47897fd24"
+      },
+      {
+        "suite": "preprocess",
+        "discovered": 33,
+        "passed": 33,
+        "skipped": 0,
+        "raw_sha256": "808fbdcbc475f6b282c8602b8b1d366af56587d2ae0e22f8f9d6cd52d0ad8eff"
+      },
+      {
+        "suite": "verifier",
+        "discovered": 48,
+        "passed": 45,
+        "skipped": 3,
+        "raw_sha256": "c60f8c48e21f631bcc5bff74856ac9f60f594f7e2091b0bb27aff1f7cc11a2fd"
+      },
+      {
+        "suite": "training-coverage",
+        "discovered": 27,
+        "passed": 27,
+        "skipped": 0,
+        "raw_sha256": "5297e9851409d1566af444bd54cb71d729ca1c6291ac72fe4b4125d394858554"
+      }
+    ]
+  },
+  "main_independent_rerun": [
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "competition/deepeye/tests/ai/planning/test_kinematics.py"
+      ],
+      "exit_code": 0,
+      "tests": 16
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "competition/deepeye/tests/ai/control_broker/test_deadlines.py"
+      ],
+      "exit_code": 0,
+      "tests": 34
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "-X",
+        "utf8",
+        "competition/deepeye/evidence/ai/force_train_coverage/test_scan_train_curves.py"
+      ],
+      "exit_code": 0,
+      "tests": 27
+    }
+  ],
+  "main_test_count": 77,
+  "main_raw_log": "competition/deepeye/evidence/reviews/c_traincoverage09_main.txt",
+  "main_raw_sha256": "7a7d8d68e169777ec873c97524d16757c7b2ab7207b856cddcf62ecb10af1189",
+  "python_version": "3.12.14",
+  "decision": "verified_integrity_and_bounded_portable_software_execution_only",
+  "limitations": [
+    "Full FORCE archive is not present on A; real training-row coverage replay not independently repeated",
+    "No training/heldout/model-performance/runtime isolation or G03 physical calibration acceptance",
+    "No C01/C05/G04/29-card acceptance; simulation/synthesis/implementation/board/system not_run",
+    "A child output ownership deviation recorded privately; originals preserved; main independently rechecked source and targeted execution"
+  ]
+}

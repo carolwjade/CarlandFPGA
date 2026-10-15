@@ -1,0 +1,44 @@
+test_boot_ack_matches_request_sequence_and_epoch_by_default (__main__.BootBindingTests.test_boot_ack_matches_request_sequence_and_epoch_by_default) ... FAIL
+test_changed_layout_disagrees_with_wire_and_cannot_bind (__main__.BootBindingTests.test_changed_layout_disagrees_with_wire_and_cannot_bind) ... ERROR
+test_each_actual_protocol_file_changes_boot_identity (__main__.BootBindingTests.test_each_actual_protocol_file_changes_boot_identity) ... ERROR
+test_sliding_window_counts_partial_frames (__main__.BootBindingTests.test_sliding_window_counts_partial_frames) ... ERROR
+
+======================================================================
+ERROR: test_changed_layout_disagrees_with_wire_and_cannot_bind (__main__.BootBindingTests.test_changed_layout_disagrees_with_wire_and_cannot_bind)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_boot_binding.py", line 47, in test_changed_layout_disagrees_with_wire_and_cannot_bind
+    with self.assertRaises(boot.ProfileError): boot.bind_software_documents(doc, root)
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'boot_profile' has no attribute 'bind_software_documents'
+
+======================================================================
+ERROR: test_each_actual_protocol_file_changes_boot_identity (__main__.BootBindingTests.test_each_actual_protocol_file_changes_boot_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_boot_binding.py", line 23, in test_each_actual_protocol_file_changes_boot_identity
+    original = boot.bind_software_documents(doc, root)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'boot_profile' has no attribute 'bind_software_documents'
+
+======================================================================
+ERROR: test_sliding_window_counts_partial_frames (__main__.BootBindingTests.test_sliding_window_counts_partial_frames)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_boot_binding.py", line 53, in test_sliding_window_counts_partial_frames
+    self.assertEqual(boot.occupied_bytes(segments, Fraction(3, 2), Fraction(4)), Fraction(15))
+                     ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'boot_profile' has no attribute 'occupied_bytes'
+
+======================================================================
+FAIL: test_boot_ack_matches_request_sequence_and_epoch_by_default (__main__.BootBindingTests.test_boot_ack_matches_request_sequence_and_epoch_by_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_boot_binding.py", line 61, in test_boot_ack_matches_request_sequence_and_epoch_by_default
+    self.assertFalse(boot.verify_boot_ack(request, ack)['ok'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.034s
+
+FAILED (failures=1, errors=3)

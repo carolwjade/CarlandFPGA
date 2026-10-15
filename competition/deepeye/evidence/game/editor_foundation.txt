@@ -1,0 +1,581 @@
+DeepEye G02 A侧 编辑器/查看器基础 —— 证据文件
+================================================================================
+task_id        : DEEPEYE-IMPLEMENTATION-20261014 (task_version 1)
+work_id/job_id : A-ui-editor-foundation-v1 / child-a14957b3e26240a9b31c1f2e607b3cf7
+contract       : DEEPEYE-HUMAN-LOCK-20261014/revision1
+requirements_sha256 : c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 (核验见第1节)
+design commit  : 1011259415a0916054eb580687612580bc1e5f09 (确认为 worktree HEAD d59c71345885d990951244f96280316d023f58fb 的祖先)
+worktree/branch: .local/deepeye-implementation-a @ codex/a/deepeye-implementation-20261014
+executor       : A侧执行子代理 (DeepSeek Flash/max, 无子代理/无网络/无板卡/无模型运行时)
+recorded_at    : 2026-10-15 (Asia/Shanghai)
+scope          : A-only G02 编辑/查看器基础；viewer-only 临时图元均标注“开发灰盒”；
+                 本文件不是产品验收(R03/G01/G02均不由此文件通过)。
+
+--------------------------------------------------------------------------------
+0. 本作业台账（唯一可写 6 文件；未写 project.godot / export_presets.cfg / docs/resource_contract.json /
+   tools/pipeline.py / tests/test_pipeline.py / B、C 资产 / 物理；未 commit、未建 PR）
+--------------------------------------------------------------------------------
+competition/deepeye/simulator/viewer/main.tscn
+competition/deepeye/simulator/viewer/main.gd
+competition/deepeye/simulator/ui/shell.gd
+competition/deepeye/simulator/editor/scene_document.gd
+competition/deepeye/simulator/tests/test_editor_document.gd
+competition/deepeye/evidence/game/editor_foundation.txt  (本文件)
+
+--------------------------------------------------------------------------------
+1. 合同身份核验（requirements 规范 SHA256 + H01..H15 + MD 原文一致性）
+--------------------------------------------------------------------------------
+$ cd C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a
+$ C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B docs\competition\deepeye-2026\verify_immutable_scope.py --expected-sha c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+{"status": "passed", "scope": "human requirement identity and trace coverage only", "contract": "DEEPEYE-HUMAN-LOCK-20261014", "requirements": 15, "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804", "runtime_acceptance": "not_run"}
+exit=0
+
+$ C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B docs\competition\deepeye-2026\verify_immutable_scope.py --expected-sha c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 \
+      --book docs\competition\deepeye-2026\taskbook_final.md --plan docs\competition\deepeye-2026\execution_plan_final.json
+（同上输出；book 覆盖 H01..H15、plan 卡哈希一致均通过）exit=0
+
+$ git merge-base --is-ancestor 1011259415a0916054eb580687612580bc1e5f09 HEAD  -> exit=0
+$ git rev-parse HEAD  -> d59c71345885d990951244f96280316d023f58fb
+
+--------------------------------------------------------------------------------
+2. 交付文件 SHA256（Get-FileHash -Algorithm SHA256 实测；与第3节静态检查脚本自算一致）
+--------------------------------------------------------------------------------
+b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db  competition/deepeye/simulator/viewer/main.tscn
+e6e98c03834445630dace1c12173d0b45c6b742bffe56aeae99bda1ac36bf1fe  competition/deepeye/simulator/viewer/main.gd
+c3c901b7c5e0c807de3d8b8322549598332dd91999b7c50d814c1579189bc549  competition/deepeye/simulator/ui/shell.gd
+59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4  competition/deepeye/simulator/editor/scene_document.gd
+dc5d0e6f777370913e34a742c4e5edbfb0200918c3be3c09f167e4b9d9ce180b  competition/deepeye/simulator/tests/test_editor_document.gd
+(本证据文件自身哈希在作业完成消息中给出，不做自引用。)
+
+--------------------------------------------------------------------------------
+3. 静态结构/交叉引用检查（真实命令、exitcode、完整输出）
+--------------------------------------------------------------------------------
+命令: C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B %TEMP%\deepeye_a_static_check.py
+(%TEMP% = C:\Users\CarlJade\AppData\Local\Temp；脚本为本次会话临时只读检查工具，未入树。)
+检查内容: 交付文件SHA清单、res:// 引用解析、main.tscn 结构(ExtResource/SubResource/节点父路径/根Node3D/脚本挂载)、
+         跨文件成员引用(tests->scene_document、main->document/shell、shell->document/main)、GDScript 括号平衡与缩进。
+exit=0
+--------------------------------- 输出开始 ---------------------------------
+== 1. sha256 of deliverable files (evidence 6th file written separately) ==
+b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db    1272  simulator\viewer\main.tscn
+e6e98c03834445630dace1c12173d0b45c6b742bffe56aeae99bda1ac36bf1fe   22351  simulator\viewer\main.gd
+c3c901b7c5e0c807de3d8b8322549598332dd91999b7c50d814c1579189bc549   24588  simulator\ui\shell.gd
+59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4   27116  simulator\editor\scene_document.gd
+dc5d0e6f777370913e34a742c4e5edbfb0200918c3be3c09f167e4b9d9ce180b   12759  simulator\tests\test_editor_document.gd
+
+== 2. res:// reference resolution ==
+PASS reference exists: res://editor/scene_document.gd
+PASS reference exists: res://tests/test_editor_document.gd
+PASS reference exists: res://ui/shell.gd
+PASS reference exists: res://viewer/main.gd
+
+== 3. main.tscn structural check ==
+PASS all ExtResource ids declared
+PASS all SubResource ids declared
+PASS every node parent path declared before use
+PASS root Node3D present
+PASS scripts attached from res:// paths
+
+== 4. cross-file API member check ==
+PASS tests use existing doc member: run_state
+PASS tests use existing doc member: obstacle_count
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: undo
+PASS tests use existing doc member: redo
+PASS tests use existing doc member: can_edit
+PASS tests use existing doc member: validate_gates
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: obstacle_count
+PASS tests use existing doc member: undo
+PASS tests use existing doc member: obstacle_count
+PASS tests use existing doc member: redo
+PASS tests use existing doc member: obstacle_count
+PASS tests use existing doc member: undo
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: redo
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: gate_position
+PASS tests use existing doc member: gate_position
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: gates
+PASS tests use existing doc member: gates
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: gates
+PASS tests use existing doc member: gates
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: gates
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: gate_position
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: gate_position
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: validate_gates
+PASS tests use existing doc member: validate_gates
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: obstacles
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: remove_obstacle
+PASS tests use existing doc member: update_obstacle
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: undo
+PASS tests use existing doc member: randomize_layout
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: update_obstacle
+PASS tests use existing doc member: undo
+PASS tests use existing doc member: set_gate
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: add_obstacle
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: update_obstacle
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: update_obstacle
+PASS tests use existing doc member: randomize_layout
+PASS tests use existing doc member: obstacle_count
+PASS tests use existing doc member: obstacles
+PASS tests use existing doc member: world_half_extent
+PASS tests use existing doc member: randomize_layout
+PASS tests use existing doc member: randomize_layout
+PASS tests use existing doc member: randomize_layout
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: random_seed
+PASS tests use existing doc member: random_record
+PASS tests use existing doc member: commitment_hash
+PASS tests use existing doc member: control_bridge_connected
+PASS tests use existing doc member: request_run
+PASS tests use existing doc member: request_continue
+PASS tests use existing doc member: request_pause
+PASS tests use existing doc member: link_state
+PASS tests use existing doc member: link_state
+PASS tests use existing doc member: link_state
+PASS tests use existing doc member: link_state
+PASS tests use existing doc member: link_state
+PASS tests use existing doc member: set_link_state
+PASS tests use existing doc member: request_stop
+PASS tests use existing doc member: stop_requested
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: request_stop
+PASS tests use existing doc member: run_state
+PASS tests use existing doc member: is_motion_active
+PASS tests use existing doc member: set_run_state_for_testing
+PASS tests use existing doc member: request_stop
+PASS tests use existing DocScript member: GATE_DIAMETER_M
+PASS tests use existing DocScript member: FACES
+PASS tests use existing DocScript member: KINDS
+PASS tests use existing DocScript member: KIND_SIZE_LIMITS
+PASS tests use existing DocScript member: KIND_PRIORITY
+PASS main uses existing document member: layout_changed
+PASS main uses existing document member: gates_changed
+PASS main uses existing document member: selection_changed
+PASS main uses existing document member: log_event
+PASS main uses existing document member: request_stop
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: can_edit
+PASS main uses existing document member: obstacle_by_id
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: update_obstacle
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: update_obstacle
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: obstacle_by_id
+PASS main uses existing document member: push_undo_checkpoint
+PASS main uses existing document member: update_obstacle
+PASS main uses existing document member: add_obstacle
+PASS main uses existing document member: select_object
+PASS main uses existing document member: select_object
+PASS main uses existing document member: obstacle_by_id
+PASS main uses existing document member: select_object
+PASS main uses existing document member: log_event
+PASS main uses existing document member: log_event
+PASS main uses existing document member: obstacle_by_id
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: log_event
+PASS main uses existing document member: log_event
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: select_object
+PASS main uses existing document member: obstacles
+PASS main uses existing document member: world_half_extent
+PASS main uses existing document member: log_event
+PASS main uses existing document member: set_gate
+PASS main uses existing document member: log_event
+PASS main uses existing document member: obstacles
+PASS main uses existing document member: obstacle_by_id
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: selected_id
+PASS main uses existing document member: gate_position
+PASS main uses existing document member: gate_normal
+PASS main uses existing shell member: bind_editor
+PASS main uses existing shell member: snap_enabled
+PASS main uses existing shell member: pick_mode
+PASS main uses existing shell member: current_kind
+PASS main uses existing shell member: snap_enabled
+PASS main uses existing shell member: axis_lock
+PASS main uses existing shell member: axis_lock
+PASS main uses existing shell member: active_gate
+PASS main uses existing shell member: on_gate_result
+PASS shell uses existing document member: layout_changed
+PASS shell uses existing document member: gates_changed
+PASS shell uses existing document member: state_changed
+PASS shell uses existing document member: event_logged
+PASS shell uses existing document member: selection_changed
+PASS shell uses existing document member: events
+PASS shell uses existing document member: status_snapshot
+PASS shell uses existing document member: overlap_warnings
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: obstacle_count
+PASS shell uses existing document member: obstacle_by_id
+PASS shell uses existing document member: obstacle_count
+PASS shell uses existing document member: gates
+PASS shell uses existing document member: add_obstacle
+PASS shell uses existing document member: duplicate_obstacle
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: select_object
+PASS shell uses existing document member: remove_obstacle
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: undo
+PASS shell uses existing document member: redo
+PASS shell uses existing document member: randomize_layout
+PASS shell uses existing document member: reset_layout
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: update_obstacle
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: update_obstacle
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: update_obstacle
+PASS shell uses existing document member: selected_id
+PASS shell uses existing document member: set_gate
+PASS shell uses existing document member: request_run
+PASS shell uses existing document member: request_pause
+PASS shell uses existing document member: request_continue
+PASS shell uses existing document member: request_stop
+PASS shell uses existing document member: lock_layout
+PASS shell uses existing document member: unlock_layout
+PASS shell uses existing main member: set_ticks_visible
+PASS shell uses existing main member: set_camera_view
+PASS shell uses existing main member: focus_selected
+
+== 5. GDScript lexical checks (indentation, bracket balance) ==
+PASS main.gd: balanced ()
+PASS main.gd: balanced []
+PASS main.gd: balanced {}
+PASS main.gd: tab indentation only (no space indents)
+PASS shell.gd: balanced ()
+PASS shell.gd: balanced []
+PASS shell.gd: balanced {}
+PASS shell.gd: tab indentation only (no space indents)
+PASS scene_document.gd: balanced ()
+PASS scene_document.gd: balanced []
+PASS scene_document.gd: balanced {}
+PASS scene_document.gd: tab indentation only (no space indents)
+PASS test_editor_document.gd: balanced ()
+PASS test_editor_document.gd: balanced []
+PASS test_editor_document.gd: balanced {}
+PASS test_editor_document.gd: tab indentation only (no space indents)
+
+STATIC CHECK SUMMARY: failures=0
+--------------------------------- 输出结束 ---------------------------------
+FAIL 行数=0；SUMMARY failures=0。
+
+--------------------------------------------------------------------------------
+4. GDScript 陷阱扫描（真实命令、exitcode、完整输出）
+--------------------------------------------------------------------------------
+命令: C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B %TEMP%\deepeye_a_pitfall_scan.py
+检查内容: 字符串/注释剥离后扫描 其他语言关键字(def/lambda/None/True/False/import)、C++运算符(&&/||/!())、
+         // 注释、/* */ 块注释、行尾分号。
+exit=0
+--------------------------------- 输出开始 ---------------------------------
+INFO main.gd funcs=33
+INFO shell.gd funcs=51
+INFO scene_document.gd funcs=53
+INFO test_editor_document.gd funcs=9
+pitfall scan issues: 0
+--------------------------------- 输出结束 ---------------------------------
+issues: 0
+
+补充人工只读复核（最后一次补丁 12:59 之后复审的已改区域）:
+- 4 个 .gd 文件中无行尾反斜杠续行；剩余内联 lambda 均为 GDScript4 合法单行形式；
+- shell.gd 具名回调 _on_tool_toggled/_on_gate_which_selected/_on_ticks_toggled 的定义与 connect 引用一一对应；
+- scene_document.gd set_gate()/validate_gates(): 拒绝时恢复原圈原值、不移动另一圈；错误文本含 0.15m 说明；pending_authority 明示“待权威”。
+
+--------------------------------------------------------------------------------
+5. headless 测试（SceneTree）：命令与运行状态
+--------------------------------------------------------------------------------
+运行命令（需 Godot 引擎；本机无，未执行）:
+  cd C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulator
+  godot --headless --path . --script res://tests/test_editor_document.gd
+状态: not_run (no Godot engine available on host; 本作业不下载、不安装；引擎定位归属 native worker)
+预期（未实测）: 输出 TESTS checks=.. failures=0 与 RESULT PASS，exit 0；失败时 exit 1。
+
+引擎探测（本次真实命令与结果）:
+  where.exe godot            -> no matches
+  Get-Command godot,godot4,godot.exe -> none
+  目录探测 C:\Users\CarlJade\{Desktop,Downloads,scoop\shims}、%LOCALAPPDATA%\Programs、
+           C:\ProgramData\chocolatey\bin、C:\Tools、C:\Godot -> no matches
+  （与上一轮探测一致: Program Files / AppData / .local / %TEMP% / 用户目录 depth3 均无匹配）
+
+附带阻塞: taskbook G02 验收脚本 tools/verify_game.py 在树中尚不存在（tools/ 目前仅 pipeline.py，非本作业属主）；
+         其 --suite editor --actions 200 录制/回放、截图/录像验收均未执行、不在本文件主张范围。
+
+测试覆盖（静态审阅确认；引擎到位即可直接运行）:
+  1 initial_state_and_guards           初始 editing/空场景/hash 稳定/空历史撤销拒绝/默认双圈有效
+  2 undo_redo_depth_ge_50              80 步添加、连续 50 撤销+50 重做、新编辑清空 redo 栈
+  3 gate_editing_and_validation        0.15m 边距 14.86 拒绝/14.85 接受；同面 0.30 接受、0.29 拒绝且不移动另一圈；
+                                       六面均可设；u/v 映射(前=xy,右=zy)；未知面拒绝；pending_authority 列出
+  4 forbidden_edits_running_paused_locked  running/paused/locked 全部编辑拒绝且 hash 不变；editing/stopped 放行
+  5 random_layout_bounds_reproducible  种子1/2/3/17/42 尺寸在类别区间内、外扩半程不出立方体、同种子同 hash、异种子异 hash
+  6 run_bridge_disabled_and_esc_stop   运行/继续/暂停禁用；链路标签默认未连接且不可伪造；运行中 Esc 发 stop_requested、
+                                       无假板端 ack、状态停留 running 等待真权威、无假运动
+
+--------------------------------------------------------------------------------
+6. 已核验 vs 未核验（如实边界）
+--------------------------------------------------------------------------------
+已核验（静态/身份）:
+- 合同哈希、H01..H15 集合、MD must 原文、人类原文、taskbook/plan 覆盖（第1节，exit 0）
+- 6 交付文件存在与 SHA256（第2节）
+- 静态结构/交叉引用检查 failures=0（第3节 exit 0）
+- GDScript 陷阱扫描 issues=0（第4节 exit 0）
+- 测试脚本内容覆盖要求项（第5节审阅）
+未核验（不主张）:
+- Godot 引擎实际加载/运行；headless 测试未运行（not_run）
+- 渲染画面/导出/截图/录像、1440p/1080p 及 125%/150% 无裁切、36 有向面配对交互、200 步回放、
+  保存重开 hash 一致 —— 均属 G02 产品验收（tools/verify_game.py），本作业未做
+- 资产工厂 res://world/asset_library.gd 未接线（resource_contract 标注 optional until B delivery；
+  当前可见几何为标注“开发灰盒”的临时图元，不主张最终画质/资产合规）
+- 物理/碰撞体积、传感器、板卡、网络、模型运行时 —— 未涉及
+
+--------------------------------------------------------------------------------
+7. 实现行为要点（供复核；均为静态阅读结论）
+--------------------------------------------------------------------------------
+- 场景: Node3D 根 + main.gd；中央 3D 视窗 >=60% 面积（1080p: 左13%/右14%/顶30px/底9%）；
+  12 条棱 + 角标 + 可关坐标刻度；低亮中性环境；无不可穿越填充体。
+- UI: 左侧中文场景工具栏 / 右侧链路与权威状态 / 底部事件时间线；顶栏 工况来源/控制拓扑/
+  实际波特率/数据年龄/AI 状态/权威桥 = 未连接（不伪造实时态）。
+- 编辑: 添加/复制/删除/选中；数值 位置/旋转/尺寸；0.25m 吸附；轴锁定；撤销/重做容量 64(>=50)；
+  仅 editing/stopped 可编辑，running/paused/locked 拒绝（含撤销与随机）。
+- 随机布局: 种子可复现 (RandomNumberGenerator.seed)、保留 viewer-only 记录、
+  承诺 hash 不含种子；kind_ids = water/hard_rock/fault/void/casing。
+- 相机: 右键环绕/中键平移/滚轮缩放/六向+等轴测+聚焦；指针悬停 UI 时不移动相机
+  (gui_get_hovered_control 判定)；运行/暂停期间相机可用；Esc 在 _input 全局处理。
+- 圈: 蓝入口/红出口 直径 0.30m 等径、贴面、文字+方向箭头；六面 u/v；边距 0.15m、同面间距 0.30m、
+  不自动移动另一圈；几何有效不等于路线可达，初始化空间/路线校验显示“待权威”。
+- 状态机: SceneDocument 持有数据/状态；运行/继续按钮禁用（真实权威+模式桥未连）；
+  停止按钮/Esc 仅发 stop_requested，不假板端 ack，无假运动/时间线。
+- resource_contract.json 关键项对齐: cube [-15,15]^3、1u=1m、局部 +Z、四元数 xyzw、physics 100Hz、
+  gate_diameter 0.30、viewer_initial_state=editing（实现常量 CUBE_HALF=15、GATE_DIAMETER_M=0.30）。
+
+--------------------------------------------------------------------------------
+8. 复现命令汇总
+--------------------------------------------------------------------------------
+[1] 合同核验（第1节）: 见上方两条命令
+[2] 静态检查: C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B C:\Users\CarlJade\AppData\Local\Temp\deepeye_a_static_check.py
+[3] 陷阱扫描: C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe -X utf8 -B C:\Users\CarlJade\AppData\Local\Temp\deepeye_a_pitfall_scan.py
+[4] headless 测试（需引擎）: 见第5节命令（not_run）
+(%TEMP% 中 [2][3] 为会话临时工具，输出已全文收录于本文件；如需长期复现可另行入树，本作业未做。)
+
+================================================================================
+9. G02 运行时缺陷修复记录（gen2 / work A-G02-runtime-ui-gen2-v1 / 2026-10-15）
+================================================================================
+授权   : 唯一 Desktop A 实施主会话 01a13d7e-dcf1-7272-a738-a637dd62ff9d generation2,
+         task DEEPEYE-IMPLEMENTATION-20261014/v1, work A-G02-runtime-ui-gen2-v1（DeepSeek Flash/max 执行）。
+合同   : requirements canonical SHA256 = c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+         （本次以 ensure_ascii=False, sort_keys=True, separators=(',',':') 复算一致；DEEPEYE-HUMAN-LOCK-20261014/revision1）
+引擎   : Godot_v4.7.2-stable_win64_console.exe（官方归档 SHA256 731980f9608d61333e5baf54a2ef17210acc7a538446c0cb9969f002aca1e953）；
+         --version = 4.7.2.stable.official.ed1daf0bf。全部命令 --headless。
+路径简写: ENGINE = <root>\.planning\deepeye-implementation-a\app-worker-ui\godot\Godot_v4.7.2-stable_win64_console.exe
+         PROJ   = <root>\.local\deepeye-implementation-a\competition\deepeye\simulator
+         PROBE  = <root>\.planning\deepeye-implementation-a\app-worker-ui\initial_layout_probe.gd（只读原生探针，未修改）
+
+--------------------------------------------------------------------------------
+9.1 修复前复现（原样重跑原生探针）
+--------------------------------------------------------------------------------
+命令: & ENGINE --headless --path PROJ --script PROBE
+exit=1
+---------------- 原始输出 ----------------
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INITIAL_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 0.0)] right=[P: (0.0, 0.0), S: (240.0, 640.0)] top=[P: (0.0, 0.0), S: (711.0, 20.0)] bottom=[P: (0.0, 0.0), S: (358.0, 22.0)]
+FAIL initial right panel does not cover left toolbar
+FAIL initial top bar starts after left toolbar
+FAIL initial timeline placed below central viewport
+FAIL undo becomes enabled after an edit
+HISTORY label=撤销 0 / 重做 0 undo_disabled=true
+FAIL overlapping edit refreshes visible warning
+OVERLAP label=无重叠警告
+PROBE failures=5
+------------------------------------------
+（与 .planning\deepeye-implementation-a\app-worker-ui\before_layout_probe.txt 完全一致）
+
+--------------------------------------------------------------------------------
+9.2 根因（本机实测确认，非推断）
+--------------------------------------------------------------------------------
+A. 初始布局从未执行：shell.gd _build_ui() 中 _root.set_anchors_preset(FULL_RECT) 之后 add_child(_root) 时，
+   控件已按内容尺寸 1920x1080 定尺，随后才 connect(resized)；静态内容尺寸下该信号不再触发，_relayout 从未运行，
+   四个面板停留在默认 anchor(0,0)+内容最小尺寸（左337x0/右240x640/顶711x20/底358x22，全部位于(0,0)互相覆盖）。
+   实测原始行（临时诊断，%TEMP%，未入树）:
+     DIAG_A size_after_add_child=(1920.0, 1080.0) size_after_frame=(1920.0, 1080.0) resized_fired=0
+     DIAG_B root=(1920.0, 1080.0) left.anchor_right=0.0 left.offset_right=0.0
+     DIAG_B left rect=[P: (0.0, 0.0), S: (337.0, 0.0)] right rect=[P: (0.0, 0.0), S: (240.0, 640.0)]
+     DIAG_B after manual _on_root_resized left=[P: (0.0, 0.0), S: (329.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)]
+   另：project.godot 采用 stretch=canvas_items + 固定内容 1920x1080，真实窗口缩放不改变 Control 坐标系，
+   实测 window 由 64x64 改 1600x900 后 shell._root.size 仍为 (1920,1080)，即该 resized 路径在实践中也不会补执行：
+     DIAG_R sizes before=(64.0, 64.0) after=(1600, 900) shellroot=(1920.0, 1080.0)
+B. 历史/重叠不刷新：_on_document_changed() 仅调用 _refresh_selection_fields()；layout_changed 后
+   _history_label/_undo_button/_redo_button/_overlap_label 保持旧值（仅 state_changed/bind_editor/run 才 _refresh_all）。
+C. 指针释放丢失（实测复现）：main.gd _unhandled_input() 在 _pointer_over_ui() 时一律提前 return；实测 release 事件
+   会到达 unhandled 阶段（无 mouse_focus 时 GUI 不消费），因此从3D区按下、拖入面板后释放被提前 return 丢弃，
+   _orbiting/_dragging 卡死，返回3D区后继续旋转/拖动。实测原始行:
+     ORBIT_PROBE B:2:true@(959.9999, 540.0) / B:2:false@(1691.2, 500.0)（release 确实到达 unhandled）
+     DIAG3 orbiting_after_release_over_panel=true, stale_orbit_effect=true, yaw_delta=-204.735986328125
+     DIAG4 drag dragging_after_release=true, dragging_now=true（拖拽状态同样卡死）
+   （headless 窗口 64x64/内容 1920x1080，合成事件按 get_final_transform 由画布坐标换算窗口坐标；命中检测为真实引擎 GUI 路径）
+
+--------------------------------------------------------------------------------
+9.3 修复内容（最小改动，2 个文件）
+--------------------------------------------------------------------------------
+ui/shell.gd:
+  (1) _build_ui() 末尾新增 _relayout(_root.size)：初始布局在构建完成时立即执行（不依赖 resized 信号）。
+  (2) _on_document_changed() 由 _refresh_selection_fields() 改为 _refresh_all()：编辑后统一刷新历史/警告/链路与门状态。
+  (3) _relayout() 在 clampf 计算后增加 left_w = maxf(left_w, _left_panel.get_combined_minimum_size().x)：
+      左工具栏内容最小宽度（337px）大于 13% 锚定宽度（249.6px）时以内容宽度为准，顶栏/时间线不再压在工具栏下方。
+viewer/main.gd:
+  (4) _unhandled_input() 对鼠标按键仅在 pressed 且悬停 UI 时提前返回；release 始终交给 _handle_mouse_button()，
+      恢复 _orbiting/_panning/_dragging，避免拖入面板后释放丢失。
+未改动: editor/scene_document.gd（哈希不变）、viewer/main.tscn、project.godot、export_presets.cfg、资源边界与任务书。
+
+--------------------------------------------------------------------------------
+9.4 回归（同一 tests/test_editor_document.gd，先红后绿）
+--------------------------------------------------------------------------------
+红（修复前，新增运行时用例后；exit=1）:
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_editor_document (SceneDocument headless) ==
+PASS initial_state_and_guards
+PASS undo_redo_depth_ge_50
+PASS gate_editing_and_validation
+PASS forbidden_edits_running_paused_locked
+PASS random_layout_bounds_reproducible
+PASS run_bridge_disabled_and_esc_stop
+UI_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 0.0)] right=[P: (0.0, 0.0), S: (240.0, 640.0)] top=[P: (0.0, 0.0), S: (711.0, 20.0)] bottom=[P: (0.0, 0.0), S: (358.0, 22.0)]
+UI_LAYOUT central_ratio=0.00%
+FAIL viewer_initial_layout_and_ui_refresh
+FAIL viewer_pointer_release_over_panel
+TESTS checks=672 failures=13
+FAILURE: initial right panel does not cover left toolbar
+FAILURE: initial top bar starts after left toolbar
+FAILURE: initial timeline placed below central viewport
+FAILURE: central 3D viewport area is at least 60% (got 0.00%)
+FAILURE: undo becomes enabled after an edit
+FAILURE: history label refreshes after an edit (got 撤销 0 / 重做 0)
+FAILURE: overlapping edit refreshes the visible warning
+FAILURE: undo refreshes the history label (got 撤销 0 / 重做 0)
+FAILURE: redo is enabled after one undo
+FAILURE: history label follows the second undo (got 撤销 0 / 重做 0)
+FAILURE: RMB release over the right panel ends the orbit
+FAILURE: camera does not keep orbiting after the release over the panel
+FAILURE: LMB release over the right panel ends the object drag
+RESULT FAIL
+
+迭代1（已修复 A/B/C，仍红2项；exit=1）关键行:
+UI_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (329.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)] top=[P: (249.6, 0.0), S: (1401.6, 30.0)] bottom=[P: (249.6, 982.8), S: (1401.6, 97.20001)]
+UI_LAYOUT central_ratio=60.75%
+FAIL viewer_initial_layout_and_ui_refresh
+PASS viewer_pointer_release_over_panel
+TESTS checks=672 failures=2
+FAILURE: initial top bar starts after left toolbar
+FAILURE: initial timeline placed below central viewport
+绿（最终字节；exit=0）:
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_editor_document (SceneDocument headless) ==
+PASS initial_state_and_guards
+PASS undo_redo_depth_ge_50
+PASS gate_editing_and_validation
+PASS forbidden_edits_running_paused_locked
+PASS random_layout_bounds_reproducible
+PASS run_bridge_disabled_and_esc_stop
+UI_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)] top=[P: (337.0, 0.0), S: (1314.2, 30.0)] bottom=[P: (337.0, 982.8), S: (1314.2, 97.20001)]
+UI_LAYOUT central_ratio=60.39%
+PASS viewer_initial_layout_and_ui_refresh
+PASS viewer_pointer_release_over_panel
+TESTS checks=672 failures=0
+RESULT PASS
+
+
+--------------------------------------------------------------------------------
+9.5 最终验证（最终字节；4 条命令全部 exit 0）
+--------------------------------------------------------------------------------
+[1] editor parse: & ENGINE --headless --path PROJ --editor --quit   exit=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+[2] headless tests: & ENGINE --headless --path PROJ --script res://tests/test_editor_document.gd   exit=0（输出见 9.4 绿）
+[3] 原样原生探针: & ENGINE --headless --path PROJ --script PROBE   exit=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+INITIAL_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)] top=[P: (337.0, 0.0), S: (1314.2, 30.0)] bottom=[P: (337.0, 982.8), S: (1314.2, 97.20001)]
+PASS initial right panel does not cover left toolbar
+PASS initial top bar starts after left toolbar
+PASS initial timeline placed below central viewport
+PASS undo becomes enabled after an edit
+HISTORY label=撤销 1 / 重做 0 undo_disabled=false
+PASS overlapping edit refreshes visible warning
+OVERLAP label=1 条重叠警告（首条）：#1 硬岩 与 #2 水层 重叠：按材料优先级由 水层 解析（强制禁入优先）
+PROBE failures=0
+
+[4] headless 场景启动: & ENGINE --headless --path PROJ --quit-after 3   exit=0
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+
+
+--------------------------------------------------------------------------------
+9.6 文件与哈希（Get-FileHash SHA256 实测，before -> after）
+--------------------------------------------------------------------------------
+competition/deepeye/simulator/tests/test_editor_document.gd  dc5d0e6f777370913e34a742c4e5edbfb0200918c3be3c09f167e4b9d9ce180b -> bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481
+competition/deepeye/simulator/ui/shell.gd                    c3c901b7c5e0c807de3d8b8322549598332dd91999b7c50d814c1579189bc549 -> 820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92
+competition/deepeye/simulator/viewer/main.gd                 e6e98c03834445630dace1c12173d0b45c6b742bffe56aeae99bda1ac36bf1fe -> d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e
+未改动（哈希与修复前一致）:
+  editor/scene_document.gd 59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4
+  viewer/main.tscn b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db
+  simulator/project.godot be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161
+  simulator/export_presets.cfg f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34
+未 commit、未 push、未建 PR；本 worktree 原有未跟踪/已修改字节全部保留。
+
+--------------------------------------------------------------------------------
+9.7 边界与未主张（如实）
+--------------------------------------------------------------------------------
+- 无实时 GUI 操作/截图/录像；指针回归为 headless 合成事件（真实引擎输入管线与 GUI 命中检测，含窗口→画布变换），
+  原生 worker 仍需真机 UI 独立复核（含真实鼠标拖入面板释放、125%/150% 缩放、1440p）。
+- 未测: 真实渲染外观/导出、36 对有向面交互、200 步回放、保存重开 hash 一致、1440p 与系统缩放无裁切 —— 均属 G02 产品验收。
+- 不涉及物理/碰撞/传感器/板卡/网络/AI/模型运行时/B 资产；无假运行桥、无假运动、pending 标签保持不变。
+- 运行/继续按钮仍禁用；停止/Esc 行为不变。
+- 产品卡 G01/G02/G06/G07 等维持 not_run；本记录只是运行时缺陷修复证据，不构成任何验收通过。

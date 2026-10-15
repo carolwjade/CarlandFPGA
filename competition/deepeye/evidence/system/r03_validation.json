@@ -1,0 +1,1018 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "checked_utc": "2026-10-15T09:46:02.468672+00:00",
+  "R03": "not_run",
+  "scope": "full_R03",
+  "hardware_enable_eligible": false,
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_wire.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "61b6bdb314b9e85b3f7cd242b7832e4b39ed05924a7b4426d715b44b02febc48",
+      "output": "test_all_fixed_lengths (__main__.WireTests.test_all_fixed_lengths) ... ok\r\ntest_bounded_resynchronization_and_embedded_magic (__main__.WireTests.test_bounded_resynchronization_and_embedded_magic) ... ok\r\ntest_crc_independent_vectors (__main__.WireTests.test_crc_independent_vectors) ... ok\r\ntest_crc_version_magic_size_and_unknown_rejected (__main__.WireTests.test_crc_version_magic_size_and_unknown_rejected) ... ok\r\ntest_every_chunk_boundary (__main__.WireTests.test_every_chunk_boundary) ... ok\r\ntest_exact_hello_frame (__main__.WireTests.test_exact_hello_frame) ... ok\r\ntest_input_cap_preserves_partial_state (__main__.WireTests.test_input_cap_preserves_partial_state) ... ok\r\ntest_integer_overflow_does_not_wrap (__main__.WireTests.test_integer_overflow_does_not_wrap) ... ok\r\ntest_legacy_is_explicit_diagnostic_only (__main__.WireTests.test_legacy_is_explicit_diagnostic_only) ... ok\r\ntest_motion_signed_payload_is_preserved (__main__.WireTests.test_motion_signed_payload_is_preserved) ... ok\r\ntest_unfrozen_trace_rejected (__main__.WireTests.test_unfrozen_trace_rejected) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 11 tests in 0.006s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_motion.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "8de2328fb5dbad09d9308ed4c0afa702bde9565980fa69a5ba7faac3dbc4e593",
+      "output": "test_acceleration_and_deceleration_bound (__main__.MotionTests.test_acceleration_and_deceleration_bound) ... ok\r\ntest_frozen_stress_axis_and_diagonal_boundaries (__main__.MotionTests.test_frozen_stress_axis_and_diagonal_boundaries) ... ok\r\ntest_integer_and_range_checks_reject_not_clip (__main__.MotionTests.test_integer_and_range_checks_reject_not_clip) ... ok\r\ntest_profile_mapping_does_not_mix (__main__.MotionTests.test_profile_mapping_does_not_mix) ... ok\r\ntest_rate_scales_with_actual_speed_and_stops_at_zero (__main__.MotionTests.test_rate_scales_with_actual_speed_and_stops_at_zero) ... ok\r\ntest_rom_against_independent_formula_every_speed (__main__.MotionTests.test_rom_against_independent_formula_every_speed) ... ok\r\ntest_zero_speed_never_turns (__main__.MotionTests.test_zero_speed_never_turns) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 7 tests in 0.001s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_host_schema.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "f00eb5d2a795a5ff1aaa632a96e05948e17e71d70aa52033ea07117d1dffa55d",
+      "output": ".......\r\n----------------------------------------------------------------------\r\nRan 7 tests in 0.051s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_host_envelope.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "2bd46197aa05f25065adddfd8dcc2235460c222765c39c02f1aedb934b352351",
+      "output": "test_board_response_consumer_default_and_unsafe_routing (__main__.HostEnvelopeTests.test_board_response_consumer_default_and_unsafe_routing) ... ok\r\ntest_board_response_request_type_phase_and_mode_echo (__main__.HostEnvelopeTests.test_board_response_request_type_phase_and_mode_echo) ... ok\r\ntest_board_response_restricts_raw_types_session_and_epochs (__main__.HostEnvelopeTests.test_board_response_restricts_raw_types_session_and_epochs) ... ok\r\ntest_bool_and_float_identities_rejected_in_integer_enum_const_fields (__main__.HostEnvelopeTests.test_bool_and_float_identities_rejected_in_integer_enum_const_fields) ... ok\r\ntest_caller_context_and_now_arguments_are_strict (__main__.HostEnvelopeTests.test_caller_context_and_now_arguments_are_strict) ... ok\r\ntest_event_wire_fields_must_equal_envelope (__main__.HostEnvelopeTests.test_event_wire_fields_must_equal_envelope) ... ok\r\ntest_future_timestamps_rejected (__main__.HostEnvelopeTests.test_future_timestamps_rejected) ... ok\r\ntest_gate_centers_must_lie_on_selected_face_with_full_clearance (__main__.HostEnvelopeTests.test_gate_centers_must_lie_on_selected_face_with_full_clearance) ... ok\r\ntest_grant_topology_action_source_and_capture_seq_binding (__main__.HostEnvelopeTests.test_grant_topology_action_source_and_capture_seq_binding) ... ok\r\ntest_hidden_truth_fields_rejected_everywhere (__main__.HostEnvelopeTests.test_hidden_truth_fields_rejected_everywhere) ... ok\r\ntest_message_context_must_equal_active_context (__main__.HostEnvelopeTests.test_message_context_must_equal_active_context) ... ok\r\ntest_message_size_and_nesting_bounds (__main__.HostEnvelopeTests.test_message_size_and_nesting_bounds) ... ok\r\ntest_nested_duplicate_keys_rejected (__main__.HostEnvelopeTests.test_nested_duplicate_keys_rejected) ... ok\r\ntest_nonfinite_numbers_and_invalid_utf8_rejected (__main__.HostEnvelopeTests.test_nonfinite_numbers_and_invalid_utf8_rejected) ... ok\r\ntest_observation_context_must_equal_active_context (__main__.HostEnvelopeTests.test_observation_context_must_equal_active_context) ... ok\r\ntest_pose_quaternion_must_be_finite_and_unit_within_tolerance (__main__.HostEnvelopeTests.test_pose_quaternion_must_be_finite_and_unit_within_tolerance) ... ok\r\ntest_positive_grant_requires_deadline_after_now (__main__.HostEnvelopeTests.test_positive_grant_requires_deadline_after_now) ... ok\r\ntest_producer_kind_map_is_enforced (__main__.HostEnvelopeTests.test_producer_kind_map_is_enforced) ... ok\r\ntest_raw_wire_crc_type_layout_mismatches_rejected (__main__.HostEnvelopeTests.test_raw_wire_crc_type_layout_mismatches_rejected) ... ok\r\ntest_receipt_interval_must_be_ordered_and_end_by_now (__main__.HostEnvelopeTests.test_receipt_interval_must_be_ordered_and_end_by_now) ... ok\r\ntest_returned_record_is_informational_and_inputs_not_mutated (__main__.HostEnvelopeTests.test_returned_record_is_informational_and_inputs_not_mutated) ... ok\r\ntest_sample_count_must_match_transport_profile (__main__.HostEnvelopeTests.test_sample_count_must_match_transport_profile) ... ok\r\ntest_set_target_requires_observation_and_bounded_positive_duration (__main__.HostEnvelopeTests.test_set_target_requires_observation_and_bounded_positive_duration) ... ok\r\ntest_stop_target_must_be_all_zero_and_may_carry_null_observation (__main__.HostEnvelopeTests.test_stop_target_must_be_all_zero_and_may_carry_null_observation) ... ok\r\ntest_stress_curvature_boundaries_and_zero_speed_rotation (__main__.HostEnvelopeTests.test_stress_curvature_boundaries_and_zero_speed_rotation) ... ok\r\ntest_valid_board_response_all_five_permitted_types (__main__.HostEnvelopeTests.test_valid_board_response_all_five_permitted_types) ... ok\r\ntest_valid_candidate_stop_and_set_target (__main__.HostEnvelopeTests.test_valid_candidate_stop_and_set_target) ... ok\r\ntest_valid_event_observation (__main__.HostEnvelopeTests.test_valid_event_observation) ... ok\r\ntest_valid_mapped_sample_upper_may_extend_beyond_now (__main__.HostEnvelopeTests.test_valid_mapped_sample_upper_may_extend_beyond_now) ... ok\r\ntest_valid_motion_grant_all_three_topologies (__main__.HostEnvelopeTests.test_valid_motion_grant_all_three_topologies) ... ok\r\ntest_valid_motion_request_both_actions (__main__.HostEnvelopeTests.test_valid_motion_request_both_actions) ... ok\r\ntest_valid_odometry_unit_quaternion (__main__.HostEnvelopeTests.test_valid_odometry_unit_quaternion) ... ok\r\ntest_valid_public_task_geometry (__main__.HostEnvelopeTests.test_valid_public_task_geometry) ... ok\r\ntest_valid_telem_fast_50_and_stress_800 (__main__.HostEnvelopeTests.test_valid_telem_fast_50_and_stress_800) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 34 tests in 0.171s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_pc_direct_heartbeat.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "54a73bf16fd07f2db7fbf52bc3623b02623ea379cd3593dafb419c6dace04af4",
+      "output": ".....\r\n----------------------------------------------------------------------\r\nRan 5 tests in 0.017s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_clock_bounds.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "3e1d18e1b65d34379e8d3cdb1567e7be048bf1f50492b87792a01113694a4eb2",
+      "output": "test_first_sample_interval_from_measured_period (__main__.AdcWindowTests.test_first_sample_interval_from_measured_period) ... ok\r\ntest_no_em_inference_api (__main__.AdcWindowTests.test_no_em_inference_api) ... ok\r\ntest_nominal_spans_are_not_frame_times (__main__.AdcWindowTests.test_nominal_spans_are_not_frame_times) ... ok\r\ntest_single_sample_and_no_concealment (__main__.AdcWindowTests.test_single_sample_and_no_concealment) ... ok\r\ntest_window_helper_stays_integer_on_large_clock (__main__.AdcWindowTests.test_window_helper_stays_integer_on_large_clock) ... ok\r\ntest_constructor_cannot_forge_derived_fields (__main__.AnchorTests.test_constructor_cannot_forge_derived_fields) ... ok\r\ntest_make_anchor_clips_negative_lower_to_zero (__main__.AnchorTests.test_make_anchor_clips_negative_lower_to_zero) ... ok\r\ntest_make_anchor_main_formula_and_expiry (__main__.AnchorTests.test_make_anchor_main_formula_and_expiry) ... ok\r\ntest_make_anchor_rejects_identity_and_types (__main__.AnchorTests.test_make_anchor_rejects_identity_and_types) ... ok\r\ntest_make_anchor_rejects_negative_upper (__main__.AnchorTests.test_make_anchor_rejects_negative_upper) ... ok\r\ntest_bounds_accepts_boundary_values (__main__.ClockBoundsTests.test_bounds_accepts_boundary_values) ... ok\r\ntest_bounds_age_limits (__main__.ClockBoundsTests.test_bounds_age_limits) ... ok\r\ntest_bounds_reject_none (__main__.ClockBoundsTests.test_bounds_reject_none) ... ok\r\ntest_bounds_rejects_delay_order_and_negative (__main__.ClockBoundsTests.test_bounds_rejects_delay_order_and_negative) ... ok\r\ntest_bounds_rejects_rate_out_of_range (__main__.ClockBoundsTests.test_bounds_rejects_rate_out_of_range) ... ok\r\ntest_bounds_requires_quantum_floor (__main__.ClockBoundsTests.test_bounds_requires_quantum_floor) ... ok\r\ntest_interval_accepts_closed_range (__main__.IntervalTests.test_interval_accepts_closed_range) ... ok\r\ntest_interval_rejects_bool_and_none (__main__.IntervalTests.test_interval_rejects_bool_and_none) ... ok\r\ntest_interval_rejects_empty_and_negative (__main__.IntervalTests.test_interval_rejects_empty_and_negative) ... ok\r\ntest_ceiling_drift_is_integer_exact (__main__.MapTickTests.test_ceiling_drift_is_integer_exact) ... ok\r\ntest_containment_of_true_sample_times (__main__.MapTickTests.test_containment_of_true_sample_times) ... ok\r\ntest_delayed_sample_before_anchor_allowed_but_bounded (__main__.MapTickTests.test_delayed_sample_before_anchor_allowed_but_bounded) ... ok\r\ntest_expired_and_regressing_now (__main__.MapTickTests.test_expired_and_regressing_now) ... ok\r\ntest_forward_mapping_exact_interval (__main__.MapTickTests.test_forward_mapping_exact_interval) ... ok\r\ntest_identity_mismatch_and_bad_arguments (__main__.MapTickTests.test_identity_mismatch_and_bad_arguments) ... ok\r\ntest_large_clock_is_float_free (__main__.MapTickTests.test_large_clock_is_float_free) ... ok\r\ntest_upper_bound_may_exceed_now_but_lower_must_not (__main__.MapTickTests.test_upper_bound_may_exceed_now_but_lower_must_not) ... ok\r\ntest_wrap_and_half_wrap (__main__.MapTickTests.test_wrap_and_half_wrap) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 28 tests in 0.002s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_boot_binding.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "1b61d082087686e4df29471c4b485fdfb429312afd251679264a4b4ccc4c334a",
+      "output": ".....\r\n----------------------------------------------------------------------\r\nRan 5 tests in 1.281s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_contract_vectors.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "41e6ab9078ba7aff324838af7874b68bdc5f3e187f616cb40e0a1110220d5afa",
+      "output": "...\r\n----------------------------------------------------------------------\r\nRan 3 tests in 0.003s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tests/test_boot_profile.py"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "e12c26be25fa12d3d18fc7fd4e2a316eaca442d22e159b34e816cd72c2e29456",
+      "output": "test_exact_equality_ack_accepts_and_rejects_differences (__main__.BootFrameTests.test_exact_equality_ack_accepts_and_rejects_differences) ... ok\r\ntest_malformed_frames_rejected (__main__.BootFrameTests.test_malformed_frames_rejected) ... ok\r\ntest_roundtrip_via_existing_wire (__main__.BootFrameTests.test_roundtrip_via_existing_wire) ... ok\r\ntest_compose_and_parse_roundtrip (__main__.BootModeTests.test_compose_and_parse_roundtrip) ... ok\r\ntest_rejects_zero_reserved_and_unknown (__main__.BootModeTests.test_rejects_zero_reserved_and_unknown) ... ok\r\ntest_canonical_rejects_nonfinite (__main__.CanonicalTests.test_canonical_rejects_nonfinite) ... ok\r\ntest_canonical_sorted_compact_utf8 (__main__.CanonicalTests.test_canonical_sorted_compact_utf8) ... ok\r\ntest_load_rejects_duplicate_keys (__main__.CanonicalTests.test_load_rejects_duplicate_keys) ... ok\r\ntest_load_rejects_nonfinite_tokens (__main__.CanonicalTests.test_load_rejects_nonfinite_tokens) ... ok\r\ntest_validate_rejects_float_boolean_and_unknown (__main__.CanonicalTests.test_validate_rejects_float_boolean_and_unknown) ... ok\r\ntest_validate_rejects_missing_required_key (__main__.CanonicalTests.test_validate_rejects_missing_required_key) ... ok\r\ntest_digest_lengths_and_sha128_prefix (__main__.DigestTests.test_digest_lengths_and_sha128_prefix) ... ok\r\ntest_every_covered_group_changes_digest (__main__.DigestTests.test_every_covered_group_changes_digest) ... ok\r\ntest_original_profile_hash_mutations_rejected (__main__.DigestTests.test_original_profile_hash_mutations_rejected) ... ok\r\ntest_real_document_valid (__main__.DigestTests.test_real_document_valid) ... ok\r\ntest_runtime_digests_runtime_loaded_unverified (__main__.RuntimeDigestTests.test_runtime_digests_runtime_loaded_unverified) ... ok\r\ntest_unmeasured_values_must_stay_null (__main__.RuntimeDigestTests.test_unmeasured_values_must_stay_null) ... ok\r\ntest_branches_disjoint_ordered_within_window_with_guard (__main__.SlotReferenceTests.test_branches_disjoint_ordered_within_window_with_guard) ... ok\r\ntest_budget_variants_match_frozen_anchors (__main__.SlotReferenceTests.test_budget_variants_match_frozen_anchors) ... ok\r\ntest_ceil_bounds (__main__.SlotReferenceTests.test_ceil_bounds) ... ok\r\ntest_fast_branch_anchors_exact (__main__.SlotReferenceTests.test_fast_branch_anchors_exact) ... ok\r\ntest_grant_masks_legal_and_invalid (__main__.SlotReferenceTests.test_grant_masks_legal_and_invalid) ... ok\r\ntest_lost_grant_and_lost_ack_keep_slots_unshifted (__main__.SlotReferenceTests.test_lost_grant_and_lost_ack_keep_slots_unshifted) ... ok\r\ntest_no_grant_no_send_and_suppress_after_success (__main__.SlotReferenceTests.test_no_grant_no_send_and_suppress_after_success) ... ok\r\ntest_primary_response_anchored_to_slot_not_receipt (__main__.SlotReferenceTests.test_primary_response_anchored_to_slot_not_receipt) ... ok\r\ntest_retry_offset_fixed_and_absolute_shift (__main__.SlotReferenceTests.test_retry_offset_fixed_and_absolute_shift) ... ok\r\ntest_rolling_window_occupancy_across_three_periods (__main__.SlotReferenceTests.test_rolling_window_occupancy_across_three_periods) ... ok\r\ntest_speed_mapping_not_mixed (__main__.SlotReferenceTests.test_speed_mapping_not_mixed) ... ok\r\ntest_stress_branch_anchors_exact (__main__.SlotReferenceTests.test_stress_branch_anchors_exact) ... ok\r\ntest_validate_flags_overlapping_slot_and_guard_break (__main__.SlotReferenceTests.test_validate_flags_overlapping_slot_and_guard_break) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 30 tests in 0.067s\r\n\r\nOK\r\n"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/pipeline.py",
+        "verify",
+        "--selftest"
+      ],
+      "exit_code": 0,
+      "raw_output_sha256": "9be2e1b9e5ec207013390d133e8384cd98a991a041d1e09778b65ee7207d1380",
+      "output": "{\r\n  \"checks\": [\r\n    {\r\n      \"cards_total\": 29,\r\n      \"check\": \"plan_loaded\",\r\n      \"ok\": true\r\n    },\r\n    {\r\n      \"check\": \"ledger\",\r\n      \"exists\": false,\r\n      \"ok\": true\r\n    }\r\n  ],\r\n  \"command\": \"verify\",\r\n  \"contract\": {\r\n    \"contract_id\": \"DEEPEYE-HUMAN-LOCK-20261014\",\r\n    \"requirement_ids\": [\r\n      \"H01\",\r\n      \"H02\",\r\n      \"H03\",\r\n      \"H04\",\r\n      \"H05\",\r\n      \"H06\",\r\n      \"H07\",\r\n      \"H08\",\r\n      \"H09\",\r\n      \"H10\",\r\n      \"H11\",\r\n      \"H12\",\r\n      \"H13\",\r\n      \"H14\",\r\n      \"H15\"\r\n    ],\r\n    \"requirements_sha256\": \"c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804\",\r\n    \"revision\": 1,\r\n    \"scope_path\": \"C:\\\\Users\\\\CarlJade\\\\Documents\\\\ChatGPT\\\\FPGA多机协作开发\\\\.local\\\\deepeye-implementation-a\\\\docs\\\\competition\\\\deepeye-2026\\\\immutable_scope.json\",\r\n    \"task_id\": \"COMP-20261013-DEEPEYE\"\r\n  },\r\n  \"design_task_version\": 5,\r\n  \"route_task_id\": \"DEEPEYE-IMPLEMENTATION-20261014\",\r\n  \"route_task_version\": 1,\r\n  \"selftest\": {\r\n    \"command\": [\r\n      \"C:\\\\Users\\\\CarlJade\\\\Documents\\\\ChatGPT\\\\FPGA多机协作开发\\\\.local\\\\venv\\\\Scripts\\\\python.exe\",\r\n      \"-X\",\r\n      \"utf8\",\r\n      \"-B\",\r\n      \"C:\\\\Users\\\\CarlJade\\\\Documents\\\\ChatGPT\\\\FPGA多机协作开发\\\\.local\\\\deepeye-implementation-a\\\\competition\\\\deepeye\\\\tests\\\\test_pipeline.py\",\r\n      \"-v\"\r\n    ],\r\n    \"ok\": true,\r\n    \"returncode\": 0,\r\n    \"stderr_tail\": \"\",\r\n    \"stdout_tail\": \"test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok\\ntest_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok\\ntest_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance) ... ok\\ntest_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root) ... ok\\ntest_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok\\ntest_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership) ... ok\\ntest_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok\\ntest_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok\\ntest_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok\\ntest_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok\\ntest_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok\\ntest_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok\\ntest_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok\\ntest_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok\\ntest_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok\\ntest_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok\\ntest_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok\\ntest_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok\\ntest_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok\\ntest_valid_terminal_releases_still_free_ownership (__main__.PipelineTestCase.test_valid_terminal_releases_still_free_ownership) ... ok\\ntest_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok\\ntest_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... ok\\ntest_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok\\ntest_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... skipped 'nested verify --selftest run'\\n\\n----------------------------------------------------------------------\\nRan 24 tests in 14.445s\\n\\nOK (skipped=1)\",\r\n    \"tests_ran\": 24\r\n  }\r\n}\r\n"
+    }
+  ],
+  "artifact_sha256": {
+    "docs/boot_profiles.json": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+    "docs/enums.json": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+    "docs/host_contract.json": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+    "docs/host_timing_contract.md": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+    "docs/interface.json": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+    "docs/reference_checkpoint.md": "e8d91f4cc305a065c9245276dd3e585975c9d19c87484b465b19d665e5980806",
+    "docs/registers.csv": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+    "docs/requirements_trace.csv": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+    "docs/resource_contract.json": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+    "docs/rules.json": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+    "integration/boot_profile.py": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+    "integration/clock_bounds.py": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+    "integration/host_envelope.py": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+    "integration/motion.py": "69d016f8890298829e71c18efbbb76e747bbf5c79d2ca3af1d5defd364071822",
+    "integration/test_boot_binding.py": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b",
+    "integration/test_clock_bounds.py": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03",
+    "integration/test_contract_vectors.py": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7",
+    "integration/test_host_envelope.py": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1",
+    "integration/test_host_schema.py": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb",
+    "integration/test_motion.py": "dd260201ae28490b738ebea4c1ab298be3e7fb066ef860c10e401b8d586e2796",
+    "integration/test_pc_direct_heartbeat.py": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d",
+    "integration/test_wire.py": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9",
+    "integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+    "tools/check_interface.py": "b1ad541003fe20683785f20f41a26fcd6c89d6ee0149c75978dc0f8af0e251c4",
+    "tools/generate_vectors.py": "9bc06cf79c5cb0c8a9f6ced01a86fb42af4615f7f8e9b102ddd1ee26cfa0e02e",
+    "tools/pipeline.py": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+    "tests/simulation/test_forward_profile.py": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373",
+    "tests/test_boot_profile.py": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db",
+    "tests/test_pipeline.py": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+    "tests/vectors/abi3_reference.json": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7"
+  },
+  "source_base_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71",
+  "source_identity_note": "Base commit plus actual artifact SHA256; uncommitted files are not relabeled as committed.",
+  "bound_software_profile": {
+    "schema": 1,
+    "document": "deepeye_boot_profiles",
+    "profile_name": "em_surrogate_v2",
+    "status": "software_candidate_runtime_not_run",
+    "owner": "A",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+    "immutable_scope_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+    "immutable_scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "hash_rule": "sha256 over UTF-8 canonical JSON (ensure_ascii=False, sort_keys=True, separators=(',',':'), no trailing newline); full 32 bytes kept as host evidence; first 16 bytes travel in BOOT/BOOT_ACK slot_profile_sha128",
+    "boot_frames": {
+      "BOOT": {
+        "type": 12,
+        "payload_bytes": 27,
+        "frame_bytes": 41
+      },
+      "BOOT_ACK": {
+        "type": 13,
+        "payload_bytes": 27,
+        "frame_bytes": 41
+      }
+    },
+    "abi": {
+      "version": 3,
+      "magic_hex": "a55a",
+      "byte_order": "little",
+      "header_bytes": 12,
+      "crc_bytes": 2,
+      "max_payload_bytes": 32,
+      "max_frame_bytes": 46,
+      "line_bits_per_byte": 10,
+      "crc": {
+        "name": "CRC16/CCITT-FALSE",
+        "polynomial": 4129,
+        "initial": 65535,
+        "reflect_input": false,
+        "reflect_output": false,
+        "xorout": 0,
+        "check_ascii_123456789": 10673,
+        "wire_byte_order": "little"
+      },
+      "frame_layouts_digest": {
+        "mode": "locally_bound_software_candidate",
+        "value": "5fb5aaa313b7dd2bcfb79dfe38e169458cddb28e2415f24c4eed0dfca555f7fb",
+        "source": "docs/interface.json frames + integration/wire.py PAYLOAD_LENGTHS"
+      }
+    },
+    "digests": {
+      "abi_interface_json": {
+        "path": "docs/interface.json",
+        "mode": "locally_bound_software_candidate",
+        "value": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+      },
+      "host_contract_json": {
+        "path": "docs/host_contract.json",
+        "mode": "locally_bound_software_candidate",
+        "value": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+      },
+      "host_enums_json": {
+        "path": "docs/enums.json",
+        "mode": "locally_bound_software_candidate",
+        "value": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+      },
+      "host_timing_contract": {
+        "path": "docs/host_timing_contract.md",
+        "mode": "locally_bound_software_candidate",
+        "value": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff"
+      }
+    },
+    "topology_source_acquisition": {
+      "transport_profile_id": {
+        "fast_9600": 1,
+        "stress_300": 2
+      },
+      "source_id": {
+        "sensor_live": 1,
+        "geo_replay": 2,
+        "twin_fixture": 3,
+        "software_fixture": 4
+      },
+      "topology_id": {
+        "hil_pc_fpga": 1,
+        "pc_direct": 2,
+        "fpga_local": 3
+      },
+      "acquisition_profile_id": {
+        "em_surrogate_v2": 1,
+        "force_lithology_v1": 2,
+        "pga_voltage_v1": 3
+      },
+      "boot_mode_formula": "transport_profile_id | (source_id << 2) | (topology_id << 5)",
+      "reserved_zero_bits": [
+        7
+      ],
+      "zero_or_unknown": "reject"
+    },
+    "transport_profiles": {
+      "fast_9600": {
+        "baud": 9600,
+        "framing": "8N1",
+        "line_bits_per_byte": 10
+      },
+      "stress_300": {
+        "baud": 300,
+        "framing": "8N1",
+        "line_bits_per_byte": 10
+      }
+    },
+    "profiles": {
+      "fast_9600": {
+        "window_ms": 500,
+        "guard_total_ms": 40,
+        "primary_slot_ms": 210,
+        "config_slot_ms": 365,
+        "retry_offset_ms": 155,
+        "slots": {
+          "event": {
+            "start_ms": 0,
+            "max_bytes": 20,
+            "direction": "uplink"
+          },
+          "telem": {
+            "start_ms": 35,
+            "max_bytes": 32,
+            "direction": "uplink"
+          },
+          "control_primary": {
+            "start_ms": 210,
+            "max_bytes": 30,
+            "direction": "downlink"
+          },
+          "ack_primary": {
+            "start_ms": 255,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "state": {
+            "start_ms": 305,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "retry_control": {
+            "start_ms": 365,
+            "max_bytes": 30,
+            "direction": "downlink"
+          },
+          "retry_ack": {
+            "start_ms": 410,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "config": {
+            "start_ms": 365,
+            "max_bytes": 24,
+            "direction": "downlink"
+          },
+          "config_ack": {
+            "start_ms": 405,
+            "max_bytes": 32,
+            "direction": "uplink"
+          }
+        },
+        "branches": {
+          "normal": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state"
+          ],
+          "config": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state",
+            "config",
+            "config_ack"
+          ],
+          "retry": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state",
+            "retry_control",
+            "retry_ack"
+          ]
+        },
+        "mutual_exclusions": [
+          [
+            "config",
+            "retry"
+          ]
+        ],
+        "response_deadlines_ms": {
+          "retry_decision_ms": "365",
+          "primary_ack_latest_ms": "3485/12",
+          "retry_ack_latest_ms": "5345/12",
+          "config_ack_latest_ms": "1315/3"
+        },
+        "ai_wait": {
+          "after_slot": "telem",
+          "start_ms": "205/3",
+          "before_slot": "control_primary",
+          "end_ms": 210
+        },
+        "budget_variants": {
+          "normal": 150,
+          "config": 206,
+          "control_retry": 214,
+          "event_retry": 170,
+          "gain_normal": 140,
+          "pc_direct_normal": 84
+        },
+        "event_retry": {
+          "slot": 365,
+          "bytes": 20,
+          "status": "software_slot_selected_measurement_not_run",
+          "rule": "normal windows only; never additive with config or control retry"
+        },
+        "grants": {
+          "main_bit": 15,
+          "config_bit": 14,
+          "retry_pre_grant_bit": 13,
+          "retry_rule": "bit15 and bit13 set and bit14 clear",
+          "config_rule": "bit14 set; bit13 clear",
+          "no_grant_no_send": true,
+          "first_ack_success_suppresses_retry": true,
+          "primary_response_anchor": "window/slot offsets, never ACK receipt time"
+        },
+        "bounded_targets": {
+          "p99_s": "3/2",
+          "max_s": 2,
+          "status": "unmeasured_target_only"
+        }
+      },
+      "stress_300": {
+        "window_ms": 8000,
+        "guard_total_ms": 200,
+        "primary_slot_ms": 2050,
+        "config_slot_ms": 5500,
+        "retry_offset_ms": 3450,
+        "slots": {
+          "event": {
+            "start_ms": 0,
+            "max_bytes": 20,
+            "direction": "uplink"
+          },
+          "telem": {
+            "start_ms": 700,
+            "max_bytes": 32,
+            "direction": "uplink"
+          },
+          "control_primary": {
+            "start_ms": 2050,
+            "max_bytes": 30,
+            "direction": "downlink"
+          },
+          "ack_primary": {
+            "start_ms": 3100,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "state": {
+            "start_ms": 4300,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "retry_control": {
+            "start_ms": 5500,
+            "max_bytes": 30,
+            "direction": "downlink"
+          },
+          "retry_ack": {
+            "start_ms": 6550,
+            "max_bytes": 34,
+            "direction": "uplink"
+          },
+          "config": {
+            "start_ms": 5500,
+            "max_bytes": 24,
+            "direction": "downlink"
+          },
+          "config_ack": {
+            "start_ms": 6550,
+            "max_bytes": 32,
+            "direction": "uplink"
+          }
+        },
+        "branches": {
+          "normal": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state"
+          ],
+          "config": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state",
+            "config",
+            "config_ack"
+          ],
+          "retry": [
+            "event",
+            "telem",
+            "control_primary",
+            "ack_primary",
+            "state",
+            "retry_control",
+            "retry_ack"
+          ]
+        },
+        "mutual_exclusions": [
+          [
+            "config",
+            "retry"
+          ]
+        ],
+        "response_deadlines_ms": {
+          "retry_decision_ms": "5500",
+          "primary_ack_latest_ms": "12700/3",
+          "retry_ack_latest_ms": "23050/3",
+          "config_ack_latest_ms": "22850/3"
+        },
+        "ai_wait": {
+          "after_slot": "telem",
+          "start_ms": "5300/3",
+          "before_slot": "control_primary",
+          "end_ms": 2050
+        },
+        "budget_variants": {
+          "normal": 150,
+          "config": 206,
+          "control_retry": 214,
+          "event_retry": 170,
+          "gain_normal": 140,
+          "pc_direct_normal": 84
+        },
+        "event_retry": {
+          "slot": 5500,
+          "bytes": 20,
+          "status": "software_slot_selected_measurement_not_run",
+          "rule": "normal windows only; never additive with config or control retry"
+        },
+        "grants": {
+          "main_bit": 15,
+          "config_bit": 14,
+          "retry_pre_grant_bit": 13,
+          "retry_rule": "bit15 and bit13 set and bit14 clear",
+          "config_rule": "bit14 set; bit13 clear",
+          "no_grant_no_send": true,
+          "first_ack_success_suppresses_retry": true,
+          "primary_response_anchor": "window/slot offsets, never ACK receipt time"
+        },
+        "bounded_targets": {
+          "p99_s": 12,
+          "max_s": 16,
+          "event_p99_s": 3,
+          "event_single_retry_s": 6,
+          "status": "unmeasured_target_only"
+        }
+      }
+    },
+    "speed_mappings": {
+      "maps_never_mixed": true,
+      "fast_9600": {
+        "per_code_m_s": "1/80",
+        "max_m_s": "1/4",
+        "ttl_max_ms": 3000
+      },
+      "stress_300": {
+        "per_code_m_s": "1/10000",
+        "max_m_s": "1/500",
+        "ttl_max_ms": 12000
+      }
+    },
+    "ttl_and_age": {
+      "hil_observation_age_limit_ms": {
+        "fast_9600": 1500,
+        "stress_300": 12000
+      },
+      "pc_direct_observation_age_limit_ms": {
+        "fast_9600": 1500,
+        "stress_300": 12000
+      },
+      "sensor_heartbeat_timeout_ms": 100,
+      "summary_samples": {
+        "fast_9600": 50,
+        "stress_300": 800
+      },
+      "fpga_observation_history": 4,
+      "deadline_rule": "min(first_send+originalTTL, current_remainingTTL conservative limit, referenced_sample_tick+observation_age_limit)",
+      "heartbeat_extends_deadline": false
+    },
+    "motion_kinematics": {
+      "angular_rate_quantum_deg_s": "1/1000",
+      "q_min": -15000,
+      "q_max": 15000,
+      "curvature_limit_per_m": "1/2",
+      "rom_check": "qyaw^2+qpitch^2<=floor((v_target*180000/(2*pi))^2) with 64-bit intermediates; reject not clip",
+      "zero_speed_requires_zero_q": true,
+      "intermediate_bits": 64,
+      "min_demo_turn_radius_m": 2,
+      "max_accel_m_s2": "1/4",
+      "status_note": "turn radius and acceleration are interactive-simulation assumptions, not authorization"
+    },
+    "pwm_capture": {
+      "period_ms": 20,
+      "period_ticks": 2000000,
+      "clock_hz": 100000000,
+      "angle_high_ticks": "10000+16*(q+15000)",
+      "angle_high_ms_range": [
+        "1/10",
+        "49/10"
+      ],
+      "speed_high_ticks": "50000+1000*speed_code",
+      "speed_high_ms_range": [
+        "1/2",
+        "7/10"
+      ],
+      "capture_tolerance_ticks": "<=2 ticks, < half-code 8 ticks; actual HIL validation required",
+      "status": "encoding_candidate_unmeasured"
+    },
+    "channels": [
+      {
+        "id": 1,
+        "name": "log10_rho_apparent",
+        "quantity": null,
+        "unit": null,
+        "source": "simulation_contract_final.json:sensor.channels",
+        "conversion": null,
+        "calibration_reference": null,
+        "status": "unverified_pending_calibration"
+      },
+      {
+        "id": 2,
+        "name": "azimuth_log10_rho_difference",
+        "quantity": null,
+        "unit": null,
+        "source": "simulation_contract_final.json:sensor.channels",
+        "conversion": null,
+        "calibration_reference": null,
+        "status": "unverified_pending_calibration"
+      },
+      {
+        "id": 3,
+        "name": "elevation_log10_rho_difference",
+        "quantity": null,
+        "unit": null,
+        "source": "simulation_contract_final.json:sensor.channels",
+        "conversion": null,
+        "calibration_reference": null,
+        "status": "unverified_pending_calibration"
+      },
+      {
+        "id": 4,
+        "name": "near_bit_vibration_rms_g",
+        "quantity": null,
+        "unit": null,
+        "source": "simulation_contract_final.json:sensor.channels",
+        "conversion": null,
+        "calibration_reference": null,
+        "status": "unverified_pending_calibration"
+      }
+    ],
+    "acquisition_profiles": {
+      "em_surrogate_v2": {
+        "enum_id": 1,
+        "source_mode": "twin_fixture",
+        "channels": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "calibration": null,
+        "shared_scaling_with": null,
+        "status": "unverified_uncalibrated"
+      },
+      "force_lithology_v1": {
+        "enum_id": 2,
+        "mapping": "explicit_separate_uncalibrated",
+        "calibration": null,
+        "shared_scaling_with": null,
+        "status": "unverified_uncalibrated"
+      },
+      "pga_voltage_v1": {
+        "enum_id": 3,
+        "mapping": "explicit_separate_uncalibrated",
+        "calibration": null,
+        "shared_scaling_with": null,
+        "status": "unverified_uncalibrated"
+      }
+    },
+    "time_measurement_identities": {
+      "usb_processing_upper_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "frame_serial_upper_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "clock_error_upper_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "rate_bound_ppm": {
+        "value": null,
+        "unit": "ppm",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "tick_quantization_hi_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "dispatch_delay_lo_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "dispatch_delay_hi_ns": {
+        "value": null,
+        "unit": "ns",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      },
+      "anchor_holdover_cap_ms": {
+        "value": null,
+        "unit": "ms",
+        "status": "unverified_not_measured",
+        "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+      }
+    },
+    "policy": {
+      "profile_or_mode_switch": "stop, new session, new complete canonical BOOT hash and matching BOOT_ACK before ENABLE; mode alone is insufficient",
+      "enable_claim": "never claimed by this document",
+      "event_scheduling": "event occurs only at the allocated slot of this bounded software schedule; asynchronous EVENT latency is not accepted",
+      "no_fabricated_measurements": true,
+      "first_ack_success_suppresses_retry": true,
+      "retry_pair_grants": "bit15 AND bit13 set AND bit14 clear",
+      "config_grant": "bit14 set; bit13 must be clear",
+      "no_grant_no_send": true,
+      "ack_miss_retry": "fixed retry_offset_ms from the window/slot table",
+      "late_candidate": "defer to the next full window slot or STOP; slots are never shifted"
+    },
+    "hardware_enable_eligible": false,
+    "remaining_gates": [
+      "complete BOOT timing/profile canonical hash",
+      "channel scaling and calibration",
+      "measured USB/clock/holdover bounds",
+      "physical capture validation",
+      "cross-node byte interoperability"
+    ],
+    "sources": {
+      "taskbook": "docs/competition/deepeye-2026/taskbook_final.md section 7 and R03 card",
+      "interface": "docs/interface.json",
+      "enums": "docs/enums.json",
+      "host_contract": "docs/host_contract.json",
+      "host_timing_contract": "docs/host_timing_contract.md",
+      "simulation_contract": "docs/competition/deepeye-2026/simulation_contract_final.json",
+      "wire": "integration/wire.py",
+      "checks": "docs/competition/deepeye-2026/checks_final.json (fast_slot_end_ms and wire_budget_recomputed anchors)"
+    },
+    "scope_note": "software candidate profile and tests only; all 29 product cards remain not_run; no hardware ENABLE eligibility; unmeasured identities stay null",
+    "mode_variants": {
+      "normal": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "control_primary",
+          "frame": "CONTROL3D",
+          "bytes": 30
+        },
+        {
+          "slot": "ack_primary",
+          "frame": "ACK3D",
+          "bytes": 34
+        },
+        {
+          "slot": "state",
+          "frame": "STATE3D",
+          "bytes": 34
+        }
+      ],
+      "config": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "control_primary",
+          "frame": "CONTROL3D",
+          "bytes": 30
+        },
+        {
+          "slot": "ack_primary",
+          "frame": "ACK3D",
+          "bytes": 34
+        },
+        {
+          "slot": "state",
+          "frame": "STATE3D",
+          "bytes": 34
+        },
+        {
+          "slot": "config",
+          "frame": "CONFIG",
+          "bytes": 24
+        },
+        {
+          "slot": "config_ack",
+          "frame": "CONFIG_ACK",
+          "bytes": 32
+        }
+      ],
+      "control_retry": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "control_primary",
+          "frame": "CONTROL3D",
+          "bytes": 30
+        },
+        {
+          "slot": "ack_primary",
+          "frame": "ACK3D",
+          "bytes": 34
+        },
+        {
+          "slot": "state",
+          "frame": "STATE3D",
+          "bytes": 34
+        },
+        {
+          "slot": "retry_control",
+          "frame": "CONTROL3D",
+          "bytes": 30
+        },
+        {
+          "slot": "retry_ack",
+          "frame": "ACK3D",
+          "bytes": 34
+        }
+      ],
+      "event_retry": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "control_primary",
+          "frame": "CONTROL3D",
+          "bytes": 30
+        },
+        {
+          "slot": "ack_primary",
+          "frame": "ACK3D",
+          "bytes": 34
+        },
+        {
+          "slot": "state",
+          "frame": "STATE3D",
+          "bytes": 34
+        },
+        {
+          "slot": "retry_control",
+          "frame": "EVENT",
+          "bytes": 20
+        }
+      ],
+      "gain_normal": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "control_primary",
+          "frame": "GAIN",
+          "bytes": 24
+        },
+        {
+          "slot": "ack_primary",
+          "frame": "GAIN_ACK",
+          "bytes": 32
+        },
+        {
+          "slot": "state",
+          "frame": "STATE",
+          "bytes": 32
+        }
+      ],
+      "pc_direct_normal": [
+        {
+          "slot": "event",
+          "frame": "EVENT",
+          "bytes": 20
+        },
+        {
+          "slot": "telem",
+          "frame": "TELEM",
+          "bytes": 32
+        },
+        {
+          "slot": "state",
+          "frame": "STATE",
+          "bytes": 32
+        }
+      ]
+    }
+  },
+  "bound_software_profile_sha256": "2b3801a46cabf9a9380df128c8b3a6eebdffd99491e6ecd125f39b75bc6a4e55",
+  "bound_software_profile_sha128": "2b3801a46cabf9a9380df128c8b3a6ee",
+  "all_mode_schedule_proof": {
+    "scope": "software nominal timing only; measured jitter/turnaround not_run",
+    "profiles": {
+      "fast_9600": {
+        "variants": {
+          "normal": {
+            "wire_bytes": 150,
+            "last_end_ms": "4085/12",
+            "trailing_margin_ms": "1915/12"
+          },
+          "config": {
+            "wire_bytes": 206,
+            "last_end_ms": "1315/3",
+            "trailing_margin_ms": "185/3"
+          },
+          "control_retry": {
+            "wire_bytes": 214,
+            "last_end_ms": "5345/12",
+            "trailing_margin_ms": "655/12"
+          },
+          "event_retry": {
+            "wire_bytes": 170,
+            "last_end_ms": "2315/6",
+            "trailing_margin_ms": "685/6"
+          },
+          "gain_normal": {
+            "wire_bytes": 140,
+            "last_end_ms": "1015/3",
+            "trailing_margin_ms": "485/3"
+          },
+          "pc_direct_normal": {
+            "wire_bytes": 84,
+            "last_end_ms": "1015/3",
+            "trailing_margin_ms": "485/3"
+          }
+        },
+        "mixed_triples_checked": 216,
+        "maximum_sliding_byte_equivalents": "214"
+      },
+      "stress_300": {
+        "variants": {
+          "normal": {
+            "wire_bytes": 150,
+            "last_end_ms": "16300/3",
+            "trailing_margin_ms": "7700/3"
+          },
+          "config": {
+            "wire_bytes": 206,
+            "last_end_ms": "22850/3",
+            "trailing_margin_ms": "1150/3"
+          },
+          "control_retry": {
+            "wire_bytes": 214,
+            "last_end_ms": "23050/3",
+            "trailing_margin_ms": "950/3"
+          },
+          "event_retry": {
+            "wire_bytes": 170,
+            "last_end_ms": "18500/3",
+            "trailing_margin_ms": "5500/3"
+          },
+          "gain_normal": {
+            "wire_bytes": 140,
+            "last_end_ms": "16100/3",
+            "trailing_margin_ms": "7900/3"
+          },
+          "pc_direct_normal": {
+            "wire_bytes": 84,
+            "last_end_ms": "16100/3",
+            "trailing_margin_ms": "7900/3"
+          }
+        },
+        "mixed_triples_checked": 216,
+        "maximum_sliding_byte_equivalents": "214"
+      }
+    }
+  },
+  "remaining_gates": [
+    "TRACE payload/codec finalization and independent vectors",
+    "register bitfields, reset semantics and matched HWH integration",
+    "stateful observation history/latest-completed mailbox/request replay and seq/epoch rollover integration",
+    "B/C independent byte interoperability on the published exact candidate",
+    "host process ACL isolation and mode-specific end-to-end runtime",
+    "measured USB/clock/holdover/channel calibration and actual IO capture before ENABLE"
+  ],
+  "software_checks": "passed",
+  "status": "blocked"
+}

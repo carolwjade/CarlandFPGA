@@ -1,0 +1,1388 @@
+DEEPEYE R03 bounded software pipeline foundation - unit regression evidence
+Scope: unit/regression checks of the pipeline foundation only; software only, no board,
+model, network or service was invoked. This does NOT mark product R03 passed; explicit
+quality-main acceptance remains required before any passed status.
+
+generated_utc: 2026-10-14T17:04:39+00:00
+worktree: C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a
+git HEAD: d59c71345885d990951244f96280316d023f58fb
+git status --porcelain (pre-existing/concurrent-session dirt recorded, not modified by this task):
+  M docs/competition/deepeye-2026/.gitattributes
+  ?? competition/deepeye/simulator/
+  ?? competition/deepeye/tests/
+  ?? competition/deepeye/tools/
+python: 3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]
+platform: Windows-11-10.0.26200-SP0
+contract: DEEPEYE-HUMAN-LOCK-20261014 / revision 1 (H01-H15 mandatory, immutable)
+scope requirements_sha256 recomputed canonical: c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+scope declared requirements_sha256: c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+design task version: 5; execution route fields: DEEPEYE-IMPLEMENTATION-20261014 / version 1
+ledger statuses: not_run / running / passed / failed / blocked (passed only via explicit main accept)
+
+files (sha256 at evidence time; this evidence file is not self-hashed):
+  tools/pipeline.py           38572 bytes  0ede45e4c176716c983028e494d07f36dce12d4f6bc60a7fdc2aeafa611387dd
+  tests/test_pipeline.py      20818 bytes  07755c58a13715828a0d8a59a0cdb5040181a14f52094d07312350b87aa3ca72
+inputs: plan_sha256=e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be
+        taskbook_sha256=7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18
+sanitization: no credentials, tokens or private identifiers are included.
+
+==============================================================================
+[1] RED - tests written first; tools/pipeline.py did not exist yet
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 tests/test_pipeline.py -v   (cwd=competition/deepeye)
+exit code: 1
+------------------------------------------------------------------------------
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... FAIL
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... FAIL
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... FAIL
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... FAIL
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... FAIL
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... FAIL
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... FAIL
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... FAIL
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... FAIL
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... FAIL
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... FAIL
+
+======================================================================
+FAIL: test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+======================================================================
+FAIL: test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 80, in setUp
+    self.mod = load_pipeline()
+               ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 33, in load_pipeline
+    raise AssertionError("RED: tools/pipeline.py is not implemented yet (%s)" % PIPELINE)
+AssertionError: RED: tools/pipeline.py is not implemented yet (C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\pipeline.py)
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.002s
+
+FAILED (failures=11)
+
+==============================================================================
+[2] GREEN - same test file, after implementing tools/pipeline.py
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 tests/test_pipeline.py -v   (cwd=competition/deepeye)
+exit code: 0
+------------------------------------------------------------------------------
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 4.305s
+
+OK
+
+==============================================================================
+[3] CLI verify --selftest (runs the real unit suite; counters parsed from unittest output)
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 tools/pipeline.py verify --selftest   (cwd=competition/deepeye)
+exit code: 0
+------------------------------------------------------------------------------
+{
+  "checks": [
+    {
+      "cards_total": 29,
+      "check": "plan_loaded",
+      "ok": true
+    },
+    {
+      "check": "ledger",
+      "exists": false,
+      "ok": true
+    }
+  ],
+  "command": "verify",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "requirement_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "revision": 1,
+    "scope_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+    "task_id": "COMP-20261013-DEEPEYE"
+  },
+  "design_task_version": 5,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "selftest": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py",
+      "-v"
+    ],
+    "ok": true,
+    "returncode": 0,
+    "stderr_tail": "",
+    "stdout_tail": "test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok\ntest_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok\ntest_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok\ntest_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok\ntest_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok\ntest_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok\ntest_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok\ntest_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok\ntest_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok\ntest_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok\ntest_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... skipped 'nested verify --selftest run'\n\n----------------------------------------------------------------------\nRan 11 tests in 2.058s\n\nOK (skipped=1)",
+    "tests_ran": 11
+  }
+}
+
+==============================================================================
+[4] bounded CLI smoke on a temporary ledger (no repository ledger is written)
+commands as recorded below; ledger: %TEMP%\deepeye_smoke_ledger.json
+exit codes: plan=0, status=0, run=0 blocked(implementation_missing:R03), duplicate run=0 reused, resume=3 main decision required, status=0
+------------------------------------------------------------------------------
+# DEEPEYE R03 bounded CLI smoke (temp ledger under %TEMP%; no repository ledger written)
+
+$ python -X utf8 tools/pipeline.py plan
+(exit 0)
+{
+  "cards_total": 29,
+  "command": "plan",
+  "design_task_version": 5,
+  "entrypoint": "tools/pipeline.py (to be implemented by R03)",
+  "implemented_cards": [],
+  "read_only": true,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "stages": {
+    "s0": {
+      "cards": [
+        "R01",
+        "R02",
+        "R03"
+      ],
+      "details": {
+        "R01": {
+          "dependencies": [],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "R02": {
+          "dependencies": [],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "R03": {
+          "dependencies": [],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A"
+      ]
+    },
+    "s1": {
+      "cards": [
+        "A01",
+        "B01",
+        "C01",
+        "G01",
+        "R04"
+      ],
+      "details": {
+        "A01": {
+          "dependencies": [
+            "R02",
+            "R03"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "B01": {
+          "dependencies": [
+            "R03"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "C01": {
+          "dependencies": [
+            "R03"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "G01": {
+          "dependencies": [
+            "R03"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "R04": {
+          "dependencies": [
+            "R02",
+            "R03"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "s2": {
+      "cards": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "G02",
+        "G03"
+      ],
+      "details": {
+        "B02": {
+          "dependencies": [
+            "A01",
+            "B01"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "B03": {
+          "dependencies": [
+            "B01",
+            "B02"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "B04": {
+          "dependencies": [
+            "R03",
+            "B03"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "B05": {
+          "dependencies": [
+            "R03",
+            "B04",
+            "R04"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "B06": {
+          "dependencies": [
+            "B02",
+            "B03",
+            "B04",
+            "B05"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "G02": {
+          "dependencies": [
+            "G01"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "G03": {
+          "dependencies": [
+            "R03"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A",
+        "B"
+      ]
+    },
+    "s3": {
+      "cards": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "G04",
+        "G05",
+        "G09"
+      ],
+      "details": {
+        "C02": {
+          "dependencies": [
+            "C01",
+            "B01"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "C03": {
+          "dependencies": [
+            "R02",
+            "C02"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "C04": {
+          "dependencies": [
+            "R03",
+            "C02"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "C05": {
+          "dependencies": [
+            "R03",
+            "B05",
+            "C04"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "G04": {
+          "dependencies": [
+            "G03",
+            "C01",
+            "C02"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        },
+        "G05": {
+          "dependencies": [
+            "R03",
+            "B05",
+            "B06"
+          ],
+          "owner": "B",
+          "status_plan": "not_run"
+        },
+        "G09": {
+          "dependencies": [
+            "G03",
+            "A01",
+            "B02"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "s4": {
+      "cards": [
+        "A02",
+        "A05",
+        "G06"
+      ],
+      "details": {
+        "A02": {
+          "dependencies": [
+            "B06",
+            "C03",
+            "C04",
+            "C05",
+            "G06"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "A05": {
+          "dependencies": [
+            "R04",
+            "B06",
+            "C03",
+            "C04"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "G06": {
+          "dependencies": [
+            "G02",
+            "G04",
+            "G05",
+            "G09",
+            "C05"
+          ],
+          "owner": "C",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A",
+        "C"
+      ]
+    },
+    "s5": {
+      "cards": [
+        "A03",
+        "G07"
+      ],
+      "details": {
+        "A03": {
+          "dependencies": [
+            "A02",
+            "A05",
+            "G07"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "G07": {
+          "dependencies": [
+            "A02",
+            "G06",
+            "C03"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A"
+      ]
+    },
+    "s6": {
+      "cards": [
+        "A04",
+        "G08"
+      ],
+      "details": {
+        "A04": {
+          "dependencies": [
+            "R01",
+            "A03",
+            "G08"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        },
+        "G08": {
+          "dependencies": [
+            "G07"
+          ],
+          "owner": "A",
+          "status_plan": "not_run"
+        }
+      },
+      "note": "",
+      "owners": [
+        "A"
+      ]
+    },
+    "s7": {
+      "cards": [],
+      "details": {},
+      "note": "no_cards_in_plan",
+      "owners": []
+    }
+  },
+  "task_version": 5
+}
+
+$ python -X utf8 tools/pipeline.py status --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye_smoke_ledger.json
+(exit 0)
+{
+  "command": "status",
+  "counts": {
+    "blocked": 0,
+    "failed": 0,
+    "not_run": 0,
+    "passed": 0,
+    "running": 0,
+    "unknown": 0
+  },
+  "design_task_version": 5,
+  "ledger": "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\deepeye_smoke_ledger.json",
+  "ledger_exists": false,
+  "read_only": true,
+  "records": {},
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1
+}
+
+$ python -X utf8 tools/pipeline.py run --stage s0 --card R03 --task-version 5 --work-id smoke-R03-20261015 --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye_smoke_ledger.json
+(exit 0)
+{
+  "cards": [
+    "R03"
+  ],
+  "command": "run",
+  "created": true,
+  "design_task_version": 5,
+  "detail": "implementation_missing:R03",
+  "record": {
+    "acceptance": null,
+    "attempts": 1,
+    "created_at": "2026-10-14T17:04:00+00:00",
+    "detail": "implementation_missing:R03",
+    "execution": {
+      "detail": "implementation_missing:R03",
+      "finished_at": "2026-10-14T17:04:00+00:00",
+      "started_at": "2026-10-14T17:04:00+00:00",
+      "verdict": "blocked"
+    },
+    "history": [
+      {
+        "at": "2026-10-14T17:04:00+00:00",
+        "event": "reserved"
+      },
+      {
+        "at": "2026-10-14T17:04:00+00:00",
+        "detail": "implementation_missing:R03",
+        "event": "completed",
+        "verdict": "blocked"
+      }
+    ],
+    "input_hash": "a5f9348222d29e98b8c35b826dac7fe1c8afdb81c63dd21545dc0290b8d04fea",
+    "ownership": [
+      "competition/deepeye/docs/interface.json",
+      "competition/deepeye/registers.csv",
+      "competition/deepeye/tests/vectors",
+      "competition/deepeye/tools/pipeline.py"
+    ],
+    "status": "blocked",
+    "task": {
+      "cards": [
+        "R03"
+      ],
+      "design_task_version": 5,
+      "owner": "A",
+      "stage": "s0"
+    },
+    "updated_at": "2026-10-14T17:04:00+00:00",
+    "work_id": "smoke-R03-20261015"
+  },
+  "reused": false,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "stage": "s0",
+  "status": "blocked",
+  "work_id": "smoke-R03-20261015"
+}
+
+$ python -X utf8 tools/pipeline.py run --stage s0 --card R03 --task-version 5 --work-id smoke-R03-20261015 --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye_smoke_ledger.json
+(exit 0)
+{
+  "cards": [
+    "R03"
+  ],
+  "command": "run",
+  "created": false,
+  "design_task_version": 5,
+  "detail": "implementation_missing:R03",
+  "record": {
+    "acceptance": null,
+    "attempts": 1,
+    "created_at": "2026-10-14T17:04:00+00:00",
+    "detail": "implementation_missing:R03",
+    "execution": {
+      "detail": "implementation_missing:R03",
+      "finished_at": "2026-10-14T17:04:00+00:00",
+      "started_at": "2026-10-14T17:04:00+00:00",
+      "verdict": "blocked"
+    },
+    "history": [
+      {
+        "at": "2026-10-14T17:04:00+00:00",
+        "event": "reserved"
+      },
+      {
+        "at": "2026-10-14T17:04:00+00:00",
+        "detail": "implementation_missing:R03",
+        "event": "completed",
+        "verdict": "blocked"
+      }
+    ],
+    "input_hash": "a5f9348222d29e98b8c35b826dac7fe1c8afdb81c63dd21545dc0290b8d04fea",
+    "ownership": [
+      "competition/deepeye/docs/interface.json",
+      "competition/deepeye/registers.csv",
+      "competition/deepeye/tests/vectors",
+      "competition/deepeye/tools/pipeline.py"
+    ],
+    "status": "blocked",
+    "task": {
+      "cards": [
+        "R03"
+      ],
+      "design_task_version": 5,
+      "owner": "A",
+      "stage": "s0"
+    },
+    "updated_at": "2026-10-14T17:04:00+00:00",
+    "work_id": "smoke-R03-20261015"
+  },
+  "reused": true,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "stage": "s0",
+  "status": "blocked",
+  "work_id": "smoke-R03-20261015"
+}
+
+$ python -X utf8 tools/pipeline.py resume --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye_smoke_ledger.json
+(exit 3)
+{
+  "action_required": true,
+  "command": "resume",
+  "design_task_version": 5,
+  "items": [
+    {
+      "kind": "blocked_no_replay",
+      "ownership": [
+        "competition/deepeye/docs/interface.json",
+        "competition/deepeye/registers.csv",
+        "competition/deepeye/tests/vectors",
+        "competition/deepeye/tools/pipeline.py"
+      ],
+      "required_decision": "implementation missing or main override required; never auto re-execute",
+      "status": "blocked",
+      "task": {
+        "cards": [
+          "R03"
+        ],
+        "design_task_version": 5,
+        "owner": "A",
+        "stage": "s0"
+      },
+      "work_id": "smoke-R03-20261015"
+    }
+  ],
+  "ledger": "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\deepeye_smoke_ledger.json",
+  "ledger_exists": true,
+  "read_only": true,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1
+}
+
+$ python -X utf8 tools/pipeline.py status --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye_smoke_ledger.json
+(exit 0)
+{
+  "command": "status",
+  "counts": {
+    "blocked": 1,
+    "failed": 0,
+    "not_run": 0,
+    "passed": 0,
+    "running": 0,
+    "unknown": 0
+  },
+  "design_task_version": 5,
+  "ledger": "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\deepeye_smoke_ledger.json",
+  "ledger_exists": true,
+  "read_only": true,
+  "records": {
+    "smoke-R03-20261015": {
+      "attempts": 1,
+      "detail": "implementation_missing:R03",
+      "input_hash": "a5f9348222d29e98b8c35b826dac7fe1c8afdb81c63dd21545dc0290b8d04fea",
+      "ownership": [
+        "competition/deepeye/docs/interface.json",
+        "competition/deepeye/registers.csv",
+        "competition/deepeye/tests/vectors",
+        "competition/deepeye/tools/pipeline.py"
+      ],
+      "status": "blocked",
+      "task": {
+        "cards": [
+          "R03"
+        ],
+        "design_task_version": 5,
+        "owner": "A",
+        "stage": "s0"
+      },
+      "updated_at": "2026-10-14T17:04:00+00:00"
+    }
+  },
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1
+}
+
+==============================================================================
+[5] post-capture state note (factual addendum; appended after the transcripts above)
+At session start and through the RED capture this worktree was at the frozen design commit
+1011259415a0916054eb580687612580bc1e5f09. A concurrent session sharing this worktree then
+committed its own files on top of it; the design inputs verified by this pipeline were not
+modified by that commit.
+
+addendum_generated_utc: 2026-10-14T17:05:34+00:00
+HEAD at addendum time: d59c71345885d990951244f96280316d023f58fb
+HEAD^ (parent) at addendum time: 1011259415a0916054eb580687612580bc1e5f09
+frozen design 1011259415a0916054eb580687612580bc1e5f09 is an ancestor of HEAD: True
+design input hashes re-checked at addendum time:
+  scope requirements canonical sha256 = c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 (frozen value c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804)
+  plan sha256 = e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be
+  taskbook sha256 = 7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18
+worktree git status --porcelain at addendum time:
+   M docs/competition/deepeye-2026/.gitattributes
+  ?? competition/deepeye/evidence/game/
+  ?? competition/deepeye/evidence/system/pipeline_selftest.txt
+  ?? competition/deepeye/simulator/
+  ?? competition/deepeye/tests/
+  ?? competition/deepeye/tools/
+This task performed no Git mutation (no add/commit/PR) and no board, model, network or
+service call. The three owned artifacts (tools/pipeline.py, tests/test_pipeline.py,
+evidence/system/pipeline_selftest.txt) are plain working-tree files in this worktree.
+Unit regression only: product R03 is NOT passed; explicit quality-main acceptance is
+still required.
+
+==============================================================================
+[gen2-red] RED run of the updated selftest suite against the ORIGINAL pre-repair tools/pipeline.py
+utc: 2026-10-15T03:23:40+00:00
+cwd: C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye
+command: <venv-python> -X utf8 -B tests/test_pipeline.py -v
+exit: 1
+pipeline.py sha256 (original, unmodified, == read-only snapshot before_edit): 0ede45e4c176716c983028e494d07f36dce12d4f6bc60a7fdc2aeafa611387dd
+tests/test_pipeline.py sha256 (updated suite): 56de95d6d367b09d7d040aca7ecc55b3eae9caed545e1f02987c33f8f5131f12
+env: PYTHONDONTWRITEBYTECODE=1; no board, model, network or service call; no ledger outside temp dirs
+---- raw combined stdout+stderr ----
+test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... FAIL
+test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... FAIL
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... FAIL
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... FAIL
+test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ERROR
+test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ERROR
+test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ERROR
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ERROR
+test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ERROR
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... FAIL
+
+======================================================================
+ERROR: test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 664, in test_release_rejects_unknown_status_and_unverified_terminal
+    ledger.release("wrk-unknown-rel", "A-quality-main", True, "stop confirmed")
+    ^^^^^^^^^^^^^^
+AttributeError: 'Ledger' object has no attribute 'release'
+
+======================================================================
+ERROR: test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 603, in test_release_requires_explicit_stop_confirmation_and_evidence
+    ledger.release("wrk-rel", "A-quality-main", False, "verified stop: main confirmed")
+    ^^^^^^^^^^^^^^
+AttributeError: 'Ledger' object has no attribute 'release'
+
+======================================================================
+ERROR: test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 683, in test_released_duplicate_reserve_reuses_identity_and_never_reexecutes
+    ledger.release("wrk-dup-rel", "A-quality-main", True, "verified stop: failure contained")
+    ^^^^^^^^^^^^^^
+AttributeError: 'Ledger' object has no attribute 'release'
+
+======================================================================
+ERROR: test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 709, in test_verify_ignores_released_claims_and_rejects_invalid_release
+    ledger.release("wrk-v1", "A-quality-main", True, "verified stop")
+    ^^^^^^^^^^^^^^
+AttributeError: 'Ledger' object has no attribute 'release'
+
+======================================================================
+ERROR: test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 572, in test_verify_rejects_stale_or_missing_accepted_provenance
+    record = ledger.accept("wrk-stale", "accepted", "A-quality-main",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Ledger.accept() got an unexpected keyword argument 'artifacts'
+
+======================================================================
+FAIL: test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 553, in test_accept_cli_requires_pair_flags_and_rejects_bad_commit
+    self.assertEqual(proc.returncode, 2, proc.stdout)
+AssertionError: 0 != 2 : {
+  "command": "accept",
+  "design_task_version": 5,
+  "record": {
+    "acceptance": {
+      "at": "2026-10-15T03:23:00+00:00",
+      "by": "A-quality-main",
+      "decision": "accepted"
+    },
+    "attempts": 1,
+    "created_at": "2026-10-15T03:23:00+00:00",
+    "detail": "accepted_by_A-quality-main",
+    "execution": {
+      "detail": "software_result_recorded",
+      "finished_at": "2026-10-15T03:23:00+00:00",
+      "started_at": "2026-10-15T03:23:00+00:00",
+      "verdict": "ok"
+    },
+    "history": [
+      {
+        "at": "2026-10-15T03:23:00+00:00",
+        "event": "reserved"
+      },
+      {
+        "at": "2026-10-15T03:23:00+00:00",
+        "detail": "software_result_recorded",
+        "event": "completed",
+        "verdict": "ok"
+      },
+      {
+        "at": "2026-10-15T03:23:00+00:00",
+        "by": "A-quality-main",
+        "decision": "accepted",
+        "event": "acceptance"
+      }
+    ],
+    "input_hash": "a5f9348222d29e98b8c35b826dac7fe1c8afdb81c63dd21545dc0290b8d04fea",
+    "ownership": [
+      "competition/deepeye/work/s0/provenance-cli-fixture"
+    ],
+    "status": "passed",
+    "task": {
+      "cards": [
+        "R03"
+      ],
+      "design_task_version": 5,
+      "owner": "A",
+      "stage": "s0"
+    },
+    "updated_at": "2026-10-15T03:23:00+00:00",
+    "work_id": "wrk-prov-cli"
+  },
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1
+}
+
+
+======================================================================
+FAIL: test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 525, in test_accept_requires_artifact_and_commit_provenance
+    with self.assertRaises(self.mod.ConflictError) as ctx:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ConflictError not raised
+
+======================================================================
+FAIL: test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 459, in test_passed_requires_explicit_main_acceptance
+    self.assertEqual(proc.returncode, 0, proc.stderr)
+AssertionError: 2 != 0 : usage: python tools/pipeline.py [-h]
+                                {plan,status,run,verify,resume,accept} ...
+python tools/pipeline.py: error: unrecognized arguments: --artifact competition/deepeye/hardware/environment.json=00b85e70e25d0080f27b9158ca891556010be6a22b01697ad5f87f0fdcc64656 --commit 91ce2b14edcc8e18a074f9f5d30bf34eec65809c --command python tests/test_pipeline.py -v --exit-code 0
+
+
+======================================================================
+FAIL: test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 751, in test_release_cli_and_inert_runners
+    self.assertEqual(proc.returncode, 0, proc.stderr)
+AssertionError: 2 != 0 : usage: python tools/pipeline.py [-h]
+                                {plan,status,run,verify,resume,accept} ...
+python tools/pipeline.py: error: argument command: invalid choice: 'release' (choose from plan, status, run, verify, resume, accept)
+
+
+======================================================================
+FAIL: test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 770, in test_verify_selftest_runs_real_tests
+    self.assertEqual(proc.returncode, 0, proc.stderr[-2000:])
+AssertionError: 1 != 0 : 
+
+----------------------------------------------------------------------
+Ran 19 tests in 5.872s
+
+FAILED (failures=5, errors=5)
+
+
+==============================================================================
+[gen2-green] GREEN run after the minimal repair in tools/pipeline.py
+utc: 2026-10-15T03:26:35+00:00
+cwd: C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye
+command 1: <venv-python> -X utf8 -B tests/test_pipeline.py -v
+exit: 0 ; Ran 19 tests ; OK (0 failures, 0 errors)
+command 2: <venv-python> -X utf8 -B tools/pipeline.py verify --selftest --ledger <nonexistent temp fixture path>
+exit: 0 ; selftest.ok=true ; selftest.tests_ran=19 ; ledger.exists=false ; fixture and default ledger NOT created
+pipeline.py sha256 (repaired): a8986a2251462a2beb129a3769e410fd673288018f10854bc7f024968c53f5d3
+tests/test_pipeline.py sha256 (updated): 56de95d6d367b09d7d040aca7ecc55b3eae9caed545e1f02987c33f8f5131f12
+evidence/system/pipeline_selftest.txt sha256 before this append: <computed at append time>
+repair semantics: acceptance now requires existing safe artifact bytes matching recorded SHA256 plus a tested full
+Git commit whose blobs equal the worktree bytes (commit must be current HEAD); release is an explicit operator-
+confirmed stop, separate from execution and acceptance; released ownership no longer blocks distinct work; released
+claims are ignored by verify overlap while active overlap and invalid release records are still reported; failed/unknown
+records are never replayed; RUNNERS stays empty (no generic shell/model/network/board execution).
+limitations: fixture-only provenance (existing clean tracked files + existing HEAD, no commit fabricated); all 29 task
+cards remain not_run; no board, model, network, service or credential use; R03 is NOT accepted.
+---- raw output: tests/test_pipeline.py -v (exit 0) ----
+test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok
+test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok
+test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok
+test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok
+test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok
+test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 13.568s
+
+OK
+
+---- raw output: tools/pipeline.py verify --selftest --ledger <temp nonexistent> (exit 0) ----
+{
+  "checks": [
+    {
+      "cards_total": 29,
+      "check": "plan_loaded",
+      "ok": true
+    },
+    {
+      "check": "ledger",
+      "exists": false,
+      "ok": true
+    }
+  ],
+  "command": "verify",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "requirement_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "revision": 1,
+    "scope_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+    "task_id": "COMP-20261013-DEEPEYE"
+  },
+  "design_task_version": 5,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "selftest": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py",
+      "-v"
+    ],
+    "ok": true,
+    "returncode": 0,
+    "stderr_tail": "",
+    "stdout_tail": "test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok\ntest_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok\ntest_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok\ntest_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok\ntest_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok\ntest_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok\ntest_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok\ntest_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok\ntest_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok\ntest_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok\ntest_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok\ntest_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok\ntest_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok\ntest_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok\ntest_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok\ntest_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok\ntest_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok\ntest_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok\ntest_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... skipped 'nested verify --selftest run'\n\n----------------------------------------------------------------------\nRan 19 tests in 6.328s\n\nOK (skipped=1)",
+    "tests_ran": 19
+  }
+}
+
+=================== RED (tests-first, pre-fix code) ====================
+at: 2026-10-15 Asia/Shanghai host clock
+work_id: A-R03-pipeline-provenance-release-gen2-reviewfix-v1
+pipeline.py sha256 (pre-fix): a8986a2251462a2beb129a3769e410fd673288018f10854bc7f024968c53f5d3
+tests/test_pipeline.py sha256 (new tests): 13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58
+command: .local/venv/Scripts/python.exe -X utf8 -B tests/test_pipeline.py -v  (cwd=competition/deepeye, PYTHONDONTWRITEBYTECODE=1)
+exit code: 1 ; Ran 24 tests in 20.216s ; FAILED (failures=5) [expected RED before the fix]
+=======================================================================
+test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok
+test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok
+test_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance) ... FAIL
+test_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root) ... FAIL
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership) ... FAIL
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok
+test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok
+test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok
+test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_valid_terminal_releases_still_free_ownership (__main__.PipelineTestCase.test_valid_terminal_releases_still_free_ownership) ... ok
+test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok
+test_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... FAIL
+test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... FAIL
+
+======================================================================
+FAIL: test_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 820, in test_accept_requires_source_command_and_successful_exit_provenance
+    with self.assertRaises(self.mod.ConflictError) as ctx:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ConflictError not raised
+
+======================================================================
+FAIL: test_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 954, in test_evidence_paths_must_stay_inside_the_worktree_root
+    self.assertEqual(ctx.exception.code, "provenance_path_unsafe")
+AssertionError: 'provenance_artifact_untracked' != 'provenance_path_unsafe'
+- provenance_artifact_untracked
++ provenance_path_unsafe
+
+
+======================================================================
+FAIL: test_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 888, in test_malformed_release_cannot_free_ownership
+    self.assertFalse(self.mod.is_released_record(doc["records"]["wrk-mal-rel"]))
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 857, in test_verify_rejects_accepted_records_without_source_command_exit
+    self.assertEqual(proc.returncode, 1, proc.stdout)
+AssertionError: 0 != 1 : {
+  "action_required": false,
+  "checks": [
+    {
+      "cards_total": 29,
+      "check": "plan_loaded",
+      "ok": true
+    },
+    {
+      "check": "ledger",
+      "exists": true,
+      "ok": true,
+      "problems": [],
+      "records": 1,
+      "unknown_statuses": []
+    }
+  ],
+  "command": "verify",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "requirement_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "revision": 1,
+    "scope_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+    "task_id": "COMP-20261013-DEEPEYE"
+  },
+  "design_task_version": 5,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1
+}
+
+
+======================================================================
+FAIL: test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_pipeline.py", line 785, in test_verify_selftest_runs_real_tests
+    self.assertEqual(proc.returncode, 0, proc.stderr[-2000:])
+AssertionError: 1 != 0 : 
+
+----------------------------------------------------------------------
+Ran 24 tests in 20.216s
+
+FAILED (failures=5)
+===== END RED =====
+=================== GREEN (post-fix) ====================
+at: 2026-10-15 Asia/Shanghai host clock
+work_id: A-R03-pipeline-provenance-release-gen2-reviewfix-v1
+pipeline.py sha256 (fixed): 398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e
+tests/test_pipeline.py sha256: 13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58
+command: .local/venv/Scripts/python.exe -X utf8 -B tests/test_pipeline.py -v  (cwd=competition/deepeye, PYTHONDONTWRITEBYTECODE=1)
+exit code: 0 ; Ran 24 tests in 29.124s ; OK (no skips)
+=======================================================
+test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok
+test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok
+test_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance) ... ok
+test_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root) ... ok
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership) ... ok
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok
+test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok
+test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok
+test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_valid_terminal_releases_still_free_ownership (__main__.PipelineTestCase.test_valid_terminal_releases_still_free_ownership) ... ok
+test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok
+test_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... ok
+test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 29.124s
+
+OK
+===== END GREEN =====
+=================== VERIFY --selftest (fresh nonexistent temp ledger) ====================
+at: 2026-10-15 Asia/Shanghai host clock
+work_id: A-R03-pipeline-provenance-release-gen2-reviewfix-v1
+pipeline.py sha256 (fixed): 398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e
+command: .local/venv/Scripts/python.exe -X utf8 -B tools/pipeline.py verify --selftest --ledger C:\Users\CarlJade\AppData\Local\Temp\deepeye-verify-b05c05ee7f12\pipeline_ledger.json  (cwd=competition/deepeye, PYTHONDONTWRITEBYTECODE=1)
+exit code: 0 ; selftest.ok=true ; selftest.returncode=0 ; tests_ran=24 ; ledger exists=false (no default ledger created)
+========================================================================================
+{
+  "checks": [
+    {
+      "cards_total": 29,
+      "check": "plan_loaded",
+      "ok": true
+    },
+    {
+      "check": "ledger",
+      "exists": false,
+      "ok": true
+    }
+  ],
+  "command": "verify",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "requirement_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "revision": 1,
+    "scope_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+    "task_id": "COMP-20261013-DEEPEYE"
+  },
+  "design_task_version": 5,
+  "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "route_task_version": 1,
+  "selftest": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py",
+      "-v"
+    ],
+    "ok": true,
+    "returncode": 0,
+    "stderr_tail": "",
+    "stdout_tail": "test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok\ntest_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok\ntest_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance) ... ok\ntest_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root) ... ok\ntest_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok\ntest_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership) ... ok\ntest_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok\ntest_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok\ntest_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok\ntest_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok\ntest_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok\ntest_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok\ntest_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok\ntest_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok\ntest_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok\ntest_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok\ntest_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok\ntest_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok\ntest_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok\ntest_valid_terminal_releases_still_free_ownership (__main__.PipelineTestCase.test_valid_terminal_releases_still_free_ownership) ... ok\ntest_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok\ntest_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... ok\ntest_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok\ntest_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... skipped 'nested verify --selftest run'\n\n----------------------------------------------------------------------\nRan 24 tests in 14.948s\n\nOK (skipped=1)",
+    "tests_ran": 24
+  }
+}
+===== END VERIFY =====
