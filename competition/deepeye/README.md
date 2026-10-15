@@ -19,3 +19,11 @@ A owns public schemas, orchestration, simulator authority/physics, and all board
 Release directory mapping: `docs` covers system/report documentation, `fpga` the programmable logic, `ai_pc` the host model/application, `hardware` physical setup, and `evidence` raw validation outputs. Final `metrics`, deployment and offline release artifacts will be accepted under A04/G08.
 
 The PC_DIRECT STATE8 heartbeat now has an independently reviewed stateful stop gate in `integration/pc_direct_watchdog.py`. It conservatively expires health, latches faults and clock/order violations, and never extends a command deadline or supplies observations. `sensor_source.py` validates the causal source boundary with shared monotonic receiver time. `test_trace_payload.py` keeps unfrozen TRACE payloads quarantined; the missing B codec/C interoperability and register definitions remain full R03 gates. See the corresponding documents in `docs/`.
+
+`tools/verify_game.py` runs explicit `--reference-only` editor, sensing, timing
+and motion-primitive checks with raw logs and source hashes. Every formal game
+suite remains blocked. The new `simulation/authority/motion/` primitives provide
+3D rigid arc integration and conservative capsule/plane-section bounds; they
+do not yet implement authenticated motion grants, continuous obstacle sweep or
+the entry/exit phase machine. The precise section solver has measured cases
+over the 10 ms physics budget, so 100 Hz execution remains unverified.
