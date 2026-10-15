@@ -19,8 +19,8 @@ def parser() -> argparse.ArgumentParser:
     scale.add_argument("count", type=int)
     delegate = sub.add_parser(
         "delegate",
-        help="Assign ordinary work to a DeepSeek V4.1 Flash child (the priority "
-             "route). Identical work is reused instead of rerun.",
+        help="Assign work through the dedicated DeepSeek V4.1 Flash/max route. "
+             "Other Desktop/native routes remain main-selected. Identical work is reused.",
     )
     delegate.add_argument("--task-id", required=True)
     delegate.add_argument("--task-version", type=int, required=True)
@@ -44,9 +44,9 @@ def parser() -> argparse.ArgumentParser:
     version.add_argument("number", type=int)
     native_reserve = sub.add_parser(
         "native-reserve",
-        help="Reserve the shared lease for a special GPT-native task that needs "
-             "the best main model. DeepSeek Flash at max reasoning stays the "
-             "priority route, so --reason must justify the capability.",
+        help="Reserve a lease for the optional mesh-managed native route; "
+             "--reason records the main's assignment rationale. Desktop/native "
+             "work may use its own recorded task and exclusive ownership.",
     )
     native_reserve.add_argument("--task-id", required=True)
     native_reserve.add_argument("--task-version", type=int, required=True)

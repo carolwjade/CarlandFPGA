@@ -5,7 +5,9 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import hmac
+import ipaddress
 import json
+import socket
 from datetime import datetime, timezone
 from urllib import error, request
 
@@ -148,17 +150,45 @@ class HttpPeerServer:
         self._server: asyncio.AbstractServer | None = None
 
     @property
+    def listening(self) -> bool:
+        return self._server is not None and self._server.is_serving()
+
+    @property
     def port(self) -> int:
         if self._server is None or not self._server.sockets:
             raise RuntimeError("server is not started")
         return int(self._server.sockets[0].getsockname()[1])
 
     async def start(self) -> None:
-        self._server = await asyncio.start_server(
-            self._handle,
-            self.host,
-            self.requested_port,
-        )
+        if self._server is not None:
+            raise RuntimeError('peer listener already started')
+        try:
+            address = ipaddress.ip_address(self.host)
+        except ValueError:
+            # Preserve hostname resolution behavior for existing deployments.
+            self._server = await asyncio.start_server(
+                self._handle, self.host, self.requested_port,
+            )
+            return
+        # asyncio's host/port path swallows EADDRNOTAVAIL and replaces it with
+        # an errno-less error. Bind the exact numeric interface ourselves so
+        # an absent VPN address can be distinguished from port/permission bugs.
+        family = socket.AF_INET6 if address.version == 6 else socket.AF_INET
+        owned = socket.socket(family, socket.SOCK_STREAM)
+        server = None
+        try:
+            owned.setblocking(False)
+            owned.bind((self.host, self.requested_port))
+            server = await asyncio.start_server(self._handle, sock=owned, start_serving=False)
+            await server.start_serving()
+            self._server = server
+        except BaseException:
+            if server is not None:
+                server.close()
+                await server.wait_closed()
+            else:
+                owned.close()
+            raise
 
     async def close(self) -> None:
         if self._server is not None:
