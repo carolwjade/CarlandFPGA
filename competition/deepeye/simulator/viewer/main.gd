@@ -502,10 +502,12 @@ func _build_drill_greybox() -> void:
 	var cylinder := CylinderMesh.new()
 	cylinder.top_radius = 0.12
 	cylinder.bottom_radius = 0.12
-	cylinder.height = 0.8
+	# Complete greybox is .80m about the pivot: body[-.40,.18], head[.18,.40].
+	cylinder.height = 0.58
 	body.mesh = cylinder
 	body.material_override = body_material
 	body.quaternion = Quaternion(Vector3.UP, Vector3.BACK)
+	body.position = Vector3(0.0, 0.0, -0.11)
 	_drill_root.add_child(body)
 	var tip := MeshInstance3D.new()
 	var cone := CylinderMesh.new()
@@ -515,7 +517,7 @@ func _build_drill_greybox() -> void:
 	tip.mesh = cone
 	tip.material_override = body_material
 	tip.quaternion = Quaternion(Vector3.UP, Vector3.BACK)
-	tip.position = Vector3(0.0, 0.0, 0.51)
+	tip.position = Vector3(0.0, 0.0, 0.29)
 	_drill_root.add_child(tip)
 	var label := Label3D.new()
 	label.text = "开发灰盒·钻头（静态；无运动）"

@@ -32,6 +32,9 @@ func _viewer_runtime_tests() -> void:
 	before = _failures.size()
 	await test_viewer_pointer_release_over_panel()
 	_report_async("viewer_pointer_release_over_panel", before)
+	before = _failures.size()
+	await test_greybox_drill_actual_mesh_envelope()
+	_report_async("greybox_drill_actual_mesh_envelope", before)
 	print("TESTS checks=%d failures=%d" % [_checks, _failures.size()])
 	if _failures.is_empty():
 		print("RESULT PASS")
@@ -258,6 +261,143 @@ func test_viewer_initial_layout_and_ui_refresh() -> void:
 	await process_frame
 	_check(shell._undo_button.disabled, "undo is disabled again when history is empty")
 	_check(shell._history_label.text == "撤销 0 / 重做 2", "history label follows the second undo (got %s)" % shell._history_label.text)
+	scene.queue_free()
+	await process_frame
+
+
+func _collect_drill_meshes(node: Node, meshes: Array) -> void:
+	# Label3D is an annotation, never a physical mesh in the envelope.
+	if node is MeshInstance3D:
+		meshes.append(node)
+	for child in node.get_children():
+		_collect_drill_meshes(child, meshes)
+
+
+func _measure_drill_mesh(instance: MeshInstance3D, drill: Node3D) -> Dictionary:
+	var relative := drill.global_transform.affine_inverse() * instance.global_transform
+	var points: Array[Vector3] = []
+	var faces: Array = []
+	for surface in instance.mesh.get_surface_count():
+		var arrays: Array = instance.mesh.surface_get_arrays(surface)
+		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+		var start := points.size()
+		for vertex in vertices:
+			points.append(relative * vertex)
+		var count := indices.size() if not indices.is_empty() else vertices.size()
+		for offset in range(0, count, 3):
+			if offset + 2 >= count:
+				break
+			var tri: Array[int] = []
+			for corner in 3:
+				tri.append(start + (indices[offset + corner] if not indices.is_empty() else offset + corner))
+			faces.append(tri)
+	var minimum := Vector3(INF, INF, INF)
+	var maximum := Vector3(-INF, -INF, -INF)
+	var max_radius := 0.0
+	var max_capsule_distance := 0.0
+	var max_pivot_distance := 0.0
+	var welded: Dictionary = {}
+	var ids: Array[int] = []
+	for point in points:
+		minimum = minimum.min(point)
+		maximum = maximum.max(point)
+		var radial := Vector2(point.x, point.y).length()
+		max_radius = maxf(max_radius, radial)
+		var nearest := Vector3(0.0, 0.0, clampf(point.z, -0.4, 0.4))
+		max_capsule_distance = maxf(max_capsule_distance, point.distance_to(nearest))
+		max_pivot_distance = maxf(max_pivot_distance, point.length())
+		# Weld coincident seam/cap duplicates, preserving 1um geometric resolution.
+		var key := Vector3i(roundi(point.x * 1000000.0), roundi(point.y * 1000000.0), roundi(point.z * 1000000.0))
+		if not welded.has(key):
+			welded[key] = welded.size()
+		ids.append(int(welded[key]))
+	var edges: Dictionary = {}
+	var signed_volume := 0.0
+	var triangles := 0
+	for tri in faces:
+		var a := ids[tri[0]]
+		var b := ids[tri[1]]
+		var c := ids[tri[2]]
+		if a == b or b == c or a == c:
+			continue  # Coincident cone apex/centre triangles have zero area.
+		triangles += 1
+		signed_volume += points[tri[0]].dot(points[tri[1]].cross(points[tri[2]])) / 6.0
+		for edge in [[a, b], [b, c], [c, a]]:
+			var key := "%d:%d" % [mini(edge[0], edge[1]), maxi(edge[0], edge[1])]
+			var record: Array = edges.get(key, [0, 0])
+			record[0] += 1
+			record[1] += 1 if edge[0] < edge[1] else -1
+			edges[key] = record
+	var closed := not edges.is_empty()
+	for record in edges.values():
+		closed = closed and record[0] == 2 and record[1] == 0
+	var rear_radius := 0.0
+	var front_radius := 0.0
+	for point in points:
+		if absf(point.z - minimum.z) <= 0.000002:
+			rear_radius = maxf(rear_radius, Vector2(point.x, point.y).length())
+		if absf(point.z - maximum.z) <= 0.000002:
+			front_radius = maxf(front_radius, Vector2(point.x, point.y).length())
+	return {"minimum": minimum, "maximum": maximum, "radius": max_radius,
+		"capsule_distance": max_capsule_distance, "pivot_distance": max_pivot_distance,
+		"closed": closed, "volume": absf(signed_volume), "signed_volume": signed_volume, "triangles": triangles,
+		"vertices": points.size(), "rear_radius": rear_radius, "front_radius": front_radius}
+
+
+func test_greybox_drill_actual_mesh_envelope() -> void:
+	var scene = load("res://viewer/main.tscn").instantiate()
+	root.add_child(scene)
+	await process_frame
+	await process_frame
+	var drill: Node3D = scene._drill_root
+	_check(drill.global_transform.basis == Basis.IDENTITY, "static greybox world basis has unit scale and no shear/reflection")
+	var meshes: Array = []
+	_collect_drill_meshes(drill, meshes)
+	_check(meshes.size() == 2, "greybox uses exactly two physical solid mesh instances; labels excluded")
+	var measurements: Array = []
+	var minimum := Vector3(INF, INF, INF)
+	var maximum := Vector3(-INF, -INF, -INF)
+	var max_radius := 0.0
+	var max_capsule_distance := 0.0
+	var max_pivot_distance := 0.0
+	const TOL := 0.000002  # 2um bound for float32 mesh+transform arithmetic, not gate clearance.
+	for mesh in meshes:
+		var measured := _measure_drill_mesh(mesh, drill)
+		measurements.append(measured)
+		minimum = minimum.min(measured.minimum)
+		maximum = maximum.max(measured.maximum)
+		max_radius = maxf(max_radius, measured.radius)
+		max_capsule_distance = maxf(max_capsule_distance, measured.capsule_distance)
+		max_pivot_distance = maxf(max_pivot_distance, measured.pivot_distance)
+		_check(measured.vertices > 0 and measured.triangles > 0, "actual surface contains vertices and nondegenerate triangles")
+		_check(measured.closed, "actual solid mesh is closed with paired opposite oriented edges after 1um seam welding")
+		_check(measured.volume > 0.0001, "closed actual mesh encloses nonzero solid volume")
+	_check(absf(maximum.z - minimum.z - 0.8) <= TOL, "whole actual mesh length is 0.80m")
+	_check(absf(minimum.z + 0.4) <= TOL and absf(maximum.z - 0.4) <= TOL, "whole actual mesh ends at local z=-.4 and +.4")
+	_check((minimum + maximum).length() / 2.0 <= TOL, "actual mesh AABB centre coincides with the drill pivot")
+	_check(absf(2.0 * max_radius - 0.24) <= TOL, "maximum actual diameter remains 0.24m")
+	_check(max_capsule_distance <= 0.12 + TOL, "every transformed vertex lies in default h=.4/r=.12 capsule within numeric tolerance")
+	_check(max_pivot_distance <= 0.52 + TOL, "every transformed vertex lies within R_body=.52m")
+	measurements.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a.maximum.z < b.maximum.z)
+	if measurements.size() == 2:
+		var body: Dictionary = measurements[0]
+		var head: Dictionary = measurements[1]
+		_check(absf(body.maximum.z - body.minimum.z - 0.58) <= TOL, "actual body length is .58m")
+		_check(absf(head.maximum.z - head.minimum.z - 0.22) <= TOL, "actual conical head length remains .22m")
+		_check(absf(body.maximum.z - 0.18) <= TOL and absf(head.minimum.z - 0.18) <= TOL, "actual body/head meet at z=.18 without gap or overlap")
+		_check(absf(body.front_radius - 0.12) <= TOL and absf(head.rear_radius - 0.12) <= TOL, "actual seam has matching .12m radius")
+		_check(head.front_radius <= TOL and head.rear_radius > 0.12 - TOL, "actual cone narrows to a forward +Z tip")
+		_check(body.rear_radius > 0.12 - TOL and body.front_radius > 0.12 - TOL, "actual body retains full-diameter end caps")
+		_check(absf(body.volume / (PI * 0.12 * 0.12 * 0.58) - 1.0) < 0.005, "actual closed cylinder volume matches dimensions within polygon discretization")
+		_check(absf(head.volume / (PI * 0.12 * 0.12 * 0.22 / 3.0) - 1.0) < 0.005, "actual closed cone volume matches dimensions within polygon discretization")
+		_check(body.signed_volume * head.signed_volume > 0.0, "both closed components use consistent surface winding")
+	print("GREYBOX_MESH " + JSON.stringify({"minimum": [minimum.x, minimum.y, minimum.z],
+		"maximum": [maximum.x, maximum.y, maximum.z], "length_m": maximum.z - minimum.z,
+		"diameter_m": 2.0 * max_radius, "max_capsule_distance_m": max_capsule_distance,
+		"max_pivot_distance_m": max_pivot_distance, "numeric_tolerance_m": TOL,
+		"mesh_measurements": measurements}))
+	_check(scene.document.control_bridge_connected == false and not scene.document.is_motion_active(), "mesh fix leaves authority bridge disconnected and motion inactive")
 	scene.queue_free()
 	await process_frame
 
