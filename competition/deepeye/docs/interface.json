@@ -3,7 +3,7 @@
   "abi_version": 3,
   "layout_revision": 1,
   "owner": "A-main",
-  "status": "field_layout_frozen_full_R03_not_run",
+  "status": "wire_layout_and_host_contract_frozen_full_R03_not_run",
   "implementation_task": {
     "id": "DEEPEYE-IMPLEMENTATION-20261014",
     "version": 1
@@ -961,15 +961,27 @@
   },
   "gain_ratio_source": "independent calibrated before/after ADC; MCP6S21 has no SPI SO readback",
   "remaining_R03_gates": [
-    "trace payload finalization",
-    "profile/source/topology ID table",
-    "action/fault flag codes",
-    "complete BOOT canonical profile and timing slots",
-    "register bitfields and reset semantics",
-    "parser CRC/corruption/resync/sequence vectors",
-    "per-window and sliding-window scheduler simulation",
-    "B/C independent byte interoperability",
-    "real IO timing/capture gate before ENABLE"
+    "TRACE payload/codec finalization and independent vectors",
+    "register bitfields, reset semantics and matched HWH integration",
+    "stateful observation history/latest-completed mailbox/request replay and seq/epoch rollover integration",
+    "B/C independent byte interoperability on the published exact candidate",
+    "host process ACL isolation and mode-specific end-to-end runtime",
+    "measured USB/clock/holdover/channel calibration and actual IO capture before ENABLE"
   ],
-  "hardware_status": "not_run"
+  "hardware_status": "not_run",
+  "contract_revision": 3,
+  "enumerations": "enums.json",
+  "host_pipe_schema": "host_contract.json",
+  "host_time_mapping": "host_timing_contract.md",
+  "hardware_enable_eligible": false,
+  "local_reference_components": [
+    "15 fixed ABI3 frame layouts with saved independent framing vectors",
+    "strict host-envelope validation including STATE8 authority-only PC_DIRECT heartbeat",
+    "bounded clock arithmetic and non-renewing deadline reference",
+    "BOOT actual protocol-file digest binding and exact request-sequence/epoch echo",
+    "all six mode schedules, nominal half-duplex/guard checks and 216 mixed three-window cases per profile including partial frames",
+    "local pipeline terminal/provenance/ownership self-tests"
+  ],
+  "boot_ack_correlation": "BOOT_ACK header.sequence echoes BOOT header.sequence; epoch must match the proposed stopped-state epoch; session,mode,sha128,guard and slot fields exactly echo. Requires new session on mode/profile change.",
+  "pc_direct_heartbeat": "STATE 0x08 32B through board_response is authority-only clock/health diagnostic; never movement capture, observation freshness or deadline renewal."
 }
