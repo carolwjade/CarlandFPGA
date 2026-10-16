@@ -1,0 +1,78 @@
+{
+  "tested_commit": "2057f51ae6fe54ad7a343510c29f27bc60e76d9b",
+  "source_commit": "0a2afa358c9775fe4d9faee77ec0b0aa4fa9df57",
+  "operation_id": "B-DIRECTOR-OWNER-GUARD-20261016-v2",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "handoff_task_id": "B-RUNTIME-CONTINUITY-20261016",
+  "task_version": 1,
+  "request_hash": "14c37945047e2cc53eebc1aae790ee258d2e6e9d337df819a63d57445ecf6c25",
+  "manifest_sha256": "96cf90fbf84b8f7743551d8e7236c5d6b16085ffd4bcd9313280b06bbaa6a327",
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "decision": "OWNER_GUARD_V2_RECOVERY_OFFLINE_ACCEPTED",
+  "main_review": "No blocking defect found in scoped v2 supported transitions; original malformed and wrong-version recovery dead ends reproduced on v1, explicit closure now works without replay or fabricated consumption.",
+  "observed_remote_head_outside_scope": "dcace5700a334ab058522d45ccb6e1d78037f817",
+  "manifest_files_verified": 23,
+  "standard_handoff_verifier": {
+    "valid": true,
+    "files_checked": 23,
+    "exit_code": 0,
+    "command": [
+      ".local/venv/Scripts/python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".agents/skills/fpga-multi-node/scripts/handoff.py",
+      "verify",
+      "--root",
+      ".local/a-owner-guard-v2-review",
+      "--manifest",
+      "handoffs/node-b/B-DIRECTOR-OWNER-GUARD-20261016-v2/manifest.json"
+    ],
+    "earlier_invocation_error": "First invocation mistakenly repeated root in relative manifest argument; exit1 missing file. Correct root-relative invocation above passed. No candidate defect or file change."
+  },
+  "software_regression": {
+    "tests": 107,
+    "unittest_seconds": 8.108,
+    "process_seconds": 9.125,
+    "exit_code": 0,
+    "python": "3.12.14",
+    "command_record": "regression.json"
+  },
+  "independent_cases": {
+    "original_v1_negative": 2,
+    "candidate_v2": 5,
+    "exit_code": 0,
+    "command_record": "independent-probes.json",
+    "real_app_requests": 0
+  },
+  "native_report_sha256": "1566a491cb9cf6db22778fe86424b8ddb7b45ce9e982db81282b24a9864ff057",
+  "nonblocking_observation": {
+    "code": "update.py:30-33,162-166",
+    "condition": "Missing external_deliveries row with surviving delivery_pending/delivery_unknown main_runs row",
+    "effect": "Gateway refuses replay but idle predicate relies on external_deliveries; orphan main state alone would not block idle.",
+    "assessment": "Unsupported corruption/manual-repair state only; no supported producer found. Normal create/transition transactions are atomic and parent rollback probe passed. Defensive hardening followup, not a demonstrated v2 release blocker."
+  },
+  "stages": {
+    "scoped_code_review": "passed",
+    "offline_fixture_regression": "passed",
+    "original_P2_reproduction": "passed",
+    "entire_PR29_acceptance": "not_run",
+    "later_remote_head_acceptance": "not_run",
+    "live_App_delivery": "not_run",
+    "real_reconnect": "not_run",
+    "service_deployment": "not_run",
+    "merge": "not_run",
+    "RTL_simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "physical_board": "not_run",
+    "product_acceptance": "not_run"
+  },
+  "limits": [
+    "Caller-provided no-send evidence and reviewer identity are not independent App history authentication.",
+    "Callers must persist attempt before external sending; unknown attempts remain held.",
+    "Declaration checks are not an OS App writer lock; live admission and actual writer inspection remain required.",
+    "Closed obligation retains review/followup responsibility; it does not run followup work.",
+    "Old failed/interrupted evidence is not replayed or accepted as current; later PR heads do not inherit this conclusion."
+  ]
+}

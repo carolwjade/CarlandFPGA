@@ -1,0 +1,44 @@
+{
+  "source_mode": "candidate_v2",
+  "cases": [
+    {
+      "case": "malformed",
+      "closed_without_consumption": true,
+      "both_ledgers_reopened": true,
+      "original_identity_preserved": true,
+      "idempotent": true,
+      "replay_prevented": true
+    },
+    {
+      "case": "wrong_version",
+      "closed_without_consumption": true,
+      "both_ledgers_reopened": true,
+      "original_identity_preserved": true,
+      "idempotent": true,
+      "replay_prevented": true
+    },
+    {
+      "case": "unknown_restart",
+      "execute_once": true,
+      "withdraw_rejected": true,
+      "both_ledgers_reopened": true,
+      "idle_and_stop_rejected_without_owner_file": true
+    },
+    {
+      "case": "supersession_restart",
+      "original_closed": true,
+      "successor_preserved_pending": true,
+      "both_ledgers_reopened": true,
+      "idle_blocked_by_successor": true
+    },
+    {
+      "case": "atomic_rollback",
+      "all_three_writes_rolled_back": true,
+      "same_operation_can_retry_only_after_rollback": true,
+      "committed_attempt_cannot_replay": true
+    }
+  ],
+  "client_factory_calls": 0,
+  "real_app_requests": 0,
+  "offline_only": true
+}

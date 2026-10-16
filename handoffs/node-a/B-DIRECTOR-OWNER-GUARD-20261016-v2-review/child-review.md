@@ -1,0 +1,41 @@
+# Owner guard v2 bounded independent audit
+
+Task B-RUNTIME-REPAIR-20261015/v1; work A-OWNER-GUARD-V2-AUDIT-2057f51.
+Agent /root/owner_guard_v2_audit. Native job child-510e5f4aac884e999db04df6f57889cc validated execution_allowed=true and canonical agent binding before project reads.
+
+Exact HEAD: 2057f51ae6fe54ad7a343510c29f27bc60e76d9b.
+Branch: codex/a/owner-guard-v2-20261016-review.
+Source review: 98be52b..0a2afa358c9775fe4d9faee77ec0b0aa4fa9df57. Newer remote dcace570 excluded. Initial worktree status was clean.
+
+Read project multi-node skill, host role and protocol; current node configuration identifies A. Read immutable_scope.md/json and transfer.json. Recomputed requirements canonical SHA256: c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804, matching DEEPEYE-HUMAN-LOCK-20261014/revision1. H01-H15 unchanged. Current director remains generation 2, thread 01a13d7e-dcf1-7272-a738-a637dd62ff9d; this review transfers no product authority.
+
+## Result
+
+No blocking defect found in the reviewed supported transition paths. Root retains acceptance and the independent regression/manifest checks.
+
+- sessions.py:191-250 uses BEGIN IMMEDIATE for operation claim and delivery/main-result updates. Exact operation replay returns execute=false; changed payload conflicts. An unknown/attempted record cannot be withdrawn or superseded.
+- sessions.py:200-238 permits explicit closure using original saved identity even when the declaration was malformed or version-mismatched; it requires registered reviewer, evidence, reason and followup responsibility. Supersession requires a separate pending external-delivery record with matching saved envelope identity, and preserves both original envelopes.
+- project_control.py:85-92 rejects STOP and newer persisted human versions before an attempt. Actual external sending remains the authorized caller's responsibility and is outside the atomic bookkeeping boundary.
+- gateway.py:172-186 prevents replay of closed obligations and refuses pending/unknown main results whose delivery row is absent.
+- update.py:162-166,179-232 keeps unknown deliveries and declarations blocking idle shutdown, with existing database admission fences. continuity.py:157-161,258-261,286-294 prevents unknown obligations from becoming automatic repair/send work.
+
+## Defensive consistency observation (not demonstrated on a supported write path)
+
+update.py:30-33 checks main_runs only for queued/running; external pending/unknown activity is recognized through external_deliveries at lines 163-166. If an external_deliveries row/table were missing while a delivery_pending or delivery_unknown main_runs row survived, gateway.py:183-186 refuses replay, but idle checking would not recognize that main row as pending. No supported v2 transaction was found that produces this orphan: creation and transitions update both tables atomically. This is a corruption/manual-repair hardening opportunity, not a demonstrated normal-path release blocker. Consider adding the two external states to the main_runs idle predicate if orphan-state fail-closed coverage is intended. No live state was altered or corruption injected.
+
+## Independent offline probe
+
+Executed root .local/venv/Scripts/python.exe -B -X utf8 - with a single-quoted PowerShell here-string; changed Python cwd/import path to this fixed worktree. Used ExternalOwnerTests fixture (temporary databases and fake Wire only), not a real App client connection:
+
+1. asyncSetUp; defer one app-task envelope.
+2. actions.call(external_transition, transition_args(message, delivery, attempt)); assert execute is True.
+3. Close fake gateway and router; reopen MainSessionRouter against the same temporary main_sessions.sqlite; replace fixture router references and ProjectActions.
+4. Repeat identical transition; assert execute is False and status is delivery_unknown.
+5. Try action=withdraw with a different operation_id; assert ValueError.
+6. Assert fake wire.requests is empty; asyncTearDown removes temporary fixture.
+
+Exit code 0. Output: PASS independent restart probe: first execute=true; persisted retry=false; unknown withdrawal rejected; wire requests=0.
+
+Static command: git -C .local/a-owner-guard-v2-review diff 98be52b..0a2afa -- fpga_mesh/sessions.py fpga_mesh/gateway.py fpga_mesh/project_control.py fpga_mesh/update.py fpga_mesh/continuity.py tests/test_external_owner.py docs/deployment/EXTERNAL_TASK_OWNER.md.
+
+No redundant full suite run. No real App/model request, live ledger SQL, service/queue/declaration change, board operation, commit/push, peer/group operation, or source edit. The temporary fixture is offline evidence only; it proves neither actual App delivery nor live STOP timing, deployed behavior, product acceptance, or physical-board behavior.

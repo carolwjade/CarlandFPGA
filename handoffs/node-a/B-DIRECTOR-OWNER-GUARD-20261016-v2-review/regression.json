@@ -1,0 +1,27 @@
+{
+  "tested_commit": "2057f51ae6fe54ad7a343510c29f27bc60e76d9b",
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "tests.test_external_owner",
+    "tests.test_sessions",
+    "tests.test_project_control",
+    "tests.test_app_gateway",
+    "tests.test_mesh_update",
+    "tests.test_continuity.LedgerCollectionTests.test_external_deliveries_are_read_only_and_legacy_absence_is_supported",
+    "tests.test_continuity.LedgerCollectionTests.test_source_hashes_cover_the_runtime_modules",
+    "tests.test_continuity.ObserveAndIncidentTests.test_external_pending_is_a_handoff_obligation_not_terminal_or_repair",
+    "tests.test_continuity.ObserveAndIncidentTests.test_explicit_unconsumed_closure_resolves_incident_without_claiming_completion",
+    "tests.test_continuity.ContinuationDispatchTests.test_external_owner_or_delivery_suppresses_another_mesh_notification"
+  ],
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "exit_code": 0,
+  "elapsed_seconds": 9.125,
+  "logs": {
+    "regression-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "regression-stderr.txt": "32f0eb9e151d3420c0bd3741066c3413256e74c4fa240e8405a421f409d8213d"
+  }
+}
