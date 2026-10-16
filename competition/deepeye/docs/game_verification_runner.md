@@ -17,6 +17,7 @@ is performed.
 python -B tools/verify_game.py --suite editor --evidence-dir EVIDENCE
 python -B tools/verify_game.py --suite sensors --reference-only --evidence-dir EVIDENCE
 python -B tools/verify_game.py --suite timing --reference-only --evidence-dir EVIDENCE
+python -B tools/verify_game.py --suite secrecy --reference-only --evidence-dir EVIDENCE
 python -B tools/verify_game.py --suite motion_authority --reference-only --evidence-dir EVIDENCE
 python -B tools/verify_game.py --suite editor --reference-only --godot-exe EXISTING_GODOT_EXE --evidence-dir EVIDENCE
 ```
@@ -27,7 +28,7 @@ python -B tools/verify_game.py --suite editor --reference-only --godot-exe EXIST
 | `sensors` | `test_forward_profile.py` plus `test_sensor_source.py` | Independent 3D FDEM/convergence/noise budget, matrix with 30 trials per cell, support/20 Hz/ADC/physical bridge evidence |
 | `timing` | `test_pc_direct_watchdog.py` and its real local imports | Complete authenticated PC_DIRECT/HIL control paths, first-send TTL end-to-end faults, model lifecycle and actual capture/board evidence |
 | `assets` | Unimplemented; blocked | B-owned `test_asset_contract.gd`, five closed model classes, drill collision envelope, sourced dimensions, licenses, 30-instance loading and real views |
-| `secrecy` | Unimplemented; blocked | Four-process OS file/screenshot/debug ACL, paired-world command equivalence and restricted-controller audit |
+| `secrecy` | P1a policy/parser/helper unit tests only, copied to caller evidence | Four-process OS file/screenshot/debug ACL, paired-world command equivalence and restricted-controller audit |
 | `motion_authority` | Real rigid-motion, capsule/plane-section and quantized-command unit suites | Three control topologies, actual authority/physics executor, 1000 independent geometry/fault cases and full-volume crossing traces |
 
 `--actions` and `--trials-per-cell` are recognized only to explicitly return
@@ -49,6 +50,13 @@ list, even when the reference tests succeed.
   quantized-command dependencies by hash. Bytecode is disabled and all logs and
   temporary fixtures remain under the evidence directory. This primitive suite
   does not run a scene, authenticated grant, continuous sweep or gate phase machine.
+- `secrecy` copies only `tests/isolation/test_policy.py` into a fresh staging
+  directory, verifies its bytes, and selects that exact unittest filename.
+  `test_windows_live.py` is included in the provenance hashes but never copied
+  or executed, even if `DEEPEYE_ISOLATION_EVIDENCE_PARENT` is set. These tests
+  exercise policy/parser/helper behavior without creating an AppContainer or
+  performing live access probes. Historical Windows receipts retain their own
+  source hashes; this mode does not revalidate them on the final parser version.
 - `editor` requires an explicit existing official Godot Windows 4.7.2 executable.
   Supported executable SHA256 values are
   `ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424`
@@ -99,8 +107,10 @@ PC_DIRECT/HIL motion or physical-board acceptance. Inspect each fresh report.
 The current motion reference consists of 28 kinematics, 24 gate-geometry,
 29 sufficient-clearance and9 quantized-command tests (90 total). The original
 motion checkpoint ran59 before these additions. Formal mode still returns blocked.
-The runner now has 19 behavior tests, including a check that the motion source
-dependencies are bound without promoting the formal authority gate.
+The runner now has 22 behavior tests, including motion-source binding and
+secrecy policy-only selection with the live-test environment set. Secrecy
+reference mode runs 14 unit tests; formal secrecy still exits 2 before any
+suite command. None of these checks promotes the formal authority or secrecy gate.
 
 Runner behavior tests are in `tests/test_verify_game.py`. To keep their temporary
 fixtures in private evidence, set `TMP`/`TEMP` to the caller's existing private

@@ -45,7 +45,7 @@ GAPS = {
                          'G06: at least 1000 independent geometry/fault cases and full-volume gate crossings',
                          'G06: postquantization curvature, acceleration, tail/thin-layer/contact and unreachable cases'],
 }
-REFERENCES = {'editor', 'sensors', 'timing', 'motion_authority'}
+REFERENCES = {'editor', 'sensors', 'timing', 'motion_authority', 'secrecy'}
 
 
 def sha256(path):
@@ -169,11 +169,24 @@ def source_paths(suite):
             'tests/simulation/test_kinematics.py', 'tests/simulation/test_gate_geometry.py',
             'tests/simulation/test_gate_clearance.py',
             'integration/motion.py', 'integration/test_motion.py')]
+    if suite == 'secrecy':
+        # Bind the complete reviewed P1a context. The live test is provenance
+        # only; reference execution copies and selects test_policy.py alone.
+        paths += [PRODUCT / name for name in (
+            'simulation/isolation/__init__.py', 'simulation/isolation/policy.py',
+            'simulation/isolation/win32.py', 'simulation/isolation/prototype.py',
+            'simulation/isolation/fixture.py', 'tests/isolation/test_policy.py',
+            'tests/isolation/test_windows_live.py')]
     return paths
 
 
 def reference_commands(suite, stage=None):
     python = [sys.executable, '-B']
+    if suite == 'secrecy':
+        if stage is None:
+            return []
+        return [dict(label='isolation-policy', command=python + ['-m', 'unittest', 'discover',
+            '-s', str(stage), '-p', 'test_policy.py', '-v'], expectation='unittest')]
     if suite == 'sensors':
         return [dict(label='forward-profile', command=python + ['-m', 'unittest', 'discover',
                     '-s', str(PRODUCT / 'tests/simulation'), '-p', 'test_forward_profile.py', '-v'],
@@ -219,6 +232,12 @@ def execute(args, run_dir):
                   interpreter_sha256=sha256(sys.executable), thread_id=os.environ.get('CODEX_THREAD_ID'),
                   started_utc=datetime.now(timezone.utc).isoformat(), run_dir=str(run_dir),
                   requested_actions=args.actions, requested_trials_per_cell=args.trials_per_cell)
+    if args.suite == 'secrecy':
+        report.update(reference_scope='P1a policy/parser/helper unit tests only',
+                      live_os_probes_run=False, historical_windows_evidence_revalidated=False)
+        report['missing_evidence'].append(
+            'Historical Windows P1a receipts bind their recorded source hashes; these unit tests '
+            'do not revalidate OS probes for the current final-parser bytes')
     paths = source_paths(args.suite)
     before = snapshot(paths)
     report['source_before'] = before
@@ -247,6 +266,19 @@ def execute(args, run_dir):
         commands = reference_commands(args.suite)
         if args.suite == 'timing' and importlib.util.find_spec('jsonschema') is None:
             raise ValueError('missing dependency: jsonschema in the existing Python interpreter')
+        if args.suite == 'secrecy':
+            # Policy helper tests create temporary files beside __file__. Keep
+            # those writes in caller evidence, and never copy/import live tests.
+            stage = safe_child(run_dir, 'policy-tests')
+            stage.mkdir()
+            source = PRODUCT / 'tests/isolation/test_policy.py'
+            copied = stage / 'test_policy.py'
+            shutil.copyfile(source, copied)
+            report['staged_source_before'] = tree_snapshot(stage)
+            if report['staged_source_before'] != {str(copied): before[str(source)]}:
+                report['status'] = 'failed'
+                raise ValueError('staged policy test does not match original source snapshot')
+            commands = reference_commands(args.suite, stage)
         if args.suite == 'editor':
             if not args.godot_exe:
                 raise ValueError('missing dependency: --godot-exe must explicitly name a verified existing engine')
@@ -282,7 +314,8 @@ def execute(args, run_dir):
                              str(safe_child(run_dir, 'editor-document.engine.log'))], expectation='editor')]
         # The motion tests use repository-qualified imports. They are fixed,
         # pure software tests; all temporary/log output still goes to run_dir.
-        command_cwd = CHECKOUT if args.suite == 'motion_authority' else run_dir
+        command_cwd = (CHECKOUT if args.suite == 'motion_authority' else
+                       PRODUCT if args.suite == 'secrecy' else run_dir)
         result = run_checked(commands, paths, cwd=command_cwd, evidence_dir=run_dir,
                              timeout_seconds=args.timeout_seconds)
         previous = report['commands']

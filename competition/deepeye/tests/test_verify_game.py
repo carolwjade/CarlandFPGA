@@ -3,6 +3,7 @@
 Set TMP/TEMP to the caller's private evidence directory when running these tests.
 """
 import importlib.util
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -206,6 +207,53 @@ class RunnerBehaviorTests(unittest.TestCase):
                          'integration/motion.py', 'integration/test_motion.py'):
             self.assertIn(str((ROOT / relative).absolute()), result['source_before'])
         self.assertTrue(any('1000' in gap for gap in result['missing_evidence']))
+
+    def test_secrecy_reference_selects_only_policy_when_live_environment_is_set(self):
+        live = self.evidence / 'must-not-create-live-runs'
+        with patch.dict(os.environ, DEEPEYE_ISOLATION_EVIDENCE_PARENT=str(live)):
+            completed, result = self.cli('--suite', 'secrecy', '--reference-only')
+        self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
+        self.assertEqual('reference_passed', result['status'])
+        self.assertEqual('reference_only', result['evidence_level'])
+        self.assertFalse(result['formal_acceptance'])
+        self.assertFalse(live.exists())
+        self.assertEqual(1, len(result['commands']))
+        stage = Path(result['run_dir']) / 'policy-tests'
+        self.assertEqual([sys.executable, '-B', '-m', 'unittest', 'discover',
+                          '-s', str(stage), '-p', 'test_policy.py', '-v'],
+                         result['commands'][0]['command'])
+        self.assertEqual(str(ROOT), result['commands'][0]['cwd'])
+        self.assertEqual({'test_policy.py'}, {p.name for p in stage.iterdir()})
+        expected = hashlib.sha256((ROOT / 'tests/isolation/test_policy.py').read_bytes()).hexdigest()
+        self.assertEqual({str(stage / 'test_policy.py'): expected}, result['staged_source_before'])
+        self.assertEqual(result['staged_source_before'], result['staged_source_after'])
+        self.assertEqual(result['source_before'], result['source_after'])
+        self.assertEqual('P1a policy/parser/helper unit tests only', result['reference_scope'])
+        self.assertFalse(result['live_os_probes_run'])
+        self.assertFalse(result['historical_windows_evidence_revalidated'])
+        self.assertTrue(result['missing_evidence'])
+
+    def test_secrecy_binds_all_p1a_source_and_test_dependencies(self):
+        paths = runner.source_paths('secrecy')
+        hashes = runner.snapshot(paths)
+        for relative in ('simulation/isolation/__init__.py', 'simulation/isolation/policy.py',
+                         'simulation/isolation/win32.py', 'simulation/isolation/prototype.py',
+                         'simulation/isolation/fixture.py', 'tests/isolation/test_policy.py',
+                         'tests/isolation/test_windows_live.py'):
+            source = ROOT / relative
+            self.assertIn(str(source), hashes)
+            self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(), hashes[str(source)])
+
+    def test_formal_secrecy_stays_blocked_with_live_environment(self):
+        live = self.evidence / 'must-not-create-formal-live-runs'
+        with patch.dict(os.environ, DEEPEYE_ISOLATION_EVIDENCE_PARENT=str(live)):
+            completed, result = self.cli('--suite', 'secrecy')
+        self.assertEqual(2, completed.returncode)
+        self.assertEqual('blocked', result['status'])
+        self.assertFalse(result['formal_acceptance'])
+        self.assertEqual([], result['commands'])
+        self.assertFalse(live.exists())
+        self.assertFalse((Path(result['run_dir']) / 'policy-tests').exists())
 
 
 if __name__ == '__main__':
