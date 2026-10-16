@@ -19,26 +19,45 @@ _KEY_PATTERN = re.compile(
 )
 _PRIVATE_FILENAMES = {"auth.json", "deepcodex.txt", "id_ed25519", "id_rsa", "id_ecdsa", "id_dsa"}
 _PRIVATE_SUFFIXES = ("-secret.txt", ".p12", ".pfx", ".pem", ".key", ".lic")
-_CLIENT_DEST = "skills/pynq-z2-single-node/"
-_CLIENT_SOURCES = {
-    "INSTALL.md": "packaging/pynq-client/INSTALL.md",
-    "Install.ps1": "skills/pynq-z2-single-node/Install.ps1",
-    "SKILL.md": "packaging/pynq-client/SKILL.md",
-    "references/handoff.md": "packaging/pynq-client/references/handoff.md",
-    "references/pynq-z2.md": "skills/pynq-z2-single-node/references/pynq-z2.md",
-    "references/telemetry-option.md": "skills/pynq-z2-single-node/references/telemetry-option.md",
-    "scripts/handoff.py": "skills/pynq-z2-single-node/scripts/handoff.py",
-    "scripts/preflight.py": "skills/pynq-z2-single-node/scripts/preflight.py",
+SKILL_VERSION = "2026.10.13.3"
+SKILL_NAMES = ("fpga-multi-node", "pynq-z2-single-node")
+_SKILL_PREFIX = ".agents/skills/"
+_PROFILE_ALIASES = {
+    "mesh-skill-a": "project-skills-a", "pynq-skill": "project-skills-a",
+    "mesh-skill-bc": "project-skills-bc", "pynq-client-b": "project-skills-bc",
+    "pynq-client-c": "project-skills-bc",
 }
+_CLIENT_TEMPLATES = {"fpga-multi-node": "packaging/multi-node-client",
+                     "pynq-z2-single-node": "packaging/pynq-client"}
+_ROLE_FILES = {"SKILL.md": "SKILL.md", "skill-role.json": "skill-role.json",
+               "agents/openai.yaml": "openai.yaml"}
+_BOARD_ONLY = {"scripts/board_run.py", "scripts/board_probe.py", "requirements-board.txt"}
+
+
+def _verified_source_path(root: Path, path: Path) -> Path:
+    """Check original paths before reading bytes, including role replacements."""
+    if not path.is_absolute():
+        path = root / path
+    if not path.absolute().is_relative_to(root) or not path.resolve().is_relative_to(root):
+        raise ValueError("skill source is outside package root")
+    for part in (path, *path.parents):
+        if part.is_symlink() or (part.exists() and getattr(part.lstat(), "st_file_attributes", 0) & 0x400):
+            raise ValueError("symlink or reparse path cannot enter skill package")
+    return path
 
 
 def select_package_paths(paths: list[str], profile: str) -> list[str]:
-    """Keep the machine mesh and the standalone board skill in separate ZIPs."""
-    if profile == "pynq-skill":
-        return [path for path in paths if path.startswith("skills/pynq-z2-single-node/")]
+    """The controller never installs skills; each role bundle contains both skills."""
+    profile = _PROFILE_ALIASES.get(profile, profile)
+    if profile in {"project-skills-a", "project-skills-bc"}:
+        return [path for path in paths
+                if any(path.startswith(_SKILL_PREFIX + name + "/") for name in SKILL_NAMES)]
     if profile == "mesh":
         return [path for path in paths if not (
-            path.startswith("skills/pynq-z2-single-node/")
+            path.startswith("skills/")
+            or path.startswith(_SKILL_PREFIX)
+            or path.startswith("packaging/")
+            or path == "tests/test_mesh_skill_distribution.py"
             or path.startswith("docs/deployment/SINGLE_NODE_")
             or path.startswith("docs/deployment/HOST_TOOLCHAIN_")
             or path.startswith("docs/deployment/evidence/pynq-z2-")
@@ -47,6 +66,51 @@ def select_package_paths(paths: list[str], profile: str) -> list[str]:
             or path.startswith("tests/test_pynq_z2_")
         )]
     raise ValueError(f"unknown package profile: {profile}")
+
+
+def build_project_skills_archive(
+    root: Path, role: str, output: Path, *, revision: str, paths: list[str] | None = None,
+) -> Path:
+    """Package two project-local skills from one shared source and role templates."""
+    if role not in {"a", "bc"}:
+        raise ValueError("project skills role must be a or bc")
+    root = Path(root).resolve()
+    with tempfile.TemporaryDirectory(prefix="project-skills-") as temporary:
+        staging = Path(temporary)
+        files = []
+        for name in SKILL_NAMES:
+            prefix = _SKILL_PREFIX + name + "/"
+            source = root / prefix
+            selected = ([root / entry for entry in paths if entry.startswith(prefix)]
+                        if paths is not None else list(source.rglob("*")))
+            for item in sorted(selected):
+                _verified_source_path(root, item)
+                if not item.is_file() or "__pycache__" in item.parts or item.suffix == ".pyc":
+                    continue
+                relative = item.relative_to(source).as_posix()
+                if role == "bc" and name == "pynq-z2-single-node" and relative in _BOARD_ONLY:
+                    continue
+                replacement = _ROLE_FILES.get(relative)
+                original = (root / _CLIENT_TEMPLATES[name] / replacement
+                            if role == "bc" and replacement else item)
+                _verified_source_path(root, original)
+                if paths is not None and original.relative_to(root).as_posix() not in paths:
+                    raise ValueError(f"skill source is not tracked: {original.name}")
+                target = staging / prefix / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(original.read_bytes())
+                files.append(prefix + relative)
+            required = {prefix + entry for entry in ("SKILL.md", "skill-role.json", "agents/openai.yaml")}
+            if not required.issubset(files):
+                raise ValueError(f"incomplete project skill: {name}")
+        return build_archive(staging, files, output, revision=revision,
+                             profile=f"project-skills-{role}")
+
+
+def build_mesh_skill_archive(root: Path, role: str, output: Path, *, revision: str,
+                             paths: list[str] | None = None) -> Path:
+    """Compatibility API: the old mesh-skill profile now supplies the complete pair."""
+    return build_project_skills_archive(root, role, output, revision=revision, paths=paths)
 
 
 def build_archive(
@@ -60,9 +124,10 @@ def build_archive(
     for raw in sorted(set(paths)):
         relative = Path(raw)
         resolved = (root / relative).resolve()
-        if (relative.is_absolute() or ".." in relative.parts
+        if (relative.is_absolute() or ".." in relative.parts or "\\" in raw or ":" in raw
                 or not resolved.is_relative_to(root)):
             raise ValueError(f"unsafe package path: {raw}")
+        _verified_source_path(root, root / relative)
         normalized = relative.as_posix()
         lowered = [part.casefold() for part in relative.parts]
         if ({".git", ".local", "__pycache__"} & set(lowered)
@@ -86,6 +151,8 @@ def build_archive(
         "created_at": datetime.now(timezone.utc).isoformat(),
         "files": files,
     }
+    if profile.startswith("project-skills-"):
+        manifest["version"] = SKILL_VERSION
     if previous_archives:
         if profile != "mesh":
             raise ValueError("in-place updates are only supported for mesh packages")
@@ -133,39 +200,17 @@ def build_archive(
 def build_client_archive(
     root: Path, node: str, output: Path, *, revision: str = "uncommitted",
 ) -> Path:
-    """Derive a board-free B/C skill from repository files without editing A's skill."""
+    """Compatibility API: B and C share the same board-free two-skill bundle."""
     if node not in {"B", "C"}:
         raise ValueError("client node must be B or C")
-    root = Path(root).resolve()
-    output = Path(output).resolve()
-    with tempfile.TemporaryDirectory(prefix="pynq-client-") as temporary:
-        staging = Path(temporary)
-        for destination, source in _CLIENT_SOURCES.items():
-            payload = (root / source).read_bytes()
-            if source.startswith("packaging/pynq-client/"):
-                if destination == "SKILL.md" and b"@NODE@" not in payload:
-                    raise ValueError("client skill template has no node marker")
-                payload = (payload.replace(b"@NODE@", node.encode("ascii"))
-                          .replace(b"@NODE_LOWER@", node.lower().encode("ascii")))
-            target = staging / _CLIENT_DEST / destination
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_bytes(payload)
-        role = {"node": node, "board_access": False,
-                "handoff": "github_pull_request"}
-        role_path = staging / _CLIENT_DEST / "client-role.json"
-        role_path.write_text(json.dumps(role, indent=2) + "\n", encoding="utf-8")
-        paths = [(_CLIENT_DEST + relative) for relative in _CLIENT_SOURCES]
-        paths.append(_CLIENT_DEST + "client-role.json")
-        return build_archive(
-            staging, paths, output, revision=revision,
-            profile=f"pynq-client-{node.lower()}",
-        )
+    return build_project_skills_archive(root, "bc", output, revision=revision)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--profile", choices=("mesh", "pynq-skill", "pynq-client-b", "pynq-client-c"), default="mesh")
+    parser.add_argument("--profile", choices=("mesh", "project-skills-a", "project-skills-bc",
+                                             *_PROFILE_ALIASES), default="mesh")
     parser.add_argument("--previous-archive", type=Path, action="append", default=[],
                         help="Known previously distributed ZIP; repeat for compatibility")
     args = parser.parse_args()
@@ -184,20 +229,24 @@ def main() -> None:
         ["git", "rev-parse", "HEAD"], cwd=root,
         capture_output=True, text=True, check=True,
     ).stdout.strip()
-    if args.profile.startswith("pynq-client-"):
-        path = build_client_archive(root, args.profile[-1].upper(),
-                                    args.output, revision=revision)
+    profile = _PROFILE_ALIASES.get(args.profile, args.profile)
+    if args.previous_archive and profile != "mesh":
+        raise SystemExit("--previous-archive is only supported for controller packages")
+    if profile.startswith("project-skills-"):
+        path = build_project_skills_archive(root, profile.removeprefix("project-skills-"),
+                                           args.output, revision=revision,
+                                           paths=[name for name in listed.split("\0") if name])
         with zipfile.ZipFile(path) as archive:
             file_count = len(archive.namelist()) - 1
     else:
         paths = select_package_paths(
-            [name for name in listed.split("\0") if name], args.profile,
+            [name for name in listed.split("\0") if name], profile,
         )
         path = build_archive(root, paths, args.output, revision=revision,
-                             profile=args.profile, previous_archives=args.previous_archive)
+                             profile=profile, previous_archives=args.previous_archive)
         file_count = len(paths)
     print(json.dumps({
-        "archive": str(path), "profile": args.profile,
+        "archive": str(path), "profile": profile,
         "revision": revision, "files": file_count,
         "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
     }, ensure_ascii=False))

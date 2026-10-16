@@ -1,0 +1,133 @@
+{
+  "version": "2026.10.13.3",
+  "source_commit": "111781bf9939ee15fced924c09eb680a101ff1ad",
+  "package_sha256": "da5e35d00b5bf8dc34cf950671a08bb368661dfdca81e03a2bf8f42abc220b19",
+  "expected_client_skill_sha256": {
+    "fpga-multi-node": "45040df3a8eeb1156c7a01b05d8ee905d8a22a62fc0ca9e886bd669fdb00df03",
+    "pynq-z2-single-node": "1c330146bf0f9192eb6ebada38fb96527a6f68c5c5a61b2a32c1fd5bb55b1c5b"
+  },
+  "A": {
+    "status": "installed_verified",
+    "config_and_service_unchanged": true,
+    "legacy_remaining": 0,
+    "same_version_reinstall": "unchanged"
+  },
+  "B": {
+    "status": "peer_reported_installed_verified",
+    "authenticated_receipt": "A:B:SKILLS-20261013-UNIFIED:B:install-2026.10.13.3-v2:verified",
+    "received_at": "2026-10-13T12:08:02.941502Z",
+    "reported_skill_hashes_match_release": true,
+    "config_and_service_unchanged_reported": true,
+    "legacy_remaining_reported": 0,
+    "same_version_reinstall_reported": "unchanged"
+  },
+  "C": {
+    "status": "peer_reported_installed_verified",
+    "authenticated_receipt": "A:C:SKILLS-20261013-UNIFIED:final-v3-desktop-verified",
+    "task_id": "SKILLS-20261013-UNIFIED-C",
+    "task_version": 2,
+    "work_id": "C-final-install-desktop-v3",
+    "reported_skill_hashes_match_release": true,
+    "A_rechecked_package_crc_manifest_and_19_file_hashes": true,
+    "A_rechecked_client_roles_and_no_board_scripts": true,
+    "all_installed_file_bytes_match_package_reported": true,
+    "config_agents_and_service_unchanged_reported": true,
+    "legacy_remaining_reported": 0,
+    "ancestor_legacy_archived_before_cleanup_reported": true,
+    "same_version_reinstall_reported": "unchanged",
+    "local_receipt_path_on_C": ".local/skill-install-2026.10.13.3/FINAL-VERIFICATION.json",
+    "installation_backup_reported": {
+      "file": "593c349979ca4694acfa6234e05a31f5.zip",
+      "sha256": "e6a79cf8584a0e1854005b07cace15cf985c5dd7e279fe0f2fc043ed97f692a8"
+    },
+    "controller_independent_readback": {
+      "authenticated_receipt": "A:C:SKILLS-20261013-UNIFIED:v3-controller-independent-readback-v2",
+      "task_version": 2,
+      "status": "peer_reported_independent_readback_pass",
+      "evidence_path_on_C": ".local/skill-install-2026.10.13.3/controller-v2-readback.json",
+      "evidence_sha256_reported": "35c58a5b9e82c660a5f2356ad7ba27cf070d653ee48b8faa629bcd27756313aa",
+      "evidence_file_downloaded_by_A": false,
+      "installation_receipt_path_on_C": ".local/skill-backups/593c349979ca4694acfa6234e05a31f5.json",
+      "installation_receipt_status_reported": "installed",
+      "reused_existing_desktop_installation": true,
+      "installation_or_cleanup_repeated_reported": false,
+      "installed_raw_files_rechecked_reported": 19,
+      "same_version_cli_exit_code_reported": 0,
+      "same_version_cli_status_reported": "unchanged",
+      "skill_and_agents_bytes_and_mtimes_unchanged_reported": true,
+      "original_engineering_files_checked_reported": 472,
+      "out_of_scope_engineering_changes_reported": false,
+      "config_credentials_and_unrelated_skill_files_unchanged_reported": 38,
+      "service_pid_parent_and_start_time_unchanged_reported": true,
+      "legacy_locations_archived_and_removed_reported": 4,
+      "ancestor_legacy_files_matched_old_client_skill_reported": 9,
+      "complete_legacy_archive_path_on_C": ".local/skill-install-2026.10.13.2/legacy-complete-before.zip",
+      "complete_legacy_archive_sha256_reported": "585921982f7a0f97464db6e7cbc878c5a194928475e48c34116b10bd00f0d79f",
+      "both_installer_backups_crc_and_file_hashes_pass_reported": true,
+      "desktop_original_outbound_receipt_state_reported": "queued",
+      "desktop_outbound_queue_used_as_acceptance_evidence": false,
+      "prior_v2_installation_preserved_as_history": true,
+      "current_turn_hot_reload_claimed": false
+    },
+    "prior_controller_turn_interrupted_reported": true,
+    "installer_absent_and_os_lock_released_before_install_reported": true,
+    "new_human_resume_arrangement_reported": true,
+    "prior_failed_operation_replayed_reported": false,
+    "discovery_correction": {
+      "authenticated_receipt": "A:C:SKILLS-20261013-UNIFIED:discovery-correction-v3",
+      "task_version": 2,
+      "status": "peer_reported_discovery_interface_pass",
+      "prior_acceptance_gap": "Installed file verification did not check skill discovery for the saved outer Desktop project.",
+      "checked_at_reported": "2026-10-13T14:19:26Z",
+      "method_reported": "Codex skills/list(forceReload=true)",
+      "saved_project_root_name": "FPGA",
+      "formal_project_relative_to_saved_root": "CarlandFPGA-node-c",
+      "roots_verified_reported": ["saved_outer_project", "formal_child_project"],
+      "skills_discovered_in_both_roots_reported": ["fpga-multi-node", "pynq-z2-single-node"],
+      "discovery_scope_reported": "repo",
+      "enabled_reported": true,
+      "errors_reported": [],
+      "installed_manifest_files_still_matching_reported": 19,
+      "evidence_path_on_C": ".local/skill-install-2026.10.13.3/discovery-after.json",
+      "evidence_file_downloaded_by_A": false,
+      "active_discovery_junctions_relative_to_saved_root": [
+        {
+          "entry": ".agents/skills/fpga-multi-node",
+          "target": "CarlandFPGA-node-c/.agents/skills/fpga-multi-node"
+        },
+        {
+          "entry": ".agents/skills/pynq-z2-single-node",
+          "target": "CarlandFPGA-node-c/.agents/skills/pynq-z2-single-node"
+        }
+      ],
+      "junction_classification": "active_discovery_entries_not_legacy_residue",
+      "upgrade_boundary": "Preserve both discovery junctions and update only their canonical targets in the formal project; never recursively clean these active entries.",
+      "old_ancestor_cleanup_interpretation": "Historical removal applied to obsolete copied contents; the same ancestor path now contains an active junction and must not be expected to remain absent.",
+      "desktop_visual_refresh_screenshot_verified": false,
+      "current_turn_hot_reload_claimed": false,
+      "board_operator": "A"
+    },
+    "new_conversation_load_verified": false,
+    "remaining_old_request_scope": "readback_or_same_version_no_op_only; no_downgrade",
+    "original_operation_id": "SKILLS-20261013-UNIFIED:C:install-2026.10.13.3-v2",
+    "status_query_operation_id": "SKILLS-20261013-UNIFIED:C:status-query-v2-once",
+    "previous_status": "install_request_delivered_awaiting_receipt",
+    "state_boundary": "C installation and controller readback remain peer-reported verified; A independently matched the release bytes and reported entry hashes. A later C correction identifies the missed saved-project discovery check and reports skills/list success for both roots after adding two active discovery junctions. These junctions are protected maintenance entries, not old residue. Original cleanup evidence describes the earlier obsolete contents and does not require the ancestor entry to stay absent. Remote evidence files have not been downloaded by A. Desktop screenshot refresh and actual new-conversation loading remain unverified; current-turn hot reload is not claimed. Original outbound queue states and failed/interrupted operations remain historical."
+  },
+  "group": {
+    "status": "peer_reported_message_readback_and_download_verified",
+    "publisher": "B/Astra-B",
+    "authorized_relay_for": "A",
+    "operation_id": "SKILLS-20261013-UNIFIED:group:bc-package-2026.10.13.3-v1",
+    "file_message_id": "om_x100b63d5b0c5a8b0c3f2ace942c8234",
+    "text_message_id": "om_x100b63d5b0eb48acde24c23df78d089",
+    "download_bytes": 43624,
+    "download_sha256": "da5e35d00b5bf8dc34cf950671a08bb368661dfdca81e03a2bf8f42abc220b19",
+    "authenticated_receipt": "A:B:SKILLS-20261013-UNIFIED:B:publish-bc-file-2026.10.13.3-v2:verified",
+    "received_at": "2026-10-13T12:12:01.882026Z",
+    "A_token_API_recovery_claimed": false
+  },
+  "new_conversation_required": true,
+  "hardware_action_this_task": false,
+  "main_branch_merged": false
+}

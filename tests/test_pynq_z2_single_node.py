@@ -16,11 +16,12 @@ from fpga_mesh.hardware import HardwareRequest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "skills" / "pynq-z2-single-node" / "scripts"
+SCRIPTS = ROOT / ".agents" / "skills" / "pynq-z2-single-node" / "scripts"
 
 
 def load_script(name: str):
-    spec = importlib.util.spec_from_file_location(name, SCRIPTS / f"{name}.py")
+    source = ROOT / ".agents/skills/fpga-multi-node/scripts/handoff.py" if name == "handoff" else SCRIPTS / f"{name}.py"
+    spec = importlib.util.spec_from_file_location(name, source)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -284,14 +285,14 @@ class HandoffTests(unittest.TestCase):
     def test_cli_create_and_verify_produce_machine_readable_results(self):
         self.input_path.write_text(json.dumps(self.payload), encoding="utf-8")
         create = subprocess.run(
-            [sys.executable, str(SCRIPTS / "handoff.py"), "create", "--root", str(self.root),
+            [sys.executable, str(ROOT / ".agents/skills/fpga-multi-node/scripts/handoff.py"), "create", "--root", str(self.root),
              "--input", str(self.input_path), "--output", str(self.output_path)],
             capture_output=True, text=True, check=False,
         )
         self.assertEqual(create.returncode, 0, create.stderr)
         self.assertEqual(json.loads(create.stdout)["manifest"], str(self.output_path))
         verify = subprocess.run(
-            [sys.executable, str(SCRIPTS / "handoff.py"), "verify", "--root", str(self.root),
+            [sys.executable, str(ROOT / ".agents/skills/fpga-multi-node/scripts/handoff.py"), "verify", "--root", str(self.root),
              "--manifest", str(self.output_path)],
             capture_output=True, text=True, check=False,
         )

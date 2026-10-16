@@ -1,0 +1,6 @@
+interface:
+  display_name: "FPGA 三机协作 · B/C 客机"
+  short_description: "Client B/C peer work, delegation, PR and evidence handoff"
+  default_prompt: "使用 $fpga-multi-node 处理本机 B/C 协作任务，依据现有配置核对节点身份。"
+policy:
+  allow_implicit_invocation: true
