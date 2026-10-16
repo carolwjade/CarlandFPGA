@@ -165,7 +165,9 @@ def source_paths(suite):
         paths += [PRODUCT / name for name in (
             'simulation/authority/motion/kinematics.py',
             'simulation/authority/motion/gate_geometry.py',
+            'simulation/authority/motion/gate_clearance.py',
             'tests/simulation/test_kinematics.py', 'tests/simulation/test_gate_geometry.py',
+            'tests/simulation/test_gate_clearance.py',
             'integration/motion.py', 'integration/test_motion.py')]
     return paths
 
@@ -185,6 +187,7 @@ def reference_commands(suite, stage=None):
         return [dict(label='motion-primitives', command=python + ['-m', 'unittest',
             'competition.deepeye.tests.simulation.test_kinematics',
             'competition.deepeye.tests.simulation.test_gate_geometry',
+            'competition.deepeye.tests.simulation.test_gate_clearance',
             'competition.deepeye.integration.test_motion', '-v'], expectation='unittest')]
     return []
 

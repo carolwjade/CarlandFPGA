@@ -96,8 +96,9 @@ These counts describe that source checkpoint only. They do not establish G01–G
 C05/G06, real UI, independent physical validity, cross-process secrecy, complete
 PC_DIRECT/HIL motion or physical-board acceptance. Inspect each fresh report.
 
-The subsequent motion reference consists of 28 kinematics, 24 gate-geometry and
-7 quantized-command tests (59 total). Its formal mode still returns blocked.
+The current motion reference consists of 28 kinematics, 24 gate-geometry,
+29 sufficient-clearance and9 quantized-command tests (90 total). The original
+motion checkpoint ran59 before these additions. Formal mode still returns blocked.
 The runner now has 19 behavior tests, including a check that the motion source
 dependencies are bound without promoting the formal authority gate.
 
