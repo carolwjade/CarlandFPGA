@@ -1,0 +1,180 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "main_fix_red_command",
+      "sha256": "5a959b2aa6f1fe3a61277a33291e975dd202931f3297a6359ca7815311e96051",
+      "size": 1423
+    },
+    {
+      "alias": "main_fix_red_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_red_stderr",
+      "sha256": "154c473ee3fe25d6f6c658b179dc2ccf274cf5c0468d416e6ef02c78fa195461",
+      "size": 18156
+    },
+    {
+      "alias": "main_fix_green_command",
+      "sha256": "aa5a531d476cc07119ae19d21f0078e51196ec2b2a9dc96065c7d6200f4ab1da",
+      "size": 1427
+    },
+    {
+      "alias": "main_fix_green_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_stderr",
+      "sha256": "eba407a46260cee8f208589feee14bfccdc297be51767a99d9ac6993464c3b0e",
+      "size": 6041
+    },
+    {
+      "alias": "main_fix_green_empty_root_command",
+      "sha256": "4c86a8aaa543c5561f8d46a8b56242fcc8810193ecaf2d2fccb0bed4903e80c3",
+      "size": 1449
+    },
+    {
+      "alias": "main_fix_green_empty_root_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_empty_root_stderr",
+      "sha256": "bfce6bde1e136f92848451be25e95bb3279a9f656191c0bbfb73c516a97dc88d",
+      "size": 2272
+    },
+    {
+      "alias": "main_fix_red_numeric_list_command",
+      "sha256": "4e310f4cbad0805cd2e769cdcc8d2e7fc5111dee51a4a451cd7fe2415eb39592",
+      "size": 1449
+    },
+    {
+      "alias": "main_fix_red_numeric_list_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_red_numeric_list_stderr",
+      "sha256": "2b199513c959a632b4a12a349f53569137f330f159968abbb13c2e90905ac187",
+      "size": 3317
+    },
+    {
+      "alias": "main_fix_green_numeric_list_command",
+      "sha256": "78878f24375f86d354fbf66616b654eecb098a863efb97f872b7b523243a78ea",
+      "size": 1453
+    },
+    {
+      "alias": "main_fix_green_numeric_list_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_numeric_list_stderr",
+      "sha256": "8a6d6dfb0c6b3cd3d88aa72df131fcb07b8b1590756e4565ef6a0eff4f4343fd",
+      "size": 2580
+    }
+  ],
+  "omitted_fields": [
+    "command absolute executable/script paths",
+    "cwd",
+    "raw traceback local paths"
+  ],
+  "historical_records": [
+    {
+      "stage": "red",
+      "exit_code": 1,
+      "source_sha256": {
+        "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+        "simulation/isolation/policy.py": "4bc92f36d1d4c7d82ab2a10258fa4e377e6fdd139803ee0c61a11e3aceb646a7",
+        "simulation/isolation/prototype.py": "61870ef9cd4a529f4a6607c19f5a5b1c9c5d8d8a6a86a1601c11387d61816450",
+        "simulation/isolation/win32.py": "664450aec09ffa4f71068caa606341db8b71fa688456c7fb39758fb22ebfeb8b",
+        "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+        "tests/isolation/test_policy.py": "01c1e0a128267207c28be723ce29fdea7f613d6c253dd04cc06a5186e9af9541",
+        "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+      },
+      "test_count_in_log": 15,
+      "private_command_sha256": "5a959b2aa6f1fe3a61277a33291e975dd202931f3297a6359ca7815311e96051",
+      "private_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_stderr_sha256": "154c473ee3fe25d6f6c658b179dc2ccf274cf5c0468d416e6ef02c78fa195461",
+      "raw_command_and_traceback_omitted": true
+    },
+    {
+      "stage": "green",
+      "exit_code": 1,
+      "source_sha256": {
+        "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+        "simulation/isolation/policy.py": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+        "simulation/isolation/prototype.py": "61870ef9cd4a529f4a6607c19f5a5b1c9c5d8d8a6a86a1601c11387d61816450",
+        "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+        "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+        "tests/isolation/test_policy.py": "5ca88eaa7476c3be50d65cb5413fdea7e059cc41dcf930a000a29ccd866950bf",
+        "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+      },
+      "test_count_in_log": 15,
+      "private_command_sha256": "aa5a531d476cc07119ae19d21f0078e51196ec2b2a9dc96065c7d6200f4ab1da",
+      "private_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_stderr_sha256": "eba407a46260cee8f208589feee14bfccdc297be51767a99d9ac6993464c3b0e",
+      "raw_command_and_traceback_omitted": true
+    },
+    {
+      "stage": "green-empty-root",
+      "exit_code": 0,
+      "source_sha256": {
+        "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+        "simulation/isolation/policy.py": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+        "simulation/isolation/prototype.py": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+        "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+        "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+        "tests/isolation/test_policy.py": "5ca88eaa7476c3be50d65cb5413fdea7e059cc41dcf930a000a29ccd866950bf",
+        "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+      },
+      "test_count_in_log": 15,
+      "private_command_sha256": "4c86a8aaa543c5561f8d46a8b56242fcc8810193ecaf2d2fccb0bed4903e80c3",
+      "private_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_stderr_sha256": "bfce6bde1e136f92848451be25e95bb3279a9f656191c0bbfb73c516a97dc88d",
+      "raw_command_and_traceback_omitted": true
+    },
+    {
+      "stage": "red-numeric-list",
+      "exit_code": 1,
+      "source_sha256": {
+        "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+        "simulation/isolation/policy.py": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+        "simulation/isolation/prototype.py": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+        "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+        "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+        "tests/isolation/test_policy.py": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824",
+        "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+      },
+      "test_count_in_log": 16,
+      "private_command_sha256": "4e310f4cbad0805cd2e769cdcc8d2e7fc5111dee51a4a451cd7fe2415eb39592",
+      "private_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_stderr_sha256": "2b199513c959a632b4a12a349f53569137f330f159968abbb13c2e90905ac187",
+      "raw_command_and_traceback_omitted": true
+    },
+    {
+      "stage": "green-numeric-list",
+      "exit_code": 0,
+      "source_sha256": {
+        "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+        "simulation/isolation/policy.py": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2",
+        "simulation/isolation/prototype.py": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+        "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+        "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+        "tests/isolation/test_policy.py": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824",
+        "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+      },
+      "test_count_in_log": 16,
+      "private_command_sha256": "78878f24375f86d354fbf66616b654eecb098a863efb97f872b7b523243a78ea",
+      "private_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_stderr_sha256": "8a6d6dfb0c6b3cd3d88aa72df131fcb07b8b1590756e4565ef6a0eff4f4343fd",
+      "raw_command_and_traceback_omitted": true
+    }
+  ],
+  "note": "RED failures and intermediate helper ordering failures retained; counts are separate historical runs, not additive acceptance",
+  "final_policy_has_no_new_windows_run": true
+}

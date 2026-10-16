@@ -1,0 +1,80 @@
+{
+  "utc": "2026-10-15T16:00:34.856720+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "director_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_commit": "a7c2daf8c712c65c246ab862c85d6c6dd7d63b40",
+  "source_sha256": {
+    "competition/deepeye/docs/greybox_drill_envelope.md": "93b42cf3303866c3580b1a02b0e1fc0c113ecbca63f26020a03ad5ed9b82f0f1",
+    "competition/deepeye/simulator/tests/test_editor_document.gd": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+    "competition/deepeye/simulator/viewer/main.gd": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083"
+  },
+  "status": "current_development_greybox_envelope_corrected",
+  "actual_engine_checks": 696,
+  "independently_remeasured_vertices": 978,
+  "independent_method": "exact rational binary32 transforms and squared-distance comparison",
+  "original_finding": "visible greybox Z=.62m exceeded candidate Z=.52m; full length1.02m",
+  "corrected_geometry": "total length0.80m, diameter0.24m, centered pivot, complete solid vertices contained",
+  "formal_G01": false,
+  "formal_G06": false,
+  "hardware_eligible": false,
+  "remaining": [
+    "final B PDC asset and visual acceptance",
+    "continuous collision sweep and gate phases",
+    "authenticated grants",
+    "verified integrated100Hz timing"
+  ],
+  "artifacts": {
+    ".gitattributes": {
+      "sha256": "2070dbf21612a5f49be6a5ef451e1ba47d3341a76a9aa70c7d1f0c00c37f6986",
+      "bytes": 52
+    },
+    "worker_receipt.json": {
+      "sha256": "98395a9bdd1e0972aca2c5cb995bf4547fd9ea1a1ab0ca2872a4d1cdc3a258a3",
+      "bytes": 26975
+    },
+    "director_receipt.json": {
+      "sha256": "1d6a36e205be7da29dad59f684ef3af134694410f79b7a846427a7f141201b8a",
+      "bytes": 2023
+    },
+    "actual_vertex_export.raw.txt": {
+      "sha256": "de47fb37e7d28a17af135aa453d75d9cbd2d81f0dca1684efbd27c2dac80b7d5",
+      "bytes": 56100
+    },
+    "exact_encoded_measurements.json": {
+      "sha256": "4181fdcc19db3992008c65d6f316fed30dfa18ce76eefd62f360cdc27ca73471",
+      "bytes": 4543
+    },
+    "director_engine_report.json": {
+      "sha256": "e1ace3e1a17b84bd7966fe3471470731388e687b5594fd133a28d864e3fe1ca8",
+      "bytes": 27271
+    },
+    "engine-0-stdout.raw.txt": {
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+      "bytes": 33
+    },
+    "engine-0-stderr.raw.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "engine-1-stdout.raw.txt": {
+      "sha256": "df41becfea8368c56ec473c1a340440d7b25fa4090f39cdbc43dec1cb5ed7e49",
+      "bytes": 1474
+    },
+    "engine-1-stderr.raw.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "engine-2-stdout.raw.txt": {
+      "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652",
+      "bytes": 1763
+    },
+    "engine-2-stderr.raw.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  }
+}

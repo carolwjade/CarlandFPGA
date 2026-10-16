@@ -1,0 +1,25 @@
+test_all_mode_directions_bytes_and_mixed_window_boundaries (__main__.BootBindingTests.test_all_mode_directions_bytes_and_mixed_window_boundaries) ... FAIL
+
+======================================================================
+FAIL: test_all_mode_directions_bytes_and_mixed_window_boundaries (__main__.BootBindingTests.test_all_mode_directions_bytes_and_mixed_window_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_boot_binding.py", line 71, in test_all_mode_directions_bytes_and_mixed_window_boundaries
+    self.assertEqual((retry['frame'], retry['direction']), ('EVENT', 'uplink'))
+AssertionError: Tuples differ: ('EVENT', 'downlink') != ('EVENT', 'uplink')
+
+First differing element 1:
+'downlink'
+'uplink'
+
+- ('EVENT', 'downlink')
+?            ^^^^
+
++ ('EVENT', 'uplink')
+?            ^^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

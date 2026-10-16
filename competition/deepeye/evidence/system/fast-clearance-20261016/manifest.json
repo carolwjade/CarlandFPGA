@@ -1,0 +1,198 @@
+{
+  "source_commit": "9f6eae2b363ecf0b616df991b7bcdc1147da6c50",
+  "runner_source_commit": "04d5f53853c7d4ff4ba8608a360aaccb8ab36ed6",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "claims": {
+    "motion_and_clearance_tests": 90,
+    "runner_tests": 19,
+    "R03_discovered": 245,
+    "R03_passed": 244,
+    "R03_intentional_skip": 1,
+    "R03_full_status": "blocked",
+    "hardware_enable_eligible": false,
+    "all29_acceptance_cards": "not_run"
+  },
+  "artifacts": [
+    {
+      "path": "author/receipt.json",
+      "size": 8090,
+      "sha256": "b79de177e9baa4a669bdecf062fe009f3fa70f52ab8fb31e340aa95d674e89eb"
+    },
+    {
+      "path": "author/red-first.txt",
+      "size": 1263,
+      "sha256": "2a5f100ab912d7799fc05934306ca017fdb13ca8c5ccf47870b1cfbd6ecc7c37"
+    },
+    {
+      "path": "author/red.txt",
+      "size": 22546,
+      "sha256": "58181c2b80fc2ce8a15ed2b66e452c1b4b9d628278591e7f6d40c780cc05c989"
+    },
+    {
+      "path": "author/green-first.txt",
+      "size": 4106,
+      "sha256": "24433524706cbc3e1f76d2f907e0b853cb140d607339d00b110b031f4fe0b2d6"
+    },
+    {
+      "path": "author/green-combined.txt",
+      "size": 7404,
+      "sha256": "838b700d79d102c7c753b9dae5978e4045d10a6a30079eb5706f17c6f7afcbb4"
+    },
+    {
+      "path": "author/audit-first-raw.txt",
+      "size": 3161,
+      "sha256": "be0599a8d9d8e3887199c4606b342f9850449fb69f4c6559656f755415d51070"
+    },
+    {
+      "path": "author/mutation-raw.txt",
+      "size": 13566,
+      "sha256": "416876af5c282ae46d1cf78b66e68cc0fa73c75e7ab7ba8cf36f49d579d3d50e"
+    },
+    {
+      "path": "author/audit.json",
+      "size": 150396,
+      "sha256": "4b3fec0645c6ed98ee28c215e8ce838b06636f14e573fb8a591952300a56c2ba"
+    },
+    {
+      "path": "author/audit_gate_clearance.py",
+      "size": 11850,
+      "sha256": "7d2aaf6639bfc45072b7a97efc94f01ed36ddaf88dcc6863b9a4c5c956953bdf"
+    },
+    {
+      "path": "independent/receipt.json",
+      "size": 4441,
+      "sha256": "98bcbef1acaf79da873520d2df8081504d09cbf46b6df36ddb29a7ac5d21f3f4"
+    },
+    {
+      "path": "independent/review.md",
+      "size": 8530,
+      "sha256": "a0ceedc4a7efcfec1b5699a31a2726034b8f908e16307ef9056cee927a97442a"
+    },
+    {
+      "path": "independent/probe_results.json",
+      "size": 2979,
+      "sha256": "5080706e946df66cab60c81c4cb41c70fa84736bf0eb7eb07b037ad51bf4bccc"
+    },
+    {
+      "path": "independent/probe-raw-1.txt",
+      "size": 2981,
+      "sha256": "f707fc7f4ecb1ff310c0246e61704f15510ff28406750a6898d5eb1871e6a758"
+    },
+    {
+      "path": "independent/review_probe.py",
+      "size": 14284,
+      "sha256": "7f6b9b97ff83d0dafcfe5337bb7c11cd067c3aa87c2ce71abbec1ec53cefc896"
+    },
+    {
+      "path": "independent/source_snapshot.json",
+      "size": 634,
+      "sha256": "9cbc6c0e9c7a01d074c53b9f34f74556a3a761bafdb30141d49daa1f41e16b2b"
+    },
+    {
+      "path": "independent/unit-gate-all.txt",
+      "size": 7404,
+      "sha256": "3e0bfeffeb76837337db3d2b1480628e184504ff7db8aad741974151a36b0576"
+    },
+    {
+      "path": "main/receipt.json",
+      "size": 2663,
+      "sha256": "99992f47dd13a00b58759ae58b675eb1c78e999ff283215fdeeb0bfb32e7dcec"
+    },
+    {
+      "path": "main/motion-and-clearance.stdout.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "main/motion-and-clearance.stderr.txt",
+      "size": 16412,
+      "sha256": "fb2c53faea35ed75afcec61fbeabc28d37e923d3bca5fd0673d55f3b735f1968"
+    },
+    {
+      "path": "main/full-r03.stdout.txt",
+      "size": 58682,
+      "sha256": "8fc22f49c6bf36662f8e841676e0913bc1b77b35eed40f9d24a15861a61e2019"
+    },
+    {
+      "path": "main/full-r03.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "motion-context/red.stdout.txt",
+      "size": 559,
+      "sha256": "08b7d2ac73d589e5bd3e9487c87285545740fa0368c99f5c94a179297ab10059"
+    },
+    {
+      "path": "motion-context/red.stderr.txt",
+      "size": 475,
+      "sha256": "4dd5d3adbde5b614107058780ebcbe326d4a03969a35266ba3c63415606cb4f7"
+    },
+    {
+      "path": "motion-context/red.json",
+      "size": 1170,
+      "sha256": "ea3a6c9c017cb8a2b17f76c82cf7ce34a71ae5ca7ac8d4a2fd3cc3fb2085117d"
+    },
+    {
+      "path": "motion-context/green.stdout.txt",
+      "size": 517,
+      "sha256": "d9d36a72021b57993d5b3ad0f80d5020d1c18e6efce8d7475e9edda5ab8d585b"
+    },
+    {
+      "path": "motion-context/green.stderr.txt",
+      "size": 433,
+      "sha256": "618375424aebd0f936cb9048f6693b340aba48fb2bcd08f32e3a36511e8a7f85"
+    },
+    {
+      "path": "motion-context/green.json",
+      "size": 1170,
+      "sha256": "d2adacd83774e498b94e648b733ad1034fc785f427c6519a2cbe4ba11c4451b2"
+    },
+    {
+      "path": "motion-context/green-fixed-fixture.stdout.txt",
+      "size": 183,
+      "sha256": "fee9fffe1e9642446b03c5db4fb05379a70101982d304ac61625f918c13ede68"
+    },
+    {
+      "path": "motion-context/green-fixed-fixture.stderr.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "motion-context/green-fixed-fixture.json",
+      "size": 1226,
+      "sha256": "0bca40d21bbcb61ae4cf15584e1ff52c7666383dd68915e8f42231c2354fbc75"
+    },
+    {
+      "path": "runner-red/command.json",
+      "size": 401,
+      "sha256": "0b3e7c4cec8fd3cfa66b2cace751df1fac11f39122cbf456f0660a489faa45a1"
+    },
+    {
+      "path": "runner-red/stdout.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runner-red/stderr.txt",
+      "size": 5672,
+      "sha256": "4fa44de453435c0c0d5980d48f8a4247d95420ace3e62051b6c7c346040ab347"
+    },
+    {
+      "path": "runner-green/command.json",
+      "size": 401,
+      "sha256": "52deae64fd44b9872f4774ca865f88ede98182b01f6ee171cc609ce5f8bae39f"
+    },
+    {
+      "path": "runner-green/stdout.txt",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "runner-green/stderr.txt",
+      "size": 2757,
+      "sha256": "6400ef20122a8408c3d58b78a2ae25eef0e53ef0fd193dd058f5507b66013d33"
+    }
+  ],
+  "note": "Author and independent receipts bind their earlier exact source/test hashes. Main added one public curved-path test and repaired Decimal context handling. R03 records base commit plus actual working-tree artifact hashes; uncommitted ancillary artifacts are not relabeled as committed or formally accepted."
+}

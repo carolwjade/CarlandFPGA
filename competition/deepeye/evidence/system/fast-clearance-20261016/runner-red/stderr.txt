@@ -1,0 +1,32 @@
+test_all_formal_suites_block_with_specific_gaps (__main__.RunnerBehaviorTests.test_all_formal_suites_block_with_specific_gaps) ... ok
+test_changed_source_prevents_reference_pass (__main__.RunnerBehaviorTests.test_changed_source_prevents_reference_pass) ... ok
+test_evidence_under_product_is_rejected_before_writes (__main__.RunnerBehaviorTests.test_evidence_under_product_is_rejected_before_writes) ... ok
+test_failed_child_is_not_swallowed_and_raw_bytes_are_hashed (__main__.RunnerBehaviorTests.test_failed_child_is_not_swallowed_and_raw_bytes_are_hashed) ... ok
+test_godot_errors_cannot_hide_behind_pass_marker_and_zero_exit (__main__.RunnerBehaviorTests.test_godot_errors_cannot_hide_behind_pass_marker_and_zero_exit) ... ok
+test_import_errors_cannot_hide_behind_zero_exit (__main__.RunnerBehaviorTests.test_import_errors_cannot_hide_behind_zero_exit) ... ok
+test_log_label_cannot_escape_evidence (__main__.RunnerBehaviorTests.test_log_label_cannot_escape_evidence) ... ok
+test_missing_executable_is_blocked (__main__.RunnerBehaviorTests.test_missing_executable_is_blocked) ... ok
+test_missing_source_or_empty_command_list_never_passes (__main__.RunnerBehaviorTests.test_missing_source_or_empty_command_list_never_passes) ... ok
+test_motion_reference_runs_primitives_without_promoting_authority (__main__.RunnerBehaviorTests.test_motion_reference_runs_primitives_without_promoting_authority) ... FAIL
+test_no_mock_editor_fallback_and_fake_engine_is_blocked (__main__.RunnerBehaviorTests.test_no_mock_editor_fallback_and_fake_engine_is_blocked) ... ok
+test_original_tree_additions_are_detected (__main__.RunnerBehaviorTests.test_original_tree_additions_are_detected) ... ok
+test_reference_sensors_runs_real_tests_but_never_formal_acceptance (__main__.RunnerBehaviorTests.test_reference_sensors_runs_real_tests_but_never_formal_acceptance) ... ok
+test_staged_script_tampering_is_detected (__main__.RunnerBehaviorTests.test_staged_script_tampering_is_detected) ... ok
+test_timeout_is_failed_not_dependency_blocked (__main__.RunnerBehaviorTests.test_timeout_is_failed_not_dependency_blocked) ... ok
+test_unimplemented_action_and_trial_counts_never_silently_pass (__main__.RunnerBehaviorTests.test_unimplemented_action_and_trial_counts_never_silently_pass) ... ok
+test_unknown_suite_is_rejected (__main__.RunnerBehaviorTests.test_unknown_suite_is_rejected) ... ok
+test_zero_exit_without_real_suite_summary_is_failed (__main__.RunnerBehaviorTests.test_zero_exit_without_real_suite_summary_is_failed) ... ok
+test_zero_test_or_skipped_unittest_cannot_pass (__main__.RunnerBehaviorTests.test_zero_test_or_skipped_unittest_cannot_pass) ... ok
+
+======================================================================
+FAIL: test_motion_reference_runs_primitives_without_promoting_authority (__main__.RunnerBehaviorTests.test_motion_reference_runs_primitives_without_promoting_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_verify_game.py", line 207, in test_motion_reference_runs_primitives_without_promoting_authority
+    self.assertIn(str((ROOT / relative).absolute()), result['source_before'])
+AssertionError: 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulation\\authority\\motion\\gate_clearance.py' not found in {'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\motion.py': '6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\test_motion.py': 'a4c5445af5feea6566e92781c188466e41b386155aaf6c771154e1f9050ce1af', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulation\\authority\\motion\\gate_geometry.py': '5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulation\\authority\\motion\\kinematics.py': '5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\simulation\\test_gate_geometry.py': 'd3e44c511b46a676c87a0caa2e2330f772fdd9305fb3e0a01e0ce5b1997aaa79', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\simulation\\test_kinematics.py': 'ba0ed8751c5fd8a529f9b06b2b7ec556a7c002570bc4ae5cce1431a8f098d4c7', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\verify_game.py': 'c4abcdaff7fc8c6e937ee888ce7ce9333d235b3703055b2f78b35820b1c7dd22', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json': '6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4', 'C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.md': '27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd'}
+
+----------------------------------------------------------------------
+Ran 19 tests in 7.347s
+
+FAILED (failures=1)

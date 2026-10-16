@@ -1,0 +1,14 @@
+test_sampler_exception_invalidates_held_em_until_new_success (__main__.ForwardProfileSoftwareTests.test_sampler_exception_invalidates_held_em_until_new_success) ... FAIL
+
+======================================================================
+FAIL: test_sampler_exception_invalidates_held_em_until_new_success (__main__.ForwardProfileSoftwareTests.test_sampler_exception_invalidates_held_em_until_new_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_forward_profile.py", line 265, in test_sampler_exception_invalidates_held_em_until_new_success
+    self.assertTrue(payload['quality'] & (1 << 12))
+AssertionError: 0 is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.060s
+
+FAILED (failures=1)

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-15T09:47:10.565697+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "director": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "tested_source_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71",
+  "R03": "not_run",
+  "all_29_product_cards": "not_run",
+  "software_checkpoint": "independently_verified",
+  "r03_test_cases_discovered": 154,
+  "r03_test_cases_skipped": 1,
+  "skip_reason": "recursive pipeline verify --selftest test is suppressed only within its own nested run; separate complete24 suite passed",
+  "ui_checks": 672,
+  "ui_failures": 0,
+  "ui_scope": "Godot headless editor checks plus prior worker real UI screenshots, hashes verified; greybox only; full G02 not_run",
+  "sensor_tests": 33,
+  "sensor_scope": "candidate forward model; callback exception now invalidates held EM; independent FDEM/calibration/G03/G09 not_run",
+  "extra_checks": [
+    {
+      "name": "sensor_exact_commit",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tests/simulation/test_forward_profile.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "sha256": "fcc5b1a75b7ec7f7cbc3ce363f4307381e24693b62794d74301430aaf13d08a1",
+      "source_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71"
+    },
+    {
+      "name": "ui_exact_commit",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\simulator",
+        "--script",
+        "res://tests/test_editor_document.gd"
+      ],
+      "exit_code": 0,
+      "sha256": "316dc75e1f67652d6d5f24deae29cc26b98b3503ff3b201ff790b5cb1cb9a2ce",
+      "source_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71"
+    }
+  ],
+  "mode_schedule_cases_per_profile": 216,
+  "heartbeat_scope": "STATE8 diagnostic transport only, no physical capture claim or deadline renewal",
+  "clock_adoption": "Original off-assignment ai_pc/host_timing/reference.py retained privately; A integration/clock_bounds.py adopts independently reviewed arithmetic with LF normalization only; test import relocated. No C-owned product files published.",
+  "source_job_path_deviations": "BOOT test/evidence and host_envelope source names differed from assigned paths. Original results preserved; A explicitly reviewed actual terminal outputs before adoption.",
+  "worker_results": "Three App turns completed; source jobs completed per original read-only ledger. Native lease closure unconfirmed because original controller discovery is missing. No new controller or source replay.",
+  "open_gates": [
+    "TRACE payload/codec finalization and independent vectors",
+    "register bitfields, reset semantics and matched HWH integration",
+    "stateful observation history/latest-completed mailbox/request replay and seq/epoch rollover integration",
+    "B/C independent byte interoperability on the published exact candidate",
+    "host process ACL isolation and mode-specific end-to-end runtime",
+    "measured USB/clock/holdover/channel calibration and actual IO capture before ENABLE"
+  ],
+  "c_review": {
+    "head": "6e1624d0b0ae3f46adaded330f0bc23840ac9886",
+    "comment": "https://github.com/carolwjade/CarlandFPGA/pull/25#issuecomment-6189067781",
+    "status": "posted_and_read_back; peer acknowledgement not received"
+  },
+  "services_hardware_credentials_changes": "none",
+  "raw_logs": {
+    "heartbeat_red.txt": "4476230a35c90618c75c5e94c511ae230060f07e618a8b940c90d4c8be19656a",
+    "heartbeat_green.txt": "9893ac01cc8c27301c8960340e74adbb74398d4bd3edcd32f824a78f3ab804ea",
+    "sensor_fault_red.txt": "4532ac7c047de35e7195dac8f993ce49000ebec61fab81cf788e11fde32a6184",
+    "sensor_fault_green.txt": "6af821f7c944f952c40c054dfbf1399f5e564c44a2ae60ecd8637d50b9535128",
+    "boot_binding_red.txt": "53e87087d150d05e8fcfb3ad8f307d28f178c633cf6b481048c6958c218e933c",
+    "mode_directions_red.txt": "8d54670a28b2ddf1617a1148c5bef70beacc605b7f20c523c501363a2273e683",
+    "pipeline_green.txt": "7de6949da8f6fca0c5ab053709d86369d95adc4e96fe86a67528f06d5e086d58",
+    "pipeline_selftest.txt": "dc5eadbb578a09b751e17e9af2b9fca4c33ea7e864bc5029189bd0ed7e1ccc2d",
+    "sensor_exact_commit.txt": "fcc5b1a75b7ec7f7cbc3ce363f4307381e24693b62794d74301430aaf13d08a1",
+    "ui_exact_commit.txt": "316dc75e1f67652d6d5f24deae29cc26b98b3503ff3b201ff790b5cb1cb9a2ce"
+  }
+}

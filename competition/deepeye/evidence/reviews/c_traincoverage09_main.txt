@@ -1,0 +1,73 @@
+COMMAND python -B -X utf8 competition/deepeye/tests/ai/planning/test_kinematics.py
+EXIT 0
+STDOUT
+
+STDERR
+test_acceleration_and_deceleration_bounds (__main__.KinematicsTests.test_acceleration_and_deceleration_bounds) ... ok
+test_angular_rates_follow_actual_speed_and_stop_at_zero (__main__.KinematicsTests.test_angular_rates_follow_actual_speed_and_stop_at_zero) ... ok
+test_axis_vs_diagonal_bounds (__main__.KinematicsTests.test_axis_vs_diagonal_bounds) ... ok
+test_caller_decimal_context_cannot_change_profile_speed (__main__.KinematicsTests.test_caller_decimal_context_cannot_change_profile_speed) ... ok
+test_constructed_or_replaced_primitives_cannot_bypass_wire_validation (__main__.KinematicsTests.test_constructed_or_replaced_primitives_cannot_bypass_wire_validation) ... ok
+test_curvature_samples_match_high_precision (__main__.KinematicsTests.test_curvature_samples_match_high_precision) ... ok
+test_dependency_free_source_imports (__main__.KinematicsTests.test_dependency_free_source_imports) ... ok
+test_every_profile_and_speed_code_boundaries (__main__.KinematicsTests.test_every_profile_and_speed_code_boundaries) ... ok
+test_fixture_document_matches_recomputation (__main__.KinematicsTests.test_fixture_document_matches_recomputation) ... ok
+test_frozen_output_and_64bit_envelope (__main__.KinematicsTests.test_frozen_output_and_64bit_envelope) ... ok
+test_invalid_numeric_types_rejected (__main__.KinematicsTests.test_invalid_numeric_types_rejected) ... ok
+test_reject_not_clip_out_of_range_candidates (__main__.KinematicsTests.test_reject_not_clip_out_of_range_candidates) ... ok
+test_required_stress_code_20_vectors (__main__.KinematicsTests.test_required_stress_code_20_vectors) ... ok
+test_rom_matches_independent_machin_pi (__main__.KinematicsTests.test_rom_matches_independent_machin_pi) ... ok
+test_step_speed_rejects_bad_dt_and_bad_scalars (__main__.KinematicsTests.test_step_speed_rejects_bad_dt_and_bad_scalars) ... ok
+test_zero_target_speed_requires_zero_angular_codes (__main__.KinematicsTests.test_zero_target_speed_requires_zero_angular_codes) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.006s
+
+OK
+COMMAND python -B -X utf8 competition/deepeye/tests/ai/control_broker/test_deadlines.py
+EXIT 0
+STDOUT
+
+STDERR
+..................................
+----------------------------------------------------------------------
+Ran 34 tests in 0.003s
+
+OK
+COMMAND python -B -X utf8 competition/deepeye/evidence/ai/force_train_coverage/test_scan_train_curves.py
+EXIT 0
+STDOUT
+
+STDERR
+test_guarded_zip_allows_train_and_blocks_heldout (__main__.GuardUnitTests.test_guarded_zip_allows_train_and_blocks_heldout) ... ok
+test_guarded_zip_is_read_only_and_rejects_write_modes (__main__.GuardUnitTests.test_guarded_zip_is_read_only_and_rejects_write_modes) ... ok
+test_duplicate_curve_mnemonic_fails (__main__.MalformedLasTests.test_duplicate_curve_mnemonic_fails) ... ok
+test_malformed_numeric_in_selected_column_fails (__main__.MalformedLasTests.test_malformed_numeric_in_selected_column_fails) ... ok
+test_missing_null_sentinel_fails (__main__.MalformedLasTests.test_missing_null_sentinel_fails) ... ok
+test_wrap_yes_fails (__main__.MalformedLasTests.test_wrap_yes_fails) ... ok
+test_wrong_las_version_fails (__main__.MalformedLasTests.test_wrong_las_version_fails) ... ok
+test_wrong_row_token_count_fails (__main__.MalformedLasTests.test_wrong_row_token_count_fails) ... ok
+test_archive_bytes_and_sha_mismatch_rejected (__main__.RejectionTests.test_archive_bytes_and_sha_mismatch_rejected) ... ok
+test_cross_split_parent_grouping_rejected (__main__.RejectionTests.test_cross_split_parent_grouping_rejected) ... ok
+test_decompressed_member_sha_mismatch_rejected (__main__.RejectionTests.test_decompressed_member_sha_mismatch_rejected) ... ok
+test_fitting_wells_set_mismatch_rejected (__main__.RejectionTests.test_fitting_wells_set_mismatch_rejected) ... ok
+test_fitting_wells_sha_mismatch_rejected (__main__.RejectionTests.test_fitting_wells_sha_mismatch_rejected) ... ok
+test_inventory_splits_sha_mismatch_rejected (__main__.RejectionTests.test_inventory_splits_sha_mismatch_rejected) ... ok
+test_member_size_mismatch_rejected (__main__.RejectionTests.test_member_size_mismatch_rejected) ... ok
+test_production_labelled_tampered_expectations_refused (__main__.RejectionTests.test_production_labelled_tampered_expectations_refused) ... ok
+test_rowcount_mismatch_rejected (__main__.RejectionTests.test_rowcount_mismatch_rejected) ... ok
+test_splits_and_preprocessing_pin_mismatch_rejected (__main__.RejectionTests.test_splits_and_preprocessing_pin_mismatch_rejected) ... ok
+test_first_run_reaching_edges (__main__.RunLogicTests.test_first_run_reaching_edges) ... ok
+test_absent_channel_is_all_masked_with_explicit_counts (__main__.StandardTests.test_absent_channel_is_all_masked_with_explicit_counts) ... ok
+test_crlf_crcrlf_and_blank_lines_do_not_change_counts (__main__.StandardTests.test_crlf_crcrlf_and_blank_lines_do_not_change_counts) ... ok
+test_no_run_reports_limitation_without_replay (__main__.StandardTests.test_no_run_reports_limitation_without_replay) ... ok
+test_nonfinite_tokens_are_counted_missing (__main__.StandardTests.test_nonfinite_tokens_are_counted_missing) ... ok
+test_null_sentinel_and_negative_values (__main__.StandardTests.test_null_sentinel_and_negative_values) ... ok
+test_opaque_nonselected_columns_are_never_parsed (__main__.StandardTests.test_opaque_nonselected_columns_are_never_parsed) ... ok
+test_rdep_nonpositive_is_missing_for_log10_policy (__main__.StandardTests.test_rdep_nonpositive_is_missing_for_log10_policy) ... ok
+test_standard_fixture_selection_replay_and_guard (__main__.StandardTests.test_standard_fixture_selection_replay_and_guard) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 2.912s
+
+OK

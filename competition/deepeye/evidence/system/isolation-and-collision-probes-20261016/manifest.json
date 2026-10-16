@@ -1,0 +1,1012 @@
+{
+  "schema": 1,
+  "work_id": "A-P1a-Godot-evidence-package-20261016-v1",
+  "source_commit": "9265327b76c5354581e90bbfc4709355761c2dbe",
+  "source_groups": {
+    "isolation_and_godot": "9265327b76c5354581e90bbfc4709355761c2dbe",
+    "pure_secrecy_runner": "5ab3b3e49c95051b998b672db7de7406b34433fd"
+  },
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "director_generation": 2,
+  "status": "local_public_ready_bundle_no_git_publication",
+  "experiment_reruns": 0,
+  "claims": {
+    "isolation_initial_windows_policy_sha256": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+    "isolation_initial_policy_helper_tests": 13,
+    "isolation_initial_live_tests": 2,
+    "additional_unknown_RuntimeError": 1,
+    "cleanup_prior_runs": 3,
+    "final_policy_sha256": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2",
+    "final_protocol_cases": 12,
+    "final_policy_helper_tests": 14,
+    "final_policy_os_rerun": "not_run",
+    "godot_fixtures_each_backend": 45,
+    "godot_checks_each_backend": 178,
+    "editor_checks": 696,
+    "GodotPhysics_adapter_misses": 7,
+    "GodotPhysics_adapter_contacts": 13,
+    "GodotPhysics_max_late_m": "0.2913187587677065059346395952182464505732365097930844145715837265628927894315881688398198178826335714",
+    "Jolt_adapter_misses": 1,
+    "Jolt_adapter_contacts": 13,
+    "Jolt_remaining_case": "strict exact tangency",
+    "motion_authorized": false,
+    "G03": "not_run",
+    "G06": "not_run",
+    "R03": "not_run",
+    "100Hz": "not_run",
+    "hardware": "not_run",
+    "all29_acceptance_cards": "not_run"
+  },
+  "runner_claims": {
+    "source_commit": "5ab3b3e49c95051b998b672db7de7406b34433fd",
+    "runner_behavior_tests": 22,
+    "reference_policy_tests": 14,
+    "formal_status": "blocked",
+    "formal_exit_code": 2,
+    "formal_suite_commands": 0,
+    "live_OS_probes_run": false,
+    "historical_windows_evidence_revalidated": false,
+    "full_R03_rerun": false,
+    "historical_R03_discovered": 245,
+    "historical_R03_passed": 244,
+    "historical_R03_intentional_skip": 1
+  },
+  "private_origins_by_hash_only": [
+    {
+      "alias": "isolation_fix_review_receipt",
+      "sha256": "c83d761e0847850aedacd51ddc87cb499b247458129fc3b3b9b16f28b7935e0b",
+      "size": 4343
+    },
+    {
+      "alias": "godot_independent_review_receipt",
+      "sha256": "ff3d9032a212487e3e41a4ee41a641d8cd232a8367ca1777101b80ffc8b46b57",
+      "size": 30892
+    },
+    {
+      "alias": "isolation_fix_review_report",
+      "sha256": "545ea833e028965279b19119fa24318775f533eb96876512911d5e0976ca9f8d",
+      "size": 7260
+    },
+    {
+      "alias": "godot_independent_review_report",
+      "sha256": "21b260e229ee1d78ab8e5def90df5be112522b554612555a07d279eabb89e7fd",
+      "size": 10842
+    },
+    {
+      "alias": "isolation_initial_fix_os_binding",
+      "sha256": "394b8f6c51779bb8807e6d531668533e39947c73544d89bd69e26f739614bcce",
+      "size": 1876
+    },
+    {
+      "alias": "isolation_final_bounded_results",
+      "sha256": "1031214c05f9ca6f28a2f6e95e29cd2e31bb857549f1b92895c5e0f2b0bf0dbc",
+      "size": 403
+    },
+    {
+      "alias": "isolation_final_source_snapshot",
+      "sha256": "cfae93e7ac72a65383a000cc939f3ca9aef42590cc1d9a2f638e83b0ab67f67a",
+      "size": 861
+    },
+    {
+      "alias": "isolation_original_independent_receipt",
+      "sha256": "9f2ffefe5f5b39c4c4223c570d9f80bd0e78d400a2b3f707f6db91736b7c4c83",
+      "size": 3823
+    },
+    {
+      "alias": "isolation_original_independent_report",
+      "sha256": "e992d672d784bce950674f4c2bf8bbeafda42e753d0c5e18522ea1bbd70f8c1b",
+      "size": 8500
+    },
+    {
+      "alias": "isolation_cleanup_readback",
+      "sha256": "2fc90d7eefcbcd2af92b269dc109ac528e6f2e9a00f7f9047547d350c2d95834",
+      "size": 3452
+    },
+    {
+      "alias": "isolation_initial_counterexamples",
+      "sha256": "837965869e9d5a903baf5eb686a5e74c28d568b33756c62cffffdc74dc3ba256",
+      "size": 4051
+    },
+    {
+      "alias": "isolation_creation_order",
+      "sha256": "948ec0c0abeeb0fdcc017e219bf31943c0d5491f654c94aafb855a656a0f803f",
+      "size": 1913
+    },
+    {
+      "alias": "isolation_unknown_crash_private_run_receipt",
+      "sha256": "1b089c54935a75f92cfc034691b4d7646aacb6ff3ee46ada1732844509cde243",
+      "size": 5873
+    },
+    {
+      "alias": "isolation_timeout_private_run_receipt",
+      "sha256": "e6b1da4ae097db1a5e2a61cca2fd9bb08d470e6906d4361e96daf255145cff9d",
+      "size": 5926
+    },
+    {
+      "alias": "isolation_normal_private_run_receipt",
+      "sha256": "8e523f3fc7c39def8aad015439ba40f17b60253a1521da2b1f6dca9935e5d42c",
+      "size": 5767
+    },
+    {
+      "alias": "isolation_initial_15_tests_log",
+      "sha256": "dd84c5582527b66eb350ab1334b055d1f4394d3e0df2ebbd4e2c52fa4d7c769c",
+      "size": 2636
+    },
+    {
+      "alias": "isolation_final_14_tests_log",
+      "sha256": "113cdb1e6a8825cf54eabc75358f6eae99904e9e061acb34ea8137ea20a68c17",
+      "size": 2551
+    },
+    {
+      "alias": "isolation_final_protocol_results",
+      "sha256": "a0a9e2a71517464a4979a898f7ab0f0fe65da45844f83269ea5a64e244628344",
+      "size": 2250
+    },
+    {
+      "alias": "main_fix_red_command",
+      "sha256": "5a959b2aa6f1fe3a61277a33291e975dd202931f3297a6359ca7815311e96051",
+      "size": 1423
+    },
+    {
+      "alias": "main_fix_red_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_red_stderr",
+      "sha256": "154c473ee3fe25d6f6c658b179dc2ccf274cf5c0468d416e6ef02c78fa195461",
+      "size": 18156
+    },
+    {
+      "alias": "main_fix_green_command",
+      "sha256": "aa5a531d476cc07119ae19d21f0078e51196ec2b2a9dc96065c7d6200f4ab1da",
+      "size": 1427
+    },
+    {
+      "alias": "main_fix_green_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_stderr",
+      "sha256": "eba407a46260cee8f208589feee14bfccdc297be51767a99d9ac6993464c3b0e",
+      "size": 6041
+    },
+    {
+      "alias": "main_fix_green_empty_root_command",
+      "sha256": "4c86a8aaa543c5561f8d46a8b56242fcc8810193ecaf2d2fccb0bed4903e80c3",
+      "size": 1449
+    },
+    {
+      "alias": "main_fix_green_empty_root_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_empty_root_stderr",
+      "sha256": "bfce6bde1e136f92848451be25e95bb3279a9f656191c0bbfb73c516a97dc88d",
+      "size": 2272
+    },
+    {
+      "alias": "main_fix_red_numeric_list_command",
+      "sha256": "4e310f4cbad0805cd2e769cdcc8d2e7fc5111dee51a4a451cd7fe2415eb39592",
+      "size": 1449
+    },
+    {
+      "alias": "main_fix_red_numeric_list_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_red_numeric_list_stderr",
+      "sha256": "2b199513c959a632b4a12a349f53569137f330f159968abbb13c2e90905ac187",
+      "size": 3317
+    },
+    {
+      "alias": "main_fix_green_numeric_list_command",
+      "sha256": "78878f24375f86d354fbf66616b654eecb098a863efb97f872b7b523243a78ea",
+      "size": 1453
+    },
+    {
+      "alias": "main_fix_green_numeric_list_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "main_fix_green_numeric_list_stderr",
+      "sha256": "8a6d6dfb0c6b3cd3d88aa72df131fcb07b8b1590756e4565ef6a0eff4f4343fd",
+      "size": 2580
+    },
+    {
+      "alias": "godot_analyze_independent_py",
+      "sha256": "25269bc49911fa9cc26ae2f679f0e81174d231957d1c78bc2ca1564916a337d3",
+      "size": 4111
+    },
+    {
+      "alias": "godot_independent_probe_gd",
+      "sha256": "08b7c1f112f2e211be2c036016acaf198a47f2a967c09d58433b6bf4d8a588b2",
+      "size": 2871
+    },
+    {
+      "alias": "godot_independent_analysis_json",
+      "sha256": "f5f7e3cdceb97ec27751c5269fd101508c973c490b85ed883145b716c9a7f29b",
+      "size": 107374
+    },
+    {
+      "alias": "godot_independent_cases_json",
+      "sha256": "8fe520fdb60d9a2a9b3f453316a54c889a685b41f96af7fd196ae47fbf960114",
+      "size": 14551
+    },
+    {
+      "alias": "godot_default_cast_stdout_log",
+      "sha256": "7695da804d4a8839ea5164a28feb238204d4a4cba9b59ce2bd605ac4cd6065f3",
+      "size": 71069
+    },
+    {
+      "alias": "godot_default_cast_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_default_cast_engine_log",
+      "sha256": "8faa4df518cf1b8c927e245e2715ad18847aeb10b7441841b4e262d5f5b24c16",
+      "size": 71018
+    },
+    {
+      "alias": "godot_godot_cast_stdout_log",
+      "sha256": "d3921fa9d0a5a7e8931509b14dfd11610771fb2ed8113891d1f6bedc5dc66443",
+      "size": 71076
+    },
+    {
+      "alias": "godot_godot_cast_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_godot_cast_engine_log",
+      "sha256": "59247ab70d061973aef98524a6ea2fa3b296b5c8e874e66916dea20fb5c50228",
+      "size": 71025
+    },
+    {
+      "alias": "godot_jolt_cast_stdout_log",
+      "sha256": "11ef6977cd3ec7856603e7dd765265c86eba1420f9d923c1bea063c2defaf3c0",
+      "size": 71326
+    },
+    {
+      "alias": "godot_jolt_cast_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_jolt_cast_engine_log",
+      "sha256": "e8eff43fc44c6ed0a567d5c9a0ff0d985f79a327d2735bfa8b51358975252f8f",
+      "size": 71275
+    },
+    {
+      "alias": "godot_default_independent_stdout_log",
+      "sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "size": 53464
+    },
+    {
+      "alias": "godot_default_independent_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_default_independent_engine_log",
+      "sha256": "6dc0cb1be831d727445eb429945db5fd33be645852be02392b64a86f4af3e35b",
+      "size": 53416
+    },
+    {
+      "alias": "godot_godot_independent_stdout_log",
+      "sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "size": 53464
+    },
+    {
+      "alias": "godot_godot_independent_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_godot_independent_engine_log",
+      "sha256": "6dc0cb1be831d727445eb429945db5fd33be645852be02392b64a86f4af3e35b",
+      "size": 53416
+    },
+    {
+      "alias": "godot_jolt_independent_stdout_log",
+      "sha256": "bb85d35bffc3baada2723f5f9074690e30f98792c9bdc405c3adfe5dd5ad377e",
+      "size": 53311
+    },
+    {
+      "alias": "godot_jolt_independent_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_jolt_independent_engine_log",
+      "sha256": "43a633017caa555f3e354f43aaa361cbdcd660ee76f955d962f5e77bc1c12883",
+      "size": 53263
+    },
+    {
+      "alias": "godot_default_editor_stdout_log",
+      "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652",
+      "size": 1763
+    },
+    {
+      "alias": "godot_default_editor_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_default_editor_engine_log",
+      "sha256": "2f92f505b45da7a78017f37977967b3d7af20f7130fc46383fcea95e02ac5b47",
+      "size": 1746
+    },
+    {
+      "alias": "godot_config_project-default",
+      "sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "size": 628
+    },
+    {
+      "alias": "godot_config_project-godot",
+      "sha256": "8ee3f8aa9a46c8bf15004358e06dd52f07b90dc8b5b72e2f4853f0c5c0883123",
+      "size": 686
+    },
+    {
+      "alias": "godot_config_project-jolt",
+      "sha256": "3291147c1b5c03ddc7a7aaf4d28de1a315e68962e78534fb0c36ac803307c198",
+      "size": 684
+    },
+    {
+      "alias": "godot_author_red_cast_stdout_log",
+      "sha256": "42719f04d0223a32bb878ad19aa05151b3950a3e4a1e58bbd56e3976691d8fd1",
+      "size": 15573
+    },
+    {
+      "alias": "godot_author_red_cast_stderr_log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "godot_author_red_cast_engine_log",
+      "sha256": "edbc81e18c11f842409a208dbbba72831f4bb970893a815f1f6e5a69aa3b568c",
+      "size": 15532
+    },
+    {
+      "alias": "godot_analysis_summary_input",
+      "sha256": "f5f7e3cdceb97ec27751c5269fd101508c973c490b85ed883145b716c9a7f29b",
+      "size": 107374
+    },
+    {
+      "alias": "godot_default_cast_command",
+      "sha256": "2bb565642f9ca5f5eca5c509c8fdeea4900bea62b5f976706df66d79d23b0aea",
+      "size": 919
+    },
+    {
+      "alias": "godot_godot_cast_command",
+      "sha256": "834e7c8857eee614501b4b83394083237938ee61f0795def594f7cf7299dc894",
+      "size": 915
+    },
+    {
+      "alias": "godot_jolt_cast_command",
+      "sha256": "1892b97a0e8bf6967f85de441e5e314ae745fba6708a2bed2a898454b94fcf0d",
+      "size": 913
+    },
+    {
+      "alias": "godot_default_independent_command",
+      "sha256": "d05b0b5928124651d39452cd42b39c6941dd21eac52823c19142400dd6adb60b",
+      "size": 934
+    },
+    {
+      "alias": "godot_godot_independent_command",
+      "sha256": "46b4db69a421469a0696c0bc90d44a438e311cb45046191c8aee399da449b512",
+      "size": 929
+    },
+    {
+      "alias": "godot_jolt_independent_command",
+      "sha256": "72c2aef3a685eb03281e23f13dac09102d9608fda561cb8d6441e8e0d5556906",
+      "size": 927
+    },
+    {
+      "alias": "godot_default_editor_command",
+      "sha256": "de55230b4c4fcfb5508c081a9c0ac8c6a6c0d691fb74a4e0fa361844c48011ba",
+      "size": 937
+    },
+    {
+      "alias": "godot_author_red_phase",
+      "sha256": "eb490abc28e622d2c866e313e2e7f370af63fa084144b7f99898ffb2a7752f10",
+      "size": 11421
+    },
+    {
+      "alias": "runner_delivery_receipt",
+      "sha256": "5eba2cb8d41a57025089c4d0928f06908d1f7d88626b72f17f49a6de783edd5a",
+      "size": 4225
+    },
+    {
+      "alias": "runner_delivery_report",
+      "sha256": "c8d142c649469244829dac4585483e93ee60d1d8d1937db706fa739faba81f25",
+      "size": 4339
+    },
+    {
+      "alias": "runner_reference_report",
+      "sha256": "7fcb6b2c381f2afab1988ee3ab0434cf2b17b989c5207d140b088b44495b8cbc",
+      "size": 13521
+    },
+    {
+      "alias": "runner_formal_report",
+      "sha256": "08f4f582bcb4796756520d892a85ba8a18ad0bc99a5b6b0c6e8f394f7d843795",
+      "size": 9541
+    },
+    {
+      "alias": "runner_green_all_22_tests",
+      "sha256": "bdc8b94b93d621c6ec6bfa16d7cd09253cb513675f1ef4036733d45704b7ba31",
+      "size": 3242
+    },
+    {
+      "alias": "runner_green_focused_3_tests",
+      "sha256": "7aa0975a11d65167f0046ed610e392345d479dc5007ea72d2a17318eb5180c2e",
+      "size": 588
+    },
+    {
+      "alias": "runner_policy_14_tests_stderr",
+      "sha256": "e29b8af73e64b27536bb513c511135c184cd49a7096929ab51eed4adb018041c",
+      "size": 2148
+    },
+    {
+      "alias": "runner_policy_14_tests_stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
+      "alias": "runner_red_log",
+      "sha256": "585415d9874e2ece92b6d78e4acb08bf23c1f6308eff3e013629914e5294c3a5",
+      "size": 9593
+    },
+    {
+      "alias": "runner_red_command",
+      "sha256": "c2e5ef1bbecdf06ef47688b477c047810dbbb20d3753844feda2e631070c5e6f",
+      "size": 856
+    },
+    {
+      "alias": "runner_green_all_command",
+      "sha256": "2000d81c07ed203bbba1d1b3db8f673506e825b9b38aef2668d6c1e61386503a",
+      "size": 1107
+    },
+    {
+      "alias": "runner_green_focused_command",
+      "sha256": "9eae0a11ed4b4090b443132fcd42d0b7cbeba3d42cbb168df674b0d07f34423f",
+      "size": 856
+    },
+    {
+      "alias": "runner_reference_command",
+      "sha256": "afc76fade71c572b93a5b4400cccbb1f95003ca4a2b0032e0c46a333725920a2",
+      "size": 1635
+    },
+    {
+      "alias": "runner_formal_command",
+      "sha256": "fcf3a50ae581b3716261764db3c181154b2f7c6df734348c046aefe8eef216a6",
+      "size": 1604
+    },
+    {
+      "alias": "historical_public_fast_clearance_manifest",
+      "sha256": "0b61bdfb517c4ddcc194200d7e45fe4b3e122cce070bae14dbfa33819c00fb3c",
+      "size": 6807
+    }
+  ],
+  "artifact_count_excluding_manifest": 51,
+  "total_public_files": 52,
+  "artifacts": [
+    {
+      "path": ".gitattributes",
+      "kind": "generated_metadata",
+      "size": 34,
+      "sha256": "d1250e9edf119e088ee89bf335d2964b594851f1a8c0a46e9a279a39055893b3",
+      "origin_aliases": []
+    },
+    {
+      "path": "FILE_LIST.txt",
+      "kind": "generated_metadata",
+      "size": 1719,
+      "sha256": "2cdc941297ead00b707bd23fdcb06c2670307c05e5dc9495182d3ed1afdff890",
+      "origin_aliases": []
+    },
+    {
+      "path": "README.md",
+      "kind": "derived",
+      "size": 4453,
+      "sha256": "d06a35854556808ed0b418185dce0679f41f72ff19a6d0710b8b3b20a8c5e0d7",
+      "origin_aliases": [
+        "isolation_fix_review_report",
+        "godot_independent_review_report"
+      ]
+    },
+    {
+      "path": "derived/godot_run_metadata.json",
+      "kind": "derived",
+      "size": 8279,
+      "sha256": "6529f1fe3d309ae344fb7315b5c793c666969830698416d7afe47cec200cf25f",
+      "origin_aliases": [
+        "godot_default_cast_command",
+        "godot_godot_cast_command",
+        "godot_jolt_cast_command",
+        "godot_default_independent_command",
+        "godot_godot_independent_command",
+        "godot_jolt_independent_command",
+        "godot_default_editor_command",
+        "godot_author_red_phase"
+      ]
+    },
+    {
+      "path": "derived/godot_summary.json",
+      "kind": "derived",
+      "size": 5732,
+      "sha256": "18280d04fc918818f01f254ca690b7f874461a36493c5f222b334a64833d1ad7",
+      "origin_aliases": [
+        "godot_independent_review_receipt",
+        "godot_analysis_summary_input",
+        "godot_independent_review_report"
+      ]
+    },
+    {
+      "path": "derived/isolation_counterexamples.json",
+      "kind": "derived",
+      "size": 3331,
+      "sha256": "700c0e7d52ed93efee88b9c7cfb278c79f22f2fcd354e723d15f282f0e644158",
+      "origin_aliases": [
+        "isolation_initial_counterexamples",
+        "isolation_initial_fix_os_binding",
+        "isolation_fix_review_report"
+      ]
+    },
+    {
+      "path": "derived/isolation_creation_order.json",
+      "kind": "derived",
+      "size": 1956,
+      "sha256": "6b5b4737c7251faa6beddca39640c901400667fff8359485aeb78e1187928ef9",
+      "origin_aliases": [
+        "isolation_creation_order"
+      ]
+    },
+    {
+      "path": "derived/isolation_initial_15_tests.log",
+      "kind": "derived",
+      "size": 2826,
+      "sha256": "1095f941c324a05a4745c0b81c93a96fc235e8b740c79cc00f98e356cf80cfa4",
+      "origin_aliases": [
+        "isolation_initial_15_tests_log"
+      ],
+      "removed_fields": [
+        "unknown_crash_receipt"
+      ]
+    },
+    {
+      "path": "derived/isolation_main_fix_history.json",
+      "kind": "derived",
+      "size": 9135,
+      "sha256": "1b3406b729b75f266581e0d8596815595357f2537636a35ac93962cbe5e99aa8",
+      "origin_aliases": [
+        "main_fix_red_command",
+        "main_fix_red_stdout",
+        "main_fix_red_stderr",
+        "main_fix_green_command",
+        "main_fix_green_stdout",
+        "main_fix_green_stderr",
+        "main_fix_green_empty_root_command",
+        "main_fix_green_empty_root_stdout",
+        "main_fix_green_empty_root_stderr",
+        "main_fix_red_numeric_list_command",
+        "main_fix_red_numeric_list_stdout",
+        "main_fix_red_numeric_list_stderr",
+        "main_fix_green_numeric_list_command",
+        "main_fix_green_numeric_list_stdout",
+        "main_fix_green_numeric_list_stderr"
+      ]
+    },
+    {
+      "path": "derived/isolation_summary.json",
+      "kind": "derived",
+      "size": 6906,
+      "sha256": "2f2c37e04aeee3a4ed3314be8b5a14e497fb4e8dc956dbd5384248a700dba4f9",
+      "origin_aliases": [
+        "isolation_fix_review_receipt",
+        "isolation_initial_fix_os_binding",
+        "isolation_original_independent_receipt",
+        "isolation_final_bounded_results",
+        "isolation_cleanup_readback",
+        "isolation_unknown_crash_private_run_receipt",
+        "isolation_timeout_private_run_receipt",
+        "isolation_normal_private_run_receipt"
+      ]
+    },
+    {
+      "path": "derived/runner_red.log",
+      "kind": "derived",
+      "size": 4898,
+      "sha256": "5b6f82c3eaef782c5ea9feacad888a02485617d8ef7047b99dff64cd7b664b2d",
+      "origin_aliases": [
+        "runner_red_log"
+      ],
+      "removed_fields": [
+        "absolute Windows traceback/command paths",
+        "identity-like runtime or synthetic-fixture members"
+      ],
+      "path_substrings_replaced": 27,
+      "identity_members_removed": 1
+    },
+    {
+      "path": "derived/runner_summary.json",
+      "kind": "derived",
+      "size": 6489,
+      "sha256": "b6c5b6aa234a4842b5fc882f7fb14acaf1a1b59651c796c1267162070f671968",
+      "origin_aliases": [
+        "runner_delivery_receipt",
+        "runner_delivery_report",
+        "runner_reference_report",
+        "runner_formal_report",
+        "runner_red_command",
+        "runner_green_all_command",
+        "runner_green_focused_command",
+        "runner_reference_command",
+        "runner_formal_command"
+      ]
+    },
+    {
+      "path": "derived/source_bindings.json",
+      "kind": "derived",
+      "size": 6803,
+      "sha256": "9277f5f3339192bed877549354ef0860b1be5ca502bcedde3a95911acd7ce5cc",
+      "origin_aliases": [
+        "isolation_initial_fix_os_binding",
+        "isolation_final_source_snapshot",
+        "godot_independent_review_receipt"
+      ]
+    },
+    {
+      "path": "raw/godot-author-red/cast.engine.log",
+      "kind": "raw_exact_copy",
+      "size": 15532,
+      "sha256": "edbc81e18c11f842409a208dbbba72831f4bb970893a815f1f6e5a69aa3b568c",
+      "origin_aliases": [
+        "godot_author_red_cast_engine_log"
+      ],
+      "scope": "historical pre-fix author contract RED; not current-source failure"
+    },
+    {
+      "path": "raw/godot-author-red/cast.stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_author_red_cast_stderr_log"
+      ],
+      "scope": "historical pre-fix author contract RED; not current-source failure"
+    },
+    {
+      "path": "raw/godot-author-red/cast.stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 15573,
+      "sha256": "42719f04d0223a32bb878ad19aa05151b3950a3e4a1e58bbd56e3976691d8fd1",
+      "origin_aliases": [
+        "godot_author_red_cast_stdout_log"
+      ],
+      "scope": "historical pre-fix author contract RED; not current-source failure"
+    },
+    {
+      "path": "raw/godot/analyze_independent.py",
+      "kind": "raw_exact_copy",
+      "size": 4111,
+      "sha256": "25269bc49911fa9cc26ae2f679f0e81174d231957d1c78bc2ca1564916a337d3",
+      "origin_aliases": [
+        "godot_analyze_independent_py"
+      ]
+    },
+    {
+      "path": "raw/godot/configs/project-default.godot",
+      "kind": "raw_exact_copy",
+      "size": 628,
+      "sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "origin_aliases": [
+        "godot_config_project-default"
+      ]
+    },
+    {
+      "path": "raw/godot/configs/project-godot.godot",
+      "kind": "raw_exact_copy",
+      "size": 686,
+      "sha256": "8ee3f8aa9a46c8bf15004358e06dd52f07b90dc8b5b72e2f4853f0c5c0883123",
+      "origin_aliases": [
+        "godot_config_project-godot"
+      ]
+    },
+    {
+      "path": "raw/godot/configs/project-jolt.godot",
+      "kind": "raw_exact_copy",
+      "size": 684,
+      "sha256": "3291147c1b5c03ddc7a7aaf4d28de1a315e68962e78534fb0c36ac803307c198",
+      "origin_aliases": [
+        "godot_config_project-jolt"
+      ]
+    },
+    {
+      "path": "raw/godot/default-cast/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 71018,
+      "sha256": "8faa4df518cf1b8c927e245e2715ad18847aeb10b7441841b4e262d5f5b24c16",
+      "origin_aliases": [
+        "godot_default_cast_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-cast/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_default_cast_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-cast/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 71069,
+      "sha256": "7695da804d4a8839ea5164a28feb238204d4a4cba9b59ce2bd605ac4cd6065f3",
+      "origin_aliases": [
+        "godot_default_cast_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-editor/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 1746,
+      "sha256": "2f92f505b45da7a78017f37977967b3d7af20f7130fc46383fcea95e02ac5b47",
+      "origin_aliases": [
+        "godot_default_editor_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-editor/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_default_editor_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-editor/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 1763,
+      "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652",
+      "origin_aliases": [
+        "godot_default_editor_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-independent/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 53416,
+      "sha256": "6dc0cb1be831d727445eb429945db5fd33be645852be02392b64a86f4af3e35b",
+      "origin_aliases": [
+        "godot_default_independent_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-independent/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_default_independent_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/default-independent/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 53464,
+      "sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "origin_aliases": [
+        "godot_default_independent_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-cast/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 71025,
+      "sha256": "59247ab70d061973aef98524a6ea2fa3b296b5c8e874e66916dea20fb5c50228",
+      "origin_aliases": [
+        "godot_godot_cast_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-cast/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_godot_cast_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-cast/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 71076,
+      "sha256": "d3921fa9d0a5a7e8931509b14dfd11610771fb2ed8113891d1f6bedc5dc66443",
+      "origin_aliases": [
+        "godot_godot_cast_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-independent/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 53416,
+      "sha256": "6dc0cb1be831d727445eb429945db5fd33be645852be02392b64a86f4af3e35b",
+      "origin_aliases": [
+        "godot_godot_independent_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-independent/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_godot_independent_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/godot-independent/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 53464,
+      "sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "origin_aliases": [
+        "godot_godot_independent_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/independent-analysis.json",
+      "kind": "raw_exact_copy",
+      "size": 107374,
+      "sha256": "f5f7e3cdceb97ec27751c5269fd101508c973c490b85ed883145b716c9a7f29b",
+      "origin_aliases": [
+        "godot_independent_analysis_json"
+      ]
+    },
+    {
+      "path": "raw/godot/independent-cases.json",
+      "kind": "raw_exact_copy",
+      "size": 14551,
+      "sha256": "8fe520fdb60d9a2a9b3f453316a54c889a685b41f96af7fd196ae47fbf960114",
+      "origin_aliases": [
+        "godot_independent_cases_json"
+      ]
+    },
+    {
+      "path": "raw/godot/independent_probe.gd",
+      "kind": "raw_exact_copy",
+      "size": 2871,
+      "sha256": "08b7c1f112f2e211be2c036016acaf198a47f2a967c09d58433b6bf4d8a588b2",
+      "origin_aliases": [
+        "godot_independent_probe_gd"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-cast/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 71275,
+      "sha256": "e8eff43fc44c6ed0a567d5c9a0ff0d985f79a327d2735bfa8b51358975252f8f",
+      "origin_aliases": [
+        "godot_jolt_cast_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-cast/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_jolt_cast_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-cast/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 71326,
+      "sha256": "11ef6977cd3ec7856603e7dd765265c86eba1420f9d923c1bea063c2defaf3c0",
+      "origin_aliases": [
+        "godot_jolt_cast_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-independent/engine.log",
+      "kind": "raw_exact_copy",
+      "size": 53263,
+      "sha256": "43a633017caa555f3e354f43aaa361cbdcd660ee76f955d962f5e77bc1c12883",
+      "origin_aliases": [
+        "godot_jolt_independent_engine_log"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-independent/stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "godot_jolt_independent_stderr_log"
+      ]
+    },
+    {
+      "path": "raw/godot/jolt-independent/stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 53311,
+      "sha256": "bb85d35bffc3baada2723f5f9074690e30f98792c9bdc405c3adfe5dd5ad377e",
+      "origin_aliases": [
+        "godot_jolt_independent_stdout_log"
+      ]
+    },
+    {
+      "path": "raw/isolation/final_bounded.raw.log",
+      "kind": "raw_exact_copy",
+      "size": 2551,
+      "sha256": "113cdb1e6a8825cf54eabc75358f6eae99904e9e061acb34ea8137ea20a68c17",
+      "origin_aliases": [
+        "isolation_final_14_tests_log"
+      ]
+    },
+    {
+      "path": "raw/isolation/final_protocol_results.json",
+      "kind": "raw_exact_copy",
+      "size": 2250,
+      "sha256": "a0a9e2a71517464a4979a898f7ab0f0fe65da45844f83269ea5a64e244628344",
+      "origin_aliases": [
+        "isolation_final_protocol_results"
+      ]
+    },
+    {
+      "path": "raw/runner/green-all.raw.log",
+      "kind": "raw_exact_copy",
+      "size": 3242,
+      "sha256": "bdc8b94b93d621c6ec6bfa16d7cd09253cb513675f1ef4036733d45704b7ba31",
+      "origin_aliases": [
+        "runner_green_all_22_tests"
+      ]
+    },
+    {
+      "path": "raw/runner/green-focused.raw.log",
+      "kind": "raw_exact_copy",
+      "size": 588,
+      "sha256": "7aa0975a11d65167f0046ed610e392345d479dc5007ea72d2a17318eb5180c2e",
+      "origin_aliases": [
+        "runner_green_focused_3_tests"
+      ]
+    },
+    {
+      "path": "raw/runner/policy-unit.stderr.log",
+      "kind": "raw_exact_copy",
+      "size": 2148,
+      "sha256": "e29b8af73e64b27536bb513c511135c184cd49a7096929ab51eed4adb018041c",
+      "origin_aliases": [
+        "runner_policy_14_tests_stderr"
+      ]
+    },
+    {
+      "path": "raw/runner/policy-unit.stdout.log",
+      "kind": "raw_exact_copy",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "origin_aliases": [
+        "runner_policy_14_tests_stdout"
+      ]
+    },
+    {
+      "path": "sensitive_scan.json",
+      "kind": "derived",
+      "size": 716,
+      "sha256": "45264bd513e4d9ec49546d29f581fc7122e84737e16b4a457e81200ff8d426a1",
+      "origin_aliases": []
+    }
+  ],
+  "manifest_self_hash": "external private final_receipt.json binds this file size/SHA; intentionally not recursive",
+  "raw_byte_attributes": ".gitattributes disables text/eol conversion",
+  "redaction_policy": "runtime receipt bodies remain private; derived files enumerate their omitted fields and original hashes"
+}

@@ -1,0 +1,521 @@
+DEEPEYE A implementation - strict host-envelope runtime validator - local unit evidence
+Scope: record-level validation of docs/host_contract.json transport envelopes plus the
+static cross-field rules frozen in docs/host_timing_contract.md, docs/enums.json and
+docs/interface.json (wire layout revision 1). Software only: no board, model, network,
+service, credential or live-ledger access. All 29 product acceptance cards remain
+not_run; this evidence is not product acceptance, and a validated record is never
+motion authorization.
+
+generated_utc: 2026-10-15T04:03:33Z (local 2026-10-15 12:03:33)
+worktree: C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a
+product:  competition/deepeye
+git HEAD: 91ce2b14edcc8e18a074f9f5d30bf34eec65809c
+python: 3.12.14 (.local/venv/Scripts/python.exe)
+jsonschema: 4.25.1 via PYTHONPATH=C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-host-deps (requirements-host.txt)
+contract: DEEPEYE-HUMAN-LOCK-20261014/revision1; H01-H15 canonical requirements SHA256
+  c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 recomputed as passed
+  by docs/competition/deepeye-2026/verify_immutable_scope.py against immutable_scope.json
+design: 1011259415a0916054eb580687612580bc1e5f09 (taskbook v5, technical revision 1;
+  header erratum 2026-10-15: hash above was previously mistyped; corrected in [4])
+
+files (sha256 at evidence time; this evidence file is not self-hashed):
+  competition/deepeye/integration/host_envelope.py      25211 bytes  0749a43d6a8378ec5d00da9b5e1e598499dc5689d33fdf7506cd05bf5eb358ed
+  competition/deepeye/integration/test_host_envelope.py 33926 bytes  3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1
+
+ordering proof: test file written 11:58:55 local, RED captured 11:59:14 local, implementation
+written 12:02:08 local, GREEN captured 12:02:50 local; RED and GREEN used identical test bytes.
+
+concurrent A work preserved and untouched (other owners): integration/boot_profile.py,
+docs/boot_profiles.json, simulation/, evidence/simulation/, evidence/ai/, evidence/game/,
+evidence/reviews/, tools/pipeline.py, tests/, ai_pc/, plus upstream-modified interface.json.
+No commits, pushes, services, board IO or credentials were touched.
+
+==============================================================================
+[1] RED - tests written first; integration/host_envelope.py did not exist yet
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 -B integration\test_host_envelope.py -v
+         (cwd=competition/deepeye; PYTHONPATH=C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-host-deps)
+exit code: 1
+------------------------------------------------------------------------------test_board_response_consumer_default_and_unsafe_routing (__main__.HostEnvelopeTests.test_board_response_consumer_default_and_unsafe_routing) ... FAIL
+test_board_response_request_type_phase_and_mode_echo (__main__.HostEnvelopeTests.test_board_response_request_type_phase_and_mode_echo) ... FAIL
+test_board_response_restricts_raw_types_session_and_epochs (__main__.HostEnvelopeTests.test_board_response_restricts_raw_types_session_and_epochs) ... FAIL
+test_bool_and_float_identities_rejected_in_integer_enum_const_fields (__main__.HostEnvelopeTests.test_bool_and_float_identities_rejected_in_integer_enum_const_fields) ... FAIL
+test_caller_context_and_now_arguments_are_strict (__main__.HostEnvelopeTests.test_caller_context_and_now_arguments_are_strict) ... FAIL
+test_event_wire_fields_must_equal_envelope (__main__.HostEnvelopeTests.test_event_wire_fields_must_equal_envelope) ... FAIL
+test_future_timestamps_rejected (__main__.HostEnvelopeTests.test_future_timestamps_rejected) ... FAIL
+test_gate_centers_must_lie_on_selected_face_with_full_clearance (__main__.HostEnvelopeTests.test_gate_centers_must_lie_on_selected_face_with_full_clearance) ... FAIL
+test_grant_topology_action_source_and_capture_seq_binding (__main__.HostEnvelopeTests.test_grant_topology_action_source_and_capture_seq_binding) ... FAIL
+test_hidden_truth_fields_rejected_everywhere (__main__.HostEnvelopeTests.test_hidden_truth_fields_rejected_everywhere) ... FAIL
+test_message_context_must_equal_active_context (__main__.HostEnvelopeTests.test_message_context_must_equal_active_context) ... FAIL
+test_message_size_and_nesting_bounds (__main__.HostEnvelopeTests.test_message_size_and_nesting_bounds) ... FAIL
+test_nested_duplicate_keys_rejected (__main__.HostEnvelopeTests.test_nested_duplicate_keys_rejected) ... FAIL
+test_nonfinite_numbers_and_invalid_utf8_rejected (__main__.HostEnvelopeTests.test_nonfinite_numbers_and_invalid_utf8_rejected) ... FAIL
+test_observation_context_must_equal_active_context (__main__.HostEnvelopeTests.test_observation_context_must_equal_active_context) ... FAIL
+test_pose_quaternion_must_be_finite_and_unit_within_tolerance (__main__.HostEnvelopeTests.test_pose_quaternion_must_be_finite_and_unit_within_tolerance) ... FAIL
+test_positive_grant_requires_deadline_after_now (__main__.HostEnvelopeTests.test_positive_grant_requires_deadline_after_now) ... FAIL
+test_producer_kind_map_is_enforced (__main__.HostEnvelopeTests.test_producer_kind_map_is_enforced) ... FAIL
+test_raw_wire_crc_type_layout_mismatches_rejected (__main__.HostEnvelopeTests.test_raw_wire_crc_type_layout_mismatches_rejected) ... FAIL
+test_receipt_interval_must_be_ordered_and_end_by_now (__main__.HostEnvelopeTests.test_receipt_interval_must_be_ordered_and_end_by_now) ... FAIL
+test_returned_record_is_informational_and_inputs_not_mutated (__main__.HostEnvelopeTests.test_returned_record_is_informational_and_inputs_not_mutated) ... FAIL
+test_sample_count_must_match_transport_profile (__main__.HostEnvelopeTests.test_sample_count_must_match_transport_profile) ... FAIL
+test_set_target_requires_observation_and_bounded_positive_duration (__main__.HostEnvelopeTests.test_set_target_requires_observation_and_bounded_positive_duration) ... FAIL
+test_stop_target_must_be_all_zero_and_may_carry_null_observation (__main__.HostEnvelopeTests.test_stop_target_must_be_all_zero_and_may_carry_null_observation) ... FAIL
+test_stress_curvature_boundaries_and_zero_speed_rotation (__main__.HostEnvelopeTests.test_stress_curvature_boundaries_and_zero_speed_rotation) ... FAIL
+test_valid_board_response_all_five_permitted_types (__main__.HostEnvelopeTests.test_valid_board_response_all_five_permitted_types) ... FAIL
+test_valid_candidate_stop_and_set_target (__main__.HostEnvelopeTests.test_valid_candidate_stop_and_set_target) ... FAIL
+test_valid_event_observation (__main__.HostEnvelopeTests.test_valid_event_observation) ... FAIL
+test_valid_mapped_sample_upper_may_extend_beyond_now (__main__.HostEnvelopeTests.test_valid_mapped_sample_upper_may_extend_beyond_now) ... FAIL
+test_valid_motion_grant_all_three_topologies (__main__.HostEnvelopeTests.test_valid_motion_grant_all_three_topologies) ... FAIL
+test_valid_motion_request_both_actions (__main__.HostEnvelopeTests.test_valid_motion_request_both_actions) ... FAIL
+test_valid_odometry_unit_quaternion (__main__.HostEnvelopeTests.test_valid_odometry_unit_quaternion) ... FAIL
+test_valid_public_task_geometry (__main__.HostEnvelopeTests.test_valid_public_task_geometry) ... FAIL
+test_valid_telem_fast_50_and_stress_800 (__main__.HostEnvelopeTests.test_valid_telem_fast_50_and_stress_800) ... FAIL
+
+======================================================================
+FAIL: test_board_response_consumer_default_and_unsafe_routing (__main__.HostEnvelopeTests.test_board_response_consumer_default_and_unsafe_routing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_board_response_request_type_phase_and_mode_echo (__main__.HostEnvelopeTests.test_board_response_request_type_phase_and_mode_echo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_board_response_restricts_raw_types_session_and_epochs (__main__.HostEnvelopeTests.test_board_response_restricts_raw_types_session_and_epochs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_bool_and_float_identities_rejected_in_integer_enum_const_fields (__main__.HostEnvelopeTests.test_bool_and_float_identities_rejected_in_integer_enum_const_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_caller_context_and_now_arguments_are_strict (__main__.HostEnvelopeTests.test_caller_context_and_now_arguments_are_strict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_event_wire_fields_must_equal_envelope (__main__.HostEnvelopeTests.test_event_wire_fields_must_equal_envelope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_future_timestamps_rejected (__main__.HostEnvelopeTests.test_future_timestamps_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_gate_centers_must_lie_on_selected_face_with_full_clearance (__main__.HostEnvelopeTests.test_gate_centers_must_lie_on_selected_face_with_full_clearance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_grant_topology_action_source_and_capture_seq_binding (__main__.HostEnvelopeTests.test_grant_topology_action_source_and_capture_seq_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_hidden_truth_fields_rejected_everywhere (__main__.HostEnvelopeTests.test_hidden_truth_fields_rejected_everywhere)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_message_context_must_equal_active_context (__main__.HostEnvelopeTests.test_message_context_must_equal_active_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_message_size_and_nesting_bounds (__main__.HostEnvelopeTests.test_message_size_and_nesting_bounds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_nested_duplicate_keys_rejected (__main__.HostEnvelopeTests.test_nested_duplicate_keys_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_nonfinite_numbers_and_invalid_utf8_rejected (__main__.HostEnvelopeTests.test_nonfinite_numbers_and_invalid_utf8_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_observation_context_must_equal_active_context (__main__.HostEnvelopeTests.test_observation_context_must_equal_active_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_pose_quaternion_must_be_finite_and_unit_within_tolerance (__main__.HostEnvelopeTests.test_pose_quaternion_must_be_finite_and_unit_within_tolerance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_positive_grant_requires_deadline_after_now (__main__.HostEnvelopeTests.test_positive_grant_requires_deadline_after_now)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_producer_kind_map_is_enforced (__main__.HostEnvelopeTests.test_producer_kind_map_is_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_raw_wire_crc_type_layout_mismatches_rejected (__main__.HostEnvelopeTests.test_raw_wire_crc_type_layout_mismatches_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_receipt_interval_must_be_ordered_and_end_by_now (__main__.HostEnvelopeTests.test_receipt_interval_must_be_ordered_and_end_by_now)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_returned_record_is_informational_and_inputs_not_mutated (__main__.HostEnvelopeTests.test_returned_record_is_informational_and_inputs_not_mutated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_sample_count_must_match_transport_profile (__main__.HostEnvelopeTests.test_sample_count_must_match_transport_profile)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_set_target_requires_observation_and_bounded_positive_duration (__main__.HostEnvelopeTests.test_set_target_requires_observation_and_bounded_positive_duration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_stop_target_must_be_all_zero_and_may_carry_null_observation (__main__.HostEnvelopeTests.test_stop_target_must_be_all_zero_and_may_carry_null_observation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_stress_curvature_boundaries_and_zero_speed_rotation (__main__.HostEnvelopeTests.test_stress_curvature_boundaries_and_zero_speed_rotation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_board_response_all_five_permitted_types (__main__.HostEnvelopeTests.test_valid_board_response_all_five_permitted_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_candidate_stop_and_set_target (__main__.HostEnvelopeTests.test_valid_candidate_stop_and_set_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_event_observation (__main__.HostEnvelopeTests.test_valid_event_observation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_mapped_sample_upper_may_extend_beyond_now (__main__.HostEnvelopeTests.test_valid_mapped_sample_upper_may_extend_beyond_now)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_motion_grant_all_three_topologies (__main__.HostEnvelopeTests.test_valid_motion_grant_all_three_topologies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_motion_request_both_actions (__main__.HostEnvelopeTests.test_valid_motion_request_both_actions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_odometry_unit_quaternion (__main__.HostEnvelopeTests.test_valid_odometry_unit_quaternion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_public_task_geometry (__main__.HostEnvelopeTests.test_valid_public_task_geometry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+======================================================================
+FAIL: test_valid_telem_fast_50_and_stress_800 (__main__.HostEnvelopeTests.test_valid_telem_fast_50_and_stress_800)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 201, in setUp
+    self.fail('integration/host_envelope.py is absent; bounded host-envelope validator not implemented')
+AssertionError: integration/host_envelope.py is absent; bounded host-envelope validator not implemented
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.028s
+
+FAILED (failures=34)
+
+==============================================================================
+[2] GREEN - identical tests against the implementation
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 -B integration\test_host_envelope.py -v
+         (cwd=competition/deepeye; PYTHONPATH=C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-host-deps)
+exit code: 0
+------------------------------------------------------------------------------test_board_response_consumer_default_and_unsafe_routing (__main__.HostEnvelopeTests.test_board_response_consumer_default_and_unsafe_routing) ... ok
+test_board_response_request_type_phase_and_mode_echo (__main__.HostEnvelopeTests.test_board_response_request_type_phase_and_mode_echo) ... ok
+test_board_response_restricts_raw_types_session_and_epochs (__main__.HostEnvelopeTests.test_board_response_restricts_raw_types_session_and_epochs) ... ok
+test_bool_and_float_identities_rejected_in_integer_enum_const_fields (__main__.HostEnvelopeTests.test_bool_and_float_identities_rejected_in_integer_enum_const_fields) ... ok
+test_caller_context_and_now_arguments_are_strict (__main__.HostEnvelopeTests.test_caller_context_and_now_arguments_are_strict) ... ok
+test_event_wire_fields_must_equal_envelope (__main__.HostEnvelopeTests.test_event_wire_fields_must_equal_envelope) ... ok
+test_future_timestamps_rejected (__main__.HostEnvelopeTests.test_future_timestamps_rejected) ... ok
+test_gate_centers_must_lie_on_selected_face_with_full_clearance (__main__.HostEnvelopeTests.test_gate_centers_must_lie_on_selected_face_with_full_clearance) ... ok
+test_grant_topology_action_source_and_capture_seq_binding (__main__.HostEnvelopeTests.test_grant_topology_action_source_and_capture_seq_binding) ... ok
+test_hidden_truth_fields_rejected_everywhere (__main__.HostEnvelopeTests.test_hidden_truth_fields_rejected_everywhere) ... ok
+test_message_context_must_equal_active_context (__main__.HostEnvelopeTests.test_message_context_must_equal_active_context) ... ok
+test_message_size_and_nesting_bounds (__main__.HostEnvelopeTests.test_message_size_and_nesting_bounds) ... ok
+test_nested_duplicate_keys_rejected (__main__.HostEnvelopeTests.test_nested_duplicate_keys_rejected) ... ok
+test_nonfinite_numbers_and_invalid_utf8_rejected (__main__.HostEnvelopeTests.test_nonfinite_numbers_and_invalid_utf8_rejected) ... ok
+test_observation_context_must_equal_active_context (__main__.HostEnvelopeTests.test_observation_context_must_equal_active_context) ... ok
+test_pose_quaternion_must_be_finite_and_unit_within_tolerance (__main__.HostEnvelopeTests.test_pose_quaternion_must_be_finite_and_unit_within_tolerance) ... ok
+test_positive_grant_requires_deadline_after_now (__main__.HostEnvelopeTests.test_positive_grant_requires_deadline_after_now) ... ok
+test_producer_kind_map_is_enforced (__main__.HostEnvelopeTests.test_producer_kind_map_is_enforced) ... ok
+test_raw_wire_crc_type_layout_mismatches_rejected (__main__.HostEnvelopeTests.test_raw_wire_crc_type_layout_mismatches_rejected) ... ok
+test_receipt_interval_must_be_ordered_and_end_by_now (__main__.HostEnvelopeTests.test_receipt_interval_must_be_ordered_and_end_by_now) ... ok
+test_returned_record_is_informational_and_inputs_not_mutated (__main__.HostEnvelopeTests.test_returned_record_is_informational_and_inputs_not_mutated) ... ok
+test_sample_count_must_match_transport_profile (__main__.HostEnvelopeTests.test_sample_count_must_match_transport_profile) ... ok
+test_set_target_requires_observation_and_bounded_positive_duration (__main__.HostEnvelopeTests.test_set_target_requires_observation_and_bounded_positive_duration) ... ok
+test_stop_target_must_be_all_zero_and_may_carry_null_observation (__main__.HostEnvelopeTests.test_stop_target_must_be_all_zero_and_may_carry_null_observation) ... ok
+test_stress_curvature_boundaries_and_zero_speed_rotation (__main__.HostEnvelopeTests.test_stress_curvature_boundaries_and_zero_speed_rotation) ... ok
+test_valid_board_response_all_five_permitted_types (__main__.HostEnvelopeTests.test_valid_board_response_all_five_permitted_types) ... ok
+test_valid_candidate_stop_and_set_target (__main__.HostEnvelopeTests.test_valid_candidate_stop_and_set_target) ... ok
+test_valid_event_observation (__main__.HostEnvelopeTests.test_valid_event_observation) ... ok
+test_valid_mapped_sample_upper_may_extend_beyond_now (__main__.HostEnvelopeTests.test_valid_mapped_sample_upper_may_extend_beyond_now) ... ok
+test_valid_motion_grant_all_three_topologies (__main__.HostEnvelopeTests.test_valid_motion_grant_all_three_topologies) ... ok
+test_valid_motion_request_both_actions (__main__.HostEnvelopeTests.test_valid_motion_request_both_actions) ... ok
+test_valid_odometry_unit_quaternion (__main__.HostEnvelopeTests.test_valid_odometry_unit_quaternion) ... ok
+test_valid_public_task_geometry (__main__.HostEnvelopeTests.test_valid_public_task_geometry) ... ok
+test_valid_telem_fast_50_and_stress_800 (__main__.HostEnvelopeTests.test_valid_telem_fast_50_and_stress_800) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.201s
+
+OK
+
+==============================================================================
+[3] adjacent existing integration references (unchanged by this task)
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 -B integration\test_wire.py     (exit 0)
+------------------------------------------------------------------------------test_all_fixed_lengths (__main__.WireTests.test_all_fixed_lengths) ... ok
+test_bounded_resynchronization_and_embedded_magic (__main__.WireTests.test_bounded_resynchronization_and_embedded_magic) ... ok
+test_crc_independent_vectors (__main__.WireTests.test_crc_independent_vectors) ... ok
+test_crc_version_magic_size_and_unknown_rejected (__main__.WireTests.test_crc_version_magic_size_and_unknown_rejected) ... ok
+test_every_chunk_boundary (__main__.WireTests.test_every_chunk_boundary) ... ok
+test_exact_hello_frame (__main__.WireTests.test_exact_hello_frame) ... ok
+test_input_cap_preserves_partial_state (__main__.WireTests.test_input_cap_preserves_partial_state) ... ok
+test_integer_overflow_does_not_wrap (__main__.WireTests.test_integer_overflow_does_not_wrap) ... ok
+test_legacy_is_explicit_diagnostic_only (__main__.WireTests.test_legacy_is_explicit_diagnostic_only) ... ok
+test_motion_signed_payload_is_preserved (__main__.WireTests.test_motion_signed_payload_is_preserved) ... ok
+test_unfrozen_trace_rejected (__main__.WireTests.test_unfrozen_trace_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.007s
+
+OK
+
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 -B integration\test_motion.py   (exit 0)
+------------------------------------------------------------------------------test_acceleration_and_deceleration_bound (__main__.MotionTests.test_acceleration_and_deceleration_bound) ... ok
+test_frozen_stress_axis_and_diagonal_boundaries (__main__.MotionTests.test_frozen_stress_axis_and_diagonal_boundaries) ... ok
+test_integer_and_range_checks_reject_not_clip (__main__.MotionTests.test_integer_and_range_checks_reject_not_clip) ... ok
+test_profile_mapping_does_not_mix (__main__.MotionTests.test_profile_mapping_does_not_mix) ... ok
+test_rate_scales_with_actual_speed_and_stops_at_zero (__main__.MotionTests.test_rate_scales_with_actual_speed_and_stops_at_zero) ... ok
+test_rom_against_independent_formula_every_speed (__main__.MotionTests.test_rom_against_independent_formula_every_speed) ... ok
+test_zero_speed_never_turns (__main__.MotionTests.test_zero_speed_never_turns) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.024s
+
+OK
+
+command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe" -X utf8 -B integration\test_host_schema.py   (exit 0)
+------------------------------------------------------------------------------.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.055s
+
+OK
+
+==============================================================================
+coverage summary - 34 tests: 9 happy-path examples (all eight message kinds, both
+control paths preserved, all three grant topologies, all five permitted board_response
+raw types) and 25 adversarial boundary/rejection tests, including bool/1.0 identity in
+integer or enum or const fields, nested duplicate JSON keys, raw wire CRC/type/epoch/
+seq/tick/layout mismatches, wrong producer, observation-context mismatch, future
+timestamps, STOP non-zero fields, SET_TARGET observation/duration bounds, combined
+curvature STRESS(57,0)/(40,40) valid and (58,0)/(41,41) reject, zero-speed rotation,
+grant topology/capture binding, BOOT_ACK mode echo, parser bounds (byte cap, nesting
+cap, NaN/Infinity/1e999, invalid UTF-8, trailing bytes), and unsafe board_response
+routing refusal.
+
+known omitted runtime responsibilities (explicit, not hidden):
+- Producer authentication and process/pipe ACL isolation; producer/context are caller-asserted.
+- Measured timing: anchor/USB/clock/holdover bounds, sample-window derivation, observation
+  age caps (host_timing_contract.md); here only receipt upper <= now and mapped lower <= now.
+- Stateful history: observation freshness, duplicate-command retention ('duplicate does not
+  renew TTL'), codec rollback, mailbox consumption, monotonic deadline renewal, stale-grant
+  rejection and grant history binding - no ledger is read or kept.
+- Complete BOOT/profile handshake and canonical profile hash verification; only the BOOT_ACK
+  mode echo against the proposed context bit encoding is checked.
+- Physical capture validation, register/reset semantics, sensor calibration/channel scaling,
+  scheduler/latency behaviour, board and service state.
+- Collision/route legality and reachability; the validator carries no scene data.
+- native_em_interval_ns null-ness depends on a verified source-phase mapping and is not enforced.
+- Nullable timing/capture SHA256 fields are references only; they are never authentication.
+
+no credentials, tokens or private identifiers are included.
+==============================================================================
+[4] child re-verification after header erratum - generated_utc 2026-10-15T04:10Z (local 12:10)
+erratum: the "design:" line above originally read 1011259415a0916054eb687612580bc1e5f09, which
+  is 36 characters and not a valid git object id. Corrected to the task-pinned commit
+  1011259415a0916054eb580687612580bc1e5f09 ("docs: seal revision1 final taskbook bytes",
+  2026-10-15 00:09:37 +0800), confirmed via git cat-file and git log in the parent repo.
+  Captures [1]-[3] and the two source hashes are unchanged by this erratum.
+re-verification command: "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\venv\Scripts\python.exe"
+  -X utf8 -B integration\test_host_envelope.py -v
+  (cwd=competition/deepeye; PYTHONPATH=C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-host-deps)
+exit code: 0; raw stderr sha256 9492279b0feddcb8961695db98761db3be1876e26f3dcc9c81c5b025dca079df (4680 bytes; stdout empty)
+adjacent re-runs (same interpreter/env; those files untouched by this task): test_wire.py exit 0
+  "Ran 11 tests" OK raw-sha 458e32228bd90f47565ecf15cede2879beab841357ee07bf62fd7ac1a9c7464a (1191 bytes);
+  test_motion.py exit 0 "Ran 7 tests" OK raw-sha a31244ac1e76a7ccd5f6faf5a0fde528fd21a0a6e47e16654017ac7738c1a6dc (918 bytes);
+  test_host_schema.py exit 0 "Ran 7 tests" OK raw-sha 5449a06181fa5a228324f6248950d01b52a8fca5f9b1d01328f374bea8463269 (110 bytes)
+source hashes re-checked immediately before this edit: host_envelope.py 25211 bytes
+  0749a43d6a8378ec5d00da9b5e1e598499dc5689d33fdf7506cd05bf5eb358ed; test_host_envelope.py 33926 bytes
+  3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1 - identical to the header values
+raw [4] stderr capture follows (UTF-8, ASCII only; CRLF normalized to LF):
+------------------------------------------------------------------------------test_board_response_consumer_default_and_unsafe_routing (__main__.HostEnvelopeTests.test_board_response_consumer_default_and_unsafe_routing) ... ok
+test_board_response_request_type_phase_and_mode_echo (__main__.HostEnvelopeTests.test_board_response_request_type_phase_and_mode_echo) ... ok
+test_board_response_restricts_raw_types_session_and_epochs (__main__.HostEnvelopeTests.test_board_response_restricts_raw_types_session_and_epochs) ... ok
+test_bool_and_float_identities_rejected_in_integer_enum_const_fields (__main__.HostEnvelopeTests.test_bool_and_float_identities_rejected_in_integer_enum_const_fields) ... ok
+test_caller_context_and_now_arguments_are_strict (__main__.HostEnvelopeTests.test_caller_context_and_now_arguments_are_strict) ... ok
+test_event_wire_fields_must_equal_envelope (__main__.HostEnvelopeTests.test_event_wire_fields_must_equal_envelope) ... ok
+test_future_timestamps_rejected (__main__.HostEnvelopeTests.test_future_timestamps_rejected) ... ok
+test_gate_centers_must_lie_on_selected_face_with_full_clearance (__main__.HostEnvelopeTests.test_gate_centers_must_lie_on_selected_face_with_full_clearance) ... ok
+test_grant_topology_action_source_and_capture_seq_binding (__main__.HostEnvelopeTests.test_grant_topology_action_source_and_capture_seq_binding) ... ok
+test_hidden_truth_fields_rejected_everywhere (__main__.HostEnvelopeTests.test_hidden_truth_fields_rejected_everywhere) ... ok
+test_message_context_must_equal_active_context (__main__.HostEnvelopeTests.test_message_context_must_equal_active_context) ... ok
+test_message_size_and_nesting_bounds (__main__.HostEnvelopeTests.test_message_size_and_nesting_bounds) ... ok
+test_nested_duplicate_keys_rejected (__main__.HostEnvelopeTests.test_nested_duplicate_keys_rejected) ... ok
+test_nonfinite_numbers_and_invalid_utf8_rejected (__main__.HostEnvelopeTests.test_nonfinite_numbers_and_invalid_utf8_rejected) ... ok
+test_observation_context_must_equal_active_context (__main__.HostEnvelopeTests.test_observation_context_must_equal_active_context) ... ok
+test_pose_quaternion_must_be_finite_and_unit_within_tolerance (__main__.HostEnvelopeTests.test_pose_quaternion_must_be_finite_and_unit_within_tolerance) ... ok
+test_positive_grant_requires_deadline_after_now (__main__.HostEnvelopeTests.test_positive_grant_requires_deadline_after_now) ... ok
+test_producer_kind_map_is_enforced (__main__.HostEnvelopeTests.test_producer_kind_map_is_enforced) ... ok
+test_raw_wire_crc_type_layout_mismatches_rejected (__main__.HostEnvelopeTests.test_raw_wire_crc_type_layout_mismatches_rejected) ... ok
+test_receipt_interval_must_be_ordered_and_end_by_now (__main__.HostEnvelopeTests.test_receipt_interval_must_be_ordered_and_end_by_now) ... ok
+test_returned_record_is_informational_and_inputs_not_mutated (__main__.HostEnvelopeTests.test_returned_record_is_informational_and_inputs_not_mutated) ... ok
+test_sample_count_must_match_transport_profile (__main__.HostEnvelopeTests.test_sample_count_must_match_transport_profile) ... ok
+test_set_target_requires_observation_and_bounded_positive_duration (__main__.HostEnvelopeTests.test_set_target_requires_observation_and_bounded_positive_duration) ... ok
+test_stop_target_must_be_all_zero_and_may_carry_null_observation (__main__.HostEnvelopeTests.test_stop_target_must_be_all_zero_and_may_carry_null_observation) ... ok
+test_stress_curvature_boundaries_and_zero_speed_rotation (__main__.HostEnvelopeTests.test_stress_curvature_boundaries_and_zero_speed_rotation) ... ok
+test_valid_board_response_all_five_permitted_types (__main__.HostEnvelopeTests.test_valid_board_response_all_five_permitted_types) ... ok
+test_valid_candidate_stop_and_set_target (__main__.HostEnvelopeTests.test_valid_candidate_stop_and_set_target) ... ok
+test_valid_event_observation (__main__.HostEnvelopeTests.test_valid_event_observation) ... ok
+test_valid_mapped_sample_upper_may_extend_beyond_now (__main__.HostEnvelopeTests.test_valid_mapped_sample_upper_may_extend_beyond_now) ... ok
+test_valid_motion_grant_all_three_topologies (__main__.HostEnvelopeTests.test_valid_motion_grant_all_three_topologies) ... ok
+test_valid_motion_request_both_actions (__main__.HostEnvelopeTests.test_valid_motion_request_both_actions) ... ok
+test_valid_odometry_unit_quaternion (__main__.HostEnvelopeTests.test_valid_odometry_unit_quaternion) ... ok
+test_valid_public_task_geometry (__main__.HostEnvelopeTests.test_valid_public_task_geometry) ... ok
+test_valid_telem_fast_50_and_stress_800 (__main__.HostEnvelopeTests.test_valid_telem_fast_50_and_stress_800) ... ok
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.265s
+
+OK

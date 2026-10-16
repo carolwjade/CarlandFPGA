@@ -1,0 +1,87 @@
+[
+  {
+    "case": "exact_original_process_boundary_overwrite",
+    "rejected": true,
+    "exception": "complete frame changed earlier evidence",
+    "matches_expectation": true
+  },
+  {
+    "case": "consistent_nonfatal_control",
+    "rejected": false,
+    "parsed": {
+      "model_ok": true,
+      "pipe_ok": true,
+      "process_access_errors": {
+        "8": 5,
+        "16": 5,
+        "32": 5,
+        "64": 5,
+        "128": 5
+      },
+      "cpu_output": 23,
+      "truth_open_error": 5,
+      "canary_handle_error": 6
+    },
+    "matches_expectation": true
+  },
+  {
+    "case": "prior_model_false",
+    "rejected": true,
+    "exception": "positive controls incomplete before handle probe",
+    "matches_expectation": true
+  },
+  {
+    "case": "prior_pipe_false",
+    "rejected": true,
+    "exception": "positive controls incomplete before handle probe",
+    "matches_expectation": true
+  },
+  {
+    "case": "boundary_truth_open_success",
+    "rejected": true,
+    "exception": "complete frame changed earlier evidence",
+    "matches_expectation": true
+  },
+  {
+    "case": "empty_preceding_results",
+    "rejected": true,
+    "exception": "positive controls incomplete before handle probe",
+    "matches_expectation": true
+  },
+  {
+    "case": "drop_prior_nested_field",
+    "rejected": true,
+    "exception": "complete frame changed earlier evidence",
+    "matches_expectation": true
+  },
+  {
+    "case": "nested_type_change",
+    "rejected": true,
+    "exception": "complete frame changed earlier evidence",
+    "matches_expectation": true
+  },
+  {
+    "case": "literal_nan",
+    "rejected": true,
+    "exception": "nonfinite fixture field",
+    "matches_expectation": true
+  },
+  {
+    "case": "literal_infinity",
+    "rejected": true,
+    "exception": "nonfinite fixture field",
+    "matches_expectation": true
+  },
+  {
+    "case": "finite_JSON_literal_overflows_to_infinity",
+    "rejected": true,
+    "exception": "nonfinite fixture number",
+    "matches_expectation": true
+  },
+  {
+    "case": "nested_list_element_type_change",
+    "rejected": true,
+    "exception": "complete frame changed earlier evidence",
+    "matches_expectation": true
+  }
+]

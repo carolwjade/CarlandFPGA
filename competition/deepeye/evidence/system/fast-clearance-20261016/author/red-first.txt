@@ -1,0 +1,21 @@
+test_gate_clearance (unittest.loader._FailedTest.test_gate_clearance) ... ERROR
+
+======================================================================
+ERROR: test_gate_clearance (unittest.loader._FailedTest.test_gate_clearance)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_gate_clearance
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 8, in <module>
+    from competition.deepeye.simulation.authority.motion.gate_geometry import Capsule, Gate
+ModuleNotFoundError: No module named 'competition'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

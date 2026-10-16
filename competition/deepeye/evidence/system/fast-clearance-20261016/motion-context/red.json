@@ -1,0 +1,5 @@
+{
+  "exit_code": 1,
+  "command": "from decimal import localcontext, Context, ROUND_UP, Inexact, Rounded\nimport importlib, math\nfrom competition.deepeye.integration import motion\nfrom competition.deepeye.simulation.authority.motion.kinematics import advance,RigidState\noriginal_rom=dict(motion.CURVATURE_LIMIT_SQUARED)\nexpected=motion.validate('fast_9600',19,6000,0)\nerrors=[]\nfor context in (Context(prec=1,rounding=ROUND_UP),Context(prec=1,Emax=2,Emin=-2,traps=[Inexact,Rounded])):\n    with localcontext(context):\n        try:\n            actual=motion.validate('fast_9600',19,6000,0)\n            assert actual==expected, (actual,expected)\n            assert math.hypot(actual.curvature_yaw_per_m,actual.curvature_pitch_per_m)<=.5\n            importlib.reload(motion)\n            assert motion.CURVATURE_LIMIT_SQUARED==original_rom\n            assert motion.validate('fast_9600',19,6000,0)==expected\n        except Exception as error:\n            errors.append(repr(error))\nprint({'failures':errors,'expected':repr(expected)})\nassert not errors, errors\n",
+  "source_sha256": "69d016f8890298829e71c18efbbb76e747bbf5c79d2ca3af1d5defd364071822"
+}

@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-15T15:50:29.354576+00:00",
+  "operation_id": "A-DEEPEYE-MOTION-FOUNDATIONS-GEN2-20261015-01",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "director_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_commit": "f9407b6f68088ab4f79c68b4a14b087d616a2429",
+  "source_artifact_sha256": {
+    "competition/deepeye/README.md": "57b3343741a5c1bb52e6977bb090608a297854b2bc2f239a281d77db3872d2cb",
+    "competition/deepeye/docs/authority_gate_geometry.md": "6bd4ee769e5de285c1896f225400893f8e842b82e9bdd8e24c3f9cb4bb24dda5",
+    "competition/deepeye/docs/authority_kinematics.md": "2f3338f12c8054b7ac773180323985e4bae9c052c8442bf15dd5ca764f550622",
+    "competition/deepeye/docs/game_verification_runner.md": "285b4c37ad3105308c8dbb267d6a7337b21e0b8d0b3f203012e7916076c90630",
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+    "competition/deepeye/simulation/authority/motion/kinematics.py": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043",
+    "competition/deepeye/tests/simulation/test_gate_geometry.py": "d3e44c511b46a676c87a0caa2e2330f772fdd9305fb3e0a01e0ce5b1997aaa79",
+    "competition/deepeye/tests/simulation/test_kinematics.py": "ba0ed8751c5fd8a529f9b06b2b7ec556a7c002570bc4ae5cce1431a8f098d4c7",
+    "competition/deepeye/tests/test_verify_game.py": "dcadde6d77a79c01817de7733480cf42c9c18384b293fafdd26cdd8538ee1f1a",
+    "competition/deepeye/tools/verify_game.py": "c4abcdaff7fc8c6e937ee888ce7ce9333d235b3703055b2f78b35820b1c7dd22"
+  },
+  "software_status": "reviewed_software_primitives_only",
+  "formal_acceptance": false,
+  "R03": "not_run",
+  "G06": "not_run",
+  "hardware_enable_eligible": false,
+  "game_reports": [
+    {
+      "label": "timing-reference",
+      "exit_code": 0,
+      "status": "reference_passed",
+      "report": "timing-reference.json"
+    },
+    {
+      "label": "editor-reference",
+      "exit_code": 0,
+      "status": "reference_passed",
+      "report": "editor-reference.json"
+    },
+    {
+      "label": "formal-motion",
+      "exit_code": 2,
+      "status": "blocked",
+      "report": "formal-motion.json"
+    },
+    {
+      "label": "motion-reference",
+      "exit_code": 0,
+      "status": "reference_passed",
+      "report": "motion-reference.json"
+    }
+  ],
+  "runner_behavior_tests": 19,
+  "kinematics_independent": {
+    "existing_tests": 35,
+    "ordinary_trajectory_cases": 144,
+    "ordinary_time_samples": 612,
+    "ordinary_maxima": {
+      "position_m": 1.771306270934503e-15,
+      "rotation_matrix": 2.886803361553668e-16,
+      "distance_m": 1.9595642886116587e-19,
+      "speed_m_s": 1.3766765505351941e-17,
+      "inverse_time_ns": 3.4831464290618896e-07,
+      "inverse_speed_m_s": 8.690176874002857e-17,
+      "convergence_position_m": 9.954161217301589e-33,
+      "convergence_rotation_matrix": 4.9204375820153206e-33
+    },
+    "extreme_acceleration_cases": 60,
+    "extreme_acceleration_max_time_relative_error": 3.3306690738754696e-16,
+    "braking_cases": 47,
+    "near_stop_cases": 128,
+    "near_stop_max_abs_time_error_ns": 0.03366864286363125,
+    "near_stop_max_abs_speed_error": 8.41716074289474e-12,
+    "source_unchanged_during_rerun": true,
+    "f01_reproductions_resolved": true,
+    "g06_acceptance": "not_claimed"
+  },
+  "geometry_independent": {
+    "section_cases": 363,
+    "support_cases": 128,
+    "existing_tests": 24,
+    "discrepancies": 0,
+    "actual_godot_face_mappings": 6
+  },
+  "open_integration_findings": [
+    {
+      "priority": "P1",
+      "finding": "The source-checkpoint greybox cone reaches local Z=0.62m, beyond candidate capsule Z=0.52m. Asset containment must be corrected and reverified before binding."
+    },
+    {
+      "priority": "P2",
+      "finding": "Precise section solver has no 100Hz guarantee: independent 0-5 degree workload max21.0428ms, 19/64 calls exceed10ms."
+    }
+  ],
+  "prior_R03": {
+    "source_commit": "811a337b352bbbb87ed8c93a3f2fff2d45bc7dca",
+    "evidence_commit": "d5bf26adcf76f8c9af3165cdd7043cb3ff19649b",
+    "discovered": 243,
+    "passed": 242,
+    "recursive_skip": 1,
+    "full_exit_code": 2,
+    "note": "Prior interface checkpoint, not a new R03 run for these motion primitives."
+  },
+  "remaining": [
+    "actual B asset/pivot containment",
+    "continuous full-body collision sweep",
+    "entry/arrival phase machine",
+    "authenticated grants and process isolation",
+    "full three-topology control/physics/viewer linkage",
+    "required1000 executor cases",
+    "actual timing, sensors, FPGA, calibration and AMD inference gates"
+  ],
+  "artifacts": {
+    "kinematics-unit.raw.txt": {
+      "sha256": "17151eebe908c083a1574a871af29d46dbf05af3eeada396518fd0d4a36c2698",
+      "bytes": 6598,
+      "private_origin": "g06-core-independent-review-20261015/after_fix/existing_tests.raw.log"
+    },
+    "kinematics-independent.raw.txt": {
+      "sha256": "0efce9145c37fd94095bda10d5fe18538f22f07bef706b9e57e8d44b31420d6c",
+      "bytes": 2192,
+      "private_origin": "g06-core-independent-review-20261015/after_fix/independent_probe.raw.log"
+    },
+    "kinematics-inverse.raw.txt": {
+      "sha256": "ec16f8c125a0afec1742703e028c60f94e1e5ad3a6a15c77872c1ab516eec8e0",
+      "bytes": 278,
+      "private_origin": "g06-core-independent-review-20261015/after_fix/inverse_edge_probe.raw.log"
+    },
+    "kinematics-convergence.raw.txt": {
+      "sha256": "9e5f95a97e86e0ead695d428e53cea99282ad55f63d06a46ec55b00222f82029",
+      "bytes": 3658,
+      "private_origin": "g06-core-independent-review-20261015/after_fix/convergence_probe.raw.log"
+    },
+    "kinematics-review.md": {
+      "sha256": "64eb7b2715a1f6a224229b495999426436ac6e87be26f24c2fe091ecd85628f7",
+      "bytes": 4907,
+      "private_origin": "g06-core-independent-review-20261015/review_final.md"
+    },
+    "geometry-unit.raw.txt": {
+      "sha256": "52327007a1bcf839d447d686900e06e77fb48d9ee3052972a8c75995b93165af",
+      "bytes": 3402,
+      "private_origin": "g06-gate-independent-review-20261015/author-unit.stderr.log"
+    },
+    "geometry-face-mapping.raw.txt": {
+      "sha256": "0e73a55047c34bec34c96938e39851e504eebd2f93de0a8a65f64e4ed04aed3c",
+      "bytes": 450,
+      "private_origin": "g06-gate-independent-review-20261015/face-mapping.stdout.log"
+    },
+    "geometry-oracle-results.json": {
+      "sha256": "a1c4462d02d108072bef7a92a92ee4f545b11d42a08a7cdba524a5b98408a811",
+      "bytes": 494858,
+      "private_origin": "g06-gate-independent-review-20261015/oracle_results.json"
+    },
+    "geometry-supplement.json": {
+      "sha256": "8959e7082d497c240d329d93df9fd508994e908ee552bbcd966238607ce9d5b9",
+      "bytes": 42660,
+      "private_origin": "g06-gate-independent-review-20261015/supplement.json"
+    },
+    "geometry-review.md": {
+      "sha256": "39db5af07b395f66e05875c252b5e19e5053f4d417ac37acd0d4bf0db591d62c",
+      "bytes": 6882,
+      "private_origin": "g06-gate-independent-review-20261015/review.md"
+    },
+    "runner-unit.raw.txt": {
+      "sha256": "d6a4e84e791ed80dd12acf00b4900a6b40c0fd29a4e42ea2cbbde97c53e5ca71",
+      "bytes": 2757,
+      "private_origin": "game-runner-main-review-20261015/behavior.stderr.log"
+    },
+    "kinematics-subnormal-red.raw.txt": {
+      "sha256": "842c21f527ec876ca6232b145b8aba2f4f08e0733561b2844c874313ca64c95e",
+      "bytes": 10731,
+      "private_origin": "kinematics-main-fix-20261015/red.stderr.log"
+    },
+    "timing-reference.json": {
+      "sha256": "0cefbe1c90003189b91a8354db3551083d7af1a49f807abca52947b51a25e4e3",
+      "bytes": 12275
+    },
+    "timing-reference-pc-direct-watchdog.stdout.log.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "timing-reference-pc-direct-watchdog.stderr.log.txt": {
+      "sha256": "095d94a3522f1df3128c295531431f51e22f77c55e2838250413ce343a031786",
+      "bytes": 6448
+    },
+    "editor-reference.json": {
+      "sha256": "af11ed508ee68d57332d4bdca30d43eed37b23f639c856d87d8ecbbd845ebc92",
+      "bytes": 28438
+    },
+    "editor-reference-godot-version.stdout.log.txt": {
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+      "bytes": 33
+    },
+    "editor-reference-godot-version.stderr.log.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "editor-reference-godot-import.stdout.log.txt": {
+      "sha256": "df41becfea8368c56ec473c1a340440d7b25fa4090f39cdbc43dec1cb5ed7e49",
+      "bytes": 1474
+    },
+    "editor-reference-godot-import.stderr.log.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "editor-reference-editor-document.stdout.log.txt": {
+      "sha256": "316dc75e1f67652d6d5f24deae29cc26b98b3503ff3b201ff790b5cb1cb9a2ce",
+      "bytes": 711
+    },
+    "editor-reference-editor-document.stderr.log.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "formal-motion.json": {
+      "sha256": "3eb83adba2c109185f690c5bfd2cb6fb9cf3b46dede4b24f2ddc7e5913fe9897",
+      "bytes": 8825
+    },
+    "motion-reference.json": {
+      "sha256": "488f12081c5caf9e48c43803c360248e365cedc0cc6d25f0b04facade164df8f",
+      "bytes": 12118
+    },
+    "motion-reference-motion-primitives.stdout.log.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "motion-reference-motion-primitives.stderr.log.txt": {
+      "sha256": "9aec99327d51436173e4a7b98e9025d49396b6f511fe3054e3ddcd06c3e92f0c",
+      "bytes": 10784
+    },
+    ".gitattributes": {
+      "sha256": "2070dbf21612a5f49be6a5ef451e1ba47d3341a76a9aa70c7d1f0c00c37f6986",
+      "bytes": 52
+    }
+  }
+}

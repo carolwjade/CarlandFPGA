@@ -1,0 +1,27 @@
+DERIVED LOG — original SHA256 585415d9874e2ece92b6d78e4acb08bf23c1f6308eff3e013629914e5294c3a5
+Absolute Windows path substrings replaced; identity-like runtime/fixture members removed. Original private bytes retained. Not raw or a parseable report.
+
+test_secrecy_reference_selects_only_policy_when_live_environment_is_set (__main__.RunnerBehaviorTests.test_secrecy_reference_selects_only_policy_when_live_environment_is_set) ... FAIL
+test_secrecy_binds_all_p1a_source_and_test_dependencies (__main__.RunnerBehaviorTests.test_secrecy_binds_all_p1a_source_and_test_dependencies) ... FAIL
+test_formal_secrecy_stays_blocked_with_live_environment (__main__.RunnerBehaviorTests.test_formal_secrecy_stays_blocked_with_live_environment) ... ok
+
+======================================================================
+FAIL: test_secrecy_reference_selects_only_policy_when_live_environment_is_set (__main__.RunnerBehaviorTests.test_secrecy_reference_selects_only_policy_when_live_environment_is_set)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "[PRIVATE_ABSOLUTE_PATH]", line 215, in test_secrecy_reference_selects_only_policy_when_live_environment_is_set
+    self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
+AssertionError: 0 != 2 : b'{"schema_version": 1, "suite": "secrecy", "evidence_level": "reference_only", "formal_acceptance": false, "status": "blocked", "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1", "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804", "missing_evidence": ["G03: four-process isolation and OS file/screenshot/debug ACL enforcement", "G03: same observations/different far-field layouts command-equivalence traces", "G03: restricted controller/schema and no truth/oracle leakage audit", "no implemented reference-only runner for this suite"], "commands": [], "product_checkout": "[PRIVATE_ABSOLUTE_PATH]", "interpreter": "[PRIVATE_ABSOLUTE_PATH]", "interpreter_sha256": "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2", [IDENTITY_MEMBER_REMOVED], "started_utc": "2026-10-16T03:04:03.226001+00:00", "run_dir": "[PRIVATE_ABSOLUTE_PATH]", "requested_actions": null, "requested_trials_per_cell": null, "source_before": {"[PRIVATE_ABSOLUTE_PATH]": "427a84aa85cd15c60698ec9e0e7cdfa598fd4c3d6038e242526c9dc0364b7619", "[PRIVATE_ABSOLUTE_PATH]": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4", "[PRIVATE_ABSOLUTE_PATH]": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"}, "git_head_command": {"command": ["git", "-C", "[PRIVATE_ABSOLUTE_PATH]", "rev-parse", "HEAD"], "cwd": "[PRIVATE_ABSOLUTE_PATH]", "exit_code": 0, "timed_out": false, "status": "passed", "expectation": null, "environment": {"PYTHONDONTWRITEBYTECODE": "1", "PYTHONUTF8": "1", "PYTHONPATH": null, "TEMP": "[PRIVATE_ABSOLUTE_PATH]", "TMP": "[PRIVATE_ABSOLUTE_PATH]", "APPDATA": "[PRIVATE_ABSOLUTE_PATH]", "LOCALAPPDATA": "[PRIVATE_ABSOLUTE_PATH]", "XDG_DATA_HOME": "[PRIVATE_ABSOLUTE_PATH]", "XDG_CONFIG_HOME": "[PRIVATE_ABSOLUTE_PATH]", "XDG_CACHE_HOME": "[PRIVATE_ABSOLUTE_PATH]"}, "duration_seconds": 0.032, "stdout": {"path": "[PRIVATE_ABSOLUTE_PATH]", "sha256": "18a03bf2189731893328a484b58788d4fa11fa4807cc6b33091e30c827ec530e", "bytes": 41}, "stderr": {"path": "[PRIVATE_ABSOLUTE_PATH]", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0}}, "product_head": "9265327b76c5354581e90bbfc4709355761c2dbe", "source_after": {"[PRIVATE_ABSOLUTE_PATH]": "427a84aa85cd15c60698ec9e0e7cdfa598fd4c3d6038e242526c9dc0364b7619", "[PRIVATE_ABSOLUTE_PATH]": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4", "[PRIVATE_ABSOLUTE_PATH]": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"}, "changed_sources": [], "finished_utc": "2026-10-16T03:04:03.271141+00:00", "report_path": "[PRIVATE_ABSOLUTE_PATH]"}\r\n'
+
+======================================================================
+FAIL: test_secrecy_binds_all_p1a_source_and_test_dependencies (__main__.RunnerBehaviorTests.test_secrecy_binds_all_p1a_source_and_test_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "[PRIVATE_ABSOLUTE_PATH]", line 244, in test_secrecy_binds_all_p1a_source_and_test_dependencies
+    self.assertIn(str(source), hashes)
+AssertionError: '[PRIVATE_ABSOLUTE_PATH]' not found in {'[PRIVATE_ABSOLUTE_PATH]': '427a84aa85cd15c60698ec9e0e7cdfa598fd4c3d6038e242526c9dc0364b7619', '[PRIVATE_ABSOLUTE_PATH]': '6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4', '[PRIVATE_ABSOLUTE_PATH]': '27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd'}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.335s
+
+FAILED (failures=2)

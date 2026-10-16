@@ -1,0 +1,77 @@
+{
+  "scope": "software nominal timing only; measured jitter/turnaround not_run",
+  "profiles": {
+    "fast_9600": {
+      "variants": {
+        "normal": {
+          "wire_bytes": 150,
+          "last_end_ms": "4085/12",
+          "trailing_margin_ms": "1915/12"
+        },
+        "config": {
+          "wire_bytes": 206,
+          "last_end_ms": "1315/3",
+          "trailing_margin_ms": "185/3"
+        },
+        "control_retry": {
+          "wire_bytes": 214,
+          "last_end_ms": "5345/12",
+          "trailing_margin_ms": "655/12"
+        },
+        "event_retry": {
+          "wire_bytes": 170,
+          "last_end_ms": "2315/6",
+          "trailing_margin_ms": "685/6"
+        },
+        "gain_normal": {
+          "wire_bytes": 140,
+          "last_end_ms": "1015/3",
+          "trailing_margin_ms": "485/3"
+        },
+        "pc_direct_normal": {
+          "wire_bytes": 84,
+          "last_end_ms": "1015/3",
+          "trailing_margin_ms": "485/3"
+        }
+      },
+      "mixed_triples_checked": 216,
+      "maximum_sliding_byte_equivalents": "214"
+    },
+    "stress_300": {
+      "variants": {
+        "normal": {
+          "wire_bytes": 150,
+          "last_end_ms": "16300/3",
+          "trailing_margin_ms": "7700/3"
+        },
+        "config": {
+          "wire_bytes": 206,
+          "last_end_ms": "22850/3",
+          "trailing_margin_ms": "1150/3"
+        },
+        "control_retry": {
+          "wire_bytes": 214,
+          "last_end_ms": "23050/3",
+          "trailing_margin_ms": "950/3"
+        },
+        "event_retry": {
+          "wire_bytes": 170,
+          "last_end_ms": "18500/3",
+          "trailing_margin_ms": "5500/3"
+        },
+        "gain_normal": {
+          "wire_bytes": 140,
+          "last_end_ms": "16100/3",
+          "trailing_margin_ms": "7900/3"
+        },
+        "pc_direct_normal": {
+          "wire_bytes": 84,
+          "last_end_ms": "16100/3",
+          "trailing_margin_ms": "7900/3"
+        }
+      },
+      "mixed_triples_checked": 216,
+      "maximum_sliding_byte_equivalents": "214"
+    }
+  }
+}

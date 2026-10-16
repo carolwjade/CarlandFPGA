@@ -1,0 +1,56 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "isolation_creation_order",
+      "sha256": "948ec0c0abeeb0fdcc017e219bf31943c0d5491f654c94aafb855a656a0f803f",
+      "size": 1913
+    }
+  ],
+  "omitted_fields": [
+    "run",
+    "proof paths",
+    "all contained identity/path fields of private proof bodies"
+  ],
+  "observations": [
+    {
+      "boundary": "CreateAppContainerProfile",
+      "receipt_already_exists": true,
+      "root_acl_already_recorded": true,
+      "private_proof_sha256": "71f07d4bfda78ae84c5f3dea4eff06d0d4edefec81ae7d65371b78a0f2378526"
+    },
+    {
+      "boundary": "CreateProcessW",
+      "receipt_already_exists": true,
+      "profile_and_runtime_already_recorded": true,
+      "private_proof_sha256": "803423e47adac90a9c043303bc488b8f13940f393727560bc5806adc5c2374f7"
+    },
+    {
+      "boundary": "CreateAppContainerProfile",
+      "receipt_already_exists": true,
+      "root_acl_already_recorded": true,
+      "private_proof_sha256": "b802812de8663e1d985a3d0ea2fbab9ae8a0c9510ca583cdc78e2db2715fe8a7"
+    },
+    {
+      "boundary": "CreateProcessW",
+      "receipt_already_exists": true,
+      "profile_and_runtime_already_recorded": true,
+      "private_proof_sha256": "56a17ef199e8938913fae2b9531c3b0953083e93f8de6d48c0f751a7374dcc4b"
+    },
+    {
+      "boundary": "CreateAppContainerProfile",
+      "receipt_already_exists": true,
+      "root_acl_already_recorded": true,
+      "private_proof_sha256": "e0cefa331c31123f221fd4ab32f7bec4a590bac48bf4a592b8f1fdd0d2056f58"
+    },
+    {
+      "boundary": "CreateProcessW",
+      "receipt_already_exists": true,
+      "profile_and_runtime_already_recorded": true,
+      "private_proof_sha256": "3572c308b030c2d7c0758f2554a3aaaf7031dd9b3416bc8f3a27c9f9fdaaeaba"
+    }
+  ],
+  "observations_count": 6,
+  "scope": "existing six receipt-before-profile/process observations; not crash consistency at every preparation step"
+}

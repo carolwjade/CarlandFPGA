@@ -1,0 +1,82 @@
+test_acceleration_from_rest_integrates_average_speed (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_acceleration_from_rest_integrates_average_speed) ... ok
+test_acceleration_reaching_target_splits_the_step (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_acceleration_reaching_target_splits_the_step) ... ok
+test_angular_motion_scales_with_actual_accelerating_speed (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_angular_motion_scales_with_actual_accelerating_speed) ... ok
+test_body_rotation_right_multiplies_nonidentity_world_orientation (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_body_rotation_right_multiplies_nonidentity_world_orientation) ... ok
+test_combined_yaw_pitch_is_one_three_dimensional_rotation (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_combined_yaw_pitch_is_one_three_dimensional_rotation) ... ok
+test_command_fields_reject_bool_nonintegers_and_unknown_profiles (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_command_fields_reject_bool_nonintegers_and_unknown_profiles) ... ok
+test_deceleration_reaching_target_splits_the_step (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_deceleration_reaching_target_splits_the_step) ... ok
+test_distance_sampling_braking_plateau_chooses_earliest_time (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_distance_sampling_braking_plateau_chooses_earliest_time) ... ok
+test_distance_sampling_inverts_acceleration_and_cruise (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_distance_sampling_inverts_acceleration_and_cruise) ... ok
+test_interior_samples_follow_the_arc_not_an_endpoint_chord (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_interior_samples_follow_the_arc_not_an_endpoint_chord) ... ok
+test_invalid_state_shapes_nonfinite_and_nonunit_inputs_are_rejected (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_invalid_state_shapes_nonfinite_and_nonunit_inputs_are_rejected) ... ok
+test_low_speed_small_turns_are_not_erased_by_an_angle_threshold (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_low_speed_small_turns_are_not_erased_by_an_angle_threshold) ... ok
+test_many_steps_follow_analytic_half_circle_without_quaternion_drift (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_many_steps_follow_analytic_half_circle_without_quaternion_drift) ... ok
+test_postquantization_profile_boundaries_are_not_clipped (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_postquantization_profile_boundaries_are_not_clipped) ... ok
+test_profile_change_cannot_hide_excess_actual_speed (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_profile_change_cannot_hide_excess_actual_speed) ... ok
+test_rejected_command_does_not_change_input_pose (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_rejected_command_does_not_change_input_pose) ... ok
+test_samples_cannot_leave_the_step_domain (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_samples_cannot_leave_the_step_domain) ... ok
+test_sequential_distinct_turn_axes_accumulate_rigid_orientation (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_sequential_distinct_turn_axes_accumulate_rigid_orientation) ... ok
+test_signed_pitch_uses_negative_body_x_axis (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_signed_pitch_uses_negative_body_x_axis) ... ok
+test_signed_yaw_follows_horizontal_circle (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_signed_yaw_follows_horizontal_circle) ... ok
+test_step_partition_preserves_curved_acceleration_and_deceleration (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_step_partition_preserves_curved_acceleration_and_deceleration) ... ok
+test_straight_ramp_does_not_use_final_speed_for_whole_step (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_straight_ramp_does_not_use_final_speed_for_whole_step) ... ok
+test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) ... 
+  test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=0.0) ... ERROR
+  test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=5e-324) ... FAIL
+  test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-170) ... FAIL
+  test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-162) ... FAIL
+  test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-155) ... FAIL
+test_substep_duration_is_strict_integer_nanoseconds (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_substep_duration_is_strict_integer_nanoseconds) ... ok
+test_vectors_are_snapshotted_and_all_results_are_immutable (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_vectors_are_snapshotted_and_all_results_are_immutable) ... ok
+test_zero_distance_preserves_an_arbitrary_orientation_exactly (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_zero_distance_preserves_an_arbitrary_orientation_exactly) ... ok
+test_zero_speed_and_zero_target_never_rotate_or_translate (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_zero_speed_and_zero_target_never_rotate_or_translate) ... ok
+test_zero_target_is_straight_braking_and_not_an_authorization_stop (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_zero_target_is_straight_braking_and_not_an_authorization_stop) ... ok
+
+======================================================================
+ERROR: test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=0.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_kinematics.py", line 241, in test_subnormal_positive_distance_has_finite_accurate_inverse
+    sample = step.sample_at_distance_m(distance)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion\kinematics.py", line 207, in sample_at_distance_m
+    elapsed_s = 2*distance / (v0 + math.sqrt(discriminant))
+                ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ZeroDivisionError: float division by zero
+
+======================================================================
+FAIL: test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=5e-324)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_kinematics.py", line 242, in test_subnormal_positive_distance_has_finite_accurate_inverse
+    self.assertTrue(math.isclose(sample.elapsed_ns, float(expected_time*10**9),
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-170)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_kinematics.py", line 242, in test_subnormal_positive_distance_has_finite_accurate_inverse
+    self.assertTrue(math.isclose(sample.elapsed_ns, float(expected_time*10**9),
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-162)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_kinematics.py", line 242, in test_subnormal_positive_distance_has_finite_accurate_inverse
+    self.assertTrue(math.isclose(sample.elapsed_ns, float(expected_time*10**9),
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_subnormal_positive_distance_has_finite_accurate_inverse (competition.deepeye.tests.simulation.test_kinematics.KinematicsTests.test_subnormal_positive_distance_has_finite_accurate_inverse) (speed=1e-155)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_kinematics.py", line 242, in test_subnormal_positive_distance_has_finite_accurate_inverse
+    self.assertTrue(math.isclose(sample.elapsed_ns, float(expected_time*10**9),
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.055s
+
+FAILED (failures=4, errors=1)
