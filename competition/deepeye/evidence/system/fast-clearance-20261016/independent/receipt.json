@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "work_id": "A-g06-fast-clearance-review-20261016-v1",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "reviewer": "/root/g06_geometry_design/gate_clearance_review",
+  "job_id": "child-aa82d944ebdc4e9182c9f4abf741d2e3",
+  "recorded_utc": "2026-10-15T16:20:16.185931+00:00",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "native_validation": {
+    "execution_allowed": true,
+    "status": "running",
+    "canonical_agent_id": "/root/g06_geometry_design/gate_clearance_review"
+  },
+  "native_completion": "The immutable terminal response is stored separately in native_completion.json after the completion call.",
+  "result": "bounded_read_only_review_finished_no_blocking_false_clear_reproduced",
+  "formal_acceptance": false,
+  "G06": "not_run",
+  "writes": "Only this private evidence directory; product unchanged.",
+  "product_head_start": "3b4736ff655b7fee35e79a5387f4118d1fff417c",
+  "product_head_end": "3b4736ff655b7fee35e79a5387f4118d1fff417c",
+  "product_hashes": {
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+    "competition/deepeye/tests/simulation/test_gate_clearance.py": "c3189e706e625eed0816b847b32d45cee6470fc64d1fd8a9b25d1f6c8781f6be",
+    "competition/deepeye/docs/authority_gate_clearance.md": "373b53967453d55d7534256b43ccaccf34666b164261ae75c823118ae6a57fb8"
+  },
+  "author_receipt_sha256": "b79de177e9baa4a669bdecf062fe009f3fa70f52ab8fb31e340aa95d674e89eb",
+  "independent_commands": [
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "command": "../venv/Scripts/python.exe -B -X utf8 -m unittest discover -s competition/deepeye/tests/simulation -p test_gate*.py -v",
+      "exit_code": 0,
+      "tests": 52,
+      "log": "unit-gate-all.txt"
+    },
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "command": ".local/venv/Scripts/python.exe -B -X utf8 .planning/deepeye-implementation-a/g06-fast-clearance-independent-review-20261016/review_probe.py",
+      "exit_code": 0,
+      "log": "probe-raw-1.txt"
+    }
+  ],
+  "independent_evidence": {
+    "instant_cases": 576,
+    "sweep_curves": 144,
+    "sampled_times": 4752,
+    "decimal_precision": 110,
+    "ambient_context": "precision1 ROUND_UP traps cold-reload passed"
+  },
+  "findings": {
+    "blocking": [],
+    "nonblocking": [
+      "T1 public suite lacks explicit curved-centre clear-endpoints/middle-collision regression; private reproduction supplied"
+    ],
+    "integration_limits": [
+      "I1 bounds are assumed and unauthenticated; false kappa=0 demo intentionally violates premise",
+      "I2 maximum relative rotation is not itself a total-angular-variation/velocity/phase proof",
+      "I3 author independent-formula audit is distinct from this independent reviewer run"
+    ]
+  },
+  "limitations": [
+    "Finite probes are not a proof for all inputs.",
+    "Curved path checks sample time and finite capsule sections.",
+    "No adapter/source authentication, Godot, assets, phase or G06 acceptance."
+  ],
+  "evidence_sha256": {
+    "probe-raw-1.txt": "f707fc7f4ecb1ff310c0246e61704f15510ff28406750a6898d5eb1871e6a758",
+    "probe_results.json": "5080706e946df66cab60c81c4cb41c70fa84736bf0eb7eb07b037ad51bf4bccc",
+    "review.md": "a0ceedc4a7efcfec1b5699a31a2726034b8f908e16307ef9056cee927a97442a",
+    "review_probe.py": "7f6b9b97ff83d0dafcfe5337bb7c11cd067c3aa87c2ce71abbec1ec53cefc896",
+    "source_snapshot.json": "9cbc6c0e9c7a01d074c53b9f34f74556a3a761bafdb30141d49daa1f41e16b2b",
+    "unit-gate-all.txt": "3e0bfeffeb76837337db3d2b1480628e184504ff7db8aad741974151a36b0576"
+  },
+  "discovery_notes": [
+    "One read used docs/authority_gate_clearance.md before locating the actual competition/deepeye/docs path; no product writes.",
+    "A file inventory included nonexistent config directories; exit 1 preserved in tool output; this was discovery, not a test failure."
+  ]
+}

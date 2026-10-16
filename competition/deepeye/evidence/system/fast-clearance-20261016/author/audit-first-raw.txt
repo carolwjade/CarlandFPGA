@@ -1,0 +1,119 @@
+{
+  "source_sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+  "geometry_sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "oracles": {
+    "finite_capsule_closed_forms": 256,
+    "sphere_and_cap_closed_forms": 256,
+    "whole_time_monotonic_arc_oracles": 256,
+    "cosine_threshold_checks": 256,
+    "minimum_export_slack_m": "6.996360210035356224438129362375473629971969675547906085596220382215543058297907867278234071714083593734E-18",
+    "maximum_endpoint_rounding_m": "8.87542712415296293361962340555489776349967630955552578321804853110324515562717158467812093418033427331594450831529937469E-16",
+    "precision": 120,
+    "oracle_uses_product_interval_helpers": false
+  },
+  "mutations": [
+    {
+      "mutation": "ignore_direction",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_uncertainty",
+      "caught": true,
+      "failures": 2,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_rotation_floor",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_rotation_cover",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_chord_cover",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "ignore_end_position",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "ignore_slice_angle",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_slice_angle_cap",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "allow_contact",
+      "caught": true,
+      "failures": 2,
+      "errors": 0
+    }
+  ],
+  "performance": {
+    "statistics": {
+      "section_warm": {
+        "n": 2048,
+        "median_ms": 0.1286,
+        "p95_ms": 0.1369,
+        "max_ms": 0.3406
+      },
+      "sweep_warm": {
+        "n": 2048,
+        "median_ms": 0.2339,
+        "p95_ms": 0.2582,
+        "max_ms": 0.6238
+      },
+      "section_new_inputs": {
+        "n": 2048,
+        "median_ms": 0.1553,
+        "p95_ms": 0.1691,
+        "max_ms": 0.3327
+      },
+      "sweep_new_inputs": {
+        "n": 2048,
+        "median_ms": 0.2628,
+        "p95_ms": 0.2871,
+        "max_ms": 0.8228
+      },
+      "section_cold_threshold": {
+        "n": 256,
+        "median_ms": 0.20945,
+        "p95_ms": 0.2347,
+        "max_ms": 0.4377
+      },
+      "sweep_cold_threshold": {
+        "n": 256,
+        "median_ms": 0.317,
+        "p95_ms": 0.3413,
+        "max_ms": 0.624
+      }
+    },
+    "classification_counts": {
+      "section_CLEAR_SECTION": 1114,
+      "sweep_SAFE_IF_INTERSECTING": 1246,
+      "section_UNKNOWN": 648,
+      "sweep_UNKNOWN": 802,
+      "section_EMPTY": 286
+    },
+    "scope": "CPython local serial process; not Godot, load guarantee, deadline proof or G06 acceptance"
+  }
+}

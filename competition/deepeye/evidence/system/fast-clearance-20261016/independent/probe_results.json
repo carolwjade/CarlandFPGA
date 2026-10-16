@@ -1,0 +1,75 @@
+{
+  "work_id": "A-g06-fast-clearance-review-20261016-v1",
+  "precision": 110,
+  "limitations": [
+    "Finite probes are not a proof for all inputs.",
+    "Curved path checks sample time and finite capsule sections.",
+    "No adapter/source authentication, Godot, assets, phase or G06 acceptance."
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "instant": {
+    "cases": 576,
+    "statuses": {
+      "EMPTY": 241,
+      "UNKNOWN": 216,
+      "CLEAR_SECTION": 119
+    },
+    "minimum_export_minus_independent_upper_m": "1.429101175228310158959730456014239922839038566135227314522618118596146853309473870397428924755E-17"
+  },
+  "curved_sweeps": {
+    "cases": 144,
+    "statuses": {
+      "SAFE_IF_INTERSECTING": 106,
+      "UNKNOWN": 38
+    },
+    "sampled_times": 4752,
+    "nonempty_sections_sampled": 4752,
+    "minimum_export_minus_independent_upper_m": "1.406048859347714890959675313672777873113435808151847497321491323335179464834190610742642778119E-17",
+    "curve": "regular 3D-embedded quadratic with certified loose L/kappa and return rotation",
+    "note": "Sampling is falsification evidence, not all-time validation."
+  },
+  "adversarial": {
+    "curved_middle_radial_witness_m": "0.15039765622711136566617921990363269304581532117320942978374387404001701218050721603227409172425061412905442050",
+    "truthful_curvature_status": "UNKNOWN",
+    "false_zero_curvature_status": "SAFE_IF_INTERSECTING",
+    "interpretation": "False zero curvature violates the explicit caller assumptions; this is not an implementation false-clear.",
+    "radial_contact_cases": [
+      {
+        "radius": 0.15,
+        "status": "UNKNOWN"
+      },
+      {
+        "radius": 0.14999999999999997,
+        "status": "UNKNOWN"
+      },
+      {
+        "radius": 0.15000000000000002,
+        "status": "UNKNOWN"
+      },
+      {
+        "radius": 0.1499999999995,
+        "status": "UNKNOWN"
+      },
+      {
+        "radius": 0.14999999999799998,
+        "status": "CLEAR_SECTION"
+      }
+    ]
+  },
+  "ambient_context": {
+    "precision": 1,
+    "rounding": "ROUND_UP",
+    "Emax": 2,
+    "Emin": -2,
+    "Inexact_and_Rounded_trapped": true,
+    "cold_reload_and_input_construction": "passed"
+  },
+  "product_hashes": {
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+    "competition/deepeye/tests/simulation/test_gate_clearance.py": "c3189e706e625eed0816b847b32d45cee6470fc64d1fd8a9b25d1f6c8781f6be",
+    "competition/deepeye/docs/authority_gate_clearance.md": "373b53967453d55d7534256b43ccaccf34666b164261ae75c823118ae6a57fb8"
+  },
+  "source_unchanged": true,
+  "result": "no false-clear reproduced under stated assumptions"
+}

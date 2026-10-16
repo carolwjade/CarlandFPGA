@@ -1,0 +1,198 @@
+{
+  "work_id": "A-g06-fast-clearance-20261015-v1",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "agent": "/root/g06_geometry_design",
+  "recorded_at_utc": "2026-10-15T16:07:23.517417+00:00",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "job_id": "child-47fb0500df2e4a699184339be4d3b76e",
+  "lease_validation": {
+    "execution_allowed": true,
+    "bound_agent": "/root/g06_geometry_design"
+  },
+  "lease_completion": {
+    "status": "completed",
+    "terminal": true
+  },
+  "independent_review": {
+    "status": "reserved/not_started",
+    "reason": "agent thread limit reached; main instructed author to complete and release its slot",
+    "work_id": "A-g06-fast-clearance-review-20261016-v1",
+    "job_id": "child-aa82d944ebdc4e9182c9f4abf741d2e3",
+    "agent": "/root/g06_geometry_design/gate_clearance_review",
+    "write_directory": ".planning/deepeye-implementation-a/g06-fast-clearance-independent-review-20261016/",
+    "next_owner": "main will followup existing reviewer; no duplicate reserve"
+  },
+  "ownership": {
+    "product_files": [
+      "competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "competition/deepeye/tests/simulation/test_gate_clearance.py",
+      "competition/deepeye/docs/authority_gate_clearance.md"
+    ],
+    "private_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\g06-fast-clearance-20261015",
+    "status": "frozen; product write ownership returned to main; no further product edits"
+  },
+  "product_hashes": {
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+    "competition/deepeye/tests/simulation/test_gate_clearance.py": "c3189e706e625eed0816b847b32d45cee6470fc64d1fd8a9b25d1f6c8781f6be",
+    "competition/deepeye/docs/authority_gate_clearance.md": "373b53967453d55d7534256b43ccaccf34666b164261ae75c823118ae6a57fb8"
+  },
+  "geometry_dependency_sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+  "base_head_reported_by_main": "61e4f449001bd30c802f6cc992dede0d85127b3d",
+  "product_head_observed_after_work": "3b4736ff655b7fee35e79a5387f4118d1fff417c",
+  "scope_notes": [
+    "Only the three owned product files and this private evidence directory were written by this task.",
+    "Other workers/main advanced unrelated files and HEAD; all inherited/concurrent edits preserved.",
+    "No commit, push, service, board, ACL or external message operation was performed."
+  ],
+  "commands": [
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "command": "& .local/venv/Scripts/python.exe -B -X utf8 -m unittest discover -s .local/deepeye-implementation-a/competition/deepeye/tests/simulation -p test_gate_clearance.py -v",
+      "exit": 1,
+      "log": "red-first.txt",
+      "interpretation": "wrong cwd import ERROR; preserved, not effective TDD RED"
+    },
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "command": "& ../venv/Scripts/python.exe -B -X utf8 -m unittest discover -s competition/deepeye/tests/simulation -p test_gate_clearance.py -v",
+      "exit": 1,
+      "log": "red.txt",
+      "interpretation": "28 assertions failed because implementation missing; effective RED"
+    },
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "command": "& ../venv/Scripts/python.exe -B -X utf8 -m unittest discover -s competition/deepeye/tests/simulation -p test_gate_clearance.py -v",
+      "exit": 0,
+      "log": "green-first.txt",
+      "interpretation": "28 tests passed"
+    },
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "command": "& .local/venv/Scripts/python.exe -B -X utf8 .planning/deepeye-implementation-a/g06-fast-clearance-20261015/audit_gate_clearance.py",
+      "exit": 0,
+      "log": "audit-first-raw.txt",
+      "interpretation": "1024 independent formula/threshold checks; 9 mutation checks caught; performance distribution measured"
+    },
+    {
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "command": "& ../venv/Scripts/python.exe -B -X utf8 -m unittest discover -s competition/deepeye/tests/simulation -p test_gate*.py -v",
+      "exit": 0,
+      "log": "green-combined.txt",
+      "interpretation": "52 tests passed: 28 new + 24 existing geometry"
+    }
+  ],
+  "oracles": {
+    "finite_capsule_closed_forms": 256,
+    "sphere_and_cap_closed_forms": 256,
+    "whole_time_monotonic_arc_oracles": 256,
+    "cosine_threshold_checks": 256,
+    "minimum_export_slack_m": "6.996360210035356224438129362375473629971969675547906085596220382215543058297907867278234071714083593734E-18",
+    "maximum_endpoint_rounding_m": "8.87542712415296293361962340555489776349967630955552578321804853110324515562717158467812093418033427331594450831529937469E-16",
+    "precision": 120,
+    "oracle_uses_product_interval_helpers": false
+  },
+  "mutations": [
+    {
+      "mutation": "ignore_direction",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_uncertainty",
+      "caught": true,
+      "failures": 2,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_rotation_floor",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_rotation_cover",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_chord_cover",
+      "caught": true,
+      "failures": 3,
+      "errors": 0
+    },
+    {
+      "mutation": "ignore_end_position",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "ignore_slice_angle",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "remove_slice_angle_cap",
+      "caught": true,
+      "failures": 1,
+      "errors": 0
+    },
+    {
+      "mutation": "allow_contact",
+      "caught": true,
+      "failures": 2,
+      "errors": 0
+    }
+  ],
+  "performance_statistics": {
+    "section_warm": {
+      "n": 2048,
+      "median_ms": 0.1286,
+      "p95_ms": 0.1369,
+      "max_ms": 0.3406
+    },
+    "sweep_warm": {
+      "n": 2048,
+      "median_ms": 0.2339,
+      "p95_ms": 0.2582,
+      "max_ms": 0.6238
+    },
+    "section_new_inputs": {
+      "n": 2048,
+      "median_ms": 0.1553,
+      "p95_ms": 0.1691,
+      "max_ms": 0.3327
+    },
+    "sweep_new_inputs": {
+      "n": 2048,
+      "median_ms": 0.2628,
+      "p95_ms": 0.2871,
+      "max_ms": 0.8228
+    },
+    "section_cold_threshold": {
+      "n": 256,
+      "median_ms": 0.20945,
+      "p95_ms": 0.2347,
+      "max_ms": 0.4377
+    },
+    "sweep_cold_threshold": {
+      "n": 256,
+      "median_ms": 0.317,
+      "p95_ms": 0.3413,
+      "max_ms": 0.624
+    }
+  },
+  "limits": [
+    "Caller-supplied margins, arc length, curvature and whole-path rotation bounds are assumptions, not authenticated source evidence.",
+    "Actual B asset/pivot/greybox containment is not proved. Candidate capsule is not promoted to verified physical envelope.",
+    "No MotionStep adapter, gate phase machine, actual Godot cast/initial overlap/thin-layer/tail-scrape verification.",
+    "No 100Hz deadline guarantee, complete G06, game or board acceptance.",
+    "Separate-agent review is reserved/not_started because the four running-agent slots are occupied; main will resume the existing reviewer after this implementation turn releases its slot. Independent formulas here are mathematical checks run by the implementation agent."
+  ]
+}
