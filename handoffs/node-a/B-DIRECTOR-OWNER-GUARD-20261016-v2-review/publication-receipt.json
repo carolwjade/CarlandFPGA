@@ -1,0 +1,44 @@
+{
+  "tested_commit": "2057f51ae6fe54ad7a343510c29f27bc60e76d9b",
+  "operation_id": "B-DIRECTOR-OWNER-GUARD-20261016-v2",
+  "request_hash": "14c37945047e2cc53eebc1aae790ee258d2e6e9d337df819a63d57445ecf6c25",
+  "review_evidence_commit": "b172e139dbec53aab3847e8a2d094f79c65e38b6",
+  "comments": [
+    {
+      "pr": 29,
+      "id": 6210026394,
+      "url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6210026394",
+      "body_sha256": "0d8f50fe9637bc565e57f2c1506f41779c2b8767cdb6ae207d4fed6914d12a5f",
+      "readback_matches": true
+    }
+  ],
+  "current_pr_readback": {
+    "head": "dcace5700a334ab058522d45ccb6e1d78037f817",
+    "state": "open",
+    "tested_commit": "2057f51ae6fe54ad7a343510c29f27bc60e76d9b"
+  },
+  "notifications": [
+    {
+      "peer": "B",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-OWNER-GUARD-V2-REVIEW-2057f51-B-v1",
+      "duplicate": false
+    },
+    {
+      "peer": "C",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-OWNER-GUARD-V2-REVIEW-2057f51-C-v1",
+      "duplicate": false
+    },
+    {
+      "channel": "group",
+      "queued": true,
+      "operation_id": "A-OWNER-GUARD-V2-REVIEW-2057f51-GROUP-v1",
+      "role": "astra"
+    }
+  ],
+  "B_substantive_readback": "pending; transport delivery is not review acceptance",
+  "group_delivery": "queued only; no platform receipt claimed"
+}
