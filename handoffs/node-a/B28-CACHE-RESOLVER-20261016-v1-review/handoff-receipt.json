@@ -1,0 +1,46 @@
+{
+  "operation_id": "B28-CACHE-RESOLVER-20261016-v1",
+  "tested_commit": "069cdfbb478bfa67390c61b9d749cab90c5e8327",
+  "review_evidence_commit": "88de1fa9b297a28c2fc8a73efc69a72a3dba11fa",
+  "comments": [
+    {
+      "pr": 29,
+      "id": 6207560337,
+      "url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6207560337",
+      "body_sha256": "880bde5c845352c3a6bc1dfeda6644da73cedc1700f0e678dbb9a501a18f82d3",
+      "readback_matches": true
+    },
+    {
+      "pr": 28,
+      "id": 6207561117,
+      "url": "https://github.com/carolwjade/CarlandFPGA/pull/28#issuecomment-6207561117",
+      "body_sha256": "93e194c62de9f3cf83d90e2280d9763aea159eff4b50b2fb930674877db2c07b",
+      "readback_matches": true
+    }
+  ],
+  "notifications": [
+    {
+      "peer": "B",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-B28-CACHE-REVIEW-069cdfb-B-v1",
+      "duplicate": false
+    },
+    {
+      "peer": "C",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-B28-CACHE-REVIEW-069cdfb-C-v1",
+      "duplicate": false
+    },
+    {
+      "channel": "group",
+      "queued": true,
+      "operation_id": "A-B28-CACHE-REVIEW-069cdfb-GROUP-v1",
+      "role": "astra"
+    }
+  ],
+  "B_substantive_readback": "pending",
+  "group_actual_platform_delivery": "not_verified",
+  "state": "offline_review_published; not_merged_or_deployed"
+}
