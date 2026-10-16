@@ -1,5 +1,7 @@
 """Quantized kinematic reference vectors, separate from physical collision tests."""
 import importlib.util
+from dataclasses import asdict
+from decimal import Context, Inexact, Rounded, ROUND_DOWN, ROUND_UP, localcontext
 import math
 from pathlib import Path
 import sys
@@ -12,6 +14,39 @@ spec.loader.exec_module(motion)
 
 
 class MotionTests(unittest.TestCase):
+    def test_decimal_context_cannot_change_wire_speed_or_curvature(self):
+        expected = {name: [asdict(motion.validate(name, code, 0, 0))
+                           for code in range(21)]
+                    for name in ('fast_9600', 'stress_300')}
+        turning = asdict(motion.validate('fast_9600', 19, 6000, 0))
+        for context in (Context(prec=1, rounding=ROUND_DOWN),
+                        Context(prec=1, rounding=ROUND_UP),
+                        Context(prec=1, Emax=2, Emin=-2, traps=[Inexact, Rounded])):
+            with self.subTest(context=context), localcontext(context):
+                for name, commands in expected.items():
+                    for code, command in enumerate(commands):
+                        self.assertEqual(asdict(motion.validate(name, code, 0, 0)), command)
+                actual = motion.validate('fast_9600', 19, 6000, 0)
+                self.assertEqual(asdict(actual), turning)
+                self.assertLessEqual(math.hypot(actual.curvature_yaw_per_m,
+                                               actual.curvature_pitch_per_m), .5)
+
+    def test_cold_import_rom_ignores_decimal_rounding_traps_and_exponents(self):
+        isolated_name = 'deepeye_motion_hostile_context_test'
+        isolated_spec = importlib.util.spec_from_file_location(isolated_name, spec.origin)
+        isolated = importlib.util.module_from_spec(isolated_spec)
+        sys.modules[isolated_name] = isolated
+        try:
+            with localcontext(Context(prec=1, Emax=2, Emin=-2,
+                                      traps=[Inexact, Rounded])):
+                isolated_spec.loader.exec_module(isolated)
+                self.assertEqual(isolated.CURVATURE_LIMIT_SQUARED,
+                                 motion.CURVATURE_LIMIT_SQUARED)
+                self.assertEqual(asdict(isolated.validate('fast_9600', 19, 6000, 0)),
+                                 asdict(motion.validate('fast_9600', 19, 6000, 0)))
+        finally:
+            del sys.modules[isolated_name]
+
     def test_frozen_stress_axis_and_diagonal_boundaries(self):
         for yaw,pitch in ((57,0),(-57,0),(40,40),(-40,40)):
             motion.validate('stress_300',20,yaw,pitch)

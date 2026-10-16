@@ -5,7 +5,8 @@ nor executes a trajectory. World authority and FPGA must enforce the same vector
 independently, alongside observation age, actual capture and mode-specific leases.
 """
 from dataclasses import dataclass
-from decimal import Decimal, localcontext, ROUND_FLOOR
+from decimal import Decimal
+from fractions import Fraction
 import math
 
 SPEED_STEP = {'fast_9600': Decimal('0.0125'), 'stress_300': Decimal('0.0001')}
@@ -13,12 +14,13 @@ PI = Decimal('3.14159265358979323846264338327950288419716939937510')
 
 
 def _make_rom():
-    with localcontext() as context:
-        context.prec = 48
-        return {name: tuple(int(((Decimal(code)*step*180000/(2*PI))**2)
-                                .to_integral_value(rounding=ROUND_FLOOR))
-                            for code in range(21))
-                for name, step in SPEED_STEP.items()}
+    # Exact rational arithmetic keeps import and validation independent of a
+    # caller's Decimal precision, rounding mode, exponent bounds and traps.
+    def entry(code, step):
+        squared = (code * Fraction(step) * 180000 / (2 * Fraction(PI))) ** 2
+        return squared.numerator // squared.denominator
+    return {name: tuple(entry(code, step) for code in range(21))
+            for name, step in SPEED_STEP.items()}
 
 
 CURVATURE_LIMIT_SQUARED = _make_rom()
@@ -60,14 +62,15 @@ def validate(profile: str, speed_code: int, yaw_q: int, pitch_q: int) -> MotionC
     # Python integers are unbounded. Hardware implementations use >=64 bits.
     if yaw_q*yaw_q + pitch_q*pitch_q > limit:
         raise ValueError('quantized combined curvature exceeds 0.5 per metre')
-    target = float(SPEED_STEP[profile]*speed_code)
+    target = float(Fraction(SPEED_STEP[profile])*speed_code)
     if target == 0:
         # The zero ROM entry already requires both codes to be zero.
         yaw_curvature = pitch_curvature = 0.0
     else:
         yaw_curvature = yaw_q*math.pi/(180000*target)
         pitch_curvature = pitch_q*math.pi/(180000*target)
-    return MotionCommand(profile,target,yaw_curvature,pitch_curvature,float(SPEED_STEP[profile]*20))
+    return MotionCommand(profile,target,yaw_curvature,pitch_curvature,
+                         float(Fraction(SPEED_STEP[profile])*20))
 
 
 def step_speed(actual_m_s: float, target_m_s: float, dt_s: float) -> float:
