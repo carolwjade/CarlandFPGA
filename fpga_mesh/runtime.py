@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import errno
 import os
 import secrets
 import sys
@@ -225,6 +226,8 @@ class NodeRuntime:
         self._peer_retry_task: asyncio.Task | None = None
         self._peer_stop = asyncio.Event()
         self.peer_error: str | None = None
+        self.peer_bind_state = 'disabled'
+        self.peer_bind_error: str | None = None
         self._peer_presence: dict[str, bool | None] = {
             peer_id: None for peer_id in config.peer_urls
         }
@@ -265,7 +268,7 @@ class NodeRuntime:
             await self.main_control.start()
             await self.models_ui.start()
             if self.peer_server is not None:
-                await self.peer_server.start()
+                await self._start_peer_listener()
                 self._peer_stop.clear()
                 self._peer_retry_task = asyncio.create_task(
                     self._run_peer_retry(), name=f"fpga-peer-{self.config.node_id}",
@@ -325,6 +328,7 @@ class NodeRuntime:
             await self.astra_gateway.close()
         if self.peer_server is not None:
             await self.peer_server.close()
+            self.peer_bind_state = 'stopped'
         if self.hardware is not None:
             self.hardware.close()
         self.store.close()
@@ -345,8 +349,10 @@ class NodeRuntime:
             ),
             "network_enabled": self.peer is not None,
             "peer_listen_port": (
-                self.peer_server.port if self.peer_server and self.started else None
+                self.peer_server.port if self.peer_server and self.peer_server.listening else None
             ),
+            "peer_bind_state": self.peer_bind_state,
+            "peer_bind_error": self.peer_bind_error,
             "peer_error": self.peer_error,
             "peer_presence": dict(self._peer_presence),
             "feishu_enabled": self.feishu is not None,
@@ -506,10 +512,27 @@ class NodeRuntime:
             finally:
                 await self.feishu.stop()
 
+    async def _start_peer_listener(self) -> None:
+        assert self.peer_server is not None
+        try:
+            await self.peer_server.start()
+        except OSError as exc:
+            code = getattr(exc, 'winerror', None) or exc.errno
+            self.peer_bind_error = f'{type(exc).__name__}({code}): {exc}'
+            if code in (errno.EADDRNOTAVAIL, 10049):
+                self.peer_bind_state = 'waiting'
+                return
+            self.peer_bind_state = 'failed'
+            raise
+        self.peer_bind_state = 'listening'
+        self.peer_bind_error = None
+
     async def _run_peer_retry(self) -> None:
         assert self.peer is not None
         while not self._peer_stop.is_set():
             try:
+                if self.peer_bind_state == 'waiting':
+                    await self._start_peer_listener()
                 await self.peer.flush()
                 for peer_id in self.config.peer_urls:
                     self._note_peer_status(
@@ -528,18 +551,8 @@ class NodeRuntime:
                 pass
 
     def _note_peer_status(self, peer_id: str, online: bool) -> None:
-        previous = self._peer_presence.get(peer_id)
+        # Health observations stay internal; human queries use snapshot.
         self._peer_presence[peer_id] = online
-        if previous is online or self.feishu is None:
-            return
-        status = "上线" if online else "离线"
-        self.store.enqueue_group_report(
-            f"peer:{self.config.node_id}:{peer_id}:{uuid.uuid4().hex}",
-            f"Astra-{self.config.node_id} 观察到 Astra-{peer_id} {status}。"
-            + ("可继续交换任务和实测结果。" if online else
-               "本机继续独立推进；发给该节点的消息会排队补发。"),
-        )
-        self.feishu.notify_report()
 
     def _observe_quota(self, response: dict) -> None:
         state = self._quota_monitor.observe(

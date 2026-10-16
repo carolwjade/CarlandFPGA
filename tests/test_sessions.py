@@ -1,5 +1,6 @@
-"""Task isolation, quality guard and durable routing against a protocol boundary."""
+"""Task isolation, verified model choices and durable routing at the wire boundary."""
 import asyncio
+import json
 import tempfile
 import unittest
 from datetime import datetime, timezone
@@ -79,12 +80,27 @@ class SessionsTests(unittest.IsolatedAsyncioTestCase):
         self.assertNotEqual(a.output['thread_id'], b.output['thread_id'])
         self.assertEqual(a.output['thread_id'], again.output['thread_id'])
 
-    async def test_critical_work_upgrades_even_when_a_low_model_was_requested(self):
+    async def test_critical_text_preserves_explicit_next_turn_route(self):
         await self.gateway.handle(event('a'))
         await self.router.schedule_route(self.client, task_id='a', model='gpt-6-luna', effort='low', category='execution')
         result = await self.gateway.handle(event('a', '验收 CDC 关键优化并评估质量', 'acceptance'))
-        self.assertEqual(result.output['model'], 'gpt-6-astra')
-        self.assertEqual(result.output['reasoning_effort'], 'ultra')
+        self.assertEqual(result.output['model'], 'gpt-6-luna')
+        self.assertEqual(result.output['reasoning_effort'], 'low')
+
+    async def test_critical_categories_allow_any_verified_explicit_route(self):
+        for category in ('decision', 'acceptance', 'difficult', 'optimization', 'evaluation'):
+            with self.subTest(category=category):
+                await self.gateway.handle(event(category))
+                await self.router.schedule_route(self.client, task_id=category,
+                    model='gpt-6-luna', effort='low', category=category)
+                result = await self.gateway.handle(event(category, 'Review architecture', category))
+                self.assertEqual((result.output['model'], result.output['reasoning_effort']),
+                                 ('gpt-6-luna', 'low'))
+
+    async def test_critical_work_without_explicit_route_keeps_quality_default(self):
+        result = await self.gateway.handle(event('default-quality', '验收 CDC 架构', 'acceptance'))
+        self.assertEqual((result.output['model'], result.output['reasoning_effort']),
+                         ('gpt-6-astra', 'ultra'))
 
     async def test_current_session_changes_model_and_depth_on_next_turn(self):
         a = await self.gateway.handle(event('a'))
@@ -93,9 +109,9 @@ class SessionsTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(b.output['thread_id'], a.output['thread_id'])
         self.assertEqual((b.output['model'], b.output['reasoning_effort']), ('gpt-6.1-sol', 'high'))
 
-    async def test_invalid_route_and_downgrading_critical_work_are_rejected(self):
+    async def test_unverified_model_effort_and_unknown_category_are_rejected(self):
         await self.gateway.handle(event('a'))
-        for model, effort, category in [('deepseek-flash', 'max', 'execution'), ('gpt-6-luna', 'max', 'execution'), ('gpt-6-luna', 'low', 'decision')]:
+        for model, effort, category in [('deepseek-flash', 'max', 'execution'), ('gpt-6-luna', 'max', 'execution'), ('gpt-6-luna', 'low', 'unrecognized')]:
             with self.assertRaises(ValueError):
                 await self.router.schedule_route(self.client, task_id='a', model=model, effort=effort, category=category)
 
@@ -123,6 +139,39 @@ class SessionsTests(unittest.IsolatedAsyncioTestCase):
         await self.router.open_session(self.client, task_id='child-task', task_version=1, text='Run the bounded formatting operation', cwd=str(Path.cwd()), model='gpt-6.1-sol', effort='high', category='execution')
         result = await self.gateway.handle(event('child-task', 'Run the bounded formatting operation'))
         self.assertEqual((result.output['model'], result.output['reasoning_effort']), ('gpt-6.1-sol', 'high'))
+
+    async def test_explicit_new_session_route_survives_critical_text_and_category(self):
+        for category in ('execution', 'acceptance'):
+            with self.subTest(category=category):
+                task = 'explicit-critical-' + category
+                result = await self.router.open_session(self.client, task_id=task,
+                    task_version=1, text='验收架构并评估优化', cwd=str(Path.cwd()),
+                    model='gpt-6-luna', effort='low', category=category)
+                self.assertEqual((result['model'], result['effort']), ('gpt-6-luna', 'low'))
+                self.assertFalse(any(x[0] == 'turn/start' for x in self.wire.requests))
+                first = await self.gateway.handle(event(task, 'Review architecture', 'acceptance'))
+                self.assertEqual((first.output['model'], first.output['reasoning_effort']),
+                                 ('gpt-6-luna', 'low'))
+                self.wire.requests.clear()
+
+    async def test_explicit_route_survives_reconnect_then_is_consumed_once(self):
+        await self.gateway.handle(event('reconnect-route'))
+        await self.router.schedule_route(self.client, task_id='reconnect-route',
+            model='gpt-6.1-sol', effort='low', category='execution')
+        await self.gateway.close()
+        self.router.reset_connection()
+        self.wire = Wire()
+        self.client = AppServerClient(self.wire, client_version='test')
+        self.gateway.client_factory = lambda: self.client
+        result = await self.gateway.handle(event('reconnect-route', 'Review architecture', 'decision'))
+        self.assertEqual((result.output['model'], result.output['reasoning_effort']),
+                         ('gpt-6.1-sol', 'low'))
+        resumed = next(p for method, p in self.wire.requests if method == 'thread/resume')
+        self.assertEqual(resumed['model'], 'gpt-6.1-sol')
+        self.assertEqual(resumed['config']['model_reasoning_effort'], 'low')
+        next_result = await self.gateway.handle(event('reconnect-route', 'Another architecture review', 'decision'))
+        self.assertEqual((next_result.output['model'], next_result.output['reasoning_effort']),
+                         ('gpt-6-astra', 'ultra'))
 
     async def test_failed_turn_start_wakes_waiters_with_a_terminal_result(self):
         original = self.wire.request
@@ -216,6 +265,76 @@ class SessionsTests(unittest.IsolatedAsyncioTestCase):
         self.router.record(submitted['message_id'],'duplicate','completed',result={'text':'DONE'})
         await actions.call('main_submit',{**args,'model':'gpt-6.1-sol','effort':'high'})
         self.assertIsNone(self.router.db.execute("SELECT pending_json FROM main_sessions WHERE task_id='duplicate'").fetchone()[0])
+
+    async def test_desktop_owner_rejects_open_and_route_without_changing_saved_row(self):
+        await self.gateway.handle(event('desktop-owned'))
+        before = tuple(self.router.db.execute(
+            "SELECT * FROM main_sessions WHERE task_id='desktop-owned'").fetchone())
+        declaration = Path(self.tmp.name) / 'external-task-owners.json'
+        declaration.write_text(json.dumps({'desktop-owned': {
+            'owner_kind': 'desktop', 'thread_id': 'desktop-thread-current',
+        }}), encoding='utf-8')
+        self.wire.requests.clear()
+        with self.assertRaisesRegex(RuntimeError, 'owned by Desktop'):
+            await self.router.open_session(self.client, task_id='desktop-owned',
+                task_version=1, text='Review architecture', cwd=str(Path.cwd()))
+        with self.assertRaisesRegex(RuntimeError, 'owned by Desktop'):
+            await self.router.schedule_route(self.client, task_id='desktop-owned',
+                model='gpt-6.1-sol', effort='low')
+        self.assertEqual(tuple(self.router.db.execute(
+            "SELECT * FROM main_sessions WHERE task_id='desktop-owned'").fetchone()), before)
+        self.assertEqual(self.wire.requests, [])
+
+    async def test_desktop_owner_prevents_old_thread_resume_and_other_tasks_still_run(self):
+        await self.gateway.handle(event('desktop-owned'))
+        before = self.router.session('desktop-owned')
+        declaration = Path(self.tmp.name) / 'external-task-owners.json'
+        declaration.write_text(json.dumps({'desktop-owned': {
+            'owner_kind': 'desktop', 'thread_id': 'desktop-thread-current',
+        }}), encoding='utf-8')
+        await self.gateway.close()
+        self.router.reset_connection()
+        self.wire = Wire()
+        self.wire.sequence = 1
+        self.client = AppServerClient(self.wire, client_version='test')
+        self.gateway.client_factory = lambda: self.client
+        with self.assertRaisesRegex(RuntimeError, 'owned by Desktop'):
+            await self.gateway.handle(event('desktop-owned', 'late peer report'))
+        self.assertEqual(self.router.session('desktop-owned'), before)
+        self.assertFalse(any(method in {'thread/start', 'thread/resume', 'turn/start'}
+                             for method, _ in self.wire.requests))
+        self.assertTrue((await self.gateway.handle(event('independent-task'))).accepted)
+
+    async def test_desktop_owner_blocks_new_mesh_session_creation(self):
+        declaration = Path(self.tmp.name) / 'external-task-owners.json'
+        declaration.write_text(json.dumps({'new-desktop': {
+            'owner_kind': 'desktop', 'thread_id': 'desktop-thread-current',
+        }}), encoding='utf-8')
+        with self.assertRaisesRegex(RuntimeError, 'owned by Desktop'):
+            await self.router.open_session(self.client, task_id='new-desktop',
+                task_version=1, text='Review architecture', cwd=str(Path.cwd()))
+        self.assertIsNone(self.router.session('new-desktop'))
+        self.assertEqual(self.wire.requests, [])
+
+    async def test_invalid_external_ownership_file_fails_closed(self):
+        declaration = Path(self.tmp.name) / 'external-task-owners.json'
+        for contents in ('{', '[]', '{"x": {"owner_kind": "desktop", "thread_id": ""}}'):
+            with self.subTest(contents=contents):
+                declaration.write_text(contents, encoding='utf-8')
+                with self.assertRaises(ValueError):
+                    await self.router.open_session(self.client, task_id='unrelated',
+                        task_version=1, text='Reply exactly OK.', cwd=str(Path.cwd()))
+                self.assertIsNone(self.router.session('unrelated'))
+        self.assertEqual(self.wire.requests, [])
+
+    async def test_unreadable_external_ownership_file_is_not_ignored(self):
+        declaration = Path(self.tmp.name) / 'external-task-owners.json'
+        declaration.mkdir()
+        with self.assertRaises(OSError):
+            await self.router.open_session(self.client, task_id='unrelated',
+                task_version=1, text='Reply exactly OK.', cwd=str(Path.cwd()))
+        self.assertIsNone(self.router.session('unrelated'))
+        self.assertEqual(self.wire.requests, [])
 
 
 if __name__ == '__main__':

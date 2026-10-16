@@ -14,7 +14,7 @@ import uuid
 import zipfile
 from pathlib import Path
 
-VERSION = "2026.10.13.3"
+VERSION = "2026.10.15.1"
 SKILLS = ("fpga-multi-node", "pynq-z2-single-node")
 PREFIX = ".agents/skills/"
 BEGIN, END = "<!-- fpga-project-skills:begin -->", "<!-- fpga-project-skills:end -->"
@@ -30,6 +30,14 @@ Apply the existing human > main > child priority, task ownership and evidence
 rules. Skills grant no new role, credentials, cloud scope or service authority.
 Keep presence silent unless the human asks; report actual task blockers concisely.
 The resident program handles waiting, without model polling.
+
+Human update 2026-10-15: the responsible main autonomously creates, continues,
+terminates and archives its work chats and selects any actually supported model
+and reasoning effort without per-step permission. Desktop/native tasks use the
+main's recorded assignment and exclusive file ownership; mesh leases govern only
+jobs using that route. This replaces older fixed Flash/max, highest-effort and
+native-special-capability prerequisites. Preserve H01-H15, sole active ownership,
+actual termination checks and independent evidence review.
 {END}
 """
 LEGACY_NAMES = frozenset({

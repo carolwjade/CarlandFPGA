@@ -23,6 +23,7 @@ class MainSessionRouter:
     def __init__(self, path: str | Path, *, quality_model: str = 'gpt-6-astra'):
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
+        self.external_owners_path = path.parent / 'external-task-owners.json'
         self.db = sqlite3.connect(path, timeout=30)
         self.db.row_factory = sqlite3.Row
         self.db.execute('PRAGMA journal_mode=WAL')
@@ -89,8 +90,26 @@ class MainSessionRouter:
             raise ValueError('unknown work category')
         if model not in self._models or effort not in self._models[model]:
             raise ValueError('model/effort is not in the verified GPT catalog')
-        if category in CRITICAL and (model, effort) != self.best():
-            raise ValueError('critical work requires the quality main model at highest effort')
+
+    def _assert_mesh_owned(self, task_id: str) -> None:
+        """Honor an external owner without rewriting preserved mesh history."""
+        try:
+            declarations = json.loads(self.external_owners_path.read_text(encoding='utf-8'))
+        except FileNotFoundError:
+            return
+        if not isinstance(declarations, dict):
+            raise ValueError('external task ownership must be an object keyed by task ID')
+        for task, owner in declarations.items():
+            if (not task.strip() or not isinstance(owner, dict)
+                    or owner.get('owner_kind') != 'desktop'
+                    or not isinstance(owner.get('thread_id'), str)
+                    or not owner['thread_id'].strip()):
+                raise ValueError('external task ownership requires desktop owner_kind and thread_id')
+        owner = declarations.get(task_id)
+        if owner is not None:
+            raise RuntimeError(
+                f"task {task_id!r} is owned by Desktop thread {owner['thread_id']}; "
+                'use its existing Desktop entry point, not a mesh writer')
 
     async def choose(self, client, text: str, category: str | None = None) -> dict:
         await self.catalog(client)
@@ -117,11 +136,13 @@ class MainSessionRouter:
         return [self.session(r['task_id']) for r in self.db.execute('SELECT task_id FROM main_sessions ORDER BY updated_at')]
 
     async def schedule_route(self, client, *, task_id: str, model: str, effort: str, category: str = 'execution') -> dict:
+        self._assert_mesh_owned(task_id)
         await self.catalog(client)
         self.guard(model, effort, category)
         if self.session(task_id) is None:
             raise KeyError('main task session is not registered')
         route = {'model': model, 'effort': effort, 'category': category}
+        self._assert_mesh_owned(task_id)
         with self.db:
             self.db.execute('UPDATE main_sessions SET pending_json=?, updated_at=? WHERE task_id=?', (json.dumps(route), now(), task_id))
         return {'task_id': task_id, **route, 'applies': 'next_turn'}
@@ -133,6 +154,7 @@ class MainSessionRouter:
         if not task_id.strip() or task_version < 1 or not text.strip():
             raise ValueError('task_id, positive version and text are required')
         async with self._allocation:
+            self._assert_mesh_owned(task_id)
             existing = self.session(task_id)
             if existing:
                 return {**existing, 'created': False}
@@ -140,13 +162,12 @@ class MainSessionRouter:
             if model is not None or effort is not None:
                 if model is None or effort is None:
                     raise ValueError('model and effort must be specified together')
-                # Explicit execution routes are permitted; critical categories never downgrade.
+                # The main's supported explicit choice takes precedence over defaults.
                 route = {'model': model, 'effort': effort, 'category': category or 'execution'}
                 self.guard(**route)
-                if IMPORTANT.search(text) and (model, effort) != self.best():
-                    raise ValueError('critical task text cannot be downgraded')
             thread_config = dict(config or {})
             thread_config['model_reasoning_effort'] = route['effort']
+            self._assert_mesh_owned(task_id)
             started = await client.thread_start(cwd=cwd, model=route['model'], model_provider='openai',
                 config=thread_config, dynamic_tools=dynamic_tools, developer_instructions=developer_instructions)
             thread_id = started['thread']['id']
@@ -164,6 +185,7 @@ class MainSessionRouter:
             return {**self.session(task_id), 'created': True}
 
     async def prepare(self, client, message, *, cwd, config=None, dynamic_tools=None, developer_instructions=None) -> dict:
+        self._assert_mesh_owned(message.task_id)
         text = str(message.payload.get('text', message.message_id))
         row = await self.open_session(client, task_id=message.task_id, task_version=message.task_version,
             text=text, cwd=cwd, category=message.payload.get('category'), config=config,
@@ -172,9 +194,10 @@ class MainSessionRouter:
             raise ValueError('stale main task version')
         chosen = await self.choose(client, text, message.payload.get('category'))
         pending = self.db.execute('SELECT pending_json FROM main_sessions WHERE task_id=?', (message.task_id,)).fetchone()[0]
-        if pending and not IMPORTANT.search(text) and message.payload.get('category') not in CRITICAL:
+        if pending:
             chosen = json.loads(pending)
             self.guard(**chosen)
+        self._assert_mesh_owned(message.task_id)
         if row['thread_id'] not in self._loaded:
             await client.session.request('thread/resume', {
                 'threadId': row['thread_id'], 'cwd': cwd, 'model': chosen['model'], 'modelProvider': 'openai',
@@ -182,6 +205,7 @@ class MainSessionRouter:
                 'developerInstructions': developer_instructions,
             })
             self._loaded.add(row['thread_id'])
+        self._assert_mesh_owned(message.task_id)
         with self.db:
             self.db.execute('UPDATE main_sessions SET task_version=?,model=?,effort=?,category=?,pending_json=NULL,updated_at=? WHERE task_id=?',
                 (message.task_version, chosen['model'], chosen['effort'], chosen['category'], now(), message.task_id))

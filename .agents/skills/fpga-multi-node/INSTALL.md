@@ -1,6 +1,6 @@
 # 两技能项目安装与升级
 
-版本 `2026.10.13.3`：项目只配置 fpga-multi-node 与 pynq-z2-single-node。A 主机包允许 A，B/C 共用包按本机既有 node_id 选择 B 或 C；不另建全局技能。解压到临时目录，从解压根使用实际 Python 3.12+：
+版本 `2026.10.15.1`：项目只配置 fpga-multi-node 与 pynq-z2-single-node。A 主机包允许 A，B/C 共用包按本机既有 node_id 选择 B 或 C；不另建全局技能。解压到临时目录，从解压根使用实际 Python 3.12+：
 
 ```powershell
 python -X utf8 .agents/skills/fpga-multi-node/scripts/install.py --project-root <现有项目绝对路径> --node A --cleanup-legacy
@@ -14,8 +14,8 @@ python -X utf8 .agents/skills/fpga-multi-node/scripts/install.py --project-root 
 两个角色 ZIP 从干净、已提交、跟踪的源码构建：
 
 ```powershell
-python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/skills-2026.10.13.3-a.zip
-python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/skills-2026.10.13.3-bc.zip
+python -m fpga_mesh.distribution --profile project-skills-a --output artifacts/skills-2026.10.15.1-a.zip
+python -m fpga_mesh.distribution --profile project-skills-bc --output artifacts/skills-2026.10.15.1-bc.zip
 ```
 
 B/C 上线后读取新版本与 SHA-256，保存本地改动，在现有项目执行安装和旧残留清理，然后回报本机 node_id、revision、两个技能文件哈希、清理结果与新会话入口。只有发送/ACK 不能称已更新。使用既有持久通信，API 不可用按协作协议的替代链路处理。
