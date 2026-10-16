@@ -1,0 +1,49 @@
+{
+  "tested_commit": "069cdfbb478bfa67390c61b9d749cab90c5e8327",
+  "source_commit": "3d92c8c4afd5174dda15330deb9f8931a41b9fd7",
+  "operation_id": "B28-CACHE-RESOLVER-20261016-v1",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "handoff_task_id": "B-RUNTIME-CONTINUITY-20261016",
+  "task_version": 1,
+  "request_hash": "143acc3923a92f1e950ca30d3a2b9af8be038adcf9c9f98bb9366611cdc469fa",
+  "manifest_sha256": "f5c7e902af0825be44fcb8938a805b0fa07704a51ba142620d1ea69ab5b98ce1",
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "decision": "B28-R1_OFFLINE_ACCEPTED",
+  "main_review": "No actionable defect in scoped cache-binding delta; original two independent reproductions now pass. Main inspected exact diff and separate native report.",
+  "manifest_files_verified": 11,
+  "standard_handoff_verifier": {
+    "valid": true,
+    "files_checked": 11,
+    "exit_code": 0
+  },
+  "software_regression": {
+    "tests": 77,
+    "seconds": 2.666,
+    "exit_code": 0,
+    "python": "3.12.14"
+  },
+  "original_R1_independent_checks": {
+    "tests": 2,
+    "seconds": 0.121,
+    "exit_code": 0
+  },
+  "stages": {
+    "cache_delta_code_review": "passed",
+    "offline_resolver_validation": "passed",
+    "entire_PR29_continuity_acceptance": "not_run",
+    "live_reconnect": "not_run",
+    "service_deployment": "not_run",
+    "merge": "not_run",
+    "RTL_simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "physical_board": "not_run",
+    "product_acceptance": "not_run"
+  },
+  "limits": [
+    "Mocked atomic publication race only; real concurrent launcher experiment not run.",
+    "Fixture bytes are non-executable; passing resolver tests do not prove real Code Mode or app-server reconnection.",
+    "No same-user tamper resistance or check-to-launch race elimination claimed.",
+    "Prior cab13dc continuity tests and A27 compatibility results are not transferred to this head."
+  ]
+}
