@@ -1,0 +1,157 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "godot_independent_review_receipt",
+      "sha256": "ff3d9032a212487e3e41a4ee41a641d8cd232a8367ca1777101b80ffc8b46b57",
+      "size": 30892
+    },
+    {
+      "alias": "godot_analysis_summary_input",
+      "sha256": "f5f7e3cdceb97ec27751c5269fd101508c973c490b85ed883145b716c9a7f29b",
+      "size": 107374
+    },
+    {
+      "alias": "godot_independent_review_report",
+      "sha256": "21b260e229ee1d78ab8e5def90df5be112522b554612555a07d279eabb89e7fd",
+      "size": 10842
+    }
+  ],
+  "omitted_fields": [
+    "job_id",
+    "agent_id",
+    "native_completion",
+    "absolute command/project paths",
+    "private artifact path keys"
+  ],
+  "engine_binary_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "engine_reported_version": "4.7.2.stable.official.ed1daf0bf",
+  "contract_checks": {
+    "fixtures_per_backend": 45,
+    "checks_per_backend": 178,
+    "backends": 3,
+    "failures": 0,
+    "editor_checks": 696,
+    "editor_failures": 0,
+    "claim": "fail-closed contract tests only; not continuous collision acceptance"
+  },
+  "independent_stats": {
+    "default": {
+      "raw": {
+        "cases": 23,
+        "contacts": 12,
+        "misses": [
+          "grazing_rho_0.0_um_-100.0",
+          "grazing_rho_0.0_um_-10.0",
+          "grazing_rho_0.0_um_-2.0",
+          "grazing_rho_0.0_um_-1.0",
+          "grazing_rho_0.0_um_0.0",
+          "grazing_rho_0.0005_um_-1.0"
+        ],
+        "false_positives": [
+          "grazing_rho_0.0_um_1.0",
+          "grazing_rho_0.0005_um_0.0",
+          "grazing_rho_0.0005_um_1.0",
+          "grazing_rho_0.0005_um_2.0",
+          "grazing_rho_0.0005_um_10.0"
+        ],
+        "max_late_m": "0.2913174111844484176785682129091856774253548471860003295517281911314842775322224334916808502359562384",
+        "max_early_m": "0.0064154288257310590536563280333876007794662103377852474382434827315358054073556009968852571566431866"
+      },
+      "adapter": {
+        "cases": 23,
+        "contacts": 13,
+        "misses": [
+          "grazing_rho_0.0_um_-10.0",
+          "grazing_rho_0.0_um_-2.0",
+          "grazing_rho_0.0_um_-1.0",
+          "grazing_rho_0.0_um_0.0",
+          "grazing_rho_0.0005_um_-100.0",
+          "grazing_rho_0.0005_um_-1.0",
+          "grazing_rho_0.0005_um_0.0"
+        ],
+        "false_positives": [
+          "grazing_rho_0.0005_um_1.0",
+          "grazing_rho_0.0005_um_2.0"
+        ],
+        "max_late_m": "0.2913187587677065059346395952182464505732365097930844145715837265628927894315881688398198178826335714",
+        "max_early_m": "0.0064153188390583061037438571581511565824720477310473169992157489411958898227933924834098649405015608"
+      }
+    },
+    "godot": {
+      "raw": {
+        "cases": 23,
+        "contacts": 12,
+        "misses": [
+          "grazing_rho_0.0_um_-100.0",
+          "grazing_rho_0.0_um_-10.0",
+          "grazing_rho_0.0_um_-2.0",
+          "grazing_rho_0.0_um_-1.0",
+          "grazing_rho_0.0_um_0.0",
+          "grazing_rho_0.0005_um_-1.0"
+        ],
+        "false_positives": [
+          "grazing_rho_0.0_um_1.0",
+          "grazing_rho_0.0005_um_0.0",
+          "grazing_rho_0.0005_um_1.0",
+          "grazing_rho_0.0005_um_2.0",
+          "grazing_rho_0.0005_um_10.0"
+        ],
+        "max_late_m": "0.2913174111844484176785682129091856774253548471860003295517281911314842775322224334916808502359562384",
+        "max_early_m": "0.0064154288257310590536563280333876007794662103377852474382434827315358054073556009968852571566431866"
+      },
+      "adapter": {
+        "cases": 23,
+        "contacts": 13,
+        "misses": [
+          "grazing_rho_0.0_um_-10.0",
+          "grazing_rho_0.0_um_-2.0",
+          "grazing_rho_0.0_um_-1.0",
+          "grazing_rho_0.0_um_0.0",
+          "grazing_rho_0.0005_um_-100.0",
+          "grazing_rho_0.0005_um_-1.0",
+          "grazing_rho_0.0005_um_0.0"
+        ],
+        "false_positives": [
+          "grazing_rho_0.0005_um_1.0",
+          "grazing_rho_0.0005_um_2.0"
+        ],
+        "max_late_m": "0.2913187587677065059346395952182464505732365097930844145715837265628927894315881688398198178826335714",
+        "max_early_m": "0.0064153188390583061037438571581511565824720477310473169992157489411958898227933924834098649405015608"
+      }
+    },
+    "jolt": {
+      "raw": {
+        "cases": 23,
+        "contacts": 12,
+        "misses": [],
+        "false_positives": [],
+        "max_late_m": "0",
+        "max_early_m": "0.0018542623272254495475800113406957709928865315973044009876404273988143401229796288485519183657580058"
+      },
+      "adapter": {
+        "cases": 23,
+        "contacts": 13,
+        "misses": [
+          "grazing_rho_0.0005_um_0.0"
+        ],
+        "false_positives": [],
+        "max_late_m": "0",
+        "max_early_m": "0.0018523870701838064415920633091248702609054591047209688857911675540125951660308565308283081632172690"
+      }
+    }
+  },
+  "godotphysics_adapter_max_late_m": "0.2913187587677065059346395952182464505732365097930844145715837265628927894315881688398198178826335714",
+  "default_and_explicit_godot_queries_identical": true,
+  "jolt_remaining_miss": "strict exact tangency, not positive penetration; one of13 adapter contacts",
+  "independent_direct_space_rows": 138,
+  "oracle": "exact rational full capsule axis segment to solid AABB;240 bisections; Decimal only formatting",
+  "oracle_domain": "fixed-axis +Z translation fixtures; not arbitrary shapes/rotation/world proof",
+  "raw_analysis": "../raw/godot/independent-analysis.json",
+  "motion_authorized": false,
+  "G06": "not_run",
+  "rotational_CCD": "not_run",
+  "performance_100Hz": "not_run",
+  "hardware": "not_run"
+}

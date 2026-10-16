@@ -1,0 +1,133 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "isolation_initial_fix_os_binding",
+      "sha256": "394b8f6c51779bb8807e6d531668533e39947c73544d89bd69e26f739614bcce",
+      "size": 1876
+    },
+    {
+      "alias": "isolation_final_source_snapshot",
+      "sha256": "cfae93e7ac72a65383a000cc939f3ca9aef42590cc1d9a2f638e83b0ab67f67a",
+      "size": 861
+    },
+    {
+      "alias": "godot_independent_review_receipt",
+      "sha256": "ff3d9032a212487e3e41a4ee41a641d8cd232a8367ca1777101b80ffc8b46b57",
+      "size": 30892
+    }
+  ],
+  "omitted_fields": [],
+  "source_commit": "9265327b76c5354581e90bbfc4709355761c2dbe",
+  "committed_files": [
+    {
+      "path": "competition/deepeye/docs/godot_collision_probe.md",
+      "size": 12616,
+      "sha256": "8d301f8ee7417e376eaa186ceb75216414c521d2800f61e9506376165f556d4d",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/docs/process_isolation_prototype.md",
+      "size": 10276,
+      "sha256": "da889d3335d7981882e6d14ee6eb63af2262211ce213d70c985529d627f15ff3",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulation/isolation/__init__.py",
+      "size": 80,
+      "sha256": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulation/isolation/fixture.py",
+      "size": 2287,
+      "sha256": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulation/isolation/policy.py",
+      "size": 6507,
+      "sha256": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulation/isolation/prototype.py",
+      "size": 14286,
+      "sha256": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulation/isolation/win32.py",
+      "size": 14506,
+      "sha256": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulator/physics/motion_cast.gd",
+      "size": 6112,
+      "sha256": "c71d8123bb8b48e16692faa45623d9075f4ebd00efd86d6bb199ca94bfd3d1b3",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_motion_cast.gd",
+      "size": 13722,
+      "sha256": "6980f82bfbf8faf8217d0b24a8337a54b473eb1ce6286b337ab872b55ed9b057",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/tests/isolation/test_policy.py",
+      "size": 9894,
+      "sha256": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    },
+    {
+      "path": "competition/deepeye/tests/isolation/test_windows_live.py",
+      "size": 2486,
+      "sha256": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00",
+      "archive_commit": "9265327b76c5354581e90bbfc4709355761c2dbe"
+    }
+  ],
+  "isolation_initial_windows_sources": {
+    "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+    "simulation/isolation/policy.py": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+    "simulation/isolation/prototype.py": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+    "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+    "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+    "tests/isolation/test_policy.py": "5ca88eaa7476c3be50d65cb5413fdea7e059cc41dcf930a000a29ccd866950bf",
+    "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00",
+    "docs/process_isolation_prototype.md": "ec2e8d05862d1ae76959f0e485bf9089158623bf79b27a68a8011b8e8484c95b"
+  },
+  "isolation_final_parser_helper_sources": {
+    "simulation/isolation/fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+    "simulation/isolation/policy.py": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2",
+    "simulation/isolation/prototype.py": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05",
+    "simulation/isolation/win32.py": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8",
+    "simulation/isolation/__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+    "tests/isolation/test_policy.py": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824",
+    "tests/isolation/test_windows_live.py": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00",
+    "docs/process_isolation_prototype.md": "f79e9684fe51975f50a06d80d6ab6dd3d8da5da92f498d7bfc0cbf91cd8f2fde"
+  },
+  "godot_run_recorded_git_head": "3b4736ff655b7fee35e79a5387f4118d1fff417c",
+  "godot_execution_binding": "working-tree source hashes below; the later archive commit is not relabeled as an execution commit",
+  "godot_reviewed_sources": {
+    "simulator/physics/motion_cast.gd": "c71d8123bb8b48e16692faa45623d9075f4ebd00efd86d6bb199ca94bfd3d1b3",
+    "simulator/tests/test_motion_cast.gd": "6980f82bfbf8faf8217d0b24a8337a54b473eb1ce6286b337ab872b55ed9b057",
+    "docs/godot_collision_probe.md": "aa9bff7c9f5cf2a8e4dd87e844e6ccc14bb2462e331c8e737f3b71a70956d98c"
+  },
+  "documentation_updates": [
+    {
+      "path": "competition/deepeye/docs/process_isolation_prototype.md",
+      "reviewed_snapshot_sha256": "f79e9684fe51975f50a06d80d6ab6dd3d8da5da92f498d7bfc0cbf91cd8f2fde",
+      "committed_sha256": "da889d3335d7981882e6d14ee6eb63af2262211ce213d70c985529d627f15ff3",
+      "classification": "post-independent-review factual explanation correction under director ownership; not executable-source drift"
+    },
+    {
+      "path": "competition/deepeye/docs/godot_collision_probe.md",
+      "reviewed_snapshot_sha256": "aa9bff7c9f5cf2a8e4dd87e844e6ccc14bb2462e331c8e737f3b71a70956d98c",
+      "committed_sha256": "8d301f8ee7417e376eaa186ceb75216414c521d2800f61e9506376165f556d4d",
+      "classification": "post-independent-review factual explanation correction under director ownership; not executable-source drift"
+    }
+  ],
+  "unchanged_executable_source_hashes_verified": true
+}

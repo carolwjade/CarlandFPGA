@@ -1,0 +1,206 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "runner_delivery_receipt",
+      "sha256": "5eba2cb8d41a57025089c4d0928f06908d1f7d88626b72f17f49a6de783edd5a",
+      "size": 4225
+    },
+    {
+      "alias": "runner_delivery_report",
+      "sha256": "c8d142c649469244829dac4585483e93ee60d1d8d1937db706fa739faba81f25",
+      "size": 4339
+    },
+    {
+      "alias": "runner_reference_report",
+      "sha256": "7fcb6b2c381f2afab1988ee3ab0434cf2b17b989c5207d140b088b44495b8cbc",
+      "size": 13521
+    },
+    {
+      "alias": "runner_formal_report",
+      "sha256": "08f4f582bcb4796756520d892a85ba8a18ad0bc99a5b6b0c6e8f394f7d843795",
+      "size": 9541
+    },
+    {
+      "alias": "runner_red_command",
+      "sha256": "c2e5ef1bbecdf06ef47688b477c047810dbbb20d3753844feda2e631070c5e6f",
+      "size": 856
+    },
+    {
+      "alias": "runner_green_all_command",
+      "sha256": "2000d81c07ed203bbba1d1b3db8f673506e825b9b38aef2668d6c1e61386503a",
+      "size": 1107
+    },
+    {
+      "alias": "runner_green_focused_command",
+      "sha256": "9eae0a11ed4b4090b443132fcd42d0b7cbeba3d42cbb168df674b0d07f34423f",
+      "size": 856
+    },
+    {
+      "alias": "runner_reference_command",
+      "sha256": "afc76fade71c572b93a5b4400cccbb1f95003ca4a2b0032e0c46a333725920a2",
+      "size": 1635
+    },
+    {
+      "alias": "runner_formal_command",
+      "sha256": "fcf3a50ae581b3716261764db3c181154b2f7c6df734348c046aefe8eef216a6",
+      "size": 1604
+    }
+  ],
+  "omitted_fields": [
+    "job_id",
+    "agent_id",
+    "absolute argv/cwd/report paths",
+    "environment overrides",
+    "thread identity",
+    "run directory",
+    "raw source-path keys from runtime reports"
+  ],
+  "source_commit": "5ab3b3e49c95051b998b672db7de7406b34433fd",
+  "committed_source_files": [
+    {
+      "path": "competition/deepeye/docs/game_verification_runner.md",
+      "size": 8417,
+      "sha256": "80c14fac2c22080dc8067270637dce33d707885411d8a7e460e2e07dc93de587",
+      "archive_commit": "5ab3b3e49c95051b998b672db7de7406b34433fd"
+    },
+    {
+      "path": "competition/deepeye/tests/test_verify_game.py",
+      "size": 14056,
+      "sha256": "b1edd95b098536c8c392c0e70ae7d9d3edfa1604e68d2c6718bb6ccc9b832fa1",
+      "archive_commit": "5ab3b3e49c95051b998b672db7de7406b34433fd"
+    },
+    {
+      "path": "competition/deepeye/tools/verify_game.py",
+      "size": 21659,
+      "sha256": "bf5fb212e1d8e0bc53a9ab646aaea37e71742f914d11fbde2712172cdcd1a2a2",
+      "archive_commit": "5ab3b3e49c95051b998b672db7de7406b34433fd"
+    }
+  ],
+  "native_delivery_starting_head": "9265327b76c5354581e90bbfc4709355761c2dbe",
+  "source_note": "two Python sources bound by native receipt; main also updated existing game_verification_runner.md at the archive commit",
+  "red": {
+    "tests": 3,
+    "failures": 2,
+    "exit_code": 1
+  },
+  "green": {
+    "focused": 3,
+    "runner_behavior": 22,
+    "policy_in_persisted_reference": 14
+  },
+  "reference_mode": {
+    "status": "reference_passed",
+    "exit_code": 0,
+    "suite_commands": 1,
+    "policy_unit_tests": 14,
+    "only_staged_file": "test_policy.py",
+    "live_test_staged": false,
+    "live_environment_trigger_test_passed": true,
+    "formal_acceptance": false,
+    "live_os_probes_run": false,
+    "historical_windows_evidence_revalidated": false,
+    "changed_sources": [],
+    "changed_staged_sources": []
+  },
+  "formal_mode": {
+    "status": "blocked",
+    "exit_code": 2,
+    "suite_commands": 0,
+    "formal_acceptance": false,
+    "live_os_probes_run": false,
+    "historical_windows_evidence_revalidated": false
+  },
+  "command_records": [
+    {
+      "stage": "red",
+      "argv_redacted": [
+        "[PYTHON_INTERPRETER_BOUND_IN_PRIVATE_RECORD]",
+        "-B",
+        "-X",
+        "utf8",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "-v",
+        "RunnerBehaviorTests.test_secrecy_reference_selects_only_policy_when_live_environment_is_set",
+        "RunnerBehaviorTests.test_secrecy_binds_all_p1a_source_and_test_dependencies",
+        "RunnerBehaviorTests.test_formal_secrecy_stays_blocked_with_live_environment"
+      ],
+      "exit_code": 1,
+      "private_command_sha256": "c2e5ef1bbecdf06ef47688b477c047810dbbb20d3753844feda2e631070c5e6f"
+    },
+    {
+      "stage": "green-all",
+      "argv_redacted": [
+        "[PYTHON_INTERPRETER_BOUND_IN_PRIVATE_RECORD]",
+        "-B",
+        "-X",
+        "utf8",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "-v"
+      ],
+      "exit_code": 0,
+      "private_command_sha256": "2000d81c07ed203bbba1d1b3db8f673506e825b9b38aef2668d6c1e61386503a"
+    },
+    {
+      "stage": "green-focused",
+      "argv_redacted": [
+        "[PYTHON_INTERPRETER_BOUND_IN_PRIVATE_RECORD]",
+        "-B",
+        "-X",
+        "utf8",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "-v",
+        "RunnerBehaviorTests.test_secrecy_reference_selects_only_policy_when_live_environment_is_set",
+        "RunnerBehaviorTests.test_secrecy_binds_all_p1a_source_and_test_dependencies",
+        "RunnerBehaviorTests.test_formal_secrecy_stays_blocked_with_live_environment"
+      ],
+      "exit_code": 0,
+      "private_command_sha256": "9eae0a11ed4b4090b443132fcd42d0b7cbeba3d42cbb168df674b0d07f34423f"
+    },
+    {
+      "stage": "reference",
+      "argv_redacted": [
+        "[PYTHON_INTERPRETER_BOUND_IN_PRIVATE_RECORD]",
+        "-B",
+        "-X",
+        "utf8",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "--suite",
+        "secrecy",
+        "--evidence-dir",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "--reference-only"
+      ],
+      "exit_code": 0,
+      "private_command_sha256": "afc76fade71c572b93a5b4400cccbb1f95003ca4a2b0032e0c46a333725920a2"
+    },
+    {
+      "stage": "formal",
+      "argv_redacted": [
+        "[PYTHON_INTERPRETER_BOUND_IN_PRIVATE_RECORD]",
+        "-B",
+        "-X",
+        "utf8",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]",
+        "--suite",
+        "secrecy",
+        "--evidence-dir",
+        "[PRIVATE_SCRIPT_OR_EVIDENCE_PATH]"
+      ],
+      "exit_code": 2,
+      "private_command_sha256": "fcf3a50ae581b3716261764db3c181154b2f7c6df734348c046aefe8eef216a6"
+    }
+  ],
+  "historical_R03_context": {
+    "discovered": 245,
+    "passed": 244,
+    "intentional_skip": 1,
+    "rerun_in_this_publication": false,
+    "status": "historical checkpoint context only; full R03 not rerun"
+  },
+  "test_reruns_in_this_publication": 0,
+  "G03": "not_run",
+  "R03": "not_run",
+  "hardware": "not_run"
+}

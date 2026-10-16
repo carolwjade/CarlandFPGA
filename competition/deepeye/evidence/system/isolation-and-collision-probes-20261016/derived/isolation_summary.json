@@ -1,0 +1,205 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "isolation_fix_review_receipt",
+      "sha256": "c83d761e0847850aedacd51ddc87cb499b247458129fc3b3b9b16f28b7935e0b",
+      "size": 4343
+    },
+    {
+      "alias": "isolation_initial_fix_os_binding",
+      "sha256": "394b8f6c51779bb8807e6d531668533e39947c73544d89bd69e26f739614bcce",
+      "size": 1876
+    },
+    {
+      "alias": "isolation_original_independent_receipt",
+      "sha256": "9f2ffefe5f5b39c4c4223c570d9f80bd0e78d400a2b3f707f6db91736b7c4c83",
+      "size": 3823
+    },
+    {
+      "alias": "isolation_final_bounded_results",
+      "sha256": "1031214c05f9ca6f28a2f6e95e29cd2e31bb857549f1b92895c5e0f2b0bf0dbc",
+      "size": 403
+    },
+    {
+      "alias": "isolation_cleanup_readback",
+      "sha256": "2fc90d7eefcbcd2af92b269dc109ac528e6f2e9a00f7f9047547d350c2d95834",
+      "size": 3452
+    },
+    {
+      "alias": "isolation_unknown_crash_private_run_receipt",
+      "sha256": "1b089c54935a75f92cfc034691b4d7646aacb6ff3ee46ada1732844509cde243",
+      "size": 5873
+    },
+    {
+      "alias": "isolation_timeout_private_run_receipt",
+      "sha256": "e6b1da4ae097db1a5e2a61cca2fd9bb08d470e6906d4361e96daf255145cff9d",
+      "size": 5926
+    },
+    {
+      "alias": "isolation_normal_private_run_receipt",
+      "sha256": "8e523f3fc7c39def8aad015439ba40f17b60253a1521da2b1f6dca9935e5d42c",
+      "size": 5767
+    }
+  ],
+  "omitted_fields": [
+    "job_id",
+    "agent_id",
+    "private absolute paths",
+    "profile names and SID values",
+    "process/thread/handle object identities",
+    "runtime manifests",
+    "environment detail",
+    "raw receipt object identity fields"
+  ],
+  "claim_scope": "bounded CPU P1a prototype evidence only",
+  "stages": [
+    {
+      "stage": "original independent review before repair",
+      "policy_sha256": "4bc92f36d1d4c7d82ab2a10258fa4e377e6fdd139803ee0c61a11e3aceb646a7",
+      "historical_findings": [
+        {
+          "id": "F01",
+          "summary": "Nonfatal complete branch overwrites failed or contradictory preceding control evidence",
+          "status_at_that_stage": "reproduced_director_accepted_for_repair"
+        },
+        {
+          "id": "F02",
+          "summary": "Inherited directory ACL propagates through hardlinked descendant outside logical run_root",
+          "status_at_that_stage": "reproduced_director_accepted_for_repair"
+        }
+      ],
+      "new_execution_in_this_publication": false
+    },
+    {
+      "stage": "initial main fix with actual Windows execution",
+      "policy_sha256": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+      "policy_helper_tests": 13,
+      "windows_live_tests": 2,
+      "combined_existing_tests": 15,
+      "additional_unknown_RuntimeError_run": 1,
+      "cleanup_runs": 3,
+      "new_execution_in_this_publication": false
+    },
+    {
+      "stage": "final JSON policy supplement",
+      "policy_sha256": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2",
+      "protocol_cases": 12,
+      "policy_helper_tests": 14,
+      "new_os_experiments": 0,
+      "final_policy_windows_rerun": "not_run"
+    }
+  ],
+  "initial_windows_runs": [
+    {
+      "run_alias": "unknown_crash",
+      "private_receipt_sha256": "1b089c54935a75f92cfc034691b4d7646aacb6ff3ee46ada1732844509cde243",
+      "policy_sha256": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+      "verdict": {
+        "passed": false,
+        "failures": [
+          "fixture.model_ok",
+          "fixture.pipe_ok",
+          "fixture.truth_open_error",
+          "canary_denial_and_exit_status",
+          "process_access.8",
+          "process_access.16",
+          "process_access.32",
+          "process_access.64",
+          "process_access.128",
+          "launcher_error"
+        ],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "lifecycle": {
+        "terminal": true,
+        "exit_code": 1,
+        "profile_delete_hresult": "0x00000000",
+        "profile_directory_absent": true,
+        "profile_deleted": true
+      },
+      "terminated_by_launcher": false
+    },
+    {
+      "run_alias": "timeout",
+      "private_receipt_sha256": "e6b1da4ae097db1a5e2a61cca2fd9bb08d470e6906d4361e96daf255145cff9d",
+      "policy_sha256": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+      "verdict": {
+        "passed": false,
+        "failures": [
+          "fixture.model_ok",
+          "fixture.pipe_ok",
+          "fixture.truth_open_error",
+          "canary_denial_and_exit_status",
+          "process_access.8",
+          "process_access.16",
+          "process_access.32",
+          "process_access.64",
+          "process_access.128",
+          "launcher_error"
+        ],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "lifecycle": {
+        "terminal": true,
+        "exit_code": 57005,
+        "profile_delete_hresult": "0x00000000",
+        "profile_directory_absent": true,
+        "profile_deleted": true
+      },
+      "terminated_by_launcher": true
+    },
+    {
+      "run_alias": "normal",
+      "private_receipt_sha256": "8e523f3fc7c39def8aad015439ba40f17b60253a1521da2b1f6dca9935e5d42c",
+      "policy_sha256": "6ca72b640bf4e4a61873358f770dec0a15183df75f8b202496ab616c7789162d",
+      "verdict": {
+        "passed": true,
+        "failures": [],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "lifecycle": {
+        "terminal": true,
+        "exit_code": 3221225480,
+        "profile_delete_hresult": "0x00000000",
+        "profile_directory_absent": true,
+        "profile_deleted": true
+      },
+      "terminated_by_launcher": false
+    }
+  ],
+  "existing_cleanup_readback": [
+    {
+      "run_alias": "unknown_crash",
+      "private_receipt_sha256": "1b089c54935a75f92cfc034691b4d7646aacb6ff3ee46ada1732844509cde243",
+      "original_process_confirmed_terminal": true,
+      "profile_path_absent": true,
+      "open_process_error_code": 87
+    },
+    {
+      "run_alias": "timeout",
+      "private_receipt_sha256": "e6b1da4ae097db1a5e2a61cca2fd9bb08d470e6906d4361e96daf255145cff9d",
+      "original_process_confirmed_terminal": true,
+      "profile_path_absent": true,
+      "open_process_error_code": 87
+    },
+    {
+      "run_alias": "normal",
+      "private_receipt_sha256": "8e523f3fc7c39def8aad015439ba40f17b60253a1521da2b1f6dca9935e5d42c",
+      "original_process_confirmed_terminal": true,
+      "profile_path_absent": true,
+      "open_process_error_code": 87
+    }
+  ],
+  "cleanup_statement": "all three prior fix-review runs independently confirmed terminal and profile paths absent; no new OS checks",
+  "G03": "not_run",
+  "R03": "not_run",
+  "four_product_processes": "not_run",
+  "GPU_NPU_ROCm": "not_run",
+  "hardware": "not_run",
+  "product_acceptance": "not_run"
+}
