@@ -1,0 +1,37 @@
+{
+  "tested_commit": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a",
+  "source_commit": "27bc2c54f3469e3a521289fa1bbd6ea8af3451ec",
+  "base_commit": "dcace5700a334ab058522d45ccb6e1d78037f817",
+  "source_hashes_verified": [
+    "fpga_mesh/feishu_channel.py",
+    "tests/test_feishu_channel.py",
+    "fpga_mesh/runtime.py",
+    "fpga_mesh/continuity.py",
+    "fpga_mesh/presence_policy.py",
+    "tests/test_runtime.py",
+    "docs/deployment/evidence/local-runtime-compat-20261016/README.md"
+  ],
+  "source_commit_changed_paths": [
+    "docs/deployment/evidence/local-runtime-compat-20261016/README.md",
+    "fpga_mesh/feishu_channel.py",
+    "tests/test_feishu_channel.py"
+  ],
+  "source_to_head_code_changes": [],
+  "sdk_probe": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-local-runtime-compat-review\\handoffs\\node-a\\B-LOCAL-RUNTIME-COMPAT-20261016-v1-review\\sdk_import_probe.py",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-local-runtime-compat-review"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.75,
+    "script_sha256": "2371a424a5fe5f87bd630bd71b4815f1311bf29c4c83b52cb200ea4333e3ec5a",
+    "stdout_sha256": "7ba6c72d747af020bb6e586d3d97a0d75453656056c1c1b82eebcbce91b17ab3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "B_private_overlay_zip": "not available in Git manifest; B-reported CRC/hash is not independently reverified by A",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]"
+}

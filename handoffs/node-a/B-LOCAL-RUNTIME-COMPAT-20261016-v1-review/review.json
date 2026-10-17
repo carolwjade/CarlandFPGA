@@ -1,0 +1,102 @@
+{
+  "tested_commit": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a",
+  "source_commit": "27bc2c54f3469e3a521289fa1bbd6ea8af3451ec",
+  "operation_id": "B-LOCAL-RUNTIME-COMPAT-20261016-v1",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "handoff_task_id": "B-RUNTIME-CONTINUITY-20261016",
+  "task_version": 1,
+  "request_hash": "1cd8472f2589a70fff5cda18138f8c23a332e9650a7d6b393268137d69a545eb",
+  "manifest_sha256": "12874c9c905f95cb3b9facb7673f8602b1e5e1ede2e73de1c8481631ffe846ad",
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "decision": "LOCAL_RUNTIME_COMPAT_OFFLINE_ACCEPTED",
+  "scope": "Only minimal B SDK default-import worker/loop isolation port at the exact tested commit",
+  "main_review": "No blocking defect found in scoped source diff. Existing injected factory, policy/security, ingress/outbox, sender and controller-loop delivery semantics preserved.",
+  "review_route": "Astra-A main serial review; no new child or concurrency expansion",
+  "manifest_files_verified": 17,
+  "source_hashes_verified": 7,
+  "source_changed_files": [
+    "fpga_mesh/feishu_channel.py",
+    "tests/test_feishu_channel.py",
+    "docs/deployment/evidence/local-runtime-compat-20261016/README.md"
+  ],
+  "standard_handoff_verifier": {
+    "valid": true,
+    "files_checked": 17,
+    "exit_code": 0,
+    "command": [
+      ".local/venv/Scripts/python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".agents/skills/fpga-multi-node/scripts/handoff.py",
+      "verify",
+      "--root",
+      ".local/a-local-runtime-compat-review",
+      "--manifest",
+      "handoffs/node-b/B-LOCAL-RUNTIME-COMPAT-20261016-v1/manifest.json"
+    ]
+  },
+  "software_regression": {
+    "test_count": 19,
+    "unittest_seconds": 1.484,
+    "process_seconds": 1.812,
+    "python": "3.12.14",
+    "exit_code": 0,
+    "command_record": "regression.json"
+  },
+  "independent_sdk_check": {
+    "cases": 1,
+    "sdk_version": "1.4.0",
+    "exit_code": 0,
+    "result": {
+      "different_import_thread": true,
+      "worker_has_no_running_loop": true,
+      "sdk_loop_distinct": true,
+      "sdk_loop_running": false,
+      "controller_still_running": true,
+      "sdk_version": "1.4.0",
+      "sdk_ws_source_sha256": "c301adb26436f16a27b3291a836015fc6a6beebb72e9a72ab4895e383da1c1e6",
+      "external_network_attempts": 0,
+      "channel_instances": 0,
+      "live_requests": 0,
+      "scope": "Fresh import only; no real connect/disconnect/reconnect or full SDK lifecycle validation"
+    },
+    "command_record": "increment-check.json"
+  },
+  "prior_failure_evidence": {
+    "source": "B baseline.stderr.txt raw bytes verified at submitted manifest",
+    "A_rerun": false,
+    "classification": "One behavior assertion failure for SDK import on a running loop; one AttributeError because the pre-port module lacks the newly introduced helper. These are not two independently demonstrated production failures."
+  },
+  "warnings_preserved": [
+    "SDK protobuf datetime.utcfromtimestamp DeprecationWarning",
+    "ResourceWarning: unclosed ProactorEventLoop",
+    "asyncio debug slow-task notice"
+  ],
+  "limits": [
+    "Full SDK resource lifecycle is not accepted; the original unclosed-loop warning remains.",
+    "First-import loop isolation does not relocate a previously cached SDK module or prove real reconnect behavior.",
+    "B private overlay ZIP CRC/hash and original local overlay bytes were reported by B; the archive is not in the Git manifest and was not independently reverified by A.",
+    "Five B local conflicts and custom launcher remain separate unresolved deployment work.",
+    "Old owner-v2/cache evidence and later PR heads do not inherit this acceptance."
+  ],
+  "stages": {
+    "scoped_code_review": "passed",
+    "manifest_and_source_hashes": "passed",
+    "focused_software_regression": "passed",
+    "actual_SDK_import_only": "passed",
+    "full_historical_suite": "not_run",
+    "entire_PR29_acceptance": "not_run",
+    "live_Feishu_connect_send_disconnect": "not_run",
+    "live_SDK_reconnect": "not_run",
+    "full_SDK_resource_lifecycle": "not_run",
+    "service_deployment": "not_run",
+    "merge": "not_run",
+    "permanent_App_wake": "not_run",
+    "RTL_simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "physical_board": "not_run",
+    "product_acceptance": "not_run"
+  }
+}
