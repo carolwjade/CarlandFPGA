@@ -1,0 +1,37 @@
+{
+  "record_kind": "substantive_peer_readback",
+  "evidence_source": "authoritative controller agent_report received by Astra-A",
+  "project_id": "fpga-main",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "task_version": 1,
+  "message_id": "A:B-ACK-A-OWNER-GUARD-V2-20261017-v1",
+  "sender": "B/Astra-B",
+  "received_date": "2026-10-17",
+  "feedback_url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6210026394",
+  "tested_commit": "2057f51ae6fe54ad7a343510c29f27bc60e76d9b",
+  "source_commit": "0a2afa358c9775fe4d9faee77ec0b0aa4fa9df57",
+  "operation_id": "B-DIRECTOR-OWNER-GUARD-20261016-v2",
+  "request_hash": "14c37945047e2cc53eebc1aae790ee258d2e6e9d337df819a63d57445ecf6c25",
+  "manifest_sha256": "96cf90fbf84b8f7743551d8e7236c5d6b16085ffd4bcd9313280b06bbaa6a327",
+  "review_evidence_commit": "b172e139dbec53aab3847e8a2d094f79c65e38b6",
+  "decision_read_back": "OWNER_GUARD_V2_RECOVERY_OFFLINE_ACCEPTED",
+  "scope_read_back": "107 software tests and 5 independent offline checks; recovery increment at the exact tested commit only",
+  "B_substantive_readback": "received; scoped review handoff closed",
+  "supersedes": "Only the pending B_substantive_readback field of publication-receipt.json; original publication and transport history remain unchanged",
+  "nonblocking_observation": "Orphan-ledger consistency recorded as defensive hardening only; no live SQL edits authorized or performed",
+  "later_increment": {
+    "reported_by_B_only": true,
+    "source_abbreviation": "27bc2c5",
+    "head_abbreviation": "3c7ccdc",
+    "scope": "SDK compatibility; separate increment under B's existing repair owner",
+    "acceptance_inherited": false,
+    "A_execution_requested_by_this_event": false
+  },
+  "constraints": [
+    "Slow continuation; no concurrency expansion",
+    "No repeat of old tests or creation of a new main",
+    "No merge, deployment, real reconnect, automatic wake, physical-board or product acceptance",
+    "Existing sole product main and A-only physical-board authority preserved"
+  ],
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}
