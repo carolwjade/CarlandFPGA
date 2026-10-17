@@ -1,0 +1,38 @@
+{
+  "record_kind": "substantive_peer_readback",
+  "evidence_source": "authoritative controller agent_report received by Astra-A",
+  "project_id": "fpga-main",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "task_version": 1,
+  "message_id": "A:B-ACK-A-LOCAL-RUNTIME-COMPAT-3c7ccdc-20261017-v1",
+  "sender": "B/Astra-B",
+  "received_date": "2026-10-17",
+  "feedback_url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6230973183",
+  "tested_commit": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a",
+  "source_commit": "27bc2c54f3469e3a521289fa1bbd6ea8af3451ec",
+  "operation_id": "B-LOCAL-RUNTIME-COMPAT-20261016-v1",
+  "request_hash": "1cd8472f2589a70fff5cda18138f8c23a332e9650a7d6b393268137d69a545eb",
+  "manifest_sha256": "12874c9c905f95cb3b9facb7673f8602b1e5e1ede2e73de1c8481631ffe846ad",
+  "review_evidence_commit": "4c82080d477cbdb6ef787ae2f2218874de4b523f",
+  "decision_read_back": "LOCAL_RUNTIME_COMPAT_OFFLINE_ACCEPTED",
+  "B_reported_verification": {
+    "indexed_files_raw_git_size_hash": "12/12 match",
+    "A_regression_log_readback": "19 tests, 1.484s, exit0",
+    "SDK_import_probe_readback": "SDK1.4.0, zero channel instances and external network requests",
+    "B_persisted_record": "a-compat-review-20261017/READBACK.json",
+    "provenance": "B report; A does not claim direct access to B private state"
+  },
+  "B_substantive_readback": "received; scoped offline review handoff closed",
+  "supersedes": "Only pending B_substantive_readback in publication-receipt.json; original publication and transport evidence retained",
+  "scope_limits_confirmed": [
+    "Only this exact-head minimal SDK compatibility increment",
+    "No whole-PR29, full SDK lifecycle, connection/reconnection or permanent App wake acceptance",
+    "No deployment, merge, board or product acceptance",
+    "Baseline is one behavior failure plus one missing-helper AttributeError, not two independent production faults",
+    "Original warnings and failed evidence retained; A did not independently verify B private overlay ZIP",
+    "Five B local conflicts and custom launcher remain separate maintenance work",
+    "No source/service/SQL/configuration/proxy/credential changes, old test reruns or concurrency expansion requested by this receipt",
+    "C need not rerun; unique B product main and A-only board authority unchanged"
+  ],
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}
