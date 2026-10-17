@@ -1,0 +1,44 @@
+{
+  "tested_commit": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a",
+  "operation_id": "B-LOCAL-RUNTIME-COMPAT-20261016-v1",
+  "request_hash": "1cd8472f2589a70fff5cda18138f8c23a332e9650a7d6b393268137d69a545eb",
+  "review_evidence_commit": "4c82080d477cbdb6ef787ae2f2218874de4b523f",
+  "comments": [
+    {
+      "pr": 29,
+      "id": 6230973183,
+      "url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6230973183",
+      "body_sha256": "e7357697a33efed21930cade5b618520018197ffb94671c451ba27da49bfbcf6",
+      "readback_matches": true
+    }
+  ],
+  "pr_at_publication": {
+    "head": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a",
+    "state": "open",
+    "tested_commit": "3c7ccdcf9e7beb3b11e3e8edd1ce7e91939d300a"
+  },
+  "notifications": [
+    {
+      "peer": "B",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-LOCAL-RUNTIME-COMPAT-REVIEW-3c7ccdc-B-v1",
+      "duplicate": false
+    },
+    {
+      "peer": "C",
+      "delivered": false,
+      "queued": true,
+      "operation_id": "A-LOCAL-RUNTIME-COMPAT-REVIEW-3c7ccdc-C-v1",
+      "duplicate": false
+    },
+    {
+      "channel": "group",
+      "queued": true,
+      "operation_id": "A-LOCAL-RUNTIME-COMPAT-REVIEW-3c7ccdc-GROUP-v1",
+      "role": "astra"
+    }
+  ],
+  "B_substantive_readback": "pending; B transport ACK is not substantive review acceptance",
+  "C_and_group": "queued only; no platform or C delivery receipt claimed"
+}
