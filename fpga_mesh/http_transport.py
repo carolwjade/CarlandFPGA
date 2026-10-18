@@ -26,6 +26,7 @@ class HttpPeer:
         controller: Controller,
         peer_urls: dict[str, str],
         shared_secret: str,
+        trusted_report_receiver=None,
     ):
         self.node_id = node_id
         self.project_id = project_id
@@ -33,6 +34,7 @@ class HttpPeer:
         self.controller = controller
         self.peer_urls = peer_urls
         self.shared_secret = shared_secret.encode("utf-8")
+        self.trusted_report_receiver = trusted_report_receiver
         self._flush_lock = asyncio.Lock()
 
     async def send(self, peer_id: str, message: Envelope) -> bool:
@@ -90,6 +92,14 @@ class HttpPeer:
     async def receive(self, message: Envelope) -> bool:
         if not self.accepts(message):
             return False
+        # The HTTP server verified HMAC before this target/source boundary.
+        # A configured Desktop receiver must persist before returning True;
+        # exceptions keep the sender's original outbox pending, never fall back
+        # to a second background model. False explicitly leaves an independent
+        # mesh task on its original route.
+        if self.trusted_report_receiver is not None:
+            if await self.trusted_report_receiver(message):
+                return True
         return await self.controller.offer(message)
 
     async def check(self, peer_id: str) -> bool:

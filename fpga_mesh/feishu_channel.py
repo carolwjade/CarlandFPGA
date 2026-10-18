@@ -302,6 +302,13 @@ class FeishuNodeService:
         deepseek_sender: Any | None = None,
         job_lookup: Callable[[str], dict] | None = None,
         trusted_receiver: Callable[[Envelope], Awaitable[bool]] | None = None,
+        history_state_dir: Path | None = None,
+        history_receiver: Callable[[dict], Awaitable[bool]] | None = None,
+        history_pending: Callable[[], list[dict]] | None = None,
+        history_scan_begin: Callable[[dict], Awaitable[bool]] | None = None,
+        history_scan_end: Callable[[dict], Awaitable[bool]] | None = None,
+        history_recheck: Callable[[], bool] | None = None,
+        history_api: Any | None = None,
     ) -> None:
         self.group_id = group_id
         self.astra_app_id = astra_app_id
@@ -330,11 +337,36 @@ class FeishuNodeService:
         self._role_locks = {role: asyncio.Lock() for role in self._outbox_errors}
         self._role_events = {role: asyncio.Event() for role in self._outbox_errors}
         self._outbox_task: asyncio.Task | None = None
+        if history_state_dir is not None and history_receiver is None:
+            raise ValueError('history recovery requires a durable hold receiver')
+        if history_receiver is not None and history_state_dir is None:
+            raise ValueError('history recovery requires its durable state directory')
+        self.history_state_dir = Path(history_state_dir) if history_state_dir is not None else None
+        self.history_receiver, self.history_pending = history_receiver, history_pending
+        self.history_scan_begin, self.history_api = history_scan_begin, history_api
+        self.history_scan_end = history_scan_end
+        self.history_recheck = history_recheck
+        self.history: Any | None = None
+        self._history_task: asyncio.Task | None = None
+        self._history_event = asyncio.Event()
+        self._history_triggers: set[str] = set()
+        self._history_error: str | None = None
 
     @property
     def last_error(self) -> str | None:
         pending_error = self.store.group_outbox_health()["last_error"] if self.store else None
-        return pending_error or next((error for error in self._outbox_errors.values() if error), None)
+        return (pending_error or self._history_error
+                or next((error for error in self._outbox_errors.values() if error), None))
+
+    def history_health(self):
+        latest = self.history.last_result if self.history is not None else None
+        return {'enabled': self.history_state_dir is not None,
+                'running': self._history_task is not None and not self._history_task.done(),
+                'error': self._history_error,
+                'checkpoint_ms': self.history.checkpoint_ms if self.history is not None else None,
+                'last_scan': {key: latest.get(key) for key in
+                    ('scan_id','status','lower_ms','upper_ms','gap','notification_gap')}
+                    if latest else None}
 
     async def start(self) -> None:
         if self.connected:
@@ -362,29 +394,101 @@ class FeishuNodeService:
             )
         channel = self.channel_factory(app_id=self.astra_app_id, app_secret=secret)
         controller_loop = asyncio.get_running_loop()
+        if self.history_state_dir is not None:
+            from .feishu_history import FeishuHistoryAPI, FeishuHistoryRecovery
+            self.history = FeishuHistoryRecovery(self.history_state_dir / 'history.sqlite',
+                group_id=self.group_id, app_id=self.astra_app_id,
+                api=self.history_api or FeishuHistoryAPI(channel.client, expected_app_id=self.astra_app_id),
+                sink=self.history_receiver, pending_messages=self.history_pending or (lambda: []),
+                on_scan_begin=self.history_scan_begin,
+                on_scan_end=self.history_scan_end,
+                allowed_sender_ids=self.ingress.allowed_sender_ids)
+
+        def request_history(trigger: str, message_id: str | None = None) -> None:
+            def enqueue():
+                if self.history is None:
+                    return
+                try:
+                    if trigger == 'reconnected' and self.history_recheck is not None:
+                        if self.history_recheck() is not True:
+                            raise ValueError('history source gate was not persisted')
+                    if message_id:
+                        self.history.watch(message_id)
+                except Exception:
+                    self._history_error = 'Feishu history source gate/watch persistence failed'
+                self._history_triggers.add(trigger)
+                self._history_event.set()
+            if not controller_loop.is_closed():
+                controller_loop.call_soon_threadsafe(enqueue)
+
+        async def ingest_with_recovery(msg: Any) -> bool:
+            try:
+                return await self.ingress.ingest(msg)
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                # Persist the failed source reference before returning to the
+                # SDK, whose handler wrapper may swallow this exception and
+                # whose dedup may already have consumed the message ID.
+                if self.history is not None:
+                    for source in (getattr(msg, 'batched_sources', None) or (msg,)):
+                        if getattr(source, 'chat_id', None) == self.group_id:
+                            self.history.watch(getattr(source, 'message_id', None))
+                self._history_error = 'Feishu live durable sink failed; history recovery required'
+                request_history('sink_failure')
+                raise
 
         async def deliver_message(msg: Any) -> bool:
             # The SDK dispatches WS events from its own event-loop thread.
             # Controller, child coordinator and SQLite state belong to the
             # runtime loop and must never be called on that SDK thread.
             if asyncio.get_running_loop() is controller_loop:
-                return await self.ingress.ingest(msg)
+                return await ingest_with_recovery(msg)
             if not controller_loop.is_running():
                 return False
             delivery = asyncio.run_coroutine_threadsafe(
-                self.ingress.ingest(msg), controller_loop,
+                ingest_with_recovery(msg), controller_loop,
             )
             return await asyncio.wrap_future(delivery)
 
         channel.on("message", deliver_message)
-        await channel.connect_until_ready(timeout=30)
+        if self.history is not None:
+            channel.on('reconnected', lambda: request_history('reconnected'))
+            def rejected(event):
+                if (getattr(event, 'chat_id', None) == self.group_id
+                        and getattr(event, 'reason', None) in {'stale', 'duplicate', 'lock_contention'}):
+                    request_history('reject', getattr(event, 'message_id', None))
+            channel.on('reject', rejected)
+        try:
+            if self.history is not None and self.history_recheck is not None:
+                if self.history_recheck() is not True:
+                    raise ValueError('history source gate was not persisted')
+            await channel.connect_until_ready(timeout=30)
+        except BaseException:
+            if self.history is not None:
+                self.history.close()
+                self.history = None
+            raise
         self.channel = channel
         self.connected = True
+        if self.history is not None:
+            self._history_task = asyncio.create_task(self._run_history())
+            request_history('start')
         if self.store is not None:
             self._outbox_task = asyncio.create_task(self._run_outbox())
             self.notify_report()
 
     async def stop(self) -> None:
+        if self._history_task is not None:
+            self._history_task.cancel()
+            try:
+                await self._history_task
+            except asyncio.CancelledError:
+                pass
+            self._history_task = None
+        if self.history is not None:
+            self.history.close()
+            self.history = None
         if self._outbox_task is not None:
             self._outbox_task.cancel()
             try:
@@ -397,6 +501,30 @@ class FeishuNodeService:
         self.connected = False
         if channel is not None:
             await channel.disconnect()
+
+    async def _run_history(self) -> None:
+        """Ordinary resident-program retries; never dispatch a model turn."""
+        while self.connected:
+            try:
+                await asyncio.wait_for(self._history_event.wait(), timeout=self.retry_seconds)
+            except asyncio.TimeoutError:
+                pass
+            self._history_event.clear()
+            triggers = sorted(self._history_triggers)
+            self._history_triggers.clear()
+            try:
+                result = await self.history.scan(','.join(triggers) or 'retry')
+                gap = result.get('gap')
+                self._history_error = ('Feishu history gap: ' + gap['category']
+                    + (':' + str(gap['code']) if gap.get('code') is not None else '')) if gap else None
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                self._history_error = 'Feishu history persistence/recovery failed'
+            if self._history_error:
+                # Reconnect/reject bursts coalesce during a failed scan's
+                # cooldown instead of hammering a denied API such as 21001.
+                await asyncio.sleep(self.retry_seconds)
 
     async def send_as_astra(self, text: str, *, operation_id: str) -> str:
         if not self.connected or self.channel is None:

@@ -174,7 +174,12 @@ class NodeRuntime:
             project_id=config.project_id, group_id=config.feishu_group_id,
             controller=self.controller, store=self.store,
             on_report=self._notify_desktop_report,
+            history_app_id=config.feishu_astra_app_id,
+            history_allowed_user_ids=set(config.feishu_allowed_user_ids) if config.feishu_allowed_user_ids else None,
         )
+        # Also covers reports persisted by older versions before this route
+        # existed, without re-executing their background model side effects.
+        self.controller.trusted_report_receiver = self.desktop_route.receive_peer
         self.feishu: FeishuNodeService | None = (
             FeishuNodeService(
                 node_id=config.node_id, project_id=config.project_id,
@@ -191,6 +196,12 @@ class NodeRuntime:
                 local_bot_open_ids=set(config.feishu_local_bot_open_ids),
                 job_lookup=lambda job_id: self.children.job(job_id),
                 trusted_receiver=self.desktop_route.receive,
+                history_state_dir=config.state_dir / 'feishu-history' if self.desktop_route.enabled else None,
+                history_receiver=self.desktop_route.receive_history if self.desktop_route.enabled else None,
+                history_pending=self.desktop_route.history_pending,
+                history_scan_begin=self.desktop_route.history_scan_begin,
+                history_scan_end=self.desktop_route.history_scan_end,
+                history_recheck=self.desktop_route.history_recheck,
             ) if config.feishu_enabled else None
         )
         self._feishu_task: asyncio.Task | None = None
@@ -252,6 +263,7 @@ class NodeRuntime:
                 controller=self.controller,
                 peer_urls=config.peer_urls,
                 shared_secret=shared_secret,
+                trusted_report_receiver=self.desktop_route.receive_peer,
             )
             self.peer_server = HttpPeerServer(
                 self.peer,
@@ -369,6 +381,7 @@ class NodeRuntime:
             "feishu_connected": bool(self.feishu and self.feishu.connected),
             "feishu_error": self.feishu_error or (self.feishu.last_error if self.feishu else None),
             "feishu_outbox": self.store.group_outbox_health(),
+            "feishu_history": self.feishu.history_health() if self.feishu else {'enabled': False},
             "desktop_inbox": self.desktop_route.health(),
             "quota_error": self.quota_error,
             "hardware_enabled": self.hardware is not None,

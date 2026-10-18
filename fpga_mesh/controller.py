@@ -31,12 +31,14 @@ class Controller:
         on_human_instruction: Callable[[Envelope], None] | None = None,
         on_result: Callable[[Envelope, ActionResult], Any] | None = None,
         claim_ownership: Callable[[Envelope], Any] | None = None,
+        trusted_report_receiver: Callable[[Envelope], Any] | None = None,
     ):
         self.store = store
         self.gateway = gateway
         self.on_human_instruction = on_human_instruction
         self.on_result = on_result
         self.claim_ownership = claim_ownership
+        self.trusted_report_receiver = trusted_report_receiver
         self._last_control_at, self._paused_at, self._pause_scope = (
             self.store.load_control_state()
         )
@@ -98,6 +100,21 @@ class Controller:
             for stored in pending:
                 message = stored.message
                 observed.add(message.message_id)
+                if (message.source == SourceKind.ASTRA and message.kind == MessageKind.AGENT_REPORT
+                        and self.trusted_report_receiver is not None):
+                    try:
+                        routed = await self.trusted_report_receiver(message)
+                    except Exception as exc:
+                        # Retain the original persisted report when its current
+                        # owner cannot safely accept it. Never replay it through
+                        # a background writer after a Desktop sink failure.
+                        self.store.mark_inbound_failed(message.message_id,
+                            'desktop_report: ' + type(exc).__name__,
+                            retry_at=self._retry_at(stored.attempts))
+                        continue
+                    if routed:
+                        self.store.mark_inbound_processed(message.message_id)
+                        continue
                 if self._is_expired(message):
                     self.store.mark_inbound_processed(message.message_id)
                     continue

@@ -52,7 +52,7 @@ class ProjectActions:
         if action == 'desktop_inbox_claim':
             return await r.desktop_route.claim(args)
         if action in {'desktop_inbox_list', 'desktop_inbox_claim',
-                      'desktop_inbox_complete', 'desktop_inbox_reconcile'}:
+                      'desktop_inbox_complete', 'desktop_inbox_reconcile', 'desktop_history_read'}:
             # Authenticated local actions never create/resume a Desktop writer.
             # The caller must name the existing owner generation and receipt.
             return r.desktop_route.call(action, args)
