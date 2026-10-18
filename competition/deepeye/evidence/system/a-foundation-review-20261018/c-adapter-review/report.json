@@ -1,0 +1,325 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-18T15:15:14.381877+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-C-PR25-ADAPTER-REVIEW-20261018-v1",
+  "native_job": "child-fec559bc6fb640cda201ae773618fd87",
+  "agent": "/root/worker_results_review_20261018",
+  "director": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "status": "bounded_review_complete_with_existing_actionable_findings",
+  "PR25_HEAD": "31267d6c4ae284b8788ebb457f49c4ae5a49c60c",
+  "tested_source": "c00f932568aece85e9a2febe47e63528a977ea0f",
+  "operation": "C-DEEPEYE-MOTIONADAPTER-20261015-10",
+  "request_hash": "c0f2a7b099e2e233087fcfdea565fd469617539224e2d50309f8c30b57594e66",
+  "manifest_sha256": "0d6b5389bd5c7e81860475c6e0f28b024216b2b64a205e0e2a5369438d8bae18",
+  "manifest_files_verified": 135,
+  "adapter_source_sha256": "29bf83a68929a882671bbed1a14b5a717e2e0bfa53cdb812512400a0aa621e7f",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15": "root/A/C actual canonical arrays match pinned15 requirements",
+  "recommendation_to_A_main": "Reuse/adopt only the bounded non-authorizing serializer/parser/context/original-deadline software checkpoint. Do not connect this exact adapter as an automatic runtime motion output while trusted callbacks can reenter: F02 remains open on exact current head. C retains source ownership; obtain a distinct corrected commit and rerun the saved safety regressions before runtime adoption. F01 is an audit-hardening limitation, not an OS bypass. Main retains adoption and final acceptance decisions.",
+  "findings": [
+    {
+      "id": "F02",
+      "priority": 2,
+      "status": "existing_exact_head_finding_reproduced_still_open",
+      "title": "RuntimeVerifier reentry can emit older motion after newer STOP",
+      "file": "competition/deepeye/ai_pc/control_broker/motion_request.py",
+      "lines": [
+        402,
+        422,
+        425,
+        430,
+        434,
+        439
+      ],
+      "reproduction": "submit(candidate10) calls verifier; verifier calls public safe_stop(now_ns=check.now_ns), emitting candidate11/command_seq0; verifier returnsNone; outer submit emits candidate10/command_seq1 SET_TARGET. Both request records pass current A stateless validator.",
+      "evidence": {
+        "stop": {
+          "candidate_id": 11,
+          "command_seq": 0,
+          "context": {
+            "acquisition_profile_id": 3,
+            "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "config_epoch": 255,
+            "session": 700,
+            "source_id": 4,
+            "topology_id": 2,
+            "transport_profile_id": 1
+          },
+          "host_issue_monotonic_ns": 1020000000,
+          "kind": "motion_request",
+          "observation": null,
+          "schema_version": 1,
+          "target": {
+            "action": 0,
+            "duration_ms": 0,
+            "pitch_q": 0,
+            "speed_code": 0,
+            "yaw_q": 0
+          }
+        },
+        "later_outer_motion": {
+          "candidate_id": 10,
+          "command_seq": 1,
+          "context": {
+            "acquisition_profile_id": 3,
+            "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "config_epoch": 255,
+            "session": 700,
+            "source_id": 4,
+            "topology_id": 2,
+            "transport_profile_id": 1
+          },
+          "host_issue_monotonic_ns": 1020000000,
+          "kind": "motion_request",
+          "observation": {
+            "context": {
+              "acquisition_profile_id": 3,
+              "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "config_epoch": 255,
+              "session": 700,
+              "source_id": 4,
+              "topology_id": 2,
+              "transport_profile_id": 1
+            },
+            "observed_seq": 10
+          },
+          "schema_version": 1,
+          "target": {
+            "action": 1,
+            "duration_ms": 1000,
+            "pitch_q": 0,
+            "speed_code": 20,
+            "yaw_q": 0
+          }
+        },
+        "both_A_static_valid": true,
+        "movement_authorized": false
+      },
+      "expected_safe_test": "expected_safety_red.raw.log test_F02, assertion failure, exit1",
+      "impact": "Single-threaded public callback sequence violates candidate/STOP retirement ordering. A transport sending callback STOP then outer return can encounter old motion with a newer command sequence. No physical motion occurred; movement_authorized remainsFalse.",
+      "required_before_automatic_runtime_output": "C should bind a monotonic state/revocation generation around verify_motion, or enforce a guard that permits immediate STOP but cancels older in-flight submit. After callback state change, outer return must be blocked/no bytes/must_stop. Do not rely on a document-only non-reentrancy rule or on A schema validation. Independently keep STOP/candidate/session history in A authority.",
+      "regressions_for_C_owner": [
+        "nested safe_stop returns STOP and outer emits no motion",
+        "nested newer submit retires outer older candidate",
+        "state/clock retirement during callback cannot revive old target",
+        "failed verifier leaves candidate retired; recovery cannot replay it"
+      ]
+    },
+    {
+      "id": "F01",
+      "priority": 3,
+      "status": "existing_exact_head_audit_alias_reproduced_still_open",
+      "title": "Verifier RuntimeCheck timing aliases returned audit",
+      "file": "competition/deepeye/ai_pc/control_broker/motion_request.py",
+      "lines": [
+        416,
+        422,
+        430
+      ],
+      "reproduction": "Trusted verifier retains RuntimeCheck. After submit returns, object.__setattr__(check.timing,deadline_ns,old+999000000000) changes RequestDecision.timing deadline from2020000000 to1001020000000. Request bytes stay unchanged and current A static validation passes.",
+      "evidence": {
+        "before_deadline_ns": 2020000000,
+        "after_deadline_ns": 1001020000000,
+        "request_bytes_unchanged": true,
+        "requires_trusted_callback_object_setattr": true,
+        "OS_or_authority_bypass": false
+      },
+      "expected_safe_test": "expected_safety_red.raw.log test_F01, assertion failure, exit1",
+      "scope": "Requires trusted same-process code deliberately bypassing frozen dataclass; not a JSON/model/OS/authority escape. It is an audit alias, not proof of actual lease renewal.",
+      "recommendation": "Give callback detached timing values and construct returned audit again from retained validated scalars. A authority independently recomputes original deadlines; never treat Python frozen timing as signed runtime proof."
+    }
+  ],
+  "superseded_old_conclusion": "The old6e1624d missing-adapter finding is obsolete. The current adapter exists and already had an A exact31267d6 review. That review, its failing safety tests and all cited artifact hashes were freshly verified; no need to redo its full unchanged suites.",
+  "verified_positive_behavior": [
+    "Strict A request key whitelist and all seven context fields",
+    "Original issue preserved; deadline=min(issue+originalduration,samplelower+profileagecap); exact expiry rejects; replay cannot renew",
+    "Missing RuntimeVerifier blocks motion bytes/must_stop; legal all-zero STOP works with null observation, no movement authorization",
+    "Wire sequence16 does not wrap; explicit extended acquisition tick rollover remains distinct",
+    "Current A Fraction-based motion ROM matches prior frozen A ROM across42 entries, so changed dependency was checked rather than blindly reused"
+  ],
+  "evidence_reuse": {
+    "prior_exact_review_sha256": "9b256cbd81daea055dc6dbd8b9bd3abeb7e0e8a97bf912a3460d63d0baa00d5c",
+    "prior_receipt_sha256": "ff8248ec1065d939781aab2de3e0be1b46c78583437bdb8e2d8b66462440ea82",
+    "all_prior_artifact_hashes_match": true,
+    "prior_tests_and_vectors": {
+      "C_worker_tests_passed": 107,
+      "C_archived_independent_script_reproduced_tests_passed": 17,
+      "C_random_deadline_vectors": 96,
+      "C_public_sequence_allocations": 65536,
+      "new_independent_checks": 11,
+      "new_checks_include_two_counterexample_existence_assertions": true,
+      "current_A_interop_vectors": 144,
+      "independent_quantization_vectors": 1006,
+      "independent_deadline_boundary_vectors": 800,
+      "expected_safe_red_tests": 2,
+      "expected_safe_red_exit_code": 1,
+      "initial_missing_jsonschema_failure_preserved": true
+    },
+    "prior_public65536_STOP_allocations_reused": true,
+    "large_359_suite_rerun": false,
+    "current_A_dependency_delta": [
+      "integration/motion.py"
+    ],
+    "new_dependency_resolution": "Only motion.py differs among four A static reference dependencies; current rational arithmetic ROM equals old frozen ROM42 entries. Current A validates new targeted request/STOP cases."
+  },
+  "fresh_verification": {
+    "run_utc": "2026-10-18T15:13:45.606651+00:00",
+    "commands": {
+      "interpreter": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "script": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-adapter-review\\review_run.py",
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "no_motion_or_IO": true
+    },
+    "suites": {
+      "positive": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 0,
+        "log_sha256": "ed76f6b8712eb015aa82ec755b260cd310a8fad7aa1246a6cb3ce3097c487f97"
+      },
+      "expected_safety_red": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "exit_code": 1,
+        "log_sha256": "b31c3294ed4af5c6b89b157857fb4a27aa9a926761e22b08bcabbf550172c46c"
+      }
+    },
+    "details": {
+      "current_A_motion_ROM_entries": 42,
+      "context_fields_rejected": 7,
+      "fresh_TTL_vectors": 9,
+      "F01": {
+        "before_deadline_ns": 2020000000,
+        "after_deadline_ns": 1001020000000,
+        "request_bytes_unchanged": true,
+        "requires_trusted_callback_object_setattr": true,
+        "OS_or_authority_bypass": false
+      },
+      "F02": {
+        "stop": {
+          "candidate_id": 11,
+          "command_seq": 0,
+          "context": {
+            "acquisition_profile_id": 3,
+            "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "config_epoch": 255,
+            "session": 700,
+            "source_id": 4,
+            "topology_id": 2,
+            "transport_profile_id": 1
+          },
+          "host_issue_monotonic_ns": 1020000000,
+          "kind": "motion_request",
+          "observation": null,
+          "schema_version": 1,
+          "target": {
+            "action": 0,
+            "duration_ms": 0,
+            "pitch_q": 0,
+            "speed_code": 0,
+            "yaw_q": 0
+          }
+        },
+        "later_outer_motion": {
+          "candidate_id": 10,
+          "command_seq": 1,
+          "context": {
+            "acquisition_profile_id": 3,
+            "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "config_epoch": 255,
+            "session": 700,
+            "source_id": 4,
+            "topology_id": 2,
+            "transport_profile_id": 1
+          },
+          "host_issue_monotonic_ns": 1020000000,
+          "kind": "motion_request",
+          "observation": {
+            "context": {
+              "acquisition_profile_id": 3,
+              "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "config_epoch": 255,
+              "session": 700,
+              "source_id": 4,
+              "topology_id": 2,
+              "transport_profile_id": 1
+            },
+            "observed_seq": 10
+          },
+          "schema_version": 1,
+          "target": {
+            "action": 1,
+            "duration_ms": 1000,
+            "pitch_q": 0,
+            "speed_code": 20,
+            "yaw_q": 0
+          }
+        },
+        "both_A_static_valid": true,
+        "movement_authorized": false
+      }
+    },
+    "adapter_exact_sha256": "29bf83a68929a882671bbed1a14b5a717e2e0bfa53cdb812512400a0aa621e7f",
+    "A_dependencies": {
+      "docs/host_contract.json": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "integration/host_envelope.py": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "integration/motion.py": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+      "integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "prior_public65536_sequence_allocations_reused": true
+  },
+  "provenance": {
+    "source_to_HEAD_delta": [
+      "handoffs/c/C-DEEPEYE-MOTIONADAPTER-20261015-10/input.json",
+      "handoffs/c/C-DEEPEYE-MOTIONADAPTER-20261015-10/manifest.json"
+    ],
+    "all135_source_and_HEAD_blobs_match_manifest": true,
+    "exact_blobs_exported": "exact-git-blobs/",
+    "checkout_CRLF_differences": [
+      "competition/deepeye/ai_pc/control_broker/motion_request.py",
+      "competition/deepeye/ai_pc/model/causal_input.py",
+      "competition/deepeye/ai_pc/planning/kinematics.py",
+      "competition/deepeye/data/dataset_card.md",
+      "competition/deepeye/data/force_inventory.py",
+      "competition/deepeye/data/grouping.py",
+      "competition/deepeye/tests/ai/control_broker/test_motion_request.py",
+      "competition/deepeye/tests/ai/data_model/test_causal_input.py",
+      "competition/deepeye/tests/ai/data_model/test_force_inventory.py",
+      "competition/deepeye/tests/ai/data_model/test_grouping.py",
+      "competition/deepeye/tests/ai/planning/kinematics_vectors.json",
+      "competition/deepeye/tests/ai/planning/test_kinematics.py"
+    ],
+    "checkout_raw_hash_not_silently_normalized": true,
+    "current_GitHub_HEAD": "parent freshly verified exact31267d6; review itself did not contact peers/Feishu/GitHub"
+  },
+  "read_only": {
+    "C_HEAD": "31267d6c4ae284b8788ebb457f49c4ae5a49c60c",
+    "C_clean": true,
+    "C_manifest_checkout_files_unchanged": 135,
+    "A_dependencies_unchanged": true,
+    "source_edits": false,
+    "product_acceptance": false
+  },
+  "product_acceptance": false,
+  "all29_cards": "not_run",
+  "not_run": [
+    "R03",
+    "C05 formal",
+    "G06",
+    "G03/G09",
+    "H11 product benefit",
+    "authenticated runtime/source/model liveness",
+    "ACL isolation",
+    "live transport",
+    "mode-specific full PC_DIRECT/HIL",
+    "motion_grant/executor",
+    "physical board",
+    "system/product acceptance"
+  ],
+  "next_dependency": "C-owned callback state-generation/STOP ordering repair on a new exact commit, followed by saved expected-safe tests turningGREEN and A independent verification. Parallel A authority must enforce STOP retirement, original deadline and authenticated source/clock independently.",
+  "effects": "Only c-adapter-review/ evidence writes. No source adoption/edit, Git mutation, service/hardware/OS probes, credentials, external sends or new agents."
+}

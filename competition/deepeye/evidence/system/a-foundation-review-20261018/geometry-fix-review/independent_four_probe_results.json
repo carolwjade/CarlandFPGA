@@ -1,0 +1,49 @@
+{
+  "tests": 4,
+  "failures": 0,
+  "errors": 0,
+  "cases": [
+    {
+      "case": "six_face_entry",
+      "face": "front",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "six_face_entry",
+      "face": "back",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "six_face_entry",
+      "face": "right",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "six_face_entry",
+      "face": "left",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "six_face_entry",
+      "face": "top",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "six_face_entry",
+      "face": "bottom",
+      "right": "SAFE",
+      "wrong": "UNKNOWN"
+    },
+    {
+      "case": "role_alias",
+      "result": "rejected"
+    }
+  ],
+  "original_source_sha256": "b13026adb3f2ca140737d135124f4997d720fb10c8ca7665b6884f4ce0b3d668",
+  "load_method": "all original AST definitions; omitted only top-level argv dispatcher to preserve old outputs"
+}

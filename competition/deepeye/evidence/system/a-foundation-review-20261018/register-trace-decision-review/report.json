@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-18T15:31:36.952161+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-REGISTER-TRACE-DECISION-REVIEW-20261018-v1",
+  "native_job": "child-12263b38b8c54b52a0e54e0c5c9c95f3",
+  "agent": "/root/worker_results_review_20261018",
+  "director": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "status": "independently_reviewed_no_blocking_findings",
+  "reviewed_document": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\register_trace_decisions_20261018.md",
+  "document_sha256": "5cb049b28da33eea74e8a30365962d731b3f2d198065086daab1998ff747e116",
+  "document_bytes": 7081,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "B_review_report_sha256": "0ed810f64d2d7ec17f4265f0790c5ce6f2d1036802e625cc7bc3c4328e4f283b",
+  "B_review_receipt_sha256": "8af1cf8822302ba1329d3a1e89b1b263bf27564e58676c6a6012e752f50221b1",
+  "B_exact_export_manifest_sha256": "da213790a384dd23e7c087b0fbd95c042b05cf080810374ae66432c0bbeb0102",
+  "blocking_findings": [],
+  "literal_errors_found": [],
+  "acceptance_overclaims_found": [],
+  "missing_prerequisite_that_blocks_next_B_offline_work": [],
+  "optional_precision_notes": [
+    {
+      "id": "N01",
+      "blocking": false,
+      "location": "register_trace_decisions_20261018.md:35-47",
+      "kind": "optional explicit test reminder, not detected inconsistency",
+      "suggestion": "When enumerating B transaction vectors, explicitly retain both inherited B07 rules: strobed reserved bits in a STOP write still produce an error after revocation; invalid shadow-byte writes leave the shadow word unchanged, not merely the active configuration.",
+      "why_nonblocking": "Document already adopts B07 full command-priority/access baseline; pinned B07 REGISTER_SEMANTICS_CANDIDATE.md101-123 supplies both rules. No contrary behavior is authorized."
+    },
+    {
+      "id": "N02",
+      "blocking": false,
+      "location": "register_trace_decisions_20261018.md:84-85",
+      "kind": "optional literal precision",
+      "suggestion": "Expand nonwrapping session/epoch lifecycle to: frame sequence and acquisition index never wrap within one binding; changed session/config_epoch retires/closes the old receiver and requires a new authoritative binding; seq/epoch exhaustion requires a new negotiated session.",
+      "why_nonblocking": "Document explicitly adopts exact B05 receiver policy and separately retains full BOOT/session binding; it does not authorize receiver rebind or reuse. This wording would avoid readers mistaking an offline decoder for enforcement of cross-instance lifecycle."
+    }
+  ],
+  "verified_scope": [
+    "Exact B PR head/source commits/request hashes agree with completed review",
+    "205 exact source/HEAD manifest blobs and8 separate CRLF checkout differences described truthfully",
+    "149/80 existing tests and29/51 descriptor structure are not promoted to executed35 register transitions",
+    "B07 bit/access/storage-reset/STOP/shadow/latch rules approved only for offline reference model",
+    "Unresolved domain/queue/clock and yaw-period-width choices remain A full-freeze gates",
+    "Separate coherent diagnostic bank required;0x2c remains inaccessible and no AI side-channel",
+    "B05 exact offline format and first-acquisition-tick semantics preserved; type7 stays rejected",
+    "Source/profile/calibration/clock/BOOT/C interoperability and real schedule remain separate",
+    "968-to11084-byte sparse expansion stated without bandwidth promise",
+    "B can proceed with reference transaction model and explicit unconfigured domains; C callback repair responsibility preserved"
+  ],
+  "recommendation_to_main": "Suitable to publish for the stated offline reference implementation/interoperability next step, subject to main final decision. Optional notes clarify inherited test rules and lifecycle wording but do not block that bounded next work. This review does not complete the register ABI freeze or enable runtime/hardware.",
+  "no_test_rerun": true,
+  "source_or_document_edits": false,
+  "product_acceptance": false,
+  "all29_formal_cards": "not_run",
+  "effects": "Only register-trace-decision-review/ evidence written. No services/OS/board/source/Git/credentials/external-message effects."
+}
