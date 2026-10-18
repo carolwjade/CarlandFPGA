@@ -1,0 +1,53 @@
+{
+  "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+  "operation_id": "B-PRESERVE-EXISTING-TASK-20261018-v1",
+  "request_hash": "4b281259bede714c5a13fa307d5835b04d3cac1b41c6b199e481aebbcd34b71c",
+  "review_evidence_commit": "bbf6b8129d05175a792b20cf108335a7d83761d2",
+  "comments": [
+    {
+      "pr": 29,
+      "id": 6251185110,
+      "url": "https://github.com/carolwjade/CarlandFPGA/pull/29#issuecomment-6251185110",
+      "body_sha256": "edd1092354ce2c347bfad0f41301e583618774e5e2b06acb1917903625a1dd2d",
+      "readback_matches": true
+    }
+  ],
+  "pr_at_publication": {
+    "head": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+    "state": "open",
+    "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab"
+  },
+  "notifications": [
+    {
+      "peer": "B",
+      "delivered": true,
+      "queued": false,
+      "operation_id": "A-PRESERVE-EXISTING-TASK-REVIEW-abb3ec9-B-v1",
+      "duplicate": false
+    },
+    {
+      "channel": "group",
+      "queued": true,
+      "operation_id": "A-PRESERVE-EXISTING-TASK-REVIEW-abb3ec9-GROUP-v1",
+      "role": "astra"
+    }
+  ],
+  "publication_network_attempts": [
+    {
+      "attempt": 1,
+      "phase": "GET pulls/29 before any POST",
+      "result": "http.client.IncompleteRead: 16234 bytes read, 5827 more expected",
+      "comment_post_attempted": false,
+      "next_action": "Bounded retry of idempotent read and existing-marker reconciliation; no persistent proxy change"
+    },
+    {
+      "attempt": 2,
+      "result": "GET head matched; existing-marker check then comment posted once and exact body read back",
+      "comment_id": 6251185110,
+      "persistent_network_config_changed": false
+    }
+  ],
+  "B_substantive_readback": "pending; B transport ACK is not substantive acceptance",
+  "group_delivery": "queued only; no platform delivery receipt claimed",
+  "C": "No duplicate C review assigned or notification needed for execution"
+}
