@@ -19,6 +19,12 @@ if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) {
 if (-not (Test-Path -LiteralPath $pythonPath -PathType Leaf)) {
     throw "Python executable not found: $pythonPath"
 }
+# The resident must not inherit a console control lifetime. Keep the supplied
+# interpreter for synchronous service commands; schedule its windowless sibling.
+$residentPythonPath = Join-Path (Split-Path -Parent $pythonPath) "pythonw.exe"
+if (-not (Test-Path -LiteralPath $residentPythonPath -PathType Leaf)) {
+    throw "Windowless Python executable not found in the same environment: $residentPythonPath"
+}
 $taskName = "FPGA-Mesh-Node-$Node"
 $existing = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 if ($existing -and $existing.Description -notlike "FPGA Mesh $Node controller*") {
@@ -29,7 +35,7 @@ $readyFile = Join-Path $nodeDir "ready.json"
 $logFile = Join-Path $nodeDir "service.log"
 $arguments = '-m fpga_mesh.supervisor --config "{0}" --ready-file "{1}" --log-file "{2}"' -f `
     $configPath, $readyFile, $logFile
-$action = New-ScheduledTaskAction -Execute $pythonPath -Argument $arguments `
+$action = New-ScheduledTaskAction -Execute $residentPythonPath -Argument $arguments `
     -WorkingDirectory $repo
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:USERDOMAIN\$env:USERNAME"
 $settings = New-ScheduledTaskSettingsSet `
