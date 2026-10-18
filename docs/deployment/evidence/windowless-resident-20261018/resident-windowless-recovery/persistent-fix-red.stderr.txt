@@ -1,0 +1,27 @@
+test_missing_windowless_interpreter_fails_before_scheduler_access (tests.test_autostart_registration.AutostartRegistrationTests.test_missing_windowless_interpreter_fails_before_scheduler_access) ... FAIL
+test_resident_action_uses_same_environment_windowless_python (tests.test_autostart_registration.AutostartRegistrationTests.test_resident_action_uses_same_environment_windowless_python) ... FAIL
+
+======================================================================
+FAIL: test_missing_windowless_interpreter_fails_before_scheduler_access (tests.test_autostart_registration.AutostartRegistrationTests.test_missing_windowless_interpreter_fails_before_scheduler_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.codex\worktrees\mesh-authority-bind-repair\FPGA多机协作开发\tests\test_autostart_registration.py", line 86, in test_missing_windowless_interpreter_fails_before_scheduler_access
+    self.assertNotEqual(result.returncode, 0, record)
+AssertionError: 0 == 0 : {'task': 'FPGA-Mesh-Node-A', 'error': None, 'action': {'Arguments': '-m fpga_mesh.supervisor --config "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\fpga-registration-2nnn57jl\\node config.toml" --ready-file "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\fpga-registration-2nnn57jl\\ready.json" --log-file "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\fpga-registration-2nnn57jl\\service.log"', 'WorkingDirectory': 'C:\\Users\\CarlJade\\.codex\\worktrees\\mesh-authority-bind-repair\\FPGA多机协作开发', 'Execute': 'C:\\Users\\CarlJade\\AppData\\Local\\Temp\\fpga-registration-2nnn57jl\\python.exe'}, 'writes': 1, 'starts': 1, 'lookups': 1}
+
+======================================================================
+FAIL: test_resident_action_uses_same_environment_windowless_python (tests.test_autostart_registration.AutostartRegistrationTests.test_resident_action_uses_same_environment_windowless_python)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.codex\worktrees\mesh-authority-bind-repair\FPGA多机协作开发\tests\test_autostart_registration.py", line 75, in test_resident_action_uses_same_environment_windowless_python
+    self.assertEqual(record["action"]["Execute"], str(pythonw))
+AssertionError: 'C:\\[16 chars]\AppData\\Local\\Temp\\fpga-registration-nasm5w79\\python.exe' != 'C:\\[16 chars]\AppData\\Local\\Temp\\fpga-registration-nasm5w79\\pythonw.exe'
+- C:\Users\CarlJade\AppData\Local\Temp\fpga-registration-nasm5w79\python.exe
++ C:\Users\CarlJade\AppData\Local\Temp\fpga-registration-nasm5w79\pythonw.exe
+?                                                                       +
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.746s
+
+FAILED (failures=2)
