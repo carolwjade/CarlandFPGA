@@ -24,8 +24,8 @@ TASK_FIELDS = {'task_id': {'type': 'string'}, 'task_version': {'type': 'integer'
 SESSION_TOOLS = [
     tool('fpga_models_refresh', 'Refresh the official Codex model/effort catalog and native roles. Preserves current tasks, credentials and both execution entrances; makes no inference call. New role definitions apply to newly loaded conversations.', {}, []),
     tool('fpga_session_list', 'Read your project main sessions, allowed models/efforts and quality route without a model call.', {}, []),
-    tool('fpga_session_open', 'Create a separate task conversation and queue its work. Choose optional allowed model/effort; critical work requires the quality main route. Repeated same work does not enqueue twice.', TASK_FIELDS, ['task_id', 'task_version', 'text']),
-    tool('fpga_session_route', 'Select this task conversation model and reasoning depth for its next turn. Current generation completes with its original model. Critical work cannot be downgraded.', {k: TASK_FIELDS[k] for k in ['task_id', 'model', 'effort', 'category']}, ['task_id', 'model', 'effort', 'category']),
+    tool('fpga_session_open', 'Create a separate task conversation and queue its work. The main chooses any verified model/effort, including for critical work. Repeated same work does not enqueue twice.', TASK_FIELDS, ['task_id', 'task_version', 'text']),
+    tool('fpga_session_route', 'Select this task conversation model and reasoning depth for its next turn. Current generation completes with its original model. The selected supported model/effort is respected for every category.', {k: TASK_FIELDS[k] for k in ['task_id', 'model', 'effort', 'category']}, ['task_id', 'model', 'effort', 'category']),
 ]
 
 
@@ -49,6 +49,13 @@ class ProjectActions:
         action = {'fpga_session_list': 'session_list', 'fpga_session_open': 'main_submit',
                   'fpga_session_route': 'session_route', 'fpga_models_refresh': 'models_refresh'}.get(name, name)
         r = self.runtime
+        if action == 'desktop_inbox_claim':
+            return await r.desktop_route.claim(args)
+        if action in {'desktop_inbox_list', 'desktop_inbox_claim',
+                      'desktop_inbox_complete', 'desktop_inbox_reconcile', 'desktop_history_read'}:
+            # Authenticated local actions never create/resume a Desktop writer.
+            # The caller must name the existing owner generation and receipt.
+            return r.desktop_route.call(action, args)
         if action == 'models_list':
             return self.models.snapshot()
         if action == 'models_refresh':

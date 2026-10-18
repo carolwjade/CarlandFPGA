@@ -19,7 +19,7 @@ _KEY_PATTERN = re.compile(
 )
 _PRIVATE_FILENAMES = {"auth.json", "deepcodex.txt", "id_ed25519", "id_rsa", "id_ecdsa", "id_dsa"}
 _PRIVATE_SUFFIXES = ("-secret.txt", ".p12", ".pfx", ".pem", ".key", ".lic")
-SKILL_VERSION = "2026.10.13.3"
+SKILL_VERSION = "2026.10.15.1"
 SKILL_NAMES = ("fpga-multi-node", "pynq-z2-single-node")
 _SKILL_PREFIX = ".agents/skills/"
 _PROFILE_ALIASES = {

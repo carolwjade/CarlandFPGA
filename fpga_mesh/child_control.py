@@ -467,17 +467,16 @@ class ChildCoordinator:
         work_id: str | None = None, ownership: list[str] | None = None,
         reason: str,
     ) -> dict:
-        """Reserve one shared execution lease for a special GPT-native task.
+        """Reserve a lease when the main selects this mesh-managed native route.
 
-        DeepSeek Flash at max reasoning stays the priority route; native work
-        needs a nonempty reason that justifies the special capability. The
+        The nonempty reason records the assignment rationale. Desktop/native
+        work can instead use its own task and exclusive ownership record. The
         returned lease token is the only copy the parent gets, and it must be
         handed to the native child that validates and completes the job.
         """
         if not isinstance(reason, str) or not reason.strip():
             raise ValueError(
-                "native_reserve requires a nonempty reason for the special "
-                "GPT native capability"
+                "native_reserve requires a nonempty assignment reason"
             )
         self._validate_assignment(task_id, task_version, text)
         self._reject_stale(task_id, task_version)

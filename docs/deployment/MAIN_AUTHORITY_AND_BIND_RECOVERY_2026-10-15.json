@@ -1,0 +1,55 @@
+{
+  "scope": "A original resident recovery; not B/C deployment or product/board acceptance",
+  "source_commit": "6663173d4b0b1092501c304269fc80f36a6c505d",
+  "verified_utc": "2026-10-15T15:00:33.771714+00:00",
+  "tests": {
+    "total": 93,
+    "passed": 93,
+    "exit_code": 0,
+    "raw_sha256": "6414c9f35d8d0a65877452987e718169853b0ff4f5d841a8975c6d18b9768578"
+  },
+  "independent_regression": {
+    "tests": 28,
+    "passed": 28
+  },
+  "identity": {
+    "node": "A",
+    "project": "fpga-main"
+  },
+  "runtime": {
+    "started": true,
+    "peer_bind_state": "listening",
+    "peer_bind_error": null,
+    "hardware_enabled": false,
+    "restarts": 0,
+    "authenticated_original_address_health": true
+  },
+  "preservation": {
+    "config_and_credentials_hashes_unchanged": true,
+    "original_rows_preserved": {
+      "child_jobs": true,
+      "main_runs": true,
+      "main_sessions": true
+    },
+    "sql_ownership_rewritten": false,
+    "failed_operations_replayed": false,
+    "desktop_writer_adopted": false
+  },
+  "task_entry": {
+    "same_scheduled_task": true,
+    "same_venv": true,
+    "before": "python.exe",
+    "after": "pythonw.exe",
+    "arguments_and_cwd_unchanged": true
+  },
+  "original_console_exit": {
+    "code": "0xC000013A",
+    "source": "unknown",
+    "note": "First launch reached listening before termination. Later pythonw launch independently verified alive; no claim about who terminated the earlier console."
+  },
+  "desktop_idle": {
+    "persistent_goal_created": true,
+    "periodic_model_polling_enabled": false,
+    "permanent_zero_token_wakeup_verified": false
+  }
+}

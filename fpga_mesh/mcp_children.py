@@ -42,8 +42,8 @@ TOOLS = [
     _tool(
         "child_delegate",
         "Assign a concrete task to one of your local DeepSeek V4.1 Flash children "
-        "at fixed max reasoning. DeepSeek Flash is the priority route for ordinary "
-        "work. Returns a job id immediately; call child_wait once when you need "
+        "at max reasoning through this dedicated route. The main may select other "
+        "available Desktop/native routes and efforts. Returns a job id immediately; call child_wait once when you need "
         "results. You decide the task, context, and whether to expand. Identical "
         "work_id/ownership requests are reused instead of rerun, and overlapping "
         "file ownership is rejected.",
@@ -73,11 +73,10 @@ TOOLS = [
     ),
     _tool(
         "native_reserve",
-        "Reserve the shared execution lease for bounded execution needing a "
-        "specific native GPT tool or context capability. Decisions, acceptance, "
-        "hard problems, critical optimization and evaluation stay with the main. "
-        "DeepSeek Flash at max reasoning "
-        "stays the priority route, so the reason must justify this capability. "
+        "Reserve a native execution lease when the main chooses the mesh-managed "
+        "route. Record the assignment reason; no special-capability justification "
+        "is required. Desktop/native tasks may instead use the main's recorded "
+        "task and exclusive ownership without this lease. Decisions and acceptance stay with the main. "
         "Returns the persisted job plus a one-time lease token for the native "
         "child. Identical work is reused and conflicting file ownership is rejected.",
         {
@@ -92,7 +91,7 @@ TOOLS = [
     ),
     _tool(
         "native_validate",
-        "Validate a GPT-native lease with its token before the child starts work "
+        "Validate a mesh-managed GPT-native lease with its token before that job starts work "
         "(DeepSeek children never need this). Supply the canonical agent_id to "
         "bind the job and require execution_allowed=true. Without an agent_id "
         "this is only a preflight and does not authorize execution.",

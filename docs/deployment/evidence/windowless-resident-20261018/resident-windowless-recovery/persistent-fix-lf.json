@@ -1,0 +1,18 @@
+{
+  "path": "deploy/register-autostart.ps1",
+  "before_sha256": "14ac40aebfb7a31c83c480b39fc2e5db5e28f12e1076680955e0a4e33be99aee",
+  "after_sha256": "b41eb463f79ac4d6df4c3648a55c4a23f47bf3fc64f077428c63ed1e392db9fe",
+  "only_crlf_to_lf": true,
+  "review_semantics_reused": true,
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "tests.test_autostart_registration",
+    "-v"
+  ],
+  "exit_code": 0
+}

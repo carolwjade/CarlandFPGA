@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.EXE",
+    "-NoProfile",
+    "-NonInteractive",
+    "-File",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\foreign-task\\mock-wrapper.ps1"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\foreign-task",
+  "exit_code": 1,
+  "capture": {
+    "lookups": 1,
+    "events": [
+      "lookup"
+    ],
+    "starts": 0,
+    "sync_args": null,
+    "writes": 0,
+    "stops": 0,
+    "error": "Scheduled task exists and is not owned by FPGA Mesh: FPGA-Mesh-Node-A"
+  },
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

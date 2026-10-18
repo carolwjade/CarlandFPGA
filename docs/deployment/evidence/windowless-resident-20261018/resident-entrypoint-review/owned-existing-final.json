@@ -1,0 +1,44 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.EXE",
+    "-NoProfile",
+    "-NonInteractive",
+    "-File",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\mock-wrapper.ps1"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final",
+  "exit_code": 0,
+  "capture": {
+    "lookups": 1,
+    "events": [
+      "lookup",
+      "action",
+      "trigger",
+      "settings",
+      "stop",
+      "sync",
+      "set",
+      "start"
+    ],
+    "action": {
+      "Arguments": "-m fpga_mesh.supervisor --config \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\node config.toml\" --ready-file \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\ready.json\" --log-file \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\service.log\"",
+      "Execute": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\pythonw.exe",
+      "WorkingDirectory": "C:\\Users\\CarlJade\\.codex\\worktrees\\mesh-authority-bind-repair\\FPGA多机协作开发"
+    },
+    "sync_args": [
+      "-m",
+      "fpga_mesh.service",
+      "--wait-stopped",
+      "--config",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\resident-entrypoint-review\\owned-existing-final\\node config.toml",
+      "--timeout",
+      20
+    ],
+    "stops": 1,
+    "error": null,
+    "starts": 1,
+    "writes": 1
+  },
+  "stdout_sha256": "48d105c8d16a2c456ebc4de4cd905d234bc35b9d547a5208a07294820ae92ff2",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

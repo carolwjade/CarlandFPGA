@@ -80,7 +80,7 @@ class MeshSkillTests(unittest.TestCase):
                 nodes = ["A"] if role == "a" else ["B", "C"]
                 manifest = json.loads((package / "MANIFEST.json").read_text())
                 self.assertEqual(manifest["profile"], "project-skills-" + role)
-                self.assertEqual(manifest["version"], "2026.10.13.3")
+                self.assertEqual(manifest["version"], "2026.10.15.1")
                 self.assertEqual(manifest["revision"], "a" * 40)
                 self.assertEqual({p.parent.name for p in (package / PREFIX).glob("*/SKILL.md")}, set(SKILLS))
                 for skill in SKILLS:
@@ -108,7 +108,7 @@ class MeshSkillTests(unittest.TestCase):
                 config_before = config.read_bytes()
                 first = installer.install(package, project, node)
                 self.assertTrue((project / "AGENTS.md").read_bytes().startswith(before))
-                self.assertEqual(first["version"], "2026.10.13.3")
+                self.assertEqual(first["version"], "2026.10.15.1")
                 self.assertTrue(first["new_conversation_required"])
                 backups = list((project / ".local/skill-backups").iterdir())
                 second = installer.install(package / PREFIX / SKILLS[0], project, node,

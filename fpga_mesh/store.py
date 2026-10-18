@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -142,6 +143,36 @@ class SQLiteStore:
                 self._connection.execute("ALTER TABLE group_outbox ADD COLUMN job_id TEXT")
             if "cancelled_at" not in columns:
                 self._connection.execute("ALTER TABLE group_outbox ADD COLUMN cancelled_at TEXT")
+            for name, declaration in (
+                ("attempts", "INTEGER NOT NULL DEFAULT 0"),
+                ("last_attempt_at", "TEXT"),
+                ("last_error", "TEXT"),
+                ("next_attempt_at", "TEXT"),
+                ("delivery_state", "TEXT NOT NULL DEFAULT 'ready'"),
+                ("reconciliation_sha256", "TEXT"),
+                ("reconciled_at", "TEXT"),
+                ("resolution", "TEXT"),
+            ):
+                if name not in columns:
+                    self._connection.execute(
+                        f"ALTER TABLE group_outbox ADD COLUMN {name} {declaration}"
+                    )
+            if "delivery_state" not in columns:
+                # Old rows contain no attempt outcome. A pending row may have
+                # reached Feishu before an acknowledgement was lost; migration
+                # alone is not evidence that replay is safe.
+                self._connection.execute(
+                    "UPDATE group_outbox SET delivery_state = 'delivery_unknown', "
+                    "last_error = 'delivery_unknown:legacy_delivery_untracked' "
+                    "WHERE sent_at IS NULL AND cancelled_at IS NULL"
+                )
+            # Only the original single sender opens this runtime store. An
+            # interrupted attempt cannot be assumed unsent on its next startup.
+            self._connection.execute(
+                "UPDATE group_outbox SET delivery_state = 'delivery_unknown', "
+                "last_error = 'delivery_unknown:interrupted_attempt', next_attempt_at = NULL "
+                "WHERE delivery_state = 'inflight' AND sent_at IS NULL AND cancelled_at IS NULL"
+            )
             # Rebuild the revision index for databases created before this table
             # existed; a processed newer edit must still supersede an older retry.
             for row in self._connection.execute("SELECT payload FROM inbound"):
@@ -189,12 +220,124 @@ class SQLiteStore:
         ]
 
     def ack_group_report(self, operation_id: str, platform_message_id: str) -> None:
+        if not isinstance(platform_message_id, str) or not platform_message_id.strip():
+            raise ValueError("group acknowledgement requires a platform message ID")
         with self._connection:
+            state = self.group_report_delivery(operation_id)
+            if state and state["delivery_state"] == "delivery_unknown":
+                raise ValueError("unknown delivery requires evidenced reconciliation")
             self._connection.execute(
-                "UPDATE group_outbox SET sent_at = ?, platform_message_id = ? "
-                "WHERE operation_id = ? AND sent_at IS NULL",
+                "UPDATE group_outbox SET sent_at = ?, platform_message_id = ?, "
+                "last_error = NULL, next_attempt_at = NULL, delivery_state = 'sent' "
+                "WHERE operation_id = ? AND sent_at IS NULL AND cancelled_at IS NULL",
                 (_format_datetime(_utc_now()), platform_message_id, operation_id),
             )
+
+    def group_report_delivery(self, operation_id: str) -> dict[str, Any] | None:
+        row = self._connection.execute(
+            "SELECT attempts, last_attempt_at, last_error, next_attempt_at, delivery_state, "
+            "reconciliation_sha256, reconciled_at, resolution "
+            "FROM group_outbox WHERE operation_id = ?", (operation_id,),
+        ).fetchone()
+        return dict(row) if row is not None else None
+
+    def group_role_ready(self, role: str) -> bool:
+        row = self._connection.execute(
+            "SELECT MAX(next_attempt_at) AS retry_at, "
+            "MAX(delivery_state IN ('inflight', 'delivery_unknown')) AS held FROM group_outbox "
+            "WHERE role = ? AND sent_at IS NULL AND cancelled_at IS NULL", (role,),
+        ).fetchone()
+        retry_at = _parse_datetime(row["retry_at"])
+        return not row["held"] and (retry_at is None or retry_at <= _utc_now())
+
+    def attempt_group_report(self, operation_id: str) -> None:
+        with self._connection:
+            cursor = self._connection.execute(
+                "UPDATE group_outbox SET attempts = attempts + 1, last_attempt_at = ?, "
+                "delivery_state = 'inflight' "
+                "WHERE operation_id = ? AND sent_at IS NULL AND cancelled_at IS NULL "
+                "AND delivery_state = 'ready'",
+                (_format_datetime(_utc_now()), operation_id),
+            )
+            if cursor.rowcount != 1:
+                raise ValueError("report is not ready for a send attempt")
+
+    def fail_group_report(
+        self, operation_id: str, error: str, retry_seconds: float, *,
+        delivery_unknown: bool = False,
+    ) -> None:
+        with self._connection:
+            self._connection.execute(
+                "UPDATE group_outbox SET last_error = ?, next_attempt_at = ?, delivery_state = ? "
+                "WHERE operation_id = ? AND sent_at IS NULL AND cancelled_at IS NULL "
+                "AND delivery_state IN ('ready', 'inflight')",
+                ("delivery_unknown:" + error if delivery_unknown else error,
+                 None if delivery_unknown else _format_datetime(
+                     _utc_now() + timedelta(seconds=retry_seconds)),
+                 "delivery_unknown" if delivery_unknown else "ready", operation_id),
+            )
+
+    def reconcile_group_report(
+        self, operation_id: str, *, evidence_sha256: str,
+        platform_message_id: str | None = None, confirmed_not_sent: bool = False,
+    ) -> None:
+        """Resolve a held original only with a reference to reviewed evidence.
+
+        The owner must first check platform history/ID and retain the evidence
+        whose SHA256 is supplied here. No timeout or UUID alone releases a hold.
+        This method performs no platform request and cannot verify that evidence.
+        """
+        if not isinstance(evidence_sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", evidence_sha256):
+            raise ValueError("reconciliation requires a reviewed evidence SHA256")
+        delivered = isinstance(platform_message_id, str) and bool(platform_message_id.strip())
+        if (platform_message_id is not None and not delivered
+                or type(confirmed_not_sent) is not bool
+                or delivered == confirmed_not_sent):
+            raise ValueError("choose a verified message ID or explicitly confirmed not sent")
+        with self._connection:
+            state = self.group_report_delivery(operation_id)
+            if not state or state["delivery_state"] != "delivery_unknown":
+                raise ValueError("only unknown delivery can be reconciled")
+            cursor = self._connection.execute(
+                "UPDATE group_outbox SET delivery_state = ?, last_error = NULL, "
+                "next_attempt_at = NULL, reconciliation_sha256 = ?, reconciled_at = ?, "
+                "resolution = ?, platform_message_id = ?, sent_at = ? "
+                "WHERE operation_id = ? AND delivery_state = 'delivery_unknown' "
+                "AND sent_at IS NULL AND cancelled_at IS NULL",
+                ("sent" if delivered else "ready", evidence_sha256, _format_datetime(_utc_now()),
+                 "verified_sent" if delivered else "verified_not_sent", platform_message_id,
+                 _format_datetime(_utc_now()) if delivered else None, operation_id),
+            )
+            if cursor.rowcount != 1:
+                raise ValueError("report is no longer pending reconciliation")
+
+    def group_outbox_health(self) -> dict[str, Any]:
+        rows = self._connection.execute(
+            "SELECT role, attempts, last_attempt_at, last_error, next_attempt_at, delivery_state "
+            "FROM group_outbox WHERE sent_at IS NULL AND cancelled_at IS NULL "
+            "ORDER BY last_attempt_at, rowid"
+        ).fetchall()
+        roles: dict[str, dict[str, Any]] = {}
+        last_error = None
+        for row in rows:
+            state = roles.setdefault(row["role"], {
+                "pending": 0, "attempts": 0, "last_attempt_at": None,
+                "last_error": None, "next_attempt_at": None,
+                "held": 0,
+            })
+            state["pending"] += 1
+            state["attempts"] += row["attempts"]
+            state["held"] += row["delivery_state"] in {"inflight", "delivery_unknown"}
+            if row["last_attempt_at"]:
+                state["last_attempt_at"] = row["last_attempt_at"]
+            if row["last_error"]:
+                state["last_error"] = last_error = row["last_error"]
+            if row["next_attempt_at"]:
+                state["next_attempt_at"] = max(
+                    state["next_attempt_at"] or "", row["next_attempt_at"],
+                )
+        return {"pending": len(rows), "last_error": last_error, "roles": roles,
+                "held": sum(state["held"] for state in roles.values())}
 
     def group_report_job(self, operation_id: str) -> str | None:
         row = self._connection.execute(

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-18T15:08:11.986865+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-RESIDENT-ENTRYPOINT-REVIEW-20261018-v1",
+  "agent_id": "/root/pc_direct_review_20261018",
+  "native_job_id": "child-82517bc5cc0d4d11a9e36083479cc6b2",
+  "status": "read_only_review_ready_for_main",
+  "source_root": "C:\\Users\\CarlJade\\.codex\\worktrees\\mesh-authority-bind-repair\\FPGA多机协作开发",
+  "source_head": "323c157e68a38944c66ec84184823b86b75889ff",
+  "source_hashes": {
+    "deploy/register-autostart.ps1": "14ac40aebfb7a31c83c480b39fc2e5db5e28f12e1076680955e0a4e33be99aee",
+    "tests/test_autostart_registration.py": "709d8fbc6fa8fb2a2927ca0f8c4c2382051be644ed6fee9784768cb8b0073f53",
+    "docs/deployment/WINDOWLESS_RESIDENT_2026-10-18.md": "d06e81cc23d96d45edfe3a75383c6af9d12d1a6e60c9c59985cd749a744debde"
+  },
+  "source_stable_across_review": true,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "author_mocked_tests": {
+    "tests": 2,
+    "exit_code": 0,
+    "receipt": "author-mocked-tests.json"
+  },
+  "independent_mock_cases": {
+    "test_methods": 5,
+    "scenarios": 8,
+    "all_scenarios_observed_pass": true,
+    "original_log": "independent-tests.log",
+    "initial_fixture_failure": "PowerShell .ps1 stub preserved timeout argument 20 as integer; native argv string assertion corrected without source edits.",
+    "corrected_rerun_tests": 1,
+    "corrected_log": "independent-corrected-one.log"
+  },
+  "entrypoint_driver_failures": [
+    "scope bootstrap expected absent control-plane worktree DeepEye file; corrected to canonical root/product",
+    "saved XML bytes UTF-8 with retained UTF-16 declaration; normalized saved text, did not alter source XML"
+  ],
+  "source_matches_author_green": true,
+  "xml_semantic_change_paths": [
+    "/Task/Actions/Exec/Command/text"
+  ],
+  "live_task_or_service_operation": false,
+  "historical_health": "Previously saved PID25944 snapshot only; no new live health or survival claim",
+  "findings": "No blocking regression found in reviewed delta. Missing pythonw prerequisite fails before scheduler calls; inherited wait-stopped failure occurs after existing Stop and blocks Set/Start.",
+  "limitations": [
+    "source of actual termination unknown",
+    "same-directory sibling does not by itself verify every future interpreter environment",
+    "no indefinite survival claim",
+    "mock scheduler tests do not prove actual scheduler operations or Feishu/peer/product/board acceptance"
+  ]
+}

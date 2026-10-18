@@ -13,7 +13,7 @@ PAGE = '''<!doctype html><html lang="zh-CN"><meta charset="utf-8">
 <h1>CarlandFPGA 官方模型</h1>
 <p>点击更新，从 Codex 官方目录获取当前模型与推理档位，并更新原生派工角色。已有任务继续运行。</p>
 <button id="update">更新官方模型</button><p id="status" role="status">正在读取已保存目录…</p>
-<small>新模型以 OpenAI 发布、账号权限及客户端支持为准。新角色配置在新加载的会话生效。DeepSeek Flash/max、飞书身份及主从权限保持原设置。</small>
+<small>主会话自选实际可用模型与推理深度；新角色在新加载会话生效。沿用本机认证和飞书身份。Desktop/native 工作不依赖 mesh 租约。</small>
 <h2>官方目录</h2><table><thead><tr><th>模型</th><th>推理档位</th><th>目录状态</th></tr></thead><tbody id="models"></tbody></table>
 <h2>原生派工入口</h2><table><thead><tr><th>角色</th><th>实际模型</th><th>说明</th></tr></thead><tbody id="roles"></tbody></table>
 <script nonce="TOKEN">

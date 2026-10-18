@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import errno
 import os
 import secrets
 import sys
@@ -19,6 +20,7 @@ from .child_control import ChildCoordinator, LocalControlFileClient, LocalContro
 from .codex import CodexHomeFactory, CodexHomeSpec
 from .controller import Controller
 from .dynamic_children import ChildDynamicTools
+from .desktop_route import DesktopRoute
 from .feishu_channel import FeishuNodeService
 from .gateway import AppServerGateway, GatewayConfig
 from .hardware import HardwareService
@@ -167,6 +169,17 @@ class NodeRuntime:
             on_result=self._on_result,
             claim_ownership=self._claim_ownership,
         )
+        self.desktop_route = DesktopRoute(
+            state_dir=config.state_dir, node_id=config.node_id,
+            project_id=config.project_id, group_id=config.feishu_group_id,
+            controller=self.controller, store=self.store,
+            on_report=self._notify_desktop_report,
+            history_app_id=config.feishu_astra_app_id,
+            history_allowed_user_ids=set(config.feishu_allowed_user_ids) if config.feishu_allowed_user_ids else None,
+        )
+        # Also covers reports persisted by older versions before this route
+        # existed, without re-executing their background model side effects.
+        self.controller.trusted_report_receiver = self.desktop_route.receive_peer
         self.feishu: FeishuNodeService | None = (
             FeishuNodeService(
                 node_id=config.node_id, project_id=config.project_id,
@@ -182,6 +195,13 @@ class NodeRuntime:
                 ),
                 local_bot_open_ids=set(config.feishu_local_bot_open_ids),
                 job_lookup=lambda job_id: self.children.job(job_id),
+                trusted_receiver=self.desktop_route.receive,
+                history_state_dir=config.state_dir / 'feishu-history' if self.desktop_route.enabled else None,
+                history_receiver=self.desktop_route.receive_history if self.desktop_route.enabled else None,
+                history_pending=self.desktop_route.history_pending,
+                history_scan_begin=self.desktop_route.history_scan_begin,
+                history_scan_end=self.desktop_route.history_scan_end,
+                history_recheck=self.desktop_route.history_recheck,
             ) if config.feishu_enabled else None
         )
         self._feishu_task: asyncio.Task | None = None
@@ -225,6 +245,8 @@ class NodeRuntime:
         self._peer_retry_task: asyncio.Task | None = None
         self._peer_stop = asyncio.Event()
         self.peer_error: str | None = None
+        self.peer_bind_state = 'disabled'
+        self.peer_bind_error: str | None = None
         self._peer_presence: dict[str, bool | None] = {
             peer_id: None for peer_id in config.peer_urls
         }
@@ -241,6 +263,7 @@ class NodeRuntime:
                 controller=self.controller,
                 peer_urls=config.peer_urls,
                 shared_secret=shared_secret,
+                trusted_report_receiver=self.desktop_route.receive_peer,
             )
             self.peer_server = HttpPeerServer(
                 self.peer,
@@ -265,12 +288,13 @@ class NodeRuntime:
             await self.main_control.start()
             await self.models_ui.start()
             if self.peer_server is not None:
-                await self.peer_server.start()
+                await self._start_peer_listener()
                 self._peer_stop.clear()
                 self._peer_retry_task = asyncio.create_task(
                     self._run_peer_retry(), name=f"fpga-peer-{self.config.node_id}",
                 )
             await self.controller.start()
+            await self.desktop_route.start()
             if self.feishu is not None:
                 self._feishu_stop.clear()
                 self._feishu_task = asyncio.create_task(
@@ -315,6 +339,7 @@ class NodeRuntime:
             self._feishu_task = None
         if self.feishu is not None:
             await self.feishu.stop()
+        await self.desktop_route.stop()
         await self.controller.stop()
         await self.models_ui.close()
         await self.child_control.close()
@@ -325,6 +350,7 @@ class NodeRuntime:
             await self.astra_gateway.close()
         if self.peer_server is not None:
             await self.peer_server.close()
+            self.peer_bind_state = 'stopped'
         if self.hardware is not None:
             self.hardware.close()
         self.store.close()
@@ -345,13 +371,18 @@ class NodeRuntime:
             ),
             "network_enabled": self.peer is not None,
             "peer_listen_port": (
-                self.peer_server.port if self.peer_server and self.started else None
+                self.peer_server.port if self.peer_server and self.peer_server.listening else None
             ),
+            "peer_bind_state": self.peer_bind_state,
+            "peer_bind_error": self.peer_bind_error,
             "peer_error": self.peer_error,
             "peer_presence": dict(self._peer_presence),
             "feishu_enabled": self.feishu is not None,
             "feishu_connected": bool(self.feishu and self.feishu.connected),
-            "feishu_error": self.feishu_error,
+            "feishu_error": self.feishu_error or (self.feishu.last_error if self.feishu else None),
+            "feishu_outbox": self.store.group_outbox_health(),
+            "feishu_history": self.feishu.history_health() if self.feishu else {'enabled': False},
+            "desktop_inbox": self.desktop_route.health(),
             "quota_error": self.quota_error,
             "hardware_enabled": self.hardware is not None,
             "hardware_queue": self.hardware.queue() if self.hardware else [],
@@ -446,6 +477,10 @@ class NodeRuntime:
             message.task_id, message.task_version,
         )
 
+    def _notify_desktop_report(self) -> None:
+        if self.feishu is not None:
+            self.feishu.notify_report()
+
     async def _claim_ownership(self, message) -> bool | None:
         if self.ownership is None:
             return None
@@ -506,10 +541,27 @@ class NodeRuntime:
             finally:
                 await self.feishu.stop()
 
+    async def _start_peer_listener(self) -> None:
+        assert self.peer_server is not None
+        try:
+            await self.peer_server.start()
+        except OSError as exc:
+            code = getattr(exc, 'winerror', None) or exc.errno
+            self.peer_bind_error = f'{type(exc).__name__}({code}): {exc}'
+            if code in (errno.EADDRNOTAVAIL, 10049):
+                self.peer_bind_state = 'waiting'
+                return
+            self.peer_bind_state = 'failed'
+            raise
+        self.peer_bind_state = 'listening'
+        self.peer_bind_error = None
+
     async def _run_peer_retry(self) -> None:
         assert self.peer is not None
         while not self._peer_stop.is_set():
             try:
+                if self.peer_bind_state == 'waiting':
+                    await self._start_peer_listener()
                 await self.peer.flush()
                 for peer_id in self.config.peer_urls:
                     self._note_peer_status(
@@ -528,18 +580,8 @@ class NodeRuntime:
                 pass
 
     def _note_peer_status(self, peer_id: str, online: bool) -> None:
-        previous = self._peer_presence.get(peer_id)
+        # Health observations stay internal; human queries use snapshot.
         self._peer_presence[peer_id] = online
-        if previous is online or self.feishu is None:
-            return
-        status = "上线" if online else "离线"
-        self.store.enqueue_group_report(
-            f"peer:{self.config.node_id}:{peer_id}:{uuid.uuid4().hex}",
-            f"Astra-{self.config.node_id} 观察到 Astra-{peer_id} {status}。"
-            + ("可继续交换任务和实测结果。" if online else
-               "本机继续独立推进；发给该节点的消息会排队补发。"),
-        )
-        self.feishu.notify_report()
 
     def _observe_quota(self, response: dict) -> None:
         state = self._quota_monitor.observe(

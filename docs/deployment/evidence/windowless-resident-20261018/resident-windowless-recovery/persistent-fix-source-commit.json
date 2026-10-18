@@ -1,0 +1,28 @@
+{
+  "source_commit": "7dc192768de686067a4f87c33bb5895b71269fb5",
+  "files": {
+    "deploy/register-autostart.ps1": "b41eb463f79ac4d6df4c3648a55c4a23f47bf3fc64f077428c63ed1e392db9fe",
+    "tests/test_autostart_registration.py": "709d8fbc6fa8fb2a2927ca0f8c4c2382051be644ed6fee9784768cb8b0073f53",
+    "docs/deployment/WINDOWLESS_RESIDENT_2026-10-18.md": "d06e81cc23d96d45edfe3a75383c6af9d12d1a6e60c9c59985cd749a744debde"
+  },
+  "normalization": {
+    "path": "deploy/register-autostart.ps1",
+    "before_sha256": "14ac40aebfb7a31c83c480b39fc2e5db5e28f12e1076680955e0a4e33be99aee",
+    "after_sha256": "b41eb463f79ac4d6df4c3648a55c4a23f47bf3fc64f077428c63ed1e392db9fe",
+    "only_crlf_to_lf": true,
+    "review_semantics_reused": true,
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "tests.test_autostart_registration",
+      "-v"
+    ],
+    "exit_code": 0
+  },
+  "independent_review": "resident-entrypoint-review/report.md; prior CRLF semantics equivalent, exact LF author2 rerun passed",
+  "live_reregistration": false
+}

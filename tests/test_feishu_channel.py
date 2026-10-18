@@ -217,7 +217,14 @@ class FeishuNodeServiceTests(unittest.IsolatedAsyncioTestCase):
             async def send(self, to, message, opts=None):
                 self.attempts += 1
                 if self.attempts == 1:
-                    return type("Result", (), {"success": False, "message_id": None})()
+                    from lark_channel.channel.errors import FeishuChannelErrorCode, SendError
+                    from lark_channel.channel.types import SendResult
+                    # A documented rejection is safe to retry. An unspecified
+                    # transport failure could already have sent the message.
+                    return SendResult.fail(SendError(
+                        code=FeishuChannelErrorCode.UNKNOWN, retryable=True,
+                        hint="obtain self tenant access token failed, code: 21001, msg: denied",
+                    ))
                 return await super().send(to, message, opts)
 
         with tempfile.TemporaryDirectory() as tmp:
