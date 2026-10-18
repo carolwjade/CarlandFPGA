@@ -1,0 +1,5 @@
+A pure trusted-owner cleanup coordinator at42e4786c3ccf52607df1113a9c0bf01a0513049c preserves unresolved resource ownership when cleanup or audit callbacks fail. Audit failures do not skip remaining safe cleanup; uncertain effects are not retried, and profile removal requires confirmed dependencies. It has no OS backend and is not connected to existing launchers.
+
+Final23 author tests and8 independent fake-backend tests passed on identical source bytes. Main verified raw LF, clean-filter, staged and committed blobs. Two earlier RED/GREEN sequences and a completion-helper bootstrap failure are preserved. The existing P1b launcher and its historical records were neither run nor changed. Actual OS cleanup, full resource-plan acquisition, G03 and product acceptance remain not_run. H01-H15 unchanged.
+
+The manifest preserves exact raw artifact bytes; .log is renamed .txt only. The final audit event contains a provisional result: returned results also include a failure of that last sink call, as documented. No source receipt is promoted to a durable-storage or OS-ownership attestation.

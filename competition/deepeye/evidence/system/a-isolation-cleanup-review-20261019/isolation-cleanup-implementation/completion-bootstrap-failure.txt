@@ -1,0 +1,5 @@
+Initial complete.py exited 1 before constructing a client or invoking native_complete:
+ModuleNotFoundError: No module named 'fpga_mesh'
+Cause: standalone script directory was sys.path[0], unlike the original root-cwd python -c bootstrap.
+Corrected only the owned evidence script to add the known ROOT import path before import.
+No terminal call or unknown side effect happened on this failed bootstrap.

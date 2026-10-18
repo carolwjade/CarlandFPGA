@@ -1,0 +1,81 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-G03-ISOLATION-CLEANUP-REVIEW-20261019-v1",
+  "job_id": "child-f05e904bbb104a3ba3043354efa848a9",
+  "agent_id": "/root/pc_direct_review_20261018",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "result": "no_blocking_defect_found_within_trusted_backend_contract_offline_primitive_only",
+  "tests": {
+    "author_current": {
+      "count": 23,
+      "exit_code": 0
+    },
+    "independent": {
+      "count": 8,
+      "exit_code": 0
+    }
+  },
+  "frozen_candidate_and_dependencies_unchanged": 15,
+  "report": {
+    "size": 6501,
+    "sha256": "2b8f48734e8773988697bdc21670a9fefa8d15bb92b8ffaee7737c61b4b4afc4"
+  },
+  "evidence": {
+    "after.json": {
+      "size": 3050,
+      "sha256": "8567430c014ee3169b3c4f516895a1ecc35467be09738516b785af8c35435d5c"
+    },
+    "author-23.stderr.log": {
+      "size": 4071,
+      "sha256": "ce3a0f8b3ff071e266009aa27a7883ff91f7ea740c6eecb5eddf15382797a7bc"
+    },
+    "author-23.stdout.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "author-artifact-check.json": {
+      "size": 1473,
+      "sha256": "ef98e0ff24e5cbd103e37284c9aa0f6197fec8f5bb2bc6ac1574dfdd11c242a4"
+    },
+    "before.json": {
+      "size": 3122,
+      "sha256": "e7588a360bb4d2f73a85e839e9a0ed2c670f129330bdfd09cc41d4efe3c5037d"
+    },
+    "commands.json": {
+      "size": 1987,
+      "sha256": "2d4fdef324c16a59fae5832d3f8bce1606f53b691f2678f7b3839ff1f8f812b6"
+    },
+    "finalize_review.py": {
+      "size": 10313,
+      "sha256": "fec414965225d6a147bdbbb738fc0c06a70d7545aed37f8ffcd8ad2d33972a9f"
+    },
+    "harness-execution.json": {
+      "size": 569,
+      "sha256": "f7982f3c483ed5b535635a66416e9044d93e3d6697fdb77d433245583a824649"
+    },
+    "independent-8.stderr.log": {
+      "size": 1475,
+      "sha256": "313e41a8fe92a9a06688dd2ba08ef377a955ed39696a221ad3596fa5f726246d"
+    },
+    "independent-8.stdout.log": {
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "report.md": {
+      "size": 6501,
+      "sha256": "2b8f48734e8773988697bdc21670a9fefa8d15bb92b8ffaee7737c61b4b4afc4"
+    },
+    "run_review.py": {
+      "size": 3514,
+      "sha256": "e2f0472874604f932f1dacef89b45e0ed1e58dd424bd0d5a91797cd3866f91ca"
+    },
+    "test_independent_cleanup.py": {
+      "size": 6739,
+      "sha256": "1ff5aef60f94ab23128ca72e463e750ae7fe7f2b731e813ee4c4a6775f4ad60b"
+    }
+  },
+  "G03": "not_run",
+  "real_runtime_integration": "not_run",
+  "actual_OS_cleanup": "not_run"
+}
