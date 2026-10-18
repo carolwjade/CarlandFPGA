@@ -90,12 +90,12 @@ ROUTE_FIELDS = {"route_task_id": ROUTE_TASK_ID, "route_task_version": ROUTE_TASK
 RUNNERS = {}
 
 # Declared card outputs used as default bounded ownership claims (taskbook R03
-# card: docs/interface.json, registers.csv, tests/vectors, tools/pipeline.py).
+# card: docs/interface.json, docs/registers.csv, tests/vectors, tools/pipeline.py).
 # Cards without a declared mapping fall back to a bounded claim namespace.
 DEFAULT_CLAIMS = {
     "R03": (
         "competition/deepeye/docs/interface.json",
-        "competition/deepeye/registers.csv",
+        "competition/deepeye/docs/registers.csv",
         "competition/deepeye/tests/vectors",
         "competition/deepeye/tools/pipeline.py",
     ),

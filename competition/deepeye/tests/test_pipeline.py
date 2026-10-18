@@ -315,6 +315,18 @@ class PipelineTestCase(unittest.TestCase):
         with self.assertRaises(self.mod.NormalizationError):
             ledger.reserve("wrk-bad", task, "c" * 64, ["../escape"])
 
+    def test_r03_default_claim_excludes_a_second_writer_for_the_actual_register_table(self):
+        ledger = self.ledger()
+        task = self.mod.make_task("s0", ["R03"])
+        ledger.reserve("wrk-r03-default", task, "0" * 64,
+                       self.mod.default_claims("s0", ["R03"]))
+        before = self.ledger_path.read_bytes()
+        with self.assertRaises(self.mod.ConflictError) as ctx:
+            ledger.reserve("wrk-register-editor", task, "1" * 64,
+                           ["competition/deepeye/docs/registers.csv"])
+        self.assertEqual(ctx.exception.code, "ownership_overlap")
+        self.assertEqual(self.ledger_path.read_bytes(), before)
+
     def test_run_records_blocked_when_implementation_missing(self):
         args = ["run", "--stage", "s0", "--card", "R03", "--task-version", "5",
                 "--work-id", "wrk-blocked", "--ledger", self.ledger_path]
