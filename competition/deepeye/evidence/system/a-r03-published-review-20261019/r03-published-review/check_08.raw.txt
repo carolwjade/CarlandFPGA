@@ -1,0 +1,33 @@
+test_first_sample_interval_from_measured_period (__main__.AdcWindowTests.test_first_sample_interval_from_measured_period) ... ok
+test_no_em_inference_api (__main__.AdcWindowTests.test_no_em_inference_api) ... ok
+test_nominal_spans_are_not_frame_times (__main__.AdcWindowTests.test_nominal_spans_are_not_frame_times) ... ok
+test_single_sample_and_no_concealment (__main__.AdcWindowTests.test_single_sample_and_no_concealment) ... ok
+test_window_helper_stays_integer_on_large_clock (__main__.AdcWindowTests.test_window_helper_stays_integer_on_large_clock) ... ok
+test_constructor_cannot_forge_derived_fields (__main__.AnchorTests.test_constructor_cannot_forge_derived_fields) ... ok
+test_make_anchor_clips_negative_lower_to_zero (__main__.AnchorTests.test_make_anchor_clips_negative_lower_to_zero) ... ok
+test_make_anchor_main_formula_and_expiry (__main__.AnchorTests.test_make_anchor_main_formula_and_expiry) ... ok
+test_make_anchor_rejects_identity_and_types (__main__.AnchorTests.test_make_anchor_rejects_identity_and_types) ... ok
+test_make_anchor_rejects_negative_upper (__main__.AnchorTests.test_make_anchor_rejects_negative_upper) ... ok
+test_bounds_accepts_boundary_values (__main__.ClockBoundsTests.test_bounds_accepts_boundary_values) ... ok
+test_bounds_age_limits (__main__.ClockBoundsTests.test_bounds_age_limits) ... ok
+test_bounds_reject_none (__main__.ClockBoundsTests.test_bounds_reject_none) ... ok
+test_bounds_rejects_delay_order_and_negative (__main__.ClockBoundsTests.test_bounds_rejects_delay_order_and_negative) ... ok
+test_bounds_rejects_rate_out_of_range (__main__.ClockBoundsTests.test_bounds_rejects_rate_out_of_range) ... ok
+test_bounds_requires_quantum_floor (__main__.ClockBoundsTests.test_bounds_requires_quantum_floor) ... ok
+test_interval_accepts_closed_range (__main__.IntervalTests.test_interval_accepts_closed_range) ... ok
+test_interval_rejects_bool_and_none (__main__.IntervalTests.test_interval_rejects_bool_and_none) ... ok
+test_interval_rejects_empty_and_negative (__main__.IntervalTests.test_interval_rejects_empty_and_negative) ... ok
+test_ceiling_drift_is_integer_exact (__main__.MapTickTests.test_ceiling_drift_is_integer_exact) ... ok
+test_containment_of_true_sample_times (__main__.MapTickTests.test_containment_of_true_sample_times) ... ok
+test_delayed_sample_before_anchor_allowed_but_bounded (__main__.MapTickTests.test_delayed_sample_before_anchor_allowed_but_bounded) ... ok
+test_expired_and_regressing_now (__main__.MapTickTests.test_expired_and_regressing_now) ... ok
+test_forward_mapping_exact_interval (__main__.MapTickTests.test_forward_mapping_exact_interval) ... ok
+test_identity_mismatch_and_bad_arguments (__main__.MapTickTests.test_identity_mismatch_and_bad_arguments) ... ok
+test_large_clock_is_float_free (__main__.MapTickTests.test_large_clock_is_float_free) ... ok
+test_upper_bound_may_exceed_now_but_lower_must_not (__main__.MapTickTests.test_upper_bound_may_exceed_now_but_lower_must_not) ... ok
+test_wrap_and_half_wrap (__main__.MapTickTests.test_wrap_and_half_wrap) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.001s
+
+OK

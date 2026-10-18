@@ -1,0 +1,65 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-PC-RUNTIME-BOOT-VETO-FIX3-REVIEW-20261019-v1",
+  "job_id": "child-8b1ed630712b441d926219355d7df21c",
+  "agent_id": "/root/r03_review_20261018",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "review": "bounded_approved_PCR_R4_fixed",
+  "unresolved_findings": [],
+  "implementation_delta": "positional-only wrapper receiver only",
+  "exact_probe_copy_sha256": "77bd800ec585bea725eb8c61cf65c6d73a6ac228208a8644a93e99993a72fbfc",
+  "independent_probe": {
+    "test_methods": 3,
+    "passed": 3,
+    "failed_subcases": 0,
+    "errors": 0,
+    "exit_code": 0,
+    "self_keyword_subcases": 6,
+    "ordinary_duplicate_subcases": 6
+  },
+  "prior_RED_result_unchanged": true,
+  "source3_match_and_stable": true,
+  "dependencies12_match_and_stable": true,
+  "raw_LF_equals_prospective_clean_git_blobs_all3": true,
+  "blob_checks": {
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb",
+      "crlf_count": 0,
+      "raw_blob_oid": "730eb829639be17d3dddc9a3e1230cc0e96fe881",
+      "clean_blob_oid": "730eb829639be17d3dddc9a3e1230cc0e96fe881",
+      "raw_equals_clean": true,
+      "index_entry": "",
+      "attributes": "competition/deepeye/simulation/authority/pc_direct_runtime.py: text: set\ncompetition/deepeye/simulation/authority/pc_direct_runtime.py: eol: lf\ncompetition/deepeye/simulation/authority/pc_direct_runtime.py: filter: unspecified\ncompetition/deepeye/simulation/authority/pc_direct_runtime.py: working-tree-encoding: unspecified\n"
+    },
+    "competition/deepeye/tests/simulation/test_pc_direct_runtime.py": {
+      "sha256": "e988feddce8e5a4987f0617c4b429a20088429822fc3fa2936f985bac81e72e5",
+      "crlf_count": 0,
+      "raw_blob_oid": "71e931d95825db6fb69396eea8b97ce2882172f0",
+      "clean_blob_oid": "71e931d95825db6fb69396eea8b97ce2882172f0",
+      "raw_equals_clean": true,
+      "index_entry": "",
+      "attributes": "competition/deepeye/tests/simulation/test_pc_direct_runtime.py: text: set\ncompetition/deepeye/tests/simulation/test_pc_direct_runtime.py: eol: lf\ncompetition/deepeye/tests/simulation/test_pc_direct_runtime.py: filter: unspecified\ncompetition/deepeye/tests/simulation/test_pc_direct_runtime.py: working-tree-encoding: unspecified\n"
+    },
+    "competition/deepeye/docs/pc_direct_runtime.md": {
+      "sha256": "90821f70cb27a67ada6fab4147c9992fd8177c426232bb2ade1e680291227665",
+      "crlf_count": 0,
+      "raw_blob_oid": "6366ff8af89a7b01e60a5dd0ff8289d970094bd0",
+      "clean_blob_oid": "6366ff8af89a7b01e60a5dd0ff8289d970094bd0",
+      "raw_equals_clean": true,
+      "index_entry": "",
+      "attributes": "competition/deepeye/docs/pc_direct_runtime.md: text: set\ncompetition/deepeye/docs/pc_direct_runtime.md: eol: lf\ncompetition/deepeye/docs/pc_direct_runtime.md: filter: unspecified\ncompetition/deepeye/docs/pc_direct_runtime.md: working-tree-encoding: unspecified\n"
+    }
+  },
+  "author64_original8_supplemental4_dependency79_reused_not_rerun": true,
+  "scope_not_expanded": true,
+  "product_index_git_mutations": false,
+  "service_hardware_OS_external_operations": false,
+  "default_ledger_exists": false,
+  "all29_formal_cards": "not_run",
+  "real_trusted_sources_AI_physics_runtime_activation": "not_run",
+  "no_pending_process_or_product_write": true,
+  "main_owns_publication_and_acceptance": true,
+  "evidence_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-runtime-fix3-review",
+  "evidence_manifest_sha256": "d32e8a97221b6274028dce4898b4d9995fc87e5989cbfd7ed771d69c2cec8649"
+}

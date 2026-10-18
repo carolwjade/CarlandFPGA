@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-18T16:03:55.365052+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-G03-P1B-EVIDENCE-REVIEW-20261018-v1",
+  "native_job_id": "child-a2ca95206f644546849283858b350ece",
+  "agent_id": "/root/pc_direct_review_20261018",
+  "director_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "status": "static_independent_review_complete_with_bounded_conclusions",
+  "historical_manifest_files": 224,
+  "historical_total_files": 227,
+  "intentionally_unlisted": [
+    "manifest.json",
+    "native_complete.json",
+    "receipt.json"
+  ],
+  "all_manifest_sizes_and_hashes_match": true,
+  "receipt_report_audit_hashes_match": true,
+  "source_native_exe_request_response_bindings": 17,
+  "exe_versions": {
+    "876ffb2586f377f6f427d1048f952b031691319503935a970528bb4916bb42e9": 11,
+    "ada3f11d5cdd3d32edec9375726020c721b9b4efb5586c3a7b09c4c4e142e115": 6
+  },
+  "recorded_profiles_deleted": 10,
+  "recorded_native_children_terminal": 17,
+  "baseline_children_terminal": 2,
+  "baseline_interpretation": "one normal expected strict-handle trap verdict passed; one intentional sleeper timeout verdict failed as its test required; outer2 unittest passed",
+  "historical_lifecycle_only_not_live_reverification": true,
+  "historical_files_unchanged": true,
+  "pure_parser_tests": {
+    "tests": 12,
+    "passed": true,
+    "log": "parser-tests.log",
+    "log_sha256": "cbd317074df1195b8b9acfdf3a6c91577fbcc53afc2a8474699e253908fafee5",
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\p1b-evidence-review\\static_review.py"
+    ],
+    "driver_exit_code": 0,
+    "copied_sources": {
+      "protocol.py": "83c6c8affc0f248d703b9496aad536982a6d7b5a5353d2229db0b075d68de8c1",
+      "test_protocol.py": "12244a13ef44c0b19e3528f80f3a894e4132466c9795f10326d99e81865fba07"
+    }
+  },
+  "accepted_finite_categories": [
+    "native bootstrap positive controls for both image versions",
+    "specified section denial with same-name positive control",
+    "specified SID-scoped pipe denial with server PID/nonce and positive control",
+    "specified victim DebugActiveProcess denial with attach/detach positive control",
+    "stored successful lifecycle records for17 native and2 baseline children,10 profiles"
+  ],
+  "rejected_or_unproven": [
+    "generic LOCAL pipe object_binding_unproven for both Win32 and NT addressing",
+    "loopback unclassified failure; timeout is not permission denial",
+    "universal IPC/security/screen/graphics denial",
+    "actual four-product-process execution",
+    "first failed owner PID and individual remaining-handle close evidence",
+    "historical cases.py source versions",
+    "independent child loaded-module identities",
+    "all exception-path cleanup robustness or indefinite process absence"
+  ],
+  "concrete_source_issues": [
+    "Run cleanup invokes event/persist inside terminate and close path, so log failure can abort remaining resource teardown",
+    "close pops handle before close/log completion and cleanup marks closed even after failure; future recovery must retain unresolved ownership",
+    "paired cleanup_complete alone omits fixture handle/thread/socket status; historical audit separately checked it"
+  ],
+  "proposed_next_task": "New pure cleanup coordinator with fake-backend logging/close/terminate/wait fault injection; no new native profiles or global/shared-runtime ACL changes",
+  "no_native_os_probe_imports_or_execution": true,
+  "no_profile_process_service_hardware_acl_actions": true,
+  "no_product_source_or_old_evidence_edits": true,
+  "no_external_agents_git_ledger_credentials_changes": true,
+  "formal_g03": "not_run",
+  "four_product_processes": "not_run",
+  "full_game_ai_board_acceptance": "not_run"
+}

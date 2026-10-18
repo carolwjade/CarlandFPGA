@@ -1,0 +1,41 @@
+{
+  "tests": 4,
+  "failures": 3,
+  "errors": 0,
+  "cases": [
+    {
+      "case": "idle_nested_malformed_step",
+      "arguments": {
+        "expected_pose_revision": false,
+        "dt_ns": 1
+      },
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1,
+      "reason": "trusted_executor_receipt"
+    },
+    {
+      "case": "idle_nested_malformed_step",
+      "arguments": {
+        "expected_pose_revision": 0,
+        "dt_ns": 0
+      },
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1,
+      "reason": "trusted_executor_receipt"
+    },
+    {
+      "case": "timeout_abort_then_new_proposal",
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "verified_proposal_activation_clock_error",
+      "same_binding_replay_rejected": false,
+      "committed": true,
+      "fixture_commits": 1,
+      "reason": "trusted_executor_receipt"
+    }
+  ]
+}

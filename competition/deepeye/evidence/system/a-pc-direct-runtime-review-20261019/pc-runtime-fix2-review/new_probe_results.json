@@ -1,0 +1,102 @@
+{
+  "tests": 3,
+  "failing_assertions_or_subcases": 6,
+  "errors": 0,
+  "cases": [
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "boot",
+      "latched": true
+    },
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "board",
+      "latched": true
+    },
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "observe",
+      "latched": true
+    },
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "command",
+      "latched": true
+    },
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "stop",
+      "latched": true
+    },
+    {
+      "case": "ordinary_duplicate_arguments",
+      "method": "step",
+      "latched": true
+    },
+    {
+      "case": "guard_exception",
+      "old_replay_rejected": true,
+      "fresh_recovery_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "boot",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "board",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "observe",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "command",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "stop",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    },
+    {
+      "case": "reserved_self_keyword",
+      "method": "step",
+      "caught": [
+        "TypeError"
+      ],
+      "boot_rejected": false,
+      "committed": true,
+      "fixture_commits": 1
+    }
+  ]
+}

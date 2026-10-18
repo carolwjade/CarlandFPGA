@@ -1,0 +1,129 @@
+test_advancing_monotonic_clock_does_not_force_stop (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_advancing_monotonic_clock_does_not_force_stop) ... ok
+test_ai_death_during_geometry_prepare_vetoes (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_ai_death_during_geometry_prepare_vetoes) ... ok
+test_ai_death_vetoes_before_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_ai_death_vetoes_before_commit) ... ok
+test_ai_instance_change_cannot_reuse_old_process_identity (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_ai_instance_change_cannot_reuse_old_process_identity) ... ok
+test_all_separate_inputs_and_final_fence_commit_one_fixture_step (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_all_separate_inputs_and_final_fence_commit_one_fixture_step) ... ok
+test_board_fault_vetoes_immediately (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_board_fault_vetoes_immediately) ... ok
+test_boolean_generation_cannot_alias_real_binding (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_boolean_generation_cannot_alias_real_binding) ... ok
+test_boot_entry_clock_exception_before_verifier_does_not_retire_identity (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_boot_entry_clock_exception_before_verifier_does_not_retire_identity) ... ok
+test_broker_stop_requires_no_observation_and_latches (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_broker_stop_requires_no_observation_and_latches) ... ok
+test_bytearray_context_cannot_alias_immutable_binding (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_bytearray_context_cannot_alias_immutable_binding) ... ok
+test_caught_board_reentrancy_inside_boot_cannot_clear_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_caught_board_reentrancy_inside_boot_cannot_clear_veto) ... ok
+test_caught_fence_failure_cannot_retry_and_restore_motion (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_caught_fence_failure_cannot_retry_and_restore_motion) ... ok
+test_caught_nested_boot_cannot_activate_the_outer_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_caught_nested_boot_cannot_activate_the_outer_boot) ... ok
+test_changed_same_command_key_is_rejected (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_changed_same_command_key_is_rejected) ... ok
+test_clock_regression_latches (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_clock_regression_latches) ... ok
+test_correct_revision_after_elapsed_interval_can_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_correct_revision_after_elapsed_interval_can_commit) ... ok
+test_crc_error_latches_and_normal_heartbeat_cannot_restore (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_crc_error_latches_and_normal_heartbeat_cannot_restore) ... ok
+test_duplicate_command_never_renews_original_issue_deadline (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_duplicate_command_never_renews_original_issue_deadline) ... ok
+test_duplicate_observation_cannot_relabel_receipt_or_sample_age (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_duplicate_observation_cannot_relabel_receipt_or_sample_age) ... ok
+test_executor_cannot_return_success_without_fence (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_executor_cannot_return_success_without_fence) ... ok
+test_expiration_during_prepare_vetoes_before_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_expiration_during_prepare_vetoes_before_commit) ... ok
+test_expired_ai_lease_cannot_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_expired_ai_lease_cannot_commit) ... ok
+test_explicit_stop_invalidates_commands_without_fresh_observation (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_explicit_stop_invalidates_commands_without_fresh_observation) ... ok
+test_fence_is_single_use (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_fence_is_single_use) ... ok
+test_fifth_observation_evicts_oldest_but_does_not_relabel_active_command (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_fifth_observation_evicts_oldest_but_does_not_relabel_active_command) ... ok
+test_final_executor_fence_rechecks_ai (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_final_executor_fence_rechecks_ai) ... ok
+test_final_executor_fence_rechecks_time (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_final_executor_fence_rechecks_time) ... ok
+test_future_physics_intervals_cannot_overlap (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_future_physics_intervals_cannot_overlap) ... ok
+test_healthy_idle_step_poll_does_not_block_later_valid_command (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_healthy_idle_step_poll_does_not_block_later_valid_command) ... ok
+test_idle_step_clock_error_latches_until_fresh_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_idle_step_clock_error_latches_until_fresh_boot) ... ok
+test_malformed_idle_step_latches_until_fresh_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_malformed_idle_step_latches_until_fresh_boot) ... ok
+test_malformed_reentrant_step_arguments_always_veto_idle_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_malformed_reentrant_step_arguments_always_veto_idle_boot) ... ok
+test_malformed_unverified_context_does_not_retire_corrected_identity (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_malformed_unverified_context_does_not_retire_corrected_identity) ... ok
+test_missing_sample_mapping_is_not_an_observation (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_missing_sample_mapping_is_not_an_observation) ... ok
+test_never_returned_boot_verification_does_not_retire_unverified_identity (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_never_returned_boot_verification_does_not_retire_unverified_identity) ... ok
+test_new_boot_retires_old_command_observation_and_heartbeat (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_new_boot_retires_old_command_observation_and_heartbeat) ... ok
+test_new_stop_during_recovery_boot_does_not_restore_prior_command (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_new_stop_during_recovery_boot_does_not_restore_prior_command) ... ok
+test_no_boot_or_heartbeat_alone_cannot_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_no_boot_or_heartbeat_alone_cannot_commit) ... ok
+test_old_observation_sequence_cannot_restore_motion (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_old_observation_sequence_cannot_restore_motion) ... ok
+test_other_response_faults_and_rejection_cannot_be_ignored (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_other_response_faults_and_rejection_cannot_be_ignored) ... ok
+test_other_topology_cannot_activate (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_other_topology_cannot_activate) ... ok
+test_preexisting_watchdog_timeout_allows_separate_fresh_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_preexisting_watchdog_timeout_allows_separate_fresh_boot) ... ok
+test_reentrant_stop_during_prepare_vetoes (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reentrant_stop_during_prepare_vetoes) ... ok
+test_replayed_state_cannot_refresh_health (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_replayed_state_cannot_refresh_health) ... ok
+test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) ... 
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='boot') ... FAIL
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='board') ... FAIL
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='observe') ... FAIL
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='command') ... FAIL
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='stop') ... FAIL
+  test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='step') ... FAIL
+test_runtime_argument_binding_errors_cannot_escape_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_runtime_argument_binding_errors_cannot_escape_boot_veto) ... ok
+test_same_pose_revision_cannot_commit_twice (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_same_pose_revision_cannot_commit_twice) ... ok
+test_same_session_or_old_generation_boot_does_not_clear_stop (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_same_session_or_old_generation_boot_does_not_clear_stop) ... ok
+test_sample_age_caps_long_command_even_with_new_heartbeat (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_sample_age_caps_long_command_even_with_new_heartbeat) ... ok
+test_stale_observation_is_rejected (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_stale_observation_is_rejected) ... ok
+test_step_cannot_cross_command_or_heartbeat_deadline (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_step_cannot_cross_command_or_heartbeat_deadline) ... ok
+test_step_reentrancy_in_boot_without_active_command_vetoes (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_step_reentrancy_in_boot_without_active_command_vetoes) ... ok
+test_stop_from_activation_clock_callback_vetoes_boot_commit (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_stop_from_activation_clock_callback_vetoes_boot_commit) ... ok
+test_stop_from_boot_entry_clock_callback_also_vetoes_activation (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_stop_from_boot_entry_clock_callback_also_vetoes_activation) ... ok
+test_stop_inside_boot_verifier_cannot_be_cleared_by_that_boot (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_stop_inside_boot_verifier_cannot_be_cleared_by_that_boot) ... ok
+test_stress_observation_age_uses_original_twelve_second_cap (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_stress_observation_age_uses_original_twelve_second_cap) ... ok
+test_valid_non_state_ack_does_not_poison_or_refresh_heartbeat (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_valid_non_state_ack_does_not_poison_or_refresh_heartbeat) ... ok
+test_verified_proposal_retires_before_activation_clock_exception (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_verified_proposal_retires_before_activation_clock_exception) ... ok
+test_verified_proposal_retires_before_invalid_or_regressed_activation_clock (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_verified_proposal_retires_before_invalid_or_regressed_activation_clock) ... ok
+test_vetoed_proposal_cannot_replay_but_separate_fresh_boot_recovers (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_vetoed_proposal_cannot_replay_but_separate_fresh_boot_recovers) ... ok
+test_wrong_boot_generation_cannot_supply_observation (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_wrong_boot_generation_cannot_supply_observation) ... ok
+test_wrong_channel_boolean_cannot_authenticate (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_wrong_channel_boolean_cannot_authenticate) ... ok
+test_wrong_epoch_cannot_supply_command (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_wrong_epoch_cannot_supply_command) ... ok
+test_wrong_run_boot_cannot_activate (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_wrong_run_boot_cannot_activate) ... ok
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='boot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='board')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='observe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='command')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='stop')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_reserved_receiver_keyword_cannot_bypass_boot_veto (competition.deepeye.tests.simulation.test_pc_direct_runtime.PcDirectRuntimeTests.test_reserved_receiver_keyword_cannot_bypass_boot_veto) (method='step')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 508, in test_reserved_receiver_keyword_cannot_bypass_boot_veto
+    with self.assertRaises(ValueError):self.owner.boot(self.boot_binding(generation=2,session=8))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 64 tests in 0.318s
+
+FAILED (failures=6)

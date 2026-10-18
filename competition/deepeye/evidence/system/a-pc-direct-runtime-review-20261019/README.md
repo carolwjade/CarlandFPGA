@@ -1,0 +1,5 @@
+PC_DIRECT authority adapter source1c2442d3bcc890808bcda16cc50b3061d38a1f1d was independently reviewed on exactly the committed LF bytes. It composes strict board/source/broker admission, original lifetimes, STOP and BOOT-generation fencing with a one-use physics callback; all actual verifiers and execution providers remain explicit required dependencies. No provider or renderer is activated.
+
+Current author suite:64 passed. Latest independent probe:3 methods passed, including6 receiver-keyword and6 ordinary duplicate-argument cases; prior independent8/4 and79 unchanged dependency results remain separately bounded. Original R1/R2/R3/R4 failures remain in the exact copied reports/logs. Preparation failures are disclosed. Raw artifacts preserve original bytes; .log copies use .txt only. Probe scripts retain their original execution-path assumptions and are historical source artifacts, not installation entrypoints.
+
+All29 taskbook cards, actual game/runtime/board/AI/OS-isolation acceptance and both full H12 routes remain not_run. H01-H15 are unchanged. See pc_direct_runtime.md for trusted integration obligations.

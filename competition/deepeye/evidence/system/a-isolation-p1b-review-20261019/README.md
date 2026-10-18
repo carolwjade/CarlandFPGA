@@ -1,0 +1,3 @@
+Independent static reconciliation of the preserved P1b native prototype supports only the specified section, SID-scoped pipe and debugger-victim denial observations. All224 manifest entries match;17 native plus2 baseline process records and10 profiles were reconciled. Twelve pure parser tests passed. No native actor was rerun by this review.
+
+Generic pipe reachability, loopback classification, exceptional cleanup and historical binding limitations remain explicit in the exact report. G03 and four-process product acceptance remain not_run. A new pure cleanup-coordinator implementation is separate work, not included or implicitly accepted here.
