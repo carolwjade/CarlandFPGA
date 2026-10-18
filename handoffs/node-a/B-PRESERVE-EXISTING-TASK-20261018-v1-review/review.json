@@ -1,0 +1,87 @@
+{
+  "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+  "source_commit": "fd867aa485d9fe7ea8754ec35aa53f1df1962154",
+  "operation_id": "B-PRESERVE-EXISTING-TASK-20261018-v1",
+  "controller_task_id": "B-RUNTIME-REPAIR-20261015",
+  "handoff_task_id": "B-RUNTIME-CONTINUITY-20261016",
+  "task_version": 1,
+  "request_hash": "4b281259bede714c5a13fa307d5835b04d3cac1b41c6b199e481aebbcd34b71c",
+  "manifest_sha256": "bd8d72dbcf3c05d258c123540a92c6a0e550f74bfeb0ce654501755239e7758e",
+  "scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "decision": "EXISTING_TASK_PRESERVATION_OFFLINE_ACCEPTED",
+  "main_review": "No blocking defect found in scoped supported task-preservation paths. Main read actual helper/updater, all fixture mutation stubs, unchanged admission call and logs.",
+  "route": "Astra-A serial main review; no new child or concurrent task",
+  "manifest_entries_verified": 20,
+  "changed_source_hashes_verified": 5,
+  "unchanged_admission_files_verified": [
+    "fpga_mesh/update.py",
+    "deploy/Stop-FPGAMeshForUpdate.ps1",
+    "tests/test_mesh_update.py"
+  ],
+  "standard_handoff_verifier": {
+    "valid": true,
+    "files_checked": 20,
+    "exit_code": 0,
+    "command": [
+      ".local/venv/Scripts/python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".agents/skills/fpga-multi-node/scripts/handoff.py",
+      "verify",
+      "--root",
+      ".local/a-preserve-existing-task-review",
+      "--manifest",
+      "handoffs/node-b/B-PRESERVE-EXISTING-TASK-20261018-v1/manifest.json"
+    ]
+  },
+  "tests": {
+    "fixture_methods": 18,
+    "fixture_process_cases": 46,
+    "fixture_unittest_seconds": 26.98,
+    "fixture_exit_code": 0,
+    "admission_methods": 4,
+    "admission_unittest_seconds": 0.177,
+    "admission_exit_code": 0,
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "powershell_versions": [
+      "5.1.26100.9711"
+    ],
+    "exact_commands": "test-commands.json"
+  },
+  "observed_invariants": {
+    "task_mutators_excluding_stubbed_start": 0,
+    "max_start_per_updater_invocation": 1,
+    "install_routing_models_refresh_register_autostart": 0,
+    "no_automatic_restore_of_changed_XML_or_launcher": true,
+    "STOP_or_busy_ledger_guard": "unchanged real admission code checked on disposable ledgers; real stop callback never invoked"
+  },
+  "prior_failure": "B preliminary17-method run failed an assertion expecting a snapshot after a pre-snapshot routing rejection. Original failed log retained in manifest and reviewed, not rerun or relabeled as current pass.",
+  "limits": [
+    "Task Scheduler compare-and-start is not atomic; maintenance coordination must exclude concurrent task/launcher edits and reconcile actual App writers.",
+    "At most one Start-ScheduledTask call is per updater invocation; existing triggers/retry policy and real process execution counts were not tested.",
+    "Real task inventory/export behavior, service process lineage, source reload and actual permission audit were not executed.",
+    "Original per-case fixture snapshots include Windows identity and remain private; published summaries explicitly index rather than rewrite raw bytes.",
+    "B five live conflicts and isolated merge rehearsal are separate work; no merge-rehearsal/deployment acceptance inherited.",
+    "No new deployment ZIP was built or accepted in this review; Git distribution path selection includes the new helper, but package/runtime acceptance remains separate."
+  ],
+  "stages": {
+    "scoped_code_review": "passed",
+    "manifest_and_source_hashes": "passed",
+    "PowerShell_offline_fixtures": "passed",
+    "admission_rollback_fixtures": "passed",
+    "entire_PR29_acceptance": "not_run",
+    "real_scheduled_task": "not_run",
+    "service_deployment": "not_run",
+    "actual_source_reload": "not_run",
+    "live_reconnect": "not_run",
+    "permanent_App_wake": "not_run",
+    "merge": "not_run",
+    "deployment_archive": "not_run",
+    "RTL_simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "physical_board": "not_run",
+    "product_acceptance": "not_run"
+  }
+}

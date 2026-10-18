@@ -1,0 +1,2473 @@
+{
+  "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+  "fixture_process_cases": 46,
+  "test_methods": 18,
+  "powershell_versions": [
+    "5.1.26100.9711"
+  ],
+  "task_call_totals": {
+    "Get-ScheduledTask": 92,
+    "Export-ScheduledTask": 88,
+    "Start-ScheduledTask": 7,
+    "Stop-ScheduledTask": 0,
+    "Set-ScheduledTask": 0,
+    "Register-ScheduledTask": 0,
+    "Unregister-ScheduledTask": 0,
+    "Enable-ScheduledTask": 0,
+    "Disable-ScheduledTask": 0
+  },
+  "maximum_start_calls_per_updater_invocation": 1,
+  "raw_evidence_policy": "Original per-process bytes retained privately, indexed here by hash; aggregate excludes Windows user SID and private task snapshot identity. Raw unittest logs are public and unmodified.",
+  "cases": [
+    {
+      "case_id": "case-0i9bgmrb",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "d6a02ae198ae9e3e10f2adfc96225587b59b6cb159f0008a3710fe79fc181e8a",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "8f935b17c8b7fd876e773bb66d9790437700c4dda3779453cac5d364e84039b7",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "e7fd91fbd3cf50edb0e1ab52d18fa0a260bb82586c77055648e6ac22c58a1333",
+          "size": 186
+        },
+        "stdout.txt": {
+          "sha256": "a5212b63f9563e5bf3d6bbef2db96ebc206a23bd4d5bf57fc1c6267a39e9ee87",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-0ntn0p8t",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "7584847cf9c22f292304f95d4f4c609fe45acee3ef1ed15b8132708ddbb119c3",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "17841e17bef194d697a639b13fa113129f1e3889c8fdadf84ec95c8026fe08dc",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "177ee79750feb2a779eb8f6d0d0f7ff2bcad9a31d3f0703b021ec48756f3878e",
+          "size": 193
+        },
+        "stdout.txt": {
+          "sha256": "9b26a158f97ac98f353602b0c38cd7964ffa44d2c270947c4a20de8fe15655dc",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-1vrdmtd9",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_xml_changes_before_apply_before_start_and_after_start_are_preserved",
+      "scenario": {
+        "FIXTURE_MUTATE_XML_EXPORT_AT": "4"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 4,
+        "Export-ScheduledTask": 4,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-start",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "30e96fe5a23addf5b4649a1f26d795c37e2cfd9210ace1f887a99aff50f2a126",
+          "size": 2195
+        },
+        "events.jsonl": {
+          "sha256": "bbdb48282c21aba124bc4e431020783ddc7403ecdc6a86d19d20577fbeaf649e",
+          "size": 14200
+        },
+        "snapshot.json": {
+          "sha256": "dca03791c098f187748fc9e25d8a006bc53476f57e315079ea383f8b7065a8e1",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "0f54206386e2299ca917be1e92ef4f09d902512a31887a0475ea4f02ac906a69",
+          "size": 177
+        },
+        "stdout.txt": {
+          "sha256": "8dada06103929ab77d07673bd230a8b2627612a856ff0776621d0b8530571f43",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "c05251194378fe3d5df2eee9e7e26d999edf46afe3c553af2ee323faff7a9c69",
+          "size": 501
+        }
+      }
+    },
+    {
+      "case_id": "case-22o81kwi",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_xml_changes_before_apply_before_start_and_after_start_are_preserved",
+      "scenario": {
+        "FIXTURE_MUTATE_XML_EXPORT_AT": "3"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 3,
+        "Export-ScheduledTask": 3,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 3,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-source-write",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "d4cae6c33d505f2e275ef0c6608cedccce273d824762382d9708ebb0ece1c686",
+          "size": 2195
+        },
+        "events.jsonl": {
+          "sha256": "31dc03b763793f597c1358b5680382d26f116521bfbef40312f8871a8034f7d0",
+          "size": 11174
+        },
+        "snapshot.json": {
+          "sha256": "093df7bf3d557289ed5ef9f68ecc832416e3abe71c65dd8250bd640e5c1ec2e7",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "589d68ff87f470fc3cf6abb8b7ded6fb2f23f77d2c55c00db983a4b067895d28",
+          "size": 184
+        },
+        "stdout.txt": {
+          "sha256": "3f090fe19d1ef6449de783a0879b88adb4d4086e870f07b0bfbdda0dedd670bd",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "0d15d25d5213f6d855cc4ac2b80a07bcc6755705538eb4a7bc1c0de4e784e2b0",
+          "size": 515
+        }
+      }
+    },
+    {
+      "case_id": "case-2x6vaoxz",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_custom_launcher_task_is_preserved_end_to_end",
+      "scenario": {},
+      "fixture_exit_code": 0,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 1,
+        "scope_audit": 1,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "completed",
+      "result_phase": "completed",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "c225f41e51fb8eb49a18a46153b5581ccee23cba2ba6badaedb726baa8525126",
+          "size": 2129
+        },
+        "events.jsonl": {
+          "sha256": "fc5f7af195ad50c5ab6f41243ac474c5368e21b1bb6f7536035d50d06698b2d5",
+          "size": 14152
+        },
+        "snapshot.json": {
+          "sha256": "6693b89d62f597f44eb7fe70862d64abb290d766115158832a28538afa59f2ba",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        },
+        "stdout.txt": {
+          "sha256": "79bcb00279b053bc89f83c92c7b86fa415bb7ff917a3d8cadb6154612f476926",
+          "size": 1006
+        },
+        "update-result.json": {
+          "sha256": "1e83ad0ecaba5fb66ceccd84377c6c9b2c6faee5dabc21553b68e99b46fb8e33",
+          "size": 375
+        }
+      }
+    },
+    {
+      "case_id": "case-3m5rcxbg",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_TASK_MISSING": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 0,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "fc6b3a1e7426620fb670abad30282402c841c7add6f730d76e6d39f612f79c1a",
+          "size": 2167
+        },
+        "events.jsonl": {
+          "sha256": "24b3e40f02c6147879a3ae88e0f6500a7ed68813a93fcdc090715a1af27a616a",
+          "size": 3513
+        },
+        "stderr.txt": {
+          "sha256": "077fa17d44389510267f4b5c88ba07c80633a564632bcbf04a4178ee59edeaf5",
+          "size": 109
+        },
+        "stdout.txt": {
+          "sha256": "e20b8d44176792dc0daad89518cfe08bee607ed3183ec0592270e70706ae1420",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-4fr1f36w",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_ACTION_WORKDIR_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "7597052144e2dd3a3021d276d9209f6b5bdc21641c94de704b8cb3793d5c7719",
+          "size": 2178
+        },
+        "events.jsonl": {
+          "sha256": "68b5111806eb2520f59d886a14ca807e559bc2d182e07035bcff77fcc075bddf",
+          "size": 3643
+        },
+        "stderr.txt": {
+          "sha256": "ff1e5b4efc5e6db0bc6adbffd3cec913ba3fbf96c0bf28184c3fc3e60d9920da",
+          "size": 100
+        },
+        "stdout.txt": {
+          "sha256": "bf9ecf683ea07984f86931517c7e93cfb1dfd427cc9356078db8f084dc9f2cf0",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-4zai26gd",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "9fb969979dd8339404549141aee36327822aef2836b5be1a73f1c2d6eae1611b",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "fc66e6e8d4e274d0b3d8d3d3daa5b5836aa7e2f39eae2a31c1429a52954ffa00",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "33b2b6f3d88a5dfc17abf917760bf03f5a091e9d6737c6f43208f761d84e952c",
+          "size": 200
+        },
+        "stdout.txt": {
+          "sha256": "a6ce98a60ddd739a1e75592cb68bbc2a1dd8b76c44d552257d46b1324bb73d22",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-74cjq3nu",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_routing_changes_at_stop_or_apply_prevent_next_mutation",
+      "scenario": {
+        "FIXTURE_MUTATE_ROUTING_ON": "stop"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 2,
+        "Export-ScheduledTask": 2,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 3,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-source-write",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "32a10f63e389ae6f79184e41ce75eaf66e85c4ef0220cedf1f03b561edbade36",
+          "size": 2182
+        },
+        "events.jsonl": {
+          "sha256": "63ef4c560b555d24352aaf8ea3c1859bd953642385becd82935ba622f0e66140",
+          "size": 10863
+        },
+        "snapshot.json": {
+          "sha256": "9a18e0aa7a505da689fc3814d8617301e762625312ff10826f266f10ea4defbb",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "3dae3eefb66301eb10629ca161161af2595871954c1efa2dba1d0ad7a640fc54",
+          "size": 240
+        },
+        "stdout.txt": {
+          "sha256": "946e7eed508ceaec377480c9483d41f1756bc9e6bb32124fd2a501d6bf80706c",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "a35e6f5e6c6676ce0c804186575727e7b24766778a762f173b565020e671fb57",
+          "size": 459
+        }
+      }
+    },
+    {
+      "case_id": "case-7qwuh1il",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_routing_validation_cannot_be_disabled_by_python_optimization",
+      "scenario": {
+        "PYTHONOPTIMIZE": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "2333f0aaea4eb104c21e8538505a0de74b579d178042c67b14c7b676d747e8ef",
+          "size": 2174
+        },
+        "events.jsonl": {
+          "sha256": "6848557f86b7d2950f892b3efa68bf3030fd3177ed6dd01ec055f25c4788aa01",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "8fe5fea1eabd1fc682be2e2b80041b3fc16468641b7c60b0642280d09d05e864",
+          "size": 188
+        },
+        "stdout.txt": {
+          "sha256": "c6cbc68f6f3e0910b7593bec27a0ee936fadd34e8e021d38462663d6d631065b",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-80h4o0_s",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "850d1107533728ce5999a86b9ead6c2ac9083afc3e39108ab0a61c1fd6a74150",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "1c6caeaeb874c4b7e33122e1019b24499f734d71fb221555310cbad8077778e4",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "0b086f61e391cd7970f6f1885db222c2301fa6c382da049690d787d84bd542b6",
+          "size": 347
+        },
+        "stdout.txt": {
+          "sha256": "ba0de298f83e5e6fa52383f04f7269a7c152f9663ecd5b4cf40989f5d355172b",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-8_wnx0ql",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_ACTION_COUNT_MODE": "two"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "f0dee66ff5cca87e5d688f267edef4a768ceb502c37a32861a2411e44e251ab9",
+          "size": 2174
+        },
+        "events.jsonl": {
+          "sha256": "8ef2793380908c145457c5e92036e9f86de0f845671fd733ec05c73fc83cf1cb",
+          "size": 3658
+        },
+        "stderr.txt": {
+          "sha256": "643d2a58ab1c4363efa2308fc4ea5ecb3e9162ee8c14e20e45ce448d02b5c2b6",
+          "size": 94
+        },
+        "stdout.txt": {
+          "sha256": "a6665c68a7a0aaed842e477d16ef52e1c827e5440de05d94c20c565b163b1938",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-8khpnicd",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "1d841b8a5e3cc884b94d38c6beeded9e380fdb3ad903f3e983fe505a953d22b2",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "36d359b23941e49ffb2c5e001a7edaf1298651a5611a56e64d03ea6f9896e69c",
+          "size": 3633
+        },
+        "stderr.txt": {
+          "sha256": "dea5d32be007add398b84404d88bccbf149315bc145a345e4e27b155ddf42efd",
+          "size": 87
+        },
+        "stdout.txt": {
+          "sha256": "aa8f117773b636e8e204477b421bff920394ff477b852dc1bec1910456a4b755",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-8ojzs6dx",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "7739d6b8af12da0c528fe635e26bc058d1d19a0ad33c23cf95d1ed2e68c49fd7",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "3c2483559cbde5a656295b610ff73f9a86cc2fd927853366b9c7366410bdc7f5",
+          "size": 3627
+        },
+        "stderr.txt": {
+          "sha256": "2f1a5cf4fa3a460078b453670d20859f0b0af5505f67709b36eacac2e672a738",
+          "size": 81
+        },
+        "stdout.txt": {
+          "sha256": "697c1e86b4150df675f79f35bc9fcfdb416c3e95b1728c95388ba2559a7cacb7",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-8yfmsvd4",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "ad6b851d87b71be5c5c8ae155577cbdef4163ddf358431b3abe1396bd1585423",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "3110ffe9b122efaf15ef9ae2d96d832a46dd7118dfc833df90430754efc5edec",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "77719d49e51389a0cc734570606e35267c23ef67d2beb814570ab7d54ac0a7b9",
+          "size": 194
+        },
+        "stdout.txt": {
+          "sha256": "84ac7b29393b9954674336cac4b6b0e2d25dd137aab4c2cd9013e99bd1a85a3c",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-94lafpzy",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_apply_failure_does_not_start",
+      "scenario": {
+        "FIXTURE_APPLY_FAIL": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 3,
+        "Export-ScheduledTask": 3,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 3,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "source-apply",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "3b7c9dc6faab7b1160f407f2f90350cf3c734cfffd43119d9936b62e637b2ab9",
+          "size": 2146
+        },
+        "events.jsonl": {
+          "sha256": "3f74927f05e08fdb13bc8a660a4382aa9d989babeddb07b39a0f8f053671e933",
+          "size": 11642
+        },
+        "snapshot.json": {
+          "sha256": "bca3af6bd4a990e3d603c215ccc96ff5cdad2cb64ff6a382aebfc756ac9a06fc",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "5a29c6ba2ea5e1e40557cfae33dfde7dc10eb15accc629ce04132d3270669954",
+          "size": 197
+        },
+        "stdout.txt": {
+          "sha256": "abe796e48a78e70c4b4e7d1ad25aece75e69db1f82d2e61b438767f1a7d78cd1",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "187d19bfd738865c77a0b35cc2d4a3268d1b7df27969cc9fa1b6e39d2f840763",
+          "size": 498
+        }
+      }
+    },
+    {
+      "case_id": "case-9dr1_23t",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_module_action_task_is_preserved_end_to_end",
+      "scenario": {},
+      "fixture_exit_code": 0,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 1,
+        "scope_audit": 1,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "completed",
+      "result_phase": "completed",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "3bb0446f7b5be98b041dce8b5010c67032ede57fc8a8a4355837fd7c29272ac7",
+          "size": 2127
+        },
+        "events.jsonl": {
+          "sha256": "8c7ce7d3f1f4ebf8b5678038fc90600e0c2871cd6a73bf7b19ee444c9775805b",
+          "size": 14152
+        },
+        "snapshot.json": {
+          "sha256": "deb7d7bf87a4162325619ea7edf39b9d71fe126b623e2de4f178f7ffd1acea8f",
+          "size": 3963
+        },
+        "stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        },
+        "stdout.txt": {
+          "sha256": "06792968798d19426ed6d66a6494f413721fc54067487d05c6ed632c5d1eafa2",
+          "size": 1006
+        },
+        "update-result.json": {
+          "sha256": "aa640e075a9a24e02db88cb6d276b41c5560fa7f3c4ac6de2039ca3e7d6c9e70",
+          "size": 313
+        }
+      }
+    },
+    {
+      "case_id": "case-9wory6im",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_routing_changes_at_stop_or_apply_prevent_next_mutation",
+      "scenario": {
+        "FIXTURE_MUTATE_ROUTING_ON": "apply"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 3,
+        "Export-ScheduledTask": 3,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-start",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "602f84411d3486c3151ce0b63a48d923e039e11d693ef3e7c2c1c9509c657804",
+          "size": 2183
+        },
+        "events.jsonl": {
+          "sha256": "7a3fe94e469dcce67d84ab9f74380c185e3a5225fdd3d83902eb7ec16246059d",
+          "size": 13897
+        },
+        "snapshot.json": {
+          "sha256": "f82eee9644402e4ed526ace1536ba3d5ecfedfe9ebb331e602dda3596d2bce61",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "3dae3eefb66301eb10629ca161161af2595871954c1efa2dba1d0ad7a640fc54",
+          "size": 240
+        },
+        "stdout.txt": {
+          "sha256": "d35c2de604eb70656c2f1326a31fbaa38894881f5bada3c80043a7525a978324",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "3d2e4cf7516814f2a59f5c14f863e0047f66990a7d667a96e59193f2ebc837ba",
+          "size": 452
+        }
+      }
+    },
+    {
+      "case_id": "case-_ex0tsbj",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_PRINCIPAL_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "f15fcc266418cef3cfab2e31de567b3a5e503ae93cce75412363a6ce1a05eb26",
+          "size": 2173
+        },
+        "events.jsonl": {
+          "sha256": "ff3183de16ae90384181ef0d5e5050b82e49cbb47beed28c6986d87d3f40924e",
+          "size": 3663
+        },
+        "stderr.txt": {
+          "sha256": "5d27e2d61f5cfe7e7288c482aecfced79c9d07d6a69716697b387f4e59bd24d9",
+          "size": 117
+        },
+        "stdout.txt": {
+          "sha256": "8005a4b3f182e7ca248b88ebe1ec9a9b5c75da1258e0594a1b017980e4f3ea0c",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-_fblchyw",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "a323adf86db4a5b982d87b4c5c85f993412fe00ecfc431ea0b818f420cb49ed2",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "ee2ae554738c5bf2fe3c6298eadcb6caf36d4c4157ee6dbb5d98668e7df97fad",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "8fe5fea1eabd1fc682be2e2b80041b3fc16468641b7c60b0642280d09d05e864",
+          "size": 188
+        },
+        "stdout.txt": {
+          "sha256": "0d9364b97c3b6a3c094a164ffec64ce1f1c0efa9f3065f00f290cab2f8bd6b5e",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-_jda9uk7",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_xml_change_on_second_export_refuses_before_stop",
+      "scenario": {
+        "FIXTURE_MUTATE_XML_EXPORT_AT": "2"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 2,
+        "Export-ScheduledTask": 2,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 2,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-stop",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "ed79e9916124aa18303c9a6eb2d2064a1ad36703407fc06a1bec5423f044fc64",
+          "size": 2175
+        },
+        "events.jsonl": {
+          "sha256": "1ee68b444ca25534deb9d2901485017aaddbbb351957e53d4db6529989d8f6aa",
+          "size": 8125
+        },
+        "snapshot.json": {
+          "sha256": "1eee8446b655600788815d0c464792d22968b4d0d1ef60411fbf3dca4a33b01a",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "f38f23a0f122df9fd2cdc7e2d0574dad27e2bbba960b5ca5e2595bb6ee9afdda",
+          "size": 176
+        },
+        "stdout.txt": {
+          "sha256": "6b9c53e65c638d062532a7b1fb6ac935935da8af75fd494849b58d7a16ab1262",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "53c2c5c6da100fdde0e801888603ed69b7e712b9d12766c51f83468401c20dbb",
+          "size": 499
+        }
+      }
+    },
+    {
+      "case_id": "case-_pthx8v2",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "2fd45a2328d797fd1d5dd8b39c1d1d5e8cea2e6085869001702577b943ceabab",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "f30f5f1a73232dbdaa2dac8c805a3402c0aa5928ede46ac82f9ca812bf62c255",
+          "size": 3634
+        },
+        "stderr.txt": {
+          "sha256": "ef57983aed811614275dcfc60b771c3864da8e1dc7d579e2ee8a7744b27d5931",
+          "size": 80
+        },
+        "stdout.txt": {
+          "sha256": "10ac3cb122504bfbef593d2f4974e141a3f7a93bf1f3596e30f27b6bcb44a6d6",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-aimm233m",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_start_failure_is_single_attempt_without_apply_replay",
+      "scenario": {
+        "FIXTURE_START_FAIL": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 4,
+        "Export-ScheduledTask": 4,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "start-attempt",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "360f4d84bf9f195a808fb8e5303bd56edb5c4faf9d82c871d3167dd59bac83be",
+          "size": 2170
+        },
+        "events.jsonl": {
+          "sha256": "b53d30a4ef80dc7ee667f939ac4bca0649e0fbe12b05c2dfcbe638dbf2033302",
+          "size": 14183
+        },
+        "snapshot.json": {
+          "sha256": "95de8e63c0495d69b3a4cde86b42ce08017442bb6943dbd8f3df45522c46e992",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "e4bdfb3f428bb7bfabf1d96db191f0cea982083727b32c35436871376cffbdd3",
+          "size": 70
+        },
+        "stdout.txt": {
+          "sha256": "13d16df5d89e1e4ef315b2afaa0d09490d8ffcd8bd574b1a4109f283763a3a6c",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "d05d8a8de8f555f9d096e18e55a34d9c953c31626e3ca283164f691e71a819a5",
+          "size": 395
+        }
+      }
+    },
+    {
+      "case_id": "case-bxhn50j9",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_duplicate_name_in_other_folder_refuses_before_stop",
+      "scenario": {
+        "FIXTURE_DUPLICATE_TASK": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 0,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "260a58612ce738a1308e9b92e3c6103a9521c9fd705720f8996c8d6c3e77340e",
+          "size": 2172
+        },
+        "events.jsonl": {
+          "sha256": "e899de1b8eb12e0f37415fa6f438ff2e9f7a838ff86f97424eab50f86f403e29",
+          "size": 3513
+        },
+        "stderr.txt": {
+          "sha256": "077fa17d44389510267f4b5c88ba07c80633a564632bcbf04a4178ee59edeaf5",
+          "size": 109
+        },
+        "stdout.txt": {
+          "sha256": "81becb8d2aa58520da608425bfdfaf180f9052d8922e51b438f181532bcfbafc",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-c81dn5lg",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "cff8491a1ee281441d835422941dfbe751b618ca4f89fcbbf5dcc79408cdd148",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "9973f8a2b603dbc7eb71f552f59b9b006bc5d63bdbab7c879844178aba98f3be",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "c8afd0333d03ee666831f7beb5110d18ae724f1c7ede323c717ea309efcbc09b",
+          "size": 240
+        },
+        "stdout.txt": {
+          "sha256": "0e1d0b3695ca1010fed766e73b18b12c4b04e13143f37902666a2f3b45862e14",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-cx_6ioer",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_DESCRIPTION_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "13abbda86688dd86abefbdf94d5a279a5e5a6690a4b5f3f939b35ee81a135bcf",
+          "size": 2175
+        },
+        "events.jsonl": {
+          "sha256": "d9f5050fe092b34aaadfc0b2e5e3f77b62c7a50c99256ec6cd5410b55c8607b2",
+          "size": 3634
+        },
+        "stderr.txt": {
+          "sha256": "99d6d3e08844e06094a6592cd503561e001691aeab965e409b15761e738b27da",
+          "size": 87
+        },
+        "stdout.txt": {
+          "sha256": "864fcfc2c5bc6ec7476a79986930e488df7e2b1a0f162248b0afe5db3996e574",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-dzxtow9r",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_launcher_changes_before_stop_and_after_start_are_preserved",
+      "scenario": {
+        "FIXTURE_MUTATE_LAUNCHER_EXPORT_AT": "2"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 2,
+        "Export-ScheduledTask": 2,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 2,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "e2c8e428957da2f935dedc7ddfa5b4da838b708941bf804e54e7bb3a5bc2307a",
+      "result_status": "failed",
+      "result_phase": "before-stop",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "1bffc8f57578c26d138fb02625e2ce0e96dcd899bb8e25185f2fa136134f0ea0",
+          "size": 2191
+        },
+        "events.jsonl": {
+          "sha256": "818114321743b7fda664ef4a9b7f6d4671f4239970d8f3a3181440b156764c74",
+          "size": 8130
+        },
+        "snapshot.json": {
+          "sha256": "eb765de84f3363216013dfce5d92a11c79c68608794eb71f793e086bff9d9a42",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "f38f23a0f122df9fd2cdc7e2d0574dad27e2bbba960b5ca5e2595bb6ee9afdda",
+          "size": 176
+        },
+        "stdout.txt": {
+          "sha256": "ef265184d93760fe3a6d1376eb2fbfef12f8a9adb23821d3b10af282d88e2fe3",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "4ec428aa157ff03c6021709b3d04ca14e25adf5837f76dd5e37dced578ff0989",
+          "size": 499
+        }
+      }
+    },
+    {
+      "case_id": "case-fepmfk_2",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_ACTION_ARGUMENTS_MODE": "empty"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "7a276ac9831bdc55fd354602b837b063eefbe51c999459ebde08934097937e41",
+          "size": 2180
+        },
+        "events.jsonl": {
+          "sha256": "d52257ec36becabc30653988791ff7050ecac63827233ce255c94b9a8feb12e4",
+          "size": 3572
+        },
+        "stderr.txt": {
+          "sha256": "bd247cd7f7c06714b103d0f8d388f3a26f0670d55c2c73824c33dc9ad340e9c4",
+          "size": 72
+        },
+        "stdout.txt": {
+          "sha256": "ee1c266e6fd39f982bcf3547ee6d9b6116a2966743b7197b6383a8997a84f2f6",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-gz3vze80",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "29f81ddbe4eb24133d89352ccdfc5964597c24e18207299a303cf3dcf248476f",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "fb220cd30f205a98eead397f12723578ef8d7a29d3226cc0870a3693d8aeb62f",
+          "size": 3627
+        },
+        "stderr.txt": {
+          "sha256": "c98223d3db229660333981859ba64d18a631f97ea849e88bdbad02fc3260cb6f",
+          "size": 81
+        },
+        "stdout.txt": {
+          "sha256": "dbc589b6d906c1364da3b5d354e940521ef5452a85d5914fa12b8bac3d3c2c4e",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-h7izb854",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_utf16_export_is_saved_as_readable_xml_without_changing_definition",
+      "scenario": {
+        "FIXTURE_XML_UTF16": "1"
+      },
+      "fixture_exit_code": 0,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 1,
+        "scope_audit": 1,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "completed",
+      "result_phase": "completed",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "9290ed5bf1da80ce463caf1da65bf8c00a7b24732fc17c025685e7b716097e17",
+          "size": 2182
+        },
+        "events.jsonl": {
+          "sha256": "33f6bdd914dfcd9d9907295ca091813ed0f8ae933fdb0095b093b289f766fa75",
+          "size": 14152
+        },
+        "snapshot.json": {
+          "sha256": "6aea24fd88217a67a77c358cf0b1579cf905ddabd7af0a93f7bb787ff47fdfaa",
+          "size": 4325
+        },
+        "stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        },
+        "stdout.txt": {
+          "sha256": "5154d6618c3a01f970b37b6f95fb96f7543aa6c44d0cf649bafc06424172329e",
+          "size": 1006
+        },
+        "update-result.json": {
+          "sha256": "4b8a715bbb84a293d731183581098c4ab97f0fe13f35345890d579150ae42432",
+          "size": 375
+        }
+      }
+    },
+    {
+      "case_id": "case-icmwicq3",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_launcher_changes_before_stop_and_after_start_are_preserved",
+      "scenario": {
+        "FIXTURE_MUTATE_LAUNCHER_EXPORT_AT": "5"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "e2c8e428957da2f935dedc7ddfa5b4da838b708941bf804e54e7bb3a5bc2307a",
+      "result_status": "failed",
+      "result_phase": "after-start",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "11564764625be3ec09ae01ab2801ece1b136bfe8d62039dd3009f389b5a73aa9",
+          "size": 2191
+        },
+        "events.jsonl": {
+          "sha256": "081db28a3b359385a02827da39c8224992d03111d815fe74fb35ded7bd2cc6ee",
+          "size": 14583
+        },
+        "snapshot.json": {
+          "sha256": "eb0ea888f3eeba496c15b1059421511d1e2826d0480c14a47bdcba64aa8f9cf4",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "520d670bb311a79a277d8bafa28ab57454100ea22ef788ca5a04b2547988949d",
+          "size": 176
+        },
+        "stdout.txt": {
+          "sha256": "177bae9bec0d41cd8fdc1c292da1d3153a255f79bb593850e664b1df4fb5bad4",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "6faf363608edcdf4f4907f6db80b50a5274a49db787da4c2f5bf8c41b3f3d5bf",
+          "size": 499
+        }
+      }
+    },
+    {
+      "case_id": "case-ljp8cr8s",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_no_forbidden_reinstall_or_role_rewrite_on_success",
+      "scenario": {},
+      "fixture_exit_code": 0,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 1,
+        "scope_audit": 1,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "completed",
+      "result_phase": "completed",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "091e0c01a23517becbd3eba80b8a6eb05195589201d97224e625b177dafd244d",
+          "size": 2134
+        },
+        "events.jsonl": {
+          "sha256": "9d935a97cc4910af5cd6864b38fb9750174670ce91deae2e0c3c61b2b12e66c4",
+          "size": 14152
+        },
+        "snapshot.json": {
+          "sha256": "79ae8c7af43c1b0199d6aba7fac452db2b96498a3f673e6fe44867777d8c5570",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        },
+        "stdout.txt": {
+          "sha256": "39847ffa7c01c85496cee81694a029ad314bedb475ea05dcadd227b4bf2333fc",
+          "size": 1006
+        },
+        "update-result.json": {
+          "sha256": "b452c7d49e44731a83bc1779d581ba02847e56bd12fa6d61bcf7629c1ae4e472",
+          "size": 375
+        }
+      }
+    },
+    {
+      "case_id": "case-nh34zko1",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_ACTION_EXECUTE_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "466617c3a89ca346051cbce8769a46fa5ad348177d4a4c58822d19b9615abd25",
+          "size": 2178
+        },
+        "events.jsonl": {
+          "sha256": "da795a2a46ea1ed336aa9b66ce9c273fc1ceea18893333ab8fe8583000af46f7",
+          "size": 3643
+        },
+        "stderr.txt": {
+          "sha256": "ff1e5b4efc5e6db0bc6adbffd3cec913ba3fbf96c0bf28184c3fc3e60d9920da",
+          "size": 100
+        },
+        "stdout.txt": {
+          "sha256": "52c02f6e49a16484a4361adb3415c888ebf62b63a2f0a3375c551f1b2976c2f8",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-o25v24v9",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_launcher_change_at_stop_refuses_before_apply",
+      "scenario": {
+        "FIXTURE_MUTATE_LAUNCHER_ON": "stop"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 3,
+        "Export-ScheduledTask": 3,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 3,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "dc758e559b75b52385cfd1beb2e2fb00c020ca958b1935901d756664df068651",
+      "result_status": "failed",
+      "result_phase": "before-source-write",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "91d8f80a6762eacf30032fbb9add17002ee497e21be11646ec9013a8e1186637",
+          "size": 2173
+        },
+        "events.jsonl": {
+          "sha256": "7557d144d5c5a88b1337ac4c67b2e49cd8d928000e8f6a5acb130a9f71fac0d1",
+          "size": 11351
+        },
+        "snapshot.json": {
+          "sha256": "39124e58c279a58b72391ebca92047bf6fad62280009fb7f80162f206013d122",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "589d68ff87f470fc3cf6abb8b7ded6fb2f23f77d2c55c00db983a4b067895d28",
+          "size": 184
+        },
+        "stdout.txt": {
+          "sha256": "b402e0e3a5fbe873556b273a7df88393c2f0184e7c63cbdc27a5d0c8e0055628",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "0acd3d343c64f61bf3009f0b6e8cbd9ce971fdfb8a728d4393035adff7afa84b",
+          "size": 515
+        }
+      }
+    },
+    {
+      "case_id": "case-pacxy5mv",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_launcher_change_at_apply_refuses_before_start",
+      "scenario": {
+        "FIXTURE_MUTATE_LAUNCHER_ON": "apply"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 4,
+        "Export-ScheduledTask": 4,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "5b4e3606adef678fda35f0dac3676d4d9a7ad3e86c8c64f88eddd6f44fa36818",
+      "result_status": "failed",
+      "result_phase": "before-start",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "1c49133f83d16f375476aa5eff636cd7055f731aeb49e6eb0dc6239fc9f6c9b9",
+          "size": 2175
+        },
+        "events.jsonl": {
+          "sha256": "e67b0706de787e3969729013dac5839acfefbcb6e0cdc3e4e2a3f5f774880eb7",
+          "size": 14378
+        },
+        "snapshot.json": {
+          "sha256": "9e362abdb452638b2c1318c238fa7b933a2ad0c591e431d02f86859520961375",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "0f54206386e2299ca917be1e92ef4f09d902512a31887a0475ea4f02ac906a69",
+          "size": 177
+        },
+        "stdout.txt": {
+          "sha256": "69f3f0bce4deaebf5574136ccfb3dc2e495f46c96e3cbb2820a3e002931dffe7",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "344c7e7c901333389ea57c064bb28bedd4a449a2984d482df126c235b8e4f7ba",
+          "size": 501
+        }
+      }
+    },
+    {
+      "case_id": "case-pww3z9ec",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "0309f4a1a57545b02f5195ce22390bcbb987cc45d19e0ac2ac887f12ddc84992",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "1dbe26cf14c5e70d1f190c80675ba9edab658f5d3c7a3ee218132a51b9d3272a",
+          "size": 3627
+        },
+        "stderr.txt": {
+          "sha256": "c98223d3db229660333981859ba64d18a631f97ea849e88bdbad02fc3260cb6f",
+          "size": 81
+        },
+        "stdout.txt": {
+          "sha256": "3e2f1e3802c3346d443dc020670808fe9fc6c9f5b5999edb8fb41f622445ec8e",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-qc29_wir",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_routing_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "affcfbf365a75978e94b99f335c32699a0f8ce0f9fe849d25568015b191944bc",
+          "size": 2125
+        },
+        "events.jsonl": {
+          "sha256": "17dfab8ec796ac97768dc1e88323b7bab8df0ebb7aaf37d97751c918477c7e11",
+          "size": 5713
+        },
+        "stderr.txt": {
+          "sha256": "fc56c865e2a8ba064e804cf604877b16600ed4bb493a16f4a303df1c0a61bb9e",
+          "size": 188
+        },
+        "stdout.txt": {
+          "sha256": "3d0be9988365cc03ba2dd3f332c4a2ea05cd7dfb7530b12f5e86e77a530d3ee3",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-qpidokv4",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_busy_and_lock_refuse_without_stop_apply_or_start",
+      "scenario": {
+        "FIXTURE_LOCKED": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 2,
+        "Export-ScheduledTask": 2,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 2,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-stop",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "1e6e9a7ea5acbd3054a6f4cec9dd51a9cb39bc60b385c7eb803b44f890286ad1",
+          "size": 2162
+        },
+        "events.jsonl": {
+          "sha256": "53d2b0a411a38fb8cc3c4f387ca926af6361dbb35fc76d93c9d7f8dac36dd9e5",
+          "size": 8559
+        },
+        "snapshot.json": {
+          "sha256": "c7bb93b0db68d5feea8168d669b1a3a05e245bc18adbac01da34f7f7b1543553",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "7eb5e8dda2dd4c0171d98ae07d8820ca41d1021b91dde183434cf271fd20be21",
+          "size": 150
+        },
+        "stdout.txt": {
+          "sha256": "337c1500001903b646c5dd5147f55066840b059ba607a52429bb4a5da1bef6d1",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "252657bc00f9d0ced31ef99c9c43a2af8f303945f3bc07ceb57022fb726458c2",
+          "size": 447
+        }
+      }
+    },
+    {
+      "case_id": "case-r3sahodb",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_TASK_PATH_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 0,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "8722517a084e5bb20ab6edab70398a8194538a3ec01d6c619a6c43f006708cb8",
+          "size": 2173
+        },
+        "events.jsonl": {
+          "sha256": "11bf435580557df393ebee4fd3d873715f3620b73c7cba53efa5b50972574a29",
+          "size": 3513
+        },
+        "stderr.txt": {
+          "sha256": "077fa17d44389510267f4b5c88ba07c80633a564632bcbf04a4178ee59edeaf5",
+          "size": 109
+        },
+        "stdout.txt": {
+          "sha256": "1b3f9a04d9610922c1ef2758d6c185d0ab7930687c1236465f8e4f4f47d98ade",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-ruykbir9",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_busy_and_lock_refuse_without_stop_apply_or_start",
+      "scenario": {
+        "FIXTURE_BUSY": "1"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 2,
+        "Export-ScheduledTask": 2,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 2,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "before-stop",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "1ee0c5c904e864e5277c2e61d58e0d4eb2622e9f62422508fe859145891c2152",
+          "size": 2160
+        },
+        "events.jsonl": {
+          "sha256": "09821fb58d99ff1e2399d170ad80fe1bb4f75d82ec754b373920aecffb433a13",
+          "size": 8557
+        },
+        "snapshot.json": {
+          "sha256": "bd8ae58f2dd4d244ddabe84c694d1d69402e7fbabeea0d8b9810fe5b2c026a16",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "3148ece7e5211c66aa9d892193a2dace8a8f9a1c30b4d9210ee53709a02d3138",
+          "size": 148
+        },
+        "stdout.txt": {
+          "sha256": "d884fadacf4e13ec32463febbab70f535432646d2ee47ed2d9226354237d865b",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "30a12997c5a5b01a0d9823a66caac308a5824607046222144f4e796f16373b66",
+          "size": 447
+        }
+      }
+    },
+    {
+      "case_id": "case-s1o19pn5",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "486a881a87054556061683b5ba5e875a575a0606471ead0042763864bde49b92",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "2d437782fc39212eff3991c5c50b6e43011f59cbf548794e175f04674f76e8fd",
+          "size": 3631
+        },
+        "stderr.txt": {
+          "sha256": "02d54a9242c11d2224f944012403ff3dac23eeb5298a9ef6a55dd14546bbb054",
+          "size": 85
+        },
+        "stdout.txt": {
+          "sha256": "82b9e335c7c00a011c6877c98e1512b09d79697a6dd5a6e5536809a1c2dbdb71",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-sdit9cfo",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "990db54777a34f91373a2c2ddb001227998af248fb1135c2fd4bbb5d8c6572c5",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "259993591561b2d412c3a0eddf1754bd97df0197b655932c7dff6fa2deafd920",
+          "size": 3640
+        },
+        "stderr.txt": {
+          "sha256": "19ad5acbb2de3ce66490e84e21d47a7012d37290c3fd189b232f0b80ce7b4bb3",
+          "size": 86
+        },
+        "stdout.txt": {
+          "sha256": "4983b44a2f4ec191f20b35b94d289b11adbdeb4b005b3f0a0754020b57503bd1",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-tq2rf2u8",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_check_only_has_zero_writes_and_zero_mutations",
+      "scenario": {},
+      "fixture_exit_code": 0,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 1,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "e5b2e58d9de08152418add7b36355ef2da25561ef43f2f1057e83e6779648c36",
+          "size": 2148
+        },
+        "events.jsonl": {
+          "sha256": "66fa95fd1527318c7179b8f6b1ab287b8272e7d6567314e5b77012bd2bd15a1e",
+          "size": 4713
+        },
+        "stderr.txt": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size": 0
+        },
+        "stdout.txt": {
+          "sha256": "63c84868c273721028cde4686d7b56d537df96d6fe57623fa575a138ce10920b",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-urrmwr6j",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {},
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 1,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "5049de6f8eb53911d33bf8e1383236c154363a5dbbfa411ca87694e5f00649bb",
+          "size": 2132
+        },
+        "events.jsonl": {
+          "sha256": "a760fac208b9a14eae41c0b2e25adf465ec814336b44f7821bcd0e79ddbcc39a",
+          "size": 3629
+        },
+        "stderr.txt": {
+          "sha256": "bd661326d51e3aafd27e04d15e93b85025becdb76819fa158a0be1eb21bb5d48",
+          "size": 83
+        },
+        "stdout.txt": {
+          "sha256": "c539d7243b9199f2390d33b141f3da08ace5b12490fcecda02a20438ea7cbb40",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-v4cjfkin",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_invalid_task_inventory_refuses_before_admission",
+      "scenario": {
+        "FIXTURE_TASK_NAME_MODE": "wrong"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 1,
+        "Export-ScheduledTask": 0,
+        "Start-ScheduledTask": 0,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 0,
+        "apply": 0,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 0,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": null,
+      "result_phase": null,
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "2cda6497de9b5ccc07aacf9b2e01e63a8f02d8a0d09ca557595ecae282353e1d",
+          "size": 2173
+        },
+        "events.jsonl": {
+          "sha256": "20ca4ec57e084e0d33aee58230227edf9492c72b545b82ea940969b74d332fdb",
+          "size": 3513
+        },
+        "stderr.txt": {
+          "sha256": "077fa17d44389510267f4b5c88ba07c80633a564632bcbf04a4178ee59edeaf5",
+          "size": 109
+        },
+        "stdout.txt": {
+          "sha256": "8c90975842c3bf2192494f53cfadbaf55544ab59a1a386dfb9c2ddb355002d54",
+          "size": 184
+        }
+      }
+    },
+    {
+      "case_id": "case-xpts7hhk",
+      "test_method": "tests.test_update_existing_task.ExistingTaskFixtureTests.test_xml_changes_before_apply_before_start_and_after_start_are_preserved",
+      "scenario": {
+        "FIXTURE_MUTATE_XML_EXPORT_AT": "5"
+      },
+      "fixture_exit_code": 1,
+      "task_calls": {
+        "Get-ScheduledTask": 5,
+        "Export-ScheduledTask": 5,
+        "Start-ScheduledTask": 1,
+        "Stop-ScheduledTask": 0,
+        "Set-ScheduledTask": 0,
+        "Register-ScheduledTask": 0,
+        "Unregister-ScheduledTask": 0,
+        "Enable-ScheduledTask": 0,
+        "Disable-ScheduledTask": 0
+      },
+      "shim_counts": {
+        "preflight": 1,
+        "stop_idle": 1,
+        "apply": 1,
+        "health": 0,
+        "scope_audit": 0,
+        "forbidden_command": 0,
+        "routing_forward": 4,
+        "unknown_command": 0
+      },
+      "launcher_before_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "launcher_after_sha256": "c035bb424001734c74559141c91d51a530c1387707a71db262ae1e140cc20c5c",
+      "result_status": "failed",
+      "result_phase": "after-start",
+      "private_raw_file_hashes": {
+        "command.json": {
+          "sha256": "8e95c6744a3d5df1db6fab80e15746c317770ced4bf51431c6685879e4740d99",
+          "size": 2195
+        },
+        "events.jsonl": {
+          "sha256": "76fa8a5c3ddf6254350d469ae1d9c60a2055191ebd37701f04aa0b6e21362146",
+          "size": 14578
+        },
+        "snapshot.json": {
+          "sha256": "a7a95fbd7fe166c59868b9c7320601a9c65879465468b3458521a10fb7642568",
+          "size": 4324
+        },
+        "stderr.txt": {
+          "sha256": "520d670bb311a79a277d8bafa28ab57454100ea22ef788ca5a04b2547988949d",
+          "size": 176
+        },
+        "stdout.txt": {
+          "sha256": "c9d60a199b6c916c188ad0447e291fcfd6879c331fde38fc48460725b880a4e2",
+          "size": 184
+        },
+        "update-result.json": {
+          "sha256": "794d8759e14522886b097a939d2d4740bf7f1004e157ff834792aa28dc62f200",
+          "size": 499
+        }
+      }
+    }
+  ]
+}

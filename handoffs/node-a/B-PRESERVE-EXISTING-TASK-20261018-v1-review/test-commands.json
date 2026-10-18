@@ -1,0 +1,61 @@
+[
+  {
+    "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "-m",
+      "unittest",
+      "tests.test_update_existing_task",
+      "-v"
+    ],
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "exit_code": 0,
+    "elapsed_seconds": 27.094,
+    "environment_overrides": {
+      "FPGA_FIXTURE_RUNTIME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixtures",
+      "FPGA_FIXTURE_EVIDENCE": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\preserve-existing-task-review\\fixture-raw",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONUTF8": "1",
+      "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixture-temp",
+      "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixture-temp"
+    },
+    "logs": {
+      "fixtures-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "fixtures-stderr.txt": "71c7d0284aa2821e39915cee139522533231909f8c24e4a1d69bd14e3e2d4440"
+    }
+  },
+  {
+    "tested_commit": "abb3ec996e24ca0e91a2063b943f2e736282fdab",
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_mesh_update.MeshUpdateTests.test_stop_fences_all_new_work_until_service_has_stopped",
+      "tests.test_mesh_update.MeshUpdateTests.test_work_arriving_after_preflight_prevents_stop_without_interrupting_it",
+      "tests.test_mesh_update.MeshUpdateTests.test_busy_admission_writer_aborts_stop_and_releases_other_ledger_locks",
+      "tests.test_mesh_update.MeshUpdateTests.test_write_failure_rolls_back_already_completed_changes"
+    ],
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "exit_code": 0,
+    "elapsed_seconds": 0.343,
+    "environment_overrides": {
+      "FPGA_FIXTURE_RUNTIME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixtures",
+      "FPGA_FIXTURE_EVIDENCE": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\preserve-existing-task-review\\fixture-raw",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONUTF8": "1",
+      "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixture-temp",
+      "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a-task-fixture-temp"
+    },
+    "logs": {
+      "admission-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "admission-stderr.txt": "e12692185a8b7a089338145ec5bc008a46fa585235f3aa89c09fa691d6266286"
+    }
+  }
+]
