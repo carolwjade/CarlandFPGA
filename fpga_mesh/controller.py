@@ -69,6 +69,17 @@ class Controller:
             self._active_dispatch.cancel()
         return True
 
+    def recover_control(self, message: Envelope) -> None:
+        """Recover an authenticated durable control after a pre-offer crash."""
+        if (message.source != SourceKind.HUMAN or message.kind not in
+                {MessageKind.STOP_REQUEST, MessageKind.RESUME_REQUEST}):
+            raise ValueError('control recovery requires an original human control')
+        self.store.accept_inbound(message)
+        self._apply_control(message)
+        self.store.mark_inbound_processed(message.message_id)
+        if self.dispatch_blocked and self._active_dispatch is not None:
+            self._active_dispatch.cancel()
+
     async def run_until_idle(self) -> None:
         observed: set[str] = set()
         while True:

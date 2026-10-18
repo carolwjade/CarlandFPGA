@@ -20,6 +20,7 @@ from .child_control import ChildCoordinator, LocalControlFileClient, LocalContro
 from .codex import CodexHomeFactory, CodexHomeSpec
 from .controller import Controller
 from .dynamic_children import ChildDynamicTools
+from .desktop_route import DesktopRoute
 from .feishu_channel import FeishuNodeService
 from .gateway import AppServerGateway, GatewayConfig
 from .hardware import HardwareService
@@ -168,6 +169,12 @@ class NodeRuntime:
             on_result=self._on_result,
             claim_ownership=self._claim_ownership,
         )
+        self.desktop_route = DesktopRoute(
+            state_dir=config.state_dir, node_id=config.node_id,
+            project_id=config.project_id, group_id=config.feishu_group_id,
+            controller=self.controller, store=self.store,
+            on_report=self._notify_desktop_report,
+        )
         self.feishu: FeishuNodeService | None = (
             FeishuNodeService(
                 node_id=config.node_id, project_id=config.project_id,
@@ -183,6 +190,7 @@ class NodeRuntime:
                 ),
                 local_bot_open_ids=set(config.feishu_local_bot_open_ids),
                 job_lookup=lambda job_id: self.children.job(job_id),
+                trusted_receiver=self.desktop_route.receive,
             ) if config.feishu_enabled else None
         )
         self._feishu_task: asyncio.Task | None = None
@@ -274,6 +282,7 @@ class NodeRuntime:
                     self._run_peer_retry(), name=f"fpga-peer-{self.config.node_id}",
                 )
             await self.controller.start()
+            await self.desktop_route.start()
             if self.feishu is not None:
                 self._feishu_stop.clear()
                 self._feishu_task = asyncio.create_task(
@@ -318,6 +327,7 @@ class NodeRuntime:
             self._feishu_task = None
         if self.feishu is not None:
             await self.feishu.stop()
+        await self.desktop_route.stop()
         await self.controller.stop()
         await self.models_ui.close()
         await self.child_control.close()
@@ -357,7 +367,9 @@ class NodeRuntime:
             "peer_presence": dict(self._peer_presence),
             "feishu_enabled": self.feishu is not None,
             "feishu_connected": bool(self.feishu and self.feishu.connected),
-            "feishu_error": self.feishu_error,
+            "feishu_error": self.feishu_error or (self.feishu.last_error if self.feishu else None),
+            "feishu_outbox": self.store.group_outbox_health(),
+            "desktop_inbox": self.desktop_route.health(),
             "quota_error": self.quota_error,
             "hardware_enabled": self.hardware is not None,
             "hardware_queue": self.hardware.queue() if self.hardware else [],
@@ -451,6 +463,10 @@ class NodeRuntime:
         self.children.update_task_version(
             message.task_id, message.task_version,
         )
+
+    def _notify_desktop_report(self) -> None:
+        if self.feishu is not None:
+            self.feishu.notify_report()
 
     async def _claim_ownership(self, message) -> bool | None:
         if self.ownership is None:

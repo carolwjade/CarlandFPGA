@@ -49,6 +49,13 @@ class ProjectActions:
         action = {'fpga_session_list': 'session_list', 'fpga_session_open': 'main_submit',
                   'fpga_session_route': 'session_route', 'fpga_models_refresh': 'models_refresh'}.get(name, name)
         r = self.runtime
+        if action == 'desktop_inbox_claim':
+            return await r.desktop_route.claim(args)
+        if action in {'desktop_inbox_list', 'desktop_inbox_claim',
+                      'desktop_inbox_complete', 'desktop_inbox_reconcile'}:
+            # Authenticated local actions never create/resume a Desktop writer.
+            # The caller must name the existing owner generation and receipt.
+            return r.desktop_route.call(action, args)
         if action == 'models_list':
             return self.models.snapshot()
         if action == 'models_refresh':

@@ -12,7 +12,7 @@ import re
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any, Awaitable, Callable
 
 from .protocol import Envelope, MessageKind, SourceKind, task_id_from_message
 
@@ -22,12 +22,89 @@ def _message_uuid(app_id: str, operation_id: str) -> str:
     return str(uuid.uuid5(uuid.NAMESPACE_URL, f"{app_id}:{operation_id}"))
 
 
+class FeishuSendError(RuntimeError):
+    """Only a fixed error category and numeric API code cross the SDK boundary."""
+
+    def __init__(
+        self, category: str, code: int | None = None, *, definitely_rejected: bool = False,
+    ):
+        self.code = code if type(code) is int else None
+        self.definitely_rejected = definitely_rejected
+        super().__init__(category + (f":{self.code}" if self.code is not None else ""))
+
+
+def _send_error(error: Any) -> FeishuSendError:
+    if isinstance(error, FeishuSendError):
+        return error
+    # SDK SendError.raw_code is structured, but token acquisition exceptions
+    # are flattened by SDK 1.4 into UNKNOWN + hint. Parse only its fixed prefix;
+    # never persist hint, msg, raw response, exception args or message content.
+    category = getattr(getattr(error, "code", None), "value", None)
+    allowed = {"format_error", "target_revoked", "rate_limited", "permission_denied",
+               "upload_failed", "download_failed", "ssrf_blocked", "send_timeout",
+               "not_connected", "unknown", "not_supported", "meeting_not_found",
+               "too_many_sessions"}
+    if isinstance(category, str) and category in allowed:
+        code = getattr(error, "raw_code", None)
+        hint = getattr(error, "hint", None)
+        if type(code) is int and code == 21001:
+            return FeishuSendError("access_policy", code, definitely_rejected=True)
+        if category == "unknown" and code is None and isinstance(hint, str):
+            match = re.match(
+                r"\Aobtain (?:self|isv) (?:app|tenant) access token failed, "
+                r"code: ([0-9]{1,10}), msg: ", hint,
+            )
+            if match:
+                return FeishuSendError("access_token_error", int(match[1]),
+                                       definitely_rejected=int(match[1]) > 0)
+        # An internal server error may occur after message creation. Only
+        # classified precondition/auth/rate rejections establish non-delivery.
+        rejected = category in {"format_error", "target_revoked", "rate_limited", "permission_denied"}
+        return FeishuSendError(category, code,
+                               definitely_rejected=rejected and type(code) is int and code > 0)
+    if (type(error).__module__ == "lark_channel.core.exception"
+            and type(error).__name__ == "ObtainAccessTokenException"):
+        code = getattr(error, "code", None)
+        return FeishuSendError("access_token_error", code,
+                               definitely_rejected=type(code) is int and code > 0)
+    for kind in (TimeoutError, ConnectionError, ValueError, RuntimeError):
+        if isinstance(error, kind):
+            return FeishuSendError(kind.__name__)
+    return FeishuSendError("send_error")
+
+
+def _require_message_id(value: Any) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise FeishuSendError("missing_message_id")
+    return value
+
+
+def _message_metadata(msg, raw):
+    def fields(obj, names):
+        return {name: getattr(obj, name, None) for name in names}
+    return {
+        'body_text': str(getattr(msg, 'body_text', '') or ''),
+        'content_text': str(getattr(msg, 'content_text', '') or ''),
+        'message_type': getattr(msg, 'raw_content_type', None),
+        'thread_id': getattr(getattr(msg, 'conversation', None), 'thread_id', None),
+        'mentions': [fields(item, ('key','open_id','user_id','union_id','name','is_bot'))
+                     for item in getattr(msg, 'mentions', ())],
+        'resources': [fields(item, ('type','file_key','file_name','duration_ms','cover_image_key'))
+                      for item in getattr(msg, 'resources', ())],
+        'reply': fields(getattr(msg, 'reply', None), ('message_id','text','sender_id')),
+        'raw_message': {key: raw[key] for key in ('message_id','root_id','parent_id','thread_id',
+            'create_time','update_time','message_type','content','mentions') if key in raw},
+        'attachments_downloaded': False,
+    }
+
+
 class FeishuIngress:
     def __init__(
         self, *, node_id: str, project_id: str, group_id: str,
         app_id: str, controller: Any,
         local_bot_open_ids: set[str] | None = None,
         allowed_sender_ids: set[str] | None = None,
+        trusted_receiver: Callable[[Envelope], Awaitable[bool]] | None = None,
     ) -> None:
         if node_id not in {"A", "B", "C"}:
             raise ValueError("node_id must be A, B, or C")
@@ -38,6 +115,7 @@ class FeishuIngress:
         self.group_id = group_id
         self.app_id = app_id
         self.controller = controller
+        self.trusted_receiver = trusted_receiver
         self.local_bot_open_ids = set(local_bot_open_ids or ())
         self.allowed_sender_ids = (
             set(allowed_sender_ids) if allowed_sender_ids is not None else None
@@ -45,6 +123,14 @@ class FeishuIngress:
         self._highest_revision: dict[str, int] = {}
 
     async def ingest(self, msg: Any) -> bool:
+        sources = getattr(msg, 'batched_sources', None)
+        if sources:
+            accepted = False
+            for source in sources:
+                if source is msg:
+                    raise ValueError('recursive normalized message batch')
+                accepted = await self.ingest(source) or accepted
+            return accepted
         if getattr(msg, "chat_id", None) != self.group_id:
             return False
         if getattr(msg, "chat_type", None) not in {"group", "topic"}:
@@ -61,7 +147,8 @@ class FeishuIngress:
         # mention of another bot does not lower its priority or wake a child.
         text = str(getattr(msg, "body_text", "") or "").strip()
         if not text:
-            return False
+            text = (str(getattr(msg, 'content_text', '') or '').strip()
+                    or '[收到无正文的人类群消息；请查看原消息信息。]')
         platform_message_id = str(getattr(msg, "message_id", "") or "")
         if not platform_message_id:
             return False
@@ -118,6 +205,7 @@ class FeishuIngress:
             source=SourceKind.HUMAN,
             payload={
                 "text": text, "scope": "all",
+                "feishu": _message_metadata(msg, raw),
                 "ownership_required": (
                     kind == MessageKind.HUMAN_INSTRUCTION
                     and target_node is None
@@ -128,7 +216,11 @@ class FeishuIngress:
             platform_message_id=platform_message_id,
             platform_event_id=str(raw.get("event_id") or "") or None,
         )
-        accepted = await self.controller.offer(envelope)
+        accepted = False
+        if self.trusted_receiver is not None:
+            accepted = await self.trusted_receiver(envelope) is True
+        if not accepted:
+            accepted = await self.controller.offer(envelope)
         if accepted:
             self._highest_revision[platform_message_id] = revision
         return accepted
@@ -181,10 +273,17 @@ class FeishuAppSender:
             .uuid(_message_uuid(self.app_id, operation_id))
             .build()
         ).build()
-        response = self._client.im.v1.message.create(request)
+        try:
+            response = self._client.im.v1.message.create(request)
+        except Exception as exc:
+            raise _send_error(exc) from None
         if not response.success():
-            raise RuntimeError(f"Feishu DeepSeek send failed: {response.code}")
-        return str(response.data.message_id)
+            code = getattr(response, "code", None)
+            if type(code) is int:
+                from lark_channel.channel.errors import classify_error
+                raise _send_error(classify_error(code))
+            raise FeishuSendError("api_error")
+        return _require_message_id(getattr(getattr(response, "data", None), "message_id", None))
 
 
 class FeishuNodeService:
@@ -202,6 +301,7 @@ class FeishuNodeService:
         deepseek_secret_file: Path | None = None,
         deepseek_sender: Any | None = None,
         job_lookup: Callable[[str], dict] | None = None,
+        trusted_receiver: Callable[[Envelope], Awaitable[bool]] | None = None,
     ) -> None:
         self.group_id = group_id
         self.astra_app_id = astra_app_id
@@ -211,6 +311,7 @@ class FeishuNodeService:
             app_id=astra_app_id, controller=controller,
             local_bot_open_ids=local_bot_open_ids,
             allowed_sender_ids=allowed_sender_ids,
+            trusted_receiver=trusted_receiver,
         )
         self.channel_factory = channel_factory
         self.store = store
@@ -225,10 +326,15 @@ class FeishuNodeService:
         self.retry_seconds = retry_seconds
         self.channel: Any | None = None
         self.connected = False
-        self.last_error: str | None = None
-        self._flush_lock = asyncio.Lock()
-        self._outbox_event = asyncio.Event()
+        self._outbox_errors: dict[str, str | None] = {"astra": None, "deepseek": None}
+        self._role_locks = {role: asyncio.Lock() for role in self._outbox_errors}
+        self._role_events = {role: asyncio.Event() for role in self._outbox_errors}
         self._outbox_task: asyncio.Task | None = None
+
+    @property
+    def last_error(self) -> str | None:
+        pending_error = self.store.group_outbox_health()["last_error"] if self.store else None
+        return pending_error or next((error for error in self._outbox_errors.values() if error), None)
 
     async def start(self) -> None:
         if self.connected:
@@ -238,7 +344,9 @@ class FeishuNodeService:
             raise ValueError("Astra Feishu app secret file is empty")
         if self.channel_factory is None:
             try:
-                from lark_channel import FeishuChannel, PolicyConfig, SecurityConfig
+                from lark_channel import (
+                    FeishuChannel, OutboundConfig, PolicyConfig, RetryConfig, SecurityConfig,
+                )
             except ImportError as exc:
                 raise RuntimeError(
                     "Feishu requires lark-channel-sdk; install the feishu extra"
@@ -250,6 +358,7 @@ class FeishuNodeService:
                     group_allowlist=[self.group_id], require_mention=False,
                 ),
                 security=SecurityConfig(mode="strict"),
+                outbound=OutboundConfig(retry=RetryConfig(max_attempts=1)),
             )
         channel = self.channel_factory(app_id=self.astra_app_id, app_secret=secret)
         controller_loop = asyncio.get_running_loop()
@@ -273,7 +382,7 @@ class FeishuNodeService:
         self.connected = True
         if self.store is not None:
             self._outbox_task = asyncio.create_task(self._run_outbox())
-            self._outbox_event.set()
+            self.notify_report()
 
     async def stop(self) -> None:
         if self._outbox_task is not None:
@@ -294,20 +403,90 @@ class FeishuNodeService:
             raise RuntimeError("Feishu Astra channel is not connected")
         if not text.strip():
             raise ValueError("group message must not be empty")
-        result = await self.channel.send(
-            self.group_id, {"text": text},
-            {"uuid": _message_uuid(self.astra_app_id, operation_id)},
-        )
+        expected_chunks = self._expected_astra_chunks(text)
+        try:
+            result = await self.channel.send(
+                self.group_id, {"text": text},
+                {"uuid": _message_uuid(self.astra_app_id, operation_id)},
+            )
+        except Exception as exc:
+            raise _send_error(exc) from None
         if not result.success:
-            raise RuntimeError("Feishu message send failed")
-        return str(result.message_id or "")
+            error = _send_error(getattr(result, "error", None))
+            # SDK 1.4 loses successful prior chunk IDs on a later chunk failure,
+            # and later chunks use random UUIDs. An API rejection then proves
+            # only that chunk failed, not that the logical report was unsent.
+            if expected_chunks is None or expected_chunks != 1:
+                error.definitely_rejected = False
+            raise error
+        return self._acknowledged_astra_result(operation_id, result, expected_chunks)
+
+    def _expected_astra_chunks(self, text: str) -> int | None:
+        outbound = getattr(getattr(self.channel, "config", None), "outbound", None)
+        limit = getattr(outbound, "text_chunk_limit", 3500)
+        mode = getattr(outbound, "chunk_mode", "newline")
+        if type(limit) is int and limit > 0 and mode in {"newline", "paragraph", "none"}:
+            if len(text) <= limit:
+                return 1
+            elif getattr(outbound, "on_oversize", None) is None:
+                # Use the installed SDK's real boundary algorithm, including
+                # newline cuts and atomic mentions, not ceil(length / limit).
+                from lark_channel.channel.outbound.sender import chunk_text
+                return len(chunk_text(text, limit=limit, mode=mode))
+        return None
+
+    def _acknowledged_astra_result(
+        self, operation_id: str, result: Any, expected: int | None,
+    ) -> str:
+        message_id = getattr(result, "message_id", None)
+        chunk_ids = getattr(result, "chunk_ids", None)
+        ids = [message_id] if chunk_ids is None else chunk_ids
+        valid_ids = isinstance(ids, list) and all(
+            isinstance(value, str) and value.strip() for value in ids
+        )
+        complete = bool(
+            isinstance(message_id, str) and message_id.strip() and valid_ids
+            and len(ids) == expected and len(set(ids)) == len(ids)
+            and ids[0] == message_id
+        )
+        if self.store is not None:
+            state = self.store.group_report_delivery(operation_id)
+            if state is not None:
+                known_ids = [value for value in ids if isinstance(value, str) and value.strip()] \
+                    if isinstance(ids, list) else []
+                if not self.store.append_event(
+                    f"feishu-ack:{_message_uuid(self.astra_app_id, operation_id)}:{state['attempts']}",
+                    "feishu_report_acknowledgements",
+                    {"operation_id": operation_id, "role": "astra",
+                     "expected_chunks": expected, "message_ids": known_ids, "complete": complete},
+                ):
+                    raise FeishuSendError("acknowledgement_evidence_conflict")
+        if not complete:
+            _require_message_id(message_id)
+            raise FeishuSendError("incomplete_chunk_acknowledgements")
+        return message_id
 
     async def flush_reports(self) -> None:
         if self.store is None or not self.connected:
             return
-        async with self._flush_lock:
+        # Two lanes inside the original sender, with a single lock per app.
+        # One unresolved app call must not own the other app's delivery lock.
+        results = await asyncio.gather(
+            *(self._flush_role_reports(role) for role in self._role_locks),
+            return_exceptions=True,
+        )
+        for result in results:
+            if isinstance(result, BaseException):
+                raise result
+
+    async def _flush_role_reports(self, role: str) -> None:
+        async with self._role_locks[role]:
             first_error: Exception | None = None
-            for operation_id, text, role in self.store.pending_group_messages():
+            blocked = False
+            for operation_id, text, report_role in self.store.pending_group_messages():
+                if report_role != role:
+                    continue
+                attempted = False
                 try:
                     job_id = self.store.group_report_job(operation_id)
                     if job_id:
@@ -317,39 +496,90 @@ class FeishuNodeService:
                         if job["stale"] or job["status"] != "completed":
                             self.store.cancel_group_report(operation_id)
                             continue
+                    if blocked or not self.store.group_role_ready(role):
+                        continue
                     if role == "deepseek":
                         if self.deepseek_sender is None:
-                            raise RuntimeError("DeepSeek Feishu sender is not configured")
+                            raise FeishuSendError("DeepSeek Feishu sender is not configured")
+                        self.store.attempt_group_report(operation_id)
+                        attempted = True
                         sent_id = await self.deepseek_sender.send(
                             self.group_id, text, operation_id,
                         )
                     else:
+                        self.store.attempt_group_report(operation_id)
+                        attempted = True
                         sent_id = await self.send_as_astra(
                             text, operation_id=operation_id,
                         )
-                    self.store.ack_group_report(operation_id, sent_id)
+                    self.store.ack_group_report(operation_id, _require_message_id(sent_id))
+                except asyncio.CancelledError:
+                    if attempted:
+                        self.store.fail_group_report(
+                            operation_id, "cancelled_attempt", self.retry_seconds,
+                            delivery_unknown=True,
+                        )
+                    raise
                 except Exception as exc:  # noqa: BLE001 - retain failed item
+                    error = _send_error(exc)
+                    self.store.fail_group_report(
+                        operation_id, str(error), self.retry_seconds,
+                        delivery_unknown=attempted and not error.definitely_rejected,
+                    )
+                    # Preserve order within this app. A denial (notably 21001)
+                    # must not fan out across its queue, while the other app runs.
+                    blocked = True
                     if first_error is None:
-                        first_error = exc
+                        first_error = error
             if first_error is not None:
                 raise first_error
+            self._outbox_errors[role] = None
+
+    async def reconcile_report(
+        self, operation_id: str, *, evidence_sha256: str,
+        platform_message_id: str | None = None, confirmed_not_sent: bool = False,
+    ) -> None:
+        """Owner-only local reconciliation after separately reviewing platform evidence."""
+        if self.store is None:
+            raise ValueError("reconciliation requires the original outbox store")
+        role = next((role for operation, _, role in self.store.pending_group_messages()
+                     if operation == operation_id), None)
+        if role not in self._role_locks:
+            raise ValueError("reconciliation requires a pending original report")
+        async with self._role_locks[role]:
+            self.store.reconcile_group_report(
+                operation_id, evidence_sha256=evidence_sha256,
+                platform_message_id=platform_message_id, confirmed_not_sent=confirmed_not_sent,
+            )
+            self._outbox_errors[role] = None
+            self.notify_report()
 
     def notify_report(self) -> None:
-        self._outbox_event.set()
+        for event in self._role_events.values():
+            event.set()
 
     async def _run_outbox(self) -> None:
+        workers = [asyncio.create_task(self._run_role_outbox(role)) for role in self._role_locks]
+        try:
+            await asyncio.gather(*workers)
+        finally:
+            for worker in workers:
+                worker.cancel()
+            await asyncio.gather(*workers, return_exceptions=True)
+
+    async def _run_role_outbox(self, role: str) -> None:
+        event = self._role_events[role]
         while self.connected:
-            self._outbox_event.clear()
+            event.clear()
             try:
-                await self.flush_reports()
-                self.last_error = None
+                await self._flush_role_reports(role)
             except asyncio.CancelledError:
                 raise
             except Exception as exc:  # noqa: BLE001 - retain pending reports
-                self.last_error = type(exc).__name__
+                self._outbox_errors[role] = str(_send_error(exc))
             try:
                 await asyncio.wait_for(
-                    self._outbox_event.wait(), timeout=self.retry_seconds,
+                    event.wait(), timeout=self.retry_seconds,
                 )
             except asyncio.TimeoutError:
                 pass

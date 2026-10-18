@@ -1,5 +1,7 @@
 # FPGA Mesh 部署与运行
 
+飞书真人消息进入现任 Desktop 主会话、收件认领与回复状态见 [Desktop 飞书收件说明](DESKTOP_FEISHU_INBOX.md)。
+
 多机任务统一使用项目根的 [fpga-multi-node 技能](../../.agents/skills/fpga-multi-node/SKILL.md)。A 安装主机包，B/C 使用同一个客机包并依据既有 node_id 安装。根 AGENTS 将它设为全部项目会话入口。身份、会话/派工、静默在场、等待与恢复见技能 [协议](../../.agents/skills/fpga-multi-node/references/protocol.md)；代码/证据/板卡交接见 [交接闭环](../../.agents/skills/fpga-multi-node/references/handoff.md)。这里仅保留部署命令，不重复协作指导。
 
 ## 安装与更新入口
