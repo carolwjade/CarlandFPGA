@@ -1,0 +1,117 @@
+"""Independent directed-interval numerical cases; seeded phases are explicit."""
+import json,pathlib,math,unittest
+from dataclasses import replace
+from fractions import Fraction
+from unittest.mock import patch
+from competition.deepeye.simulation.authority.motion import certified_path as cp
+from competition.deepeye.simulation.authority.motion import gate_geometry as g
+from competition.deepeye.simulation.authority.motion import gate_clearance as gc
+from competition.deepeye.simulation.authority.motion import workspace_boundaries as w
+from competition.deepeye.simulation.authority.motion import passage_phase as p
+from competition.deepeye.simulation.authority.motion.kinematics import RigidState
+H=pathlib.Path(__file__).resolve().parent
+def save(name,x):(H/(name+'.json')).write_text(json.dumps(x,indent=2),encoding='utf-8')
+
+
+class IndependentEntryTests(unittest.TestCase):
+ def context(self,blue='front',red='back',*,layout=None,body=None):
+  return p.RunContext('independent-entry','numerical-scene',2,layout or w.Layout(g.Gate(blue,0,0),g.Gate(red,0,0)),body or w.Envelope(.4,.12,.52,'explicit independent capsule, not asset containment',False),'seed owner assertion, not live authority')
+ def seed(self,context,position=(0,0,14.4815),q=(0,1,0,0),speed=.25,errors=None,phase='ENTRY_CROSSING',speed_error=Fraction(0)):
+  kinds=('INITIAL_OUTSIDE','ENTRY_WINDOW') if phase=='ENTRY_CROSSING' else ('INITIAL_OUTSIDE','ENTRY_WINDOW','ENTERED','EXIT_WINDOW') if phase=='EXIT_CROSSING' else ('INITIAL_OUTSIDE','ENTRY_WINDOW','ENTERED')
+  return p._state(context=context,pose=RigidState(position,q,speed),errors=errors or gc.ErrorBounds(0.,0.,0.),speed_error_upper=speed_error,
+   error_budget_reference='independent seeded numerical budget',pose_revision=9,monotonic_ns=100,phase=phase,entered=phase!='ENTRY_CROSSING',
+   history=tuple(p.Event(k,i,i,i,'explicit seed, not preceding route') for i,k in enumerate(kinds)),trace_hash='explicit-seed')
+ def path(self,state,yaw=7000,pitch=0,speed=20):
+  return cp.CanonicalPath(state.pose,'fast_9600',speed,yaw,pitch,10_000_000,inherited_errors=p.required_inherited_errors(state,10_000_000),error_budget_reference='carry all seeded bounds')
+ def preview(self,state,path,**kw):
+  return p.preview(state,path,state.context,expected_pose_revision=state.pose_revision,start_monotonic_ns=state.monotonic_ns,deadline_monotonic_ns=state.monotonic_ns+10_000_001,hard_stop=False,**kw)
+
+ def test_six_inward_normals_have_real_uniform_curve_enclosures(self):
+  a=math.sqrt(.5)
+  poses={'front':((0,0,14.4815),(0,1,0,0),'back'), 'back':((0,0,-14.4815),(0,0,0,1),'front'),
+   'left':((-14.4815,0,0),(0,a,0,a),'right'),'right':((14.4815,0,0),(0,-a,0,a),'left'),
+   'top':((0,14.4815,0),(a,0,0,a),'bottom'),'bottom':((0,-14.4815,0),(-a,0,0,a),'top')}
+  observations=[]
+  for face,(position,q,red) in poses.items():
+   with self.subTest(face=face):
+    state=self.seed(self.context(face,red),position,q,errors=gc.ErrorBounds(1e-8,1e-6,1e-8));path=self.path(state)
+    result=self.preview(state,path);self.assertEqual('SAFE',result.status);self.assertEqual(1,len(result.bridges))
+    bridge=result.bridges[0];prepared=w.prepare(path,state.context.layout,state.context.envelope,start_monotonic_ns=100,deadline_monotonic_ns=10_000_101,hard_stop=False)
+    record=prepared.plan.slices[bridge.index];axis,_,normal,_=g._FACE_DATA[face];body=state.context.envelope
+    inherited=path.provenance.inherited_errors
+    # Direct exact-curve intervals plus uniform physical source perturbation,
+    # without using point_sides, _uncertainty or the supplemental support code.
+    source= (g._exact(inherited.position_error_m)+cp._fraction_interval(record.end.exact_distance_m)*g._exact(inherited.angle_error_rad)
+             +g._exact(body.pivot_radius_m)*g._exact(inherited.angle_error_rad)+g._exact(inherited.additional_margin_m))
+    maximum=None
+    for j in range(13):
+     t=record.start.elapsed_ns+(record.end.elapsed_ns-record.start.elapsed_ns)*j//12
+     distance,_=path.distance_speed(t);position_interval,orientation_interval=path._enclosed_pose(distance)
+     vector=cp._rotate(orientation_interval,tuple(g._exact(v) for v in (0,0,1)))
+     support=g._exact(normal[axis])*position_interval[axis]-g._exact(15)+g._exact(body.half_segment_m)*g._abs_bounds(vector[axis])+g._exact(body.radius_m)+source
+     self.assertLessEqual(support.hi,bridge.support.upper)
+     self.assertLess(support.hi,0)
+     maximum=support.hi if maximum is None else max(maximum,support.hi)
+    self.assertEqual(10_000_100,result.candidate.monotonic_ns)
+    self.assertEqual(state.history,result.candidate.history[:len(state.history)])
+    self.assertEqual(['ENTERED'],[e.kind for e in result.candidate.history[len(state.history):]])
+    self.assertEqual(result.proofs[0].binding,bridge.entered.proof_binding)
+    observations.append({'face':face,'support_upper':str(bridge.support.upper),'direct_interval_sample_max':str(maximum),'slope_lower':str(bridge.support.slope_lower),'entered_window':[bridge.entered.start_ns,bridge.entered.end_ns]})
+  save('six-normal-enclosures',observations)
+
+ def test_point_inside_does_not_replace_uniform_angle_error_or_large_pivot(self):
+  observations=[]
+  for angle in (.04,.05,.06):
+   state=self.seed(self.context(),(0,0,14.45568),errors=gc.ErrorBounds(0.,angle,0.));path=self.path(state)
+   prepared=w.prepare(path,state.context.layout,state.context.envelope,start_monotonic_ns=100,deadline_monotonic_ns=10_000_101,hard_stop=False)
+   record=prepared.plan.slices[1];support=w.check_inward_support(prepared,1)
+   observations.append({'angle':angle,'point_inside':next(s.inside for s in w.point_sides(record.start,state.context.envelope) if s.face=='front'),'uniform_support':str(support.upper),'status':support.status})
+   if support.upper>=0:self.assertEqual('UNKNOWN',support.status)
+  self.assertTrue(observations[1]['point_inside']);self.assertEqual('UNKNOWN',observations[1]['status'])
+  state=self.seed(self.context(body=w.Envelope(.4,.12,3.,'large covering pivot fixture',False)),(0,0,14.3));path=self.path(state)
+  prepared=w.prepare(path,state.context.layout,state.context.envelope,start_monotonic_ns=100,deadline_monotonic_ns=10_000_101,hard_stop=False)
+  self.assertEqual('UNKNOWN',w.check_inward_support(prepared,1).status)
+  save('uniform-error-negatives',observations)
+
+ def test_real_ramp_bridge_cannot_hide_late_other_face_unknown(self):
+  layout=w.Layout(g.Gate('front',14.85,0),g.Gate('back',14.85,0));context=self.context(layout=layout)
+  state=self.seed(context,(14.8792,0,14.4803),speed=.24951171875);path=self.path(state)
+  result=self.preview(state,path)
+  save('late-real-face-failure',{'status':result.status,'reason':result.reason,'bridges':len(result.bridges),'same_state':result.candidate is state,'roles':[x.role for x in result.proofs],'methods':[{f.face:f.method for f in x.faces} for x in result.proofs]})
+  self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
+  self.assertEqual(1,len(result.bridges));self.assertEqual(state.history,result.candidate.history)
+  self.assertEqual('ENVELOPE_NOT_CLEAR',next(f.method for f in result.proofs[-1].faces if f.face=='right'))
+  # The same clear central ramp needs exactly one two-call reservation.
+  clean=self.seed(self.context(),(0,0,14.4803),speed=.24951171875);path=self.path(clean);calls=[]
+  original_slice=w.check_slice;original_support=w.check_inward_support
+  def cast(*args,**kw):calls.append(('slice',args[1],args[2]));return original_slice(*args,**kw)
+  def support(*args,**kw):calls.append(('support',args[1]));return original_support(*args,**kw)
+  with patch.object(w,'check_slice',side_effect=cast),patch.object(w,'check_inward_support',side_effect=support):success=self.preview(clean,path,max_slices=3,max_bridge_checks=2)
+  self.assertEqual('SAFE',success.status);self.assertEqual(5,len(calls));self.assertEqual(path.sample(10_000_000).state,success.candidate.pose)
+  self.assertEqual('UNKNOWN',self.preview(clean,path,max_slices=3,max_bridge_checks=1).status)
+  save('ramp-bounded-calls',calls)
+
+ def test_same_face_bridge_adds_no_exit_and_cannot_publish_clipped_prefix(self):
+  context=self.context(layout=w.Layout(g.Gate('front',-.15,0),g.Gate('front',.15,0)))
+  state=self.seed(context,(-.15,0,14.4815));path=self.path(state);full=self.preview(state,path)
+  self.assertEqual(('SAFE','INSIDE'),(full.status,full.candidate.phase));self.assertEqual(1,len(full.bridges))
+  self.assertFalse(any(e.kind in ('EXIT_WINDOW','ARRIVED') for e in full.candidate.history))
+  clipped=p.preview(state,path,context,expected_pose_revision=9,start_monotonic_ns=100,deadline_monotonic_ns=10_000_100,hard_stop=False)
+  self.assertEqual('UNKNOWN',clipped.status);self.assertIs(state,clipped.candidate);self.assertEqual(1,len(clipped.bridges))
+  reversed_state=self.seed(context,(-.15,0,14.4815),q=(0,0,0,1));self.assertNotEqual('SAFE',self.preview(reversed_state,self.path(reversed_state)).status)
+  # Published strict-red suffix is still a distinct exit obligation.
+  for z,expected in ((-15.519,'SAFE'),(-15.5184,'UNKNOWN')):
+   red=self.seed(self.context(),(0,0,z),phase='EXIT_CROSSING');result=self.preview(red,self.path(red))
+   self.assertEqual(expected,result.status);self.assertEqual((),result.bridges)
+
+ def test_zero_speed_holds_and_full_step_speed_carry_is_not_reset(self):
+  state=self.seed(self.context(),(0,0,14.4815),speed=0.)
+  held=self.preview(state,self.path(state,speed=0));self.assertEqual('SAFE',held.status);self.assertEqual(state.pose,held.candidate.pose);self.assertEqual((),held.bridges)
+  carried=self.seed(self.context(),speed_error=Fraction(1,1024));path=self.path(carried);result=self.preview(carried,path)
+  self.assertEqual('SAFE',result.status);self.assertEqual(1,len(result.bridges))
+  self.assertGreaterEqual(result.candidate.speed_error_upper,carried.speed_error_upper)
+  reset=cp.CanonicalPath(carried.pose,'fast_9600',20,7000,0,10_000_000,inherited_errors=gc.ErrorBounds(0.,0.,0.),error_budget_reference='deliberate invalid reset')
+  rejected=self.preview(carried,reset);self.assertEqual('UNKNOWN',rejected.status);self.assertIs(carried,rejected.candidate);self.assertEqual((),rejected.proofs)
+
+
+if __name__=='__main__':unittest.main()

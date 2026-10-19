@@ -1,0 +1,109 @@
+"""Independent software witnesses; native APIs always author fake seams."""
+from dataclasses import replace
+import enum,json,pathlib,threading,unittest
+from competition.deepeye.tests.simulation import test_actor_owner as owner_fixture
+from competition.deepeye.tests.simulation import test_actor_lifetime as lifetime_fixture
+from competition.deepeye.tests.simulation import test_pc_direct_runtime as rt
+
+HERE=pathlib.Path(__file__).resolve().parent
+def save(name,value):(HERE/(name+'.witness.json')).write_text(json.dumps(value,indent=2),encoding='utf-8')
+
+class OwnerIndependent(unittest.TestCase):
+    def fixture(self,bound=False):
+        fx=lifetime_fixture.ActorLifetimeTests() if bound else owner_fixture.OwnerFixture()
+        fx.setUp();self.addCleanup(fx.doCleanups);return fx
+
+    def test_caught_diagnostic_reentry_vetoes_actual_authority(self):
+        f=self.fixture(True)
+        def reenter():
+            try:f.actor.diagnostics()
+            except ValueError:pass
+        f.api.wait_hook=reenter
+        with self.assertRaises(ValueError):f.sample()
+        self.assertTrue(f.ex.controller_view().stopped)
+        self.assertTrue(f.f.owner._latched)
+
+    def test_foreign_registry_call_during_wait_flags_without_closing(self):
+        f=self.fixture(True);errors=[]
+        def foreign():
+            try:f.registry.launch(f.policy)
+            except ValueError as e:errors.append(str(e))
+        def hook():
+            t=threading.Thread(target=foreign);t.start();t.join()
+            self.assertNotIn(('close',300),f.api.calls)
+        f.api.wait_hook=hook
+        with self.assertRaises(ValueError):f.sample()
+        self.assertTrue(errors);self.assertEqual(len(f.registry._owners),1)
+        self.assertTrue(f.ex.controller_view().stopped)
+
+    def test_cancelled_sample_preserves_BaseException_and_retires_pending(self):
+        f=self.fixture(True)
+        class Cancel(BaseException):pass
+        original=Cancel('independent cancellation')
+        def cancel():raise original
+        f.api.wait_hook=cancel
+        with self.assertRaises(Cancel) as caught:f.f.owner.step(expected_pose_revision=0,dt_ns=1_000_000)
+        self.assertIs(caught.exception,original)
+        self.assertTrue(f.ex.controller_view().stopped)
+        self.assertFalse(f.ex._pending)
+        self.assertEqual(f.ex.renderer_view().pose_revision,0)
+
+    def test_numeric_subclass_wait_cannot_be_positive_life(self):
+        f=self.fixture(True)
+        class Wait(enum.IntEnum):TIMEOUT=258
+        f.api.wait_result=Wait.TIMEOUT
+        with self.assertRaises(ValueError):f.sample()
+        self.assertTrue(f.ex.controller_view().stopped)
+
+    def test_boolean_flag_readback_is_not_an_integer_bitmask(self):
+        f=self.fixture()
+        original=f.api.handle_flags
+        f.api.handle_flags=lambda handle:bool(original(handle))
+        error=None
+        try:actor=f.launch()
+        except ValueError as exc:error=type(exc).__name__;actor=f.registry._owners[0]
+        save('boolean_flags',{'error':error,'actor_state':actor.state,'resumed':('resume',) in f.api.calls,'readback_type':'bool','native':'fake only'})
+        self.assertIsNotNone(error,'boolean handle flags passed equality-to-int and resumed actor')
+        self.assertNotIn(('resume',),f.api.calls)
+
+    def test_boolean_wait_cleanup_cannot_confirm_terminal(self):
+        f=self.fixture();actor=f.launch();f.api.wait_result=False
+        actor.close('independent malformed terminal readback')
+        save('boolean_wait_cleanup',{'actor_state':actor.state,'fake_process_still_live':f.api.live,'process_closed':('close',300) in f.api.calls,'job_closed':('close',200) in f.api.calls,'profile_deleted':('profile_delete',) in f.api.calls,'reference_terminal_confirmed':actor._process.terminal_confirmed,'native':'fake only'})
+        self.assertEqual(actor.state,'QUARANTINED','False treated as WAIT_OBJECT_0, despite malformed wait shape')
+        self.assertNotIn(('close',300),f.api.calls)
+
+    def test_repeat_old_close_does_not_revoke_fresh_replacement_boot(self):
+        for action in ('close','poll','ai_lease','malformed_ai_lease'):
+            with self.subTest(action=action):
+                f=self.fixture(True);old=f.actor;old_boot=f.f.binding;old.close('old retirement')
+                fresh=f.launch()
+                f.f.binding=replace(f.f.boot_binding(generation=2,session=8),ai_instance=fresh.instance_id)
+                f.f.activate();f.ex.activate_boot(f.f.binding)
+                fresh.bind_verified_boot(f.f.binding,runtime=f.f.owner,executor=f.ex)
+                f.f.provider.ai_lease=fresh.ai_lease
+                f.f.observe();event=f.f.command();f.ex.admit_command(f.f.binding,event.raw)
+                self.assertFalse(f.ex.controller_view().stopped)
+                calls_before=list(f.api.calls);error=None
+                try:
+                    if action=='close':old.close('repeat retired owner cleanup')
+                    elif action=='poll':old.poll()
+                    elif action=='ai_lease':old.ai_lease(old_boot,f.clock.value)
+                    else:old.ai_lease()
+                except ValueError as exc:error=str(exc)
+                save('old_binding_'+action,{'old_state':old.state,'fresh_state':fresh.state,'generation':f.f.binding.generation,'error':error,'new_executor_stopped':f.ex.controller_view().stopped,'new_runtime_latched':f.f.owner._latched,'native_effects_replayed':calls_before!=f.api.calls})
+                self.assertEqual(calls_before,f.api.calls)
+                self.assertFalse(f.ex.controller_view().stopped,'old public operation revoked new BOOT through stale callbacks')
+
+    def test_unwired_provider_is_explicit_integration_gap_not_actor_monitoring(self):
+        f=self.fixture(True)
+        # Deliberately detach real provider wiring, retaining actual runtime/executor.
+        static=rt.fixture_provider(f.clock)
+        f.f.provider.ai_lease=static.ai_lease
+        f.api.live=False
+        result=f.f.owner.step(expected_pose_revision=0,dt_ns=1_000_000)
+        save('provider_detached_integration_gap',{'committed':result.committed,'reason':result.reason,'pose_revision':f.ex.renderer_view().pose_revision,'actor_state':f.actor.state,'actor_process_alive':f.api.live,'scope':'deliberately unwired trusted composition; not a component safety acceptance'})
+        self.assertTrue(result.committed,'witness should demonstrate the documented missing composition obligation')
+        self.assertEqual(f.ex.renderer_view().pose_revision,1)
+
+if __name__=='__main__':unittest.main()

@@ -1,0 +1,17 @@
+test_bridge_preserves_entered_window_and_full_original_step (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_bridge_preserves_entered_window_and_full_original_step) ... FAIL
+
+======================================================================
+FAIL: test_bridge_preserves_entered_window_and_full_original_step (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_bridge_preserves_entered_window_and_full_original_step)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 131, in test_bridge_preserves_entered_window_and_full_original_step
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.012s
+
+FAILED (failures=1)

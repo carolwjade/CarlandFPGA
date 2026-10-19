@@ -1,0 +1,1548 @@
+{
+  "source_base": "3f702903f1e16fa72eae15f03ba431b78de24bd0",
+  "source_manifests": {
+    "actor": "98f792a4f5d699ab235179dbaa345867c8fd32975ed9c32d8b28e042c773f670",
+    "bridge": "cb904c57a2f985ff02ddb67e5b426968ecf4a22a1b03ecca2d382f99901ece19"
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "formal_acceptance": "not_run",
+  "raw_artifacts": 381,
+  "excluded_local_paths": [
+    "actor-owner-implementation/red-private-evidence-assertions.json",
+    "actor-owner-implementation/red-private-evidence-assertions.stderr.txt",
+    "actor-owner-implementation/red-private-evidence-assertions.stdout.txt",
+    "actor-owner-implementation/red-private-failure-evidence.json",
+    "actor-owner-implementation/red-private-failure-evidence.stderr.txt",
+    "actor-owner-implementation/red-private-failure-evidence.stdout.txt"
+  ],
+  "files": {
+    "raw/entry-role-refinement/after.json": {
+      "bytes": 4210,
+      "sha256": "caf684f589413361e0faf8299539f43eb35eaa9a677f718c9235a7f7fdd522ab"
+    },
+    "raw/entry-role-refinement/before.json": {
+      "bytes": 4210,
+      "sha256": "caf684f589413361e0faf8299539f43eb35eaa9a677f718c9235a7f7fdd522ab"
+    },
+    "raw/entry-role-refinement/completion_payload.txt": {
+      "bytes": 1211,
+      "sha256": "170f6be358ff6606e51122ed4e4f7702a3c165a76335ab07c81768d1e03ad272"
+    },
+    "raw/entry-role-refinement/dependencies-final.json": {
+      "bytes": 7479,
+      "sha256": "ab8bf5afded74501f46aa4b70d710aa5f4924ea09fe79c05725ca7fb12b2cb62"
+    },
+    "raw/entry-role-refinement/design.md": {
+      "bytes": 16108,
+      "sha256": "ba78ae582dd693f837ce69abd1016582c00a35dd1bd27702c3a3ca253bf52096"
+    },
+    "raw/entry-role-refinement/diagnostics-r2.command.json": {
+      "bytes": 618,
+      "sha256": "701a1ebbe286811615477d317bd73591840deffe63c5ed50343729880dac4f10"
+    },
+    "raw/entry-role-refinement/diagnostics-r2.stderr.log": {
+      "bytes": 1298,
+      "sha256": "c174447d53be282a902de75c64be102680fc261b50ac446e036dba5b7a7dee9a"
+    },
+    "raw/entry-role-refinement/diagnostics-r2.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-role-refinement/diagnostics-r3.command.json": {
+      "bytes": 618,
+      "sha256": "52580ea4896f0e26769b620d913b4534cb77fce480335c9e0eccd05d7af1ce88"
+    },
+    "raw/entry-role-refinement/diagnostics-r3.stderr.log": {
+      "bytes": 661,
+      "sha256": "99ea8e9f4ab5d67748a97107658ebd9364e47fe89357c658f96941a72a0dde37"
+    },
+    "raw/entry-role-refinement/diagnostics-r3.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-role-refinement/diagnostics.command.json": {
+      "bytes": 618,
+      "sha256": "701a1ebbe286811615477d317bd73591840deffe63c5ed50343729880dac4f10"
+    },
+    "raw/entry-role-refinement/diagnostics.py": {
+      "bytes": 9076,
+      "sha256": "d086582d9180dfcc76c6f648fe9ca161f9afc06d7693200799fcca90803e410b"
+    },
+    "raw/entry-role-refinement/diagnostics.stderr.log": {
+      "bytes": 741,
+      "sha256": "ca0b6daca239061775a18b5a96e7ea1aa26265ba54cdd14ee44bd62052e8b5c6"
+    },
+    "raw/entry-role-refinement/diagnostics.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-role-refinement/finalize.py": {
+      "bytes": 3106,
+      "sha256": "5470d51f93a3df8cb993a38dd2e6594a6bd1072d544a2225a85a5512f898e4b1"
+    },
+    "raw/entry-role-refinement/native_complete.json": {
+      "bytes": 1939,
+      "sha256": "6dbf3f20cb9360268fa4f3b9532a4249d31e4df9bacc54347ed2348b28ac4245"
+    },
+    "raw/entry-role-refinement/observations-r2.json": {
+      "bytes": 297311,
+      "sha256": "61cf0f679bc0464e9bf847e7110ea5f4ca466cf301e784d0b8bab602d66848fc"
+    },
+    "raw/entry-role-refinement/observations.json": {
+      "bytes": 297311,
+      "sha256": "61cf0f679bc0464e9bf847e7110ea5f4ca466cf301e784d0b8bab602d66848fc"
+    },
+    "raw/entry-role-refinement/receipt.json": {
+      "bytes": 3709,
+      "sha256": "36c58bc2a583301d903617be5cdee3da49ad905ae5c54d88180ecbe8608dd814"
+    },
+    "raw/entry-bridge-implementation/baseline/competition/deepeye/docs/workspace_passage.md": {
+      "bytes": 8836,
+      "sha256": "d898770ab6acef8bdd3c8e1bd6e3ba3e7bc55a4a42fde052ec9296867e7db816"
+    },
+    "raw/entry-bridge-implementation/baseline/competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "bytes": 13132,
+      "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+    },
+    "raw/entry-bridge-implementation/baseline/competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "bytes": 10527,
+      "sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    "raw/entry-bridge-implementation/baseline/competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "bytes": 15200,
+      "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+    },
+    "raw/entry-bridge-implementation/baseline/competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "bytes": 7466,
+      "sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    "raw/entry-bridge-implementation/before.json": {
+      "bytes": 4024,
+      "sha256": "4157b77c8c30b6899aca2ff66cf497102493d07a1a433e12fd20578395bc518d"
+    },
+    "raw/entry-bridge-implementation/candidate/competition/deepeye/docs/workspace_passage.md": {
+      "bytes": 14075,
+      "sha256": "cda84f4b2290c0d740331591c2a2825544115a20f341ac29f57a9da12dc42bf4"
+    },
+    "raw/entry-bridge-implementation/candidate/competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "bytes": 15628,
+      "sha256": "3032625c2a56e66c9593bc5206bc26fa9cf6c4b570e78204b15eee46b21f9478"
+    },
+    "raw/entry-bridge-implementation/candidate/competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "bytes": 13605,
+      "sha256": "2d42019cce6b4ac360766470b20518dd6ac8e66e94abae0e9772c83705a75b75"
+    },
+    "raw/entry-bridge-implementation/candidate/competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "bytes": 26722,
+      "sha256": "1aca3a04ad8815db540b165b7871aeb595e343d1f7bf1c943ef6e893b4dcc196"
+    },
+    "raw/entry-bridge-implementation/candidate/competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "bytes": 10169,
+      "sha256": "26c53ca1fa3e3119d0d2572ecbbb31b96d024d3db80ff90b61fe826a2e517a3f"
+    },
+    "raw/entry-bridge-implementation/clean-passage_phase.command.json": {
+      "bytes": 299,
+      "sha256": "2588169553c2c960f310f9d50ca1de8bdcbdd6f8d188099353cebce9d050e849"
+    },
+    "raw/entry-bridge-implementation/clean-passage_phase.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/clean-passage_phase.stdout.log": {
+      "bytes": 41,
+      "sha256": "110c67941c38c58f342adb6e6508c1f2b2e1edd89b43493f7c489fd278605d30"
+    },
+    "raw/entry-bridge-implementation/clean-test_passage_phase.command.json": {
+      "bytes": 293,
+      "sha256": "85a3ec8a22d23945a6f9a168f8daf8ac667413f40fe58822f9db5922a5810c97"
+    },
+    "raw/entry-bridge-implementation/clean-test_passage_phase.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/clean-test_passage_phase.stdout.log": {
+      "bytes": 41,
+      "sha256": "17e0032620701d6ca8d20f4f370dffda6c332e88c45b961280b2ad466a1e02f6"
+    },
+    "raw/entry-bridge-implementation/clean-test_workspace_boundaries.command.json": {
+      "bytes": 300,
+      "sha256": "3ec6f65ed0284150399cac488cddd0f47f2d9cfebf2c1721d2f8136deb59a71d"
+    },
+    "raw/entry-bridge-implementation/clean-test_workspace_boundaries.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/clean-test_workspace_boundaries.stdout.log": {
+      "bytes": 41,
+      "sha256": "482569f44faf1a4fed30213a8ecd418fa1cf5faaff8589b9cbd16a18ffe666eb"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_boundaries.command.json": {
+      "bytes": 306,
+      "sha256": "276c9e29dd481bae312d5e560cd746e52e3cd0029dd81d48fc4bd6b7e7050cf4"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_boundaries.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_boundaries.stdout.log": {
+      "bytes": 41,
+      "sha256": "8e6014ebc6087a0d0f13939a0d97863e79a7d7b76be5ad207872bfdfcec3503c"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_passage.command.json": {
+      "bytes": 280,
+      "sha256": "b7dc9b90568661f7390a6e0c3704df83c4c88d1945e0bf071c2239f365b78cf3"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_passage.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/clean-workspace_passage.stdout.log": {
+      "bytes": 41,
+      "sha256": "97c93ed61eddc5a5c99c859133f93162a439aba4840cb8308fea10e98ac46e80"
+    },
+    "raw/entry-bridge-implementation/diff-check.command.json": {
+      "bytes": 571,
+      "sha256": "073f663e8054d4d9588e29db831fee563e6ef5e799a4823b4666a2dce2978bc1"
+    },
+    "raw/entry-bridge-implementation/diff-check.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/diff-check.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/focused1.command.json": {
+      "bytes": 9362,
+      "sha256": "7a7404bfa388513ac84795d7dfce78d8df6ecf7fdd672edb52d0a056a710d7a7"
+    },
+    "raw/entry-bridge-implementation/focused1.stderr.log": {
+      "bytes": 7012,
+      "sha256": "09b04cd0caa1606ec2f637302c4e4e5bbcd00a7d01c696d007994c49b0182d67"
+    },
+    "raw/entry-bridge-implementation/focused1.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/focused2.command.json": {
+      "bytes": 9364,
+      "sha256": "8def1e78af67cb567a87a50da5ef17aeaefdd237252beba4b3ece5166f1edc99"
+    },
+    "raw/entry-bridge-implementation/focused2.stderr.log": {
+      "bytes": 9518,
+      "sha256": "725f271da195ee35084224aa742cfd1315a70c4d18aa749cb9dae7300b46aa5a"
+    },
+    "raw/entry-bridge-implementation/focused2.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/freeze.py": {
+      "bytes": 3693,
+      "sha256": "560720faff053e7bbf5fab498e4233ec7ac209706f1df7af2f7f258e99f632d5"
+    },
+    "raw/entry-bridge-implementation/native_complete.json": {
+      "bytes": 2594,
+      "sha256": "ac2cfa304effe05cbd917fa78efbff6266b60b02358569c1fa1adfd2346e3ada"
+    },
+    "raw/entry-bridge-implementation/nominal-witness.json": {
+      "bytes": 47879,
+      "sha256": "cf44b9a7869a4ee496b3c6fc82b09e069492e3358f3e38dcf8d593ec16474938"
+    },
+    "raw/entry-bridge-implementation/owned-diff.command.json": {
+      "bytes": 577,
+      "sha256": "4612f4bf98618f58f24a7551019210cf9c387f84b097142e41b69b5bae07e3db"
+    },
+    "raw/entry-bridge-implementation/owned-diff.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/owned-diff.stdout.log": {
+      "bytes": 36800,
+      "sha256": "b39422b37acee67a7d19077293787f2f7f2c4c95f5f39d22efd7ceeea477731c"
+    },
+    "raw/entry-bridge-implementation/raw-passage_phase.command.json": {
+      "bytes": 219,
+      "sha256": "7049604f19596f5c2412dec19252daaf44c5ca2ffafd902d60d1875c0f30c7a1"
+    },
+    "raw/entry-bridge-implementation/raw-passage_phase.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/raw-passage_phase.stdout.log": {
+      "bytes": 41,
+      "sha256": "110c67941c38c58f342adb6e6508c1f2b2e1edd89b43493f7c489fd278605d30"
+    },
+    "raw/entry-bridge-implementation/raw-test_passage_phase.command.json": {
+      "bytes": 219,
+      "sha256": "7049604f19596f5c2412dec19252daaf44c5ca2ffafd902d60d1875c0f30c7a1"
+    },
+    "raw/entry-bridge-implementation/raw-test_passage_phase.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/raw-test_passage_phase.stdout.log": {
+      "bytes": 41,
+      "sha256": "17e0032620701d6ca8d20f4f370dffda6c332e88c45b961280b2ad466a1e02f6"
+    },
+    "raw/entry-bridge-implementation/raw-test_workspace_boundaries.command.json": {
+      "bytes": 219,
+      "sha256": "7049604f19596f5c2412dec19252daaf44c5ca2ffafd902d60d1875c0f30c7a1"
+    },
+    "raw/entry-bridge-implementation/raw-test_workspace_boundaries.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/raw-test_workspace_boundaries.stdout.log": {
+      "bytes": 41,
+      "sha256": "482569f44faf1a4fed30213a8ecd418fa1cf5faaff8589b9cbd16a18ffe666eb"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_boundaries.command.json": {
+      "bytes": 219,
+      "sha256": "7049604f19596f5c2412dec19252daaf44c5ca2ffafd902d60d1875c0f30c7a1"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_boundaries.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_boundaries.stdout.log": {
+      "bytes": 41,
+      "sha256": "8e6014ebc6087a0d0f13939a0d97863e79a7d7b76be5ad207872bfdfcec3503c"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_passage.command.json": {
+      "bytes": 219,
+      "sha256": "7049604f19596f5c2412dec19252daaf44c5ca2ffafd902d60d1875c0f30c7a1"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_passage.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/raw-workspace_passage.stdout.log": {
+      "bytes": 41,
+      "sha256": "97c93ed61eddc5a5c99c859133f93162a439aba4840cb8308fea10e98ac46e80"
+    },
+    "raw/entry-bridge-implementation/receipt.json": {
+      "bytes": 6364,
+      "sha256": "0f969d5c012479da45e96d0a8a4595859aa88415fbe855cb7559eb1f6568bafe"
+    },
+    "raw/entry-bridge-implementation/red1.command.json": {
+      "bytes": 9369,
+      "sha256": "9390a491cc6a45310a00be5abf3fef5561829c984d469cf68ec177070e4dc97b"
+    },
+    "raw/entry-bridge-implementation/red1.stderr.log": {
+      "bytes": 1046,
+      "sha256": "d9680b7ae02a5c0ce7d5ef35a8aad30238c919939f0ee0135d485247bb6e55de"
+    },
+    "raw/entry-bridge-implementation/red1.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/regression1.command.json": {
+      "bytes": 9832,
+      "sha256": "93d8b4883e892bbd5621e68b2158623e544ac6a8a08469334cf38f1fb2c9b25d"
+    },
+    "raw/entry-bridge-implementation/regression1.stderr.log": {
+      "bytes": 53401,
+      "sha256": "fb67b99274f7b7501f2d4e8985a8ac19abc4a610207a01fde91599c801cf9655"
+    },
+    "raw/entry-bridge-implementation/regression1.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-implementation/report.md": {
+      "bytes": 7509,
+      "sha256": "7a558d3ac673ed5d6e8d9af659c5157af9d675daa0dcdc177920ddf1e53840b3"
+    },
+    "raw/entry-bridge-implementation/run.py": {
+      "bytes": 2510,
+      "sha256": "5307eb3ffc29c7b8859c82f39f53087073f5510c56795b64606a0493b58ae069"
+    },
+    "raw/entry-bridge-implementation/source-manifest.json": {
+      "bytes": 5423,
+      "sha256": "cb904c57a2f985ff02ddb67e5b426968ecf4a22a1b03ecca2d382f99901ece19"
+    },
+    "raw/entry-bridge-review/after.json": {
+      "bytes": 4259,
+      "sha256": "e19f9198e18c68896cfe6fa5116dd5f2ceb2d46d056f5ae909f2571bd26bd656"
+    },
+    "raw/entry-bridge-review/before.json": {
+      "bytes": 3326,
+      "sha256": "2a44b45d0836a42314e22dc3e9567d2c1e6e79e3240a5208c1800a6d7ba03ce7"
+    },
+    "raw/entry-bridge-review/complete.py": {
+      "bytes": 2588,
+      "sha256": "f4d5174daca61ae86ed968882e3b043dc4c53143a98dcbd40681e803a4247a41"
+    },
+    "raw/entry-bridge-review/findings.md": {
+      "bytes": 8763,
+      "sha256": "96ed72cb92a80cb28a940566ed7bbed6039d89f1831f63ad145bd708e78bb12b"
+    },
+    "raw/entry-bridge-review/freeze.py": {
+      "bytes": 5557,
+      "sha256": "be49b6fe819ab3f3f40c785e2930d56acacf71a9707a14654aa36b98bf551a1d"
+    },
+    "raw/entry-bridge-review/freeze.result.json": {
+      "bytes": 447,
+      "sha256": "b05a634874897816ceb642740881a9bfedadf758b76204c49a7a7e58877e49dc"
+    },
+    "raw/entry-bridge-review/frozen/competition/deepeye/docs/workspace_passage.md": {
+      "bytes": 14075,
+      "sha256": "cda84f4b2290c0d740331591c2a2825544115a20f341ac29f57a9da12dc42bf4"
+    },
+    "raw/entry-bridge-review/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "bytes": 15628,
+      "sha256": "3032625c2a56e66c9593bc5206bc26fa9cf6c4b570e78204b15eee46b21f9478"
+    },
+    "raw/entry-bridge-review/frozen/competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "bytes": 13605,
+      "sha256": "2d42019cce6b4ac360766470b20518dd6ac8e66e94abae0e9772c83705a75b75"
+    },
+    "raw/entry-bridge-review/frozen/competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "bytes": 26722,
+      "sha256": "1aca3a04ad8815db540b165b7871aeb595e343d1f7bf1c943ef6e893b4dcc196"
+    },
+    "raw/entry-bridge-review/frozen/competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "bytes": 10169,
+      "sha256": "26c53ca1fa3e3119d0d2572ecbbb31b96d024d3db80ff90b61fe826a2e517a3f"
+    },
+    "raw/entry-bridge-review/independent1.command.json": {
+      "bytes": 7370,
+      "sha256": "e7f4e5dc93797fa00a6fe311e5ab6526e66dbe0ce249e88f2c50dacadbc82a2f"
+    },
+    "raw/entry-bridge-review/independent1.stderr.log": {
+      "bytes": 3018,
+      "sha256": "59f8218b35f3355f62b66a45c8c0cdb49b119031425a5f06f74b9c4472759e3c"
+    },
+    "raw/entry-bridge-review/independent1.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-review/independent_entry_tests.first.py.txt": {
+      "bytes": 10213,
+      "sha256": "37eef3f9e57fd4da8576e38e07e07ed60d790993332c6e5a2617f92f539065f9"
+    },
+    "raw/entry-bridge-review/independent_entry_tests.py": {
+      "bytes": 10219,
+      "sha256": "769ac40347cfe0f307bd396dcca523b1da4953b6e32389cca40bdb4b9a80ce99"
+    },
+    "raw/entry-bridge-review/late-real-face-failure.json": {
+      "bytes": 1060,
+      "sha256": "c7d6b093b9f0d08cce3164bcd4f8d69b4ff0814d7a526b1b3c5b792b9f0ad8c9"
+    },
+    "raw/entry-bridge-review/manifest.json": {
+      "bytes": 5396,
+      "sha256": "294fbf2fdb4d1f0bce9f6d32cd3c368f43aad69eb61fb5cfce10f95d4dee52c1"
+    },
+    "raw/entry-bridge-review/missing26.command.json": {
+      "bytes": 7402,
+      "sha256": "bfad605924644645d6b386339761b9e7fb03609a7ad1f330f3ad24cf1929a741"
+    },
+    "raw/entry-bridge-review/missing26.stderr.log": {
+      "bytes": 5736,
+      "sha256": "3f4d477c60ab5bd5233e1b4529f9d465c4ba05346794f0986de550d5be37f54f"
+    },
+    "raw/entry-bridge-review/missing26.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-review/native_complete.json": {
+      "bytes": 2175,
+      "sha256": "8c6c371bef3111cd7e1c39c2712546cc168f4d8e967a756151f5102210dec783"
+    },
+    "raw/entry-bridge-review/ramp-bounded-calls.json": {
+      "bytes": 219,
+      "sha256": "71ede0e8bc30325b0a04e740e291aef643243ced169e709a7d0e6997d81c6b4c"
+    },
+    "raw/entry-bridge-review/receipt.json": {
+      "bytes": 1717,
+      "sha256": "584d0b369c71065d0bcfbc9e58100243bde8c50bd54e29929fee27e05210583d"
+    },
+    "raw/entry-bridge-review/regression265.command.json": {
+      "bytes": 7864,
+      "sha256": "1ec7c3c300ca200300c72059153cf80251498083ce02723a68c6a077d7868776"
+    },
+    "raw/entry-bridge-review/regression265.stderr.log": {
+      "bytes": 47769,
+      "sha256": "932149d18aa1844b976da126b3449158bdfdba47f6dda7f4bb28d68c8dab5028"
+    },
+    "raw/entry-bridge-review/regression265.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/entry-bridge-review/run.py": {
+      "bytes": 3541,
+      "sha256": "09fd50ea8a3f5a6e5848b6e407d99be8acdf9a302c41c7fe60127a0e9fb8662d"
+    },
+    "raw/entry-bridge-review/six-normal-enclosures.json": {
+      "bytes": 2250,
+      "sha256": "119bf2a013500b10c8baadef4ab9cee363fd2c9846ef09cc5d3e5e96ffa06cb3"
+    },
+    "raw/entry-bridge-review/uniform-error-negatives.json": {
+      "bytes": 524,
+      "sha256": "32df89b3c8f4e9df99313faea3e737a1a3730ecf621dc0d8c81592c59a55924d"
+    },
+    "raw/entry-bridge-review/zero_speed_fixed.command.json": {
+      "bytes": 7453,
+      "sha256": "2c755a251fc93380259e16a4a80162861415efecb6961ef7ea344b6e74ae3fda"
+    },
+    "raw/entry-bridge-review/zero_speed_fixed.stderr.log": {
+      "bytes": 280,
+      "sha256": "300852782b5ca486d64ac4a421078f519076afaa746d2c6e4dd3ac1998522b95"
+    },
+    "raw/entry-bridge-review/zero_speed_fixed.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/baseline.json": {
+      "bytes": 2035,
+      "sha256": "5eebd3a7f8cfd0953cbf26b64092065ae1ce12caad7b0b6c8d80a771752424fc"
+    },
+    "raw/actor-owner-implementation/candidate/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 13169,
+      "sha256": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a"
+    },
+    "raw/actor-owner-implementation/candidate/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-owner-implementation/candidate/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 21579,
+      "sha256": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151"
+    },
+    "raw/actor-owner-implementation/candidate/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 17341,
+      "sha256": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880"
+    },
+    "raw/actor-owner-implementation/candidate/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 15537,
+      "sha256": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d"
+    },
+    "raw/actor-owner-implementation/final-software-evidence.json": {
+      "bytes": 690,
+      "sha256": "fbc8290eb7fffc220a9277a411ac23cd9627b1011b3919196d1b673b5367ee69"
+    },
+    "raw/actor-owner-implementation/final-software-evidence.stderr.txt": {
+      "bytes": 23847,
+      "sha256": "569c3094789a9d5537072217c9688645ba27506b853d8fe70e6a5766fa0fe5bf"
+    },
+    "raw/actor-owner-implementation/final-software-evidence.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/final-software.json": {
+      "bytes": 690,
+      "sha256": "d35cd1ac93fc0f75824622c4ff32875726a62994ff38ea26e06f234823bdfbde"
+    },
+    "raw/actor-owner-implementation/final-software.stderr.txt": {
+      "bytes": 23409,
+      "sha256": "3fdc987dda1e907707a053b8c04e08bb9992d5cbdc80f6ba5042ef5ab228f0df"
+    },
+    "raw/actor-owner-implementation/final-software.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/final-validation.json": {
+      "bytes": 127,
+      "sha256": "0264b3fa07261d2f11c7b34d9bdbb57434f89ed339e64c7d32bf707aec70e249"
+    },
+    "raw/actor-owner-implementation/finish.py": {
+      "bytes": 4709,
+      "sha256": "44d95d80c42bf4f0af02d57f09705e1eb1eb98fb919a86e613240508bf908ffa"
+    },
+    "raw/actor-owner-implementation/green-attempt1.json": {
+      "bytes": 623,
+      "sha256": "ebe331220fd97918b19e843bc614ad67267d19c3290c1a90d8366da8adc54d74"
+    },
+    "raw/actor-owner-implementation/green-attempt1.stderr.txt": {
+      "bytes": 9135,
+      "sha256": "09e657bcd94fbbc71fb7f539d3b7c25020ee0adfff4ba4bbaba86d5825953e80"
+    },
+    "raw/actor-owner-implementation/green-attempt1.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/green-boundary-repair.json": {
+      "bytes": 623,
+      "sha256": "a859a698b55bd796a65f1a0263762c0b49a5d03159546789daeb1f3f47b01bdf"
+    },
+    "raw/actor-owner-implementation/green-boundary-repair.stderr.txt": {
+      "bytes": 8880,
+      "sha256": "3411a616348953db89ea71b7a2c80dd3889f273144e6cd911ad13db3c0941aa3"
+    },
+    "raw/actor-owner-implementation/green-boundary-repair.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/green-continuity-activation.json": {
+      "bytes": 623,
+      "sha256": "6a629d9d549bda04f40e27298968376900e33d706484d07bbb1979717d3a2d5f"
+    },
+    "raw/actor-owner-implementation/green-continuity-activation.stderr.txt": {
+      "bytes": 9902,
+      "sha256": "6b13c67d6ebb70e4f3d1ac0cee34115636952369c6e3f6ec6bf50cb53bc9f80b"
+    },
+    "raw/actor-owner-implementation/green-continuity-activation.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-composition.json": {
+      "bytes": 623,
+      "sha256": "640a49e437d5ba44499fe65af7d6a982531c0668c730e5714c48be7d1b1d6cfd"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-composition.stderr.txt": {
+      "bytes": 15187,
+      "sha256": "0f7551e4bf77ef240830d5e50644b6b287422fe2e06f7b53ce3bc0a4dd137d55"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-composition.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-corrected-fixtures.json": {
+      "bytes": 623,
+      "sha256": "1ab93c6a08f2c9cadadc2e16846d753c9147aa6096b6cf4fae99e1797405eb9d"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-corrected-fixtures.stderr.txt": {
+      "bytes": 10724,
+      "sha256": "7558312a71365719795a25ac5e0a0c24c4535774e719dfe6f41385af32bf4473"
+    },
+    "raw/actor-owner-implementation/green-lifecycle-corrected-fixtures.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/native_completion.json": {
+      "bytes": 1221,
+      "sha256": "5ccf90bd915167999f7866290d6112a7812f3627ed4367dfc72c08c6c88ad9a7"
+    },
+    "raw/actor-owner-implementation/native_completion_text.txt": {
+      "bytes": 984,
+      "sha256": "5b872a97097c7bd76ba11877fba8b48ad8cf57d957509fcb2a3f01bd99215bc5"
+    },
+    "raw/actor-owner-implementation/receipt.json": {
+      "bytes": 957,
+      "sha256": "bd8bf32d56d756d717976053c102726fcf58c03a6a7bd704659ba608182701c5"
+    },
+    "raw/actor-owner-implementation/red-boundary-counterexamples.json": {
+      "bytes": 623,
+      "sha256": "a1c68ef008ab3c9ec731ea22dd4de6afa0e2cbbd982a6fd7585d7a7a75156c3d"
+    },
+    "raw/actor-owner-implementation/red-boundary-counterexamples.stderr.txt": {
+      "bytes": 14630,
+      "sha256": "9d3c5c6d609989b9512df9ac9c13ae7208c41d2fefdb14c7d18a112f536372b2"
+    },
+    "raw/actor-owner-implementation/red-boundary-counterexamples.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/red-continuity-activation.json": {
+      "bytes": 623,
+      "sha256": "260b3c8dbb21e0b262df371b5450dca5ebe33087b9273a47fe1c4d880c313004"
+    },
+    "raw/actor-owner-implementation/red-continuity-activation.stderr.txt": {
+      "bytes": 17190,
+      "sha256": "834f6d0eefb1d0323cc6031f8b4f785ac463665bc96491dd7e79724c392f933f"
+    },
+    "raw/actor-owner-implementation/red-continuity-activation.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/red-missing-component.json": {
+      "bytes": 623,
+      "sha256": "9888983e16aa28d7033a297434de61bae45570bccbcd3d9fbb73fff6b54e0808"
+    },
+    "raw/actor-owner-implementation/red-missing-component.stderr.txt": {
+      "bytes": 39041,
+      "sha256": "f39fb74e3f0add42fb31d719c808c4851eeaee719db6b9992b10ec274eb51c7a"
+    },
+    "raw/actor-owner-implementation/red-missing-component.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-implementation/report.md": {
+      "bytes": 8438,
+      "sha256": "d1f0cf6f275b8ddbc4ac127e08f915fe7e32c1c8836678c9ac4b6b3fd0a91ed8"
+    },
+    "raw/actor-owner-implementation/run_checks.py": {
+      "bytes": 4332,
+      "sha256": "040d241c9a9123f4f40a358daedd600e7b87a7a50205d28cdc306d2bff6fdc5b"
+    },
+    "raw/actor-owner-implementation/source-manifest.json": {
+      "bytes": 3913,
+      "sha256": "2bace7921cd89ff2cf7e9d1dd8b87dbd1be6f4d34abd1ac3cc3d37026dc39630"
+    },
+    "raw/actor-owner-review/after.json": {
+      "bytes": 9238,
+      "sha256": "b36cba76655de0992dce491e24158413276262d36efa79782172f9e10da2c3c2"
+    },
+    "raw/actor-owner-review/author116.result.json": {
+      "bytes": 1329,
+      "sha256": "f84c19f5ef55e7ce2f849a237b9d75f52c2eaafa4b9bc0b6bb043df430054798"
+    },
+    "raw/actor-owner-review/author116.stderr.txt": {
+      "bytes": 23847,
+      "sha256": "b8c75ab4da9f5f3e0cf67bbe31c27b6951bd74e492908eaa7c604d16bcaf4853"
+    },
+    "raw/actor-owner-review/author116.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-review/baseline.py": {
+      "bytes": 3510,
+      "sha256": "0415295146286816332f8313d80170d18f933f9d1be148610e81c843428dcb3f"
+    },
+    "raw/actor-owner-review/before.json": {
+      "bytes": 9711,
+      "sha256": "e67a2988d530888684eb74a35e190181f98ba4cfae50ad1a1a5013abad012790"
+    },
+    "raw/actor-owner-review/boolean_flags.witness.json": {
+      "bytes": 132,
+      "sha256": "6997a3b4d357442ca117e3fc06353e5ffbd4d521b1937bc2a87722f5aa780465"
+    },
+    "raw/actor-owner-review/boolean_wait_cleanup.witness.json": {
+      "bytes": 212,
+      "sha256": "857aedac9a30c840af49966b8ca742aabefa7f0ecd0e65d7d70c62cfe0117974"
+    },
+    "raw/actor-owner-review/finalize.py": {
+      "bytes": 6441,
+      "sha256": "b86d1e3d3f680501f4ece5b5da871a4b2d970a85a42dd3ce20e8b67af771ce31"
+    },
+    "raw/actor-owner-review/finalize.result.json": {
+      "bytes": 525,
+      "sha256": "6d6134c07199dc76a1f652600823b1be8426a5912eced59cc02be7b4a7829e01"
+    },
+    "raw/actor-owner-review/findings.md": {
+      "bytes": 10097,
+      "sha256": "85c01193a3878a41cbd69fd516e649efb67e7a82a1de45fac01534ab2a6bdeca"
+    },
+    "raw/actor-owner-review/frozen/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 13169,
+      "sha256": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a"
+    },
+    "raw/actor-owner-review/frozen/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-owner-review/frozen/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 21579,
+      "sha256": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151"
+    },
+    "raw/actor-owner-review/frozen/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 17341,
+      "sha256": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880"
+    },
+    "raw/actor-owner-review/frozen/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 15537,
+      "sha256": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d"
+    },
+    "raw/actor-owner-review/helper_signatures.json": {
+      "bytes": 6799,
+      "sha256": "9889b43c09cfcdb2ac924bbaa9477f230d043d6d937f014770e4997e6b981b92"
+    },
+    "raw/actor-owner-review/helper_signatures.py": {
+      "bytes": 3609,
+      "sha256": "cd817692c09e87fc986d2a8494c3d0c2d233cf1b287306a48ecbfd1f074f2784"
+    },
+    "raw/actor-owner-review/independent8.result.json": {
+      "bytes": 1166,
+      "sha256": "770aa6d63b86bb3465b335c2b4bdd423226cbc01a59739dc00da7c788ee2e329"
+    },
+    "raw/actor-owner-review/independent8.stderr.txt": {
+      "bytes": 10743,
+      "sha256": "b8f1e82d623c28b9e906ef55b144cf41805ede163eaae8319e95da9e7e54f2e4"
+    },
+    "raw/actor-owner-review/independent8.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-review/independent8_binding4.result.json": {
+      "bytes": 1166,
+      "sha256": "362bd7084c0274d22c075352cd281a9bfb06b56c679d43ebd6e6f073b9d04f1f"
+    },
+    "raw/actor-owner-review/independent8_binding4.stderr.txt": {
+      "bytes": 7054,
+      "sha256": "a2cd41433faa95276b5e62b6207ac3dc7874f4f61b9da2b60e80433489c7fe53"
+    },
+    "raw/actor-owner-review/independent8_binding4.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-review/independent8_only.result.json": {
+      "bytes": 1166,
+      "sha256": "76c6e2a7d6600ccbba94c0377b07097c1e7d84e6dffef3941b3b4e253e06273d"
+    },
+    "raw/actor-owner-review/independent8_only.stderr.txt": {
+      "bytes": 3802,
+      "sha256": "6a4ae479cb4fd277f749826b5385b63922e2acfab95169e39e59a1bb98d1b75e"
+    },
+    "raw/actor-owner-review/independent8_only.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-owner-review/independent_actor_tests.initial8.py.txt": {
+      "bytes": 5992,
+      "sha256": "75478b6733fbe7d2bf8749c7d90e454e260f475dd12ec32342088e86496497e3"
+    },
+    "raw/actor-owner-review/independent_actor_tests.py": {
+      "bytes": 6535,
+      "sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f"
+    },
+    "raw/actor-owner-review/manifest.json": {
+      "bytes": 6422,
+      "sha256": "f23f6ab32e8b7dae628a08718af5b1b8362ebe2c09605bcf108417aef29fe4f2"
+    },
+    "raw/actor-owner-review/native_complete.json": {
+      "bytes": 2018,
+      "sha256": "205d51e272957cb99b0d319529a5196bf99a822448af44c1dab73b53b1e1b613"
+    },
+    "raw/actor-owner-review/old_binding_ai_lease.witness.json": {
+      "bytes": 243,
+      "sha256": "2cfaf19b9daf6ee09d173b91043039d806d07a37cebcb2a542414546c064bdb5"
+    },
+    "raw/actor-owner-review/old_binding_close.witness.json": {
+      "bytes": 203,
+      "sha256": "7f9bfbc7671dc98c4eb78bfe04e11e799a56477b6f1d29d623076bc0bbab0976"
+    },
+    "raw/actor-owner-review/old_binding_malformed_ai_lease.witness.json": {
+      "bytes": 240,
+      "sha256": "f8b58fda2d5f6019280856f3dd4ef49f114a3f345d12c649f7f023dfec85fdf8"
+    },
+    "raw/actor-owner-review/old_binding_poll.witness.json": {
+      "bytes": 224,
+      "sha256": "858f21ce7476c4d257420b30530486eb36b0b05353e390a41428b25534c9dc34"
+    },
+    "raw/actor-owner-review/provider_detached_integration_gap.witness.json": {
+      "bytes": 247,
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf"
+    },
+    "raw/actor-owner-review/receipt.json": {
+      "bytes": 2662,
+      "sha256": "67801b054f57f8e031c73c4bcec51d630762a9572be569a2e0bd6278c218b0c9"
+    },
+    "raw/actor-owner-review/repeat_old_close.witness.json": {
+      "bytes": 185,
+      "sha256": "4c53094ac906f0b50db79490a5132d8dae8b2977a1b6d32b3c0560f29bd76613"
+    },
+    "raw/actor-owner-review/run_tests.py": {
+      "bytes": 1492,
+      "sha256": "c7eef7009ce079d0e428cb92feea392b026d621a83a42cf717c4f16ddffa6c61"
+    },
+    "raw/actor-binding-repair/baseline.json": {
+      "bytes": 17718,
+      "sha256": "01d14a011bc0e99365069f1ae49acc4c07716e764521704e6a1908f01a715bb6"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 13169,
+      "sha256": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 21579,
+      "sha256": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "bytes": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 17341,
+      "sha256": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880"
+    },
+    "raw/actor-binding-repair/before-source/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 15537,
+      "sha256": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d"
+    },
+    "raw/actor-binding-repair/boolean_flags.witness.json": {
+      "bytes": 132,
+      "sha256": "a7d554dbffd879aede8ee0de44170c519f6b85a607b1263a72857a70307acb96"
+    },
+    "raw/actor-binding-repair/boolean_wait_cleanup.witness.json": {
+      "bytes": 221,
+      "sha256": "1b043f1c3912ead3c2efa1d4e26d640b1d60493c71f0bc6b54285e1d6556e201"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 14997,
+      "sha256": "38f097931198b03c1cc7ee859ef79d60bd416abc50610b28aa875c35e6cf5f67"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 22622,
+      "sha256": "810a51ac68c9c456f956d7f6a2c9239f3e73032db00e0e0846536e28a7b6de7e"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "bytes": 4400,
+      "sha256": "1861316badcaacd2b47b2e311e3779595cac7055c074e72c4b9a4381ffad1eb3"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "bytes": 16570,
+      "sha256": "128e6a111610fef2210412d388226be9e0edce6eddfc42fc63063d539acc337f"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 21315,
+      "sha256": "9ab0991a44d376e57413c375b92c3b7dab7c3f89a74c96d964af711668aa6b67"
+    },
+    "raw/actor-binding-repair/candidate/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 16489,
+      "sha256": "0500b2b7eb27b7656d90a4fd62eb04b79e17476c6091391ad4e65bf2d01b541e"
+    },
+    "raw/actor-binding-repair/final-independent8.module-origins.json": {
+      "bytes": 9808,
+      "sha256": "4c12a110b4dfa18cbaefe0f427b016d97fd93b66dcf15ea37aacd4ce4e71afa7"
+    },
+    "raw/actor-binding-repair/final-independent8.result.json": {
+      "bytes": 3029,
+      "sha256": "bdb398636f73a50467394d64d95bb35c56f79c9a11d8ea94505bab69520ed15d"
+    },
+    "raw/actor-binding-repair/final-independent8.stderr.txt": {
+      "bytes": 1447,
+      "sha256": "bc453df03991595ed832242c58a45aa9d15a6697606433b55d632ddeea4a8dde"
+    },
+    "raw/actor-binding-repair/final-independent8.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-repair/final-validation.json": {
+      "bytes": 127,
+      "sha256": "283ac882280c0fbbf5b63e5b686e068637e2f66083459171b3395342341521fa"
+    },
+    "raw/actor-binding-repair/finish.py": {
+      "bytes": 5357,
+      "sha256": "cfc2887c9c1dbfcd75895ba388129ddc1222874baa7090ae0916bd856919c763"
+    },
+    "raw/actor-binding-repair/freeze.py": {
+      "bytes": 6067,
+      "sha256": "26d6f8af3b0ccaa552a1864488524132a5309b88a087b234e390e60500abde3e"
+    },
+    "raw/actor-binding-repair/green-repair.result.json": {
+      "bytes": 2858,
+      "sha256": "0ee7b4058c2a349c64415c5b0a77a9fbf1dc0bd4121766b2fc34f50250b43dbf"
+    },
+    "raw/actor-binding-repair/green-repair.stderr.txt": {
+      "bytes": 29603,
+      "sha256": "334d84de2fc1d99dcee2229327317c04ad4692b52383d76a34ad6d9da95d17ca"
+    },
+    "raw/actor-binding-repair/green-repair.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-repair/independent_actor_tests.py": {
+      "bytes": 6535,
+      "sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f"
+    },
+    "raw/actor-binding-repair/native_completion.json": {
+      "bytes": 1387,
+      "sha256": "aa4ac6e2744e7b404ecbef386fbfa6b575dfeff68d3a1865e915a6ea16d026a8"
+    },
+    "raw/actor-binding-repair/native_completion_text.txt": {
+      "bytes": 1150,
+      "sha256": "0c4113f032a1898cae673c9e6a9b8bb1aa2721727f506eaff4343d2d7cadd07d"
+    },
+    "raw/actor-binding-repair/old_binding_ai_lease.witness.json": {
+      "bytes": 245,
+      "sha256": "57662712106b80571f6a9080f8f562cbb3e1187560c39123918d134e45ce4f9c"
+    },
+    "raw/actor-binding-repair/old_binding_close.witness.json": {
+      "bytes": 205,
+      "sha256": "14bf1660983d36ca99287a66c0cc95d6980536a28426eb9ce48ddc78530345af"
+    },
+    "raw/actor-binding-repair/old_binding_malformed_ai_lease.witness.json": {
+      "bytes": 242,
+      "sha256": "a89a3bc9528f882bd0a7a4022ba6ec8ef18ae4064b8a8cc4d47266830f7f49d8"
+    },
+    "raw/actor-binding-repair/old_binding_poll.witness.json": {
+      "bytes": 226,
+      "sha256": "0180264990993e9ec253e8c8810faa23c749b625e7f5aad43bab5b00c28ebf52"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 14997,
+      "sha256": "38f097931198b03c1cc7ee859ef79d60bd416abc50610b28aa875c35e6cf5f67"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/docs/enums.json": {
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/docs/host_contract.json": {
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/docs/interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/boot_profile.py": {
+      "bytes": 81662,
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/clock_bounds.py": {
+      "bytes": 10136,
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/host_envelope.py": {
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/motion.py": {
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/pc_direct_watchdog.py": {
+      "bytes": 12255,
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/sensor_source.py": {
+      "bytes": 11285,
+      "sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_boot_binding.py": {
+      "bytes": 4051,
+      "sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_clock_bounds.py": {
+      "bytes": 12396,
+      "sha256": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_contract_vectors.py": {
+      "bytes": 2524,
+      "sha256": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_host_envelope.py": {
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_host_schema.py": {
+      "bytes": 3851,
+      "sha256": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_motion.py": {
+      "bytes": 5350,
+      "sha256": "a4c5445af5feea6566e92781c188466e41b386155aaf6c771154e1f9050ce1af"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_pc_direct_heartbeat.py": {
+      "bytes": 3129,
+      "sha256": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_pc_direct_watchdog.py": {
+      "bytes": 22083,
+      "sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_sensor_source.py": {
+      "bytes": 22102,
+      "sha256": "d331a51b1a0e00a0c6b3b37ebd2a09e6ca4ebf9551c774106486bfdafdf12d13"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_trace_payload.py": {
+      "bytes": 5070,
+      "sha256": "f130591cdb0f665d81206801a6c82d08d2c47489876e1f05114d4e1130b8a4f2"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/test_wire.py": {
+      "bytes": 4394,
+      "sha256": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/integration/wire.py": {
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/certified_path.py": {
+      "bytes": 17268,
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/gate_clearance.py": {
+      "bytes": 11856,
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/gate_geometry.py": {
+      "bytes": 15309,
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/kinematics.py": {
+      "bytes": 11016,
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "bytes": 13132,
+      "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/solid_clearance.py": {
+      "bytes": 20063,
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "bytes": 10527,
+      "sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/motion_executor.py": {
+      "bytes": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "bytes": 23468,
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/__init__.py": {
+      "bytes": 80,
+      "sha256": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 22622,
+      "sha256": "810a51ac68c9c456f956d7f6a2c9239f3e73032db00e0e0846536e28a7b6de7e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/fixture.py": {
+      "bytes": 2287,
+      "sha256": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/owned_resources.py": {
+      "bytes": 9095,
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/policy.py": {
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/prototype.py": {
+      "bytes": 16264,
+      "sha256": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/resource_cleanup.py": {
+      "bytes": 11539,
+      "sha256": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/win32.py": {
+      "bytes": 17780,
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "bytes": 4400,
+      "sha256": "1861316badcaacd2b47b2e311e3779595cac7055c074e72c4b9a4381ffad1eb3"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/simulation/sensors/forward_profile.py": {
+      "bytes": 28252,
+      "sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_owned_resources.py": {
+      "bytes": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_policy.py": {
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_prototype_cleanup.py": {
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_resource_cleanup.py": {
+      "bytes": 16407,
+      "sha256": "9236b45d3978619912425fda170b4ee1964c53b63e31ba79dae739b2cb7e8292"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "bytes": 16570,
+      "sha256": "128e6a111610fef2210412d388226be9e0edce6eddfc42fc63063d539acc337f"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/isolation/test_windows_live.py": {
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 21315,
+      "sha256": "9ab0991a44d376e57413c375b92c3b7dab7c3f89a74c96d964af711668aa6b67"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 16489,
+      "sha256": "0500b2b7eb27b7656d90a4fd62eb04b79e17476c6091391ad4e65bf2d01b541e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_certified_path.py": {
+      "bytes": 16132,
+      "sha256": "a6286a41cb3dbdc7f335809659019fd860b2a029f89bad3ce5533d4997ef66e0"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_forward_profile.py": {
+      "bytes": 35195,
+      "sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_gate_clearance.py": {
+      "bytes": 14593,
+      "sha256": "3771cf93cb4756b7b5b0c5bacc18b6c522e8c47dfb95c9d5abecfb11831fda98"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_gate_geometry.py": {
+      "bytes": 11529,
+      "sha256": "d3e44c511b46a676c87a0caa2e2330f772fdd9305fb3e0a01e0ce5b1997aaa79"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_kinematics.py": {
+      "bytes": 19565,
+      "sha256": "ba0ed8751c5fd8a529f9b06b2b7ec556a7c002570bc4ae5cce1431a8f098d4c7"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "bytes": 28506,
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "bytes": 15200,
+      "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_pc_direct_runtime.py": {
+      "bytes": 26994,
+      "sha256": "e988feddce8e5a4987f0617c4b429a20088429822fc3fa2936f985bac81e72e5"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_solid_clearance.py": {
+      "bytes": 17924,
+      "sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "bytes": 7466,
+      "sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/test_boot_profile.py": {
+      "bytes": 22524,
+      "sha256": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/test_pipeline.py": {
+      "bytes": 51645,
+      "sha256": "30975a18de452dcfcb5f85d3c5ac905cc3b7c98473f039849177adec0db89486"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/test_verify_game.py": {
+      "bytes": 14056,
+      "sha256": "b1edd95b098536c8c392c0e70ae7d9d3edfa1604e68d2c6718bb6ccc9b832fa1"
+    },
+    "raw/actor-binding-repair/pinned-source/competition/deepeye/tests/vectors/abi3_reference.json": {
+      "bytes": 10383,
+      "sha256": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7"
+    },
+    "raw/actor-binding-repair/pinned_tree.py": {
+      "bytes": 8549,
+      "sha256": "06f0ce250b096d3fb20fcbc559fc9a569704522381bc82a0151c417c4fb4ca44"
+    },
+    "raw/actor-binding-repair/pinned_unittest.py": {
+      "bytes": 1398,
+      "sha256": "05ed38a0d0ffb9edc39b37e16eb30141dcc7fb358ba7aa240f0ddb3bfeacd172"
+    },
+    "raw/actor-binding-repair/provider_detached_integration_gap.witness.json": {
+      "bytes": 247,
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf"
+    },
+    "raw/actor-binding-repair/receipt.json": {
+      "bytes": 2172,
+      "sha256": "d582340e7498d0830f0a3b327470e4143f8c66214eafae171ee2eb93af0e72a6"
+    },
+    "raw/actor-binding-repair/red-expanded.result.json": {
+      "bytes": 2858,
+      "sha256": "5be73b9c8060d888ad925c423d3c05b44f166f89d407e3db6cf41da8591fc425"
+    },
+    "raw/actor-binding-repair/red-expanded.stderr.txt": {
+      "bytes": 73227,
+      "sha256": "9d673a6422225d4a37a03accc0166a1d91989021864d5b3f2940d09765265db0"
+    },
+    "raw/actor-binding-repair/red-expanded.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-repair/red-independent8-pinned.result.json": {
+      "bytes": 2638,
+      "sha256": "b0149f1a9c0e4fa4c822d9cf09a5d97d66e2201a9cf47f831ebb43c42f40236a"
+    },
+    "raw/actor-binding-repair/red-independent8-pinned.stderr.txt": {
+      "bytes": 7066,
+      "sha256": "66c3a70b35501b528ea02f18d5944b7d85756f9fdd72d17ded7f48ec0b39d290"
+    },
+    "raw/actor-binding-repair/red-independent8-pinned.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-repair/red-independent8.result.json": {
+      "bytes": 2638,
+      "sha256": "e91eae2fbe83217defacd44e5fea99176c5cd89263cb55749594e8cad9f22090"
+    },
+    "raw/actor-binding-repair/red-independent8.stderr.txt": {
+      "bytes": 4065,
+      "sha256": "7130c5f87861b42612e2c7c86989f08263294937060ed23cfdcab8394cefa068"
+    },
+    "raw/actor-binding-repair/red-independent8.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-repair/report.md": {
+      "bytes": 8757,
+      "sha256": "0f806762c803d963dd93b5ee367105eac1708836a7b9b265dd6ff28a11ba908f"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/boolean_flags.witness.json": {
+      "bytes": 132,
+      "sha256": "a7d554dbffd879aede8ee0de44170c519f6b85a607b1263a72857a70307acb96"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/boolean_wait_cleanup.witness.json": {
+      "bytes": 221,
+      "sha256": "1b043f1c3912ead3c2efa1d4e26d640b1d60493c71f0bc6b54285e1d6556e201"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/independent_actor_tests.py": {
+      "bytes": 6535,
+      "sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/old_binding_ai_lease.witness.json": {
+      "bytes": 245,
+      "sha256": "57662712106b80571f6a9080f8f562cbb3e1187560c39123918d134e45ce4f9c"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/old_binding_close.witness.json": {
+      "bytes": 205,
+      "sha256": "14bf1660983d36ca99287a66c0cc95d6980536a28426eb9ce48ddc78530345af"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/old_binding_malformed_ai_lease.witness.json": {
+      "bytes": 242,
+      "sha256": "a89a3bc9528f882bd0a7a4022ba6ec8ef18ae4064b8a8cc4d47266830f7f49d8"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/old_binding_poll.witness.json": {
+      "bytes": 226,
+      "sha256": "0180264990993e9ec253e8c8810faa23c749b625e7f5aad43bab5b00c28ebf52"
+    },
+    "raw/actor-binding-repair/runs/final-independent8/provider_detached_integration_gap.witness.json": {
+      "bytes": 247,
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf"
+    },
+    "raw/actor-binding-repair/schema-pins.json": {
+      "bytes": 809,
+      "sha256": "94f010b1b62ec878c9ea567e038b6436a9517be4d7b2e33630f4dbe3fa5d2147"
+    },
+    "raw/actor-binding-repair/source-manifest.json": {
+      "bytes": 5025,
+      "sha256": "98f792a4f5d699ab235179dbaa345867c8fd32975ed9c32d8b28e042c773f670"
+    },
+    "raw/actor-binding-review/additional4.command.json": {
+      "bytes": 10659,
+      "sha256": "99bbca3a2759032dd77cf6839ef267b5cf84d70dfdc0367f35ac4f89be0a82e2"
+    },
+    "raw/actor-binding-review/additional4.module-origins.json": {
+      "bytes": 10126,
+      "sha256": "dd09fb9a4c8fdb922bc0d4a344873fabfd3172cb2fae11098ed33a3b6371e2f2"
+    },
+    "raw/actor-binding-review/additional4.stderr.log": {
+      "bytes": 911,
+      "sha256": "dd697c3ca08ab423fe47cc991aa4cec20f2b5fcb0a397f80ba2bfec6400536f5"
+    },
+    "raw/actor-binding-review/additional4.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-review/after.json": {
+      "bytes": 17050,
+      "sha256": "35ef9b679f48b6359e359f3288cbfb336fe86e1f6bd0a0a506402acc0e4f84fc"
+    },
+    "raw/actor-binding-review/before.json": {
+      "bytes": 5079,
+      "sha256": "a554273e13dfcb86e6f847901ac75dfa6e1d1bc48ea9b35991f2074f219fa89f"
+    },
+    "raw/actor-binding-review/boolean_flags.witness.json": {
+      "bytes": 132,
+      "sha256": "a7d554dbffd879aede8ee0de44170c519f6b85a607b1263a72857a70307acb96"
+    },
+    "raw/actor-binding-review/boolean_wait_cleanup.witness.json": {
+      "bytes": 221,
+      "sha256": "1b043f1c3912ead3c2efa1d4e26d640b1d60493c71f0bc6b54285e1d6556e201"
+    },
+    "raw/actor-binding-review/callback-abort-after-target-advance.json": {
+      "bytes": 290,
+      "sha256": "678f53f1288d20b0c531f5be78d527d86b21ce5f9862795768f3607799a59348"
+    },
+    "raw/actor-binding-review/complete.py": {
+      "bytes": 2685,
+      "sha256": "e3fdbceccb38fb6aa0b069315eab19f17e7806565319f62bc642397f1cfb2759"
+    },
+    "raw/actor-binding-review/evidence-quarantine-late-bind.json": {
+      "bytes": 161,
+      "sha256": "25ab8bd8441e0d906988cd7db289020611ed9816935d39abb4802ead6b7f2963"
+    },
+    "raw/actor-binding-review/findings.md": {
+      "bytes": 7880,
+      "sha256": "e7825febe1f3c531eaec7d3d7302ee7a6c01d232744262bbf5606d15f2834c72"
+    },
+    "raw/actor-binding-review/foreign-late-malformed-close.json": {
+      "bytes": 189,
+      "sha256": "06dbb9e811df49233d282f3644329bfe6c9983b0df44fe48f69169513b39d800"
+    },
+    "raw/actor-binding-review/freeze.py": {
+      "bytes": 6730,
+      "sha256": "a87308c00a9548da556a18e7bdc1f6809962d14fe251a2fc22b732d03730c240"
+    },
+    "raw/actor-binding-review/freeze.result.json": {
+      "bytes": 448,
+      "sha256": "22d246b68b38dd650a267b22c13b45aeef61425593b4929f76ead7a0ecfd9e10"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 14997,
+      "sha256": "38f097931198b03c1cc7ee859ef79d60bd416abc50610b28aa875c35e6cf5f67"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 22622,
+      "sha256": "810a51ac68c9c456f956d7f6a2c9239f3e73032db00e0e0846536e28a7b6de7e"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "bytes": 4400,
+      "sha256": "1861316badcaacd2b47b2e311e3779595cac7055c074e72c4b9a4381ffad1eb3"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "bytes": 16570,
+      "sha256": "128e6a111610fef2210412d388226be9e0edce6eddfc42fc63063d539acc337f"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 21315,
+      "sha256": "9ab0991a44d376e57413c375b92c3b7dab7c3f89a74c96d964af711668aa6b67"
+    },
+    "raw/actor-binding-review/frozen/competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 16489,
+      "sha256": "0500b2b7eb27b7656d90a4fd62eb04b79e17476c6091391ad4e65bf2d01b541e"
+    },
+    "raw/actor-binding-review/independent_actor_tests.py": {
+      "bytes": 6535,
+      "sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f"
+    },
+    "raw/actor-binding-review/malformed-post-terminate.json": {
+      "bytes": 313,
+      "sha256": "2312a5f5d7eceef814fcb17744cd9069408cdbcc33800579b3ec4a16e588dec9"
+    },
+    "raw/actor-binding-review/manifest.json": {
+      "bytes": 6489,
+      "sha256": "b37e8cc3206816d370f0fd22cf39bdfde06c645d2f95e8b8a28a79defe98304b"
+    },
+    "raw/actor-binding-review/native_complete.json": {
+      "bytes": 2280,
+      "sha256": "944f3e2b6f4fe0ea691994b6f49ae6ae5ec71f0d8389d9d73c727b2ed606bf38"
+    },
+    "raw/actor-binding-review/new_actor_boundaries.py": {
+      "bytes": 6337,
+      "sha256": "965a0ba3f86de6b001ac65be8350c3caa63eeb5925a98d07afed6f81aec0a059"
+    },
+    "raw/actor-binding-review/old_binding_ai_lease.witness.json": {
+      "bytes": 245,
+      "sha256": "57662712106b80571f6a9080f8f562cbb3e1187560c39123918d134e45ce4f9c"
+    },
+    "raw/actor-binding-review/old_binding_close.witness.json": {
+      "bytes": 205,
+      "sha256": "14bf1660983d36ca99287a66c0cc95d6980536a28426eb9ce48ddc78530345af"
+    },
+    "raw/actor-binding-review/old_binding_malformed_ai_lease.witness.json": {
+      "bytes": 242,
+      "sha256": "a89a3bc9528f882bd0a7a4022ba6ec8ef18ae4064b8a8cc4d47266830f7f49d8"
+    },
+    "raw/actor-binding-review/old_binding_poll.witness.json": {
+      "bytes": 226,
+      "sha256": "0180264990993e9ec253e8c8810faa23c749b625e7f5aad43bab5b00c28ebf52"
+    },
+    "raw/actor-binding-review/original8.command.json": {
+      "bytes": 10660,
+      "sha256": "04b359aa1c34fb134d2b0a362e7534ef7ff0615eb336609bc153e805d213b57e"
+    },
+    "raw/actor-binding-review/original8.module-origins.json": {
+      "bytes": 10126,
+      "sha256": "dd09fb9a4c8fdb922bc0d4a344873fabfd3172cb2fae11098ed33a3b6371e2f2"
+    },
+    "raw/actor-binding-review/original8.stderr.log": {
+      "bytes": 1447,
+      "sha256": "50426ffea3c5330b2c0aebef11aebaf015777becca0cc53f585016dc1f8fa745"
+    },
+    "raw/actor-binding-review/original8.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-binding-review/payload.py": {
+      "bytes": 943,
+      "sha256": "b07bc6582ef67969ad58c580698b0b67c00264b331a558eaa163aae822e81d1c"
+    },
+    "raw/actor-binding-review/provider_detached_integration_gap.witness.json": {
+      "bytes": 247,
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf"
+    },
+    "raw/actor-binding-review/receipt.json": {
+      "bytes": 2653,
+      "sha256": "09c8a813485ff47e523f30246fe9a892d5c09c70fc03ce5d7519602bcce7cba0"
+    },
+    "raw/actor-binding-review/run.py": {
+      "bytes": 3775,
+      "sha256": "46d75b7e84d1fdbcb55370ee631b1ef9114d4c138da98aa348ae8191fd9a3232"
+    },
+    "raw/actor-bridge-joint-main/after.json": {
+      "bytes": 10011,
+      "sha256": "9828cae402118a784efbc29294bd8c190721819817791a54d95e15c6f109594d"
+    },
+    "raw/actor-bridge-joint-main/before.json": {
+      "bytes": 10092,
+      "sha256": "1a2da8c4e6a51875796d6c962093b0b0bfd6a59c4080f361849bb22de42e5eed"
+    },
+    "raw/actor-bridge-joint-main/boolean_flags.witness.json": {
+      "bytes": 132,
+      "sha256": "a7d554dbffd879aede8ee0de44170c519f6b85a607b1263a72857a70307acb96"
+    },
+    "raw/actor-bridge-joint-main/boolean_wait_cleanup.witness.json": {
+      "bytes": 221,
+      "sha256": "1b043f1c3912ead3c2efa1d4e26d640b1d60493c71f0bc6b54285e1d6556e201"
+    },
+    "raw/actor-bridge-joint-main/independent_actor_tests.py": {
+      "bytes": 6535,
+      "sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f"
+    },
+    "raw/actor-bridge-joint-main/module-origins.json": {
+      "bytes": 10709,
+      "sha256": "59a62d807a500b1d6cbdf99528c10f077dc8f41f419809ed71703a57306aea46"
+    },
+    "raw/actor-bridge-joint-main/old_binding_ai_lease.witness.json": {
+      "bytes": 245,
+      "sha256": "57662712106b80571f6a9080f8f562cbb3e1187560c39123918d134e45ce4f9c"
+    },
+    "raw/actor-bridge-joint-main/old_binding_close.witness.json": {
+      "bytes": 205,
+      "sha256": "14bf1660983d36ca99287a66c0cc95d6980536a28426eb9ce48ddc78530345af"
+    },
+    "raw/actor-bridge-joint-main/old_binding_malformed_ai_lease.witness.json": {
+      "bytes": 242,
+      "sha256": "a89a3bc9528f882bd0a7a4022ba6ec8ef18ae4064b8a8cc4d47266830f7f49d8"
+    },
+    "raw/actor-bridge-joint-main/old_binding_poll.witness.json": {
+      "bytes": 226,
+      "sha256": "0180264990993e9ec253e8c8810faa23c749b625e7f5aad43bab5b00c28ebf52"
+    },
+    "raw/actor-bridge-joint-main/provider_detached_integration_gap.witness.json": {
+      "bytes": 247,
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf"
+    },
+    "raw/actor-bridge-joint-main/result.json": {
+      "bytes": 1855,
+      "sha256": "3c2a58c662b80919671a157f2ea86ac03d7f3987d51c8e732ab6c5a2eec6dff0"
+    },
+    "raw/actor-bridge-joint-main/runner.py": {
+      "bytes": 1973,
+      "sha256": "e522a7dd494ed01de77edafbe31c47c58232fb2167852299b3850c80ab4976f1"
+    },
+    "raw/actor-bridge-joint-main/stderr.txt": {
+      "bytes": 29603,
+      "sha256": "4adf9529fd4ebc6fd01ad11612b694d396ac35d0ed2ec0dd9d78ed34d6315af7"
+    },
+    "raw/actor-bridge-joint-main/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-bridge-joint-main/unittest-result.json": {
+      "bytes": 359,
+      "sha256": "cc4e77f8fbbd9de089a0e3e6f3dbc15a3bed8ed0bf7f039f27ccc21371ab54cb"
+    },
+    "raw/bridge-and-actor-main-selection.json": {
+      "bytes": 949,
+      "sha256": "9470d7c6b59944ca854c4ded9cc47fe6e661762c200ab5e6eae7e60d5968091b"
+    },
+    "raw/actor-bridge-main-selection.json": {
+      "bytes": 1897,
+      "sha256": "db68d5f0980b9bb8753b931c37e817faca9b166f45eed6e623a74d6a1a4c6bc0"
+    },
+    ".gitattributes": {
+      "bytes": 29,
+      "sha256": "bb55e6fe5435fe4b9283ff2b03e2245780b9261d1b524cf484af6e5c547c5081"
+    }
+  }
+}

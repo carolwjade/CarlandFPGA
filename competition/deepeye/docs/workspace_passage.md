@@ -103,6 +103,84 @@ window. The existing executor still checks initial/full solid clearance for
 final fence and one publication. A forbidden or drilling-required final-slice
 solid blocks the whole step. No work is moved after the fence.
 
+## Same-plan blue entry handoff bridge
+
+The current entry seed z=14.4815, inward quaternion(0,1,0,0), v=.25,
+speed20/yaw7000 and original10ms has two canonical slices. The first endpoint
+is wholly inside blue by about.285866mm and records ENTERED in its original
+0/7,142,857ns window. The next ordinary exit-role blue-face envelope still
+overlaps the plane because its cast inflation is at least.5mm. Merely delaying
+ENTERED or changing role would not prove absence of reverse-blue exit.
+
+`check_inward_support(prepared, index)` now derives a separate typed
+`InwardSupport` from the same original prepared CanonicalPath/slice, never
+caller-supplied sides or bounds. For outward blue normal n and every rigid
+body point y with |y|<=Rb, the accepted exact spatial law has p'=a and
+|(Ry)'|<=K*Rb per arclength. The existing inward angle predicate is rechecked
+over the full slice with rotation plus record angle error; it ensures
+n.a<=-c, where c=.99595<cos5deg. The directed bound
+`slope_lower = c - Rb*K_upper > 0` therefore proves the nominal maximum
+whole-body support cannot increase. Nonnegative speed only changes time
+parameterization; zero speed holds without dividing by speed.
+
+The start support bound includes h*abs(n.axis)+r using the exactly normalized
+start Capsule axis and the *uniform record.errors*, not point-time errors:
+position + Rb*angle + all additional model/transform/numeric margins. CP
+constructs its position error using original-start inherited angle drift to
+the end distance and maximum endpoint position export enclosure; its start
+orientation/axis export error encloses the start of this exact analytic law.
+The additional proof needs no future float sample interpolation: nominal
+whole-body support is analytic and nonincreasing, and the constant full-slice
+perturbation ball bounds source drift, speed carry and start export error
+uniformly. No monotonicity of actual uncertain perturbations is assumed.
+Only strict upper<-1e-12, a proved inward angle and positive slope return
+SAFE. Missing provenance, uncertain sources or unverified asset containment
+remain external integration obligations, never supplied by frozen records.
+
+The reducer permits a bridge only after its own earlier ENTERED event in
+this *same original plan*. A seeded/preexisting INSIDE state has no bridge
+capability. Normal exit certificates are checked first and retained, including
+their original UNKNOWN. Only the blue ENVELOPE_NOT_CLEAR mismatch (or blue/red
+same-face APERTURE_UNKNOWN) with the other five STRICT_INSIDE is eligible.
+Any normal VIOLATION_PROVED or other-face failure still rejects immediately.
+The supplementary unchanged entry-role certificate must be SAFE, exactly six
+unique faces, blue APERTURE and other five STRICT_INSIDE. The typed inward
+support certificate must match the exact prepared binding/index/errors/face.
+The composite `EntryBridge` binds these proofs to the earlier ENTERED event.
+It proves strict *non-exit* at blue; it does not authorize its aperture after
+entry or activate two holes. Same-face legal tangent circles remain legal,
+overlap remains invalid and the later red-only outward rule is unchanged.
+
+All ordinary and supplemental casts remain in `Preview.proofs` in order;
+`Preview.bridges` retains the separate composite and analytic proof. A bridge
+adds no ENTERED/EXIT_WINDOW/ARRIVED event. It preserves the earlier event window
+and binding. Candidate pose/errors/speed carry are original plan.end, one
+revision and the full original duration. Any later failure or one-ns clipping
+rejects the whole input state/history, retaining checked proofs for audit.
+The private trace uses `same-plan-entry-bridge-v1`; wire/workspace VERSION,
+ordinary no-bridge traces and strict-red-outside suffix obligations are intact.
+
+Work is explicitly bounded: `max_slices` still charges every original slice
+and rejects before ordinary checks. New `max_bridge_checks=4` is an additional
+finite proof-call allowance, independently checked as a nonnegative strict
+integer. Each bridge attempt reserves two units *before either extra call*:
+one entry six-face cast and one analytic support check; even an early failed
+entry check consumes the reservation. Budgets0/1 cannot attempt a bridge;
+2 permits one, the default4 at most two. There are no adaptive retries or
+restarted speed laws. Thus at most max_slices+max_bridge_checks proof calls
+can occur. The existing executor uses this bounded default and still performs
+every original initial/full solid sweep, then its unchanged actual final fence
+and single owner-root CAS. No extra geometry occurs after that fence.
+
+At z14.4815, second-slice uniform support upper is about-.000285866332043517m,
+slope lower .741830060909625602, and its *unchanged* full entry cast still has
+rho>=.5mm. The composition now yields a complete10ms INSIDE preview. In contrast,
+at z14.45568 with .05rad inherited angle error, the point-time start is inside
+but the whole-record uniform support is positive: the supplemental proof is
+UNKNOWN. Larger pivot, outward angle, rim/corner/other-face uncertainty and
+foreign/missing/corrupt proof boundaries are tested explicitly. These are
+numerical fixtures, not proof of preceding execution or an actual AI source.
+
 ## Verified boundary and remaining work
 
 The original interrupted implementation's four source/test files were preserved
@@ -118,10 +196,10 @@ yaw7000 produce two slices, 0/7,142,857/10,000,000ns. They now certify the compl
 original 10ms and retain only one arrival window. These are explicit internal
 phase fixtures, not evidence of the preceding physical/committed route. Six red
 face orientations and correct-role same-face apertures are checked likewise.
-At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The entry
-seed z14.4815 still has a blue-to-exit-role envelope gap and remains `UNKNOWN`.
-General APERTURE tails, entry role-switch refinement and exact crossing-time
-refinement are not solved by the strict suffix rule.
+At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The narrow
+same-plan entry bridge above closes the z14.4815 numerical handoff while
+preserving its original ENTERED witness. General APERTURE tails, prior-plan
+entry handoffs and exact crossing-time refinement remain unresolved.
 
 The actual numerical executor regression uses a thin box at z=-16.0414: the
 first sweep is `CLEAR`, the final nominal cap contains the box centre, and the

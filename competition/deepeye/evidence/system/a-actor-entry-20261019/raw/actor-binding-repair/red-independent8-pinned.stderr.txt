@@ -1,0 +1,68 @@
+test_boolean_flag_readback_is_not_an_integer_bitmask (independent_actor_tests.OwnerIndependent.test_boolean_flag_readback_is_not_an_integer_bitmask) ... FAIL
+test_boolean_wait_cleanup_cannot_confirm_terminal (independent_actor_tests.OwnerIndependent.test_boolean_wait_cleanup_cannot_confirm_terminal) ... FAIL
+test_cancelled_sample_preserves_BaseException_and_retires_pending (independent_actor_tests.OwnerIndependent.test_cancelled_sample_preserves_BaseException_and_retires_pending) ... ok
+test_caught_diagnostic_reentry_vetoes_actual_authority (independent_actor_tests.OwnerIndependent.test_caught_diagnostic_reentry_vetoes_actual_authority) ... ok
+test_foreign_registry_call_during_wait_flags_without_closing (independent_actor_tests.OwnerIndependent.test_foreign_registry_call_during_wait_flags_without_closing) ... ok
+test_numeric_subclass_wait_cannot_be_positive_life (independent_actor_tests.OwnerIndependent.test_numeric_subclass_wait_cannot_be_positive_life) ... ok
+test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) ... 
+  test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='close') ... FAIL
+  test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='poll') ... FAIL
+  test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='ai_lease') ... FAIL
+  test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='malformed_ai_lease') ... FAIL
+test_unwired_provider_is_explicit_integration_gap_not_actor_monitoring (independent_actor_tests.OwnerIndependent.test_unwired_provider_is_explicit_integration_gap_not_actor_monitoring) ... ok
+
+======================================================================
+FAIL: test_boolean_flag_readback_is_not_an_integer_bitmask (independent_actor_tests.OwnerIndependent.test_boolean_flag_readback_is_not_an_integer_bitmask)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 66, in test_boolean_flag_readback_is_not_an_integer_bitmask
+    self.assertIsNotNone(error,'boolean handle flags passed equality-to-int and resumed actor')
+AssertionError: unexpectedly None : boolean handle flags passed equality-to-int and resumed actor
+
+======================================================================
+FAIL: test_boolean_wait_cleanup_cannot_confirm_terminal (independent_actor_tests.OwnerIndependent.test_boolean_wait_cleanup_cannot_confirm_terminal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 73, in test_boolean_wait_cleanup_cannot_confirm_terminal
+    self.assertEqual(actor.state,'QUARANTINED','False treated as WAIT_OBJECT_0, despite malformed wait shape')
+AssertionError: 'CLOSED' != 'QUARANTINED'
+- CLOSED
++ QUARANTINED
+ : False treated as WAIT_OBJECT_0, despite malformed wait shape
+
+======================================================================
+FAIL: test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='close')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 96, in test_repeat_old_close_does_not_revoke_fresh_replacement_boot
+    self.assertFalse(f.ex.controller_view().stopped,'old public operation revoked new BOOT through stale callbacks')
+AssertionError: True is not false : old public operation revoked new BOOT through stale callbacks
+
+======================================================================
+FAIL: test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='poll')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 96, in test_repeat_old_close_does_not_revoke_fresh_replacement_boot
+    self.assertFalse(f.ex.controller_view().stopped,'old public operation revoked new BOOT through stale callbacks')
+AssertionError: True is not false : old public operation revoked new BOOT through stale callbacks
+
+======================================================================
+FAIL: test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='ai_lease')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 96, in test_repeat_old_close_does_not_revoke_fresh_replacement_boot
+    self.assertFalse(f.ex.controller_view().stopped,'old public operation revoked new BOOT through stale callbacks')
+AssertionError: True is not false : old public operation revoked new BOOT through stale callbacks
+
+======================================================================
+FAIL: test_repeat_old_close_does_not_revoke_fresh_replacement_boot (independent_actor_tests.OwnerIndependent.test_repeat_old_close_does_not_revoke_fresh_replacement_boot) (action='malformed_ai_lease')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-binding-repair\independent_actor_tests.py", line 96, in test_repeat_old_close_does_not_revoke_fresh_replacement_boot
+    self.assertFalse(f.ex.controller_view().stopped,'old public operation revoked new BOOT through stale callbacks')
+AssertionError: True is not false : old public operation revoked new BOOT through stale callbacks
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.876s
+
+FAILED (failures=6)

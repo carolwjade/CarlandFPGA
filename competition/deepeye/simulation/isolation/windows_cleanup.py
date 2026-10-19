@@ -21,6 +21,8 @@ class WindowsCleanupBackend:
     def terminate(self, resource):
         ref = self.reference(resource)
         state = self.api.Wait(ref.native, 0)
+        if type(state) is not int:
+            raise OSError('initial terminal readback requires an int DWORD')
         if state == 0:
             return Outcome.CONFIRMED
         if state != 258:
@@ -32,6 +34,8 @@ class WindowsCleanupBackend:
     def wait_terminal(self, resource):
         ref = self.reference(resource)
         state = self.api.Wait(ref.native, 5000)
+        if type(state) is not int:
+            raise OSError('terminal readback requires an int DWORD')
         if state not in (0, 258):
             raise OSError('terminal readback failed: ' + str(state))
         ref.terminal_confirmed = state == 0

@@ -126,5 +126,45 @@ class WorkspaceBoundaryTests(unittest.TestCase):
         self.assertGreater(nominal(dt//2).lower,0)
         self.assertNotEqual('SAFE',w.check_slice(prepared,0,'exit').status)
 
+    def test_uniform_inward_support_adds_non_exit_without_shrinking_aperture_cast(self):
+        prepared=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000)
+        support=w.check_inward_support(prepared,1)
+        self.assertEqual('SAFE',support.status);self.assertTrue(w._valid_inward_support(prepared,1,support))
+        self.assertLess(support.upper,-.00028);self.assertGreater(support.slope_lower,.74)
+        cast=w.check_slice(prepared,1,'entry')
+        self.assertGreaterEqual(cast.rho_m,.0005)
+        self.assertEqual('APERTURE',next(f.method for f in cast.faces if f.face=='front'))
+        self.assertEqual('UNKNOWN',w.check_slice(prepared,1,'exit').status)
+        self.assertEqual('UNKNOWN',w.check_inward_support(prepared,0).status)
+
+    def test_uniform_record_errors_cannot_be_replaced_by_inside_point_errors(self):
+        prepared=self.prepare((0,0,14.45568),(0,1,0,0),yaw=7000,errors=gc.ErrorBounds(0.,.05,0.))
+        record=prepared.plan.slices[1]
+        self.assertTrue(next(s.inside for s in w.point_sides(record.start,self.body) if s.face=='front'))
+        self.assertGreater(record.errors.position_error_m,record.start.errors.position_error_m)
+        support=w.check_inward_support(prepared,1)
+        self.assertGreater(support.upper,0);self.assertEqual('UNKNOWN',support.status)
+        self.assertEqual(record.errors,support.errors)
+
+    def test_inward_support_requires_direction_rotation_and_covering_pivot(self):
+        for q,errors,body in (((0,0,0,1),self.errors,self.body),
+                ((0,1,0,0),gc.ErrorBounds(0.,.09,0.),self.body),
+                ((0,1,0,0),self.errors,replace(self.body,pivot_radius_m=3.))):
+            with self.subTest(q=q,errors=errors,body=body):
+                prepared=self.prepare((0,0,14.3),q,yaw=7000,errors=errors,body=body)
+                self.assertEqual('UNKNOWN',w.check_inward_support(prepared,1).status)
+        with self.assertRaises(TypeError):w.check_inward_support(object(),0)
+        with self.assertRaises(ValueError):w.check_inward_support(self.prepare(),True)
+
+    def test_inward_support_foreign_body_index_or_changed_bound_is_not_reusable(self):
+        prepared=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000)
+        support=w.check_inward_support(prepared,1)
+        other=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000,body=replace(self.body,pivot_radius_m=.6))
+        self.assertFalse(w._valid_inward_support(other,1,support))
+        self.assertFalse(w._valid_inward_support(prepared,0,support))
+        values={k:getattr(support,k) for k in support.__dataclass_fields__};values['upper']=-1
+        bad=w._create(w.InwardSupport,**values)
+        self.assertFalse(w._valid_inward_support(prepared,1,bad))
+
 
 if __name__=='__main__':unittest.main()

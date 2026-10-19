@@ -1,0 +1,100 @@
+{
+  "work_id": "A-G06-entry-role-refinement-design-20261019-v1",
+  "job_id": "child-cf373a04748847349b2b82930e4ebaa8",
+  "owner": "/root/r03_review_20261018",
+  "kind": "design_and_read_only_numerical_diagnostics",
+  "head": "3f702903f1e16fa72eae15f03ba431b78de24bd0",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "all_H01_H15_preserved": true,
+  "product_writes": false,
+  "design_implemented": false,
+  "new_lemma_verified_in_product": false,
+  "diagnostic_exit_code": 0,
+  "diagnostic_methods": 4,
+  "numerical_seed_cases": 10,
+  "exact_dependencies_stable_and_git_clean_equivalent": true,
+  "dependency_count": 23,
+  "recommended_next_dependency": "typed uniform-error inward-support non-exit lemma plus same-plan entry-handoff bridge; main decision and separate implementation/review required",
+  "current_gap_remains": "14.4815 current source UNKNOWN; no accepted prefix or event history",
+  "formal_cards": "all29 not_run; G06/G07 and both actual H12 chains not_run",
+  "not_executed": [
+    "model",
+    "native OS probe",
+    "UI",
+    "service",
+    "board",
+    "1000-case campaign",
+    "network publish",
+    "product/index mutation"
+  ],
+  "artifacts": {
+    "after.json": {
+      "sha256": "caf684f589413361e0faf8299539f43eb35eaa9a677f718c9235a7f7fdd522ab",
+      "bytes": 4210
+    },
+    "before.json": {
+      "sha256": "caf684f589413361e0faf8299539f43eb35eaa9a677f718c9235a7f7fdd522ab",
+      "bytes": 4210
+    },
+    "dependencies-final.json": {
+      "sha256": "ab8bf5afded74501f46aa4b70d710aa5f4924ea09fe79c05725ca7fb12b2cb62",
+      "bytes": 7479
+    },
+    "design.md": {
+      "sha256": "ba78ae582dd693f837ce69abd1016582c00a35dd1bd27702c3a3ca253bf52096",
+      "bytes": 16108
+    },
+    "diagnostics-r2.command.json": {
+      "sha256": "701a1ebbe286811615477d317bd73591840deffe63c5ed50343729880dac4f10",
+      "bytes": 618
+    },
+    "diagnostics-r2.stderr.log": {
+      "sha256": "c174447d53be282a902de75c64be102680fc261b50ac446e036dba5b7a7dee9a",
+      "bytes": 1298
+    },
+    "diagnostics-r2.stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "diagnostics-r3.command.json": {
+      "sha256": "52580ea4896f0e26769b620d913b4534cb77fce480335c9e0eccd05d7af1ce88",
+      "bytes": 618
+    },
+    "diagnostics-r3.stderr.log": {
+      "sha256": "99ea8e9f4ab5d67748a97107658ebd9364e47fe89357c658f96941a72a0dde37",
+      "bytes": 661
+    },
+    "diagnostics-r3.stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "diagnostics.command.json": {
+      "sha256": "701a1ebbe286811615477d317bd73591840deffe63c5ed50343729880dac4f10",
+      "bytes": 618
+    },
+    "diagnostics.py": {
+      "sha256": "d086582d9180dfcc76c6f648fe9ca161f9afc06d7693200799fcca90803e410b",
+      "bytes": 9076
+    },
+    "diagnostics.stderr.log": {
+      "sha256": "ca0b6daca239061775a18b5a96e7ea1aa26265ba54cdd14ee44bd62052e8b5c6",
+      "bytes": 741
+    },
+    "diagnostics.stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "finalize.py": {
+      "sha256": "5470d51f93a3df8cb993a38dd2e6594a6bd1072d544a2225a85a5512f898e4b1",
+      "bytes": 3106
+    },
+    "observations-r2.json": {
+      "sha256": "61cf0f679bc0464e9bf847e7110ea5f4ca466cf301e784d0b8bab602d66848fc",
+      "bytes": 297311
+    },
+    "observations.json": {
+      "sha256": "61cf0f679bc0464e9bf847e7110ea5f4ca466cf301e784d0b8bab602d66848fc",
+      "bytes": 297311
+    }
+  }
+}

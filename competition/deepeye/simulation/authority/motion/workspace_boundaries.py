@@ -226,3 +226,59 @@ def check_slice(prepared,index,role,*,max_gate_checks=1):
     binding=digest((prepared.binding,index,role,tuple(faces),start_sides,end_sides))
     return SliceProof(status,binding,role,start_sides,end_sides,tuple(faces),cp._upper_float(rho),monotone,
         'complete continuous six-face conjunction' if status=='SAFE' else 'exact fixture witness' if violation else 'insufficient envelope/aperture/budget evidence')
+
+
+@dataclass(frozen=True,init=False)
+class InwardSupport:
+    prepared_binding: str
+    index: int
+    face: str
+    errors: gc.ErrorBounds
+    upper: Decimal
+    slope_lower: Decimal
+    inward: bool
+    status: str
+    binding: str = field(init=False)
+
+
+def check_inward_support(prepared,index):
+    """Additional analytic non-exit proof; never a replacement cast or grant.
+
+    For each pivot-bounded body point y, (n.(p+Ry))' <= -c+Rb*K
+    per original arclength. The full-slice constant perturbation ball is
+    bounded by record.errors: original-start source drift through end s,
+    start pose/axis export enclosure, and all explicit additional margins.
+    Its support is constant, so no derivative of uncertain error is assumed.
+    All separate full inflated aperture/other-face casts remain necessary.
+    """
+    if type(prepared) is not PreparedPath:raise TypeError('internally prepared canonical path required')
+    if type(index) is not int or not 0<=index<len(prepared.plan.slices):raise ValueError('valid derived slice index required')
+    record=prepared.plan.slices[index];envelope=prepared.envelope;gate=prepared.layout.blue
+    capsule=_capsule(record.start,envelope)
+    axis,_,normal,_=g._FACE_DATA[gate.face]
+    centre=g._exact(normal[axis]*record.start.state.position_m[axis])-_I.exact(Decimal(15))
+    extent=g._exact(envelope.half_segment_m)*g._abs_bounds(capsule._unit[axis])+g._exact(envelope.radius_m)
+    upper=g._UP.add((centre+extent).hi,_uncertainty(record.errors,envelope))
+    slope=g._DOWN.subtract(_COS5_LOWER,(g._exact(envelope.pivot_radius_m)*g._exact(record.gate_bounds.curvature_upper_per_m)).hi)
+    un=g._support_intervals(capsule,gate.plane)[3]
+    angle=g._UP.add(g._exact(record.gate_bounds.rotation_upper_rad).hi,g._exact(record.errors.angle_error_rad).hi)
+    inward=gc._angle_proved(un,-1,angle)
+    proof=_create(InwardSupport,prepared_binding=prepared.binding,index=index,face=gate.face,
+        errors=record.errors,upper=upper,slope_lower=slope,inward=inward,
+        status='SAFE' if inward and slope>0 and upper<_GUARD.copy_negate() else 'UNKNOWN')
+    object.__setattr__(proof,'binding',digest(('uniform-inward-support-v1',proof)))
+    return proof
+
+
+def _valid_inward_support(prepared,index,proof):
+    return (type(proof) is InwardSupport and proof.prepared_binding==prepared.binding and proof.index==index
+        and proof.face==prepared.layout.blue.face and proof.errors==prepared.plan.slices[index].errors
+        and proof.binding==digest(('uniform-inward-support-v1',proof)) and proof.status=='SAFE'
+        and proof.inward is True and proof.slope_lower>0 and proof.upper<_GUARD.copy_negate())
+
+
+def _valid_slice(prepared,index,role,proof):
+    return (type(proof) is SliceProof and type(proof.role) is str and proof.role==role and len(proof.faces)==len(FACES)
+        and all(type(f) is FaceProof and type(f.face) is str for f in proof.faces)
+        and {f.face for f in proof.faces}==set(FACES)
+        and proof.binding==digest((prepared.binding,index,role,proof.faces,proof.start_sides,proof.end_sides)))

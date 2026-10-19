@@ -1,0 +1,23 @@
+{
+  "job_id": "child-ed80d3358dba43b4b83dafef40a52b9b",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-actor-owner-independent-review-20261019-v1",
+  "ownership": [
+    ".planning/deepeye-resume-20261018/actor-owner-review"
+  ],
+  "native_agent_id": "/root/pc_direct_review_20261018",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "A-actor-owner-independent-review-20261019-v1 completed bounded independent software review at product HEAD 3f702903f1e16fa72eae15f03ba431b78de24bd0. Evidence .planning/deepeye-resume-20261018/actor-owner-review/. findings SHA256 85c01193a3878a41cbd69fd516e649efb67e7a82a1de45fac01534ab2a6bdeca; receipt SHA256 67801b054f57f8e031c73c4bcec51d630762a9572be569a2e0bd6278c218b0c9; manifest SHA256 f23f6ab32e8b7dae628a08718af5b1b8362ebe2c09605bcf108417aef29fe4f2. Author116 pass/0skip. Independent8 methods:5 pass,3 failing methods/6 failed assertions or subtests. AOR-R1 reachable old close/poll/ai_lease/malformed_ai_lease callbacks stop new BOOT2 runtime/executor without replaying native cleanup; repair must fence callbacks to original binding across all entries, preserve exception/partial activation cleanup/quarantine. AOR-R2/R3 are injected dependency shape boundaries, not observed real Win32 faults. Prior40-method discovery logs retained with explanation. 34 source/dependency/rule hashes unchanged;5 candidate live/frozen/raw/clean parity. H01-H15 canonical requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged. Native/real AI/full H12/game/board/Run and all29 formal cards remain not_run. No product edits or actual native execution. Findings require main decision; task completion is not candidate acceptance.",
+    "native_agent_id": "/root/pc_direct_review_20261018"
+  },
+  "error": null,
+  "created_at": "2026-10-19T10:57:59.699177Z",
+  "updated_at": "2026-10-19T11:10:38.850633Z",
+  "duplicate": false
+}

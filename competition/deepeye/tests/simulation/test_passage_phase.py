@@ -4,6 +4,7 @@ import unittest
 from dataclasses import replace
 from fractions import Fraction
 import math
+from unittest.mock import patch
 
 from competition.deepeye.simulation.authority.motion import certified_path as cp
 from competition.deepeye.simulation.authority.motion import gate_geometry as g
@@ -35,11 +36,11 @@ class PassagePhaseTests(unittest.TestCase):
              inherited_errors=errors or p.required_inherited_errors(state,dt),
              error_budget_reference='fixture carries prior bounds')
 
-    def step(self,state,*,path=None,stop=False,deadline=None,context=None,budget=16):
+    def step(self,state,*,path=None,stop=False,deadline=None,context=None,budget=16,bridge_budget=4):
         path=path or self.path(state)
         return p.preview(state,path,context or self.context,expected_pose_revision=state.pose_revision,
              start_monotonic_ns=state.monotonic_ns,deadline_monotonic_ns=deadline if deadline is not None else state.monotonic_ns+10_000_001,
-             hard_stop=stop,max_slices=budget)
+             hard_stop=stop,max_slices=budget,max_bridge_checks=bridge_budget)
 
     def numerical_seed(self,phase,position,q=(0,1,0,0),context=None):
         # Internal numerical phase fixture, not evidence of a preceding route.
@@ -118,12 +119,161 @@ class PassagePhaseTests(unittest.TestCase):
         result=self.step(state,path=self.path(state,yaw=0))
         self.assertEqual(('SAFE','ARRIVED',1),(result.status,result.candidate.phase,len(result.proofs)))
         self.assertEqual('HELD',self.step(result.candidate).status)
-        for z,status in ((14.481,'SAFE'),(14.4815,'UNKNOWN')):
+        for z,status in ((14.481,'SAFE'),(14.4815,'SAFE')):
             state=self.numerical_seed('ENTRY_CROSSING',(0,0,z))
             result=self.step(state,path=self.path(state,yaw=7000))
             self.assertEqual(status,result.status)
             if status=='SAFE':self.assertEqual('INSIDE',result.candidate.phase)
             else:self.assertIs(result.candidate,state)
+
+    def test_bridge_preserves_entered_window_and_full_original_step(self):
+        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
+        result=self.step(state,path=path)
+        self.assertEqual('SAFE',result.status)
+        self.assertEqual(('INSIDE',6,10_000_010),(result.candidate.phase,result.candidate.pose_revision,result.candidate.monotonic_ns))
+        self.assertEqual(path.sample(10_000_000).state,result.candidate.pose)
+        self.assertEqual(state.history,result.candidate.history[:len(state.history)])
+        self.assertEqual(['ENTERED'],[e.kind for e in result.candidate.history[len(state.history):]])
+        entered=result.candidate.history[-1]
+        self.assertEqual((10,7_142_867),(entered.start_ns,entered.end_ns))
+        self.assertEqual(result.proofs[0].binding,entered.proof_binding)
+        self.assertEqual(['entry','exit','entry'],[x.role for x in result.proofs])
+        self.assertEqual(['SAFE','UNKNOWN','SAFE'],[x.status for x in result.proofs])
+        self.assertEqual(1,len(result.bridges));bridge=result.bridges[0]
+        self.assertEqual(1,bridge.index);self.assertEqual(entered,bridge.entered)
+        self.assertIs(result.proofs[1],bridge.normal);self.assertIs(result.proofs[2],bridge.entry)
+        self.assertLess(bridge.support.upper,0);self.assertGreater(bridge.support.slope_lower,0)
+        self.assertFalse(result.motion_grant);self.assertFalse(result.atomic_cas_completed)
+
+    def test_bridge_extra_proofs_are_finitely_charged_before_alternative_work(self):
+        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
+        for budget in (0,1):
+            actual=w.check_slice;calls=[]
+            def check(*a,**kw):calls.append(a[2]);return actual(*a,**kw)
+            with patch.object(w,'check_slice',side_effect=check),patch.object(w,'check_inward_support',side_effect=AssertionError('unbudgeted proof')):
+                result=self.step(state,path=path,bridge_budget=budget)
+            self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
+            self.assertEqual(['entry','exit'],calls);self.assertEqual((),result.bridges)
+        self.assertEqual('SAFE',self.step(state,path=path,bridge_budget=2).status)
+        for budget in (True,-1,1.5):
+            with self.assertRaises(ValueError):self.step(state,path=path,bridge_budget=budget)
+        for budget in (0,1):
+            with patch.object(w,'check_slice',side_effect=AssertionError('slice budget checked first')):
+                self.assertEqual('UNKNOWN',self.step(state,path=path,budget=budget).status)
+
+    def test_bridge_never_reuses_seeded_inside_or_prior_plan_entered_capability(self):
+        state=self.numerical_seed('INSIDE',(0,0,14.4799));path=self.path(state,yaw=7000)
+        with patch.object(w,'check_inward_support',side_effect=AssertionError('no ENTERED in this plan')):
+            result=self.step(state,path=path)
+        self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
+        self.assertEqual((),result.bridges)
+
+    def test_bridge_same_face_and_geometric_negatives_do_not_union_holes(self):
+        ctx=replace(self.context,layout=w.Layout(g.Gate('front',-.15,0),g.Gate('front',.15,0)))
+        state=self.numerical_seed('ENTRY_CROSSING',(-.15,0,14.4815),context=ctx)
+        result=self.step(state,path=self.path(state,yaw=7000),context=ctx)
+        self.assertEqual(('SAFE','INSIDE'),(result.status,result.candidate.phase))
+        self.assertEqual(1,len(result.bridges));self.assertEqual('ENTERED',result.candidate.history[-1].kind)
+        cases=[((0,0,14.4815),(0,0,0,1),7000,self.context),
+            ((.0295,0,15.),(0,1,0,0),7000,self.context),
+            ((15.6,0,14.4815),(0,1,0,0),7000,self.context),
+            ((14.8794,0,14.4815),(0,1,0,0),7000,replace(self.context,layout=w.Layout(g.Gate('front',14.85,0),g.Gate('back',0,0)))),
+            ((-.15,0,14.4815),(0,0,0,1),7000,ctx)]
+        for position,q,yaw,context in cases:
+            with self.subTest(position=position,q=q):
+                state=self.numerical_seed('ENTRY_CROSSING',position,q,context)
+                result=self.step(state,path=self.path(state,yaw=yaw),context=context)
+                self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
+        exact=replace(self.context,envelope=replace(self.body,exact_fixture=True))
+        state=self.numerical_seed('ENTRY_CROSSING',(.03,0,15.),context=exact)
+        result=self.step(state,context=exact)
+        self.assertEqual('VIOLATION_PROVED',result.status);self.assertTrue(result.failure_candidate)
+
+    def test_bridge_preserves_violation_and_rejects_corrupted_or_foreign_proofs(self):
+        for fault in ('violation','missing','duplicate','other_face','foreign','entry_missing','support_foreign'):
+            with self.subTest(fault=fault):
+                state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));actual=w.check_slice
+                def check(prepared,index,role,**kw):
+                    proof=actual(prepared,index,role,**kw)
+                    if index!=1:return proof
+                    if role=='exit':
+                        if fault=='violation':return replace(proof,status='VIOLATION_PROVED')
+                        if fault=='missing':return replace(proof,faces=proof.faces[:-1])
+                        if fault=='duplicate':return replace(proof,faces=proof.faces[:-1]+(proof.faces[0],))
+                        if fault=='other_face':return replace(proof,faces=tuple(replace(f,method='ENVELOPE_NOT_CLEAR') if f.face=='right' else f for f in proof.faces))
+                        if fault=='foreign':return replace(proof,binding='different prepared path')
+                    if role=='entry' and fault=='entry_missing':return replace(proof,faces=proof.faces[:-1])
+                    return proof
+                support=w.check_inward_support
+                def inward(prepared,index):return support(prepared,0 if fault=='support_foreign' else index)
+                with patch.object(w,'check_slice',side_effect=check),patch.object(w,'check_inward_support',side_effect=inward):
+                    result=self.step(state,path=self.path(state,yaw=7000))
+                self.assertEqual('VIOLATION_PROVED' if fault=='violation' else 'UNKNOWN',result.status)
+                self.assertIs(state,result.candidate);self.assertEqual(state.history,result.candidate.history)
+                self.assertEqual(fault=='violation',result.failure_candidate)
+
+    def test_bridge_ramp_three_original_slices_and_final_failure_rollback(self):
+        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4803))
+        values={n:getattr(state,n) for n in state.__dataclass_fields__ if n!='seal'}
+        values['pose']=RigidState(state.pose.position_m,state.pose.orientation_xyzw,.24951171875);state=p._state(**values)
+        path=self.path(state,yaw=7000);result=self.step(state,path=path)
+        plan=path.plan(start_monotonic_ns=10,deadline_monotonic_ns=10_000_011,hard_stop=False)
+        self.assertEqual(3,len(plan.slices));self.assertEqual(1_953_125,plan.slices[0].end.elapsed_ns)
+        self.assertEqual('SAFE',result.status);self.assertEqual(1,len(result.bridges))
+        self.assertEqual(plan.end.state,result.candidate.pose);self.assertEqual(plan.end.errors,result.candidate.errors)
+        self.assertEqual(10_000_010,result.candidate.monotonic_ns)
+        for status in ('UNKNOWN','VIOLATION_PROVED'):
+            actual=w.check_slice
+            def check(prepared,index,role,**kw):
+                proof=actual(prepared,index,role,**kw)
+                return replace(proof,status=status) if index==2 else proof
+            with patch.object(w,'check_slice',side_effect=check):result=self.step(state,path=path)
+            self.assertEqual(status,result.status);self.assertIs(state,result.candidate)
+            self.assertEqual(1,len(result.bridges));self.assertEqual(state.history,result.candidate.history)
+
+    def test_bridge_requires_full_duration_and_stop_cannot_publish_entered_prefix(self):
+        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
+        result=self.step(state,path=path,deadline=10+10_000_000)
+        self.assertEqual('UNKNOWN',result.status);self.assertEqual(1,len(result.bridges));self.assertIs(state,result.candidate)
+        self.assertEqual('HELD',self.step(state,path=path,stop=True).status)
+        zero=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815))
+        values={n:getattr(zero,n) for n in zero.__dataclass_fields__ if n!='seal'}
+        values['pose']=RigidState(zero.pose.position_m,zero.pose.orientation_xyzw,0.);zero=p._state(**values)
+        held=self.step(zero,path=self.path(zero,speed=0))
+        self.assertEqual('SAFE',held.status);self.assertFalse(held.candidate.entered);self.assertEqual((),held.bridges)
+
+    def test_bridge_actual_executor_keeps_solids_and_original_final_fence(self):
+        from competition.deepeye.tests.simulation import test_motion_executor as fx
+        from competition.deepeye.simulation.authority.motion import solid_clearance as s
+        fixture=fx.MotionExecutorTests();fixture.setUp()
+        state=fixture.seeded('ENTRY_CROSSING',(0,0,14.4815));ex=fixture.make(state=state)
+        ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000))
+        handle=fixture.prepare(ex);audit=ex.prepared_audit(handle)
+        self.assertEqual(1,len(audit.relative.preview.bridges));self.assertEqual(2,len(audit.solids))
+        for outcome in ('commit','STOP','deadline'):
+            if outcome!='commit':
+                ex=fixture.make(state=state);ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000));handle=fixture.prepare(ex)
+            calls=[]
+            def final():
+                calls.append(1)
+                if outcome=='STOP':ex.revoke('final STOP')
+                return replace(fixture.fence(deadline=1_010_000_000 if outcome=='deadline' else 1_400_000_000),command_seq=4)
+            with patch.object(w,'check_inward_support',side_effect=AssertionError('proof after final fence')),patch.object(w,'check_slice',side_effect=AssertionError('geometry after final fence')):
+                if outcome=='commit':
+                    receipt=ex.commit_step(handle,final);self.assertEqual(6,receipt.pose_revision)
+                else:
+                    with self.assertRaises(ValueError):ex.commit_step(handle,final)
+                    self.assertEqual(5,ex.renderer_view().pose_revision)
+            self.assertEqual([1],calls)
+        # Place a thin obstacle beyond the first inflated leading tip but
+        # within the final nominal cap, so the bridge cannot omit slice two.
+        end=audit.path.sample(10_000_000);cap=tuple(end.state.position_m[i]+.4*end.axis[i] for i in range(3))
+        centre=(cap[0],cap[1],cap[2]-.1199)
+        part=s.Solid('bridge-final','v1','box',centre,(.00001,.00001,.00001),(0,0,0,1))
+        scene=s.Scene('bridge-obstacle','v1',(('water',('bridge-final',)),),(s.SceneObject('water','water',(part,)),))
+        ex=fixture.make(state=state,scene=scene);ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000))
+        with self.assertRaises(fx.m.PreparationRejected) as blocked:fixture.prepare(ex)
+        self.assertEqual(2,blocked.exception.checked_slices);self.assertEqual(5,ex.renderer_view().pose_revision)
 
     def test_tip_or_center_beyond_red_is_not_full_body_arrival(self):
         for z in (-15.,-15.3):

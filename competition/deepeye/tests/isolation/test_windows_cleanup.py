@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 from simulation.isolation import win32 as w
-from simulation.isolation.resource_cleanup import Outcome, Provenance
+from simulation.isolation.resource_cleanup import Outcome, Provenance, Resource
 try:
     from simulation.isolation.owned_resources import OwnedResources
     from simulation.isolation.windows_cleanup import WindowsCleanupBackend
@@ -247,3 +247,49 @@ class BackendTests(unittest.TestCase):
         created.assert_called_once()
         self.assertEqual([(ref.label, ref.native) for ref in self.owner.references],
                          [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)])
+
+    def test_terminate_rejects_non_int_wait_shapes_before_any_terminal_classification(self):
+        import enum
+        class Wait(enum.IntEnum): OBJECT = 0; TIMEOUT = 258
+        class Number(int): pass
+        for state in (False, True, Wait.OBJECT, Wait.TIMEOUT, Number(0), Number(258), 0.0, 258.0, None, -1, 1, 257, 0xffffffff):
+            with self.subTest(state=state, kind=type(state)):
+                self.setUp()
+                ref = self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))[0]
+                resource = Resource(ref.resource_id, self.owner.provenance.owner_id, 'process', ref)
+                self.api.waits = [state]
+                with self.assertRaises(OSError): self.backend.terminate(resource)
+                self.assertNotIn(('terminate', 21), self.api.calls)
+                self.assertFalse(ref.terminal_confirmed)
+
+    def test_wait_terminal_rejects_numeric_shapes_and_preserves_recovery_ownership(self):
+        import enum
+        class Wait(enum.IntEnum): OBJECT = 0; TIMEOUT = 258
+        class Number(int): pass
+        for state in (False, True, Wait.OBJECT, Wait.TIMEOUT, Number(0), Number(258), 0.0, 258.0, None, -1, 1, 257, 0xffffffff):
+            with self.subTest(state=state, kind=type(state)):
+                self.setUp()
+                ref = self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))[0]
+                resource = Resource(ref.resource_id, self.owner.provenance.owner_id, 'process', ref)
+                self.api.waits = [state]
+                with self.assertRaises(OSError): self.backend.wait_terminal(resource)
+                self.assertFalse(ref.terminal_confirmed)
+                self.assertNotIn(('close', 21), self.api.calls)
+
+    def test_unknown_wait_shapes_never_close_process_job_or_profile_in_coordinator(self):
+        import enum
+        class Wait(enum.IntEnum): OBJECT = 0
+        for state in (False, Wait.OBJECT, 0.0, None):
+            with self.subTest(state=state, kind=type(state)):
+                self.setUp()
+                self.owner.own_profile('fresh', 1000)
+                self.owner.set_profile_path('C:/dedicated/fresh')
+                self.owner.own_handle('job', 10, recovery=True)
+                self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
+                self.api.waits = [state, state]
+                result = self.owner.cleanup(self.backend, lambda event: None)
+                self.assertFalse(result.resources_complete)
+                self.assertTrue({'process', 'primary_thread', 'job', 'profile'} <= {ref.label for ref in self.owner.unresolved})
+                self.assertNotIn(('close', 21), self.api.calls)
+                self.assertNotIn(('close', 10), self.api.calls)
+                self.assertNotIn(('delete', 'fresh'), self.api.calls)

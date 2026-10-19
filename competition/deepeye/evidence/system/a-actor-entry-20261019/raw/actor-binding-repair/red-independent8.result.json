@@ -1,0 +1,32 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "independent_actor_tests",
+    "-v"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\pinned-source",
+  "environment_overrides": {
+    "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\pinned-source;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\pinned-source\\competition\\deepeye;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\pinned-source\\competition\\deepeye\\tests\\isolation;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\temporary",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-binding-repair\\temporary"
+  },
+  "started_utc": "2026-10-19T11:18:43.978265+00:00",
+  "exit_code": 1,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "7130c5f87861b42612e2c7c86989f08263294937060ed23cfdcab8394cefa068",
+  "overlay_hashes": {
+    "competition/deepeye/simulation/isolation/actor_owner.py": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151",
+    "competition/deepeye/simulation/isolation/windows_cleanup.py": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d",
+    "competition/deepeye/tests/simulation/test_actor_owner.py": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d",
+    "competition/deepeye/tests/simulation/test_actor_lifetime.py": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880",
+    "competition/deepeye/tests/isolation/test_windows_cleanup.py": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e",
+    "competition/deepeye/docs/actor_lifetime.md": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a",
+    "competition/deepeye/simulation/isolation/actor_lifetime.py": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "evidence_scope": "A independent framing and quantized-motion software vectors; no peer or hardware acceptance",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "valid_frames": [
+    {
+      "name": "TELEM",
+      "type_id": 1,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010203040506070801020304050607080102",
+      "frame_hex": "a55a0301120234127856341201020304050607080102030405060708010223b0",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "EVENT",
+      "type_id": 2,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010201010102",
+      "frame_hex": "a55a030206023412785634120102010101020d61",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "CONTROL",
+      "type_id": 3,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010201c7ff0101020102",
+      "frame_hex": "a55a03030e0234127856341201020304010201c7ff0101020102e649",
+      "legacy_diagnostic": true
+    },
+    {
+      "name": "ACK",
+      "type_id": 4,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "0102030401020101c7ff0101020101020101",
+      "frame_hex": "a55a030412023412785634120102030401020101c7ff0101020101020101485f",
+      "legacy_diagnostic": true
+    },
+    {
+      "name": "CONFIG",
+      "type_id": 5,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010101010201",
+      "frame_hex": "a55a03050a0234127856341201020304010101010201f479",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "HELLO",
+      "type_id": 6,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304",
+      "frame_hex": "a55a03060402341278563412010203046112",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "STATE",
+      "type_id": 8,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010203040102c7ff01010102010201020101",
+      "frame_hex": "a55a03081202341278563412010203040102c7ff0101010201020102010142c6",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "CONFIG_ACK",
+      "type_id": 9,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010203040102010101010101020101010102",
+      "frame_hex": "a55a030912023412785634120102030401020101010101010201010101023a5f",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "GAIN",
+      "type_id": 10,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010101020102",
+      "frame_hex": "a55a030a0a0234127856341201020304010101020102b5ef",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "GAIN_ACK",
+      "type_id": 11,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010203040102010101010201020102010201",
+      "frame_hex": "a55a030b12023412785634120102030401020101010102010201020102016f43",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "BOOT",
+      "type_id": 12,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010102030405060708090a0b0c0d0e0f10010201020102",
+      "frame_hex": "a55a030c1b0234127856341201020304010102030405060708090a0b0c0d0e0f10010201020102de74",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "BOOT_ACK",
+      "type_id": 13,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010102030405060708090a0b0c0d0e0f10010201020102",
+      "frame_hex": "a55a030d1b0234127856341201020304010102030405060708090a0b0c0d0e0f100102010201029f5d",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "CONTROL3D",
+      "type_id": 14,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "01020304010201c7ffc7ff0101020102",
+      "frame_hex": "a55a030e100234127856341201020304010201c7ffc7ff0101020102f505",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "ACK3D",
+      "type_id": 15,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "0102030401020101c7ffc7ff0101020101020101",
+      "frame_hex": "a55a030f14023412785634120102030401020101c7ffc7ff010102010102010161ea",
+      "legacy_diagnostic": false
+    },
+    {
+      "name": "STATE3D",
+      "type_id": 16,
+      "config_epoch": 2,
+      "sequence": 4660,
+      "tick_ms": 305419896,
+      "payload_hex": "010203040102c7ffc7ff01010102010201020101",
+      "frame_hex": "a55a03101402341278563412010203040102c7ffc7ff01010102010201020101cd4d",
+      "legacy_diagnostic": false
+    }
+  ],
+  "invalid_frames": [
+    {
+      "name": "truncated_crc",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000000ff"
+    },
+    {
+      "name": "trailing_byte",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000000ffca00"
+    },
+    {
+      "name": "unknown_type",
+      "frame_hex": "a55a037700023412785634126b93"
+    },
+    {
+      "name": "wrong_STATE_payload_length",
+      "frame_hex": "a55a030811023412785634120000000000000000000000000000000000e5d0"
+    },
+    {
+      "name": "unfrozen_TRACE",
+      "frame_hex": "a55a0307200234127856341200000000000000000000000000000000000000000000000000000000000000000b28"
+    },
+    {
+      "name": "bit_corruption_02",
+      "frame_hex": "a55a02081202341278563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_03",
+      "frame_hex": "a55a03091202341278563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_04",
+      "frame_hex": "a55a03081302341278563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_05",
+      "frame_hex": "a55a03081203341278563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_06",
+      "frame_hex": "a55a03081202351278563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_07",
+      "frame_hex": "a55a03081202341378563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_08",
+      "frame_hex": "a55a03081202341279563412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_09",
+      "frame_hex": "a55a03081202341278573412000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_10",
+      "frame_hex": "a55a03081202341278563512000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_11",
+      "frame_hex": "a55a03081202341278563413000000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_12",
+      "frame_hex": "a55a03081202341278563412010000000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_13",
+      "frame_hex": "a55a03081202341278563412000100000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_14",
+      "frame_hex": "a55a03081202341278563412000001000000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_15",
+      "frame_hex": "a55a03081202341278563412000000010000000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_16",
+      "frame_hex": "a55a03081202341278563412000000000100000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_17",
+      "frame_hex": "a55a03081202341278563412000000000001000000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_18",
+      "frame_hex": "a55a03081202341278563412000000000000010000000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_19",
+      "frame_hex": "a55a03081202341278563412000000000000000100000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_20",
+      "frame_hex": "a55a03081202341278563412000000000000000001000000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_21",
+      "frame_hex": "a55a03081202341278563412000000000000000000010000000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_22",
+      "frame_hex": "a55a03081202341278563412000000000000000000000100000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_23",
+      "frame_hex": "a55a03081202341278563412000000000000000000000001000000000000ffca"
+    },
+    {
+      "name": "bit_corruption_24",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000010000000000ffca"
+    },
+    {
+      "name": "bit_corruption_25",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000100000000ffca"
+    },
+    {
+      "name": "bit_corruption_26",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000001000000ffca"
+    },
+    {
+      "name": "bit_corruption_27",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000010000ffca"
+    },
+    {
+      "name": "bit_corruption_28",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000100ffca"
+    },
+    {
+      "name": "bit_corruption_29",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000001ffca"
+    },
+    {
+      "name": "bit_corruption_30",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000000feca"
+    },
+    {
+      "name": "bit_corruption_31",
+      "frame_hex": "a55a03081202341278563412000000000000000000000000000000000000ffcb"
+    }
+  ],
+  "motion_vectors": [
+    {
+      "profile": "stress_300",
+      "yaw_q": 57,
+      "pitch_q": 0,
+      "speed_code": 20,
+      "accepted": true
+    },
+    {
+      "profile": "stress_300",
+      "yaw_q": 58,
+      "pitch_q": 0,
+      "speed_code": 20,
+      "accepted": false
+    },
+    {
+      "profile": "stress_300",
+      "yaw_q": 40,
+      "pitch_q": 40,
+      "speed_code": 20,
+      "accepted": true
+    },
+    {
+      "profile": "stress_300",
+      "yaw_q": 41,
+      "pitch_q": 41,
+      "speed_code": 20,
+      "accepted": false
+    },
+    {
+      "profile": "stress_300",
+      "yaw_q": 1,
+      "pitch_q": 0,
+      "speed_code": 0,
+      "accepted": false
+    },
+    {
+      "profile": "stress_300",
+      "yaw_q": 0,
+      "pitch_q": 0,
+      "speed_code": 0,
+      "accepted": true
+    }
+  ]
+}

@@ -126,15 +126,34 @@ class Preview:
     proofs: tuple
     reason: str
     failure_candidate: bool = False
+    bridges: tuple = ()
     motion_grant: bool = field(default=False,init=False)
     atomic_cas_completed: bool = field(default=False,init=False)
 
 
-def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16):
+@dataclass(frozen=True)
+class EntryBridge:
+    index: int
+    entered: Event
+    normal: w.SliceProof
+    entry: w.SliceProof
+    support: w.InwardSupport
+    binding: str
+
+
+def _bridge_mismatch(prepared,index,proof):
+    blue=prepared.layout.blue.face;red=prepared.layout.red.face
+    return (w._valid_slice(prepared,index,'exit',proof) and proof.status=='UNKNOWN'
+        and all(f.method==('APERTURE_UNKNOWN' if blue==red else 'ENVELOPE_NOT_CLEAR')
+                if f.face==blue else f.method=='STRICT_INSIDE' for f in proof.faces))
+
+
+def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4):
     if type(path) is not cp.CanonicalPath or type(context) is not RunContext:
         raise TypeError('canonical path and owner-asserted immutable context required')
     if not _valid(state):raise ValueError('invalid internal history; no imported arbitrary phase')
     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
+    if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
     if (context!=state.context or expected_pose_revision!=state.pose_revision
             or path.provenance.start_state!=state.pose or start_monotonic_ns<state.monotonic_ns):
         return Preview('UNKNOWN',state,(),'run/scene/gates/epoch/pose/time mismatch')
@@ -149,6 +168,9 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
         return Preview('UNKNOWN',state,(),'inherited pose/numeric/speed carry budget reset')
     if len(plan.slices)>max_slices:return Preview('UNKNOWN',state,(),'slice work budget exhausted before any advance')
     phase=state.phase;entered=state.entered;history=list(state.history);proofs=[];strict_suffix=False
+    bridges=[];bridge_checks=0;entered_here=None
+    def reject(status,reason,failure=False):
+        return Preview(status,state,tuple(proofs),reason,failure,tuple(bridges))
     def event(kind,index,proof):
         record=plan.slices[index]
         history.append(Event(kind,start_monotonic_ns+record.start.elapsed_ns,
@@ -157,7 +179,24 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
         role='entry' if phase in ('OUTSIDE_ENTRY','ENTRY_CROSSING') else 'exit'
         proof=w.check_slice(prepared,index,role);proofs.append(proof)
         if proof.status!='SAFE':
-            return Preview(proof.status,state,tuple(proofs),proof.reason,proof.status=='VIOLATION_PROVED')
+            # No seeded/prior-plan INSIDE capability and no generic UNKNOWN
+            # fallback. Only the blue conservative role mismatch is eligible.
+            if not (phase=='INSIDE' and entered_here is not None and _bridge_mismatch(prepared,index,proof)):
+                return reject(proof.status,proof.reason,proof.status=='VIOLATION_PROVED')
+            # Reserve two extra proof calls before executing either: one full
+            # entry six-face check and one analytic uniform-support check.
+            if bridge_checks+2>max_bridge_checks:return reject('UNKNOWN','entry bridge proof work budget exhausted')
+            bridge_checks+=2
+            entry=w.check_slice(prepared,index,'entry');proofs.append(entry)
+            if entry.status=='VIOLATION_PROVED':return reject(entry.status,entry.reason,True)
+            if not (w._valid_slice(prepared,index,'entry',entry) and entry.status=='SAFE'
+                    and all(f.method==('APERTURE' if f.face==context.layout.blue.face else 'STRICT_INSIDE') for f in entry.faces)):
+                return reject('UNKNOWN','complete entry bridge aperture conjunction missing')
+            support=w.check_inward_support(prepared,index)
+            if not w._valid_inward_support(prepared,index,support):return reject('UNKNOWN','uniform inward-support non-exit proof missing')
+            binding=w.digest(('same-plan-entry-bridge-v1',prepared.binding,index,entered_here,proof,entry,support))
+            bridges.append(EntryBridge(index,entered_here,proof,entry,support,binding))
+            continue  # Strictly inside all six faces: no new passage event.
         if phase=='ARRIVED':
             # This preview's earlier slice proved full-body red exit. Every
             # remaining ORIGINAL slice still needs its complete exit-role proof:
@@ -165,7 +204,7 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
             if (len(proof.faces)!=len(w.FACES) or {face.face for face in proof.faces}!=set(w.FACES)
                     or proof.role!='exit' or any(face.method!=('STRICT_OUTSIDE_ACTIVE'
                     if face.face==context.layout.red.face else 'STRICT_INSIDE') for face in proof.faces)):
-                return Preview('UNKNOWN',state,tuple(proofs),'strict red-outside suffix certificate missing')
+                return reject('UNKNOWN','strict red-outside suffix certificate missing')
             strict_suffix=True
             continue  # Retain ARRIVED, without another ARRIVED/EXIT_WINDOW event.
         active=context.layout.blue if role=='entry' else context.layout.red
@@ -175,25 +214,26 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
                 event('ENTRY_WINDOW',index,proof);phase='ENTRY_CROSSING'
             if side.inside and all(s.inside for s in proof.end_sides):
                 if phase=='OUTSIDE_ENTRY':event('ENTRY_WINDOW',index,proof)
-                event('ENTERED',index,proof);phase='INSIDE';entered=True
+                event('ENTERED',index,proof);phase='INSIDE';entered=True;entered_here=history[-1]
         else:
-            if not entered:return Preview('UNKNOWN',state,tuple(proofs),'missing ordered entered history')
+            if not entered:return reject('UNKNOWN','missing ordered entered history')
             if phase=='INSIDE' and not side.inside:
                 event('EXIT_WINDOW',index,proof);phase='EXIT_CROSSING'
             if side.outside:
                 if phase=='INSIDE':event('EXIT_WINDOW',index,proof)
                 event('ARRIVED',index,proof);phase='ARRIVED'
         # At most one role completion in this slice; role switches next slice.
-    if strict_suffix and plan.covered_ns!=path.provenance.requested_dt_ns:
-        return Preview('UNKNOWN',state,tuple(proofs),'strict suffix requires the complete original duration')
+    if (strict_suffix or bridges) and plan.covered_ns!=path.provenance.requested_dt_ns:
+        return reject('UNKNOWN','strict suffix/entry bridge requires the complete original duration')
     trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
-    trace=w.digest(('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
+    trace=w.digest(('same-plan-entry-bridge-v1',trace_values,tuple(bridges)) if bridges else
+        ('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
     end=plan.end
     next_state=_state(context=context,pose=end.state,errors=end.errors,
         speed_error_upper=state.speed_error_upper+Fraction(end.speed_export_error_m_s),
         error_budget_reference=path.provenance.error_budget_reference,pose_revision=state.pose_revision+1,
         monotonic_ns=start_monotonic_ns+plan.covered_ns,phase=phase,entered=entered,history=tuple(history),trace_hash=trace)
-    return Preview('SAFE',next_state,tuple(proofs),'whole plan preview only; owner must recheck STOP/deadline and CAS')
+    return Preview('SAFE',next_state,tuple(proofs),'whole plan preview only; owner must recheck STOP/deadline and CAS',bridges=tuple(bridges))
 
 
 @dataclass(frozen=True)

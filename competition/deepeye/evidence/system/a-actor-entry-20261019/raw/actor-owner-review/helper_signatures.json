@@ -1,0 +1,251 @@
+{
+  "verification": "PASS:static call-shape compatibility only",
+  "calls": [
+    {
+      "source": "actor_owner.py",
+      "line": 296,
+      "helper": "user_sid",
+      "positional_count": 0,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(*, owner=<object object at 0x000001EB21AF9510>)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 297,
+      "helper": "set_new_object_acl",
+      "positional_count": 3,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(path, run_root, user, package=<object object at 0x000001EB21AF9530>, *, owner=<object object at 0x000001EB21AF9520>)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 299,
+      "helper": "create_profile",
+      "positional_count": 1,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(name, *, owner)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 301,
+      "helper": "sid_text",
+      "positional_count": 1,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(sid, *, owner=<object object at 0x000001EB21AF9520>)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 302,
+      "helper": "profile_path",
+      "positional_count": 1,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(sid, *, owner)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 305,
+      "helper": "set_new_object_acl",
+      "positional_count": 4,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(path, run_root, user, package=<object object at 0x000001EB21AF9540>, *, owner=<object object at 0x000001EB21AF9520>)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 307,
+      "helper": "pipe",
+      "positional_count": 0,
+      "keyword_names": [
+        "owner",
+        "read_label",
+        "write_label"
+      ],
+      "kind": "Python helper",
+      "signature": "(*, owner, read_label, write_label)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 309,
+      "helper": "pipe",
+      "positional_count": 0,
+      "keyword_names": [
+        "owner",
+        "read_label",
+        "write_label"
+      ],
+      "kind": "Python helper",
+      "signature": "(*, owner, read_label, write_label)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 318,
+      "helper": "create_job",
+      "positional_count": 0,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(*, owner)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 321,
+      "helper": "create_suspended",
+      "positional_count": 7,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(exe, argv, cwd, environment, sid, input_handle, output_handle, *, owner)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 327,
+      "helper": "check",
+      "positional_count": 2,
+      "keyword_names": [],
+      "kind": "Python helper",
+      "signature": "(ok, operation)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 329,
+      "helper": "inspect_process",
+      "positional_count": 3,
+      "keyword_names": [
+        "owner"
+      ],
+      "kind": "Python helper",
+      "signature": "(process, job, expected_sid, *, owner=<object object at 0x000001EB21AF9540>)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 340,
+      "helper": "ResumeThread",
+      "positional_count": 1,
+      "keyword_names": [],
+      "kind": "ctypes binding",
+      "binding": {
+        "arity": 1,
+        "restype": "W.DWORD"
+      },
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 312,
+      "helper": "check",
+      "positional_count": 2,
+      "keyword_names": [],
+      "kind": "Python helper",
+      "signature": "(ok, operation)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 327,
+      "helper": "AssignJob",
+      "positional_count": 2,
+      "keyword_names": [],
+      "kind": "ctypes binding",
+      "binding": {
+        "arity": 2,
+        "restype": "W.BOOL"
+      },
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 312,
+      "helper": "SetHandleInformation",
+      "positional_count": 3,
+      "keyword_names": [],
+      "kind": "ctypes binding",
+      "binding": {
+        "arity": 3,
+        "restype": "W.BOOL"
+      },
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 397,
+      "helper": "available_output",
+      "positional_count": 1,
+      "keyword_names": [],
+      "kind": "Python helper",
+      "signature": "(handle)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 314,
+      "helper": "handle_flags",
+      "positional_count": 1,
+      "keyword_names": [],
+      "kind": "Python helper",
+      "signature": "(handle)",
+      "compatible": true
+    },
+    {
+      "source": "actor_owner.py",
+      "line": 315,
+      "helper": "handle_flags",
+      "positional_count": 1,
+      "keyword_names": [],
+      "kind": "Python helper",
+      "signature": "(handle)",
+      "compatible": true
+    },
+    {
+      "source": "actor_lifetime.py",
+      "line": 32,
+      "helper": "Wait",
+      "positional_count": 2,
+      "keyword_names": [],
+      "kind": "ctypes binding",
+      "binding": {
+        "arity": 2,
+        "restype": "W.DWORD"
+      },
+      "compatible": true
+    }
+  ],
+  "native_execution": "not_run; ctypes DLL module never imported",
+  "resource_flow": "source review: paired native acquisitions registered inside unchanged helper; retained original process sampled; one sealed cleanup; unknown terminal retains recovery controls",
+  "native_limitations": [
+    "Real security token/ACL/mitigation/creation/resume behavior unexecuted",
+    "CreateProcess-to-AssignJob crash window remains",
+    "Post-sample death and authority-owner hang remain",
+    "available_output helper hard caps8192; smaller policy limit is checked after helper returns, not passed into native read"
+  ]
+}
