@@ -1,0 +1,20 @@
+﻿Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_layout_persistence (G02 headless) ==
+PASS codec_strict_schema_and_limits
+FAIL store_bounds_and_save_as
+PASS gate_face_pair_combinations
+SKIP persistence runtime tests until the selected six-file feature exists
+TESTS checks=405 failures=11
+FAILURE: Save As creates a new file and parent directory
+FAILURE: new file re-read matches
+FAILURE: bounded read returns exact text
+FAILURE: invalid UTF-8 is rejected
+FAILURE: Shell has a save-layout button
+FAILURE: Shell has an open-layout button
+FAILURE: Shell owns an explicit FileDialog
+FAILURE: Shell owns the bounded layout store
+FAILURE: Shell displays layout source/seed provenance
+FAILURE: Shell has the real file_selected handler
+FAILURE: Shell has the real cancel handler
+RESULT FAIL

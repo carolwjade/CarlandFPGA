@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "generated_at_utc": "2026-10-19T16:45:46.798540+00:00",
+  "engine_version_command": {
+    "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stdout.log",
+    "exit": "exit_code=0\n",
+    "stdout": "4.7.2.stable.official.ed1daf0bf\n",
+    "stderr_file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stderr.log"
+  },
+  "runs": [
+    {
+      "name": "persistence_final",
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08",
+      "executable": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "arguments": "--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-08\\simulator\" --script \"res://tests/test_layout_persistence.gd\"\n",
+      "environment_file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/environment-and-engine.txt",
+      "exit_code": 0,
+      "stdout": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stdout.log",
+        "sha256": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203"
+      },
+      "stderr": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stderr.log",
+        "sha256": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4"
+      }
+    },
+    {
+      "name": "editor_regression_final",
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04",
+      "executable": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "arguments": "--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-04-editor\\simulator\" --script \"res://tests/test_editor_document.gd\"\n",
+      "environment_file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/environment-and-engine.txt",
+      "exit_code": 0,
+      "stdout": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stdout.log",
+        "sha256": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f"
+      },
+      "stderr": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stderr.log",
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0"
+      }
+    },
+    {
+      "name": "scene_load_smoke_final",
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07",
+      "executable": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "arguments": "--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-07-smoke\\simulator\" --script \"res://tests/smoke_layout_scene.gd\"\n",
+      "environment_file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/environment-and-engine.txt",
+      "exit_code": 0,
+      "stdout": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stdout.log",
+        "sha256": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7"
+      },
+      "stderr": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stderr.log",
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0"
+      }
+    },
+    {
+      "name": "partial_source_compile_failed",
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01",
+      "executable": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "arguments": "--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-01\\simulator\" --script \"res://tests/test_layout_persistence.gd\"\n",
+      "environment_file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/environment.txt",
+      "exit_code": 1,
+      "stdout": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stdout.log",
+        "sha256": "3c39753e507bded910067e58fba9f389a2984e635af64f90b967e60bf0ea1b1e"
+      },
+      "stderr": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stderr.log",
+        "sha256": "fe7f33d761ad9285d54a11d4ba564c1145f7fc9de9afa0f209c1931483945445"
+      }
+    },
+    {
+      "name": "store_probe_diagnostic",
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01",
+      "executable": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+      "arguments": "--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-01\\simulator\" --script \"res://tests/probe_partial_store.gd\"  # reconstructed from the executed probe command",
+      "environment_file": null,
+      "exit_code": 0,
+      "stdout": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stdout.log",
+        "sha256": "a1becd3bd9a5ac3fdee4e20d86580a6e466f30915fa8d1aef1f56528d833fd3b"
+      },
+      "stderr": {
+        "file": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stderr.log",
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0"
+      }
+    }
+  ],
+  "preserved_runner_failure": {
+    "file": "author/compile-run-01/runner-failure.txt",
+    "text": "failed_runner=Powershell 5.1 ProcessStartInfo.ArgumentList unavailable\nerror=You cannot call a method on a null-valued expression.\neffect=Godot process was not started\n"
+  },
+  "note": "No PRODUCT engine invocation. All paths above are fresh staging copies with isolated APPDATA/LOCALAPPDATA/TEMP/TMP/cache."
+}

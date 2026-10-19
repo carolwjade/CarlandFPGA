@@ -28,6 +28,7 @@ signal stop_requested(source: String)
 signal selection_changed(object_id: int)
 
 const CUBE_HALF := 15.0
+const LayoutCodecScript = preload("res://editor/layout_codec.gd")
 const GATE_DIAMETER_M := 0.30
 const GATE_RADIUS_M := 0.15
 const GATE_EDGE_MARGIN_M := 0.15
@@ -88,6 +89,8 @@ var gates := {
 }
 var selected_id := -1
 var random_seed := 0
+var seed_known := false
+var layout_origin := "初始默认"
 var control_bridge_connected := false
 var link_state := {
 	"source": "未连接",
@@ -184,6 +187,7 @@ func add_obstacle(kind: String, position: Vector3 = Vector3.ZERO, rotation_deg: 
 		"size": use_size,
 		"priority": KIND_PRIORITY[kind],
 	})
+	_mark_geometry_edited()
 	_push_undo(previous)
 	log_event("操作", "添加%s #%d" % [kind_label(kind), object_id])
 	emit_signal("layout_changed")
@@ -197,6 +201,7 @@ func remove_obstacle(object_id: int) -> Dictionary:
 		return _reject("对象不存在: #%d" % object_id)
 	var previous := _snapshot()
 	obstacles.remove_at(index)
+	_mark_geometry_edited()
 	if selected_id == object_id:
 		selected_id = -1
 		emit_signal("selection_changed", -1)
@@ -230,6 +235,7 @@ func update_obstacle(object_id: int, changes: Dictionary, record_history: bool =
 	obstacle["position"] = next_position
 	obstacle["rotation_deg"] = next_rotation
 	obstacle["size"] = next_size
+	_mark_geometry_edited()
 	if record_history:
 		_push_undo(previous)
 	emit_signal("layout_changed")
@@ -256,6 +262,8 @@ func reset_layout() -> Dictionary:
 	obstacles = []
 	_next_id = 1
 	random_seed = 0
+	seed_known = false
+	layout_origin = "空场"
 	if selected_id != -1:
 		selected_id = -1
 		emit_signal("selection_changed", -1)
@@ -333,6 +341,8 @@ func randomize_layout(seed_value: int, count: int) -> Dictionary:
 	obstacles = generated
 	_next_id = count + 1
 	random_seed = seed_value
+	seed_known = true
+	layout_origin = "随机布局"
 	if selected_id != -1:
 		selected_id = -1
 		emit_signal("selection_changed", -1)
@@ -347,7 +357,66 @@ func random_record() -> Dictionary:
 		"seed": random_seed,
 		"count": obstacles.size(),
 		"layout_hash": commitment_hash(),
+		"seed_known": seed_known,
+		"layout_origin": layout_origin,
 		"scope": "viewer-only post-hoc reproduction; controller receives the seed-free commitment hash",
+	}
+
+## Versioned geometry-only export. Runtime, link, seed and control fields are
+## deliberately absent from the returned text.
+func export_layout_text() -> Dictionary:
+	if not can_edit():
+		return _reject(edit_block_reason())
+	return LayoutCodecScript.encode(_layout_dict())
+
+## Strict file import. Validation completes before mutation; successful import is
+## one replacement of geometry only and clears history/selection for the new
+## document. Run/link/AI state is never restored from the file.
+func apply_layout_text(text: String) -> Dictionary:
+	if not can_edit():
+		return _reject(edit_block_reason())
+	var decoded: Dictionary = LayoutCodecScript.decode(text)
+	if not bool(decoded.get("ok", false)):
+		var reason := String(decoded.get("reason", "布局文件被拒绝"))
+		log_event("警示", "布局文件被拒绝: " + reason)
+		return {"ok": false, "reason": reason, "errors": decoded.get("errors", [reason])}
+	if not can_edit():
+		return _reject(edit_block_reason())
+	var restored: Array = []
+	for packed in decoded.obstacles:
+		restored.append({
+			"object_id": int(packed.object_id),
+			"kind": String(packed.kind),
+			"position": packed.position,
+			"rotation_deg": packed.rotation_deg,
+			"size": packed.size,
+			"priority": int(packed.priority),
+		})
+	var restored_gates: Dictionary = decoded.gates.duplicate(true)
+	obstacles = restored
+	gates = restored_gates
+	_next_id = 1
+	for obstacle in obstacles:
+		_next_id = maxi(_next_id, int(obstacle.object_id) + 1)
+	random_seed = 0
+	seed_known = false
+	layout_origin = "文件布局"
+	_undo.clear()
+	_redo.clear()
+	if selected_id != -1:
+		selected_id = -1
+		emit_signal("selection_changed", -1)
+	var layout_hash := String(decoded.layout_hash)
+	log_event("操作", "打开私有布局文件：%d 个对象（种子未知；布局hash %s；不恢复运行/链路状态）"
+		% [obstacles.size(), layout_hash.substr(0, 12)])
+	emit_signal("layout_changed")
+	emit_signal("gates_changed")
+	return {
+		"ok": true,
+		"layout_hash": layout_hash,
+		"count": obstacles.size(),
+		"seed_known": false,
+		"layout_origin": layout_origin,
 	}
 
 ## Seed-free commitment hash over obstacles + gates (canonical UTF-8 JSON).
@@ -393,6 +462,7 @@ func set_gate(which: String, face: String, u: float, v: float) -> Dictionary:
 		gates[which] = backup
 		log_event("警告", "圈心设置被拒绝（%s）: %s" % [gate_label(which), "; ".join(result.errors)])
 		return {"ok": false, "errors": result.errors, "reason": result.errors[0]}
+	_mark_geometry_edited()
 	_push_undo(previous)
 	log_event("操作", "设置%s：面 %s, u=%.3f, v=%.3f（编辑器几何有效；初始化空间/路线校验待权威）"
 		% [gate_label(which), FACE_LABELS[face], u, v])
@@ -590,6 +660,8 @@ func status_snapshot() -> Dictionary:
 		"undo_depth": _undo.size(),
 		"redo_depth": _redo.size(),
 		"random_seed": random_seed,
+		"seed_known": seed_known,
+		"layout_origin": layout_origin,
 		"gate_valid": validation.valid,
 		"gate_errors": validation.errors,
 		"authority_pending": validation.pending_authority,
@@ -646,6 +718,16 @@ func _validate_position(position: Vector3) -> String:
 		return "位置超出工作立方体（中心须在 ±15m 内，当前 %s）" % str(position)
 	return ""
 
+func _mark_geometry_edited() -> void:
+	seed_known = false
+	match layout_origin:
+		"初始默认", "空场":
+			layout_origin = "手工编辑"
+		"随机布局":
+			layout_origin = "随机布局（已编辑）"
+		"文件布局":
+			layout_origin = "文件布局（已编辑）"
+
 func _reject(reason: String) -> Dictionary:
 	log_event("警示", "编辑被拒绝: " + reason)
 	return {"ok": false, "reason": reason, "errors": [reason]}
@@ -676,14 +758,20 @@ func _layout_dict() -> Dictionary:
 	}
 
 func _snapshot() -> String:
-	return JSON.stringify(_layout_dict())
+	return JSON.stringify({
+		"layout": _layout_dict(),
+		"random_seed": random_seed,
+		"seed_known": seed_known,
+		"layout_origin": layout_origin,
+	})
 
 func _restore(snapshot: String) -> void:
 	var parsed = JSON.parse_string(snapshot)
 	if not (parsed is Dictionary):
 		return
+	var layout_data: Dictionary = parsed.get("layout", parsed)
 	var restored: Array = []
-	for packed in parsed.get("obstacles", []):
+	for packed in layout_data.get("obstacles", []):
 		restored.append({
 			"object_id": int(packed.object_id),
 			"kind": String(packed.kind),
@@ -696,7 +784,7 @@ func _restore(snapshot: String) -> void:
 	_next_id = 1
 	for obstacle in obstacles:
 		_next_id = maxi(_next_id, int(obstacle.object_id) + 1)
-	var restored_gates = parsed.get("gates", {})
+	var restored_gates = layout_data.get("gates", {})
 	for which in ["entry", "exit"]:
 		if restored_gates.has(which):
 			gates[which] = {
@@ -704,6 +792,12 @@ func _restore(snapshot: String) -> void:
 				"u": float(restored_gates[which].u),
 				"v": float(restored_gates[which].v),
 			}
+	if parsed.has("random_seed"):
+		random_seed = int(parsed.random_seed)
+	if parsed.has("seed_known"):
+		seed_known = bool(parsed.seed_known)
+	if parsed.has("layout_origin"):
+		layout_origin = String(parsed.layout_origin)
 	if selected_id != -1 and obstacle_by_id(selected_id).is_empty():
 		selected_id = -1
 		emit_signal("selection_changed", -1)

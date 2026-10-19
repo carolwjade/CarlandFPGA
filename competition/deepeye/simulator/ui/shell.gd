@@ -10,6 +10,7 @@ extends CanvasLayer
 ## connected; the "停止" button and global Esc only emit stop_requested.
 
 const DocScript = preload("res://editor/scene_document.gd")
+const LayoutStoreScript = preload("res://editor/layout_store.gd")
 
 var pick_mode := "select" ## "select" | "add" | "gate"
 var axis_lock := "free" ## "free" | "x" | "y" | "z"
@@ -25,6 +26,9 @@ var _top_strip: PanelContainer
 var _bottom_panel: PanelContainer
 var _updating := false
 var _initialized := false
+var _layout_store = null
+var _dialog_action := ""
+var last_file_result: Dictionary = {}
 
 var _pick_buttons: Dictionary = {}
 var _kind_option: OptionButton
@@ -37,6 +41,10 @@ var _size_spins: Array = []
 var _undo_button: Button
 var _redo_button: Button
 var _history_label: Label
+var _save_button: Button
+var _open_button: Button
+var _layout_source_label: Label
+var _file_dialog: FileDialog
 var _seed_spin: SpinBox
 var _count_spin: SpinBox
 var _which_option: OptionButton
@@ -68,6 +76,8 @@ func _ready() -> void:
 func bind_editor(main_node: Node, document) -> void:
 	_main = main_node
 	_document = document
+	if _layout_store == null:
+		_layout_store = LayoutStoreScript.new()
 	_document.layout_changed.connect(_on_document_changed)
 	_document.gates_changed.connect(_on_gates_changed)
 	_document.state_changed.connect(_on_state_changed)
@@ -116,6 +126,7 @@ func _build_ui() -> void:
 	right_box.add_theme_constant_override("separation", 8)
 	_right_panel.add_child(right_box)
 	_build_right(right_box)
+	_build_file_dialog()
 
 	_top_strip = PanelContainer.new()
 	_top_strip.name = "TopBar"
@@ -209,6 +220,20 @@ func _build_left(box: VBoxContainer) -> void:
 	_history_label = Label.new()
 	_history_label.text = "撤销 0 / 重做 0"
 	box.add_child(_history_label)
+
+	box.add_child(_title("私有布局文件（仅几何）"))
+	var file_row := HBoxContainer.new()
+	box.add_child(file_row)
+	_save_button = _button("保存布局…", _on_save_layout_pressed)
+	_open_button = _button("打开布局…", _on_open_layout_pressed)
+	_save_button.tooltip_text = "另存为新的本地 JSON；不覆盖已有文件"
+	_open_button.tooltip_text = "严格校验后替换当前几何；失败不改变当前布局"
+	file_row.add_child(_save_button)
+	file_row.add_child(_open_button)
+	_layout_source_label = Label.new()
+	_layout_source_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_layout_source_label.text = "布局来源: 初始默认 · 种子未知"
+	box.add_child(_layout_source_label)
 
 	box.add_child(_title("随机布局（仅查看器内保留种子）"))
 	var rand_row := HBoxContainer.new()
@@ -316,6 +341,17 @@ func _build_right(box: VBoxContainer) -> void:
 	greybox_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	greybox_note.text = "开发灰盒：临时图元替换件，非最终画质、非最终资产（B 交付前可见标注）。"
 	box.add_child(greybox_note)
+
+func _build_file_dialog() -> void:
+	_file_dialog = FileDialog.new()
+	_file_dialog.name = "LayoutFileDialog"
+	_file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+	_file_dialog.use_native_dialog = false
+	_file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	_file_dialog.add_filter("*.json", "DeepEye 私有布局 JSON")
+	_file_dialog.file_selected.connect(_on_file_selected)
+	_file_dialog.canceled.connect(_on_file_dialog_canceled)
+	add_child(_file_dialog)
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -478,6 +514,13 @@ func _refresh_all() -> void:
 	_history_label.text = "撤销 %d / 重做 %d" % [snapshot.undo_depth, snapshot.redo_depth]
 	_undo_button.disabled = snapshot.undo_depth == 0 or not snapshot.can_edit
 	_redo_button.disabled = snapshot.redo_depth == 0 or not snapshot.can_edit
+	if _save_button != null:
+		_save_button.disabled = not snapshot.can_edit
+	if _open_button != null:
+		_open_button.disabled = not snapshot.can_edit
+	if _layout_source_label != null:
+		var seed_text := "种子 %d" % int(snapshot.random_seed) if bool(snapshot.seed_known) else "种子未知"
+		_layout_source_label.text = "布局来源: %s · %s" % [String(snapshot.layout_origin), seed_text]
 	if snapshot.gate_valid:
 		_gate_status_label.text = "几何有效（编辑器）· 初始化空间/路线：待权威"
 	else:
@@ -528,6 +571,126 @@ func _sync_gate_controls() -> void:
 	_gate_u.value = float(gate.get("u", 0.0))
 	_gate_v.value = float(gate.get("v", 0.0))
 	_updating = false
+
+func _configure_file_dialog(action: String) -> bool:
+	_dialog_action = action
+	var layout_dir: String = _layout_store.default_layout_dir()
+	if not DirAccess.dir_exists_absolute(layout_dir):
+		DirAccess.make_dir_recursive_absolute(layout_dir)
+	_file_dialog.current_dir = layout_dir
+	_file_dialog.current_file = ""
+	if action == "save":
+		var stamp := Time.get_datetime_string_from_system().replace(":", "-").replace(" ", "_")
+		_file_dialog.title = "另存私有布局（仅几何，不覆盖）"
+		_file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+		_file_dialog.current_file = "layout-%s.json" % stamp
+	else:
+		_file_dialog.title = "打开私有布局（严格校验）"
+		_file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	_file_dialog.popup_centered_ratio(0.72)
+	return true
+
+func _on_save_layout_pressed() -> void:
+	if _document == null or _layout_store == null:
+		_set_file_failure("unavailable", "布局文件服务不可用")
+		return
+	if not _document.can_edit():
+		_set_file_failure("edit_blocked", _document.edit_block_reason())
+		return
+	_configure_file_dialog("save")
+
+func _on_open_layout_pressed() -> void:
+	if _document == null or _layout_store == null:
+		_set_file_failure("unavailable", "布局文件服务不可用")
+		return
+	if not _document.can_edit():
+		_set_file_failure("edit_blocked", _document.edit_block_reason())
+		return
+	_configure_file_dialog("open")
+
+func _on_file_selected(path: String) -> void:
+	var action := _dialog_action
+	_dialog_action = ""
+	if _file_dialog != null:
+		_file_dialog.hide()
+	if _document == null or _layout_store == null:
+		_set_file_failure("unavailable", "布局文件服务不可用")
+		return
+	if not _document.can_edit():
+		_set_file_failure("edit_blocked", _document.edit_block_reason())
+		return
+	match action:
+		"save":
+			var exported: Dictionary = _document.export_layout_text()
+			if not bool(exported.get("ok", false)):
+				_set_file_failure(String(exported.get("code", "export_failed")), _result_reason(exported))
+				return
+			var stored: Dictionary = _layout_store.save_new(path, String(exported.get("text", "")))
+			if not bool(stored.get("ok", false)):
+				_set_file_failure(String(stored.get("code", "save_failed")), _result_reason(stored))
+				return
+			last_file_result = {
+				"ok": true,
+				"action": "save",
+				"path": String(stored.get("path", path)),
+				"bytes": int(stored.get("bytes", 0)),
+				"layout_hash": String(exported.get("layout_hash", "")),
+				"count": int(exported.get("count", 0)),
+			}
+			_set_hint("已另存为新文件（仅几何，hash %s）" % String(exported.get("layout_hash", "")).substr(0, 12))
+		"open":
+			var read_result: Dictionary = _layout_store.read_text(path)
+			if not bool(read_result.get("ok", false)):
+				_set_file_failure(String(read_result.get("code", "read_failed")), _result_reason(read_result))
+				return
+			var applied: Dictionary = _document.apply_layout_text(String(read_result.get("text", "")))
+			if not bool(applied.get("ok", false)):
+				_set_file_failure(String(applied.get("code", "layout_rejected")), _result_reason(applied))
+				return
+			last_file_result = {
+				"ok": true,
+				"action": "open",
+				"path": String(read_result.get("path", path)),
+				"bytes": int(read_result.get("bytes", 0)),
+				"layout_hash": String(applied.get("layout_hash", "")),
+				"count": int(applied.get("count", 0)),
+				"seed_known": false,
+				"layout_origin": String(applied.get("layout_origin", "文件布局")),
+			}
+			_set_hint("已打开布局文件；编辑历史已重置，种子未知（hash %s）"
+				% String(applied.get("layout_hash", "")).substr(0, 12))
+		_:
+			_set_file_failure("no_action", "未选择布局文件操作")
+
+func _on_file_dialog_canceled() -> void:
+	_dialog_action = ""
+	last_file_result = {
+		"ok": false,
+		"canceled": true,
+		"code": "canceled",
+		"reason": "已取消布局文件操作",
+		"errors": ["已取消布局文件操作"],
+	}
+	_set_hint("已取消布局文件操作；当前布局未改变")
+
+func _result_reason(result: Dictionary) -> String:
+	if result.has("reason"):
+		return String(result.reason).substr(0, 512)
+	var errors: Array = result.get("errors", [])
+	if not errors.is_empty():
+		return String(errors[0]).substr(0, 512)
+	return "布局文件操作失败"
+
+func _set_file_failure(code: String, reason: String) -> void:
+	var bounded := reason.substr(0, 512)
+	last_file_result = {
+		"ok": false,
+		"canceled": false,
+		"code": code,
+		"reason": bounded,
+		"errors": [bounded],
+	}
+	_set_hint("布局文件操作失败：" + bounded)
 
 # ---------------------------------------------------------------------------
 # Edit actions

@@ -1,0 +1,2540 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-19T17:52:11.571459+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-G02-LAYOUT-PERSISTENCE-REVIEW-20261020-v1",
+  "review_identity": {
+    "review_child_job_id": "child-ffab680842604466bbb1ead6549b1c11",
+    "instance_id": "deepseek-a-29",
+    "responsible_main": "Desktop01a13d7e-dcf1-7272-a738-a637dd62ff9d generation2",
+    "route": "existing authenticated DeepSeek execution",
+    "author_original_child_job_id": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+    "author_terminal": true,
+    "authority": "independent read-only review; main owns adoption and final acceptance"
+  },
+  "status": "bounded_headless_software_review_pass_awaiting_main_adoption",
+  "verdict": {
+    "bounded_headless_software_review": "PASS",
+    "blocking_implementation_defect_found": false,
+    "product_accepted": false,
+    "g02_accepted": false,
+    "formal29_accepted": false,
+    "native_ui_accepted": false
+  },
+  "immutable_contract": {
+    "id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "h01_h15": "unchanged"
+  },
+  "product": {
+    "root": ".local/deepeye-implementation-a",
+    "head_at_task_start_and_initial_pin_audits": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "initial_product_head_from_author": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1",
+    "head_at_final_read_only_audit": "a2feee7b40391f60224dad7d603d8dbec0341c1b",
+    "head_advanced_during_review_by_external_main_commit": true,
+    "final_head_commit": {
+      "hash": "a2feee7b40391f60224dad7d603d8dbec0341c1b",
+      "parents": "420209a860c037c3fc2a731037de8ec9b62c4107",
+      "committed_at": "2026-10-20T01:47:45+08:00",
+      "subject": null
+    },
+    "reviewed_scope_changed_path_count": 0,
+    "reviewed_scope_changed_paths": [],
+    "scoped_status": [
+      " M competition/deepeye/simulator/editor/scene_document.gd",
+      " M competition/deepeye/simulator/ui/shell.gd",
+      "?? competition/deepeye/docs/layout_persistence.md",
+      "?? competition/deepeye/simulator/editor/layout_codec.gd",
+      "?? competition/deepeye/simulator/editor/layout_store.gd",
+      "?? competition/deepeye/simulator/tests/test_layout_persistence.gd"
+    ],
+    "scoped_status_classification": "exactly two modified and four untracked candidate files",
+    "scoped_diff_check_exit": 0,
+    "product_writes_by_review": false,
+    "godot_directory": {
+      "path": ".local/deepeye-implementation-a/competition/deepeye/simulator/.godot",
+      "exists": true,
+      "creation_time_utc": "2026-10-15T03:21:17.317629+00:00",
+      "last_write_utc": "2026-10-15T04:00:58.183661+00:00",
+      "file_count": 6,
+      "newest_file": ".local/deepeye-implementation-a/competition/deepeye/simulator/.godot/editor/project_metadata.cfg",
+      "newest_write_utc": "2026-10-15T04:00:58.435481+00:00"
+    },
+    "git": {
+      "path": "C:\\Users\\CarlJade\\AppData\\Local\\GitHubDesktop\\app-3.6.7\\resources\\app\\git\\cmd\\git.exe",
+      "bytes": 47432,
+      "sha256": "32bc406cbafabd33b2f236325f98dcea988cfa86f0519229176f5db19d526ce3",
+      "version": "git version 2.53.0.windows.4",
+      "version_exit_code": 0
+    }
+  },
+  "candidate_sources": [
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/editor/layout_codec.gd",
+      "bytes": 14686,
+      "sha256": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+      "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+      "manifest_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+      "lines": 367,
+      "crlf_count": 0
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/editor/layout_store.gd",
+      "bytes": 5754,
+      "sha256": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+      "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+      "manifest_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+      "lines": 119,
+      "crlf_count": 0
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/editor/scene_document.gd",
+      "bytes": 30327,
+      "sha256": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+      "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+      "manifest_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+      "lines": 838,
+      "crlf_count": 0
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/ui/shell.gd",
+      "bytes": 31110,
+      "sha256": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+      "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+      "manifest_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+      "lines": 828,
+      "crlf_count": 0
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "bytes": 37201,
+      "sha256": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+      "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+      "manifest_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+      "lines": 690,
+      "crlf_count": 0
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/docs/layout_persistence.md",
+      "bytes": 6228,
+      "sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+      "manifest_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+      "lines": 108,
+      "crlf_count": 108
+    }
+  ],
+  "dependencies": [
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/project.godot",
+      "actual_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "before_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "after_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "initial_head_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+      "manifest_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+      "unchanged": true
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/viewer/main.gd",
+      "actual_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "before_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "after_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "initial_head_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+      "manifest_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+      "unchanged": true
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/viewer/main.tscn",
+      "actual_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "before_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "after_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "initial_head_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+      "manifest_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+      "unchanged": true
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/simulator/tests/test_editor_document.gd",
+      "actual_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "before_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "after_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "initial_head_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+      "manifest_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+      "unchanged": true
+    },
+    {
+      "product_path": ".local/deepeye-implementation-a/competition/deepeye/docs/resource_contract.json",
+      "actual_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "before_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "after_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "initial_head_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+      "manifest_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+      "unchanged": true
+    }
+  ],
+  "author_inputs": {
+    "metadata": [
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/manifest.json",
+        "exists": true,
+        "bytes": 10943,
+        "sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/report.md",
+        "exists": true,
+        "bytes": 6715,
+        "sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/receipt.json",
+        "exists": true,
+        "bytes": 8293,
+        "sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/evidence-index.json",
+        "exists": true,
+        "bytes": 11664,
+        "sha256": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/status.md",
+        "exists": true,
+        "bytes": 758,
+        "sha256": "9c890f9a996f60b97387e764d41ea29579027c811c414f0cbc2329b1a9ab4147"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/original-child-result.md",
+        "exists": true,
+        "bytes": 1383,
+        "sha256": "a72aeefea8efaa4b74bb2b391bd3ce7dfc570cc6c591679f5247e836b1b08dba"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-author-handoff-audit.json",
+        "exists": true,
+        "bytes": 1353,
+        "sha256": "38224f80cfc32dbe4e464a36226aabf4b43fab2fe3b7c4d593aaa55922f66789"
+      }
+    ],
+    "evidence_count": 48,
+    "evidence_failures": [],
+    "evidence": [
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/byte-manifest-after.json",
+        "exists": true,
+        "bytes": 2334,
+        "sha256": "f6d3b0cf0d7651c3d463391b3fc76b97575f2648535d29f47bde11d833c6d198",
+        "expected_bytes": 2334,
+        "expected_sha256": "f6d3b0cf0d7651c3d463391b3fc76b97575f2648535d29f47bde11d833c6d198",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/byte-manifest-before.json",
+        "exists": true,
+        "bytes": 1198,
+        "sha256": "4ef2b841b9354a40169b8a45e49de16c623ada70e0d4fb88b399f35588361529",
+        "expected_bytes": 1198,
+        "expected_sha256": "4ef2b841b9354a40169b8a45e49de16c623ada70e0d4fb88b399f35588361529",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/commands.json",
+        "exists": true,
+        "bytes": 6753,
+        "sha256": "11e070d90833ee6ce365e244c337b6dcfc3f496f8c8a46d3166c882db56d9522",
+        "expected_bytes": 6753,
+        "expected_sha256": "11e070d90833ee6ce365e244c337b6dcfc3f496f8c8a46d3166c882db56d9522",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/arguments.txt",
+        "exists": true,
+        "bytes": 226,
+        "sha256": "dae94f0acae02a85b3ee80d896db3cb3a0a57b55505f49688fdc384ce66c0500",
+        "expected_bytes": 226,
+        "expected_sha256": "dae94f0acae02a85b3ee80d896db3cb3a0a57b55505f49688fdc384ce66c0500",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/environment.txt",
+        "exists": true,
+        "bytes": 796,
+        "sha256": "f7a8628392cc363e81bedc0421f4d86b525ee1a3435da2d1e2965bf8e3b4814c",
+        "expected_bytes": 796,
+        "expected_sha256": "f7a8628392cc363e81bedc0421f4d86b525ee1a3435da2d1e2965bf8e3b4814c",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/exit_code.txt",
+        "exists": true,
+        "bytes": 33,
+        "sha256": "d127cc19494c4eb3a6b76f5463a8a82a03fb44de90a8ed25368094ee17593e31",
+        "expected_bytes": 33,
+        "expected_sha256": "d127cc19494c4eb3a6b76f5463a8a82a03fb44de90a8ed25368094ee17593e31",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/runner-failure.txt",
+        "exists": true,
+        "bytes": 172,
+        "sha256": "912971b8b70db64eb6690fe4cf6b19cea8b275ca514ffaea2afff8332f9e3862",
+        "expected_bytes": 172,
+        "expected_sha256": "912971b8b70db64eb6690fe4cf6b19cea8b275ca514ffaea2afff8332f9e3862",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stderr.log",
+        "exists": true,
+        "bytes": 2291,
+        "sha256": "fe7f33d761ad9285d54a11d4ba564c1145f7fc9de9afa0f209c1931483945445",
+        "expected_bytes": 2291,
+        "expected_sha256": "fe7f33d761ad9285d54a11d4ba564c1145f7fc9de9afa0f209c1931483945445",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stdout.log",
+        "exists": true,
+        "bytes": 838,
+        "sha256": "3c39753e507bded910067e58fba9f389a2984e635af64f90b967e60bf0ea1b1e",
+        "expected_bytes": 838,
+        "expected_sha256": "3c39753e507bded910067e58fba9f389a2984e635af64f90b967e60bf0ea1b1e",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/dependencies-before-after.json",
+        "exists": true,
+        "bytes": 1990,
+        "sha256": "9c0d68ad76dfd66c9ad6644cb63b9d19d3a2e37ee4737f38eab315192d2a5a2c",
+        "expected_bytes": 1990,
+        "expected_sha256": "9c0d68ad76dfd66c9ad6644cb63b9d19d3a2e37ee4737f38eab315192d2a5a2c",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/direct-dependencies-status.json",
+        "exists": true,
+        "bytes": 1335,
+        "sha256": "5068bb946775773c37d4bdb4ab756f7fd8732cd0443604e618035b2e853002ac",
+        "expected_bytes": 1335,
+        "expected_sha256": "5068bb946775773c37d4bdb4ab756f7fd8732cd0443604e618035b2e853002ac",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/arguments.txt",
+        "exists": true,
+        "bytes": 230,
+        "sha256": "5ee95d9727672ea7aa16ee8bd81d91b4fd78a0ba3b53440a6c39f45cbf9966ef",
+        "expected_bytes": 230,
+        "expected_sha256": "5ee95d9727672ea7aa16ee8bd81d91b4fd78a0ba3b53440a6c39f45cbf9966ef",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/environment-and-engine.txt",
+        "exists": true,
+        "bytes": 1065,
+        "sha256": "3126ca4af6059bcb8d62398bcb08692659fcfa024aedb276786c8e40d8a32a6e",
+        "expected_bytes": 1065,
+        "expected_sha256": "3126ca4af6059bcb8d62398bcb08692659fcfa024aedb276786c8e40d8a32a6e",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/exit_code.txt",
+        "exists": true,
+        "bytes": 33,
+        "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "expected_bytes": 33,
+        "expected_sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stderr.log",
+        "exists": true,
+        "bytes": 297,
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "expected_bytes": 297,
+        "expected_sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stdout.log",
+        "exists": true,
+        "bytes": 1766,
+        "sha256": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f",
+        "expected_bytes": 1766,
+        "expected_sha256": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-and-stage.txt",
+        "exists": true,
+        "bytes": 396,
+        "sha256": "9dc8712b28468de0c4efab32dc8e1d87a63b54caccaa03bd442d6ae40bb7c2e1",
+        "expected_bytes": 396,
+        "expected_sha256": "9dc8712b28468de0c4efab32dc8e1d87a63b54caccaa03bd442d6ae40bb7c2e1",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.exit.txt",
+        "exists": true,
+        "bytes": 16,
+        "sha256": "d4af18d51a459c60d871d5b22cd6e574a1be2c47a6cf8dbbb790b7ffff06bdd5",
+        "expected_bytes": 16,
+        "expected_sha256": "d4af18d51a459c60d871d5b22cd6e574a1be2c47a6cf8dbbb790b7ffff06bdd5",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stderr.log",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "expected_bytes": 0,
+        "expected_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stdout.log",
+        "exists": true,
+        "bytes": 33,
+        "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+        "expected_bytes": 33,
+        "expected_sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/forbidden-loader-audit.json",
+        "exists": true,
+        "bytes": 739,
+        "sha256": "46c5eb48d0aaaa9c42e93d61f75e7f35bfde539b119d598a3a78da076cb81356",
+        "expected_bytes": 739,
+        "expected_sha256": "46c5eb48d0aaaa9c42e93d61f75e7f35bfde539b119d598a3a78da076cb81356",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-branch.txt",
+        "exists": true,
+        "bytes": 44,
+        "sha256": "4332bda87b5b14272814e41946f1e2d4ca276607f2c7218c549db625162ab64b",
+        "expected_bytes": 44,
+        "expected_sha256": "4332bda87b5b14272814e41946f1e2d4ca276607f2c7218c549db625162ab64b",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-diff-check-six.txt",
+        "exists": true,
+        "bytes": 26,
+        "sha256": "cba9791e9b52ad8bb8236dc313cc9771d374d54ad3df9f7bbb08fb8c64ef2892",
+        "expected_bytes": 26,
+        "expected_sha256": "cba9791e9b52ad8bb8236dc313cc9771d374d54ad3df9f7bbb08fb8c64ef2892",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-diff-stat-six.txt",
+        "exists": true,
+        "bytes": 210,
+        "sha256": "22f231326bae031b44df4da18e912da53f1f6258a7b4de0e31aa175a0cc7b7ee",
+        "expected_bytes": 210,
+        "expected_sha256": "22f231326bae031b44df4da18e912da53f1f6258a7b4de0e31aa175a0cc7b7ee",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-head-observation.txt",
+        "exists": true,
+        "bytes": 400,
+        "sha256": "cdd20ff78e0ac8961081d786dbae669f7eb9176ed26eee03a815690ec346df16",
+        "expected_bytes": 400,
+        "expected_sha256": "cdd20ff78e0ac8961081d786dbae669f7eb9176ed26eee03a815690ec346df16",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-head.txt",
+        "exists": true,
+        "bytes": 45,
+        "sha256": "752379056e89ad9fa247656da431a476725be1de4b6685a74294192bfbf51615",
+        "expected_bytes": 45,
+        "expected_sha256": "752379056e89ad9fa247656da431a476725be1de4b6685a74294192bfbf51615",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-status-all.txt",
+        "exists": true,
+        "bytes": 637,
+        "sha256": "52e235225374b09df8c204a8c17a46e6b3f1d3f6bd849977697265c3cd2d0255",
+        "expected_bytes": 637,
+        "expected_sha256": "52e235225374b09df8c204a8c17a46e6b3f1d3f6bd849977697265c3cd2d0255",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-status-six.txt",
+        "exists": true,
+        "bytes": 340,
+        "sha256": "a3b5e3197a88a0f5659f62c1119244c0478704dec315c3a2225e33b54d481a2d",
+        "expected_bytes": 340,
+        "expected_sha256": "a3b5e3197a88a0f5659f62c1119244c0478704dec315c3a2225e33b54d481a2d",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/head-advance-path-diff.txt",
+        "exists": true,
+        "bytes": 192,
+        "sha256": "a1c54437278c5b044981fd696a64499a10ff8b20597b960372cde2cabc920265",
+        "expected_bytes": 192,
+        "expected_sha256": "a1c54437278c5b044981fd696a64499a10ff8b20597b960372cde2cabc920265",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/manifest.json",
+        "exists": true,
+        "bytes": 10943,
+        "sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+        "expected_bytes": 10943,
+        "expected_sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/original-child-result.md",
+        "exists": true,
+        "bytes": 1383,
+        "sha256": "a72aeefea8efaa4b74bb2b391bd3ce7dfc570cc6c591679f5247e836b1b08dba",
+        "expected_bytes": 1383,
+        "expected_sha256": "a72aeefea8efaa4b74bb2b391bd3ce7dfc570cc6c591679f5247e836b1b08dba",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/arguments.txt",
+        "exists": true,
+        "bytes": 226,
+        "sha256": "6cdb423da8c084a0a5bb512fc0a791484abcf0a95284afded13acfd922af6689",
+        "expected_bytes": 226,
+        "expected_sha256": "6cdb423da8c084a0a5bb512fc0a791484abcf0a95284afded13acfd922af6689",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/environment-and-engine.txt",
+        "exists": true,
+        "bytes": 1023,
+        "sha256": "0ca79a91097d6ca220c4fce8e23de288f73d51f816a3ea3a040b188a17e54fd8",
+        "expected_bytes": 1023,
+        "expected_sha256": "0ca79a91097d6ca220c4fce8e23de288f73d51f816a3ea3a040b188a17e54fd8",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/exit_code.txt",
+        "exists": true,
+        "bytes": 33,
+        "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "expected_bytes": 33,
+        "expected_sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stderr.log",
+        "exists": true,
+        "bytes": 2237,
+        "sha256": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4",
+        "expected_bytes": 2237,
+        "expected_sha256": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stdout.log",
+        "exists": true,
+        "bytes": 385,
+        "sha256": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203",
+        "expected_bytes": 385,
+        "expected_sha256": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/exit_code.txt",
+        "exists": true,
+        "bytes": 32,
+        "sha256": "958b97475cf0d6caa7b09bbf1cb153c43ddcecdc21cdce12969b013ea0573c89",
+        "expected_bytes": 32,
+        "expected_sha256": "958b97475cf0d6caa7b09bbf1cb153c43ddcecdc21cdce12969b013ea0573c89",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stderr.log",
+        "exists": true,
+        "bytes": 297,
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "expected_bytes": 297,
+        "expected_sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stdout.log",
+        "exists": true,
+        "bytes": 484,
+        "sha256": "a1becd3bd9a5ac3fdee4e20d86580a6e466f30915fa8d1aef1f56528d833fd3b",
+        "expected_bytes": 484,
+        "expected_sha256": "a1becd3bd9a5ac3fdee4e20d86580a6e466f30915fa8d1aef1f56528d833fd3b",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/receipt.json",
+        "exists": true,
+        "bytes": 8293,
+        "sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+        "expected_bytes": 8293,
+        "expected_sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/report.md",
+        "exists": true,
+        "bytes": 6715,
+        "sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+        "expected_bytes": 6715,
+        "expected_sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/arguments.txt",
+        "exists": true,
+        "bytes": 227,
+        "sha256": "a0d5b76faf7fffd2083a5e992fe299b1543375da905415842ad4a6c1d7fa9801",
+        "expected_bytes": 227,
+        "expected_sha256": "a0d5b76faf7fffd2083a5e992fe299b1543375da905415842ad4a6c1d7fa9801",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/environment-and-engine.txt",
+        "exists": true,
+        "bytes": 1059,
+        "sha256": "2910d5a868b14a28402e952c7db3580e661860e3ce143a1bf7ca99272955ec2d",
+        "expected_bytes": 1059,
+        "expected_sha256": "2910d5a868b14a28402e952c7db3580e661860e3ce143a1bf7ca99272955ec2d",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/exit_code.txt",
+        "exists": true,
+        "bytes": 33,
+        "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "expected_bytes": 33,
+        "expected_sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/smoke_layout_scene.gd",
+        "exists": true,
+        "bytes": 605,
+        "sha256": "e8e4f2c6abfed8a21dc957c9d3ec7a11e1a1408afac0d273c4b8210bb7b67441",
+        "expected_bytes": 605,
+        "expected_sha256": "e8e4f2c6abfed8a21dc957c9d3ec7a11e1a1408afac0d273c4b8210bb7b67441",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stderr.log",
+        "exists": true,
+        "bytes": 297,
+        "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "expected_bytes": 297,
+        "expected_sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stdout.log",
+        "exists": true,
+        "bytes": 129,
+        "sha256": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7",
+        "expected_bytes": 129,
+        "expected_sha256": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7",
+        "ok": true
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/status.md",
+        "exists": true,
+        "bytes": 758,
+        "sha256": "9c890f9a996f60b97387e764d41ea29579027c811c414f0cbc2329b1a9ab4147",
+        "expected_bytes": 758,
+        "expected_sha256": "9c890f9a996f60b97387e764d41ea29579027c811c414f0cbc2329b1a9ab4147",
+        "ok": true
+      }
+    ],
+    "prior_red": [
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-author/red/run2/evidence/stdout.log",
+        "exists": true,
+        "bytes": 737,
+        "sha256": "c5f1097065249fad9b3fd6172382b7fc0c97f64e96d629a443f8aeaad587c239"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-author/red/run2/evidence/stderr.log",
+        "exists": true,
+        "bytes": 1010,
+        "sha256": "5ef97367d041bd1cadbfb82a16ff29cb5d30781b7e19c4c7d6775593abb8ca2d"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-author/red/run2/evidence/exit_code.txt",
+        "exists": true,
+        "bytes": 2,
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-author/red/baseline/competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "exists": true,
+        "bytes": 35279,
+        "sha256": "3ce9816b1346040ccb5d08da28e63c42a90018a1a6195e8f0e62cd15c02ad38a"
+      },
+      {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/predecessor-snapshot/partial-test_layout_persistence.gd",
+        "exists": true,
+        "bytes": 35286,
+        "sha256": "fd5bf42ef47bf62662b559f7858160797e2a04f27e9b6aeab319e569c608f319"
+      }
+    ],
+    "handoff_audit": {
+      "at_utc": "2026-10-19T17:01:23.137058+00:00",
+      "original_job": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+      "terminal": true,
+      "source_files": 6,
+      "dependencies": 5,
+      "evidence_files": 48,
+      "manifest_sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+      "report_sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+      "receipt_sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+      "index_sha256": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45",
+      "blob_encoding_distinction": {
+        "competition/deepeye/docs/layout_persistence.md": {
+          "raw_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+          "reported_clean_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+          "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+          "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+          "interpretation": "author used Git clean/text normalization for doc SHA1; actual CRLF SHA256 is correct; original report retained"
+        }
+      },
+      "original_pre_dispatch_assertion": "raw Git SHA1 check failed for doc before any dispatch; independently read git hash-object and --no-filters resolved CRLF/clean distinction; no candidate changed",
+      "formal29": "not_run"
+    }
+  },
+  "pin_audit": {
+    "before": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-before.stdout.json",
+      "bytes": 145824,
+      "sha256": "e9493bca936aa381b67a0466faed3c9901b8f12375206a0d365059acff5a8abd",
+      "status": "passed",
+      "checks": 74,
+      "failures": 0
+    },
+    "after": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-after.stdout.json",
+      "bytes": 72911,
+      "sha256": "7a91780fe505971971202103697d91350949c46c70e51d99292d6262f27b1ee3",
+      "status": "passed",
+      "checks": 74,
+      "failures": 0
+    },
+    "strict_final": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict-02.stdout.json",
+      "bytes": 73021,
+      "sha256": "d36afc51a14727e4e98a268f3dec4f5ea43ff8b426cd373b280fc23dabf08db3",
+      "status": "failed",
+      "checks": 74,
+      "failures": [
+        {
+          "name": "product_head",
+          "detail": "a2feee7b40391f60224dad7d603d8dbec0341c1b"
+        }
+      ]
+    },
+    "reviewed_scope_audit": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-03/stdout.json",
+      "bytes": 25920,
+      "sha256": "108a043fceef1bbda90e0cc3cf7acf8da43febe5b3c8593663ed8e8925657ccf",
+      "status": "passed_reviewed_scope_unrelated_main_head_advance",
+      "checks": 43,
+      "failures": 0,
+      "nonhead_checks_pass": true
+    },
+    "six_dependencies_evidence_sections_identical": true,
+    "strict_final_explanation": "Sole strict failure is exact product_head drift from an external main commit after the independent runs; the other 73 checks and all reviewed source bytes remain valid."
+  },
+  "engine": {
+    "path": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+    "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "version": "4.7.2.stable.official.ed1daf0bf"
+  },
+  "runs": [
+    {
+      "label": "editor-01",
+      "purpose": "independent fresh-staged untouched 696-check editor suite",
+      "command": {
+        "label": "editor-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\editor-01\\simulator",
+          "--script",
+          "res://tests/test_editor_document.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\editor-01\\simulator",
+        "script": "res://tests/test_editor_document.gd",
+        "version_only": false,
+        "timeout_seconds": 180,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:08:29.0458003Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/command.json",
+        "bytes": 2422,
+        "sha256": "71c9272c159a7eeb038dcdffd248dac30bc0626d1c93ebedef3e2fb98e21d358"
+      },
+      "result": {
+        "label": "editor-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 40896,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\editor-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\editor-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:08:30.0830904Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\editor-01\\simulator",
+          "--script",
+          "res://tests/test_editor_document.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\editor-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/result.json",
+        "bytes": 2415,
+        "sha256": "f291d1dafc3dba4354137428ae71db2b27e760b4b07cb6b736c486bf78fea52a"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stdout.log",
+        "bytes": 1763,
+        "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stderr.log",
+        "bytes": 294,
+        "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+      },
+      "checks": 696,
+      "failures": 0,
+      "markers": [
+        "RESULT PASS"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/command.json",
+          "bytes": 2422,
+          "sha256": "71c9272c159a7eeb038dcdffd248dac30bc0626d1c93ebedef3e2fb98e21d358"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/result.json",
+          "bytes": 2415,
+          "sha256": "f291d1dafc3dba4354137428ae71db2b27e760b4b07cb6b736c486bf78fea52a"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stderr.log",
+          "bytes": 294,
+          "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stdout.log",
+          "bytes": 1763,
+          "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652"
+        }
+      ]
+    },
+    {
+      "label": "engine-version-02",
+      "purpose": "preserved PowerShell Start-Process probe with unavailable ExitCode after confirmed exit",
+      "command": {
+        "label": "engine-version-02",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--version"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+        "script": "res://tests/smoke_layout_scene.gd",
+        "version_only": true,
+        "timeout_seconds": 30,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:07:09.3244035Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/command.json",
+        "bytes": 2188,
+        "sha256": "98b38c24bdd473314f9e46e2a4a77d7e96086ce178359351a86bba35a718695b"
+      },
+      "result": {
+        "label": "engine-version-02",
+        "timed_out": false,
+        "exit_code": null,
+        "has_exited": true,
+        "pid": 19416,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-02\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-02\\stderr.log",
+        "finished_utc": "2026-10-19T17:07:09.4963083Z",
+        "argv": [
+          "--version"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-02\\localappdata"
+        }
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/result.json",
+        "bytes": 2196,
+        "sha256": "42d9863e9c4393b40f1686e4231dd7bf8f7e45bbf71a35772b57ceec5d5584fb"
+      },
+      "exit_code": null,
+      "exit_code_file_value": null,
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": null,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stdout.log",
+        "bytes": 33,
+        "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/command.json",
+          "bytes": 2188,
+          "sha256": "98b38c24bdd473314f9e46e2a4a77d7e96086ce178359351a86bba35a718695b"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/result.json",
+          "bytes": 2196,
+          "sha256": "42d9863e9c4393b40f1686e4231dd7bf8f7e45bbf71a35772b57ceec5d5584fb"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stdout.log",
+          "bytes": 33,
+          "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+        }
+      ]
+    },
+    {
+      "label": "engine-version-03",
+      "purpose": "preserved first .NET version probe with unavailable ExitCode after confirmed exit",
+      "command": {
+        "label": "engine-version-03",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--version"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+        "script": "res://tests/smoke_layout_scene.gd",
+        "version_only": true,
+        "timeout_seconds": 30,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:07:47.5031990Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/command.json",
+        "bytes": 2188,
+        "sha256": "340cf1508f95f24ad33f13eddae0eaf5fa3ad46b1eaf44a4934fc37916da4ecb"
+      },
+      "result": {
+        "label": "engine-version-03",
+        "timed_out": false,
+        "exit_code": null,
+        "pid": null,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-03\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-03\\stderr.log",
+        "finished_utc": "2026-10-19T17:07:47.6654482Z",
+        "argv": [
+          "--version"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-03\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/result.json",
+        "bytes": 2200,
+        "sha256": "001e67e69efd0e1348b5e703c2dfb4738b880a825c126ef06a97b38b3a018fac"
+      },
+      "exit_code": null,
+      "exit_code_file_value": "",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stdout.log",
+        "bytes": 33,
+        "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/command.json",
+          "bytes": 2188,
+          "sha256": "340cf1508f95f24ad33f13eddae0eaf5fa3ad46b1eaf44a4934fc37916da4ecb"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/exit_code.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/result.json",
+          "bytes": 2200,
+          "sha256": "001e67e69efd0e1348b5e703c2dfb4738b880a825c126ef06a97b38b3a018fac"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stdout.log",
+          "bytes": 33,
+          "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+        }
+      ]
+    },
+    {
+      "label": "engine-version-04",
+      "purpose": "independent pinned-engine version probe",
+      "command": {
+        "label": "engine-version-04",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--version"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+        "script": "res://tests/smoke_layout_scene.gd",
+        "version_only": true,
+        "timeout_seconds": 30,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:07:59.7364607Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/command.json",
+        "bytes": 2188,
+        "sha256": "cf7fad1ac67e09696b9e6408f1c21a6c547043c9c342544bf337e82508f34b54"
+      },
+      "result": {
+        "label": "engine-version-04",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 29060,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-04\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\engine-version-04\\stderr.log",
+        "finished_utc": "2026-10-19T17:07:59.8916185Z",
+        "argv": [
+          "--version"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\engine-version-04\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/result.json",
+        "bytes": 2198,
+        "sha256": "4b64f28827ff027757f78fe0bbd89596db110f9a7c6afee157e427249fc688b1"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stdout.log",
+        "bytes": 33,
+        "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/command.json",
+          "bytes": 2188,
+          "sha256": "cf7fad1ac67e09696b9e6408f1c21a6c547043c9c342544bf337e82508f34b54"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/result.json",
+          "bytes": 2198,
+          "sha256": "4b64f28827ff027757f78fe0bbd89596db110f9a7c6afee157e427249fc688b1"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stdout.log",
+          "bytes": 33,
+          "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+        }
+      ]
+    },
+    {
+      "label": "flow-counterexample-01",
+      "purpose": "independent dialog state/cancellation/duplicate-callback counterexample",
+      "command": {
+        "label": "flow-counterexample-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-flow-01\\simulator",
+          "--script",
+          "res://tests/counterexample_state_callback.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-flow-01\\simulator",
+        "script": "res://tests/counterexample_state_callback.gd",
+        "version_only": false,
+        "timeout_seconds": 60,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:10:09.2820365Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/command.json",
+        "bytes": 2569,
+        "sha256": "deb7eece3e49bc57887afb3628971190634a6c12396142749c38890b2de8c358"
+      },
+      "result": {
+        "label": "flow-counterexample-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 32848,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\flow-counterexample-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\flow-counterexample-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:10:10.1079830Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-flow-01\\simulator",
+          "--script",
+          "res://tests/counterexample_state_callback.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\flow-counterexample-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/result.json",
+        "bytes": 2567,
+        "sha256": "529925a6503403bf587523110ff84aa32ea13bcab4ed31834e9edc9b0a22e7e0"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stdout.log",
+        "bytes": 733,
+        "sha256": "88fc721a40358caa8f806721af85f197a954973b296254b6cc823c377ed90088"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stderr.log",
+        "bytes": 294,
+        "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+      },
+      "checks": 11,
+      "failures": 0,
+      "markers": [
+        "COUNTEREXAMPLE_FLOW_RESULT PASS"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/command.json",
+          "bytes": 2569,
+          "sha256": "deb7eece3e49bc57887afb3628971190634a6c12396142749c38890b2de8c358"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/result.json",
+          "bytes": 2567,
+          "sha256": "529925a6503403bf587523110ff84aa32ea13bcab4ed31834e9edc9b0a22e7e0"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stderr.log",
+          "bytes": 294,
+          "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stdout.log",
+          "bytes": 733,
+          "sha256": "88fc721a40358caa8f806721af85f197a954973b296254b6cc823c377ed90088"
+        }
+      ]
+    },
+    {
+      "label": "import-origin-01",
+      "purpose": "independent source/resource import-origin probe",
+      "command": {
+        "label": "import-origin-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-import-origin-01\\simulator",
+          "--script",
+          "res://tests/probe_import_origins.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-import-origin-01\\simulator",
+        "script": "res://tests/probe_import_origins.gd",
+        "version_only": false,
+        "timeout_seconds": 60,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:11:36.2786854Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/command.json",
+        "bytes": 2521,
+        "sha256": "31c2e676f7766ba0e0224aca06f537a876e1cf10cb7b6a5effba197341d0d6e8"
+      },
+      "result": {
+        "label": "import-origin-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 13676,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\import-origin-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\import-origin-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:11:37.1898550Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-import-origin-01\\simulator",
+          "--script",
+          "res://tests/probe_import_origins.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\import-origin-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/result.json",
+        "bytes": 2507,
+        "sha256": "464fcb1694845c7e1e6cc589b3eb761213b3c9e1a4afd795803b1c90d8b738d7"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stdout.log",
+        "bytes": 1999,
+        "sha256": "e03c3245305321ca73634afd45415ae2d9633696de91f932bd519309f1775b16"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stderr.log",
+        "bytes": 392,
+        "sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [
+        "ORIGIN path=res://editor/layout_codec.gd resource_path=res://editor/layout_codec.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/layout_codec.gd",
+        "ORIGIN path=res://editor/layout_store.gd resource_path=res://editor/layout_store.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/layout_store.gd",
+        "ORIGIN path=res://editor/scene_document.gd resource_path=res://editor/scene_document.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/scene_document.gd",
+        "ORIGIN path=res://ui/shell.gd resource_path=res://ui/shell.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/ui/shell.gd",
+        "ORIGIN path=res://viewer/main.gd resource_path=res://viewer/main.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/viewer/main.gd",
+        "ORIGIN_SCENE=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/viewer/main.tscn"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/command.json",
+          "bytes": 2521,
+          "sha256": "31c2e676f7766ba0e0224aca06f537a876e1cf10cb7b6a5effba197341d0d6e8"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/result.json",
+          "bytes": 2507,
+          "sha256": "464fcb1694845c7e1e6cc589b3eb761213b3c9e1a4afd795803b1c90d8b738d7"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stderr.log",
+          "bytes": 392,
+          "sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stdout.log",
+          "bytes": 1999,
+          "sha256": "e03c3245305321ca73634afd45415ae2d9633696de91f932bd519309f1775b16"
+        }
+      ]
+    },
+    {
+      "label": "persistence-01",
+      "purpose": "independent fresh-staged 618-check layout persistence suite",
+      "command": {
+        "label": "persistence-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\persistence-01\\simulator",
+          "--script",
+          "res://tests/test_layout_persistence.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\persistence-01\\simulator",
+        "script": "res://tests/test_layout_persistence.gd",
+        "version_only": false,
+        "timeout_seconds": 180,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:08:22.1998980Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/command.json",
+        "bytes": 2478,
+        "sha256": "58bd66ad11dee3e231e4c7d8b7322b916dc4cae85508b185b00066fd977fab07"
+      },
+      "result": {
+        "label": "persistence-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 41252,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\persistence-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\persistence-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:08:23.4132814Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\persistence-01\\simulator",
+          "--script",
+          "res://tests/test_layout_persistence.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\persistence-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/result.json",
+        "bytes": 2473,
+        "sha256": "d1f8e5402c16a25788caca21e62e3d8919d0b8557c708d55ad862cd34bcbbd3f"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stdout.log",
+        "bytes": 382,
+        "sha256": "7aede2de3e85f608c01a6b6989992e485a02fb45ee3fe6757c6f2d5a8347ad1e"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stderr.log",
+        "bytes": 2234,
+        "sha256": "9538d70279dedcc7039e07a41666db108df82e82f2340543177f559bd6ea2a6f"
+      },
+      "checks": 618,
+      "failures": 0,
+      "markers": [
+        "RESULT PASS"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/command.json",
+          "bytes": 2478,
+          "sha256": "58bd66ad11dee3e231e4c7d8b7322b916dc4cae85508b185b00066fd977fab07"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/result.json",
+          "bytes": 2473,
+          "sha256": "d1f8e5402c16a25788caca21e62e3d8919d0b8557c708d55ad862cd34bcbbd3f"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stderr.log",
+          "bytes": 2234,
+          "sha256": "9538d70279dedcc7039e07a41666db108df82e82f2340543177f559bd6ea2a6f"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stdout.log",
+          "bytes": 382,
+          "sha256": "7aede2de3e85f608c01a6b6989992e485a02fb45ee3fe6757c6f2d5a8347ad1e"
+        }
+      ]
+    },
+    {
+      "label": "rename-probe-01",
+      "purpose": "independent disposable rename destination-exists probe",
+      "command": {
+        "label": "rename-probe-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-rename-01\\simulator",
+          "--script",
+          "res://tests/probe_rename_existing.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-rename-01\\simulator",
+        "script": "res://tests/probe_rename_existing.gd",
+        "version_only": false,
+        "timeout_seconds": 60,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:09:14.6791765Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/command.json",
+        "bytes": 2501,
+        "sha256": "a122e94c93ef0b12c75ea2724b9ddd1e28429d03efb483cf996935766f15c07b"
+      },
+      "result": {
+        "label": "rename-probe-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 35964,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\rename-probe-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\rename-probe-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:09:15.0726516Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-rename-01\\simulator",
+          "--script",
+          "res://tests/probe_rename_existing.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\rename-probe-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/result.json",
+        "bytes": 2491,
+        "sha256": "756765ea55d4334816f808cb4acbcbd1b4b6fbe0a23abfb21e9be5e2a7d06fc9"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stdout.log",
+        "bytes": 479,
+        "sha256": "a6cbfe6e9ab8dae121e4f5ed4776f158841f6e86efd7d2288ed09038be6d40ee"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [
+        "RENAME_EXISTING_ERR=0",
+        "RENAME_EXISTING_NAME=OK",
+        "TARGET_AFTER_HEX=4e45575c6e"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/command.json",
+          "bytes": 2501,
+          "sha256": "a122e94c93ef0b12c75ea2724b9ddd1e28429d03efb483cf996935766f15c07b"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/result.json",
+          "bytes": 2491,
+          "sha256": "756765ea55d4334816f808cb4acbcbd1b4b6fbe0a23abfb21e9be5e2a7d06fc9"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stdout.log",
+          "bytes": 479,
+          "sha256": "a6cbfe6e9ab8dae121e4f5ed4776f158841f6e86efd7d2288ed09038be6d40ee"
+        }
+      ]
+    },
+    {
+      "label": "smoke-01",
+      "purpose": "independent fresh-staged headless scene smoke",
+      "command": {
+        "label": "smoke-01",
+        "engine": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\smoke-01\\simulator",
+          "--script",
+          "res://tests/smoke_layout_scene.gd"
+        ],
+        "project": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\smoke-01\\simulator",
+        "script": "res://tests/smoke_layout_scene.gd",
+        "version_only": false,
+        "timeout_seconds": 180,
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\localappdata"
+        },
+        "started_utc": "2026-10-19T17:08:41.5800155Z"
+      },
+      "command_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/command.json",
+        "bytes": 2408,
+        "sha256": "a2bba86c688f32a008e1048befac5b2f44897e58ea01239a4b89a35d75670989"
+      },
+      "result": {
+        "label": "smoke-01",
+        "timed_out": false,
+        "exit_code": 0,
+        "pid": 8404,
+        "stdout_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\smoke-01\\stdout.log",
+        "stderr_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\runs\\smoke-01\\stderr.log",
+        "finished_utc": "2026-10-19T17:08:42.1529833Z",
+        "argv": [
+          "--headless",
+          "--path",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\smoke-01\\simulator",
+          "--script",
+          "res://tests/smoke_layout_scene.gd"
+        ],
+        "environment": {
+          "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\temp",
+          "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\tmp",
+          "XDG_DATA_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-data-home",
+          "XDG_CACHE_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-cache-home",
+          "XDG_CONFIG_HOME": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\xdg-config-home",
+          "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\appdata",
+          "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\env\\runs\\smoke-01\\localappdata"
+        },
+        "process_started": true
+      },
+      "result_file": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/result.json",
+        "bytes": 2401,
+        "sha256": "1680cd990b59f7293b4d7b1bc677bf90fa1af39df0b071f2d2d582c57d17c7a0"
+      },
+      "exit_code": 0,
+      "exit_code_file_value": "0",
+      "process_exited_file_value": "True",
+      "timed_out": false,
+      "process_started": true,
+      "stdout": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stdout.log",
+        "bytes": 126,
+        "sha256": "7ac4397ebff368fd3163edcdea114fb27051533a0a833ddb1af96ab495779b2f"
+      },
+      "stderr": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stderr.log",
+        "bytes": 294,
+        "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+      },
+      "checks": null,
+      "failures": null,
+      "markers": [
+        "SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1"
+      ],
+      "raw_files": [
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/command.json",
+          "bytes": 2408,
+          "sha256": "a2bba86c688f32a008e1048befac5b2f44897e58ea01239a4b89a35d75670989"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/exit_code.txt",
+          "bytes": 3,
+          "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/process_exited.txt",
+          "bytes": 6,
+          "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/result.json",
+          "bytes": 2401,
+          "sha256": "1680cd990b59f7293b4d7b1bc677bf90fa1af39df0b071f2d2d582c57d17c7a0"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stderr.log",
+          "bytes": 294,
+          "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+        },
+        {
+          "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stdout.log",
+          "bytes": 126,
+          "sha256": "7ac4397ebff368fd3163edcdea114fb27051533a0a833ddb1af96ab495779b2f"
+        }
+      ]
+    }
+  ],
+  "independent_test_conclusion": {
+    "persistence": {
+      "checks": 618,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "editor": {
+      "checks": 696,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "scene_smoke": {
+      "marker": "SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1",
+      "exit_code": 0
+    },
+    "flow_counterexample": {
+      "checks": 11,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "author_reported_counts_used_as_evidence": false
+  },
+  "import_origins": {
+    "source_run": "runs/import-origin-01/stdout.log",
+    "lines": [
+      "ORIGIN path=res://editor/layout_codec.gd resource_path=res://editor/layout_codec.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/layout_codec.gd",
+      "ORIGIN path=res://editor/layout_store.gd resource_path=res://editor/layout_store.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/layout_store.gd",
+      "ORIGIN path=res://editor/scene_document.gd resource_path=res://editor/scene_document.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/editor/scene_document.gd",
+      "ORIGIN path=res://ui/shell.gd resource_path=res://ui/shell.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/ui/shell.gd",
+      "ORIGIN path=res://viewer/main.gd resource_path=res://viewer/main.gd global=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/viewer/main.gd",
+      "ORIGIN_SCENE=C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-layout-persistence-review/stage/counterexample-import-origin-01/simulator/viewer/main.tscn"
+    ],
+    "all_inside_review_stage": true
+  },
+  "stage": {
+    "identity": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-identity.json",
+      "sha256": "a055979945814833347b44237b1ec3012624692cb62ff06686327fcff839d0ed",
+      "stage_count": 7,
+      "file_entries": 117,
+      "all_stages_no_dot_godot": true
+    },
+    "source_and_import_check": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-source-check.json",
+      "sha256": "84a98680a4ade7673c0af881e3d277a55686e3dc2d53967b6ac024d688edc4e0",
+      "checks": 84,
+      "failures": 0,
+      "import_origins_inside_review_stage": true
+    },
+    "fresh_review_copies_only": true,
+    "product_godot_cache_created": false
+  },
+  "documentation_byte_handling": {
+    "path": ".local/deepeye-implementation-a/competition/deepeye/docs/layout_persistence.md",
+    "actual_bytes": 6228,
+    "actual_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+    "actual_raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+    "clean_lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+    "manifest_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+    "crlf_count": 108,
+    "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF",
+    "author_manifest_edited_by_reviewer": false
+  },
+  "json_validation": {
+    "script": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/validate_json.py",
+      "bytes": 1383,
+      "sha256": "0ab592e48a4c5bbcb16c1dd245be3c4f705a420b8d02bc44429b75df706e882a"
+    },
+    "command_record": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/command.json",
+      "bytes": 1301,
+      "sha256": "0748c31abb2e3570c11d5fda679be3b21d2e93aadb2709c7f6b36e01f2636511"
+    },
+    "stdout": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/stdout.log",
+      "bytes": 269,
+      "sha256": "cd07b484cef938dc9b3b7c0dfde57289bc0980b761d203dc673f1e7ce93d3c8c"
+    },
+    "stderr": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "exit": {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    "result": "PASS",
+    "files_checked": 45,
+    "bad_files": 0,
+    "scope": "review-root *.json + evidence/**/*.json + runs/**/*.json; UTF-8/UTF-8-BOM/UTF-16 BOM aware; intentional env fixtures excluded"
+  },
+  "review_assertions": {
+    "toolbar_and_filedialog_source_path_present": {
+      "status": "verified_static_and_headless_only",
+      "shell_lines": "224-235, 345-354, 517-520, 575-590, 611-674",
+      "native_ui": "not_run"
+    },
+    "strict_versioned_geometry_only_format": "verified_by_source_inspection_and_618_check_staged_suite",
+    "finite_type_depth_size_unknown_field_limits": "verified_by_source_inspection_and_618_check_staged_suite",
+    "transaction_undo_selection_history_seed_semantics": "verified_by_source_inspection_and_staged_suite",
+    "whole_document_viewer_and_gate_updates": "verified_headless_only",
+    "dialog_state_change_duplicate_and_cancel": "verified_by_11_check_independent_counterexample",
+    "write_read_error_paths_and_sequential_target_preservation": "verified_by_staged_suite_and_source_inspection",
+    "rename_destination_exists_behavior": "observed_OK_and_target_replaced_in_disposable_stage; documented concurrent no-overwrite limitation",
+    "private_default_storage_geometry_only": "verified_source_representation_excludes_run_link_control_seed_truth_fields",
+    "ai_os_confidentiality": "not_run",
+    "run_link_authority_changed_by_review": "false",
+    "production_run_gate": "unavailable_unchanged_not_enabled",
+    "resourceloader_eval_or_dynamic_load_in_final_seam": "not_found_in_static_inspection"
+  },
+  "findings": {
+    "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/findings.md",
+    "bytes": 9472,
+    "sha256": "995a004cb894290e0f6b5983b4b7eb2928053d9f2667d15378d696347ee526a7"
+  },
+  "inspection_manifest": {
+    "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/inspection_manifest.json",
+    "bytes": 77492,
+    "sha256": "edccbaebef095a051d6c74805432f923ca56fe8516a1c804e93645b7e93ab3ea"
+  },
+  "tooling_failures": {
+    "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/reviewer-tooling-failures.md",
+    "bytes": 12405,
+    "sha256": "6c4ea47c83adef4dda5c62c64020d1851d2030833bf969b6252d810b856575ea"
+  },
+  "preserved_failures": [
+    {
+      "path": "evidence/pins-before.failed.stdout.json",
+      "reason": "wrong manifest field assumption; preserved failed pin attempt"
+    },
+    {
+      "path": "evidence/stage-source-check-v1.incorrect-path-scope.json",
+      "reason": "incorrect stage-relative path scope"
+    },
+    {
+      "path": "evidence/stage-source-check-v2.docs-and-origin-count-mis-scoped.json",
+      "reason": "incorrect docs and origin-count expectations"
+    },
+    {
+      "path": "evidence/test-summary-v1.incorrect-exit-readback.json",
+      "reason": "incorrect exit readback in summary"
+    },
+    {
+      "path": "runs/engine-version-02/result.json",
+      "reason": "preserved null ExitCode from PowerShell runner"
+    },
+    {
+      "path": "runs/engine-version-03/result.json",
+      "reason": "preserved null ExitCode from disposed Process"
+    },
+    {
+      "path": "evidence/final-scope-audit-01/stdout.json",
+      "reason": "helper expected strict pin audit to pass despite deliberately preserved unrelated head drift; corrected in 02"
+    }
+  ],
+  "review_evidence": [
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/build_final_inspection_manifest.py",
+      "bytes": 10097,
+      "sha256": "397566d7d0832ee803e5d2d2b35b533796aa2a305062f673a917ffb68cd55925"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/build_receipt.py",
+      "bytes": 13333,
+      "sha256": "412fe1fc5dac7d611f21b3645c6415b5dba640eccc16e792c2ae7986c47e3e95"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-01/command.json",
+      "bytes": 1514,
+      "sha256": "b9cd5562a5141dba0c5aa4ff89a6390b27514ec1adfa9fc61194e52e2d284d8c"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-01/exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-01/stdout.json",
+      "bytes": 32982,
+      "sha256": "7530a0559116d525dc5b4fb5ce59e7a500cdf4d0f61c270f604e4afe43eeac56"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-02/command.json",
+      "bytes": 1514,
+      "sha256": "1ad0a651b9bded2ddafa8b4459c6c61ff61741e950ba718faf031fa3fb26a84f"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-02/exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-02/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-02/stdout.json",
+      "bytes": 33129,
+      "sha256": "f82fd108daa4b31dd714b8cb27ca2e774137988c3e7d866c6978e054e582b617"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-03/command.json",
+      "bytes": 1514,
+      "sha256": "26dfa34b9bd80df9680e244aebf238fb2b6da98b9c1df5f6fd96c4895f8e678e"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-03/exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-03/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final-scope-audit-03/stdout.json",
+      "bytes": 25920,
+      "sha256": "108a043fceef1bbda90e0cc3cf7acf8da43febe5b3c8593663ed8e8925657ccf"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/final_scope_audit.py",
+      "bytes": 10245,
+      "sha256": "8534dff2c73614bc7dae900d90b13f6843834077307e6f42167ea7c87820aa8e"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/immutable-scope.command.json",
+      "bytes": 821,
+      "sha256": "906b07a16ad4733fd189a8fc4c8eea2e1e342d11cc4d81305cb4c9c52b801096"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/immutable-scope.exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/immutable-scope.stdout.json",
+      "bytes": 275,
+      "sha256": "302a40e83fde977b1614814b856f01bf1cdf3d96b08d69defc27d25822eb9018"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/command.json",
+      "bytes": 1301,
+      "sha256": "0748c31abb2e3570c11d5fda679be3b21d2e93aadb2709c7f6b36e01f2636511"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/json-validation-01/stdout.log",
+      "bytes": 269,
+      "sha256": "cd07b484cef938dc9b3b7c0dfde57289bc0980b761d203dc673f1e7ce93d3c8c"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-after.command.json",
+      "bytes": 1724,
+      "sha256": "1a4934b211629034f5bb20cbda7c5121a4335e57be22178a59d235af333714aa"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-after.exit.txt",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-after.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-after.stdout.json",
+      "bytes": 72911,
+      "sha256": "7a91780fe505971971202103697d91350949c46c70e51d99292d6262f27b1ee3"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-before.exit.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-before.failed.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-before.failed.stdout.json",
+      "bytes": 146130,
+      "sha256": "5f4a6783fe41cf9ed49abaaa0feaef575e381dde212246597076b48f528c9077"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-before.stdout.json",
+      "bytes": 145824,
+      "sha256": "e9493bca936aa381b67a0466faed3c9901b8f12375206a0d365059acff5a8abd"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict-02.command.json",
+      "bytes": 1774,
+      "sha256": "a6d02d41445d20cddd6ca18a329f0b13ce4a476d4221b672128e4c7fb124b513"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict-02.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict-02.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict-02.stdout.json",
+      "bytes": 73021,
+      "sha256": "d36afc51a14727e4e98a268f3dec4f5ea43ff8b426cd373b280fc23dabf08db3"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict.command.json",
+      "bytes": 1758,
+      "sha256": "d99920f4266fb380b82da8075eff227eb1532d4dd1424067e450a58f24853b23"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/pins-final-strict.stdout.json",
+      "bytes": 73021,
+      "sha256": "5b2eacf804a90ebc8473c6d175c653661b032be0c0655849cfea7cdec0f2701a"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/reviewer-tooling-failures.md",
+      "bytes": 12405,
+      "sha256": "6c4ea47c83adef4dda5c62c64020d1851d2030833bf969b6252d810b856575ea"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/run_engine.ps1",
+      "bytes": 3156,
+      "sha256": "fee10cf5c28bbca2f917fecb6b9dea626bf0487e7ea36a6692a7e0f2914d8d5a"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-copy-01.command.txt",
+      "bytes": 843,
+      "sha256": "1afaebebe2bb37b15af573b7a585b0966f1af1c0501904cc6471be5dcbbeafc0"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-copy-01.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-copy-01.stdout.txt",
+      "bytes": 5,
+      "sha256": "f01a374e9c81e3db89b3a42940c4d6a5447684986a1296e42bf13f196eed6295"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-counterexample-flow-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-counterexample-import-origin-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-counterexample-rename-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-editor-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-identity.json",
+      "bytes": 43137,
+      "sha256": "a055979945814833347b44237b1ec3012624692cb62ff06686327fcff839d0ed"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-persistence-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-smoke-01.robocopy.exit.txt",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-source-check-v1.incorrect-path-scope.json",
+      "bytes": 46762,
+      "sha256": "4c3ef7c80362958c12cc0e35743d979ce57a9f5422e717093353aa459d0337ba"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-source-check-v2.docs-and-origin-count-mis-scoped.json",
+      "bytes": 44993,
+      "sha256": "b88a8805f430ea10d43e20af72a38033b6743ba4ba1bfe56a0b6aac71d2eb983"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/stage-source-check.json",
+      "bytes": 42332,
+      "sha256": "84a98680a4ade7673c0af881e3d277a55686e3dc2d53967b6ac024d688edc4e0"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/test-summary-v1.incorrect-exit-readback.json",
+      "bytes": 16991,
+      "sha256": "e98746e2975b22a303004e5ccfcef4f400fd0944f37e2fb318de6d987372e916"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/test-summary.json",
+      "bytes": 18413,
+      "sha256": "6e0b8d805e5425d7c2f413e9752b34b68adc10c920a0f98d61b61b8c39f61830"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/validate_json.py",
+      "bytes": 1383,
+      "sha256": "0ab592e48a4c5bbcb16c1dd245be3c4f705a420b8d02bc44429b75df706e882a"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/verify_pins.py",
+      "bytes": 8449,
+      "sha256": "e9519efe6294c5ba802d103364f2fe0c8aa0f0bb7529d724491ca716502e820e"
+    }
+  ],
+  "review_run_files": [
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/command.json",
+      "bytes": 2422,
+      "sha256": "71c9272c159a7eeb038dcdffd248dac30bc0626d1c93ebedef3e2fb98e21d358"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/result.json",
+      "bytes": 2415,
+      "sha256": "f291d1dafc3dba4354137428ae71db2b27e760b4b07cb6b736c486bf78fea52a"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stderr.log",
+      "bytes": 294,
+      "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/editor-01/stdout.log",
+      "bytes": 1763,
+      "sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/command.json",
+      "bytes": 2188,
+      "sha256": "98b38c24bdd473314f9e46e2a4a77d7e96086ce178359351a86bba35a718695b"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/result.json",
+      "bytes": 2196,
+      "sha256": "42d9863e9c4393b40f1686e4231dd7bf8f7e45bbf71a35772b57ceec5d5584fb"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-02/stdout.log",
+      "bytes": 33,
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/command.json",
+      "bytes": 2188,
+      "sha256": "340cf1508f95f24ad33f13eddae0eaf5fa3ad46b1eaf44a4934fc37916da4ecb"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/exit_code.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/result.json",
+      "bytes": 2200,
+      "sha256": "001e67e69efd0e1348b5e703c2dfb4738b880a825c126ef06a97b38b3a018fac"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-03/stdout.log",
+      "bytes": 33,
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/command.json",
+      "bytes": 2188,
+      "sha256": "cf7fad1ac67e09696b9e6408f1c21a6c547043c9c342544bf337e82508f34b54"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/result.json",
+      "bytes": 2198,
+      "sha256": "4b64f28827ff027757f78fe0bbd89596db110f9a7c6afee157e427249fc688b1"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/engine-version-04/stdout.log",
+      "bytes": 33,
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/command.json",
+      "bytes": 2569,
+      "sha256": "deb7eece3e49bc57887afb3628971190634a6c12396142749c38890b2de8c358"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/result.json",
+      "bytes": 2567,
+      "sha256": "529925a6503403bf587523110ff84aa32ea13bcab4ed31834e9edc9b0a22e7e0"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stderr.log",
+      "bytes": 294,
+      "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/flow-counterexample-01/stdout.log",
+      "bytes": 733,
+      "sha256": "88fc721a40358caa8f806721af85f197a954973b296254b6cc823c377ed90088"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/command.json",
+      "bytes": 2521,
+      "sha256": "31c2e676f7766ba0e0224aca06f537a876e1cf10cb7b6a5effba197341d0d6e8"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/result.json",
+      "bytes": 2507,
+      "sha256": "464fcb1694845c7e1e6cc589b3eb761213b3c9e1a4afd795803b1c90d8b738d7"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stderr.log",
+      "bytes": 392,
+      "sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/import-origin-01/stdout.log",
+      "bytes": 1999,
+      "sha256": "e03c3245305321ca73634afd45415ae2d9633696de91f932bd519309f1775b16"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/command.json",
+      "bytes": 2478,
+      "sha256": "58bd66ad11dee3e231e4c7d8b7322b916dc4cae85508b185b00066fd977fab07"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/result.json",
+      "bytes": 2473,
+      "sha256": "d1f8e5402c16a25788caca21e62e3d8919d0b8557c708d55ad862cd34bcbbd3f"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stderr.log",
+      "bytes": 2234,
+      "sha256": "9538d70279dedcc7039e07a41666db108df82e82f2340543177f559bd6ea2a6f"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/persistence-01/stdout.log",
+      "bytes": 382,
+      "sha256": "7aede2de3e85f608c01a6b6989992e485a02fb45ee3fe6757c6f2d5a8347ad1e"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/command.json",
+      "bytes": 2501,
+      "sha256": "a122e94c93ef0b12c75ea2724b9ddd1e28429d03efb483cf996935766f15c07b"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/result.json",
+      "bytes": 2491,
+      "sha256": "756765ea55d4334816f808cb4acbcbd1b4b6fbe0a23abfb21e9be5e2a7d06fc9"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/rename-probe-01/stdout.log",
+      "bytes": 479,
+      "sha256": "a6cbfe6e9ab8dae121e4f5ed4776f158841f6e86efd7d2288ed09038be6d40ee"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/command.json",
+      "bytes": 2408,
+      "sha256": "a2bba86c688f32a008e1048befac5b2f44897e58ea01239a4b89a35d75670989"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/exit_code.txt",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/process_exited.txt",
+      "bytes": 6,
+      "sha256": "ca4a016eae14ab0c7ebb935a6e24ae8b512958f25c788f11eb99566d066b7957"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/result.json",
+      "bytes": 2401,
+      "sha256": "1680cd990b59f7293b4d7b1bc677bf90fa1af39df0b071f2d2d582c57d17c7a0"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stderr.log",
+      "bytes": 294,
+      "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-persistence-review/runs/smoke-01/stdout.log",
+      "bytes": 126,
+      "sha256": "7ac4397ebff368fd3163edcdea114fb27051533a0a833ddb1af96ab495779b2f"
+    }
+  ],
+  "remaining_not_run": {
+    "all_29_taskbook_cards": "not_run",
+    "formal29": "not_run",
+    "h01_h15": "not_run",
+    "g02": "not_run",
+    "native_ui_mouse_keyboard_visual_scaling_accessibility": "not_run",
+    "physical_collision": "not_run",
+    "full_crossing_route_control": "not_run",
+    "os_isolation": "not_run",
+    "ai_access_or_confidentiality": "not_run",
+    "board_run": "not_run",
+    "services_drivers": "not_run",
+    "dual_h12": "not_run",
+    "concurrent_atomic_no_overwrite_proof": "not_run"
+  },
+  "actions_not_performed": [
+    "source_edit",
+    "product_write",
+    "author_evidence_write",
+    "git_commit",
+    "git_push",
+    "new_thread",
+    "peer_or_group_message",
+    "board_operation",
+    "service_or_driver_change",
+    "dependency_install",
+    "native_ui_run",
+    "product_cache_write"
+  ],
+  "genuine_limits": [
+    "Headless FileDialog behavior is source/script exercised, not native or visual UI acceptance.",
+    "Windows rename replaces an existing file if the destination appears after the final target check; no concurrent no-overwrite/atomic primitive is proven.",
+    "Private default storage does not establish AI whitelist, OS isolation or filesystem confidentiality.",
+    "External main commits advanced PRODUCT HEAD after independent runs; the latest strict replay reports only the exact-head mismatch, while all reviewed bytes and the other 73 checks remain valid.",
+    "No product, board, native, formal29, G02, AI, physical-collision, OS-isolation or dual-H12 acceptance is claimed."
+  ],
+  "main_decision_required": true
+}

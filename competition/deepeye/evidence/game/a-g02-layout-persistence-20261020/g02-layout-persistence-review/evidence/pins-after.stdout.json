@@ -1,0 +1,1587 @@
+{
+  "schema": 1,
+  "expected": {
+    "manifest": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+    "report": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+    "receipt": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+    "index": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45",
+    "design_report": "9ba018f712213c8151e07bc63eae57bdae031f7f6817ec2696e1847b129a8d1b",
+    "design_plan": "945502bf23e340dc4899fb689016f9ee04858ca214ae081d1c5d12f7d6617495",
+    "engine": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "product_head": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "initial_product_head": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1"
+  },
+  "checks": [
+    {
+      "name": "author_manifest_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/manifest.json",
+        "bytes": 10943,
+        "sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586"
+      }
+    },
+    {
+      "name": "author_report_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/report.md",
+        "bytes": 6715,
+        "sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e"
+      }
+    },
+    {
+      "name": "author_receipt_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/receipt.json",
+        "bytes": 8293,
+        "sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1"
+      }
+    },
+    {
+      "name": "author_index_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/evidence-index.json",
+        "bytes": 11664,
+        "sha256": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45"
+      }
+    },
+    {
+      "name": "design_report_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/game-integration-next/report.md",
+        "bytes": 7904,
+        "sha256": "9ba018f712213c8151e07bc63eae57bdae031f7f6817ec2696e1847b129a8d1b"
+      }
+    },
+    {
+      "name": "design_plan_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/game-integration-next/plan.md",
+        "bytes": 9702,
+        "sha256": "945502bf23e340dc4899fb689016f9ee04858ca214ae081d1c5d12f7d6617495"
+      }
+    },
+    {
+      "name": "product_head",
+      "ok": true,
+      "detail": "678e01dd097f326e5bf724dc9db9e6b3e388384d"
+    },
+    {
+      "name": "manifest_task",
+      "ok": true,
+      "detail": {
+        "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+        "task_version": 1
+      }
+    },
+    {
+      "name": "manifest_initial_head",
+      "ok": true,
+      "detail": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1"
+    },
+    {
+      "name": "manifest_current_head",
+      "ok": true,
+      "detail": "678e01dd097f326e5bf724dc9db9e6b3e388384d"
+    },
+    {
+      "name": "manifest_head_advance_unrelated",
+      "ok": true,
+      "detail": {
+        "by_main": true,
+        "affects_six": false
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/simulator/editor/layout_codec.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+        "bytes": 14686,
+        "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "bytes_manifest": 14686,
+        "lines_actual": 367,
+        "lines_manifest": 367,
+        "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/simulator/editor/layout_codec.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+        "bytes": 14686,
+        "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "bytes_manifest": 14686,
+        "lines_actual": 367,
+        "lines_manifest": 367,
+        "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/simulator/editor/layout_codec.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+        "bytes": 14686,
+        "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "bytes_manifest": 14686,
+        "lines_actual": 367,
+        "lines_manifest": 367,
+        "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/simulator/editor/layout_codec.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+        "bytes": 14686,
+        "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "bytes_manifest": 14686,
+        "lines_actual": 367,
+        "lines_manifest": 367,
+        "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_raw_git_blob:competition/deepeye/simulator/editor/layout_codec.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+        "bytes": 14686,
+        "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+        "bytes_manifest": 14686,
+        "lines_actual": 367,
+        "lines_manifest": 367,
+        "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/simulator/editor/layout_store.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_store.gd",
+        "bytes": 5754,
+        "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "bytes_manifest": 5754,
+        "lines_actual": 119,
+        "lines_manifest": 119,
+        "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/simulator/editor/layout_store.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_store.gd",
+        "bytes": 5754,
+        "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "bytes_manifest": 5754,
+        "lines_actual": 119,
+        "lines_manifest": 119,
+        "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/simulator/editor/layout_store.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_store.gd",
+        "bytes": 5754,
+        "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "bytes_manifest": 5754,
+        "lines_actual": 119,
+        "lines_manifest": 119,
+        "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/simulator/editor/layout_store.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_store.gd",
+        "bytes": 5754,
+        "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "bytes_manifest": 5754,
+        "lines_actual": 119,
+        "lines_manifest": 119,
+        "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_raw_git_blob:competition/deepeye/simulator/editor/layout_store.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/layout_store.gd",
+        "bytes": 5754,
+        "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+        "bytes_manifest": 5754,
+        "lines_actual": 119,
+        "lines_manifest": 119,
+        "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/simulator/editor/scene_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/scene_document.gd",
+        "bytes": 30327,
+        "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "bytes_manifest": 30327,
+        "lines_actual": 838,
+        "lines_manifest": 838,
+        "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/simulator/editor/scene_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/scene_document.gd",
+        "bytes": 30327,
+        "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "bytes_manifest": 30327,
+        "lines_actual": 838,
+        "lines_manifest": 838,
+        "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/simulator/editor/scene_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/scene_document.gd",
+        "bytes": 30327,
+        "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "bytes_manifest": 30327,
+        "lines_actual": 838,
+        "lines_manifest": 838,
+        "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/simulator/editor/scene_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/scene_document.gd",
+        "bytes": 30327,
+        "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "bytes_manifest": 30327,
+        "lines_actual": 838,
+        "lines_manifest": 838,
+        "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_raw_git_blob:competition/deepeye/simulator/editor/scene_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/editor/scene_document.gd",
+        "bytes": 30327,
+        "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+        "bytes_manifest": 30327,
+        "lines_actual": 838,
+        "lines_manifest": 838,
+        "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/simulator/ui/shell.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/ui/shell.gd",
+        "bytes": 31110,
+        "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "bytes_manifest": 31110,
+        "lines_actual": 828,
+        "lines_manifest": 828,
+        "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/simulator/ui/shell.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/ui/shell.gd",
+        "bytes": 31110,
+        "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "bytes_manifest": 31110,
+        "lines_actual": 828,
+        "lines_manifest": 828,
+        "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/simulator/ui/shell.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/ui/shell.gd",
+        "bytes": 31110,
+        "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "bytes_manifest": 31110,
+        "lines_actual": 828,
+        "lines_manifest": 828,
+        "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/simulator/ui/shell.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/ui/shell.gd",
+        "bytes": 31110,
+        "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "bytes_manifest": 31110,
+        "lines_actual": 828,
+        "lines_manifest": 828,
+        "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_raw_git_blob:competition/deepeye/simulator/ui/shell.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/ui/shell.gd",
+        "bytes": 31110,
+        "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+        "bytes_manifest": 31110,
+        "lines_actual": 828,
+        "lines_manifest": 828,
+        "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "bytes": 37201,
+        "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "bytes_manifest": 37201,
+        "lines_actual": 690,
+        "lines_manifest": 690,
+        "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "bytes": 37201,
+        "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "bytes_manifest": 37201,
+        "lines_actual": 690,
+        "lines_manifest": 690,
+        "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "bytes": 37201,
+        "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "bytes_manifest": 37201,
+        "lines_actual": 690,
+        "lines_manifest": 690,
+        "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "bytes": 37201,
+        "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "bytes_manifest": 37201,
+        "lines_actual": 690,
+        "lines_manifest": 690,
+        "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_raw_git_blob:competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+        "bytes": 37201,
+        "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+        "bytes_manifest": 37201,
+        "lines_actual": 690,
+        "lines_manifest": 690,
+        "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+        "ends_with_lf": true,
+        "crlf_count": 0
+      }
+    },
+    {
+      "name": "six_sha256:competition/deepeye/docs/layout_persistence.md",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "six_bytes:competition/deepeye/docs/layout_persistence.md",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "six_lines:competition/deepeye/docs/layout_persistence.md",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "six_ends_lf:competition/deepeye/docs/layout_persistence.md",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "doc_actual_raw_sha256_matches",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "doc_clean_lf_blob_matches_manifest",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "doc_actual_bytes_are_crlf",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/layout_persistence.md",
+        "bytes": 6228,
+        "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "bytes_manifest": 6228,
+        "lines_actual": 108,
+        "lines_manifest": 108,
+        "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+        "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "ends_with_lf": true,
+        "crlf_count": 108,
+        "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+        "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+        "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+        "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+      }
+    },
+    {
+      "name": "six_file_count",
+      "ok": true,
+      "detail": 6
+    },
+    {
+      "name": "dependency_actual_after:competition/deepeye/simulator/project.godot",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/project.godot",
+        "sha256_actual": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "before": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "after": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "base_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+        "manifest_blob": "4174296e3eab3456a7a6fb8267347f487c170598"
+      }
+    },
+    {
+      "name": "dependency_before_after_equal:competition/deepeye/simulator/project.godot",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/project.godot",
+        "sha256_actual": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "before": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "after": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "base_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+        "manifest_blob": "4174296e3eab3456a7a6fb8267347f487c170598"
+      }
+    },
+    {
+      "name": "dependency_equal_initial_head:competition/deepeye/simulator/project.godot",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/project.godot",
+        "sha256_actual": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "before": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "after": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "base_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+        "manifest_blob": "4174296e3eab3456a7a6fb8267347f487c170598"
+      }
+    },
+    {
+      "name": "dependency_git_blob:competition/deepeye/simulator/project.godot",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/project.godot",
+        "sha256_actual": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "before": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "after": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "base_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+        "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+        "manifest_blob": "4174296e3eab3456a7a6fb8267347f487c170598"
+      }
+    },
+    {
+      "name": "dependency_actual_after:competition/deepeye/simulator/viewer/main.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.gd",
+        "sha256_actual": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "before": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "after": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "base_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+        "manifest_blob": "d0fe53d87a42552aa80968007f537f3abc46514e"
+      }
+    },
+    {
+      "name": "dependency_before_after_equal:competition/deepeye/simulator/viewer/main.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.gd",
+        "sha256_actual": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "before": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "after": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "base_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+        "manifest_blob": "d0fe53d87a42552aa80968007f537f3abc46514e"
+      }
+    },
+    {
+      "name": "dependency_equal_initial_head:competition/deepeye/simulator/viewer/main.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.gd",
+        "sha256_actual": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "before": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "after": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "base_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+        "manifest_blob": "d0fe53d87a42552aa80968007f537f3abc46514e"
+      }
+    },
+    {
+      "name": "dependency_git_blob:competition/deepeye/simulator/viewer/main.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.gd",
+        "sha256_actual": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "before": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "after": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "base_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+        "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+        "manifest_blob": "d0fe53d87a42552aa80968007f537f3abc46514e"
+      }
+    },
+    {
+      "name": "dependency_actual_after:competition/deepeye/simulator/viewer/main.tscn",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.tscn",
+        "sha256_actual": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "before": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "after": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "base_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+        "manifest_blob": "9e2282ac2595758740c68184b73fe4f86c085a72"
+      }
+    },
+    {
+      "name": "dependency_before_after_equal:competition/deepeye/simulator/viewer/main.tscn",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.tscn",
+        "sha256_actual": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "before": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "after": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "base_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+        "manifest_blob": "9e2282ac2595758740c68184b73fe4f86c085a72"
+      }
+    },
+    {
+      "name": "dependency_equal_initial_head:competition/deepeye/simulator/viewer/main.tscn",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.tscn",
+        "sha256_actual": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "before": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "after": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "base_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+        "manifest_blob": "9e2282ac2595758740c68184b73fe4f86c085a72"
+      }
+    },
+    {
+      "name": "dependency_git_blob:competition/deepeye/simulator/viewer/main.tscn",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/viewer/main.tscn",
+        "sha256_actual": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "before": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "after": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "base_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+        "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+        "manifest_blob": "9e2282ac2595758740c68184b73fe4f86c085a72"
+      }
+    },
+    {
+      "name": "dependency_actual_after:competition/deepeye/simulator/tests/test_editor_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+        "sha256_actual": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "before": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "after": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "base_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+        "manifest_blob": "26f1ea547084b09eaf5de41f80ab108569067161"
+      }
+    },
+    {
+      "name": "dependency_before_after_equal:competition/deepeye/simulator/tests/test_editor_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+        "sha256_actual": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "before": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "after": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "base_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+        "manifest_blob": "26f1ea547084b09eaf5de41f80ab108569067161"
+      }
+    },
+    {
+      "name": "dependency_equal_initial_head:competition/deepeye/simulator/tests/test_editor_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+        "sha256_actual": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "before": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "after": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "base_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+        "manifest_blob": "26f1ea547084b09eaf5de41f80ab108569067161"
+      }
+    },
+    {
+      "name": "dependency_git_blob:competition/deepeye/simulator/tests/test_editor_document.gd",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+        "sha256_actual": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "before": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "after": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "base_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+        "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+        "manifest_blob": "26f1ea547084b09eaf5de41f80ab108569067161"
+      }
+    },
+    {
+      "name": "dependency_actual_after:competition/deepeye/docs/resource_contract.json",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/resource_contract.json",
+        "sha256_actual": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "before": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "after": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "base_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+        "manifest_blob": "e65957dc6efff443e183384e3eb05c251499387f"
+      }
+    },
+    {
+      "name": "dependency_before_after_equal:competition/deepeye/docs/resource_contract.json",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/resource_contract.json",
+        "sha256_actual": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "before": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "after": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "base_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+        "manifest_blob": "e65957dc6efff443e183384e3eb05c251499387f"
+      }
+    },
+    {
+      "name": "dependency_equal_initial_head:competition/deepeye/docs/resource_contract.json",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/resource_contract.json",
+        "sha256_actual": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "before": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "after": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "base_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+        "manifest_blob": "e65957dc6efff443e183384e3eb05c251499387f"
+      }
+    },
+    {
+      "name": "dependency_git_blob:competition/deepeye/docs/resource_contract.json",
+      "ok": true,
+      "detail": {
+        "path": "competition/deepeye/docs/resource_contract.json",
+        "sha256_actual": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "before": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "after": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "base_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+        "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+        "manifest_blob": "e65957dc6efff443e183384e3eb05c251499387f"
+      }
+    },
+    {
+      "name": "dependency_count",
+      "ok": true,
+      "detail": 5
+    },
+    {
+      "name": "engine_sha256",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+        "bytes": 198152,
+        "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643"
+      }
+    },
+    {
+      "name": "evidence_file_count",
+      "ok": true,
+      "detail": 48
+    },
+    {
+      "name": "evidence_all_match",
+      "ok": true,
+      "detail": 48
+    },
+    {
+      "name": "audit_original_job",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-author-handoff-audit.json",
+        "bytes": 1353,
+        "sha256": "38224f80cfc32dbe4e464a36226aabf4b43fab2fe3b7c4d593aaa55922f66789",
+        "original_job": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+        "terminal": true,
+        "source_files": 6,
+        "dependencies": 5,
+        "evidence_files": 48
+      }
+    },
+    {
+      "name": "audit_terminal_and_counts",
+      "ok": true,
+      "detail": {
+        "path": ".planning/deepeye-resume-20261018/g02-layout-author-handoff-audit.json",
+        "bytes": 1353,
+        "sha256": "38224f80cfc32dbe4e464a36226aabf4b43fab2fe3b7c4d593aaa55922f66789",
+        "original_job": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+        "terminal": true,
+        "source_files": 6,
+        "dependencies": 5,
+        "evidence_files": 48
+      }
+    },
+    {
+      "name": "audit_manifest_pin",
+      "ok": true,
+      "detail": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586"
+    },
+    {
+      "name": "audit_report_pin",
+      "ok": true,
+      "detail": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e"
+    },
+    {
+      "name": "audit_receipt_pin",
+      "ok": true,
+      "detail": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1"
+    },
+    {
+      "name": "audit_index_pin",
+      "ok": true,
+      "detail": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45"
+    }
+  ],
+  "failures": [],
+  "six_files": [
+    {
+      "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+      "bytes": 14686,
+      "sha256_actual": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+      "sha256_manifest": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+      "bytes_manifest": 14686,
+      "lines_actual": 367,
+      "lines_manifest": 367,
+      "raw_git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+      "git_blob_sha1_manifest": "d9c2605f78382ef8d12569c788a352a137026eed",
+      "ends_with_lf": true,
+      "crlf_count": 0
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/layout_store.gd",
+      "bytes": 5754,
+      "sha256_actual": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+      "sha256_manifest": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+      "bytes_manifest": 5754,
+      "lines_actual": 119,
+      "lines_manifest": 119,
+      "raw_git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+      "git_blob_sha1_manifest": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+      "ends_with_lf": true,
+      "crlf_count": 0
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/scene_document.gd",
+      "bytes": 30327,
+      "sha256_actual": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+      "sha256_manifest": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+      "bytes_manifest": 30327,
+      "lines_actual": 838,
+      "lines_manifest": 838,
+      "raw_git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+      "git_blob_sha1_manifest": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+      "ends_with_lf": true,
+      "crlf_count": 0
+    },
+    {
+      "path": "competition/deepeye/simulator/ui/shell.gd",
+      "bytes": 31110,
+      "sha256_actual": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+      "sha256_manifest": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+      "bytes_manifest": 31110,
+      "lines_actual": 828,
+      "lines_manifest": 828,
+      "raw_git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+      "git_blob_sha1_manifest": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+      "ends_with_lf": true,
+      "crlf_count": 0
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "bytes": 37201,
+      "sha256_actual": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+      "sha256_manifest": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+      "bytes_manifest": 37201,
+      "lines_actual": 690,
+      "lines_manifest": 690,
+      "raw_git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+      "git_blob_sha1_manifest": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+      "ends_with_lf": true,
+      "crlf_count": 0
+    },
+    {
+      "path": "competition/deepeye/docs/layout_persistence.md",
+      "bytes": 6228,
+      "sha256_actual": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "sha256_manifest": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "bytes_manifest": 6228,
+      "lines_actual": 108,
+      "lines_manifest": 108,
+      "raw_git_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+      "git_blob_sha1_manifest": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+      "ends_with_lf": true,
+      "crlf_count": 108,
+      "lf_git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+      "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+      "classification": "documented Git clean/text normalization; manifest pins clean LF blob while actual bytes are CRLF"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "competition/deepeye/simulator/project.godot",
+      "sha256_actual": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "before": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "after": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "base_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "raw_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598",
+      "manifest_blob": "4174296e3eab3456a7a6fb8267347f487c170598"
+    },
+    {
+      "path": "competition/deepeye/simulator/viewer/main.gd",
+      "sha256_actual": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "before": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "after": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "base_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "raw_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e",
+      "manifest_blob": "d0fe53d87a42552aa80968007f537f3abc46514e"
+    },
+    {
+      "path": "competition/deepeye/simulator/viewer/main.tscn",
+      "sha256_actual": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "before": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "after": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "base_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "raw_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72",
+      "manifest_blob": "9e2282ac2595758740c68184b73fe4f86c085a72"
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+      "sha256_actual": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "before": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "after": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "base_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "raw_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161",
+      "manifest_blob": "26f1ea547084b09eaf5de41f80ab108569067161"
+    },
+    {
+      "path": "competition/deepeye/docs/resource_contract.json",
+      "sha256_actual": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "before": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "after": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "base_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "raw_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f",
+      "manifest_blob": "e65957dc6efff443e183384e3eb05c251499387f"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/byte-manifest-after.json",
+      "exists": true,
+      "bytes": 2334,
+      "bytes_expected": 2334,
+      "sha256": "f6d3b0cf0d7651c3d463391b3fc76b97575f2648535d29f47bde11d833c6d198",
+      "sha256_expected": "f6d3b0cf0d7651c3d463391b3fc76b97575f2648535d29f47bde11d833c6d198",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/byte-manifest-before.json",
+      "exists": true,
+      "bytes": 1198,
+      "bytes_expected": 1198,
+      "sha256": "4ef2b841b9354a40169b8a45e49de16c623ada70e0d4fb88b399f35588361529",
+      "sha256_expected": "4ef2b841b9354a40169b8a45e49de16c623ada70e0d4fb88b399f35588361529",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/commands.json",
+      "exists": true,
+      "bytes": 6753,
+      "bytes_expected": 6753,
+      "sha256": "11e070d90833ee6ce365e244c337b6dcfc3f496f8c8a46d3166c882db56d9522",
+      "sha256_expected": "11e070d90833ee6ce365e244c337b6dcfc3f496f8c8a46d3166c882db56d9522",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/arguments.txt",
+      "exists": true,
+      "bytes": 226,
+      "bytes_expected": 226,
+      "sha256": "dae94f0acae02a85b3ee80d896db3cb3a0a57b55505f49688fdc384ce66c0500",
+      "sha256_expected": "dae94f0acae02a85b3ee80d896db3cb3a0a57b55505f49688fdc384ce66c0500",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/environment.txt",
+      "exists": true,
+      "bytes": 796,
+      "bytes_expected": 796,
+      "sha256": "f7a8628392cc363e81bedc0421f4d86b525ee1a3435da2d1e2965bf8e3b4814c",
+      "sha256_expected": "f7a8628392cc363e81bedc0421f4d86b525ee1a3435da2d1e2965bf8e3b4814c",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/exit_code.txt",
+      "exists": true,
+      "bytes": 33,
+      "bytes_expected": 33,
+      "sha256": "d127cc19494c4eb3a6b76f5463a8a82a03fb44de90a8ed25368094ee17593e31",
+      "sha256_expected": "d127cc19494c4eb3a6b76f5463a8a82a03fb44de90a8ed25368094ee17593e31",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/runner-failure.txt",
+      "exists": true,
+      "bytes": 172,
+      "bytes_expected": 172,
+      "sha256": "912971b8b70db64eb6690fe4cf6b19cea8b275ca514ffaea2afff8332f9e3862",
+      "sha256_expected": "912971b8b70db64eb6690fe4cf6b19cea8b275ca514ffaea2afff8332f9e3862",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stderr.log",
+      "exists": true,
+      "bytes": 2291,
+      "bytes_expected": 2291,
+      "sha256": "fe7f33d761ad9285d54a11d4ba564c1145f7fc9de9afa0f209c1931483945445",
+      "sha256_expected": "fe7f33d761ad9285d54a11d4ba564c1145f7fc9de9afa0f209c1931483945445",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01/stdout.log",
+      "exists": true,
+      "bytes": 838,
+      "bytes_expected": 838,
+      "sha256": "3c39753e507bded910067e58fba9f389a2984e635af64f90b967e60bf0ea1b1e",
+      "sha256_expected": "3c39753e507bded910067e58fba9f389a2984e635af64f90b967e60bf0ea1b1e",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/dependencies-before-after.json",
+      "exists": true,
+      "bytes": 1990,
+      "bytes_expected": 1990,
+      "sha256": "9c0d68ad76dfd66c9ad6644cb63b9d19d3a2e37ee4737f38eab315192d2a5a2c",
+      "sha256_expected": "9c0d68ad76dfd66c9ad6644cb63b9d19d3a2e37ee4737f38eab315192d2a5a2c",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/direct-dependencies-status.json",
+      "exists": true,
+      "bytes": 1335,
+      "bytes_expected": 1335,
+      "sha256": "5068bb946775773c37d4bdb4ab756f7fd8732cd0443604e618035b2e853002ac",
+      "sha256_expected": "5068bb946775773c37d4bdb4ab756f7fd8732cd0443604e618035b2e853002ac",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/arguments.txt",
+      "exists": true,
+      "bytes": 230,
+      "bytes_expected": 230,
+      "sha256": "5ee95d9727672ea7aa16ee8bd81d91b4fd78a0ba3b53440a6c39f45cbf9966ef",
+      "sha256_expected": "5ee95d9727672ea7aa16ee8bd81d91b4fd78a0ba3b53440a6c39f45cbf9966ef",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/environment-and-engine.txt",
+      "exists": true,
+      "bytes": 1065,
+      "bytes_expected": 1065,
+      "sha256": "3126ca4af6059bcb8d62398bcb08692659fcfa024aedb276786c8e40d8a32a6e",
+      "sha256_expected": "3126ca4af6059bcb8d62398bcb08692659fcfa024aedb276786c8e40d8a32a6e",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/exit_code.txt",
+      "exists": true,
+      "bytes": 33,
+      "bytes_expected": 33,
+      "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "sha256_expected": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stderr.log",
+      "exists": true,
+      "bytes": 297,
+      "bytes_expected": 297,
+      "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "sha256_expected": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stdout.log",
+      "exists": true,
+      "bytes": 1766,
+      "bytes_expected": 1766,
+      "sha256": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f",
+      "sha256_expected": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-and-stage.txt",
+      "exists": true,
+      "bytes": 396,
+      "bytes_expected": 396,
+      "sha256": "9dc8712b28468de0c4efab32dc8e1d87a63b54caccaa03bd442d6ae40bb7c2e1",
+      "sha256_expected": "9dc8712b28468de0c4efab32dc8e1d87a63b54caccaa03bd442d6ae40bb7c2e1",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.exit.txt",
+      "exists": true,
+      "bytes": 16,
+      "bytes_expected": 16,
+      "sha256": "d4af18d51a459c60d871d5b22cd6e574a1be2c47a6cf8dbbb790b7ffff06bdd5",
+      "sha256_expected": "d4af18d51a459c60d871d5b22cd6e574a1be2c47a6cf8dbbb790b7ffff06bdd5",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stderr.log",
+      "exists": true,
+      "bytes": 0,
+      "bytes_expected": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/engine-version.stdout.log",
+      "exists": true,
+      "bytes": 33,
+      "bytes_expected": 33,
+      "sha256": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+      "sha256_expected": "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/forbidden-loader-audit.json",
+      "exists": true,
+      "bytes": 739,
+      "bytes_expected": 739,
+      "sha256": "46c5eb48d0aaaa9c42e93d61f75e7f35bfde539b119d598a3a78da076cb81356",
+      "sha256_expected": "46c5eb48d0aaaa9c42e93d61f75e7f35bfde539b119d598a3a78da076cb81356",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-branch.txt",
+      "exists": true,
+      "bytes": 44,
+      "bytes_expected": 44,
+      "sha256": "4332bda87b5b14272814e41946f1e2d4ca276607f2c7218c549db625162ab64b",
+      "sha256_expected": "4332bda87b5b14272814e41946f1e2d4ca276607f2c7218c549db625162ab64b",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-diff-check-six.txt",
+      "exists": true,
+      "bytes": 26,
+      "bytes_expected": 26,
+      "sha256": "cba9791e9b52ad8bb8236dc313cc9771d374d54ad3df9f7bbb08fb8c64ef2892",
+      "sha256_expected": "cba9791e9b52ad8bb8236dc313cc9771d374d54ad3df9f7bbb08fb8c64ef2892",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-diff-stat-six.txt",
+      "exists": true,
+      "bytes": 210,
+      "bytes_expected": 210,
+      "sha256": "22f231326bae031b44df4da18e912da53f1f6258a7b4de0e31aa175a0cc7b7ee",
+      "sha256_expected": "22f231326bae031b44df4da18e912da53f1f6258a7b4de0e31aa175a0cc7b7ee",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-head-observation.txt",
+      "exists": true,
+      "bytes": 400,
+      "bytes_expected": 400,
+      "sha256": "cdd20ff78e0ac8961081d786dbae669f7eb9176ed26eee03a815690ec346df16",
+      "sha256_expected": "cdd20ff78e0ac8961081d786dbae669f7eb9176ed26eee03a815690ec346df16",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-head.txt",
+      "exists": true,
+      "bytes": 45,
+      "bytes_expected": 45,
+      "sha256": "752379056e89ad9fa247656da431a476725be1de4b6685a74294192bfbf51615",
+      "sha256_expected": "752379056e89ad9fa247656da431a476725be1de4b6685a74294192bfbf51615",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-status-all.txt",
+      "exists": true,
+      "bytes": 637,
+      "bytes_expected": 637,
+      "sha256": "52e235225374b09df8c204a8c17a46e6b3f1d3f6bd849977697265c3cd2d0255",
+      "sha256_expected": "52e235225374b09df8c204a8c17a46e6b3f1d3f6bd849977697265c3cd2d0255",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/git-status-six.txt",
+      "exists": true,
+      "bytes": 340,
+      "bytes_expected": 340,
+      "sha256": "a3b5e3197a88a0f5659f62c1119244c0478704dec315c3a2225e33b54d481a2d",
+      "sha256_expected": "a3b5e3197a88a0f5659f62c1119244c0478704dec315c3a2225e33b54d481a2d",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/head-advance-path-diff.txt",
+      "exists": true,
+      "bytes": 192,
+      "bytes_expected": 192,
+      "sha256": "a1c54437278c5b044981fd696a64499a10ff8b20597b960372cde2cabc920265",
+      "sha256_expected": "a1c54437278c5b044981fd696a64499a10ff8b20597b960372cde2cabc920265",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/manifest.json",
+      "exists": true,
+      "bytes": 10943,
+      "bytes_expected": 10943,
+      "sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+      "sha256_expected": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/original-child-result.md",
+      "exists": true,
+      "bytes": 1383,
+      "bytes_expected": 1383,
+      "sha256": "a72aeefea8efaa4b74bb2b391bd3ce7dfc570cc6c591679f5247e836b1b08dba",
+      "sha256_expected": "a72aeefea8efaa4b74bb2b391bd3ce7dfc570cc6c591679f5247e836b1b08dba",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/arguments.txt",
+      "exists": true,
+      "bytes": 226,
+      "bytes_expected": 226,
+      "sha256": "6cdb423da8c084a0a5bb512fc0a791484abcf0a95284afded13acfd922af6689",
+      "sha256_expected": "6cdb423da8c084a0a5bb512fc0a791484abcf0a95284afded13acfd922af6689",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/environment-and-engine.txt",
+      "exists": true,
+      "bytes": 1023,
+      "bytes_expected": 1023,
+      "sha256": "0ca79a91097d6ca220c4fce8e23de288f73d51f816a3ea3a040b188a17e54fd8",
+      "sha256_expected": "0ca79a91097d6ca220c4fce8e23de288f73d51f816a3ea3a040b188a17e54fd8",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/exit_code.txt",
+      "exists": true,
+      "bytes": 33,
+      "bytes_expected": 33,
+      "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "sha256_expected": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stderr.log",
+      "exists": true,
+      "bytes": 2237,
+      "bytes_expected": 2237,
+      "sha256": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4",
+      "sha256_expected": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stdout.log",
+      "exists": true,
+      "bytes": 385,
+      "bytes_expected": 385,
+      "sha256": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203",
+      "sha256_expected": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/exit_code.txt",
+      "exists": true,
+      "bytes": 32,
+      "bytes_expected": 32,
+      "sha256": "958b97475cf0d6caa7b09bbf1cb153c43ddcecdc21cdce12969b013ea0573c89",
+      "sha256_expected": "958b97475cf0d6caa7b09bbf1cb153c43ddcecdc21cdce12969b013ea0573c89",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stderr.log",
+      "exists": true,
+      "bytes": 297,
+      "bytes_expected": 297,
+      "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "sha256_expected": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01/stdout.log",
+      "exists": true,
+      "bytes": 484,
+      "bytes_expected": 484,
+      "sha256": "a1becd3bd9a5ac3fdee4e20d86580a6e466f30915fa8d1aef1f56528d833fd3b",
+      "sha256_expected": "a1becd3bd9a5ac3fdee4e20d86580a6e466f30915fa8d1aef1f56528d833fd3b",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/receipt.json",
+      "exists": true,
+      "bytes": 8293,
+      "bytes_expected": 8293,
+      "sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+      "sha256_expected": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/report.md",
+      "exists": true,
+      "bytes": 6715,
+      "bytes_expected": 6715,
+      "sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+      "sha256_expected": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/arguments.txt",
+      "exists": true,
+      "bytes": 227,
+      "bytes_expected": 227,
+      "sha256": "a0d5b76faf7fffd2083a5e992fe299b1543375da905415842ad4a6c1d7fa9801",
+      "sha256_expected": "a0d5b76faf7fffd2083a5e992fe299b1543375da905415842ad4a6c1d7fa9801",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/environment-and-engine.txt",
+      "exists": true,
+      "bytes": 1059,
+      "bytes_expected": 1059,
+      "sha256": "2910d5a868b14a28402e952c7db3580e661860e3ce143a1bf7ca99272955ec2d",
+      "sha256_expected": "2910d5a868b14a28402e952c7db3580e661860e3ce143a1bf7ca99272955ec2d",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/exit_code.txt",
+      "exists": true,
+      "bytes": 33,
+      "bytes_expected": 33,
+      "sha256": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "sha256_expected": "797e525d3fad7e668cc4d2e7243c38954a79f070e3c5d9e9465a72e39ea417d0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/smoke_layout_scene.gd",
+      "exists": true,
+      "bytes": 605,
+      "bytes_expected": 605,
+      "sha256": "e8e4f2c6abfed8a21dc957c9d3ec7a11e1a1408afac0d273c4b8210bb7b67441",
+      "sha256_expected": "e8e4f2c6abfed8a21dc957c9d3ec7a11e1a1408afac0d273c4b8210bb7b67441",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stderr.log",
+      "exists": true,
+      "bytes": 297,
+      "bytes_expected": 297,
+      "sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "sha256_expected": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07/stdout.log",
+      "exists": true,
+      "bytes": 129,
+      "bytes_expected": 129,
+      "sha256": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7",
+      "sha256_expected": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7",
+      "ok": true
+    },
+    {
+      "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/status.md",
+      "exists": true,
+      "bytes": 758,
+      "bytes_expected": 758,
+      "sha256": "9c890f9a996f60b97387e764d41ea29579027c811c414f0cbc2329b1a9ab4147",
+      "sha256_expected": "9c890f9a996f60b97387e764d41ea29579027c811c414f0cbc2329b1a9ab4147",
+      "ok": true
+    }
+  ],
+  "audit": {
+    "path": ".planning/deepeye-resume-20261018/g02-layout-author-handoff-audit.json",
+    "bytes": 1353,
+    "sha256": "38224f80cfc32dbe4e464a36226aabf4b43fab2fe3b7c4d593aaa55922f66789",
+    "original_job": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+    "terminal": true,
+    "source_files": 6,
+    "dependencies": 5,
+    "evidence_files": 48
+  },
+  "status": "passed"
+}

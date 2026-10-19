@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-19T17:52:47.842580+00:00",
+  "result": [
+    {
+      "job_id": "child-ffab680842604466bbb1ead6549b1c11",
+      "instance_id": "deepseek-a-29",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "route": "deepseek",
+      "work_id": "A-G02-LAYOUT-PERSISTENCE-REVIEW-20261020-v1",
+      "ownership": [
+        ".planning/deepeye-resume-20261018/g02-layout-persistence-review"
+      ],
+      "native_agent_id": null,
+      "status": "completed",
+      "terminal": true,
+      "stale": false,
+      "result": {
+        "thread_id": "01a15497-e00f-7a42-82b5-1bf97c3f9c5d",
+        "turn": {
+          "id": "01a1551c-578b-7331-9e08-314f9d46cde5",
+          "rootTurnId": "01a1551c-578b-7331-9e08-314f9d46cde5",
+          "items": [
+            {
+              "type": "agentMessage",
+              "id": "e7fd2d0e-9a85-4a61-ba90-de27eb5791c6",
+              "text": "**Result**\nBounded headless software-candidate review: **PASS**. No blocking implementation defect was found. This is not G02, formal29, native-UI, product, board, AI, OS-isolation, physical-collision, or dual-H12 acceptance.\n\n**Independent Evidence**\n- Persistence suite: `618/618` checks, `0` failures, exit `0`.\n- Untouched editor suite: `696/696` checks, `0` failures, exit `0`.\n- Scene smoke: exit `0`, `SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1`.\n- Dialog state/cancellation counterexample: `11/11`, exit `0`.\n- All six import-origin lines resolve inside review staging.\n- The disposable pinned-engine probe confirmed destination replacement at rename time; the documented concurrent no-overwrite limitation is real, but no sequential Save As defect was found.\n- No `ResourceLoader`, `eval`, dynamic load, or Run/link authority change was found in the final seam.\n\n**Findings**\n- LOW: the author manifest records the Git-clean LF blob for `layout_persistence.md` while the actual worktree bytes are CRLF; actual bytes and SHA256 match, so publication must preserve byte provenance explicitly.\n- INFO: native/visual FileDialog behavior and private-storage AI/OS confidentiality remain unproven.\n- Preserved review tooling failures are documented in `.planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/reviewer-tooling-failures.md`.\n\n**Integrity**\n- Initial and post-run pin audits passed `74/74` at `678e01dd097f326e5bf724dc9db9e6b3e388384d`.\n- External main commits advanced PRODUCT HEAD to `a2feee7b40391f60224dad7d603d8dbec0341c1b` during finalization. The latest strict pin reports only the exact `product_head` mismatch; the other 73 checks pass, and the scoped six-file/five-dependency diff is empty.\n- Scoped PRODUCT status remains exactly two modified and four untracked candidate files; scoped `git diff --check` exits `0`. No product writes, commits, or cache creation occurred; no review Godot process remains.\n- JSON validation: `45` files checked, `0` bad.\n\n**Artifacts**\n- `findings.md`: `995a004cb894290e0f6b5983b4b7eb2928053d9f2667d15378d696347ee526a7`\n- `inspection_manifest.json`: `edccbaebef095a051d6c74805432f923ca56fe8516a1c804e93645b7e93ab3ea`\n- `receipt.json`: `95739fb966ea0537d1da337957b3e7e8711c137438c58040c1eb86b75d9138c9`\n\nAll 29 taskbook cards, G02, formal29, H01-H15, native UI, physical collision, OS isolation, AI access, board/Run, and dual H12 remain `not_run`. Main owns adoption and final acceptance.",
+              "phase": "final_answer",
+              "memoryCitation": null,
+              "delivery": null,
+              "questions": null
+            }
+          ],
+          "itemsView": "summary",
+          "status": "completed",
+          "error": null,
+          "startedAt": 1792429283,
+          "completedAt": 1792432367,
+          "durationMs": 3084574
+        },
+        "text": "**Result**\nBounded headless software-candidate review: **PASS**. No blocking implementation defect was found. This is not G02, formal29, native-UI, product, board, AI, OS-isolation, physical-collision, or dual-H12 acceptance.\n\n**Independent Evidence**\n- Persistence suite: `618/618` checks, `0` failures, exit `0`.\n- Untouched editor suite: `696/696` checks, `0` failures, exit `0`.\n- Scene smoke: exit `0`, `SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1`.\n- Dialog state/cancellation counterexample: `11/11`, exit `0`.\n- All six import-origin lines resolve inside review staging.\n- The disposable pinned-engine probe confirmed destination replacement at rename time; the documented concurrent no-overwrite limitation is real, but no sequential Save As defect was found.\n- No `ResourceLoader`, `eval`, dynamic load, or Run/link authority change was found in the final seam.\n\n**Findings**\n- LOW: the author manifest records the Git-clean LF blob for `layout_persistence.md` while the actual worktree bytes are CRLF; actual bytes and SHA256 match, so publication must preserve byte provenance explicitly.\n- INFO: native/visual FileDialog behavior and private-storage AI/OS confidentiality remain unproven.\n- Preserved review tooling failures are documented in `.planning/deepeye-resume-20261018/g02-layout-persistence-review/evidence/reviewer-tooling-failures.md`.\n\n**Integrity**\n- Initial and post-run pin audits passed `74/74` at `678e01dd097f326e5bf724dc9db9e6b3e388384d`.\n- External main commits advanced PRODUCT HEAD to `a2feee7b40391f60224dad7d603d8dbec0341c1b` during finalization. The latest strict pin reports only the exact `product_head` mismatch; the other 73 checks pass, and the scoped six-file/five-dependency diff is empty.\n- Scoped PRODUCT status remains exactly two modified and four untracked candidate files; scoped `git diff --check` exits `0`. No product writes, commits, or cache creation occurred; no review Godot process remains.\n- JSON validation: `45` files checked, `0` bad.\n\n**Artifacts**\n- `findings.md`: `995a004cb894290e0f6b5983b4b7eb2928053d9f2667d15378d696347ee526a7`\n- `inspection_manifest.json`: `edccbaebef095a051d6c74805432f923ca56fe8516a1c804e93645b7e93ab3ea`\n- `receipt.json`: `95739fb966ea0537d1da337957b3e7e8711c137438c58040c1eb86b75d9138c9`\n\nAll 29 taskbook cards, G02, formal29, H01-H15, native UI, physical collision, OS isolation, AI access, board/Run, and dual H12 remain `not_run`. Main owns adoption and final acceptance.",
+        "reasoning_effort": "max",
+        "model": "deepseek-flash",
+        "provider": "deepseek"
+      },
+      "error": null,
+      "created_at": "2026-10-19T17:01:23.137058Z",
+      "updated_at": "2026-10-19T17:52:47.832215Z"
+    }
+  ]
+}

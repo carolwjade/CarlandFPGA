@@ -1,0 +1,26 @@
+{
+  "rule": "Reject executable/resource loading in authored layout code; comments excluded.",
+  "files": [
+    {
+      "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+      "executable_code_match_count": 0,
+      "matches": []
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/layout_store.gd",
+      "executable_code_match_count": 0,
+      "matches": []
+    },
+    {
+      "path": "competition/deepeye/simulator/ui/shell.gd",
+      "executable_code_match_count": 0,
+      "matches": []
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/scene_document.gd",
+      "executable_code_match_count": 0,
+      "matches": []
+    }
+  ],
+  "total_executable_code_matches": 0
+}

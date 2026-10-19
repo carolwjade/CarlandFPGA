@@ -1,0 +1,92 @@
+{
+  "at_utc": "2026-10-19T17:09:26.210755+00:00",
+  "work_id": "A-G02-NATIVE-UI-20261020-v1",
+  "owner": "Desktop generation2 main",
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64_console.exe",
+    "--headless",
+    "--editor",
+    "--path",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-native-ui-main\\candidate\\simulator",
+    "--quit"
+  ],
+  "engine_sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+  "private_environment": {
+    "APPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-native-ui-main\\env-appdata",
+    "LOCALAPPDATA": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-native-ui-main\\env-localappdata",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-native-ui-main\\env-temp",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-native-ui-main\\env-tmp"
+  },
+  "source_manifest": {
+    "simulator/export_presets.cfg": {
+      "sha256": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+      "bytes": 593
+    },
+    "simulator/project.godot": {
+      "sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "bytes": 628
+    },
+    "simulator/editor/layout_codec.gd": {
+      "sha256": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+      "bytes": 14686
+    },
+    "simulator/editor/layout_store.gd": {
+      "sha256": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+      "bytes": 5754
+    },
+    "simulator/editor/scene_document.gd": {
+      "sha256": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+      "bytes": 30327
+    },
+    "simulator/editor/scene_document.gd.uid": {
+      "sha256": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+      "bytes": 19
+    },
+    "simulator/physics/motion_cast.gd": {
+      "sha256": "c71d8123bb8b48e16692faa45623d9075f4ebd00efd86d6bb199ca94bfd3d1b3",
+      "bytes": 6112
+    },
+    "simulator/tests/test_editor_document.gd": {
+      "sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "bytes": 26847
+    },
+    "simulator/tests/test_editor_document.gd.uid": {
+      "sha256": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+      "bytes": 19
+    },
+    "simulator/tests/test_layout_persistence.gd": {
+      "sha256": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+      "bytes": 37201
+    },
+    "simulator/tests/test_motion_cast.gd": {
+      "sha256": "6980f82bfbf8faf8217d0b24a8337a54b473eb1ce6286b337ab872b55ed9b057",
+      "bytes": 13722
+    },
+    "simulator/ui/shell.gd": {
+      "sha256": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+      "bytes": 31110
+    },
+    "simulator/ui/shell.gd.uid": {
+      "sha256": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+      "bytes": 19
+    },
+    "simulator/viewer/main.gd": {
+      "sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "bytes": 22526
+    },
+    "simulator/viewer/main.gd.uid": {
+      "sha256": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+      "bytes": 20
+    },
+    "simulator/viewer/main.tscn": {
+      "sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "bytes": 1272
+    },
+    "docs/resource_contract.json": {
+      "sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "bytes": 2655
+    }
+  },
+  "candidate_sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+  "scope": "staged editor persistence interaction only; original candidate unchanged; no board/game Run or formal acceptance"
+}
