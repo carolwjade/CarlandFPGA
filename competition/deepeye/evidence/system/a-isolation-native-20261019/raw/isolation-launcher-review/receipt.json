@@ -1,0 +1,59 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-isolation-launcher-review-20261019-v1",
+  "job_id": "child-90b0411c7bac4ee8904308e23e114516",
+  "reviewer": "/root/pc_direct_review_20261018",
+  "result": "repair_requested_IL_R1_paired_acquisition_loses_second_successful_resource",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15": "unchanged",
+  "tested_source_manifest": {
+    "size": 2066,
+    "sha256": "0bdabec4a3c465e269c090bffd8fb690b2797750f47c4e4c7165e8e4d6a51376"
+  },
+  "findings": {
+    "size": 9529,
+    "sha256": "58e4972d084219a8e4005a997fcb8d8aeee994cd7d1bda2c8d2a2c8e72ab69d3"
+  },
+  "evidence_manifest": {
+    "size": 6078,
+    "sha256": "33c815a6bb2a8c166b47b30b12656c636040f0cca8bbde47bc7e0e50a7f24660"
+  },
+  "candidate_files_unchanged": 12,
+  "dependencies_unchanged": 236,
+  "author_baseline": {
+    "run": 69,
+    "passed": 66,
+    "skipped": 3,
+    "exit_code": 0
+  },
+  "independent": {
+    "paired_acquisition": {
+      "tests": 2,
+      "failures": 2,
+      "exit_code": 1
+    },
+    "other_boundaries": {
+      "tests": 3,
+      "passed": 3,
+      "exit_code": 0
+    }
+  },
+  "blockers": [
+    {
+      "id": "IL-R1",
+      "paths": [
+        "competition/deepeye/simulation/isolation/owned_resources.py:94",
+        "competition/deepeye/simulation/isolation/owned_resources.py:113",
+        "competition/deepeye/simulation/isolation/win32.py:272"
+      ],
+      "witness": "old UNKNOWN numeric release; first returned pair member collides and raises, so successful second member is never registered",
+      "expected": "retain all successful pair resources before surfacing ambiguity; no automatic ambiguous close or PID reopen"
+    }
+  ],
+  "native_tests": "not_run",
+  "actual_OS_ownership_cleanup": "not_run",
+  "G03_game_board_formal_acceptance": "not_run",
+  "main_notified": true,
+  "source_fixed_by_reviewer": false
+}

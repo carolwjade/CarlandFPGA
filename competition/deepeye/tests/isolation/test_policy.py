@@ -48,7 +48,29 @@ class PolicyTests(unittest.TestCase):
             'inheritance': {'verified': True},
             'lifecycle': {'exit_code': 0, 'terminal': True,
                           'profile_deleted': True},
+            'cleanup': {'resources_complete': True, 'evidence_complete': True,
+                        'cleanup_errors': [], 'audit_errors': [], 'owner_errors': [], 'unresolved': []},
+            'evidence_errors': [],
         }
+
+    def test_cleanup_and_evidence_failures_cannot_pass_a_successful_fixture(self):
+        for name in ('resources_complete', 'evidence_complete'):
+            for value in (False, None, 1):
+                evidence = self._evidence()
+                evidence['cleanup'][name] = value
+                with self.subTest(name=name, value=value):
+                    self.assertFalse(evaluate(evidence)['passed'])
+        for name in ('cleanup_errors', 'audit_errors', 'owner_errors', 'unresolved'):
+            evidence = self._evidence()
+            evidence['cleanup'][name] = ['unresolved']
+            with self.subTest(name=name):
+                self.assertFalse(evaluate(evidence)['passed'])
+        evidence = self._evidence()
+        evidence['evidence_errors'] = ['final save failed']
+        self.assertFalse(evaluate(evidence)['passed'])
+        evidence = self._evidence()
+        del evidence['cleanup']
+        self.assertFalse(evaluate(evidence)['passed'])
 
     def test_verdict_requires_all_positive_controls(self):
         for group, key in [('fixture', 'model_ok'), ('fixture', 'pipe_ok'),

@@ -61,6 +61,17 @@ def evaluate(evidence: dict) -> dict:
             failures.append(f'process_access.{access}')
     if evidence.get('error'):
         failures.append('launcher_error')
+    cleanup = evidence.get('cleanup', {})
+    for name in ('resources_complete', 'evidence_complete'):
+        if cleanup.get(name) is not True:
+            failures.append('cleanup.' + name)
+    for name in ('cleanup_errors', 'audit_errors', 'owner_errors', 'unresolved'):
+        if type(cleanup.get(name)) is not list or cleanup[name]:
+            failures.append('cleanup.' + name)
+    if cleanup.get('coordinator_error'):
+        failures.append('cleanup.coordinator_error')
+    if type(evidence.get('evidence_errors')) is not list or evidence['evidence_errors']:
+        failures.append('evidence_errors')
     return {'passed': not failures, 'failures': failures, 'scope': 'CPU_P1a_only',
             'G03_formal_acceptance': 'not_run'}
 

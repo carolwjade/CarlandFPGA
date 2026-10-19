@@ -1,0 +1,1403 @@
+{
+  "schema": 2,
+  "task": "A-G03-isolation-launcher-cleanup-20261019-v1",
+  "started_utc": "2026-10-19T08:05:35.184015+00:00",
+  "run_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "profile_name": "DeepEye.P1a.c3b9443100224a9ea1baf1ab5aac03a7",
+  "launcher_source_hashes": {
+    "__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+    "fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+    "owned_resources.py": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e",
+    "policy.py": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11",
+    "prototype.py": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda",
+    "resource_cleanup.py": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f",
+    "win32.py": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e",
+    "windows_cleanup.py": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+  },
+  "requested_policy": {
+    "appcontainer": true,
+    "capabilities": [],
+    "win32k_disabled": true,
+    "child_process_restricted": true,
+    "suspended": true,
+    "job_kill_on_close": true,
+    "job_active_process_limit": 1,
+    "job_process_memory_limit": 268435456,
+    "job_ui_restrictions": 255
+  },
+  "created_objects": [
+    {
+      "kind": "AppContainerProfile",
+      "name": "DeepEye.P1a.c3b9443100224a9ea1baf1ab5aac03a7",
+      "sid": "S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868"
+    },
+    {
+      "kind": "runtime_stage",
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\r"
+    },
+    {
+      "kind": "truth_canary",
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\truth.canary"
+    },
+    {
+      "kind": "anonymous_job",
+      "handle": 964
+    },
+    {
+      "kind": "process",
+      "pid": 10244
+    }
+  ],
+  "acl_changes": [
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a",
+      "sddl": "D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;S-1-5-21-4245429589-1203325109-4211191159-1001)"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\r",
+      "sddl": "D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;S-1-5-21-4245429589-1203325109-4211191159-1001)(A;OICI;0x1200a9;;;S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868)"
+    }
+  ],
+  "parent_controls": {
+    "truth_exists": true,
+    "truth_read_ok": true,
+    "model_hash_ok": true,
+    "canary_handle_read_ok": true,
+    "process_access_ok": true
+  },
+  "lifecycle": {
+    "terminal": true,
+    "terminated_by_launcher": true,
+    "profile_deleted": true,
+    "profile_directory_absent": true,
+    "profile_delete_hresult": 0,
+    "exit_code": 57005
+  },
+  "evidence_errors": [
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    },
+    {
+      "stage": "persist:receipt.json",
+      "resource_id": null,
+      "type_name": "OSError",
+      "message": "intentional persistence failure after process creation"
+    }
+  ],
+  "cleanup_events": [
+    {
+      "sequence": 1,
+      "phase": "start",
+      "action": "cleanup",
+      "resource_id": null,
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 2,
+      "phase": "before",
+      "action": "terminate",
+      "resource_id": "process:21",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 3,
+      "phase": "after",
+      "action": "terminate",
+      "resource_id": "process:21",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 4,
+      "phase": "before",
+      "action": "wait_terminal",
+      "resource_id": "process:21",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 5,
+      "phase": "after",
+      "action": "wait_terminal",
+      "resource_id": "process:21",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 6,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "process:21",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 7,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "process:21",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 8,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "self_token:1",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 9,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "self_token:1",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 10,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "sid_string:2",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 11,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "sid_string:2",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 12,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "security_descriptor:3",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 13,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "security_descriptor:3",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 14,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "profile_sid:5",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 15,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "profile_sid:5",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 16,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "sid_string:6",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 17,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "sid_string:6",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 18,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "profile_path_string:7",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 19,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "profile_path_string:7",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 20,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "security_descriptor:8",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 21,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "security_descriptor:8",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 22,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "canary:9",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 23,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "canary:9",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 24,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "parent_positive_control:10",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 25,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "parent_positive_control:10",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 26,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "parent_positive_control:11",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 27,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "parent_positive_control:11",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 28,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "parent_positive_control:12",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 29,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "parent_positive_control:12",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 30,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "parent_positive_control:13",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 31,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "parent_positive_control:13",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 32,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "parent_positive_control:14",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 33,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "parent_positive_control:14",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 34,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "input_read:15",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 35,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "input_read:15",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 36,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "input_write:16",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 37,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "input_write:16",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 38,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "output_read:17",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 39,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "output_read:17",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 40,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "output_write:18",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 41,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "output_write:18",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 42,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "job:19",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 43,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "job:19",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 44,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "attributes:20",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 45,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "attributes:20",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 46,
+      "phase": "before",
+      "action": "close",
+      "resource_id": "primary_thread:22",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 47,
+      "phase": "after",
+      "action": "close",
+      "resource_id": "primary_thread:22",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 48,
+      "phase": "before",
+      "action": "remove_profile",
+      "resource_id": "profile:4",
+      "outcome": null,
+      "error": null
+    },
+    {
+      "sequence": 49,
+      "phase": "after",
+      "action": "remove_profile",
+      "resource_id": "profile:4",
+      "outcome": "confirmed",
+      "error": null
+    },
+    {
+      "sequence": 50,
+      "phase": "finish",
+      "action": "cleanup",
+      "resource_id": null,
+      "outcome": null,
+      "error": null
+    }
+  ],
+  "not_run": [
+    "LPAC",
+    "GDI_capture",
+    "DXGI",
+    "WGC",
+    "shared_texture",
+    "GPU_inference",
+    "four_product_processes",
+    "FPGA_hardware",
+    "G03_formal_acceptance"
+  ],
+  "profile_sid": "S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868",
+  "profile_path": "C:\\Users\\CarlJade\\AppData\\Local\\Packages\\deepeye.p1a.c3b9443100224a9ea1baf1ab5aac03a7\\AC",
+  "runtime_manifest_sha256": "263e3d538d167b320f228938fa7f77c6912b5417193fd66bad5dcd72afc92074",
+  "model_sha256": "f1670f61c0c58c62aa1367b5eab7a888463ae32d8228256800993e2379fd5c54",
+  "truth_canary_sha256": "cdcd991a2a1cc13f4145fb0c2aa8fddc22fe1f06a254b06689943b537954d3a2",
+  "inheritance": {
+    "allowed": [
+      960,
+      916
+    ],
+    "deliberately_excluded_inheritable_canary": 980,
+    "excluded_canary_inheritable": true,
+    "allowed_flags": [
+      1,
+      1
+    ],
+    "parent_endpoint_flags": [
+      0,
+      0
+    ],
+    "verified": true
+  },
+  "environment_keys": [
+    "LOCALAPPDATA",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "pid": 10244,
+  "error": {
+    "stage": "primary",
+    "resource_id": null,
+    "type_name": "OSError",
+    "message": "intentional persistence failure after process creation",
+    "type": "OSError",
+    "winerror": null
+  },
+  "cleanup": {
+    "resources_complete": true,
+    "evidence_complete": false,
+    "coordinator_success": false,
+    "cleanup_errors": [],
+    "audit_errors": [
+      {
+        "stage": "audit:start:cleanup",
+        "resource_id": null,
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:terminate",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:terminate",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:wait_terminal",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:wait_terminal",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "process:21",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "self_token:1",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "self_token:1",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "sid_string:2",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "sid_string:2",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "security_descriptor:3",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "security_descriptor:3",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "profile_sid:5",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "profile_sid:5",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "sid_string:6",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "sid_string:6",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "profile_path_string:7",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "profile_path_string:7",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "security_descriptor:8",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "security_descriptor:8",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "canary:9",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "canary:9",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "parent_positive_control:10",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "parent_positive_control:10",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "parent_positive_control:11",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "parent_positive_control:11",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "parent_positive_control:12",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "parent_positive_control:12",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "parent_positive_control:13",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "parent_positive_control:13",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "parent_positive_control:14",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "parent_positive_control:14",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "input_read:15",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "input_read:15",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "input_write:16",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "input_write:16",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "output_read:17",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "output_read:17",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "output_write:18",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "output_write:18",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "job:19",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "job:19",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "attributes:20",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "attributes:20",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:close",
+        "resource_id": "primary_thread:22",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:close",
+        "resource_id": "primary_thread:22",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:before:remove_profile",
+        "resource_id": "profile:4",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:after:remove_profile",
+        "resource_id": "profile:4",
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      },
+      {
+        "stage": "audit:finish:cleanup",
+        "resource_id": null,
+        "type_name": "OSError",
+        "message": "intentional persistence failure after process creation"
+      }
+    ],
+    "owner_errors": [],
+    "resources": [
+      {
+        "resource_id": "self_token:1",
+        "label": "self_token",
+        "release": "kernel",
+        "native": 988,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "sid_string:2",
+        "label": "sid_string",
+        "release": "local",
+        "native": 2570056715072,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "security_descriptor:3",
+        "label": "security_descriptor",
+        "release": "local",
+        "native": 2570088091648,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile:4",
+        "label": "profile",
+        "release": "profile",
+        "native": "DeepEye.P1a.c3b9443100224a9ea1baf1ab5aac03a7",
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile_sid:5",
+        "label": "profile_sid",
+        "release": "sid",
+        "native": 2570056581920,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "sid_string:6",
+        "label": "sid_string",
+        "release": "local",
+        "native": 2570087271488,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile_path_string:7",
+        "label": "profile_path_string",
+        "release": "cotask",
+        "native": 2570057279072,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "security_descriptor:8",
+        "label": "security_descriptor",
+        "release": "local",
+        "native": 2570086035888,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "canary:9",
+        "label": "canary",
+        "release": "kernel",
+        "native": 980,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "parent_positive_control:10",
+        "label": "parent_positive_control",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "parent_positive_control:11",
+        "label": "parent_positive_control",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "parent_positive_control:12",
+        "label": "parent_positive_control",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "parent_positive_control:13",
+        "label": "parent_positive_control",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "parent_positive_control:14",
+        "label": "parent_positive_control",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "input_read:15",
+        "label": "input_read",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "input_write:16",
+        "label": "input_write",
+        "release": "kernel",
+        "native": 984,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "output_read:17",
+        "label": "output_read",
+        "release": "kernel",
+        "native": 892,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "output_write:18",
+        "label": "output_write",
+        "release": "kernel",
+        "native": 916,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "job:19",
+        "label": "job",
+        "release": "kernel",
+        "native": 964,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "attributes:20",
+        "label": "attributes",
+        "release": "attributes",
+        "native": 2570093960240,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "process:21",
+        "label": "process",
+        "release": "kernel",
+        "native": 880,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": true,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "primary_thread:22",
+        "label": "primary_thread",
+        "release": "kernel",
+        "native": 952,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      }
+    ],
+    "unresolved": []
+  },
+  "finished_utc": "2026-10-19T08:05:35.667001+00:00",
+  "verdict": {
+    "passed": false,
+    "failures": [
+      "trusted.is_appcontainer",
+      "trusted.sid_matches",
+      "trusted.win32k_disabled",
+      "trusted.child_process_restricted",
+      "trusted.in_job",
+      "trusted.resumed_after_verification",
+      "trusted.job_limits_match",
+      "fixture.model_ok",
+      "fixture.pipe_ok",
+      "trusted.capability_count",
+      "fixture.truth_open_error",
+      "canary_denial_and_exit_status",
+      "process_access.8",
+      "process_access.16",
+      "process_access.32",
+      "process_access.64",
+      "process_access.128",
+      "launcher_error",
+      "cleanup.evidence_complete",
+      "cleanup.audit_errors",
+      "evidence_errors"
+    ],
+    "scope": "CPU_P1a_only",
+    "G03_formal_acceptance": "not_run"
+  }
+}

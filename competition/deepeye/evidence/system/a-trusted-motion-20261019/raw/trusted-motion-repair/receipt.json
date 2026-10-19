@@ -1,0 +1,39 @@
+{
+  "work_id": "A-trusted-motion-materialization-repair-20261019-v1",
+  "owner": "original A Desktop main generation2",
+  "result": "frozen narrow repair; independent rereview pending",
+  "changed_product_files": [
+    "competition/deepeye/simulation/authority/motion_executor.py",
+    "competition/deepeye/tests/simulation/test_motion_executor.py",
+    "competition/deepeye/docs/motion_executor.md"
+  ],
+  "candidate_files": {
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "size": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "size": 12230,
+      "sha256": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe"
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "size": 23122,
+      "sha256": "6f475a2fc2071df8fd2e8f2d82c434ab9c4a9d0d402b3df6b18c8a8ede48cf90"
+    },
+    "competition/deepeye/docs/motion_executor.md": {
+      "size": 8682,
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390"
+    }
+  },
+  "source_manifest_sha256": "1165585bb6e1bb049edb15a8df67e31f371203f6b6d22a03774d0e3ee5251533",
+  "unchanged_relevant_inputs": 32,
+  "tests": {
+    "new_red_methods": 2,
+    "new_red_failures_including_subtests": 4,
+    "full_green": 137,
+    "original_independent_methods_green": 8
+  },
+  "original_independent_harness_changed": false,
+  "formal_cards": "all29 not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

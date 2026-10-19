@@ -1,0 +1,43 @@
+test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) ... 
+  test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='MemoryError') ... FAIL
+  test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='ValueError') ... FAIL
+  test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='KeyboardInterrupt') ... FAIL
+test_caught_materialization_failure_in_final_callback_vetoes_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_caught_materialization_failure_in_final_callback_vetoes_publication) ... FAIL
+
+======================================================================
+FAIL: test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='MemoryError')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 328, in test_later_materialization_failure_retires_pending_without_losing_committed_history
+    self.assertTrue(ex.controller_view().stopped)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='ValueError')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 328, in test_later_materialization_failure_retires_pending_without_losing_committed_history
+    self.assertTrue(ex.controller_view().stopped)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) (error_type='KeyboardInterrupt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 328, in test_later_materialization_failure_retires_pending_without_losing_committed_history
+    self.assertTrue(ex.controller_view().stopped)
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_caught_materialization_failure_in_final_callback_vetoes_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_caught_materialization_failure_in_final_callback_vetoes_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 350, in test_caught_materialization_failure_in_final_callback_vetoes_publication
+    with self.assertRaises(ValueError):ex.commit_step(pending,final)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.051s
+
+FAILED (failures=4)

@@ -1,0 +1,1851 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-19T09:51:07.761316+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018",
+  "artifacts": [
+    {
+      "source_relative": "isolation-final-review/check_dependencies.py",
+      "published_relative": "raw/isolation-final-review/check_dependencies.py",
+      "bytes": 889,
+      "sha256": "d6f6e0e7bfc6159409cf75a03c59a12e1bfdbc25ddf2a8f8a8b05893694e8098"
+    },
+    {
+      "source_relative": "isolation-final-review/check_harness.py",
+      "published_relative": "raw/isolation-final-review/check_harness.py",
+      "bytes": 3060,
+      "sha256": "bea3c815d69d1c73494cd98b80032817b9448cd3a11723d71cfe055f4d585735"
+    },
+    {
+      "source_relative": "isolation-final-review/check_harness_v2.py",
+      "published_relative": "raw/isolation-final-review/check_harness_v2.py",
+      "bytes": 3062,
+      "sha256": "0afdb31728921f773e9594dc04e34ec9affee91ac42014967379dea66e92660a"
+    },
+    {
+      "source_relative": "isolation-final-review/checkpoint.md",
+      "published_relative": "raw/isolation-final-review/checkpoint.md",
+      "bytes": 4668,
+      "sha256": "3b06fe4a88ecc715e659743d04dbc64601e9f43d14a4d93b5d4dfeb1d3f3c090"
+    },
+    {
+      "source_relative": "isolation-final-review/commands.json",
+      "published_relative": "raw/isolation-final-review/commands.json",
+      "bytes": 1119,
+      "sha256": "89742726c7038955441d06cf24e09ffeaab322bd47e6a5c80f1f6dca4ef02bf8"
+    },
+    {
+      "source_relative": "isolation-final-review/dependency-stability.json",
+      "published_relative": "raw/isolation-final-review/dependency-stability.json",
+      "bytes": 152816,
+      "sha256": "d9f49ad3514608cdabdb7e18d4ff3a554bf0393c4b6da92044a61be11fb721a9"
+    },
+    {
+      "source_relative": "isolation-final-review/final-evidence-manifest.json",
+      "published_relative": "raw/isolation-final-review/final-evidence-manifest.json",
+      "bytes": 8964,
+      "sha256": "0cd400151d13450a1106bde6bc89bac90c70c41080092502b8dec7254342cf4f"
+    },
+    {
+      "source_relative": "isolation-final-review/final-validation.json",
+      "published_relative": "raw/isolation-final-review/final-validation.json",
+      "bytes": 389,
+      "sha256": "2b3ecad074a6f6b3a12772c6ae402c4025c855f1384865e97e3128c2eaa48043"
+    },
+    {
+      "source_relative": "isolation-final-review/findings.md",
+      "published_relative": "raw/isolation-final-review/findings.md",
+      "bytes": 8699,
+      "sha256": "45530fd227ad583a5b7b926b0afc90d81d345eca49cf4bb1187acfedfe73a58b"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 9095,
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17780,
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    },
+    {
+      "source_relative": "isolation-final-review/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-final-review/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-check.stderr.log",
+      "published_relative": "raw/isolation-final-review/harness-check.stderr.log",
+      "bytes": 2671,
+      "sha256": "eaff06a7154425d48acf0726a6b3c14ae4db6adec15c73be3a96f40f240745ad"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-check.stdout.log",
+      "published_relative": "raw/isolation-final-review/harness-check.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-repaired-metadata.json",
+      "published_relative": "raw/isolation-final-review/harness-repaired-metadata.json",
+      "bytes": 293,
+      "sha256": "80cc23af6bf1d1fa2c2ea2a9f31739d251e7af5311e2463d71ed8ef1f82248dd"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-repaired.command.json",
+      "published_relative": "raw/isolation-final-review/harness-repaired.command.json",
+      "bytes": 604,
+      "sha256": "2fa61aaefb1f410907269672279827d6c0f975ce985f7d02e0d2ff4eb60e1098"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-repaired.stderr.log",
+      "published_relative": "raw/isolation-final-review/harness-repaired.stderr.log",
+      "bytes": 419,
+      "sha256": "b9b97c279e078879d47ae38cb745d066705ac80b59fdbd8129115c60a5ddfc8b"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-repaired.stdout.log",
+      "published_relative": "raw/isolation-final-review/harness-repaired.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/harness-review-metadata.json",
+      "published_relative": "raw/isolation-final-review/harness-review-metadata.json",
+      "bytes": 293,
+      "sha256": "ec14de0caf5c0f741e5c3b178c540bbc3c33af6d732f63cd3bcc7ca44200ef1f"
+    },
+    {
+      "source_relative": "isolation-final-review/independent-candidate.diff",
+      "published_relative": "raw/isolation-final-review/independent-candidate.diff",
+      "bytes": 12680,
+      "sha256": "72f122c12b2348c1a6e035e961958b70df07a6469513b4bd5065dfbc345e3caf"
+    },
+    {
+      "source_relative": "isolation-final-review/independent-pairs.command.json",
+      "published_relative": "raw/isolation-final-review/independent-pairs.command.json",
+      "bytes": 1177,
+      "sha256": "40d71f51ad4a10ee128413903f0b5df77d932b9f20ead5d4284445d8646f0dc3"
+    },
+    {
+      "source_relative": "isolation-final-review/independent-pairs.stderr.bin",
+      "published_relative": "raw/isolation-final-review/independent-pairs.stderr.bin",
+      "bytes": 721,
+      "sha256": "d9e4ddf0f71fcba12dc417ad8ae6d57b776c0f89dbe64936d385b218455b1a80"
+    },
+    {
+      "source_relative": "isolation-final-review/independent-pairs.stdout.bin",
+      "published_relative": "raw/isolation-final-review/independent-pairs.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/native_complete.json",
+      "published_relative": "raw/isolation-final-review/native_complete.json",
+      "bytes": 2678,
+      "sha256": "e0d6597e24e6fb54b19f59d0b2d970a207291c39c4afc93822da257497c293e5"
+    },
+    {
+      "source_relative": "isolation-final-review/observer-fake.stderr.log",
+      "published_relative": "raw/isolation-final-review/observer-fake.stderr.log",
+      "bytes": 962,
+      "sha256": "791575b1281cc75826e5d2188283324f475a7e4dd3b2c7b6a47e537c90e87a4f"
+    },
+    {
+      "source_relative": "isolation-final-review/observer-fake.stdout.log",
+      "published_relative": "raw/isolation-final-review/observer-fake.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/offline.command.json",
+      "published_relative": "raw/isolation-final-review/offline.command.json",
+      "bytes": 1168,
+      "sha256": "a5535bca7fe3014972535b4e2527573197a092bb9f4b6282fc961ba27c9973eb"
+    },
+    {
+      "source_relative": "isolation-final-review/offline.stderr.bin",
+      "published_relative": "raw/isolation-final-review/offline.stderr.bin",
+      "bytes": 12955,
+      "sha256": "56c4df81d159691d364700fbdcdd21876aff6e2ce29e2c2335bd7ef655c3c4e3"
+    },
+    {
+      "source_relative": "isolation-final-review/offline.stdout.bin",
+      "published_relative": "raw/isolation-final-review/offline.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/original-12-frozen-manifest.json",
+      "published_relative": "raw/isolation-final-review/original-12-frozen-manifest.json",
+      "bytes": 2066,
+      "sha256": "0bdabec4a3c465e269c090bffd8fb690b2797750f47c4e4c7165e8e4d6a51376"
+    },
+    {
+      "source_relative": "isolation-final-review/original-boundaries.command.json",
+      "published_relative": "raw/isolation-final-review/original-boundaries.command.json",
+      "bytes": 1185,
+      "sha256": "d9b3fac17fe0920c0b0305ecbd91ddfd8910a0737b6a1567b5e115cadab0e5d0"
+    },
+    {
+      "source_relative": "isolation-final-review/original-boundaries.stderr.bin",
+      "published_relative": "raw/isolation-final-review/original-boundaries.stderr.bin",
+      "bytes": 608,
+      "sha256": "0e884c4333d6db07519a7f8d277d4986819d1b3c69578279a5202ab12d9cfba4"
+    },
+    {
+      "source_relative": "isolation-final-review/original-boundaries.stdout.bin",
+      "published_relative": "raw/isolation-final-review/original-boundaries.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/original-witness.command.json",
+      "published_relative": "raw/isolation-final-review/original-witness.command.json",
+      "bytes": 1179,
+      "sha256": "7ec4cd4bc282ccb08743889381f900ced1af48b7486f09763b35e6da29ac8285"
+    },
+    {
+      "source_relative": "isolation-final-review/original-witness.stderr.bin",
+      "published_relative": "raw/isolation-final-review/original-witness.stderr.bin",
+      "bytes": 419,
+      "sha256": "cb62e2eb6f602399288a56fb56d6f800da0d090086a25172bed3eda06fc91838"
+    },
+    {
+      "source_relative": "isolation-final-review/original-witness.stdout.bin",
+      "published_relative": "raw/isolation-final-review/original-witness.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-final-review/plan.repaired.md",
+      "published_relative": "raw/isolation-final-review/plan.repaired.md",
+      "bytes": 2151,
+      "sha256": "c3ce179cbb2e4c551f0312c2d70233f98afbc65bc69a07a2d2bd266b3e41ff82"
+    },
+    {
+      "source_relative": "isolation-final-review/plan.reviewed.md",
+      "published_relative": "raw/isolation-final-review/plan.reviewed.md",
+      "bytes": 2151,
+      "sha256": "c3ce179cbb2e4c551f0312c2d70233f98afbc65bc69a07a2d2bd266b3e41ff82"
+    },
+    {
+      "source_relative": "isolation-final-review/prepared-harness-findings.md",
+      "published_relative": "raw/isolation-final-review/prepared-harness-findings.md",
+      "bytes": 1837,
+      "sha256": "96f14943e7c01a2ef532a6d75496c1fbf1bec0515c57952e572d356d6f547412"
+    },
+    {
+      "source_relative": "isolation-final-review/prepared-receipt.json",
+      "published_relative": "raw/isolation-final-review/prepared-receipt.json",
+      "bytes": 1019,
+      "sha256": "104b8f53c094ccdd38ccdec3e8bb6834b5c3e227f73388519b775ea763713ddf"
+    },
+    {
+      "source_relative": "isolation-final-review/product-after.json",
+      "published_relative": "raw/isolation-final-review/product-after.json",
+      "bytes": 2451,
+      "sha256": "a23398bf6d4080673a76163a8d76b79dd0f5e9639afbd0856ca050334562abfc"
+    },
+    {
+      "source_relative": "isolation-final-review/product-before.json",
+      "published_relative": "raw/isolation-final-review/product-before.json",
+      "bytes": 3688,
+      "sha256": "023be159b0345cf358bef8502163faff9a8cceff37d67336e02770ddc4afa7cb"
+    },
+    {
+      "source_relative": "isolation-final-review/receipt.json",
+      "published_relative": "raw/isolation-final-review/receipt.json",
+      "bytes": 3536,
+      "sha256": "2c1d20a53f5b07ffef105c1e706e9e5a3bceefcd9bb96968ebce9e3a249cc59c"
+    },
+    {
+      "source_relative": "isolation-final-review/review_product.py",
+      "published_relative": "raw/isolation-final-review/review_product.py",
+      "bytes": 5158,
+      "sha256": "7c80dd5a8ea17a5a619fd0719b43b57213a0033645b1469c3bfd2e90fcbe576a"
+    },
+    {
+      "source_relative": "isolation-final-review/run_native.repaired.py",
+      "published_relative": "raw/isolation-final-review/run_native.repaired.py",
+      "bytes": 10457,
+      "sha256": "2db0dda152a2fdbfd8aff7dcbef6de3d144a920d08532f8ba4900b0fbc8ed613"
+    },
+    {
+      "source_relative": "isolation-final-review/run_native.reviewed.py",
+      "published_relative": "raw/isolation-final-review/run_native.reviewed.py",
+      "bytes": 9996,
+      "sha256": "d3990462ec2acf77b4b06212cad39eece16e3cb36efc82ea7ce6dcfa15cc8060"
+    },
+    {
+      "source_relative": "isolation-final-review/test_independent_boundaries.unchanged.py",
+      "published_relative": "raw/isolation-final-review/test_independent_boundaries.unchanged.py",
+      "bytes": 3001,
+      "sha256": "9270bf5495aa91a65a01cf3c062c33b85e5cd1b56430c26fc1a63fb68b39ecd7"
+    },
+    {
+      "source_relative": "isolation-final-review/test_observer_fake.py",
+      "published_relative": "raw/isolation-final-review/test_observer_fake.py",
+      "bytes": 5249,
+      "sha256": "85e1c628e6a4cf9b2b02ddf86867ea971dc6c956d9e4301406338090b17233d6"
+    },
+    {
+      "source_relative": "isolation-final-review/test_pair_acquisition.unchanged.py",
+      "published_relative": "raw/isolation-final-review/test_pair_acquisition.unchanged.py",
+      "bytes": 2251,
+      "sha256": "e40f7a770c75ef83a1edb4648898e3b453b1ea24d488a03bfb8555ff7d91394d"
+    },
+    {
+      "source_relative": "isolation-final-review/test_pair_helpers_independent.py",
+      "published_relative": "raw/isolation-final-review/test_pair_helpers_independent.py",
+      "bytes": 6773,
+      "sha256": "64c47da121972e2006154acf9dbc3c40fe41d6a5689c0686dfdc010adff72d13"
+    },
+    {
+      "source_relative": "isolation-final-review/unit_suite.unchanged.py",
+      "published_relative": "raw/isolation-final-review/unit_suite.unchanged.py",
+      "bytes": 1687,
+      "sha256": "85772261aa3b08134e3840f244b1b9fc8c5fa6ce4d172d8470899cade768a174"
+    },
+    {
+      "source_relative": "isolation-final-review/validation_receipt.json",
+      "published_relative": "raw/isolation-final-review/validation_receipt.json",
+      "bytes": 389,
+      "sha256": "2b3ecad074a6f6b3a12772c6ae402c4025c855f1384865e97e3128c2eaa48043"
+    },
+    {
+      "source_relative": "isolation-harness-repair/check_harness.py",
+      "published_relative": "raw/isolation-harness-repair/check_harness.py",
+      "bytes": 3109,
+      "sha256": "8966e0100baae14d15afd342875b1ae1619c22f56bac619db4373caf68de75a0"
+    },
+    {
+      "source_relative": "isolation-harness-repair/green.stderr.log",
+      "published_relative": "raw/isolation-harness-repair/green.stderr.log",
+      "bytes": 419,
+      "sha256": "b9b97c279e078879d47ae38cb745d066705ac80b59fdbd8129115c60a5ddfc8b"
+    },
+    {
+      "source_relative": "isolation-harness-repair/green.stdout.log",
+      "published_relative": "raw/isolation-harness-repair/green.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-harness-repair/harness-review-metadata.json",
+      "published_relative": "raw/isolation-harness-repair/harness-review-metadata.json",
+      "bytes": 293,
+      "sha256": "80cc23af6bf1d1fa2c2ea2a9f31739d251e7af5311e2463d71ed8ef1f82248dd"
+    },
+    {
+      "source_relative": "isolation-harness-repair/plan.reviewed.md",
+      "published_relative": "raw/isolation-harness-repair/plan.reviewed.md",
+      "bytes": 2151,
+      "sha256": "c3ce179cbb2e4c551f0312c2d70233f98afbc65bc69a07a2d2bd266b3e41ff82"
+    },
+    {
+      "source_relative": "isolation-harness-repair/run_native.reviewed.py",
+      "published_relative": "raw/isolation-harness-repair/run_native.reviewed.py",
+      "bytes": 10457,
+      "sha256": "2db0dda152a2fdbfd8aff7dcbef6de3d144a920d08532f8ba4900b0fbc8ed613"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/baseline.json",
+      "published_relative": "raw/isolation-launcher-implementation/baseline.json",
+      "bytes": 58057,
+      "sha256": "08fe79ae8932c6479e5e4f15ec0bdf74b3fdda8f1c1b85476d23e81240e59dce"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/AGENTS.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/AGENTS.md",
+      "bytes": 5899,
+      "sha256": "6a3504cd321dc19baf167d72c6faa5ee9a4549396ee6e41dbe3073edbb23fd2f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 7737,
+      "sha256": "f0a1b929bbacd7466d8929620c07cb16d2261c69626a2bdf5a1e16c8105fee63"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 10276,
+      "sha256": "da889d3335d7981882e6d14ee6eb63af2262211ce213d70c985529d627f15ff3"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/__init__.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/__init__.py",
+      "bytes": 80,
+      "sha256": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/fixture.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/fixture.py",
+      "bytes": 2287,
+      "sha256": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 6507,
+      "sha256": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 14286,
+      "sha256": "e3e213cf898053ab42f1de04175337858dfbf7d2f7b819de1c3ee520ee836d05"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/resource_cleanup.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/resource_cleanup.py",
+      "bytes": 11539,
+      "sha256": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 14506,
+      "sha256": "ce3698177780e4456b0b57db381b25f731219ec76cac9f8f99a15f7e92971be8"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 9894,
+      "sha256": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_resource_cleanup.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_resource_cleanup.py",
+      "bytes": 16407,
+      "sha256": "9236b45d3978619912425fda170b4ee1964c53b63e31ba79dae739b2cb7e8292"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-launcher-implementation/before/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 2486,
+      "sha256": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/docs/competition/deepeye-2026/immutable_scope.json",
+      "published_relative": "raw/isolation-launcher-implementation/before/docs/competition/deepeye-2026/immutable_scope.json",
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/docs/competition/deepeye-2026/immutable_scope.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/docs/competition/deepeye-2026/immutable_scope.md",
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/docs/superpowers/plans/2026-10-19-isolation-launcher-cleanup.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/docs/superpowers/plans/2026-10-19-isolation-launcher-cleanup.md",
+      "bytes": 1639,
+      "sha256": "1887a085f9ceff8b75c8cc45edcb03cb90ed93e450cfc411cda8a67a76eb035d"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/before/docs/superpowers/specs/2026-10-19-isolation-launcher-cleanup-design.md",
+      "published_relative": "raw/isolation-launcher-implementation/before/docs/superpowers/specs/2026-10-19-isolation-launcher-cleanup-design.md",
+      "bytes": 3840,
+      "sha256": "91f81a44842b57a9b54b1ce6a9e301925e7164db201f85900da8b0cde10e794e"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/dependencies-after.json",
+      "published_relative": "raw/isolation-launcher-implementation/dependencies-after.json",
+      "bytes": 55972,
+      "sha256": "c2179a0688b50f030dd05517f7a30b7c0c5b1819e1add61c217e4050d686f3f2"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/evidence-manifest.json",
+      "published_relative": "raw/isolation-launcher-implementation/evidence-manifest.json",
+      "bytes": 11069,
+      "sha256": "9e2ca29ba504e40859223771a27f74178e6d3d68e93cf6605fe08f3db455b6b8"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/freeze-status.json",
+      "published_relative": "raw/isolation-launcher-implementation/freeze-status.json",
+      "bytes": 476,
+      "sha256": "a99bfe07b7d754c9ff46ecae99cc94b127d9879db5705c296004462e945828fd"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 7148,
+      "sha256": "17b50e8641e20b6a2ddbc1a74c2b8452c1d1da7b37ad8ca9fc46a1178233a4ba"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17791,
+      "sha256": "2673d482aad87ac2af8cf83a032772f194be389521f222c84373245c387d115f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 3682,
+      "sha256": "ec42e4d35c1d365e677ebcd2cc3fd187d274c49d7c557a47975d4a95444ed316"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 8948,
+      "sha256": "4f20b5b9072d507298265ea950597263544907d6979cfc409e5d35352499fb80"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-launcher-implementation/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-attempt1.json",
+      "published_relative": "raw/isolation-launcher-implementation/green-attempt1.json",
+      "bytes": 2414,
+      "sha256": "c7770aa9d94c656bb025a3069f1eac6b0d53e347580e759d940c4a69aad99e8d"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-attempt1.log",
+      "published_relative": "raw/isolation-launcher-implementation/green-attempt1.log",
+      "bytes": 10086,
+      "sha256": "7aa7cf666d357c531ab83ce1af5091e354b90e47a84477f1b3721f2234c544cb"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-attempt1.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green-attempt1.stderr.bin",
+      "bytes": 10086,
+      "sha256": "7aa7cf666d357c531ab83ce1af5091e354b90e47a84477f1b3721f2234c544cb"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-attempt1.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green-attempt1.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-final.json",
+      "published_relative": "raw/isolation-launcher-implementation/green-final.json",
+      "bytes": 2416,
+      "sha256": "733096b96af2adbfcd28a27826f1012758d6806af5ef63e568c1971d9572812c"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-final.log",
+      "published_relative": "raw/isolation-launcher-implementation/green-final.log",
+      "bytes": 11809,
+      "sha256": "20aee03916d7d660c8a5c8eb356591d4ca1f625d7ba64dd3f1c2bf685b23af5f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-final.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green-final.stderr.bin",
+      "bytes": 11809,
+      "sha256": "20aee03916d7d660c8a5c8eb356591d4ca1f625d7ba64dd3f1c2bf685b23af5f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green-final.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green-final.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green2.json",
+      "published_relative": "raw/isolation-launcher-implementation/green2.json",
+      "bytes": 2415,
+      "sha256": "66cc4a29a56ce2077b94d0f73772dcad3fb3810ca659dd7c5c8f477d24b0762a"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green2.log",
+      "published_relative": "raw/isolation-launcher-implementation/green2.log",
+      "bytes": 11004,
+      "sha256": "628e580e843cc3499ff4d16487e7160d44413ed14fa50899c177d5658f791916"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green2.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green2.stderr.bin",
+      "bytes": 11004,
+      "sha256": "628e580e843cc3499ff4d16487e7160d44413ed14fa50899c177d5658f791916"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green2.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green2.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green3.json",
+      "published_relative": "raw/isolation-launcher-implementation/green3.json",
+      "bytes": 2415,
+      "sha256": "051678491a49f3667ad2050199403dfed2f276d6adfbc82948e665bc92438e9e"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green3.log",
+      "published_relative": "raw/isolation-launcher-implementation/green3.log",
+      "bytes": 11353,
+      "sha256": "6c8357527a307fef5a65b3d3da6b315280b05bc5a18450a8f56912a8aa7fbcdc"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green3.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green3.stderr.bin",
+      "bytes": 11353,
+      "sha256": "6c8357527a307fef5a65b3d3da6b315280b05bc5a18450a8f56912a8aa7fbcdc"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green3.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green3.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green4.json",
+      "published_relative": "raw/isolation-launcher-implementation/green4.json",
+      "bytes": 2415,
+      "sha256": "72d52444e60bc6f5b11b445bceeaec71e7626c58422f28464e9741735cdc92fe"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green4.log",
+      "published_relative": "raw/isolation-launcher-implementation/green4.log",
+      "bytes": 11809,
+      "sha256": "ef26551691dd68c0ba3a5b8eb7d7f17cf1263d24138b3b508cf30ee1add39c97"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green4.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green4.stderr.bin",
+      "bytes": 11809,
+      "sha256": "ef26551691dd68c0ba3a5b8eb7d7f17cf1263d24138b3b508cf30ee1add39c97"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/green4.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/green4.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/native_completion.json",
+      "published_relative": "raw/isolation-launcher-implementation/native_completion.json",
+      "bytes": 1357,
+      "sha256": "5d20fdd52d38030733bb5f0d0601498dd64b9564e6d212c2d1eb242167d9fa8d"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/native_completion_text.txt",
+      "published_relative": "raw/isolation-launcher-implementation/native_completion_text.txt",
+      "bytes": 1110,
+      "sha256": "e77cf9f72f0c7735c2130c722bf113aed88d5282e160286dbae2f2f9a74cfe91"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/receipt.json",
+      "published_relative": "raw/isolation-launcher-implementation/receipt.json",
+      "bytes": 6078,
+      "sha256": "8e6162f8798512767e022e8b4a3c0edf6c53b11711708f2c609cf9123c07344e"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red.json",
+      "published_relative": "raw/isolation-launcher-implementation/red.json",
+      "bytes": 2088,
+      "sha256": "45698732f9afbbee861a3fc0364dbdcee63b66f6e933ddb933d5a966e470fe09"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red.log",
+      "published_relative": "raw/isolation-launcher-implementation/red.log",
+      "bytes": 24800,
+      "sha256": "fd8dba0933819862b891bffb034dc9fa04bba562cb60f6361d4f753c67e77fa9"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red.stderr.bin",
+      "bytes": 24800,
+      "sha256": "fd8dba0933819862b891bffb034dc9fa04bba562cb60f6361d4f753c67e77fa9"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red2.json",
+      "published_relative": "raw/isolation-launcher-implementation/red2.json",
+      "bytes": 2415,
+      "sha256": "bac14b7bac169668caf28d8a9c83fb1a8d935f0e29e8b0ecce2b0fa3433b79ab"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red2.log",
+      "published_relative": "raw/isolation-launcher-implementation/red2.log",
+      "bytes": 23865,
+      "sha256": "35d345fbce44f689fe9f147bf1e8242dbe37c4c3c44911f434a8e53eda7a325f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red2.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red2.stderr.bin",
+      "bytes": 23865,
+      "sha256": "35d345fbce44f689fe9f147bf1e8242dbe37c4c3c44911f434a8e53eda7a325f"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red2.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red2.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red3.json",
+      "published_relative": "raw/isolation-launcher-implementation/red3.json",
+      "bytes": 2415,
+      "sha256": "caa0faeea4dff0514ef2d2edc446944e5750e68a3ef402716775e367f6bce171"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red3.log",
+      "published_relative": "raw/isolation-launcher-implementation/red3.log",
+      "bytes": 13631,
+      "sha256": "f51cb0befcffd9fc34404ce34ddc06e7772995307b77e7915f1530409d820e96"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red3.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red3.stderr.bin",
+      "bytes": 13631,
+      "sha256": "f51cb0befcffd9fc34404ce34ddc06e7772995307b77e7915f1530409d820e96"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red3.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red3.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red4.json",
+      "published_relative": "raw/isolation-launcher-implementation/red4.json",
+      "bytes": 2415,
+      "sha256": "41a77b17bfa2a3239f66c2c2ca1db46306ea8b3ace85ec4077e9e0b1544b00f5"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red4.log",
+      "published_relative": "raw/isolation-launcher-implementation/red4.log",
+      "bytes": 12627,
+      "sha256": "35dd9c478bf3751b5116e21a0c845e0f84afe2eeadd70f332673f277b97a13a9"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red4.stderr.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red4.stderr.bin",
+      "bytes": 12627,
+      "sha256": "35dd9c478bf3751b5116e21a0c845e0f84afe2eeadd70f332673f277b97a13a9"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/red4.stdout.bin",
+      "published_relative": "raw/isolation-launcher-implementation/red4.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/report.md",
+      "published_relative": "raw/isolation-launcher-implementation/report.md",
+      "bytes": 10524,
+      "sha256": "1ad8e50427a88a4fdcfec70839de9b32ddff7fe6d0f97272095c8390308a742b"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/run_checks.py",
+      "published_relative": "raw/isolation-launcher-implementation/run_checks.py",
+      "bytes": 3588,
+      "sha256": "86e2f76187ab950d1942ca661edad04f11d36ae2fe15b5e40ee98b410d1ee6da"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/source-manifest.json",
+      "published_relative": "raw/isolation-launcher-implementation/source-manifest.json",
+      "bytes": 2066,
+      "sha256": "0bdabec4a3c465e269c090bffd8fb690b2797750f47c4e4c7165e8e4d6a51376"
+    },
+    {
+      "source_relative": "isolation-launcher-implementation/unit_suite.py",
+      "published_relative": "raw/isolation-launcher-implementation/unit_suite.py",
+      "bytes": 1687,
+      "sha256": "85772261aa3b08134e3840f244b1b9fc8c5fa6ce4d172d8470899cade768a174"
+    },
+    {
+      "source_relative": "isolation-launcher-native/accept_native_gate.py",
+      "published_relative": "raw/isolation-launcher-native/accept_native_gate.py",
+      "bytes": 4197,
+      "sha256": "f0289739917523da73be51db2d4fe62e9f8c534a3f40447919ab9e5b21a2875a"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/campaign-result.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/campaign-result.json",
+      "bytes": 3269,
+      "sha256": "f38c9b04c008fe13215b19f5253a9ab666409ec9f66957cedec48d8206294722"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/preflight.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/preflight.json",
+      "bytes": 7443,
+      "sha256": "fd549c2888cf73f46f19a664723c1ee5342988e8789c422e088a65eee2e1abdb"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/failure.txt",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/failure.txt",
+      "bytes": 345,
+      "sha256": "23160c80cfa3f416a3e95125dc72ad9de4e42980e27a444679a7a26710153c5b"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/fixture_stdout.bin",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/fixture_stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/main-observation.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/main-observation.json",
+      "bytes": 3095,
+      "sha256": "8d8d51e53b90f92b15a98c9f824b6ad216bf9e21f2e0ef3b5dbaeaec2fb5323f"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/main-returned-memory.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/main-returned-memory.json",
+      "bytes": 22837,
+      "sha256": "1514007de859eee33fb4f99a4731801cfddb28173a80f20d50c6e443166d7749"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/receipt.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/receipt.json",
+      "bytes": 22837,
+      "sha256": "1514007de859eee33fb4f99a4731801cfddb28173a80f20d50c6e443166d7749"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-907c4422cd96/runtime_manifest.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-907c4422cd96/runtime_manifest.json",
+      "bytes": 172650,
+      "sha256": "9e7866c32b2242e5827cc9e4b1ee5447c206752e3ff1e85f75c3c37b051965fa"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-b28da98e58a4/fixture_stdout.bin",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-b28da98e58a4/fixture_stdout.bin",
+      "bytes": 361,
+      "sha256": "39aca0a1d5c93916ed72cd17b2b2ca7a967cd797db4871948aac6a1f83f774a1"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-b28da98e58a4/main-observation.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-b28da98e58a4/main-observation.json",
+      "bytes": 2955,
+      "sha256": "6530763dab170638c88f3b59204aed860ef1e5dd685cf5d3e6c25f3b9958bdbb"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-b28da98e58a4/main-returned-memory.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-b28da98e58a4/main-returned-memory.json",
+      "bytes": 22644,
+      "sha256": "b1e53425f432682e47e3e863e0a5a7b5053987f2b2b42372d9093376e853bd8a"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-b28da98e58a4/receipt.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-b28da98e58a4/receipt.json",
+      "bytes": 22644,
+      "sha256": "b1e53425f432682e47e3e863e0a5a7b5053987f2b2b42372d9093376e853bd8a"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-b28da98e58a4/runtime_manifest.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-b28da98e58a4/runtime_manifest.json",
+      "bytes": 172510,
+      "sha256": "0525615437f03e71c9f21f3b040ae42859e0f17d7d950b7bc108e99c5e325ea7"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/expected-persistence-failure-memory.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/expected-persistence-failure-memory.json",
+      "bytes": 41738,
+      "sha256": "6601b0083c8d72cf4b7011f646203b77f9d944781fc0e4914968087644464f00"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/failure.txt",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/failure.txt",
+      "bytes": 774,
+      "sha256": "d78b264b33e67d3307c6df53c4d4f1b112eed023597c8e7dfb5c321fd3092991"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/fixture_stdout.bin",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/fixture_stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/main-observation.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/main-observation.json",
+      "bytes": 2814,
+      "sha256": "66f4ad2200be1ad44c059709759fa9ae2458f962aefabf187ae4a18de4ed185a"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/main-returned-memory.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/main-returned-memory.json",
+      "bytes": 41738,
+      "sha256": "6601b0083c8d72cf4b7011f646203b77f9d944781fc0e4914968087644464f00"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/receipt.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/receipt.json",
+      "bytes": 4281,
+      "sha256": "0882832450b2c12d66ab2316ed94f227247bcf8e5a1c49dcc16243266184101a"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/r-ffb7afd7d63a/runtime_manifest.json",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/r-ffb7afd7d63a/runtime_manifest.json",
+      "bytes": 172510,
+      "sha256": "263e3d538d167b320f228938fa7f77c6912b5417193fd66bad5dcd72afc92074"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/test_persistence_failure_after_process_creation_still_cleans_owned_objects.unittest.log",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/test_persistence_failure_after_process_creation_still_cleans_owned_objects.unittest.log",
+      "bytes": 297,
+      "sha256": "29de065487de4fd53001ba23445c588a738f4028323e65035eaf10b6e4749c37"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/test_real_boundary_and_profile_cleanup.unittest.log",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/test_real_boundary_and_profile_cleanup.unittest.log",
+      "bytes": 225,
+      "sha256": "b9b5fc106ef5fe944e6cc1789ad810d6b970054c3a2b6c0225f6864fa1003793"
+    },
+    {
+      "source_relative": "isolation-launcher-native/attempt-01/test_timeout_is_failed_and_own_process_profile_are_cleaned.unittest.log",
+      "published_relative": "raw/isolation-launcher-native/attempt-01/test_timeout_is_failed_and_own_process_profile_are_cleaned.unittest.log",
+      "bytes": 265,
+      "sha256": "0383234e41cb27cda18cbc1a6caaa071d3549f9675f5b8a1e6aeaaa903de86af"
+    },
+    {
+      "source_relative": "isolation-launcher-native/native-execution-gate.json",
+      "published_relative": "raw/isolation-launcher-native/native-execution-gate.json",
+      "bytes": 4986,
+      "sha256": "a29ef51a980368128e1df660584c6073de1d7f16d0130406414642c115f1166f"
+    },
+    {
+      "source_relative": "isolation-launcher-native/plan.md",
+      "published_relative": "raw/isolation-launcher-native/plan.md",
+      "bytes": 2151,
+      "sha256": "c3ce179cbb2e4c551f0312c2d70233f98afbc65bc69a07a2d2bd266b3e41ff82"
+    },
+    {
+      "source_relative": "isolation-launcher-native/run_native.before-il-h1.py",
+      "published_relative": "raw/isolation-launcher-native/run_native.before-il-h1.py",
+      "bytes": 9996,
+      "sha256": "d3990462ec2acf77b4b06212cad39eece16e3cb36efc82ea7ce6dcfa15cc8060"
+    },
+    {
+      "source_relative": "isolation-launcher-native/run_native.py",
+      "published_relative": "raw/isolation-launcher-native/run_native.py",
+      "bytes": 10457,
+      "sha256": "2db0dda152a2fdbfd8aff7dcbef6de3d144a920d08532f8ba4900b0fbc8ed613"
+    },
+    {
+      "source_relative": "isolation-launcher-native/runtime-preflight.json",
+      "published_relative": "raw/isolation-launcher-native/runtime-preflight.json",
+      "bytes": 4561,
+      "sha256": "8296d6bf622d941be6dd75233a8101a2fcbf38557ca4cb693755928579e978f0"
+    },
+    {
+      "source_relative": "isolation-launcher-native/runtime_preflight.py",
+      "published_relative": "raw/isolation-launcher-native/runtime_preflight.py",
+      "bytes": 1464,
+      "sha256": "8351c6fe9fabdfd2e2715ece33806b3986aff079f9f308a5ad19442525bc7d59"
+    },
+    {
+      "source_relative": "isolation-launcher-native/source-git-filter-check.json",
+      "published_relative": "raw/isolation-launcher-native/source-git-filter-check.json",
+      "bytes": 2651,
+      "sha256": "ced59e9192af93d0bb3f6277c34c088ac07160271805cd667411d89bf47fa2d4"
+    },
+    {
+      "source_relative": "isolation-launcher-review/after.json",
+      "published_relative": "raw/isolation-launcher-review/after.json",
+      "bytes": 3523,
+      "sha256": "242001636927ccab3009f79821ff22df3e34edc4d46cf0b0df655097411242aa"
+    },
+    {
+      "source_relative": "isolation-launcher-review/author-offline.stderr.log",
+      "published_relative": "raw/isolation-launcher-review/author-offline.stderr.log",
+      "bytes": 11809,
+      "sha256": "0aa97049c6c66527d44347ad136e41f27ae03ebf972e034d55507dfc4a7f6f02"
+    },
+    {
+      "source_relative": "isolation-launcher-review/author-offline.stdout.log",
+      "published_relative": "raw/isolation-launcher-review/author-offline.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-review/author_unit_suite.py",
+      "published_relative": "raw/isolation-launcher-review/author_unit_suite.py",
+      "bytes": 1687,
+      "sha256": "85772261aa3b08134e3840f244b1b9fc8c5fa6ce4d172d8470899cade768a174"
+    },
+    {
+      "source_relative": "isolation-launcher-review/baseline_review.py",
+      "published_relative": "raw/isolation-launcher-review/baseline_review.py",
+      "bytes": 2243,
+      "sha256": "c7ecac81b86f576a831737896f33af8627bb89fbf61b1604b895219b11206495"
+    },
+    {
+      "source_relative": "isolation-launcher-review/before.json",
+      "published_relative": "raw/isolation-launcher-review/before.json",
+      "bytes": 58292,
+      "sha256": "836b010c768a3af46fbf243fbe9848de405dc49a52a147af3f4a9365d8f8c72c"
+    },
+    {
+      "source_relative": "isolation-launcher-review/candidate.diff",
+      "published_relative": "raw/isolation-launcher-review/candidate.diff",
+      "bytes": 78390,
+      "sha256": "6fbb8c0c7ea998262c70967622f3651eed2a7abf0481425dede00b984ba6e00c"
+    },
+    {
+      "source_relative": "isolation-launcher-review/commands.json",
+      "published_relative": "raw/isolation-launcher-review/commands.json",
+      "bytes": 2082,
+      "sha256": "31f797ff40467305aa824241cc3146c4feea9fc84b254202714622cac194000f"
+    },
+    {
+      "source_relative": "isolation-launcher-review/completion-text.txt",
+      "published_relative": "raw/isolation-launcher-review/completion-text.txt",
+      "bytes": 1038,
+      "sha256": "57ded60439d088cc8e075b7134cef244bc02e844631cb24255a036ed71c88973"
+    },
+    {
+      "source_relative": "isolation-launcher-review/evidence_manifest.json",
+      "published_relative": "raw/isolation-launcher-review/evidence_manifest.json",
+      "bytes": 6078,
+      "sha256": "33c815a6bb2a8c166b47b30b12656c636040f0cca8bbde47bc7e0e50a7f24660"
+    },
+    {
+      "source_relative": "isolation-launcher-review/execution-summary.json",
+      "published_relative": "raw/isolation-launcher-review/execution-summary.json",
+      "bytes": 1465,
+      "sha256": "5d19016ad2dd224a85cdc50d98eafa1be56ac6c4c26489493170fb00dd7df6ef"
+    },
+    {
+      "source_relative": "isolation-launcher-review/extra-command-final.json",
+      "published_relative": "raw/isolation-launcher-review/extra-command-final.json",
+      "bytes": 1208,
+      "sha256": "999142517c27993f8d158ea58bcbd6085bd6ab33974a5feb64371aee4addc8a5"
+    },
+    {
+      "source_relative": "isolation-launcher-review/extra-command.json",
+      "published_relative": "raw/isolation-launcher-review/extra-command.json",
+      "bytes": 1208,
+      "sha256": "dbd16d1a0410ca480b09335337d2e2278bf80e8b06c6904177bd0b31d13c345b"
+    },
+    {
+      "source_relative": "isolation-launcher-review/final-native-validation.json",
+      "published_relative": "raw/isolation-launcher-review/final-native-validation.json",
+      "bytes": 315,
+      "sha256": "1ea8a9eb8b64a7c0d60edd75551e55fe616800195220e0bbb9ae00822392989d"
+    },
+    {
+      "source_relative": "isolation-launcher-review/findings.md",
+      "published_relative": "raw/isolation-launcher-review/findings.md",
+      "bytes": 9529,
+      "sha256": "58e4972d084219a8e4005a997fcb8d8aeee994cd7d1bda2c8d2a2c8e72ab69d3"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 7148,
+      "sha256": "17b50e8641e20b6a2ddbc1a74c2b8452c1d1da7b37ad8ca9fc46a1178233a4ba"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17791,
+      "sha256": "2673d482aad87ac2af8cf83a032772f194be389521f222c84373245c387d115f"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 3682,
+      "sha256": "ec42e4d35c1d365e677ebcd2cc3fd187d274c49d7c557a47975d4a95444ed316"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 8948,
+      "sha256": "4f20b5b9072d507298265ea950597263544907d6979cfc409e5d35352499fb80"
+    },
+    {
+      "source_relative": "isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-launcher-review/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-launcher-review/independent-boundaries-final.stderr.log",
+      "published_relative": "raw/isolation-launcher-review/independent-boundaries-final.stderr.log",
+      "bytes": 608,
+      "sha256": "d93e639e6b7e8feff815065e85c9f22ed5e8875befed6930d0b89c823046fceb"
+    },
+    {
+      "source_relative": "isolation-launcher-review/independent-boundaries-final.stdout.log",
+      "published_relative": "raw/isolation-launcher-review/independent-boundaries-final.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-review/independent-boundaries.stderr.log",
+      "published_relative": "raw/isolation-launcher-review/independent-boundaries.stderr.log",
+      "bytes": 2146,
+      "sha256": "6cd0d3e54fe1329dc5359232905249189e848e3214b30dd822c9b48c16001455"
+    },
+    {
+      "source_relative": "isolation-launcher-review/independent-boundaries.stdout.log",
+      "published_relative": "raw/isolation-launcher-review/independent-boundaries.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-review/inspect_diff_and_freeze.py",
+      "published_relative": "raw/isolation-launcher-review/inspect_diff_and_freeze.py",
+      "bytes": 1489,
+      "sha256": "ea8bd1fa7b9c6a511fcd9a5e10a5ead62fe1aa905a33919c323290997756545d"
+    },
+    {
+      "source_relative": "isolation-launcher-review/native_complete.json",
+      "published_relative": "raw/isolation-launcher-review/native_complete.json",
+      "bytes": 1698,
+      "sha256": "c1cc4cb305989b27363fd952d7d5d821fed6ff2edf14d0877ea404e17852c07f"
+    },
+    {
+      "source_relative": "isolation-launcher-review/pair-acquisition-counterexample.stderr.log",
+      "published_relative": "raw/isolation-launcher-review/pair-acquisition-counterexample.stderr.log",
+      "bytes": 2522,
+      "sha256": "5722d2a7e9786ce8e4bf6cc946ad38b787c0d804411212e42e681e6f88b78f94"
+    },
+    {
+      "source_relative": "isolation-launcher-review/pair-acquisition-counterexample.stdout.log",
+      "published_relative": "raw/isolation-launcher-review/pair-acquisition-counterexample.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-launcher-review/receipt.json",
+      "published_relative": "raw/isolation-launcher-review/receipt.json",
+      "bytes": 2041,
+      "sha256": "c61399bf3b6e0d2e7aa2ca89e38727baae8af928311b046d18f2282ba1af00b4"
+    },
+    {
+      "source_relative": "isolation-launcher-review/run_extra_boundaries.py",
+      "published_relative": "raw/isolation-launcher-review/run_extra_boundaries.py",
+      "bytes": 935,
+      "sha256": "002f4e4e13d8a3cf7d35ee1a8af40b3e872875dd83a96782feb3b1fdade9af3b"
+    },
+    {
+      "source_relative": "isolation-launcher-review/run_review.py",
+      "published_relative": "raw/isolation-launcher-review/run_review.py",
+      "bytes": 1355,
+      "sha256": "31277af46665043a0ec4a045ebce8ac130af5a90d97b7025c6a7a8ff968655c0"
+    },
+    {
+      "source_relative": "isolation-launcher-review/scope-verification.json",
+      "published_relative": "raw/isolation-launcher-review/scope-verification.json",
+      "bytes": 353,
+      "sha256": "a5e061c38341a8ec16be2918b93c1c6830b14395fe4342663975d56adb19eac7"
+    },
+    {
+      "source_relative": "isolation-launcher-review/test_independent_boundaries.py",
+      "published_relative": "raw/isolation-launcher-review/test_independent_boundaries.py",
+      "bytes": 3001,
+      "sha256": "9270bf5495aa91a65a01cf3c062c33b85e5cd1b56430c26fc1a63fb68b39ecd7"
+    },
+    {
+      "source_relative": "isolation-launcher-review/test_independent_boundaries.setup-error.py",
+      "published_relative": "raw/isolation-launcher-review/test_independent_boundaries.setup-error.py",
+      "bytes": 2991,
+      "sha256": "d53dd962ef4f48047219c397cabdb68e9489c113a4c483b4105be60794c32729"
+    },
+    {
+      "source_relative": "isolation-launcher-review/test_pair_acquisition.py",
+      "published_relative": "raw/isolation-launcher-review/test_pair_acquisition.py",
+      "bytes": 2251,
+      "sha256": "e40f7a770c75ef83a1edb4648898e3b453b1ea24d488a03bfb8555ff7d91394d"
+    },
+    {
+      "source_relative": "isolation-launcher-review/tested-source-manifest.json",
+      "published_relative": "raw/isolation-launcher-review/tested-source-manifest.json",
+      "bytes": 2066,
+      "sha256": "0bdabec4a3c465e269c090bffd8fb690b2797750f47c4e4c7165e8e4d6a51376"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/commands.json",
+      "published_relative": "raw/isolation-native-evidence-review/commands.json",
+      "bytes": 1068,
+      "sha256": "031eeba1089f0dc54ef51dbe9c01c8cc47edcf40b1586cf326a4f9a358f1c371"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/evidence-hashes.json",
+      "published_relative": "raw/isolation-native-evidence-review/evidence-hashes.json",
+      "bytes": 13319,
+      "sha256": "c8ad91752b8db6be4355421116a7fb95b90ea88cb8caf8f83f28068575b3467e"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/final-validation.json",
+      "published_relative": "raw/isolation-native-evidence-review/final-validation.json",
+      "bytes": 399,
+      "sha256": "6abff6b6fa06194b18f4f0da0d13be797fad63ecbd958054cfaa53fd0f6385a0"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/findings.md",
+      "published_relative": "raw/isolation-native-evidence-review/findings.md",
+      "bytes": 6889,
+      "sha256": "a1e2bd7a647fe2f19aa5f1d6b5240cf8f88d5e66b69a80e08127ce7852b79793"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/inspect_saved.py",
+      "published_relative": "raw/isolation-native-evidence-review/inspect_saved.py",
+      "bytes": 1817,
+      "sha256": "42d6af4422087ca4beee93285a113f149a358895b3910aa9ff774f45f3a04dbc"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/native_complete.json",
+      "published_relative": "raw/isolation-native-evidence-review/native_complete.json",
+      "bytes": 3021,
+      "sha256": "a06062c181951eb316abb6a9ed2dbe78b759c9e2597b63b1334e6088176c617e"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/receipt.json",
+      "published_relative": "raw/isolation-native-evidence-review/receipt.json",
+      "bytes": 4117,
+      "sha256": "e00bf937c04e11c00726deddf82bc152e11434580013afc4a86d744afbb3df56"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/supporting-source-hashes.json",
+      "published_relative": "raw/isolation-native-evidence-review/supporting-source-hashes.json",
+      "bytes": 3943,
+      "sha256": "4be3c693855925087d4e3723c1311109a4cbbd5cd20772273e4134fdde42fd93"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verified-cases.json",
+      "published_relative": "raw/isolation-native-evidence-review/verified-cases.json",
+      "bytes": 2676,
+      "sha256": "6ec56a86b4283b9228a322dff5e8f4c7dda364ada1f930502ab449159422f993"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verify-attempt-1.stderr.log",
+      "published_relative": "raw/isolation-native-evidence-review/verify-attempt-1.stderr.log",
+      "bytes": 446,
+      "sha256": "20c497ff28459253c8c25f3f5b453578aaefd5e613d860924a25f352558c2eae"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verify-attempt-1.stdout.log",
+      "published_relative": "raw/isolation-native-evidence-review/verify-attempt-1.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verify.stderr.log",
+      "published_relative": "raw/isolation-native-evidence-review/verify.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verify.stdout.log",
+      "published_relative": "raw/isolation-native-evidence-review/verify.stdout.log",
+      "bytes": 213,
+      "sha256": "e3ecce6f933272efc05e81526e1c320f042ae4e3b6ad2bfa92e1854497006d2a"
+    },
+    {
+      "source_relative": "isolation-native-evidence-review/verify_native_evidence.py",
+      "published_relative": "raw/isolation-native-evidence-review/verify_native_evidence.py",
+      "bytes": 12410,
+      "sha256": "c00f68400940666281a8b68e6d527b228b12ab5cbdb0f613840a6d90505c4db4"
+    },
+    {
+      "source_relative": "isolation-pair-repair/baseline.json",
+      "published_relative": "raw/isolation-pair-repair/baseline.json",
+      "bytes": 86538,
+      "sha256": "5ab98c3ed425399779253857c1da96797b424108a5648732885b65613cf9b047"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 7148,
+      "sha256": "17b50e8641e20b6a2ddbc1a74c2b8452c1d1da7b37ad8ca9fc46a1178233a4ba"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17791,
+      "sha256": "2673d482aad87ac2af8cf83a032772f194be389521f222c84373245c387d115f"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 3682,
+      "sha256": "ec42e4d35c1d365e677ebcd2cc3fd187d274c49d7c557a47975d4a95444ed316"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 8948,
+      "sha256": "4f20b5b9072d507298265ea950597263544907d6979cfc409e5d35352499fb80"
+    },
+    {
+      "source_relative": "isolation-pair-repair/before/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-pair-repair/before/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-pair-repair/evidence-manifest.json",
+      "published_relative": "raw/isolation-pair-repair/evidence-manifest.json",
+      "bytes": 7818,
+      "sha256": "7423571eb5fe54f68654a4c9810141b25d6b793946d4d84cbf759963aa36815f"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 9095,
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17780,
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    },
+    {
+      "source_relative": "isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-pair-repair/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-independent.json",
+      "published_relative": "raw/isolation-pair-repair/green-independent.json",
+      "bytes": 1826,
+      "sha256": "e5b2e82d0bc3f99067ed187e057b93bf064b335f9cd61e20a25b422c253d3bde"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-independent.stderr.bin",
+      "published_relative": "raw/isolation-pair-repair/green-independent.stderr.bin",
+      "bytes": 608,
+      "sha256": "d93e639e6b7e8feff815065e85c9f22ed5e8875befed6930d0b89c823046fceb"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-independent.stdout.bin",
+      "published_relative": "raw/isolation-pair-repair/green-independent.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-offline.json",
+      "published_relative": "raw/isolation-pair-repair/green-offline.json",
+      "bytes": 1809,
+      "sha256": "f1d9c858785e409984f770f4f1724cc5c9e8481b62d045b903541c7bf9765bd6"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-offline.stderr.bin",
+      "published_relative": "raw/isolation-pair-repair/green-offline.stderr.bin",
+      "bytes": 12955,
+      "sha256": "7a2c26a315ab8c6da7316a3a9509597bd3ce9a06c74b813beb271a500d811559"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-offline.stdout.bin",
+      "published_relative": "raw/isolation-pair-repair/green-offline.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-witness.json",
+      "published_relative": "raw/isolation-pair-repair/green-witness.json",
+      "bytes": 1820,
+      "sha256": "e253d764898975a356214069d24ff90a9bcb9b52c295ad76d4ef6b34e117ef89"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-witness.stderr.bin",
+      "published_relative": "raw/isolation-pair-repair/green-witness.stderr.bin",
+      "bytes": 419,
+      "sha256": "8d35039cc4b837d9b9294f25640c2ffe84b4d23af9f243d258c0bcabb4220b1d"
+    },
+    {
+      "source_relative": "isolation-pair-repair/green-witness.stdout.bin",
+      "published_relative": "raw/isolation-pair-repair/green-witness.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-pair-repair/integrity-after.json",
+      "published_relative": "raw/isolation-pair-repair/integrity-after.json",
+      "bytes": 84901,
+      "sha256": "20d06c08cd5def10e192699a09a015306854b97c427f2872c21eb82c8b05e5bf"
+    },
+    {
+      "source_relative": "isolation-pair-repair/native_completion.json",
+      "published_relative": "raw/isolation-pair-repair/native_completion.json",
+      "bytes": 1227,
+      "sha256": "0adc8620057fbbc8b25875975a00a2653182fec5b46cd76e01603b2dc04f8f8f"
+    },
+    {
+      "source_relative": "isolation-pair-repair/native_completion_text.txt",
+      "published_relative": "raw/isolation-pair-repair/native_completion_text.txt",
+      "bytes": 980,
+      "sha256": "0ddc3e2f88e42246bd04210420eb0eb73324c3e88def534a5fac8fceddec0a9e"
+    },
+    {
+      "source_relative": "isolation-pair-repair/receipt.json",
+      "published_relative": "raw/isolation-pair-repair/receipt.json",
+      "bytes": 3974,
+      "sha256": "28008c355e36de9d002ee04f39558bd8817f7d7f1643957320bb07843a950281"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-regressions.json",
+      "published_relative": "raw/isolation-pair-repair/red-regressions.json",
+      "bytes": 1760,
+      "sha256": "291ecdf886fcde2dba2d4eca222fdfd4e68300fb20c5f74a062a2b6794cae43a"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-regressions.stderr.bin",
+      "published_relative": "raw/isolation-pair-repair/red-regressions.stderr.bin",
+      "bytes": 14548,
+      "sha256": "d0e652e5697379a71e1b35589b516a4ca9d3885c9b6bee1df7fb4146579ca1a3"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-regressions.stdout.bin",
+      "published_relative": "raw/isolation-pair-repair/red-regressions.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-witness.json",
+      "published_relative": "raw/isolation-pair-repair/red-witness.json",
+      "bytes": 1819,
+      "sha256": "d6325c057034ca272db628360b1b64baeadef3b0c16fe399e78e217fd88b0d56"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-witness.stderr.bin",
+      "published_relative": "raw/isolation-pair-repair/red-witness.stderr.bin",
+      "bytes": 2514,
+      "sha256": "d2a9e3ceef81e17c38110eee9b59257df8a869df14c8452e09328a1b1ffa4c83"
+    },
+    {
+      "source_relative": "isolation-pair-repair/red-witness.stdout.bin",
+      "published_relative": "raw/isolation-pair-repair/red-witness.stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-pair-repair/repair.diff",
+      "published_relative": "raw/isolation-pair-repair/repair.diff",
+      "bytes": 12660,
+      "sha256": "f6d16a48533497a6c164e760082e0fe0a06a157639f7d031c709e70643e5e677"
+    },
+    {
+      "source_relative": "isolation-pair-repair/report.md",
+      "published_relative": "raw/isolation-pair-repair/report.md",
+      "bytes": 8087,
+      "sha256": "86644a7451273a1d0acc8523404e37268247cb061688a323bb4cfb9627e4a180"
+    },
+    {
+      "source_relative": "isolation-pair-repair/run_checks.py",
+      "published_relative": "raw/isolation-pair-repair/run_checks.py",
+      "bytes": 4533,
+      "sha256": "1a7d297be52fff2d9341ca2eb666fa4e5f9ec0cfde48664f4f2a0be0395ed9de"
+    },
+    {
+      "source_relative": "isolation-pair-repair/source-manifest.json",
+      "published_relative": "raw/isolation-pair-repair/source-manifest.json",
+      "bytes": 2067,
+      "sha256": "4752b00aa62688041a493e28c0b8bb95bff015dc8f9d11d648c255f7e3d02567"
+    },
+    {
+      "source_relative": "isolation-pair-repair/test_independent_boundaries.py",
+      "published_relative": "raw/isolation-pair-repair/test_independent_boundaries.py",
+      "bytes": 3001,
+      "sha256": "9270bf5495aa91a65a01cf3c062c33b85e5cd1b56430c26fc1a63fb68b39ecd7"
+    },
+    {
+      "source_relative": "isolation-pair-repair/test_pair_acquisition.py",
+      "published_relative": "raw/isolation-pair-repair/test_pair_acquisition.py",
+      "bytes": 2251,
+      "sha256": "e40f7a770c75ef83a1edb4648898e3b453b1ea24d488a03bfb8555ff7d91394d"
+    },
+    {
+      "source_relative": "isolation-pair-repair/unit_suite.py",
+      "published_relative": "raw/isolation-pair-repair/unit_suite.py",
+      "bytes": 1687,
+      "sha256": "85772261aa3b08134e3840f244b1b9fc8c5fa6ce4d172d8470899cade768a174"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/docs/isolation_resource_cleanup.md",
+      "bytes": 13427,
+      "sha256": "135bee5d4a9fda0786456435b5e72c298e99d39b6a92aacc5635dd4a256c2518"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/docs/process_isolation_prototype.md",
+      "bytes": 11697,
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/owned_resources.py",
+      "bytes": 9095,
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/policy.py",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/prototype.py",
+      "bytes": 16264,
+      "sha256": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/win32.py",
+      "bytes": 17780,
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_owned_resources.py",
+      "bytes": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_policy.py",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_prototype_cleanup.py",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_windows_cleanup.py",
+      "bytes": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "published_relative": "raw/isolation-publication-bytes/frozen/competition/deepeye/tests/isolation/test_windows_live.py",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/prototype.before.py",
+      "published_relative": "raw/isolation-publication-bytes/prototype.before.py",
+      "bytes": 16571,
+      "sha256": "af54c6a5240be4e585f1c621034f5b687f79199595b82d54b2278253ceb4e452"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/receipt.json",
+      "published_relative": "raw/isolation-publication-bytes/receipt.json",
+      "bytes": 676,
+      "sha256": "bc624fc8e2c2a052e5be7520d8284d03ea01492732c22359e32ba5939b88566b"
+    },
+    {
+      "source_relative": "isolation-publication-bytes/source-manifest.json",
+      "published_relative": "raw/isolation-publication-bytes/source-manifest.json",
+      "bytes": 2067,
+      "sha256": "21c42710a33a2c1be2355129cfb113e5f23e261571dd8d8a35a2845f38fe7e63"
+    },
+    {
+      "source_relative": "isolation-publication-review/command-result.json",
+      "published_relative": "raw/isolation-publication-review/command-result.json",
+      "bytes": 458,
+      "sha256": "e2263b5c64d9099a1aba862dbab917248afe0f85876b13fcc50ffba8c3139e55"
+    },
+    {
+      "source_relative": "isolation-publication-review/git-commands.json",
+      "published_relative": "raw/isolation-publication-review/git-commands.json",
+      "bytes": 8301,
+      "sha256": "f5e0a3665b0e40fbec38dbbf367fee0cdc1b19902caea55bcbcf471825917849"
+    },
+    {
+      "source_relative": "isolation-publication-review/native_complete.json",
+      "published_relative": "raw/isolation-publication-review/native_complete.json",
+      "bytes": 2076,
+      "sha256": "1b3e1ce91fa86af258f13c7cd4f8c5783d722c839e445c9c9074b15479ce2ec7"
+    },
+    {
+      "source_relative": "isolation-publication-review/receipt.json",
+      "published_relative": "raw/isolation-publication-review/receipt.json",
+      "bytes": 1710,
+      "sha256": "c20703ba5df5c06d3c4ef89ba9d8cd48e57c772a63e17aff3c833cc6e5f373f3"
+    },
+    {
+      "source_relative": "isolation-publication-review/verified-source-manifest.json",
+      "published_relative": "raw/isolation-publication-review/verified-source-manifest.json",
+      "bytes": 4528,
+      "sha256": "1fb1a9734948cb2d2e1ba850d4ee0e2ab39acd79c63131b5c78e9ae53e518b86"
+    },
+    {
+      "source_relative": "isolation-publication-review/verify.stderr.log",
+      "published_relative": "raw/isolation-publication-review/verify.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "isolation-publication-review/verify.stdout.log",
+      "published_relative": "raw/isolation-publication-review/verify.stdout.log",
+      "bytes": 240,
+      "sha256": "b76310354ae75ae2e4e5d15c19de126916b8345657dbc1ef78018eab14fa1e44"
+    },
+    {
+      "source_relative": "isolation-publication-review/verify_bridge.py",
+      "published_relative": "raw/isolation-publication-review/verify_bridge.py",
+      "bytes": 4792,
+      "sha256": "e0cdccabd0b1acd6ad6cf89ef999b7f531e34b2cca103aa3dca92a07404a0341"
+    }
+  ],
+  "formal_acceptance": "not_run",
+  "excluded": [
+    "private lease/control data",
+    "staged runtime binaries",
+    "truth.canary contents",
+    "bytecode caches",
+    "internal completion/finalization scripts"
+  ],
+  "publication_scope": "Raw retained software evidence, including failed intermediate candidates. See ../../../docs/runtime_checkpoint_20261019.md for the main decision."
+}

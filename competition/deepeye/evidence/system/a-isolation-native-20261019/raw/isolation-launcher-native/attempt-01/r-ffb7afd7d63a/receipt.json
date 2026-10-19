@@ -1,0 +1,101 @@
+{
+  "schema": 2,
+  "task": "A-G03-isolation-launcher-cleanup-20261019-v1",
+  "started_utc": "2026-10-19T08:05:35.184015+00:00",
+  "run_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "profile_name": "DeepEye.P1a.c3b9443100224a9ea1baf1ab5aac03a7",
+  "launcher_source_hashes": {
+    "__init__.py": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0",
+    "fixture.py": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c",
+    "owned_resources.py": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e",
+    "policy.py": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11",
+    "prototype.py": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda",
+    "resource_cleanup.py": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f",
+    "win32.py": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e",
+    "windows_cleanup.py": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+  },
+  "requested_policy": {
+    "appcontainer": true,
+    "capabilities": [],
+    "win32k_disabled": true,
+    "child_process_restricted": true,
+    "suspended": true,
+    "job_kill_on_close": true,
+    "job_active_process_limit": 1,
+    "job_process_memory_limit": 268435456,
+    "job_ui_restrictions": 255
+  },
+  "created_objects": [
+    {
+      "kind": "AppContainerProfile",
+      "name": "DeepEye.P1a.c3b9443100224a9ea1baf1ab5aac03a7",
+      "sid": "S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868"
+    },
+    {
+      "kind": "runtime_stage",
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\r"
+    },
+    {
+      "kind": "truth_canary",
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\truth.canary"
+    },
+    {
+      "kind": "anonymous_job",
+      "handle": 964
+    }
+  ],
+  "acl_changes": [
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a",
+      "sddl": "D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;S-1-5-21-4245429589-1203325109-4211191159-1001)"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a\\r",
+      "sddl": "D:P(A;OICI;FA;;;SY)(A;OICI;FA;;;S-1-5-21-4245429589-1203325109-4211191159-1001)(A;OICI;0x1200a9;;;S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868)"
+    }
+  ],
+  "parent_controls": {
+    "truth_exists": true,
+    "truth_read_ok": true,
+    "model_hash_ok": true,
+    "canary_handle_read_ok": true,
+    "process_access_ok": true
+  },
+  "lifecycle": {},
+  "evidence_errors": [],
+  "cleanup_events": [],
+  "not_run": [
+    "LPAC",
+    "GDI_capture",
+    "DXGI",
+    "WGC",
+    "shared_texture",
+    "GPU_inference",
+    "four_product_processes",
+    "FPGA_hardware",
+    "G03_formal_acceptance"
+  ],
+  "profile_sid": "S-1-15-2-806058856-3925245863-2185459319-2016543674-726018155-1478507323-1344049868",
+  "profile_path": "C:\\Users\\CarlJade\\AppData\\Local\\Packages\\deepeye.p1a.c3b9443100224a9ea1baf1ab5aac03a7\\AC",
+  "runtime_manifest_sha256": "263e3d538d167b320f228938fa7f77c6912b5417193fd66bad5dcd72afc92074",
+  "model_sha256": "f1670f61c0c58c62aa1367b5eab7a888463ae32d8228256800993e2379fd5c54",
+  "truth_canary_sha256": "cdcd991a2a1cc13f4145fb0c2aa8fddc22fe1f06a254b06689943b537954d3a2",
+  "inheritance": {
+    "allowed": [
+      960,
+      916
+    ],
+    "deliberately_excluded_inheritable_canary": 980,
+    "excluded_canary_inheritable": true,
+    "allowed_flags": [
+      1,
+      1
+    ],
+    "parent_endpoint_flags": [
+      0,
+      0
+    ],
+    "verified": true
+  }
+}

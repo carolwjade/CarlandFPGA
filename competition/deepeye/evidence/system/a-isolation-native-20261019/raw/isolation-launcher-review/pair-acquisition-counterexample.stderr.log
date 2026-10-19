@@ -1,0 +1,39 @@
+test_pipe_second_successful_acquisition_survives_first_ambiguity (__main__.PairAcquisitionTests.test_pipe_second_successful_acquisition_survives_first_ambiguity) ... FAIL
+test_process_primary_thread_survives_first_ambiguity (__main__.PairAcquisitionTests.test_process_primary_thread_survives_first_ambiguity) ... FAIL
+
+======================================================================
+FAIL: test_pipe_second_successful_acquisition_survives_first_ambiguity (__main__.PairAcquisitionTests.test_pipe_second_successful_acquisition_survives_first_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-launcher-review\test_pair_acquisition.py", line 29, in test_pipe_second_successful_acquisition_survives_first_ambiguity
+    self.assertEqual([(r.label, r.native) for r in owner.references],
+AssertionError: Lists differ: [('old', 81), ('new_read', 81)] != [('old', 81), ('new_read', 81), ('new_write', 82)]
+
+Second list contains 1 additional elements.
+First extra element 2:
+('new_write', 82)
+
+- [('old', 81), ('new_read', 81)]
++ [('old', 81), ('new_read', 81), ('new_write', 82)]
+?                               +++++++++++++++++++
+ : successful pipe writer 82 was lost after first registration raised
+
+======================================================================
+FAIL: test_process_primary_thread_survives_first_ambiguity (__main__.PairAcquisitionTests.test_process_primary_thread_survives_first_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-launcher-review\test_pair_acquisition.py", line 38, in test_process_primary_thread_survives_first_ambiguity
+    self.assertEqual([(r.label, r.native) for r in owner.references],
+AssertionError: Lists differ: [('old', 91), ('process', 91)] != [('old', 91), ('process', 91), ('primary_thread', 92)]
+
+Second list contains 1 additional elements.
+First extra element 2:
+('primary_thread', 92)
+
+- [('old', 91), ('process', 91)]
++ [('old', 91), ('process', 91), ('primary_thread', 92)] : successful CreateProcess primary thread 92 is absent from retained ownership
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\isolation\prototype.py", line 220, in run
+    persist(receipt, result)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\isolation\prototype.py", line 134, in persist
+    report_save(target, value)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_live.py", line 59, in failing_save
+    raise OSError('intentional persistence failure after process creation')
+OSError: intentional persistence failure after process creation

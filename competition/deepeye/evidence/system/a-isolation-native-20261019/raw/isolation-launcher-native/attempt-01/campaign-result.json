@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "run_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-b28da98e58a4",
+      "case_verdict": {
+        "passed": true,
+        "failures": [],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "observation_sha256": "6530763dab170638c88f3b59204aed860ef1e5dd685cf5d3e6c25f3b9958bdbb",
+      "memory_sha256": "b1e53425f432682e47e3e863e0a5a7b5053987f2b2b42372d9093376e853bd8a",
+      "test": "test_real_boundary_and_profile_cleanup",
+      "test_passed": true,
+      "tests_run": 1,
+      "skipped": 0
+    },
+    {
+      "run_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-907c4422cd96",
+      "case_verdict": {
+        "passed": false,
+        "failures": [
+          "fixture.model_ok",
+          "fixture.pipe_ok",
+          "fixture.truth_open_error",
+          "canary_denial_and_exit_status",
+          "process_access.8",
+          "process_access.16",
+          "process_access.32",
+          "process_access.64",
+          "process_access.128",
+          "launcher_error"
+        ],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "observation_sha256": "8d8d51e53b90f92b15a98c9f824b6ad216bf9e21f2e0ef3b5dbaeaec2fb5323f",
+      "memory_sha256": "1514007de859eee33fb4f99a4731801cfddb28173a80f20d50c6e443166d7749",
+      "test": "test_timeout_is_failed_and_own_process_profile_are_cleaned",
+      "test_passed": true,
+      "tests_run": 1,
+      "skipped": 0
+    },
+    {
+      "run_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-native\\attempt-01\\r-ffb7afd7d63a",
+      "case_verdict": {
+        "passed": false,
+        "failures": [
+          "trusted.is_appcontainer",
+          "trusted.sid_matches",
+          "trusted.win32k_disabled",
+          "trusted.child_process_restricted",
+          "trusted.in_job",
+          "trusted.resumed_after_verification",
+          "trusted.job_limits_match",
+          "fixture.model_ok",
+          "fixture.pipe_ok",
+          "trusted.capability_count",
+          "fixture.truth_open_error",
+          "canary_denial_and_exit_status",
+          "process_access.8",
+          "process_access.16",
+          "process_access.32",
+          "process_access.64",
+          "process_access.128",
+          "launcher_error",
+          "cleanup.evidence_complete",
+          "cleanup.audit_errors",
+          "evidence_errors"
+        ],
+        "scope": "CPU_P1a_only",
+        "G03_formal_acceptance": "not_run"
+      },
+      "observation_sha256": "66f4ad2200be1ad44c059709759fa9ae2458f962aefabf187ae4a18de4ed185a",
+      "memory_sha256": "6601b0083c8d72cf4b7011f646203b77f9d944781fc0e4914968087644464f00",
+      "test": "test_persistence_failure_after_process_creation_still_cleans_owned_objects",
+      "test_passed": true,
+      "tests_run": 1,
+      "skipped": 0
+    }
+  ],
+  "formal_acceptance": "not_run"
+}

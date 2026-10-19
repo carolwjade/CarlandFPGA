@@ -1,9 +1,11 @@
 # Trusted-owner resource cleanup coordinator
 
 `simulation/isolation/resource_cleanup.py` is a synchronous, injected cleanup
-coordinator. It has no OS backend, resource discovery, PID/path removal, launcher
-integration, network, process creation or profile creation. It is not activated by
-existing runners. Its lock rejects concurrent/reentrant calls on one coordinator;
+coordinator. That pure module has no OS backend, resource discovery, PID/path
+removal, network, process creation or profile creation. The CPU fixture launcher
+now supplies the separate owner registry and Windows backend described below;
+this integration still needs independent review and fresh native verification.
+The coordinator's lock rejects concurrent/reentrant calls on one coordinator;
 it neither acquires an OS resource lease nor prevents a different program from
 acting on those resources.
 
@@ -109,7 +111,7 @@ plan. Do not blindly replay close/delete/terminate, particularly if an OS handle
 could have been closed and reused. A healthy new sink does not authorize replay.
 There is no automatic cross-process recovery or retry API in this component.
 
-Future launcher integration must independently validate its complete resource
+Launcher integration must independently validate its complete resource
 plan, bounded backend operations, real terminal/close/removal readback, ownership
 retention on every acquisition/error path and durable evidence/recovery under real
 OS failures. This offline implementation does not replace those validations.
@@ -124,3 +126,83 @@ The fake backend exercises action order/count, exact references, each sink/actio
 boundary failure, terminal/nonterminal readback, unknown closes/removal, retained
 primary and cleanup/audit errors, profile gates, independent cleanup, duplicate
 ownership and reentry/repeat rejection. It creates no native fixtures or profiles.
+
+## CPU fixture integration candidate, 2026-10-19
+
+`owned_resources.py` records every successful acquisition before reporting.
+`windows_cleanup.py` binds those exact references to checked Windows releases;
+`prototype.py` now uses this path. `resource_cleanup.py` remains unchanged.
+This backend covers only the CPU fixture's kernel handles, process/primary-thread
+handles, profile/SID and helper allocations. It is not a general socket, Python
+thread, GPU, UI or four-product-process backend.
+
+`OwnedResources` assigns a fresh reference instance to each acquisition. An early
+release result is cached before any later report. Unknown/failed releases remain
+owned and are never issued again by final cleanup. A numeric value may be reused
+normally only after confirmed prior release. If a new successful acquisition
+collides with an older unknown release, both records remain ambiguous and the
+acquisition raises; no automatic action uses that ambiguous value. A live duplicate
+without a preceding release is rejected as an invalid ownership assertion.
+
+The native helpers record a job before limit setup, and both CreateProcess handles
+before returning or releasing the attribute list. Profile and SID are recorded
+before SID conversion, path lookup or persistence. Attribute backing buffers stay
+strongly referenced when release is unresolved; SID storage is also retained while
+an attribute list that may reference it is unresolved. The following bounded
+helper release contracts are recorded in the same owner ledger:
+
+| Allocation | Release acknowledgement |
+| --- | --- |
+| Tokens, pipes, canary, Job, process and primary-thread handles | `CloseHandle` returns nonzero; no retry after an unknown result |
+| Profile SID | `FreeSid` returns NULL |
+| Converted SID string / ACL security descriptor | `LocalFree` returns NULL |
+| Profile-path string | `CoTaskMemFree` returns normally; its API has no status result |
+| Attribute-list storage | `DeleteProcThreadAttributeList` returns normally; backing Python buffers remain held if it throws |
+| Other ctypes/Python temporary buffers and scoped file objects | Python/helper scope contract; no independent OS allocation inventory claim |
+
+The void-return acknowledgements are bounded API contracts, not externally
+attested heap reclamation. Standalone legacy SID/token/ACL inspection helpers
+without an owner retain only their local checked-release contract; the actual
+launcher always supplies its owner. Allocation failure in Python's own in-memory
+registration, abrupt process death, and mutation by another trusted owner remain
+outside the synchronous fault-injection guarantee.
+
+Before requesting termination, the backend waits on the original held handle
+with zero timeout. A terminal process receives no terminate request. A separate
+bounded wait confirms terminal state before closing that handle. Unknown terminal
+state retains process, primary thread and Job controls. Exit-code readback errors
+remain distinct owner errors. Profile removal additionally requires a known path,
+all dependent releases confirmed, successful HRESULT and an explicit absence
+readback. Access/stat errors or unknown path never mean absence.
+
+`run(...)` still returns `(receipt_path, evidence)`. `evidence` is a `RunEvidence`
+dict subclass: keep `evidence.ownership` alive if unresolved. It holds the exact
+live references, backing buffers and one-attempt state for separately authorized
+reconciliation. JSON and ordinary `dict(evidence)` do not retain that context.
+The CLI is not a live recovery interface: exiting it does not prove terminal
+cleanup or authorize PID-based recovery. Use the library in a trusted owner when
+investigating potentially unresolved operations; no automatic recovery is added.
+
+Receipt writes serialize before writing, flush/fsync a new owned `.pending` file,
+then replace the receipt. Failed/partial attempts are preserved. This does not
+claim crash-proof directory-entry persistence. Primary failure, helper release
+errors, coordinator cleanup errors, audit errors and final save errors remain
+separate. All logging errors are contained while safe cleanup continues. Output
+capture uses one Peek plus a maximum 8192-byte read, never waiting for pipe EOF.
+
+The returned verdict requires confirmed resource completion, acknowledged evidence
+writes and empty error/unresolved lists. A final write failure changes the in-memory
+verdict to failed. An earlier disk snapshot may be stale or provisional, including
+when a sink writes successfully then raises; it is never relabeled as the final
+returned result. Keep failed evidence and use sequence IDs/readback for audit.
+
+Three opt-in native tests are prepared in `test_windows_live.py`: normal, timeout,
+and persistent evidence failure after process creation. They have not run for
+this integration candidate. Main must first independently review exact frozen
+bytes, then use a new dedicated evidence directory for each validation stage and
+preserve all attempts. These cases still do not establish G03 or product isolation.
+
+API contracts: [TerminateProcess and asynchronous termination](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess),
+[CloseHandle](https://learn.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle),
+[DeleteAppContainerProfile](https://learn.microsoft.com/en-us/windows/win32/api/userenv/nf-userenv-deleteappcontainerprofile),
+[FreeSid](https://learn.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-freesid).

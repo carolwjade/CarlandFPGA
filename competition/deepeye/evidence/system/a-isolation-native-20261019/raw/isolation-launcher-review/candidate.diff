@@ -1,0 +1,1506 @@
+--- before/competition/deepeye/simulation/isolation/owned_resources.py
++++ candidate/competition/deepeye/simulation/isolation/owned_resources.py
+@@ -0,0 +1,161 @@
++"""In-memory acquisition ledger. Never reconstruct an OS target from a PID."""
++from dataclasses import dataclass
++from .resource_cleanup import CleanupCoordinator, ErrorInfo, Outcome, Resource
++
++
++class OwnedReleaseError(RuntimeError):
++    pass
++
++
++@dataclass(eq=False)
++class OwnedReference:
++    resource_id: str
++    label: str
++    native: object
++    release: str
++    kind: str
++    profile_id: str | None
++    recovery: bool = False
++    attempted: bool = False
++    outcome: Outcome | None = None
++    terminal_confirmed: bool = False
++    keepalive: object = None
++    ambiguous: bool = False
++
++
++def error_info(stage, error, resource_id=None):
++    try:
++        message = str(error)
++    except BaseException:
++        message = '<exception text unavailable>'
++    return ErrorInfo(stage, resource_id, type(error).__name__, message)
++
++
++class OwnedResources:
++    """One launcher/one cleanup attempt. Keep this object alive if unresolved.
++
++    Numeric values can be reused only after a confirmed release of the previous
++    acquisition instance. A release that threw or returned unknown is never
++    automatically issued again, including by the final coordinator.
++    """
++    def __init__(self, provenance):
++        self.provenance = provenance
++        self._references = []
++        self._releaser = None
++        self._sealed = False
++        self._coordinator = None
++        self.cleanup_result = None
++        self.profile = None
++        self.profile_path = None
++        self.errors = []
++
++    @property
++    def references(self):
++        return tuple(self._references)
++
++    @property
++    def unresolved(self):
++        return tuple(ref for ref in self._references if ref.outcome is not Outcome.CONFIRMED)
++
++    def owns(self, ref):
++        return any(ref is item for item in self._references)
++
++    def bind_releaser(self, callback):
++        if self._releaser is not None or not callable(callback):
++            raise ValueError('one explicit release backend required')
++        self._releaser = callback
++
++    def own_handle(self, label, value, *, release='kernel', kind='handle', recovery=False,
++                   profile_dependent=True, keepalive=None):
++        if self._sealed:
++            raise RuntimeError('acquisition after cleanup was sealed')
++        value = getattr(value, 'value', value)
++        if value is None or value == 0:
++            raise ValueError('cannot own an absent native reference')
++        domain = 'kernel' if release == 'kernel' else release
++        conflict = None
++        for prior in self._references:
++            if prior.release == domain and prior.native == value and prior.outcome is not Outcome.CONFIRMED:
++                if not prior.attempted:
++                    raise ValueError('native reference already owned')
++                conflict = prior
++        ref = OwnedReference(f'{label}:{len(self._references) + 1}', label, value, domain, kind,
++                             self.profile.resource_id if self.profile and profile_dependent else None, recovery)
++        self._references.append(ref)
++        ref.keepalive = keepalive
++        if conflict is not None:
++            # Keep the new acquisition even when an earlier close's lost reply
++            # makes the reused numeric binding ambiguous. Neither record may be
++            # acted on automatically until exact ownership is reconciled.
++            conflict.ambiguous = ref.ambiguous = True
++            ref.attempted, ref.outcome = True, Outcome.UNKNOWN
++            self.errors.append(ErrorInfo('acquisition', ref.resource_id, 'AmbiguousReuse',
++                                         'native value reused after unconfirmed release'))
++            raise ValueError('new acquisition retained with ambiguous native reuse')
++        return ref
++
++    def own_profile(self, name, sid):
++        if self.profile is not None:
++            raise ValueError('one newly created profile per owner')
++        self.profile = self.own_handle('profile', name, release='profile', kind='profile', profile_dependent=False)
++        self.own_handle('profile_sid', sid, release='sid')
++        return self.profile
++
++    def set_profile_path(self, path):
++        if self._sealed or self.profile is None or path is None or not str(path):
++            raise ValueError('known path from the owned profile required before cleanup')
++        self.profile_path = path
++
++    def own_process(self, pi):
++        # No inspection, formatting or reporting between successful CreateProcess
++        # and registering BOTH returned handles. Memory allocation failure itself
++        # remains outside this Python-level atomicity guarantee.
++        process = self.own_handle('process', pi.hProcess, kind='process')
++        thread = self.own_handle('primary_thread', pi.hThread, recovery=True)
++        return process, thread
++
++    def find(self, label):
++        return next(ref for ref in reversed(self._references) if ref.label == label)
++
++    def release_once(self, ref):
++        if not self.owns(ref):
++            raise ValueError('foreign ownership reference')
++        if ref.attempted:
++            return ref.outcome
++        if self._releaser is None:
++            raise ValueError('release backend not bound')
++        ref.attempted, ref.outcome = True, Outcome.UNKNOWN
++        try:
++            value = self._releaser(ref)
++            if type(value) is not Outcome:
++                raise TypeError('release backend returned an unclassified result')
++            ref.outcome = value
++            if value is not Outcome.CONFIRMED:
++                self.errors.append(ErrorInfo('release', ref.resource_id, 'UnconfirmedOutcome', value.value))
++        except BaseException as error:
++            self.errors.append(error_info('release', error, ref.resource_id))
++        return ref.outcome
++
++    def release_checked(self, ref, *, preserve_primary=False):
++        outcome = self.release_once(ref)
++        if outcome is not Outcome.CONFIRMED and not preserve_primary:
++            raise OwnedReleaseError('release unconfirmed: ' + ref.resource_id)
++        return outcome
++
++    def cleanup(self, backend, report_sink, primary_error=None):
++        if self._sealed:
++            raise RuntimeError('owner cleanup already attempted; reconcile without replay')
++        self._sealed = True
++        processes = tuple(ref.resource_id for ref in self._references if ref.kind == 'process')
++        plan = tuple(Resource(ref.resource_id, self.provenance.owner_id, ref.kind, ref,
++                              ref.profile_id, processes if ref.recovery else ()) for ref in self._references)
++        self._coordinator = CleanupCoordinator(self.provenance, plan, backend, report_sink)
++        self.cleanup_result = self._coordinator.cleanup(primary_error)
++        return self.cleanup_result
++
++    def summary(self):
++        return [{'resource_id': ref.resource_id, 'label': ref.label, 'release': ref.release,
++                 'native': ref.native if isinstance(ref.native, (int, str)) else '<held object>',
++                 'attempted': ref.attempted, 'outcome': None if ref.outcome is None else ref.outcome.value,
++                 'terminal_confirmed': ref.terminal_confirmed,
++                 'ambiguous': ref.ambiguous} for ref in self._references]
+--- before/competition/deepeye/simulation/isolation/windows_cleanup.py
++++ candidate/competition/deepeye/simulation/isolation/windows_cleanup.py
+@@ -0,0 +1,87 @@
++"""Checked cleanup on exact owned references; API is injectable for offline tests."""
++from .resource_cleanup import Outcome
++from .owned_resources import error_info
++
++
++class WindowsCleanupBackend:
++    def __init__(self, api, owner):
++        self.api, self.owner = api, owner
++        self.profile_delete_hresult = None
++        self.profile_absence = None
++        self.terminated = False
++        self.exit_codes = {}
++        owner.bind_releaser(self.release_reference)
++
++    def reference(self, resource):
++        ref = resource.identity
++        if not self.owner.owns(ref) or ref.ambiguous:
++            raise ValueError('resource is not held by this owner')
++        return ref
++
++    def terminate(self, resource):
++        ref = self.reference(resource)
++        state = self.api.Wait(ref.native, 0)
++        if state == 0:
++            return Outcome.CONFIRMED
++        if state != 258:
++            raise OSError('initial terminal readback failed: ' + str(state))
++        self.api.check(self.api.TerminateProcess(ref.native, 0xdead), 'TerminateProcess owned fixture')
++        self.terminated = True
++        return Outcome.CONFIRMED
++
++    def wait_terminal(self, resource):
++        ref = self.reference(resource)
++        state = self.api.Wait(ref.native, 5000)
++        if state not in (0, 258):
++            raise OSError('terminal readback failed: ' + str(state))
++        ref.terminal_confirmed = state == 0
++        if ref.terminal_confirmed and callable(getattr(self.api, 'exit_code', None)):
++            try:
++                self.exit_codes[ref.resource_id] = self.api.exit_code(ref.native)
++            except BaseException as error:
++                self.owner.errors.append(error_info('exit_code_readback', error, ref.resource_id))
++        return ref.terminal_confirmed
++
++    def close(self, resource):
++        return self.owner.release_once(self.reference(resource))
++
++    def remove_profile(self, resource):
++        return self.owner.release_once(self.reference(resource))
++
++    def release_reference(self, ref):
++        if not self.owner.owns(ref) or ref.ambiguous:
++            raise ValueError('foreign reference')
++        if ref.kind == 'process' and not ref.terminal_confirmed:
++            raise RuntimeError('process reference needed for unconfirmed terminal recovery')
++        if ref.recovery and any(r.kind == 'process' and not r.terminal_confirmed for r in self.owner.references):
++            raise RuntimeError('control reference needed for unconfirmed terminal recovery')
++        if ref.release == 'kernel':
++            self.api.check(self.api.CloseHandle(ref.native), 'CloseHandle owned ' + ref.label)
++        elif ref.release == 'sid':
++            if any(other.release == 'attributes' and other.outcome is not Outcome.CONFIRMED
++                   for other in self.owner.references):
++                return Outcome.UNKNOWN  # Attribute values may still reference SID storage.
++            if self.api.FreeSid(ref.native):
++                raise OSError('FreeSid returned an unresolved allocation')
++        elif ref.release == 'local':
++            if self.api.LocalFree(ref.native):
++                raise OSError('LocalFree returned an unresolved allocation')
++        elif ref.release == 'cotask':
++            self.api.CoTaskMemFree(ref.native)  # Documented void-return helper contract.
++        elif ref.release == 'attributes':
++            self.api.DeleteAttributes(ref.native)  # Documented void-return helper contract.
++        elif ref.release == 'profile':
++            if self.owner.profile_path is None:
++                return Outcome.UNKNOWN
++            if any(other.profile_id == ref.resource_id and other.outcome is not Outcome.CONFIRMED
++                   for other in self.owner.references):
++                return Outcome.UNKNOWN
++            hr = self.api.DeleteProfile(ref.native)
++            self.profile_delete_hresult = hr
++            if hr < 0:
++                return Outcome.FAILED
++            self.profile_absence = self.api.profile_absent(self.owner.profile_path)
++            return Outcome.CONFIRMED if self.profile_absence is True else Outcome.UNKNOWN
++        else:
++            raise ValueError('unsupported owned release kind')
++        return Outcome.CONFIRMED
+--- before/competition/deepeye/simulation/isolation/prototype.py
++++ candidate/competition/deepeye/simulation/isolation/prototype.py
+@@ -26,7 +26,15 @@
+ 
+ 
+ def save(path, value):
+-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
++    text = json.dumps(value, ensure_ascii=False, indent=2) + '\n'
++    temporary = path.with_name(path.name + '.' + uuid.uuid4().hex + '.pending')
++    # Same owned directory, no global configuration. Failed writes are preserved;
++    # never delete a partially persisted attempt or rewrite another run's files.
++    with temporary.open('x', encoding='utf-8') as stream:
++        stream.write(text)
++        stream.flush()
++        os.fsync(stream.fileno())
++    temporary.replace(path)
+ 
+ 
+ def stage_runtime(base: Path, stage: Path):
+@@ -72,58 +80,99 @@
+     return manifest
+ 
+ 
+-def run(evidence_parent: Path, *, timeout_ms=15000):
+-    from . import win32 as w
++class RunEvidence(dict):
++    """JSON-compatible evidence plus a strong live ownership/recovery context.
++
++    Keep this returned object alive when ownership is unresolved. Serialization
++    deliberately excludes the live context; a disk receipt cannot recover handles.
++    """
++    ownership = None
++    primary_exception = None
++
++
++def run(evidence_parent: Path, *, timeout_ms=15000, api=None, report_save=None, runtime_stage=None):
++    from dataclasses import asdict
++    from .owned_resources import OwnedResources, error_info
++    from .resource_cleanup import Provenance, Outcome
++    from .windows_cleanup import WindowsCleanupBackend
++    if api is None:
++        from . import win32 as api
++    report_save = save if report_save is None else report_save
++    runtime_stage = stage_runtime if runtime_stage is None else runtime_stage
++    w = api
+     if not 100 <= timeout_ms <= 30000:
+         raise ValueError('timeout must be 100..30000 ms')
+     run_id = 'r-' + uuid.uuid4().hex[:12]
+     root = create_run_directory(evidence_parent, run_id)
+-    result = {
+-        'schema': 1, 'task': 'A-G03-isolation-prototype-20261015-v1',
++    sources = {p.name: digest(p.read_bytes()) for p in sorted(Path(__file__).parent.glob('*.py'))}
++    provenance = Provenance('DEEPEYE-IMPLEMENTATION-20261014/v1', run_id, run_id,
++                            tuple(sorted(sources.items())) + (('requirements', CONTRACT),))
++    owner = OwnedResources(provenance)
++    backend = WindowsCleanupBackend(w, owner)
++    result = RunEvidence({
++        'schema': 2, 'task': 'A-G03-isolation-launcher-cleanup-20261019-v1',
+         'started_utc': datetime.now(timezone.utc).isoformat(),
+         'run_directory': str(root), 'requirements_sha256': CONTRACT,
+         'profile_name': 'DeepEye.P1a.' + uuid.uuid4().hex,
++        'launcher_source_hashes': sources,
+         'requested_policy': {'appcontainer': True, 'capabilities': [], 'win32k_disabled': True,
+                              'child_process_restricted': True, 'suspended': True,
+                              'job_kill_on_close': True, 'job_active_process_limit': 1,
+                              'job_process_memory_limit': 268435456, 'job_ui_restrictions': 255},
+         'created_objects': [], 'acl_changes': [], 'parent_controls': {}, 'lifecycle': {},
++        'evidence_errors': [], 'cleanup_events': [],
+         'not_run': ['LPAC', 'GDI_capture', 'DXGI', 'WGC', 'shared_texture', 'GPU_inference',
+                     'four_product_processes', 'FPGA_hardware', 'G03_formal_acceptance'],
+-    }
++    })
++    result.ownership = owner
+     receipt = root / 'receipt.json'
+-    handles, pi, profile_sid, profile_created, profile_path, job = [], None, w.P(), False, None, None
+-    output_read = None
+-    # Keep the new directory empty until its inheritable ACL is installed.
+-    # The receipt is saved before profile/process creation, and the exception
+-    # path below also records an ACL-preparation failure without creating them.
++    primary, captured = None, False
++    output_ref = None
++
++    def persist(target, value):
++        try:
++            report_save(target, value)
++        except BaseException as error:
++            result['evidence_errors'].append(asdict(error_info('persist:' + target.name, error)))
++            raise
++
++    def audit(event):
++        result['cleanup_events'].append({
++            'sequence': event.sequence, 'phase': event.phase, 'action': event.action,
++            'resource_id': event.resource_id,
++            'outcome': event.operation.outcome.value if event.operation else None,
++            'error': asdict(event.operation.error) if event.operation and event.operation.error else None,
++        })
++        persist(receipt, result)
++
++    def capture_output():
++        nonlocal captured
++        raw = w.available_output(output_ref.native)
++        if type(raw) is not bytes or len(raw) > 8192:
++            raise ValueError('bounded fixture output exceeded')
++        (root / 'fixture_stdout.bin').write_bytes(raw)
++        captured = True
++        return raw
++
++    # No evidence files are written until the new root's ACL is installed.
+     try:
+-        sources = {p.name: digest(p.read_bytes()) for p in sorted(Path(__file__).parent.glob('*.py'))}
+-        result['launcher_source_hashes'] = sources
+-        user = w.user_sid()
+-        result['acl_changes'].append(w.set_new_object_acl(root, root, user))
+-        save(receipt, result)
+-        w.check_hr(w.CreateProfile(result['profile_name'], result['profile_name'],
+-                                  'Temporary DeepEye CPU boundary fixture', None, 0,
+-                                  C.byref(profile_sid)), 'CreateAppContainerProfile')
+-        profile_created = True
+-        result['profile_sid'] = w.sid_text(profile_sid)
++        user = w.user_sid(owner=owner)
++        result['acl_changes'].append(w.set_new_object_acl(root, root, user, owner=owner))
++        persist(receipt, result)
++        profile_sid = w.create_profile(result['profile_name'], owner=owner)
++        # Profile and SID are already in owner before conversion/persistence.
++        result['profile_sid'] = w.sid_text(profile_sid, owner=owner)
+         result['created_objects'].append({'kind': 'AppContainerProfile', 'name': result['profile_name'],
+                                           'sid': result['profile_sid']})
+-        save(receipt, result)
+-        raw_path = W.LPWSTR()
+-        w.check_hr(w.GetProfilePath(result['profile_sid'], C.byref(raw_path)), 'GetAppContainerFolderPath')
+-        try:
+-            profile_path = Path(raw_path.value)
+-            result['profile_path'] = str(profile_path)
+-            result['profile_directory_existed'] = profile_path.is_dir()
+-        finally:
+-            w.CoTaskMemFree(C.cast(raw_path, w.P))
++        persist(receipt, result)
++        profile_path = w.profile_path(result['profile_sid'], owner=owner)
++        owner.set_profile_path(profile_path)
++        result['profile_path'] = str(profile_path)
+         stage = root / 'r'
+         stage.mkdir()
+-        result['acl_changes'].append(w.set_new_object_acl(stage, root, user, result['profile_sid']))
+-        manifest = stage_runtime(Path(sys.base_prefix), stage)
+-        save(root / 'runtime_manifest.json', manifest)
++        result['acl_changes'].append(w.set_new_object_acl(stage, root, user, result['profile_sid'], owner=owner))
++        manifest = runtime_stage(Path(sys.base_prefix), stage)
++        persist(root / 'runtime_manifest.json', manifest)
+         result['runtime_manifest_sha256'] = digest((root / 'runtime_manifest.json').read_bytes())
+         model = stage / 'model.json'
+         model.write_text('{"weights":[2,3,5]}', encoding='utf-8')
+@@ -135,22 +184,14 @@
+         controls = result['parent_controls']
+         controls.update(truth_exists=truth.is_file(), truth_read_ok=truth.read_bytes() == secret,
+                         model_hash_ok=digest(model.read_bytes()) == digest(b'{"weights":[2,3,5]}'))
+-        result['model_sha256'] = digest(model.read_bytes())
+-        result['truth_canary_sha256'] = digest(secret)
+-        sa = w.SA(C.sizeof(w.SA), None, True)
+-        canary_handle = w.CreateFileW(str(truth), 0x80000000, 7, C.byref(sa), 3, 0x80, None)
+-        w.check(canary_handle != C.c_void_p(-1).value, 'CreateFileW canary parent')
+-        handles.append(canary_handle)
+-        controls['canary_handle_read_ok'] = w.read(canary_handle, 32) == secret
+-        controls['process_access_ok'] = True
+-        for access in (8, 16, 32, 64, 128):
+-            own = w.OpenProcess(access, False, os.getpid())
+-            w.check(own, f'OpenProcess parent positive control {access}')
+-            w.CloseHandle(own)
+-        input_read, input_write = w.pipe()
+-        handles.extend([input_read, input_write])
+-        output_read, output_write = w.pipe()
+-        handles.extend([output_read, output_write])
++        result['model_sha256'], result['truth_canary_sha256'] = digest(model.read_bytes()), digest(secret)
++        canary = w.own_canary(truth, owner=owner)
++        canary_handle = canary.native
++        controls['canary_handle_read_ok'] = w.canary_read(canary_handle, 32) == secret
++        controls['process_access_ok'] = w.parent_controls(owner=owner)
++        input_read, input_write = w.pipe(owner=owner, read_label='input_read', write_label='input_write')
++        output_read, output_write = w.pipe(owner=owner, read_label='output_read', write_label='output_write')
++        output_ref = owner.find('output_read')
+         for handle in (input_write, output_read):
+             w.check(w.SetHandleInformation(handle, 1, 0), 'SetHandleInformation parent endpoint')
+         result['inheritance'] = {'allowed': [input_read, output_write],
+@@ -164,39 +205,31 @@
+                                    inheritance['parent_endpoint_flags'] == [0, 0])
+         if not inheritance['verified']:
+             raise RuntimeError('handle inheritance flags failed independent readback')
+-        result['created_objects'].extend([
+-            {'kind': 'anonymous_pipe', 'child_access': 'read', 'child_handle': input_read},
+-            {'kind': 'anonymous_pipe', 'child_access': 'write', 'child_handle': output_write}])
+-        job = w.create_job()
+-        handles.append(job)
++        job = w.create_job(owner=owner)
+         result['created_objects'].append({'kind': 'anonymous_job', 'handle': job})
+-        save(receipt, result)
+-        # CreateProcess needs this nonsecret base path to resolve/reroute the
+-        # new AppContainer profile. It grants no access to the base directory.
+-        environment = minimal_environment(profile_path / 'Temp', os.environ['SystemRoot'],
+-                                          os.environ['LOCALAPPDATA'])
++        persist(receipt, result)
++        environment = minimal_environment(profile_path / 'Temp', os.environ['SystemRoot'], os.environ['LOCALAPPDATA'])
+         result['environment_keys'] = sorted(environment)
+         argv = ['-I', '-S', '-B', '-X', 'utf8', str(stage / 'fixture.py'), str(model), str(truth),
+                 os.getpid(), canary_handle, input_read, output_write]
+         pi = w.create_suspended(stage / 'python.exe', argv, stage, environment,
+-                                profile_sid, input_read, output_write)
++                                profile_sid, input_read, output_write, owner=owner)
++        # Both native handles were registered inside the acquisition helper.
+         result['pid'] = pi.dwProcessId
+         result['created_objects'].append({'kind': 'process', 'pid': pi.dwProcessId})
+-        save(receipt, result)
++        persist(receipt, result)
+         w.check(w.AssignJob(job, pi.hProcess), 'AssignProcessToJobObject')
+-        trusted = w.inspect_process(pi.hProcess, job, result['profile_sid'])
++        trusted = w.inspect_process(pi.hProcess, job, result['profile_sid'], owner=owner)
+         result['trusted'] = trusted
+         required = ('is_appcontainer', 'sid_matches', 'win32k_disabled', 'child_process_restricted',
+                     'in_job', 'job_limits_match')
+         if not all(trusted[name] is True for name in required) or trusted['capability_count'] != 0:
+             raise RuntimeError('independent suspended-process inspection failed; refusing resume')
+-        for handle in (input_read, output_write):
+-            w.CloseHandle(handle)
+-            handles.remove(handle)
++        for label in ('input_read', 'output_write'):
++            owner.release_checked(owner.find(label))
+         w.write(input_write, b'authorized-causal-observation-v1\n')
+-        w.CloseHandle(input_write)
+-        handles.remove(input_write)
+-        save(receipt, result)
++        owner.release_checked(owner.find('input_write'))
++        persist(receipt, result)
+         previous = w.ResumeThread(pi.hThread)
+         if previous != 1:
+             raise RuntimeError(f'ResumeThread expected one suspended count, got {previous}')
+@@ -204,53 +237,58 @@
+         state = w.Wait(pi.hProcess, timeout_ms)
+         if state != 0:
+             raise TimeoutError(f'fixture wait failed or timed out: 0x{state:08x}')
+-        result['lifecycle']['terminal'] = True
+-        code = W.DWORD()
+-        w.check(w.GetExitCodeProcess(pi.hProcess, C.byref(code)), 'GetExitCodeProcess')
+-        result['lifecycle']['exit_code'] = code.value
+-        raw = w.read(output_read)
+-        (root / 'fixture_stdout.bin').write_bytes(raw)
+-        result['fixture'] = parse_fixture(raw, code.value, canary_handle)
++        result['lifecycle']['exit_code'] = w.exit_code(pi.hProcess)
++        raw = capture_output()  # Peek + bounded read; never an EOF-dependent read.
++        result['fixture'] = parse_fixture(raw, result['lifecycle']['exit_code'], canary_handle)
+     except BaseException as error:
+-        result['error'] = {'type': type(error).__name__, 'message': str(error),
++        primary = error
++        result.primary_exception = error
++        primary_info = error_info('primary', error)
++        result['error'] = {**asdict(primary_info), 'type': primary_info.type_name,
+                            'winerror': getattr(error, 'winerror', None)}
+-        (root / 'failure.txt').write_text(traceback.format_exc(), encoding='utf-8')
++        try:
++            (root / 'failure.txt').write_text(traceback.format_exc(), encoding='utf-8')
++        except BaseException as write_error:
++            result['evidence_errors'].append(asdict(error_info('failure.txt', write_error)))
+     finally:
+-        life = result['lifecycle']
+-        if pi:
++        # Bounded diagnostic capture precedes closing the held reader. Reporting
++        # failures are contained and can never jump over coordinator cleanup.
++        if output_ref is not None and not captured and not output_ref.attempted:
+             try:
+-                if w.Wait(pi.hProcess, 0) != 0:
+-                    w.check(w.TerminateProcess(pi.hProcess, 0xdead), 'TerminateProcess owned fixture')
+-                    life['terminated_by_launcher'] = True
+-                life['terminal'] = w.Wait(pi.hProcess, 5000) == 0
+-                code = W.DWORD()
+-                w.check(w.GetExitCodeProcess(pi.hProcess, C.byref(code)), 'GetExitCodeProcess cleanup')
+-                life['exit_code'] = code.value
++                capture_output()
+             except BaseException as error:
+-                life['termination_error'] = str(error)
+-            finally:
+-                w.CloseHandle(pi.hThread)
+-                w.CloseHandle(pi.hProcess)
+-        if output_read and not (root / 'fixture_stdout.bin').exists():
+-            try:
+-                (root / 'fixture_stdout.bin').write_bytes(w.available_output(output_read))
+-            except BaseException as error:
+-                life['output_capture_error'] = str(error)
+-        for handle in reversed(handles):
+-            w.CloseHandle(handle)
+-        if profile_created and (pi is None or life.get('terminal') is True):
+-            hr = w.DeleteProfile(result['profile_name'])
+-            life['profile_delete_hresult'] = f'0x{hr & 0xffffffff:08x}'
+-            life['profile_directory_absent'] = profile_path is None or not profile_path.exists()
+-            life['profile_deleted'] = hr >= 0 and life['profile_directory_absent']
+-        elif profile_created:
+-            life['profile_deleted'] = False
+-            life['profile_retained_reason'] = 'process termination unconfirmed; do not remove live profile'
+-        if profile_sid:
+-            w.FreeSid(profile_sid)
++                result['evidence_errors'].append(asdict(error_info('output_capture', error)))
++        try:
++            cleanup = owner.cleanup(backend, audit, primary)
++            result['cleanup'] = {
++                'resources_complete': cleanup.resources_complete,
++                'evidence_complete': cleanup.evidence_complete and not result['evidence_errors'],
++                'coordinator_success': cleanup.success,
++                'cleanup_errors': [asdict(error) for error in cleanup.cleanup_errors],
++                'audit_errors': [asdict(error) for error in cleanup.audit_errors],
++            }
++        except BaseException as error:
++            result['cleanup'] = {'resources_complete': False, 'evidence_complete': False,
++                                  'coordinator_error': asdict(error_info('coordinator', error))}
++        result['cleanup']['owner_errors'] = [asdict(error) for error in owner.errors]
++        result['cleanup']['resources'] = owner.summary()
++        result['cleanup']['unresolved'] = [ref.resource_id for ref in owner.unresolved]
++        processes = [ref for ref in owner.references if ref.kind == 'process']
++        result['lifecycle'].update(
++            terminal=all(ref.terminal_confirmed for ref in processes) if processes else False,
++            terminated_by_launcher=backend.terminated,
++            profile_deleted=owner.profile is not None and owner.profile.outcome is Outcome.CONFIRMED,
++            profile_directory_absent=backend.profile_absence,
++            profile_delete_hresult=backend.profile_delete_hresult)
++        if len(processes) == 1 and processes[0].resource_id in backend.exit_codes:
++            result['lifecycle']['exit_code'] = backend.exit_codes[processes[0].resource_id]
+         result['finished_utc'] = datetime.now(timezone.utc).isoformat()
+         result['verdict'] = evaluate(result)
+-        save(receipt, result)
++        try:
++            persist(receipt, result)
++        except BaseException:
++            result['cleanup']['evidence_complete'] = False
++            result['verdict'] = evaluate(result)
+     return receipt, result
+ 
+ 
+--- before/competition/deepeye/simulation/isolation/win32.py
++++ candidate/competition/deepeye/simulation/isolation/win32.py
+@@ -4,6 +4,7 @@
+ import os
+ from pathlib import Path
+ import subprocess
++import sys
+ 
+ if os.name != 'nt':
+     raise OSError('AppContainer prototype requires Windows')
+@@ -49,13 +50,89 @@
+         raise OSError(f'{operation}: HRESULT 0x{hr & 0xffffffff:08x}')
+ 
+ 
+-def sid_text(sid):
++def create_profile(name, *, owner):
++    sid = P()
++    check_hr(CreateProfile(name, name, 'Temporary DeepEye CPU boundary fixture', None, 0,
++                           C.byref(sid)), 'CreateAppContainerProfile')
++    owner.own_profile(name, sid)
++    return sid
++
++
++def profile_path(sid, *, owner):
++    raw = W.LPWSTR()
++    check_hr(GetProfilePath(sid, C.byref(raw)), 'GetAppContainerFolderPath')
++    ref = owner.own_handle('profile_path_string', C.cast(raw, P), release='cotask')
++    try:
++        if not raw.value:
++            raise OSError('profile path was not returned')
++        path = Path(raw.value)
++        owner.set_profile_path(path)
++        return path
++    finally:
++        _release_temporary(owner, ref, lambda: CoTaskMemFree(C.cast(raw, P)))
++
++
++def profile_absent(path):
++    if path is None:
++        return None
++    try:
++        Path(path).stat()
++    except FileNotFoundError:
++        return True
++    except OSError:
++        return None
++    return False
++
++
++def own_canary(path, *, owner):
++    sa = SA(C.sizeof(SA), None, True)
++    handle = CreateFileW(str(path), 0x80000000, 7, C.byref(sa), 3, 0x80, None)
++    check(handle != C.c_void_p(-1).value, 'CreateFileW canary parent')
++    return owner.own_handle('canary', handle)
++
++
++def canary_read(handle, size):
++    return read(handle, size)
++
++
++def parent_controls(*, owner):
++    for access in (8, 16, 32, 64, 128):
++        handle = OpenProcess(access, False, os.getpid())
++        check(handle, f'OpenProcess parent positive control {access}')
++        ref = owner.own_handle('parent_positive_control', handle)
++        owner.release_checked(ref)
++    return True
++
++
++def exit_code(handle):
++    code = W.DWORD()
++    check(GetExitCodeProcess(handle, C.byref(code)), 'GetExitCodeProcess')
++    return code.value
++
++
++def _release_temporary(owner, ref, release):
++    """Do not replace an active primary error with a helper release failure."""
++    primary_active = sys.exc_info()[0] is not None
++    if owner is not None:
++        owner.release_checked(ref, preserve_primary=primary_active)
++    else:
++        # Legacy standalone callers get a checked local contract, without a
++        # returned recovery registry. The launcher always supplies its owner.
++        try:
++            release()
++        except BaseException:
++            if not primary_active:
++                raise
++
++
++def sid_text(sid, *, owner=None):
+     out = W.LPWSTR()
+     check(ConvertSidToStringSidW(sid, C.byref(out)), 'ConvertSidToStringSidW')
++    ref = owner.own_handle('sid_string', C.cast(out, P), release='local') if owner else None
+     try:
+         return out.value
+     finally:
+-        LocalFree(C.cast(out, P))
++        _release_temporary(owner, ref, lambda: check(not LocalFree(C.cast(out, P)), 'LocalFree SID string'))
+ 
+ 
+ def token_buffer(token, kind):
+@@ -68,17 +145,18 @@
+     return buf
+ 
+ 
+-def user_sid():
++def user_sid(*, owner=None):
+     token = W.HANDLE()
+     check(OpenProcessToken(GetCurrentProcess(), 8, C.byref(token)), 'OpenProcessToken self')
++    ref = owner.own_handle('self_token', token) if owner else None
+     try:
+         buf = token_buffer(token, 1)
+-        return sid_text(C.cast(buf, C.POINTER(P))[0])
+-    finally:
+-        CloseHandle(token)
+-
+-
+-def set_new_object_acl(path, run_root, user, package=None):
++        return sid_text(C.cast(buf, C.POINTER(P))[0], owner=owner)
++    finally:
++        _release_temporary(owner, ref, lambda: check(CloseHandle(token), 'CloseHandle self token'))
++
++
++def set_new_object_acl(path, run_root, user, package=None, *, owner=None):
+     """Apply ACL before populating a fresh, exclusively owned directory.
+ 
+     Directory ACLs propagate to existing children, including hardlink aliases
+@@ -106,13 +184,14 @@
+     sd, dacl = P(), P()
+     present, defaulted = W.BOOL(), W.BOOL()
+     check(ConvertSD(acl, 1, C.byref(sd), None), 'ConvertStringSecurityDescriptor')
++    ref = owner.own_handle('security_descriptor', sd, release='local') if owner else None
+     try:
+         check(GetSecurityDescriptorDacl(sd, C.byref(present), C.byref(dacl), C.byref(defaulted)), 'GetSecurityDescriptorDacl')
+         err = SetNamedSecurityInfoW(str(path), 1, 4 | 0x80000000, None, None, dacl, None)
+         if err:
+             raise C.WinError(err, 'SetNamedSecurityInfoW')
+     finally:
+-        LocalFree(sd)
++        _release_temporary(owner, ref, lambda: check(not LocalFree(sd), 'LocalFree security descriptor'))
+     return {'path': str(path), 'sddl': acl}
+ 
+ 
+@@ -186,10 +265,12 @@
+ GetProcessTimes = bind(K, 'GetProcessTimes', [W.HANDLE, C.POINTER(W.FILETIME), C.POINTER(W.FILETIME), C.POINTER(W.FILETIME), C.POINTER(W.FILETIME)])
+ 
+ 
+-def pipe():
++def pipe(*, owner, read_label, write_label):
+     r, w = W.HANDLE(), W.HANDLE()
+     sa = SA(C.sizeof(SA), None, True)
+     check(CreatePipe(C.byref(r), C.byref(w), C.byref(sa), 16384), 'CreatePipe')
++    owner.own_handle(read_label, r)
++    owner.own_handle(write_label, w)
+     return r.value, w.value
+ 
+ 
+@@ -222,24 +303,21 @@
+     return read(handle, min(count.value, 8192)) if count.value else b''
+ 
+ 
+-def create_job():
++def create_job(*, owner):
+     job = CreateJob(None, None)
+     check(job, 'CreateJobObjectW')
+-    try:
+-        info = EXTENDED_LIMIT()
+-        info.BasicLimitInformation.LimitFlags = 0x2000 | 0x8 | 0x100  # kill, one child, 256 MiB
+-        info.BasicLimitInformation.ActiveProcessLimit = 1
+-        info.ProcessMemoryLimit = 256 * 1024 * 1024
+-        check(SetJobInfo(job, 9, C.byref(info), C.sizeof(info)), 'SetInformationJobObject limits')
+-        ui = W.DWORD(0xff)
+-        check(SetJobInfo(job, 4, C.byref(ui), C.sizeof(ui)), 'SetInformationJobObject UI')
+-        return job
+-    except BaseException:
+-        CloseHandle(job)
+-        raise
+-
+-
+-def create_suspended(exe, argv, cwd, environment, sid, input_handle, output_handle):
++    owner.own_handle('job', job, recovery=True)
++    info = EXTENDED_LIMIT()
++    info.BasicLimitInformation.LimitFlags = 0x2000 | 0x8 | 0x100  # kill, one child, 256 MiB
++    info.BasicLimitInformation.ActiveProcessLimit = 1
++    info.ProcessMemoryLimit = 256 * 1024 * 1024
++    check(SetJobInfo(job, 9, C.byref(info), C.sizeof(info)), 'SetInformationJobObject limits')
++    ui = W.DWORD(0xff)
++    check(SetJobInfo(job, 4, C.byref(ui), C.sizeof(ui)), 'SetInformationJobObject UI')
++    return job
++
++
++def create_suspended(exe, argv, cwd, environment, sid, input_handle, output_handle, *, owner):
+     values = [(0x20009, SECURITY_CAPABILITIES(sid, None, 0, 0)),
+               (0x20002, (W.HANDLE * 2)(input_handle, output_handle)),
+               (0x20007, C.c_ulonglong(1 << 28)),
+@@ -248,6 +326,7 @@
+     InitAttributes(None, len(values), 0, C.byref(size))
+     buf = C.create_string_buffer(size.value)
+     check(InitAttributes(buf, len(values), 0, C.byref(size)), 'InitializeProcThreadAttributeList')
++    attributes = owner.own_handle('attributes', C.cast(buf, P), release='attributes', keepalive=(buf, values))
+     try:
+         for key, value in values:
+             check(UpdateAttribute(buf, 0, key, C.byref(value), C.sizeof(value), None, None), f'UpdateProcThreadAttribute 0x{key:x}')
+@@ -264,21 +343,23 @@
+         # CREATE_NO_WINDOW produced STATUS_DLL_INIT_FAILED on the target host.
+         flags = 0x00080000 | 0x00000400 | 0x00000004 | 0x00000008
+         check(CreateProcess(str(exe), cmd, None, None, True, flags, env, str(cwd), C.byref(si), C.byref(pi)), 'CreateProcessW AppContainer suspended')
++        owner.own_process(pi)
+         return pi
+     finally:
+-        DeleteAttributes(buf)
+-
+-
+-def inspect_process(process, job, expected_sid):
++        _release_temporary(owner, attributes, lambda: DeleteAttributes(buf))
++
++
++def inspect_process(process, job, expected_sid, *, owner=None):
+     token = W.HANDLE()
+     check(OpenProcessToken(process, 8, C.byref(token)), 'OpenProcessToken child')
++    ref = owner.own_handle('child_token', token) if owner else None
+     try:
+         is_ac = C.cast(token_buffer(token, 29), C.POINTER(W.DWORD))[0]
+         sid_buf = token_buffer(token, 31)
+-        actual_sid = sid_text(C.cast(sid_buf, C.POINTER(P))[0])
++        actual_sid = sid_text(C.cast(sid_buf, C.POINTER(P))[0], owner=owner)
+         caps = C.cast(token_buffer(token, 30), C.POINTER(W.DWORD))[0]
+     finally:
+-        CloseHandle(token)
++        _release_temporary(owner, ref, lambda: check(CloseHandle(token), 'CloseHandle child token'))
+     policies = {}
+     for name, number in [('win32k', 4), ('child', 13), ('strict_handle', 3)]:
+         value = W.DWORD()
+--- before/competition/deepeye/simulation/isolation/policy.py
++++ candidate/competition/deepeye/simulation/isolation/policy.py
+@@ -61,6 +61,17 @@
+             failures.append(f'process_access.{access}')
+     if evidence.get('error'):
+         failures.append('launcher_error')
++    cleanup = evidence.get('cleanup', {})
++    for name in ('resources_complete', 'evidence_complete'):
++        if cleanup.get(name) is not True:
++            failures.append('cleanup.' + name)
++    for name in ('cleanup_errors', 'audit_errors', 'owner_errors', 'unresolved'):
++        if type(cleanup.get(name)) is not list or cleanup[name]:
++            failures.append('cleanup.' + name)
++    if cleanup.get('coordinator_error'):
++        failures.append('cleanup.coordinator_error')
++    if type(evidence.get('evidence_errors')) is not list or evidence['evidence_errors']:
++        failures.append('evidence_errors')
+     return {'passed': not failures, 'failures': failures, 'scope': 'CPU_P1a_only',
+             'G03_formal_acceptance': 'not_run'}
+ 
+--- before/competition/deepeye/tests/isolation/test_owned_resources.py
++++ candidate/competition/deepeye/tests/isolation/test_owned_resources.py
+@@ -0,0 +1,74 @@
++"""Owner registry contracts with no native resources."""
++from types import SimpleNamespace
++import unittest
++from simulation.isolation.resource_cleanup import Outcome, Provenance
++try:
++    from simulation.isolation.owned_resources import OwnedResources, OwnedReleaseError
++except ImportError:
++    OwnedResources = None
++
++
++class OwnedTests(unittest.TestCase):
++    def setUp(self):
++        self.assertIsNotNone(OwnedResources, 'owner-bound acquisition is missing')
++        self.owner = OwnedResources(Provenance('task/v1', 'work', 'owner', (('source', 'a' * 64),)))
++
++    def test_close_unknown_is_still_owned_and_not_retried(self):
++        calls = []
++        self.owner.bind_releaser(lambda ref: calls.append(ref) or Outcome.UNKNOWN)
++        ref = self.owner.own_handle('pipe', 11)
++        self.assertEqual(self.owner.release_once(ref), Outcome.UNKNOWN)
++        self.assertEqual(self.owner.release_once(ref), Outcome.UNKNOWN)
++        self.assertEqual(calls, [ref])
++        self.assertIn(ref, self.owner.unresolved)
++        with self.assertRaises(OwnedReleaseError):
++            self.owner.release_checked(ref)
++        self.assertEqual(calls, [ref])
++
++    def test_numeric_reuse_requires_confirmed_previous_close_and_new_instance(self):
++        self.owner.bind_releaser(lambda ref: Outcome.CONFIRMED)
++        old = self.owner.own_handle('old', 12)
++        with self.assertRaises(ValueError):
++            self.owner.own_handle('alias', 12)
++        self.owner.release_checked(old)
++        new = self.owner.own_handle('new', 12)
++        self.assertIsNot(old, new)
++        self.assertNotEqual(old.resource_id, new.resource_id)
++        self.assertNotIn(old, self.owner.unresolved)
++        self.assertIn(new, self.owner.unresolved)
++
++    def test_release_exception_retains_exact_error_and_original_reference(self):
++        def fail(ref):
++            raise OSError('close response lost')
++        self.owner.bind_releaser(fail)
++        ref = self.owner.own_handle('pipe', 13)
++        self.assertEqual(self.owner.release_once(ref), Outcome.UNKNOWN)
++        self.assertEqual(self.owner.errors[0].message, 'close response lost')
++        self.assertIn(ref, self.owner.unresolved)
++
++    def test_profile_and_process_pair_are_immediately_in_owned_plan(self):
++        profile = self.owner.own_profile('fresh-profile', 1000)
++        process, thread = self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
++        self.assertEqual({r.label for r in self.owner.references}, {'profile', 'profile_sid', 'process', 'primary_thread'})
++        self.assertEqual(process.native, 21)
++        self.assertEqual(thread.native, 22)
++        self.assertEqual(process.profile_id, profile.resource_id)
++        self.assertTrue(thread.recovery)
++
++    def test_foreign_reference_cannot_close_owned_numeric_handle(self):
++        calls = []
++        self.owner.bind_releaser(lambda ref: calls.append(ref) or Outcome.CONFIRMED)
++        other = OwnedResources(Provenance('task/v1', 'work2', 'owner2', (('source', 'b' * 64),)))
++        ref = other.own_handle('foreign', 13)
++        with self.assertRaises(ValueError):
++            self.owner.release_once(ref)
++        self.assertEqual(calls, [])
++
++    def test_new_acquisition_after_unknown_numeric_release_is_retained_as_ambiguous(self):
++        self.owner.bind_releaser(lambda ref: Outcome.UNKNOWN)
++        old = self.owner.own_handle('old', 12)
++        self.owner.release_once(old)
++        with self.assertRaises(ValueError):
++            self.owner.own_handle('new_acquisition', 12)
++        self.assertEqual({ref.label for ref in self.owner.unresolved}, {'old', 'new_acquisition'})
++        self.assertTrue(all(ref.ambiguous for ref in self.owner.unresolved))
+--- before/competition/deepeye/tests/isolation/test_windows_cleanup.py
++++ candidate/competition/deepeye/tests/isolation/test_windows_cleanup.py
+@@ -0,0 +1,173 @@
++"""Fake Win32 boundary tests; every invoked native API is replaced."""
++import ctypes as C
++from types import SimpleNamespace
++import unittest
++from unittest.mock import patch
++from simulation.isolation import win32 as w
++from simulation.isolation.resource_cleanup import Outcome, Provenance
++try:
++    from simulation.isolation.owned_resources import OwnedResources
++    from simulation.isolation.windows_cleanup import WindowsCleanupBackend
++except ImportError:
++    OwnedResources = WindowsCleanupBackend = None
++
++
++class FakeCleanupApi:
++    def __init__(self):
++        self.calls = []
++        self.waits = [258, 0]
++        self.close_ok = True
++        self.absent = True
++        self.delete_hr = 0
++    def check(self, ok, label):
++        if not ok:
++            raise OSError(label)
++    def Wait(self, handle, milliseconds):
++        self.calls.append(('wait', handle, milliseconds))
++        value = self.waits.pop(0)
++        if isinstance(value, Exception):
++            raise value
++        return value
++    def TerminateProcess(self, handle, code):
++        self.calls.append(('terminate', handle))
++        return True
++    def CloseHandle(self, handle):
++        self.calls.append(('close', handle))
++        return self.close_ok
++    def FreeSid(self, value):
++        self.calls.append(('free_sid', value))
++        return None
++    def DeleteProfile(self, name):
++        self.calls.append(('delete', name))
++        return self.delete_hr
++    def profile_absent(self, path):
++        self.calls.append(('absent', path))
++        return self.absent
++
++
++class BackendTests(unittest.TestCase):
++    def setUp(self):
++        self.assertIsNotNone(WindowsCleanupBackend, 'checked Windows backend is missing')
++        self.owner = OwnedResources(Provenance('task/v1', 'work', 'owner', (('source', 'a' * 64),)))
++        self.api = FakeCleanupApi()
++        self.backend = WindowsCleanupBackend(self.api, self.owner)
++
++    def test_process_thread_and_job_survive_unconfirmed_terminal(self):
++        self.owner.own_profile('fresh', 1000)
++        self.owner.set_profile_path('C:/dedicated/fresh')
++        self.owner.own_handle('job', 10, recovery=True)
++        self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
++        self.api.waits = [258, 258]
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertEqual({r.label for r in self.owner.unresolved}, {'profile', 'job', 'process', 'primary_thread'})
++        self.assertNotIn(('close', 10), self.api.calls)
++        self.assertNotIn(('close', 21), self.api.calls)
++        self.assertNotIn(('close', 22), self.api.calls)
++        self.assertNotIn(('delete', 'fresh'), self.api.calls)
++
++    def test_already_terminal_never_receives_a_termination_request(self):
++        self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
++        self.api.waits = [0, 0]
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertTrue(result.resources_complete)
++        self.assertNotIn(('terminate', 21), self.api.calls)
++        self.assertEqual(self.api.calls, [('wait', 21, 0), ('wait', 21, 5000), ('close', 21), ('close', 22)])
++
++    def test_unknown_early_close_is_not_replayed_by_coordinator(self):
++        ref = self.owner.own_handle('writer', 30)
++        self.api.close_ok = False
++        self.assertEqual(self.owner.release_once(ref), Outcome.UNKNOWN)
++        self.api.close_ok = True
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertEqual(self.api.calls.count(('close', 30)), 1)
++        self.assertEqual(self.owner.unresolved, (ref,))
++
++    def test_unknown_profile_path_never_counts_as_absence_or_deletes(self):
++        self.owner.own_profile('fresh', 1000)
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertNotIn(('delete', 'fresh'), self.api.calls)
++
++    def test_profile_requires_successful_delete_and_explicit_absence(self):
++        for hr, absent, complete in ((0, True, True), (0, None, False), (0, False, False), (-1, True, False)):
++            with self.subTest(hr=hr, absent=absent):
++                self.setUp()
++                self.owner.own_profile('fresh', 1000)
++                self.owner.set_profile_path('C:/dedicated/fresh')
++                self.api.delete_hr, self.api.absent = hr, absent
++                result = self.owner.cleanup(self.backend, lambda event: None)
++                self.assertEqual(result.resources_complete, complete)
++
++    def test_job_is_owned_before_setup_failure(self):
++        with patch.object(w, 'CreateJob', return_value=41), patch.object(w, 'SetJobInfo', return_value=False):
++            with self.assertRaises(OSError):
++                w.create_job(owner=self.owner)
++        self.assertEqual([(r.label, r.native) for r in self.owner.unresolved], [('job', 41)])
++
++    def test_both_process_handles_are_owned_before_attribute_release_failure(self):
++        self.backend.api = w
++        def initialize(buffer, count, flags, size):
++            size._obj.value = 256
++            return True
++        def create(*args):
++            pi = args[-1]._obj
++            pi.hProcess, pi.hThread, pi.dwProcessId = 51, 52, 99
++            return True
++        with patch.object(w, 'InitAttributes', side_effect=initialize), patch.object(w, 'UpdateAttribute', return_value=True), \
++             patch.object(w, 'CreateProcess', side_effect=create), patch.object(w, 'DeleteAttributes', side_effect=OSError('free attributes failed')):
++            with self.assertRaises(Exception):
++                w.create_suspended('fake.exe', [], 'C:/fake', {}, w.P(1000), 1, 2, owner=self.owner)
++        self.assertTrue({'process', 'primary_thread', 'attributes'} <= {r.label for r in self.owner.unresolved})
++        self.assertEqual(self.owner.errors[0].message, 'free attributes failed')
++
++    def test_helper_close_failure_never_replaces_its_primary_error(self):
++        self.backend.api = w
++        def open_token(process, access, output):
++            output._obj.value = 42
++            return True
++        with patch.object(w, 'GetCurrentProcess', return_value=-1), patch.object(w, 'OpenProcessToken', side_effect=open_token), \
++             patch.object(w, 'token_buffer', side_effect=OSError('primary token read failed')), patch.object(w, 'CloseHandle', return_value=False):
++            with self.assertRaisesRegex(OSError, 'primary token read failed'):
++                w.user_sid(owner=self.owner)
++        self.assertEqual([(ref.label, ref.native) for ref in self.owner.unresolved], [('self_token', 42)])
++        self.assertEqual(len(self.owner.errors), 1)
++
++    def test_profile_cannot_be_released_directly_with_live_dependents(self):
++        profile = self.owner.own_profile('fresh', 1000)
++        self.owner.set_profile_path('C:/dedicated/fresh')
++        self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
++        self.assertEqual(self.owner.release_once(profile), Outcome.UNKNOWN)
++        self.assertNotIn(('delete', 'fresh'), self.api.calls)
++
++    def test_sid_allocation_survives_unresolved_attribute_storage(self):
++        self.owner.own_profile('fresh', 1000)
++        self.owner.set_profile_path('C:/dedicated/fresh')
++        keepalive = object()
++        attributes = self.owner.own_handle('attributes', 2000, release='attributes', keepalive=keepalive)
++        # Fake API lacks DeleteAttributes: its uncertain release stays owned.
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertNotIn(('free_sid', 1000), self.api.calls)
++        self.assertIs(attributes.keepalive, keepalive)
++        self.assertTrue({'profile_sid', 'attributes', 'profile'} <= {r.label for r in self.owner.unresolved})
++
++    def test_profile_sid_is_owned_before_text_conversion_failure(self):
++        def create(*args):
++            args[-1]._obj.value = 1000
++            return 0
++        with patch.object(w, 'CreateProfile', side_effect=create):
++            sid = w.create_profile('fresh', owner=self.owner)
++        with patch.object(w, 'ConvertSidToStringSidW', return_value=False), self.assertRaises(OSError):
++            w.sid_text(sid, owner=self.owner)
++        self.assertEqual({r.label for r in self.owner.unresolved}, {'profile', 'profile_sid'})
++
++    def test_wait_failure_is_unknown_and_independent_handle_still_closes(self):
++        self.owner.own_process(SimpleNamespace(hProcess=21, hThread=22, dwProcessId=99))
++        self.owner.own_handle('independent', 31)
++        self.api.waits = [OSError('initial wait'), OSError('final wait')]
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertIn(('close', 31), self.api.calls)
++        self.assertNotIn(('close', 21), self.api.calls)
+--- before/competition/deepeye/tests/isolation/test_prototype_cleanup.py
++++ candidate/competition/deepeye/tests/isolation/test_prototype_cleanup.py
+@@ -0,0 +1,192 @@
++"""Actual launcher orchestration against an explicitly fake API and stage."""
++from pathlib import Path
++from types import SimpleNamespace
++import tempfile
++import unittest
++from simulation.isolation import prototype
++from test_windows_cleanup import FakeCleanupApi
++
++
++class LauncherApi(FakeCleanupApi):
++    def __init__(self, root):
++        super().__init__()
++        self.root = root
++        self.next_handle = 50
++        self.waits = [0, 0, 0]
++        self.fail = None
++        self.P = lambda: None
++        self.pid = 123
++    def user_sid(self, *, owner):
++        return 'S-1-5-21-fake'
++    def set_new_object_acl(self, path, root, user, package=None, *, owner):
++        return {'path': str(path), 'fake': True}
++    def create_profile(self, name, *, owner):
++        owner.own_profile(name, 1000)
++        return 1000
++    def sid_text(self, sid, *, owner):
++        if self.fail == 'sid_text':
++            raise OSError('SID conversion failed')
++        return 'S-1-15-2-fake'
++    def profile_path(self, sid, *, owner):
++        return self.root / 'fake-profile'
++    def own_canary(self, path, *, owner):
++        return owner.own_handle('canary', 40)
++    def parent_controls(self, *, owner):
++        return True
++    def read(self, *args):
++        raise AssertionError('blocking ReadFile must not be used')
++    def canary_read(self, handle, size):
++        return self.secret
++    def pipe(self, *, owner, read_label, write_label):
++        self.next_handle += 2
++        read, write = self.next_handle, self.next_handle + 1
++        owner.own_handle(read_label, read)
++        owner.own_handle(write_label, write)
++        return read, write
++    def SetHandleInformation(self, *args):
++        return True
++    def handle_flags(self, handle):
++        return 0 if handle in (53, 54) else 1
++    def create_job(self, *, owner):
++        ref = owner.own_handle('job', 60, recovery=True)
++        if self.fail == 'job':
++            raise OSError('job limits failed')
++        return ref.native
++    def create_suspended(self, *args, owner):
++        pi = SimpleNamespace(hProcess=70, hThread=71, dwProcessId=123)
++        owner.own_process(pi)
++        if self.fail == 'after_process':
++            raise OSError('helper failed after creation')
++        return pi
++    def AssignJob(self, *args):
++        return True
++    def inspect_process(self, *args, owner):
++        return dict(is_appcontainer=True, sid_matches=True, win32k_disabled=True,
++                    child_process_restricted=True, in_job=True, job_limits_match=True,
++                    capability_count=0)
++    def write(self, *args):
++        return None
++    def ResumeThread(self, *args):
++        return 1
++    def exit_code(self, handle):
++        return 0
++    def available_output(self, handle):
++        self.calls.append(('available_output', handle))
++        return b'{}'
++
++
++class PrototypeCleanupTests(unittest.TestCase):
++    def setUp(self):
++        self.assertTrue(hasattr(prototype, 'RunEvidence'), 'launcher still drops live ownership on failure')
++        self.temporary = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temporary.cleanup)
++        self.root = Path(self.temporary.name)
++        self.api = LauncherApi(self.root)
++        self.saves = []
++
++    def run_fake(self, fail_save=None):
++        def stage(base, target):
++            return []
++        def save(path, value):
++            self.saves.append((path.name, set(value) if isinstance(value, dict) else None))
++            if fail_save and fail_save(path, value):
++                raise OSError('disk full')
++            prototype.save(path, value)
++        from unittest.mock import patch
++        with patch.object(self.api, 'canary_read', side_effect=lambda handle, size: self.api.secret), \
++             patch.object(prototype.os, 'urandom', side_effect=self.secret), \
++             patch.object(prototype, 'parse_fixture', return_value={
++                 'model_ok': True, 'pipe_ok': True, 'truth_open_error': 5, 'canary_handle_error': 6,
++                 'process_access_errors': {str(access): 5 for access in (8, 16, 32, 64, 128)}}):
++            return prototype.run(self.root, api=self.api, report_save=save, runtime_stage=stage)
++
++    def secret(self, size):
++        self.api.secret = b'k' * size
++        return self.api.secret
++
++    def test_process_is_owned_even_if_helper_fails_before_returning_pi(self):
++        self.api.fail = 'after_process'
++        receipt, result = self.run_fake()
++        self.assertEqual(result['error']['message'], 'helper failed after creation')
++        self.assertIn(('close', 70), self.api.calls)
++        self.assertIn(('close', 71), self.api.calls)
++        self.assertEqual(result.ownership.unresolved, ())
++        self.assertEqual(result['error'].get('type'), 'OSError')
++
++    def test_successful_fake_fixture_passes_only_with_complete_cleanup_and_evidence(self):
++        receipt, result = self.run_fake()
++        self.assertTrue(result['verdict']['passed'], result)
++        self.assertEqual(result.ownership.unresolved, ())
++
++    def test_serialization_failure_at_every_cleanup_event_still_closes_safe_resources(self):
++        receipt, result = self.run_fake(lambda path, value: isinstance(value, dict) and bool(value.get('cleanup_events')))
++        self.assertTrue(result['cleanup']['resources_complete'])
++        self.assertFalse(result['cleanup']['evidence_complete'])
++        self.assertFalse(result['verdict']['passed'])
++        self.assertIn(('close', 70), self.api.calls)
++        self.assertIn(('close', 71), self.api.calls)
++
++    def test_profile_sid_failure_still_frees_sid_and_retains_unknown_path_profile(self):
++        self.api.fail = 'sid_text'
++        receipt, result = self.run_fake()
++        self.assertEqual(result['error']['message'], 'SID conversion failed')
++        self.assertIn(('free_sid', 1000), self.api.calls)
++        self.assertEqual({r.label for r in result.ownership.unresolved}, {'profile'})
++        self.assertFalse(result['lifecycle']['profile_deleted'])
++
++    def test_save_failure_after_process_creation_cannot_skip_cleanup(self):
++        receipt, result = self.run_fake(lambda path, value: isinstance(value, dict) and 'pid' in value)
++        self.assertEqual(result['error']['message'], 'disk full')
++        self.assertIn(('close', 70), self.api.calls)
++        self.assertIn(('close', 71), self.api.calls)
++        self.assertTrue(result['cleanup']['resources_complete'])
++        self.assertFalse(result['cleanup']['evidence_complete'])
++        self.assertFalse(result['verdict']['passed'])
++
++    def test_unconfirmed_terminal_retains_live_process_thread_job_context(self):
++        self.api.fail = 'after_process'
++        self.api.waits = [258, 258]
++        receipt, result = self.run_fake()
++        self.assertTrue({'process', 'primary_thread', 'job', 'profile'} <= {r.label for r in result.ownership.unresolved})
++        self.assertNotIn(('close', 70), self.api.calls)
++        self.assertNotIn(('close', 71), self.api.calls)
++        self.assertNotIn(('close', 60), self.api.calls)
++
++    def test_early_close_failure_is_never_replayed_or_followed_by_blocking_read(self):
++        self.api.close_ok = False
++        receipt, result = self.run_fake()
++        self.assertFalse(result['verdict']['passed'])
++        self.assertEqual(self.api.calls.count(('close', 52)), 1)
++        self.assertFalse(result['cleanup']['resources_complete'])
++
++    def test_final_save_failure_returns_in_memory_failed_evidence(self):
++        receipt, result = self.run_fake(lambda path, value: isinstance(value, dict) and 'verdict' in value)
++        self.assertTrue(result['cleanup']['resources_complete'])
++        self.assertFalse(result['cleanup']['evidence_complete'])
++        self.assertFalse(result['verdict']['passed'])
++        self.assertTrue(result['evidence_errors'])
++
++    def test_job_failure_retains_allocated_job_and_cleans_it(self):
++        self.api.fail = 'job'
++        receipt, result = self.run_fake()
++        self.assertEqual(result['error']['message'], 'job limits failed')
++        self.assertIn(('close', 60), self.api.calls)
++        self.assertEqual(result.ownership.unresolved, ())
++
++    def test_real_fsync_failure_after_creation_is_contained_during_cleanup(self):
++        from unittest.mock import patch
++        def stage(base, target):
++            return []
++        def save(path, value):
++            if isinstance(value, dict) and 'pid' in value:
++                with patch.object(prototype.os, 'fsync', side_effect=OSError('fsync injection')):
++                    prototype.save(path, value)
++            else:
++                prototype.save(path, value)
++        with patch.object(self.api, 'canary_read', side_effect=lambda handle, size: self.api.secret), \
++             patch.object(prototype.os, 'urandom', side_effect=self.secret):
++            receipt, result = prototype.run(self.root, api=self.api, report_save=save, runtime_stage=stage)
++        self.assertEqual(result['error']['message'], 'fsync injection')
++        self.assertEqual(result.ownership.unresolved, ())
++        self.assertFalse(result['cleanup']['evidence_complete'])
++        self.assertIn(('close', 70), self.api.calls)
+--- before/competition/deepeye/tests/isolation/test_policy.py
++++ candidate/competition/deepeye/tests/isolation/test_policy.py
+@@ -48,7 +48,29 @@
+             'inheritance': {'verified': True},
+             'lifecycle': {'exit_code': 0, 'terminal': True,
+                           'profile_deleted': True},
++            'cleanup': {'resources_complete': True, 'evidence_complete': True,
++                        'cleanup_errors': [], 'audit_errors': [], 'owner_errors': [], 'unresolved': []},
++            'evidence_errors': [],
+         }
++
++    def test_cleanup_and_evidence_failures_cannot_pass_a_successful_fixture(self):
++        for name in ('resources_complete', 'evidence_complete'):
++            for value in (False, None, 1):
++                evidence = self._evidence()
++                evidence['cleanup'][name] = value
++                with self.subTest(name=name, value=value):
++                    self.assertFalse(evaluate(evidence)['passed'])
++        for name in ('cleanup_errors', 'audit_errors', 'owner_errors', 'unresolved'):
++            evidence = self._evidence()
++            evidence['cleanup'][name] = ['unresolved']
++            with self.subTest(name=name):
++                self.assertFalse(evaluate(evidence)['passed'])
++        evidence = self._evidence()
++        evidence['evidence_errors'] = ['final save failed']
++        self.assertFalse(evaluate(evidence)['passed'])
++        evidence = self._evidence()
++        del evidence['cleanup']
++        self.assertFalse(evaluate(evidence)['passed'])
+ 
+     def test_verdict_requires_all_positive_controls(self):
+         for group, key in [('fixture', 'model_ok'), ('fixture', 'pipe_ok'),
+--- before/competition/deepeye/tests/isolation/test_windows_live.py
++++ candidate/competition/deepeye/tests/isolation/test_windows_live.py
+@@ -20,6 +20,9 @@
+         self.assertTrue(evidence['lifecycle']['profile_deleted'])
+         self.assertEqual(evidence['trusted']['job_limits']['ui_restrictions'], 255)
+         self.assertTrue(evidence['inheritance']['excluded_canary_inheritable'])
++        self.assertEqual(evidence.ownership.unresolved, ())
++        self.assertTrue(evidence['cleanup']['resources_complete'])
++        self.assertTrue(evidence['cleanup']['evidence_complete'])
+ 
+     def test_timeout_is_failed_and_own_process_profile_are_cleaned(self):
+         # A fixed sleeping replacement exercises launcher timeout without
+@@ -43,6 +46,33 @@
+         self.assertTrue(evidence['lifecycle']['terminated_by_launcher'])
+         self.assertTrue(evidence['lifecycle']['terminal'])
+         self.assertTrue(evidence['lifecycle']['profile_deleted'])
++        self.assertEqual(evidence.ownership.unresolved, ())
++
++    def test_persistence_failure_after_process_creation_still_cleans_owned_objects(self):
++        # Prepared only: the author job never enables this native test class.
++        from simulation.isolation import prototype
++        original = prototype.save
++        failures = []
++        def failing_save(path, value):
++            if path.name == 'receipt.json' and isinstance(value, dict) and 'pid' in value:
++                failures.append(value['pid'])
++                raise OSError('intentional persistence failure after process creation')
++            return original(path, value)
++        receipt, evidence = prototype.run(Path(os.environ['DEEPEYE_ISOLATION_EVIDENCE_PARENT']),
++                                           report_save=failing_save)
++        self.assertTrue(failures)
++        self.assertEqual(evidence['error']['type'], 'OSError')
++        self.assertEqual(evidence['error']['message'], 'intentional persistence failure after process creation')
++        self.assertFalse(evidence['verdict']['passed'])
++        self.assertFalse(evidence['cleanup']['evidence_complete'])
++        self.assertTrue(evidence['cleanup']['resources_complete'])
++        self.assertTrue(evidence['lifecycle']['terminal'])
++        self.assertTrue(evidence['lifecycle']['profile_deleted'])
++        self.assertEqual(evidence.ownership.unresolved, ())
++        # Receipt is an earlier acknowledged snapshot. Preserve the returned
++        # in-memory result separately; do not relabel that stale file as final.
++        recovery = receipt.parent / 'expected-persistence-failure-memory.json'
++        original(recovery, evidence)
+ 
+ 
+ if __name__ == '__main__':
+--- before/competition/deepeye/docs/isolation_resource_cleanup.md
++++ candidate/competition/deepeye/docs/isolation_resource_cleanup.md
+@@ -1,9 +1,11 @@
+ # Trusted-owner resource cleanup coordinator
+ 
+ `simulation/isolation/resource_cleanup.py` is a synchronous, injected cleanup
+-coordinator. It has no OS backend, resource discovery, PID/path removal, launcher
+-integration, network, process creation or profile creation. It is not activated by
+-existing runners. Its lock rejects concurrent/reentrant calls on one coordinator;
++coordinator. That pure module has no OS backend, resource discovery, PID/path
++removal, network, process creation or profile creation. The CPU fixture launcher
++now supplies the separate owner registry and Windows backend described below;
++this integration still needs independent review and fresh native verification.
++The coordinator's lock rejects concurrent/reentrant calls on one coordinator;
+ it neither acquires an OS resource lease nor prevents a different program from
+ acting on those resources.
+ 
+@@ -109,7 +111,7 @@
+ could have been closed and reused. A healthy new sink does not authorize replay.
+ There is no automatic cross-process recovery or retry API in this component.
+ 
+-Future launcher integration must independently validate its complete resource
++Launcher integration must independently validate its complete resource
+ plan, bounded backend operations, real terminal/close/removal readback, ownership
+ retention on every acquisition/error path and durable evidence/recovery under real
+ OS failures. This offline implementation does not replace those validations.
+@@ -124,3 +126,83 @@
+ boundary failure, terminal/nonterminal readback, unknown closes/removal, retained
+ primary and cleanup/audit errors, profile gates, independent cleanup, duplicate
+ ownership and reentry/repeat rejection. It creates no native fixtures or profiles.
++
++## CPU fixture integration candidate, 2026-10-19
++
++`owned_resources.py` records every successful acquisition before reporting.
++`windows_cleanup.py` binds those exact references to checked Windows releases;
++`prototype.py` now uses this path. `resource_cleanup.py` remains unchanged.
++This backend covers only the CPU fixture's kernel handles, process/primary-thread
++handles, profile/SID and helper allocations. It is not a general socket, Python
++thread, GPU, UI or four-product-process backend.
++
++`OwnedResources` assigns a fresh reference instance to each acquisition. An early
++release result is cached before any later report. Unknown/failed releases remain
++owned and are never issued again by final cleanup. A numeric value may be reused
++normally only after confirmed prior release. If a new successful acquisition
++collides with an older unknown release, both records remain ambiguous and the
++acquisition raises; no automatic action uses that ambiguous value. A live duplicate
++without a preceding release is rejected as an invalid ownership assertion.
++
++The native helpers record a job before limit setup, and both CreateProcess handles
++before returning or releasing the attribute list. Profile and SID are recorded
++before SID conversion, path lookup or persistence. Attribute backing buffers stay
++strongly referenced when release is unresolved; SID storage is also retained while
++an attribute list that may reference it is unresolved. The following bounded
++helper release contracts are recorded in the same owner ledger:
++
++| Allocation | Release acknowledgement |
++| --- | --- |
++| Tokens, pipes, canary, Job, process and primary-thread handles | `CloseHandle` returns nonzero; no retry after an unknown result |
++| Profile SID | `FreeSid` returns NULL |
++| Converted SID string / ACL security descriptor | `LocalFree` returns NULL |
++| Profile-path string | `CoTaskMemFree` returns normally; its API has no status result |
++| Attribute-list storage | `DeleteProcThreadAttributeList` returns normally; backing Python buffers remain held if it throws |
++| Other ctypes/Python temporary buffers and scoped file objects | Python/helper scope contract; no independent OS allocation inventory claim |
++
++The void-return acknowledgements are bounded API contracts, not externally
++attested heap reclamation. Standalone legacy SID/token/ACL inspection helpers
++without an owner retain only their local checked-release contract; the actual
++launcher always supplies its owner. Allocation failure in Python's own in-memory
++registration, abrupt process death, and mutation by another trusted owner remain
++outside the synchronous fault-injection guarantee.
++
++Before requesting termination, the backend waits on the original held handle
++with zero timeout. A terminal process receives no terminate request. A separate
++bounded wait confirms terminal state before closing that handle. Unknown terminal
++state retains process, primary thread and Job controls. Exit-code readback errors
++remain distinct owner errors. Profile removal additionally requires a known path,
++all dependent releases confirmed, successful HRESULT and an explicit absence
++readback. Access/stat errors or unknown path never mean absence.
++
++`run(...)` still returns `(receipt_path, evidence)`. `evidence` is a `RunEvidence`
++dict subclass: keep `evidence.ownership` alive if unresolved. It holds the exact
++live references, backing buffers and one-attempt state for separately authorized
++reconciliation. JSON and ordinary `dict(evidence)` do not retain that context.
++The CLI is not a live recovery interface: exiting it does not prove terminal
++cleanup or authorize PID-based recovery. Use the library in a trusted owner when
++investigating potentially unresolved operations; no automatic recovery is added.
++
++Receipt writes serialize before writing, flush/fsync a new owned `.pending` file,
++then replace the receipt. Failed/partial attempts are preserved. This does not
++claim crash-proof directory-entry persistence. Primary failure, helper release
++errors, coordinator cleanup errors, audit errors and final save errors remain
++separate. All logging errors are contained while safe cleanup continues. Output
++capture uses one Peek plus a maximum 8192-byte read, never waiting for pipe EOF.
++
++The returned verdict requires confirmed resource completion, acknowledged evidence
++writes and empty error/unresolved lists. A final write failure changes the in-memory
++verdict to failed. An earlier disk snapshot may be stale or provisional, including
++when a sink writes successfully then raises; it is never relabeled as the final
++returned result. Keep failed evidence and use sequence IDs/readback for audit.
++
++Three opt-in native tests are prepared in `test_windows_live.py`: normal, timeout,
++and persistent evidence failure after process creation. They have not run for
++this integration candidate. Main must first independently review exact frozen
++bytes, then use a new dedicated evidence directory for each validation stage and
++preserve all attempts. These cases still do not establish G03 or product isolation.
++
++API contracts: [TerminateProcess and asynchronous termination](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess),
++[CloseHandle](https://learn.microsoft.com/en-us/windows/win32/api/handleapi/nf-handleapi-closehandle),
++[DeleteAppContainerProfile](https://learn.microsoft.com/en-us/windows/win32/api/userenv/nf-userenv-deleteappcontainerprofile),
++[FreeSid](https://learn.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-freesid).
+--- before/competition/deepeye/docs/process_isolation_prototype.md
++++ candidate/competition/deepeye/docs/process_isolation_prototype.md
+@@ -146,6 +146,27 @@
+ 
+ ## Remaining work
+ 
++The 2026-10-19 launcher cleanup candidate now uses an owner-bound acquisition
++ledger and the accepted one-attempt coordinator with a checked Windows backend.
++Profile/SID, job and process/thread handles are recorded before fallible reporting
++or subsequent helper setup. Unknown releases remain owned, terminal state is
++read back before control closure, and profile deletion requires a known path and
++all dependent closures. `run()` retains its two-value return, with live recovery
++context in the returned `RunEvidence.ownership` attribute. Do not discard that
++object or serialize away the only recovery context when resources are unresolved.
++
++Final evidence failures fail the returned verdict even if the fixture succeeded.
++Receipt fsync/replace errors cannot skip remaining safe cleanup. Output capture
++uses available bounded bytes rather than waiting for pipe EOF. See
++`isolation_resource_cleanup.md` for helper allocation contracts, unknown effects,
++numeric handle reuse, provisional receipts and API limits.
++
++This candidate has only fake/offline author tests. Three native cases are prepared
++but not run here: normal, timeout and persistence failure after process creation.
++Historical receipts above remain bound to their original launcher/helper bytes;
++they do not validate this new path. Independent source review and fresh native
++readback must precede any adoption claim. The security policy values are unchanged.
++
+ LPAC, GDI desktop capture, DXGI, WGC, shared textures/sections, debugger IPC,
+ network denial probes, backend/model runtime compatibility, Job parent-crash
+ behaviour, four product processes, authority integration, FPGA hardware and full

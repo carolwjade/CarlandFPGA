@@ -146,6 +146,27 @@ seven of its own runs. These are bounded CPU P1a results, not G03 acceptance.
 
 ## Remaining work
 
+The 2026-10-19 launcher cleanup candidate now uses an owner-bound acquisition
+ledger and the accepted one-attempt coordinator with a checked Windows backend.
+Profile/SID, job and process/thread handles are recorded before fallible reporting
+or subsequent helper setup. Unknown releases remain owned, terminal state is
+read back before control closure, and profile deletion requires a known path and
+all dependent closures. `run()` retains its two-value return, with live recovery
+context in the returned `RunEvidence.ownership` attribute. Do not discard that
+object or serialize away the only recovery context when resources are unresolved.
+
+Final evidence failures fail the returned verdict even if the fixture succeeded.
+Receipt fsync/replace errors cannot skip remaining safe cleanup. Output capture
+uses available bounded bytes rather than waiting for pipe EOF. See
+`isolation_resource_cleanup.md` for helper allocation contracts, unknown effects,
+numeric handle reuse, provisional receipts and API limits.
+
+This candidate has only fake/offline author tests. Three native cases are prepared
+but not run here: normal, timeout and persistence failure after process creation.
+Historical receipts above remain bound to their original launcher/helper bytes;
+they do not validate this new path. Independent source review and fresh native
+readback must precede any adoption claim. The security policy values are unchanged.
+
 LPAC, GDI desktop capture, DXGI, WGC, shared textures/sections, debugger IPC,
 network denial probes, backend/model runtime compatibility, Job parent-crash
 behaviour, four product processes, authority integration, FPGA hardware and full

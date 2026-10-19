@@ -1,0 +1,18 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-trusted-motion-materialization-repair-20261019-v1",
+  "owner": "A original Desktop main 01a13d7e-dcf1-7272-a738-a637dd62ff9d generation2",
+  "prior_author_terminal": "child-026f779d3a764a98aa2cf629e454d164 completed",
+  "prior_review_terminal": "child-34daa654230745abb8816e0b9baad365 completed",
+  "finding": "TM-R1 later standalone authority materialization failure leaves store active",
+  "decision": "Preserve committed pose/frame/history; retire pending actions and stop before propagating the original exception. Unknown failure is not proved collision and must not newly set trial_failed. Do not add nested _entry to passage_state because prepare legitimately invokes it inside its serial transaction.",
+  "ownership": [
+    "competition/deepeye/simulation/authority/motion_executor.py",
+    "competition/deepeye/tests/simulation/test_motion_executor.py",
+    "competition/deepeye/docs/motion_executor.md"
+  ],
+  "evidence": ".planning/deepeye-resume-20261018/trusted-motion-repair/",
+  "H01_H15": "unchanged",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "services_board_Run_providers": "not touched"
+}

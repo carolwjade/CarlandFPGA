@@ -20,6 +20,9 @@ class WindowsLiveTests(unittest.TestCase):
         self.assertTrue(evidence['lifecycle']['profile_deleted'])
         self.assertEqual(evidence['trusted']['job_limits']['ui_restrictions'], 255)
         self.assertTrue(evidence['inheritance']['excluded_canary_inheritable'])
+        self.assertEqual(evidence.ownership.unresolved, ())
+        self.assertTrue(evidence['cleanup']['resources_complete'])
+        self.assertTrue(evidence['cleanup']['evidence_complete'])
 
     def test_timeout_is_failed_and_own_process_profile_are_cleaned(self):
         # A fixed sleeping replacement exercises launcher timeout without
@@ -43,6 +46,33 @@ class WindowsLiveTests(unittest.TestCase):
         self.assertTrue(evidence['lifecycle']['terminated_by_launcher'])
         self.assertTrue(evidence['lifecycle']['terminal'])
         self.assertTrue(evidence['lifecycle']['profile_deleted'])
+        self.assertEqual(evidence.ownership.unresolved, ())
+
+    def test_persistence_failure_after_process_creation_still_cleans_owned_objects(self):
+        # Prepared only: the author job never enables this native test class.
+        from simulation.isolation import prototype
+        original = prototype.save
+        failures = []
+        def failing_save(path, value):
+            if path.name == 'receipt.json' and isinstance(value, dict) and 'pid' in value:
+                failures.append(value['pid'])
+                raise OSError('intentional persistence failure after process creation')
+            return original(path, value)
+        receipt, evidence = prototype.run(Path(os.environ['DEEPEYE_ISOLATION_EVIDENCE_PARENT']),
+                                           report_save=failing_save)
+        self.assertTrue(failures)
+        self.assertEqual(evidence['error']['type'], 'OSError')
+        self.assertEqual(evidence['error']['message'], 'intentional persistence failure after process creation')
+        self.assertFalse(evidence['verdict']['passed'])
+        self.assertFalse(evidence['cleanup']['evidence_complete'])
+        self.assertTrue(evidence['cleanup']['resources_complete'])
+        self.assertTrue(evidence['lifecycle']['terminal'])
+        self.assertTrue(evidence['lifecycle']['profile_deleted'])
+        self.assertEqual(evidence.ownership.unresolved, ())
+        # Receipt is an earlier acknowledged snapshot. Preserve the returned
+        # in-memory result separately; do not relabel that stale file as final.
+        recovery = receipt.parent / 'expected-persistence-failure-memory.json'
+        original(recovery, evidence)
 
 
 if __name__ == '__main__':

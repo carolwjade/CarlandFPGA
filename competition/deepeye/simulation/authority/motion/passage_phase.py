@@ -183,3 +183,57 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
         error_budget_reference=path.provenance.error_budget_reference,pose_revision=state.pose_revision+1,
         monotonic_ns=start_monotonic_ns+plan.covered_ns,phase=phase,entered=entered,history=tuple(history),trace_hash=trace)
     return Preview('SAFE',next_state,tuple(proofs),'whole plan preview only; owner must recheck STOP/deadline and CAS')
+
+
+@dataclass(frozen=True)
+class RelativeTransition:
+    """Private geometry anchor, never an authorization/freshness timestamp.
+
+    The original absolute preview and its hashes remain intact. Only events
+    appended by this transition are mapped to the separately committed fence.
+    """
+    previous: PassageState
+    preview: Preview
+    anchor_ns: int
+    duration_ns: int
+
+
+def prepare_relative_transition(state,path,context,*,max_slices=16):
+    if not _valid(state) or type(path) is not cp.CanonicalPath:
+        raise ValueError('valid owned history and canonical path required')
+    duration=path.provenance.requested_dt_ns
+    anchor=state.monotonic_ns
+    # +1 belongs solely to the numerical anchor's strict D-1 convention.
+    # It neither extends nor supplies a real command/AI/heartbeat deadline.
+    result=preview(state,path,context,expected_pose_revision=state.pose_revision,
+        start_monotonic_ns=anchor,deadline_monotonic_ns=anchor+duration+1,
+        hard_stop=False,max_slices=max_slices)
+    return RelativeTransition(state,result,anchor,duration)
+
+
+def materialize_committed_transition(transition,*,start_ns,end_ns,binding):
+    """Run outside the final fence, after the owner published its commit frame.
+
+    This creates a new trace binding actual time to an unchanged relative proof;
+    it never relabels that proof or moves previously committed events.
+    """
+    if type(transition) is not RelativeTransition or transition.preview.status!='SAFE':
+        raise ValueError('successful internally prepared relative transition required')
+    if (type(start_ns) is not int or type(end_ns) is not int
+            or start_ns<transition.previous.monotonic_ns
+            or end_ns-start_ns!=transition.duration_ns):
+        raise ValueError('committed interval must cover the exact relative duration')
+    w._label(binding)
+    old=transition.previous;candidate=transition.preview.candidate
+    if not _valid(old) or not _valid(candidate):raise ValueError('invalid internal phase chain')
+    count=len(old.history)
+    if candidate.history[:count]!=old.history:raise ValueError('previous events changed')
+    delta=start_ns-transition.anchor_ns
+    appended=tuple(Event(e.kind,e.start_ns+delta,e.end_ns+delta,e.pose_revision,e.proof_binding)
+                   for e in candidate.history[count:])
+    values={name:getattr(candidate,name) for name in candidate.__dataclass_fields__ if name!='seal'}
+    values.update(monotonic_ns=end_ns,history=old.history+appended,
+        trace_hash=w.digest(('relative-proof/actual-fence-v1',candidate.trace_hash,start_ns,end_ns,binding)))
+    state=_state(**values)
+    if not _valid(state):raise ValueError('actual interval violates phase chronology')
+    return state

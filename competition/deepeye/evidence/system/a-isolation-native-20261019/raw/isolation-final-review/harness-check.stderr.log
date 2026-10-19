@@ -1,0 +1,29 @@
+test_input_failure_cannot_bypass_unresolved_owner_retention (__main__.HoldBoundaryTests.test_input_failure_cannot_bypass_unresolved_owner_retention) ... FAIL
+test_output_failure_cannot_bypass_unresolved_owner_retention (__main__.HoldBoundaryTests.test_output_failure_cannot_bypass_unresolved_owner_retention) ... FAIL
+
+======================================================================
+FAIL: test_input_failure_cannot_bypass_unresolved_owner_retention (__main__.HoldBoundaryTests.test_input_failure_cannot_bypass_unresolved_owner_retention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-final-review\check_harness.py", line 42, in test_input_failure_cannot_bypass_unresolved_owner_retention
+    def test_input_failure_cannot_bypass_unresolved_owner_retention(self):self.exercise(input_error=True)
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-final-review\check_harness.py", line 37, in exercise
+    self.assertTrue(waited,'unresolved owner was abandoned before the retention wait')
+AssertionError: [] is not true : unresolved owner was abandoned before the retention wait
+
+======================================================================
+FAIL: test_output_failure_cannot_bypass_unresolved_owner_retention (__main__.HoldBoundaryTests.test_output_failure_cannot_bypass_unresolved_owner_retention)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-final-review\check_harness.py", line 41, in test_output_failure_cannot_bypass_unresolved_owner_retention
+    def test_output_failure_cannot_bypass_unresolved_owner_retention(self):self.exercise(output_error=True)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\isolation-final-review\check_harness.py", line 37, in exercise
+    self.assertTrue(waited,'unresolved owner was abandoned before the retention wait')
+AssertionError: [] is not true : unresolved owner was abandoned before the retention wait
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)

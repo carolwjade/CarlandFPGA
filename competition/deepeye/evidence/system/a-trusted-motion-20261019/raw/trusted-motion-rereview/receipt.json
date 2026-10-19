@@ -1,0 +1,65 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-trusted-motion-rereview-20261019-v1",
+  "job_id": "child-44006d600dab476bb7425fbe2554b664",
+  "reviewer": "/root/pc_direct_review_20261018",
+  "result": "TM_R1_fixed_no_new_blocker_bounded_local_software_repair",
+  "main_owns_acceptance": true,
+  "source_manifest": {
+    "size": 698,
+    "sha256": "1165585bb6e1bb049edb15a8df67e31f371203f6b6d22a03774d0e3ee5251533"
+  },
+  "candidate_files": {
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "size": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "size": 12230,
+      "sha256": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe"
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "size": 23122,
+      "sha256": "6f475a2fc2071df8fd2e8f2d82c434ab9c4a9d0d402b3df6b18c8a8ede48cf90"
+    },
+    "competition/deepeye/docs/motion_executor.md": {
+      "size": 8682,
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390"
+    }
+  },
+  "relevant_files_unchanged_during_review": 35,
+  "changed_since_prior_candidate": 3,
+  "unchanged_since_prior_candidate": 32,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15": "unchanged",
+  "tests": {
+    "full_suite": {
+      "passed": 137,
+      "exit_code": 0
+    },
+    "original_independent": {
+      "passed": 8,
+      "exit_code": 0
+    },
+    "safe_continuation": {
+      "passed": 3,
+      "exit_code": 0
+    }
+  },
+  "findings": {
+    "size": 6340,
+    "sha256": "991f8a401da9086e70a9b19ad2057cc9c3b54ce311bce961fc74a812747a5ae5"
+  },
+  "evidence_manifest": {
+    "size": 8639,
+    "sha256": "f6ff7a2df8fe79d7a981f7859b9163ceb62a187c451aff6e84010787df828190"
+  },
+  "original_exception": "preserved",
+  "pending_retirement": "confirmed_by_fake_numerical_tests",
+  "pose_frame_history": "preserved",
+  "unknown_fault_fabricates_trial_collision": false,
+  "all_29_formal_cards": "not_run",
+  "real_provider_runtime_game_board_acceptance": "not_run",
+  "product_edits": false
+}

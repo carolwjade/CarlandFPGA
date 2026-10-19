@@ -1,0 +1,60 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "outer_cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+  "outer_interpreter": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+  "outer_flags": [
+    "-B",
+    "-X",
+    "utf8"
+  ],
+  "outer_invocations": [
+    {
+      "script": "baseline_review.py",
+      "exit_code": 0
+    },
+    {
+      "script": "run_review.py",
+      "exit_code": 0
+    },
+    {
+      "script": "inspect_diff_and_freeze.py",
+      "exit_code": 0
+    },
+    {
+      "script": "run_extra_boundaries.py (initial setup error)",
+      "exit_code": 1
+    },
+    {
+      "script": "run_extra_boundaries.py (corrected same 3 tests)",
+      "exit_code": 0
+    },
+    {
+      "script": "finalize_review.py",
+      "exit_code": 0
+    }
+  ],
+  "author_baseline": {
+    "discovered": 69,
+    "passed": 66,
+    "native_skipped": 3,
+    "exit_code": 0
+  },
+  "independent_defect_witnesses": {
+    "tests": 2,
+    "failures": 2,
+    "errors": 0,
+    "exit_code": 1
+  },
+  "independent_boundaries": {
+    "tests": 3,
+    "passed": 3,
+    "exit_code": 0
+  },
+  "preserved_review_setup_error": {
+    "tests": 3,
+    "passed": 2,
+    "errors": 1,
+    "exit_code": 1,
+    "reason": "fixed32-byte urandom stub broke UUID16-byte request; corrected length-aware stub, no product change"
+  }
+}
