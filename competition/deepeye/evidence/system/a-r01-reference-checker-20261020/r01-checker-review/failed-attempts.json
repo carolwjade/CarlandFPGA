@@ -1,0 +1,105 @@
+{
+  "phase": "initial capture-wrapper invocation before parser correction",
+  "returncode": 2,
+  "stderr": "usage: run_capture.py [-h] --cwd CWD [--timeout TIMEOUT] label ...\nrun_capture.py: error: the following arguments are required: --cwd\n",
+  "effect": "No test or checker command launched and no run evidence file was created.",
+  "attempts": [
+    {
+      "label": "review-tests17",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+        "review-tests17",
+        "--cwd",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "--timeout",
+        "60",
+        "--",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "unittest",
+        "competition.deepeye.tests.test_check_rules.RuleCheckerTests",
+        "-v"
+      ]
+    },
+    {
+      "label": "review-cli-default",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+        "review-cli-default",
+        "--cwd",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "--timeout",
+        "60",
+        "--",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py"
+      ]
+    },
+    {
+      "label": "review-cli-full",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+        "review-cli-full",
+        "--cwd",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "--timeout",
+        "60",
+        "--",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py",
+        "--source-pdf",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+      ]
+    },
+    {
+      "label": "review-cli-reference",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+        "review-cli-reference",
+        "--cwd",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "--timeout",
+        "60",
+        "--",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py",
+        "--reference-only",
+        "--source-pdf",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+      ]
+    }
+  ],
+  "other_failures": [
+    {
+      "phase": "first static audit execution",
+      "returncode": 1,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: rb",
+      "cause": "Review-only audit script called open with rb instead of matching the literal text.",
+      "effect": "No static-audit.json was written; the corrected run is preserved in static-audit.json."
+    },
+    {
+      "phase": "first structural counterexample construction",
+      "effect": "The generated deep-json and duplicate-key rules files were syntactically malformed, so their exit-1 runs are preserved as methodology failures rather than parser-depth evidence. Fresh deep-json-v2 and duplicate-key-v2 cases reach the intended parser paths.",
+      "preserved_runs": [
+        "case-deep-json",
+        "case-duplicate-key"
+      ],
+      "corrected_runs": [
+        "case-deep-json-v2",
+        "case-duplicate-key-v2"
+      ]
+    }
+  ]
+}

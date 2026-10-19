@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-19T16:42:47.499087+00:00",
+  "product_sources": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\check_rules.py": "6276854e4c336d32d1afc3c110f61c3d112135965ea09997a28af4862042057a",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\rules.json": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\requirements_trace.csv": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+  },
+  "cases": {
+    "weights-tamper": {
+      "mutation": "substitute a different 100-point weight distribution",
+      "rules_sha256": "cb263981ba8e52b3b4ab651625e6b1196e36f3291d29cc8c950f7985653f20c5"
+    },
+    "weights-missing": {
+      "mutation": "remove assessment_weights entirely",
+      "rules_sha256": "e95c1214a9e7fd6d33da01390b8f83a74405b554d467066aede80b5a59dae53d"
+    },
+    "deep-json": {
+      "mutation": "append a 4000-level array under an unused key",
+      "rules_bytes": 14467,
+      "rules_sha256": "fb3e0523fcf7975208201ae0f0921273e705727652cfde1a856025c91f3e63f9"
+    },
+    "duplicate-key": {
+      "mutation": "add a duplicate top-level schema key",
+      "rules_sha256": "6f82206ab4161f8a79947242961d5d10c0ea893621b0e75c08fdfaf8a367c170"
+    },
+    "joint-drift": {
+      "mutation": "move ROCm rule and trace row jointly to page 3 and owner R01",
+      "rules_sha256": "7bf5cec58071b65277122190dfb44ebfcd0fe6a10a59c533d719532a773f53ba",
+      "trace_sha256": "7cce06260ccd4f488317b2b9103eee20c157af3b9c825da1854ee013834af6ac"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "at_utc": "2026-10-19T17:04:42.643741+00:00",
+  "work_id": "A-R01-CHECKER-REPAIR-20261020-v1",
+  "finding": "R01-CHK-01",
+  "source_files": {
+    "competition/deepeye/tools/check_rules.py": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e",
+    "competition/deepeye/tests/test_check_rules.py": "fcd9ac2be810731c3f4e77f9ccf06152287bea78af774d5f63ca7ddbe02c06ab",
+    "competition/deepeye/docs/rules_verification.md": "451ae603ae206ec7c0a46fb57b347ee506b999f31217c4d326f87b02a45cbf0f"
+  },
+  "input_pins": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\rules.json": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\requirements_trace.csv": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\taskbook_final.md": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc"
+  },
+  "original_candidate_sha256": "85a6db6ee4f839685a47770590fcbca6683862927318d94d05f749fad3b3c8cd",
+  "original17_test_methods_unchanged": true,
+  "repair_evidence": {
+    "green-cli-result.json": "e02ecc2f564220ada7f3a8f42be93c1f55bd46084a95fe02d3ba3cdc63961f27",
+    "green-unchanged.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "green-unchanged.stdout.json": "4fe45623f41fbd655d00b8f00d3e5f132fcd27231ef9aec89be67f6167c7012b",
+    "green-weights-missing.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "green-weights-missing.stdout.json": "9730becef848ae725204a2b2c4afcbd440d49eb6baecf57bac03a08bdf72508e",
+    "green-weights-tamper.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "green-weights-tamper.stdout.json": "92a4eedebde4f0579f5edbc033f9bba427f20a3788f270b2d98fc5d93c7448d3",
+    "prior-review-audit.json": "573a9a808f281b28bc5cc1fd6c67a52f381f679165ee7722618f4f5906682524",
+    "red-cli-result.json": "db3eb345655622ca8bd119ee7bc983c3eb94801a17d2bdc2c765e023b5aba34d",
+    "red-unchanged.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "red-unchanged.stdout.json": "87f28aacdd649d3e55bfb883d71250ec24cf15c6b3a7c9e7f9337ad2ebbc63f8",
+    "red-weights-missing.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "red-weights-missing.stdout.json": "1506e2ff20a964fca64455636bc0cd8a8f7ebb1c10de9c040d09eb164c7a1a7c",
+    "red-weights-tamper.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "red-weights-tamper.stdout.json": "5957459ed1658d90b28873822e2fc7c4bf1d134ac8e7e2692e97b52fdf2f8ece",
+    "repair.patch": "94423ad780224ddbee0c989ea8402ee61b15a20d66c85e1fb30b40102acf8d2c",
+    "run_checks.py": "8d1616a612d9b273173675d3667434813befa95dcb4c33553c1340cb6c6b23f1",
+    "verify_weight_cases.py": "89bda71fcdcddefbacc037f962681e3e732ee0a6a22529715b1f2baa9a4c5fe1",
+    "weights-green-01-command.json": "96d674c9ff7cb9cbe20d0f547e7690e3e1a056ae68f4c91ce9abde7f988a708f",
+    "weights-green-01.stderr.log": "66d163b7d2477d542cfd4f641be7792ca6340311077ce48c691f7cad9e5259cf",
+    "weights-green-01.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "weights-red-01-command.json": "ec2697edfc60ff76d94f789659297ab06d76d30056318fcbb146f9b6e42f5cd8",
+    "weights-red-01.stderr.log": "881fe83bd8bedabc10490ee1b9915504f6f50bd4aae032d819cca3783beb3aed",
+    "weights-red-01.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "formal29": "not_run"
+}

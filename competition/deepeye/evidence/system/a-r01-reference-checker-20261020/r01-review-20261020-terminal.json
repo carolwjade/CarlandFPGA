@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-19T16:57:10.720970+00:00",
+  "result": [
+    {
+      "job_id": "child-fc8960d8c9a64b959c5f06e1be252bba",
+      "instance_id": "deepseek-a-29",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "route": "deepseek",
+      "work_id": "A-R01-CHECKER-REVIEW-20261020-v1",
+      "ownership": [
+        ".planning/deepeye-resume-20261018/r01-checker-review"
+      ],
+      "native_agent_id": null,
+      "status": "completed",
+      "terminal": true,
+      "stale": false,
+      "result": {
+        "thread_id": "01a15497-e00f-7a42-82b5-1bf97c3f9c5d",
+        "turn": {
+          "id": "01a15500-4109-73b2-a186-fefe154346a5",
+          "rootTurnId": "01a15500-4109-73b2-a186-fefe154346a5",
+          "items": [
+            {
+              "type": "agentMessage",
+              "id": "e475f163-7ec4-46ec-9a42-aac7e9403143",
+              "text": "**Verdict**\n`FAIL` for the bounded R01 reference-checker scope, not formal acceptance.\n\n- `R01-CHK-01 High`: `assessment_weights` is never validated. A substituted 100-point distribution and a completely missing weights object both exit `0` with `reference_checks_passed`. See `findings.md:19`, `.local/deepeye-implementation-a/competition/deepeye/tools/check_rules.py:105`, and `.local/deepeye-implementation-a/competition/deepeye/docs/rules.json:245`.\n- All metadata reports retained `R01: not_run`, `formal_acceptance: false`, and `hardware_enable_eligible: false`.\n\n**Verification**\n- Independent suite: exit `0`, `17/17` tests passed.\n- Recorded CLI: default `2`, explicit-PDF full `2`, explicit-PDF reference-only `0`; missing-PDF reference-only `2`.\n- Depth, duplicate-key, and joint-drift counterexamples correctly exited `1`.\n- All 3 source, 6 input, and 25 evidence pins match. Canonical H01-H15 hash recomputed exactly as `c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804`.\n- All pinned bytes remained unchanged; no PRODUCT writes, commits, pushes, service or hardware actions, or `__pycache__` were created. Formal29 remains `not_run`.\n\n**Artifacts**\n- `findings.md`: `548004b667fd0995b7a39fc82ccdfc7612e4fb67bd04525547b6f5af1e43f4d7`\n- `inspection_manifest.json`: `c571e9c6a1cb8271e6e6a1aab8e7ba1e66dcf4e2afae386bf8b952413240869a`\n- `receipt.json`: `8bcbe99d614e40a7c0317008d34538199b04694e0e1c776612e897bc3f76c283`",
+              "phase": "final_answer",
+              "memoryCitation": null,
+              "delivery": null,
+              "questions": null
+            }
+          ],
+          "itemsView": "summary",
+          "status": "completed",
+          "error": null,
+          "startedAt": 1792427442,
+          "completedAt": 1792429030,
+          "durationMs": 1588164
+        },
+        "text": "**Verdict**\n`FAIL` for the bounded R01 reference-checker scope, not formal acceptance.\n\n- `R01-CHK-01 High`: `assessment_weights` is never validated. A substituted 100-point distribution and a completely missing weights object both exit `0` with `reference_checks_passed`. See `findings.md:19`, `.local/deepeye-implementation-a/competition/deepeye/tools/check_rules.py:105`, and `.local/deepeye-implementation-a/competition/deepeye/docs/rules.json:245`.\n- All metadata reports retained `R01: not_run`, `formal_acceptance: false`, and `hardware_enable_eligible: false`.\n\n**Verification**\n- Independent suite: exit `0`, `17/17` tests passed.\n- Recorded CLI: default `2`, explicit-PDF full `2`, explicit-PDF reference-only `0`; missing-PDF reference-only `2`.\n- Depth, duplicate-key, and joint-drift counterexamples correctly exited `1`.\n- All 3 source, 6 input, and 25 evidence pins match. Canonical H01-H15 hash recomputed exactly as `c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804`.\n- All pinned bytes remained unchanged; no PRODUCT writes, commits, pushes, service or hardware actions, or `__pycache__` were created. Formal29 remains `not_run`.\n\n**Artifacts**\n- `findings.md`: `548004b667fd0995b7a39fc82ccdfc7612e4fb67bd04525547b6f5af1e43f4d7`\n- `inspection_manifest.json`: `c571e9c6a1cb8271e6e6a1aab8e7ba1e66dcf4e2afae386bf8b952413240869a`\n- `receipt.json`: `8bcbe99d614e40a7c0317008d34538199b04694e0e1c776612e897bc3f76c283`",
+        "reasoning_effort": "max",
+        "model": "deepseek-flash",
+        "provider": "deepseek"
+      },
+      "error": null,
+      "created_at": "2026-10-19T16:30:42.419276Z",
+      "updated_at": "2026-10-19T16:57:10.711566Z"
+    }
+  ]
+}

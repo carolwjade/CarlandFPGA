@@ -1,0 +1,664 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-19T16:56:26.896498+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-R01-CHECKER-REVIEW-20261020-v1",
+  "main_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "main_generation": 2,
+  "original_child_job": {
+    "job_id": "child-fc8960d8c9a64b959c5f06e1be252bba",
+    "instance_id": "deepseek-a-29",
+    "route": "deepseek",
+    "ownership": ".planning/deepeye-resume-20261018/r01-checker-review"
+  },
+  "review_scope": {
+    "kind": "bounded offline read-only software review",
+    "writable_root": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review",
+    "product_write_authority": false,
+    "git_commit_or_push": false,
+    "peer_or_group_message": false,
+    "board_run_hardware_or_service_change": false
+  },
+  "verdict": {
+    "bounded_scope": "FAIL",
+    "reason": "assessment_weights substitution and omission both receive reference-only exit 0",
+    "blocking_finding_id": "R01-CHK-01",
+    "blocking_finding_severity": "High",
+    "formal_acceptance": false,
+    "hardware_enable_eligible": false,
+    "R01": "not_run",
+    "formal29": "not_run"
+  },
+  "requirements": {
+    "canonical_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "expected_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "match": true,
+    "count": 15,
+    "ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "product_and_root_scope_identical": true
+  },
+  "candidate": {
+    "manifest_sha256": "85a6db6ee4f839685a47770590fcbca6683862927318d94d05f749fad3b3c8cd",
+    "requested_manifest_sha256": "85a6db6ee4f839685a47770590fcbca6683862927318d94d05f749fad3b3c8cd",
+    "manifest_match": true,
+    "base_head": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1",
+    "product_head_observed": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "source_count": 3,
+    "all_source_pins_match": true,
+    "all_sources_absent_in_base": true,
+    "all_sources_untracked": true,
+    "input_pin_count": 6,
+    "all_input_pins_match": true,
+    "evidence_pin_count": 25,
+    "all_evidence_pins_match": true,
+    "source_files": {
+      "competition/deepeye/tools/check_rules.py": "6276854e4c336d32d1afc3c110f61c3d112135965ea09997a28af4862042057a",
+      "competition/deepeye/tests/test_check_rules.py": "8a21b7aa71714c2ffacd1c7a002b4280b17c979be1350ddbc5f84a1f9f16feac",
+      "competition/deepeye/docs/rules_verification.md": "2cfdcca1cb0ade6eb50d5aa90ca3f799b1369dbb87e495e605c7f2f0c3e5bc9b"
+    }
+  },
+  "imports": {
+    "checker_loaded_file": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\check_rules.py",
+    "checker_sha256": "6276854e4c336d32d1afc3c110f61c3d112135965ea09997a28af4862042057a",
+    "test_loaded_file": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_check_rules.py",
+    "test_sha256": "8a21b7aa71714c2ffacd1c7a002b4280b17c979be1350ddbc5f84a1f9f16feac",
+    "test_method_count": 17,
+    "python_executable": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "checker_dependencies": [
+      {
+        "name": "argparse",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\argparse.py",
+        "sha256": "7cc582dcb3b76e2c957f78a3f74e9809d6c311d6aab7bcaa2c9954d0cbff5f30"
+      },
+      {
+        "name": "csv",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\csv.py",
+        "sha256": "2fd2a39ec59a5cbcd71596a93205001e593c65dc2ca3bef6028f148372028a88"
+      },
+      {
+        "name": "datetime",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\datetime.py",
+        "sha256": "ef20dc6b3554cd585dddffdc573f1f9a7a54c522f2a3fb4576c44edbb1e14238"
+      },
+      {
+        "name": "hashlib",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\hashlib.py",
+        "sha256": "6dbdebf270868b391080e21dc9687eddfaf321c965ad979f68d3f5c423c613ab"
+      },
+      {
+        "name": "io",
+        "origin": "frozen",
+        "sha256": null
+      },
+      {
+        "name": "json",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\__init__.py",
+        "sha256": "d5d41e2c29049515d295d81a6d40b4890fbec8d8482cfb401630f8ef2f77e4d5"
+      },
+      {
+        "name": "math",
+        "origin": "built-in",
+        "sha256": null
+      },
+      {
+        "name": "pathlib",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py",
+        "sha256": "10ba48ae8063cfe7589436041d0d4628c05f427c7709cf8e75e486f8930cc32c"
+      },
+      {
+        "name": "sys",
+        "origin": "built-in",
+        "sha256": null
+      }
+    ],
+    "test_dependencies": [
+      {
+        "name": "copy",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\copy.py",
+        "sha256": "cbd25547933176fcf6bb05c2adc9f4796d15ac20b9b82dcf890daea7203daeab"
+      },
+      {
+        "name": "csv",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\csv.py",
+        "sha256": "2fd2a39ec59a5cbcd71596a93205001e593c65dc2ca3bef6028f148372028a88"
+      },
+      {
+        "name": "importlib",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\importlib\\__init__.py",
+        "sha256": "d540b5ac137fcb3e26a8d5f2939649e34373c6685f98a30a9f682cf231be5854"
+      },
+      {
+        "name": "io",
+        "origin": "frozen",
+        "sha256": null
+      },
+      {
+        "name": "json",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\json\\__init__.py",
+        "sha256": "d5d41e2c29049515d295d81a6d40b4890fbec8d8482cfb401630f8ef2f77e4d5"
+      },
+      {
+        "name": "pathlib",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\pathlib.py",
+        "sha256": "10ba48ae8063cfe7589436041d0d4628c05f427c7709cf8e75e486f8930cc32c"
+      },
+      {
+        "name": "tempfile",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\tempfile.py",
+        "sha256": "2eea4401f4f29d0d3647ed6fc8bcf6aa1daf879c8aa407a8ea310edac9dfc317"
+      },
+      {
+        "name": "unittest",
+        "origin": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\Lib\\unittest\\__init__.py",
+        "sha256": "32ed48385c0377bc2900a76e9a6acc3705aeef402c72de8554b3c637420506f0"
+      }
+    ]
+  },
+  "commands": {
+    "required_reproduction": [
+      {
+        "label": "review-tests17",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "competition.deepeye.tests.test_check_rules.RuleCheckerTests",
+          "-v"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "returncode": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "c689212043ff7a4e2975529be15229ccf2d1dd4177f097ab346508afb1b900b7",
+        "tests_ran": 17,
+        "tests_ok": true
+      },
+      {
+        "label": "review-cli-default",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "returncode": 2,
+        "stdout_sha256": "5a8d03c783a5820cdc3558dae80a54cddaba992f795e5ea1c51a8ea240f2dffb",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "blocked",
+          "scope": "full_R01",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "blocked",
+          "error": null
+        }
+      },
+      {
+        "label": "review-cli-full",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "returncode": 2,
+        "stdout_sha256": "37fdf9747d38177c22c1b6cdcbbbc43adeb996c28b799b036685c2d1cd232414",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "blocked",
+          "scope": "full_R01",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "passed",
+          "error": null
+        }
+      },
+      {
+        "label": "review-cli-reference",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "returncode": 0,
+        "stdout_sha256": "ff7a0f3e5762020f4263f81b374b991c431fb5491e6f840faac23dd1a275b2d0",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "reference_checks_passed",
+          "scope": "reference_only",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "passed",
+          "error": null
+        }
+      },
+      {
+        "label": "review-cli-reference-missing",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "returncode": 2,
+        "stdout_sha256": "1c0ea329a36e5e1b305217dcfd24522e65100575a3e06a31535a169c6fb5466b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "blocked",
+          "scope": "reference_only",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "blocked",
+          "error": null
+        }
+      },
+      {
+        "label": "review-taskbook-cwd-default",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "tools/check_rules.py"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye",
+        "returncode": 2,
+        "stdout_sha256": "76a984490e1a9bae21228fd4bcde92763ab717d74b47c52bfb1f42925a19f928",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "blocked",
+          "scope": "full_R01",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "blocked",
+          "error": null
+        }
+      },
+      {
+        "label": "case-weights-tamper",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-tamper",
+        "returncode": 0,
+        "stdout_sha256": "71c2263873629a8ae6f3f11d6a208e36b7befd1987b6911c4d8834b1a2f77cf8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "reference_checks_passed",
+          "scope": "reference_only",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "passed",
+          "error": null
+        }
+      },
+      {
+        "label": "case-weights-missing",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-missing",
+        "returncode": 0,
+        "stdout_sha256": "74cf9e74f2f629b58b31475c54c08de3b122ef89c534dec98ac70e4d53e28a05",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "reference_checks_passed",
+          "scope": "reference_only",
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": "passed",
+          "error": null
+        }
+      },
+      {
+        "label": "case-deep-json-v2",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\deep-json-v2",
+        "returncode": 1,
+        "stdout_sha256": "940ecc5f39afa21f9dc7a35903938996a5b66af18b32f165b03211038939eb59",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "failed",
+          "scope": null,
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": null,
+          "error": "maximum recursion depth exceeded while decoding a JSON array from a unicode string"
+        }
+      },
+      {
+        "label": "case-duplicate-key-v2",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\duplicate-key-v2",
+        "returncode": 1,
+        "stdout_sha256": "7c4ab71eab20f84684a45012deb6b0636f198f66a2fea4958c8b76f690cf205e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "failed",
+          "scope": null,
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": null,
+          "error": "duplicate JSON key"
+        }
+      },
+      {
+        "label": "case-joint-drift",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\joint-drift",
+        "returncode": 1,
+        "stdout_sha256": "414e4535f514a41bb0b7d3f366b17da518015ca9110bdff7e0e5db67778fa182",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "failed",
+          "scope": null,
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": null,
+          "error": "official page mapping differs from reviewed source"
+        }
+      }
+    ],
+    "additional_corrected_preserved_runs": [
+      {
+        "label": "case-deep-json",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\deep-json",
+        "returncode": 1,
+        "stdout_sha256": "e0416c42fc3049fd0a1b01ed6b55ded5e5b4cd1aab29f9ab6bee8a7d9bec4c30",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "failed",
+          "scope": null,
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": null,
+          "error": "Expecting property name enclosed in double quotes: line 252 column 2 (char 6446)"
+        }
+      },
+      {
+        "label": "case-duplicate-key",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\duplicate-key",
+        "returncode": 1,
+        "stdout_sha256": "702b66a88fe3e67a77a31d3de667fd8577689738ff296686ea022e256190e562",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "report": {
+          "status": "failed",
+          "scope": null,
+          "R01": "not_run",
+          "formal_acceptance": false,
+          "hardware_enable_eligible": false,
+          "source_status": null,
+          "error": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+        }
+      }
+    ],
+    "run_count": 13,
+    "run_summary_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\runs-summary.json"
+  },
+  "checks": {
+    "tests17_exit0": true,
+    "default_full_exit2_blocked": true,
+    "explicit_pdf_full_exit2_blocked": true,
+    "reference_only_exact_pdf_exit0": true,
+    "reference_only_missing_pdf_exit2": true,
+    "taskbook_cwd_default_exit2": true,
+    "weight_substitution_falsely_accepted": true,
+    "missing_weights_falsely_accepted": true,
+    "deep_json_rejected": true,
+    "duplicate_key_rejected": true,
+    "joint_drift_rejected": true,
+    "all_reports_kept_formal_and_hardware_false": true
+  },
+  "product_write_check": {
+    "all_source_input_evidence_bytes_unchanged_before_after": true,
+    "product_head_before": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "product_head_after": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "unrelated_concurrent_head_change_observed_since_first_manual_read": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1 -> 678e01dd097f326e5bf724dc9db9e6b3e388384d",
+    "review_created_pycache": false,
+    "product_tools_or_tests_pycache_created": false
+  },
+  "failed_attempts": {
+    "phase": "initial capture-wrapper invocation before parser correction",
+    "returncode": 2,
+    "stderr": "usage: run_capture.py [-h] --cwd CWD [--timeout TIMEOUT] label ...\nrun_capture.py: error: the following arguments are required: --cwd\n",
+    "effect": "No test or checker command launched and no run evidence file was created.",
+    "attempts": [
+      {
+        "label": "review-tests17",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+          "review-tests17",
+          "--cwd",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+          "--timeout",
+          "60",
+          "--",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "-m",
+          "unittest",
+          "competition.deepeye.tests.test_check_rules.RuleCheckerTests",
+          "-v"
+        ]
+      },
+      {
+        "label": "review-cli-default",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+          "review-cli-default",
+          "--cwd",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+          "--timeout",
+          "60",
+          "--",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py"
+        ]
+      },
+      {
+        "label": "review-cli-full",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+          "review-cli-full",
+          "--cwd",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+          "--timeout",
+          "60",
+          "--",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ]
+      },
+      {
+        "label": "review-cli-reference",
+        "command": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\run_capture.py",
+          "review-cli-reference",
+          "--cwd",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+          "--timeout",
+          "60",
+          "--",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "competition/deepeye/tools/check_rules.py",
+          "--reference-only",
+          "--source-pdf",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+        ]
+      }
+    ],
+    "other_failures": [
+      {
+        "phase": "first static audit execution",
+        "returncode": 1,
+        "error": "FileNotFoundError: [Errno 2] No such file or directory: rb",
+        "cause": "Review-only audit script called open with rb instead of matching the literal text.",
+        "effect": "No static-audit.json was written; the corrected run is preserved in static-audit.json."
+      },
+      {
+        "phase": "first structural counterexample construction",
+        "effect": "The generated deep-json and duplicate-key rules files were syntactically malformed, so their exit-1 runs are preserved as methodology failures rather than parser-depth evidence. Fresh deep-json-v2 and duplicate-key-v2 cases reach the intended parser paths.",
+        "preserved_runs": [
+          "case-deep-json",
+          "case-duplicate-key"
+        ],
+        "corrected_runs": [
+          "case-deep-json-v2",
+          "case-duplicate-key-v2"
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "No formal R01 acceptance, formal29 completion, registration, qualification, ROCm, physical-task, hardware, board, or system claim.",
+    "No semantic current-organizer PDF review; only exact pinned bytes and fixed prior mapping consistency.",
+    "No G02 or unrelated moving worktree content inspected or modified.",
+    "The production gate remains unavailable and was not turned on."
+  ],
+  "artifacts": {
+    "findings.md": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\findings.md",
+      "bytes": 7756,
+      "sha256": "548004b667fd0995b7a39fc82ccdfc7612e4fb67bd04525547b6f5af1e43f4d7"
+    },
+    "inspection_manifest.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\inspection_manifest.json",
+      "bytes": 89838,
+      "sha256": "c571e9c6a1cb8271e6e6a1aab8e7ba1e66dcf4e2afae386bf8b952413240869a"
+    },
+    "runs-summary.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\runs-summary.json",
+      "bytes": 14553,
+      "sha256": "005cf5cdc19a89e913250a2a234eb1dca24dddce8f4ddf4a34e58c8757278bf9"
+    },
+    "inventory-before.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\inventory-before.json",
+      "bytes": 30709,
+      "sha256": "20198249ead69cc783e96ad230b30b8b792a76ad71932b689ea38a80e36ccc30"
+    },
+    "inventory-after.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\inventory-after.json",
+      "bytes": 30709,
+      "sha256": "597c8f0bfd49a469eb699cc71628a78be16f38131f096972858d5b8991feb396"
+    },
+    "pin-comparison.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\pin-comparison.json",
+      "bytes": 8074,
+      "sha256": "329baaef17b7dbb8238ceedd319a53797e17e33120660067d429f6e26c7bf46f"
+    },
+    "provenance-check.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\provenance-check.json",
+      "bytes": 2761,
+      "sha256": "6eb16d50f70cd217710345aec0a410615fc74bb2ca4f1defc93bfcc402e11616"
+    },
+    "requirements-check.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\requirements-check.json",
+      "bytes": 1125,
+      "sha256": "9bd69d1fcdd49ee5d1276cc37871be8cc81d99045939d1c7b489a2d946afc0e1"
+    },
+    "static-audit.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\static-audit.json",
+      "bytes": 3059,
+      "sha256": "ad35ef7f6d7e113f9a45c5a4e8e6c1e7aa12e703d8192499d6223375a4e7d46e"
+    },
+    "failed-attempts.json": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\failed-attempts.json",
+      "bytes": 4718,
+      "sha256": "c356cc2eca793a719e0abe8adfcb7ad923ba77946c8619a132996544b2a22896"
+    }
+  }
+}

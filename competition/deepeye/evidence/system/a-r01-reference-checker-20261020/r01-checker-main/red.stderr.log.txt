@@ -1,0 +1,14 @@
+test_current_artifacts_have_fifteen_official_and_fifteen_human_rows (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_current_artifacts_have_fifteen_official_and_fifteen_human_rows) ... FAIL
+
+======================================================================
+FAIL: test_current_artifacts_have_fifteen_official_and_fifteen_human_rows (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_current_artifacts_have_fifteen_official_and_fifteen_human_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_check_rules.py", line 24, in setUp
+    self.assertIsNotNone(checker, 'taskbook check_rules entrypoint is missing')
+AssertionError: unexpectedly None : taskbook check_rules entrypoint is missing
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

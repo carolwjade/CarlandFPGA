@@ -1,0 +1,66 @@
+{
+  "at_utc": "2026-10-19T17:03:06.048470+00:00",
+  "phase": "green",
+  "cases": [
+    {
+      "label": "weights-tamper",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py",
+        "--reference-only",
+        "--source-pdf",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\r01-checker-repair\\green-cli-stage\\weights-tamper",
+      "desired_exit": 1,
+      "actual_exit": 1,
+      "status": "failed",
+      "error": "assessment weights differ from the reviewed section 3.2 distribution",
+      "checker_sha256": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e",
+      "rules_sha256": "cb263981ba8e52b3b4ab651625e6b1196e36f3291d29cc8c950f7985653f20c5",
+      "stdout_sha256": "92a4eedebde4f0579f5edbc033f9bba427f20a3788f270b2d98fc5d93c7448d3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "weights-missing",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py",
+        "--reference-only",
+        "--source-pdf",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\r01-checker-repair\\green-cli-stage\\weights-missing",
+      "desired_exit": 1,
+      "actual_exit": 1,
+      "status": "failed",
+      "error": "assessment weights must contain exactly the reviewed section 3.2 categories",
+      "checker_sha256": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e",
+      "rules_sha256": "e95c1214a9e7fd6d33da01390b8f83a74405b554d467066aede80b5a59dae53d",
+      "stdout_sha256": "9730becef848ae725204a2b2c4afcbd440d49eb6baecf57bac03a08bdf72508e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "unchanged",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "competition/deepeye/tools/check_rules.py",
+        "--reference-only",
+        "--source-pdf",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\r01-checker-repair\\green-cli-stage\\unchanged",
+      "desired_exit": 0,
+      "actual_exit": 0,
+      "status": "reference_checks_passed",
+      "error": null,
+      "checker_sha256": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e",
+      "rules_sha256": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+      "stdout_sha256": "4fe45623f41fbd655d00b8f00d3e5f132fcd27231ef9aec89be67f6167c7012b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
