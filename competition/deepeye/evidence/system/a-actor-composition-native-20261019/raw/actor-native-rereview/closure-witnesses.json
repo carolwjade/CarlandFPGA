@@ -1,0 +1,886 @@
+{
+  "author_matrix": [
+    {
+      "name": "valid-zero",
+      "code_type": "int",
+      "terminated_type": "bool",
+      "passed": true,
+      "persisted_passed": true,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "exit17",
+      "code_type": "int",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 17,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "missing",
+      "code_type": "str",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": false,
+          "exit_code": null,
+          "exit_code_type": "NoneType",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "bool",
+      "code_type": "bool",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": false,
+          "exit_code_type": "bool",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "float",
+      "code_type": "float",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0.0,
+          "exit_code_type": "float",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "int-subclass",
+      "code_type": "Number",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "Number",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "enum",
+      "code_type": "Exit",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "Exit",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "forced",
+      "code_type": "int",
+      "terminated_type": "bool",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": true,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "malformed-terminated",
+      "code_type": "int",
+      "terminated_type": "int",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": 0,
+          "owner_terminated_type": "int",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    },
+    {
+      "name": "missing-terminated",
+      "code_type": "int",
+      "terminated_type": "str",
+      "passed": false,
+      "persisted_passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": null,
+          "owner_terminated_type": "NoneType",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      }
+    }
+  ],
+  "new_provenance": [
+    {
+      "fault": "reference",
+      "passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": false,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": false,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "saved": {
+        "case": "retained-natural-exit",
+        "passed": false,
+        "unresolved": false,
+        "normal_exit_success": false,
+        "evidence_success": false,
+        "result_semantics": "normal_exit_fixture",
+        "elapsed_ns": 0,
+        "events": [
+          {
+            "elapsed_ns": 0,
+            "operation": "public_poll",
+            "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+          },
+          {
+            "elapsed_ns": 0,
+            "operation": "poll/read retired",
+            "error": "original process terminal or life observation unknown"
+          }
+        ],
+        "cleanup": {
+          "state": "CLOSED",
+          "instance_id": "fake-only-original-owner",
+          "original_process_reference_retained": false,
+          "original_native_unchanged": true,
+          "terminal_confirmed": true,
+          "profile_outcome": "confirmed",
+          "original_process_exit": {
+            "resource_id": "original-process",
+            "identity_continuous": false,
+            "exit_code_recorded": true,
+            "exit_code": 0,
+            "exit_code_type": "int",
+            "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+            "owner_terminated": false,
+            "owner_terminated_type": "bool",
+            "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+          },
+          "resources": [
+            {
+              "label": "process",
+              "terminal_confirmed": true
+            }
+          ],
+          "resources_complete": true,
+          "evidence_complete": true,
+          "evidence_errors": [],
+          "primary_error": {
+            "type": "ValueError",
+            "message": "original process terminal or life observation unknown"
+          },
+          "unresolved_resources": []
+        },
+        "actor_receipt_snapshots": [],
+        "primary_error": null,
+        "runtime_ready_boot_ai_h12_formal": "not_run",
+        "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+        "expiry_meaning": null
+      }
+    },
+    {
+      "fault": "resource_id",
+      "passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": false,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "saved": {
+        "case": "retained-natural-exit",
+        "passed": false,
+        "unresolved": false,
+        "normal_exit_success": false,
+        "evidence_success": false,
+        "result_semantics": "normal_exit_fixture",
+        "elapsed_ns": 0,
+        "events": [
+          {
+            "elapsed_ns": 0,
+            "operation": "public_poll",
+            "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+          },
+          {
+            "elapsed_ns": 0,
+            "operation": "poll/read retired",
+            "error": "original process terminal or life observation unknown"
+          }
+        ],
+        "cleanup": {
+          "state": "CLOSED",
+          "instance_id": "fake-only-original-owner",
+          "original_process_reference_retained": true,
+          "original_native_unchanged": true,
+          "terminal_confirmed": true,
+          "profile_outcome": "confirmed",
+          "original_process_exit": {
+            "resource_id": "original-process",
+            "identity_continuous": false,
+            "exit_code_recorded": true,
+            "exit_code": 0,
+            "exit_code_type": "int",
+            "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+            "owner_terminated": false,
+            "owner_terminated_type": "bool",
+            "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+          },
+          "resources": [
+            {
+              "label": "process",
+              "terminal_confirmed": true
+            }
+          ],
+          "resources_complete": true,
+          "evidence_complete": true,
+          "evidence_errors": [],
+          "primary_error": {
+            "type": "ValueError",
+            "message": "original process terminal or life observation unknown"
+          },
+          "unresolved_resources": []
+        },
+        "actor_receipt_snapshots": [],
+        "primary_error": null,
+        "runtime_ready_boot_ai_h12_formal": "not_run",
+        "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+        "expiry_meaning": null
+      }
+    },
+    {
+      "fault": "native",
+      "passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": false,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": false,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "saved": {
+        "case": "retained-natural-exit",
+        "passed": false,
+        "unresolved": false,
+        "normal_exit_success": false,
+        "evidence_success": false,
+        "result_semantics": "normal_exit_fixture",
+        "elapsed_ns": 0,
+        "events": [
+          {
+            "elapsed_ns": 0,
+            "operation": "public_poll",
+            "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+          },
+          {
+            "elapsed_ns": 0,
+            "operation": "poll/read retired",
+            "error": "original process terminal or life observation unknown"
+          }
+        ],
+        "cleanup": {
+          "state": "CLOSED",
+          "instance_id": "fake-only-original-owner",
+          "original_process_reference_retained": true,
+          "original_native_unchanged": false,
+          "terminal_confirmed": true,
+          "profile_outcome": "confirmed",
+          "original_process_exit": {
+            "resource_id": "original-process",
+            "identity_continuous": false,
+            "exit_code_recorded": true,
+            "exit_code": 0,
+            "exit_code_type": "int",
+            "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+            "owner_terminated": false,
+            "owner_terminated_type": "bool",
+            "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+          },
+          "resources": [
+            {
+              "label": "process",
+              "terminal_confirmed": true
+            }
+          ],
+          "resources_complete": true,
+          "evidence_complete": true,
+          "evidence_errors": [],
+          "primary_error": {
+            "type": "ValueError",
+            "message": "original process terminal or life observation unknown"
+          },
+          "unresolved_resources": []
+        },
+        "actor_receipt_snapshots": [],
+        "primary_error": null,
+        "runtime_ready_boot_ai_h12_formal": "not_run",
+        "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+        "expiry_meaning": null
+      }
+    },
+    {
+      "fault": "membership",
+      "passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": false,
+          "exit_code_recorded": true,
+          "exit_code": 0,
+          "exit_code_type": "int",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "saved": {
+        "case": "retained-natural-exit",
+        "passed": false,
+        "unresolved": false,
+        "normal_exit_success": false,
+        "evidence_success": false,
+        "result_semantics": "normal_exit_fixture",
+        "elapsed_ns": 0,
+        "events": [
+          {
+            "elapsed_ns": 0,
+            "operation": "public_poll",
+            "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+          },
+          {
+            "elapsed_ns": 0,
+            "operation": "poll/read retired",
+            "error": "original process terminal or life observation unknown"
+          }
+        ],
+        "cleanup": {
+          "state": "CLOSED",
+          "instance_id": "fake-only-original-owner",
+          "original_process_reference_retained": true,
+          "original_native_unchanged": true,
+          "terminal_confirmed": true,
+          "profile_outcome": "confirmed",
+          "original_process_exit": {
+            "resource_id": "original-process",
+            "identity_continuous": false,
+            "exit_code_recorded": true,
+            "exit_code": 0,
+            "exit_code_type": "int",
+            "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+            "owner_terminated": false,
+            "owner_terminated_type": "bool",
+            "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+          },
+          "resources": [
+            {
+              "label": "process",
+              "terminal_confirmed": true
+            }
+          ],
+          "resources_complete": true,
+          "evidence_complete": true,
+          "evidence_errors": [],
+          "primary_error": {
+            "type": "ValueError",
+            "message": "original process terminal or life observation unknown"
+          },
+          "unresolved_resources": []
+        },
+        "actor_receipt_snapshots": [],
+        "primary_error": null,
+        "runtime_ready_boot_ai_h12_formal": "not_run",
+        "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+        "expiry_meaning": null
+      }
+    },
+    {
+      "fault": "dict_subclass",
+      "passed": false,
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "original_process_exit": {
+          "resource_id": "original-process",
+          "identity_continuous": true,
+          "exit_code_recorded": false,
+          "exit_code": null,
+          "exit_code_type": "NoneType",
+          "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+          "owner_terminated": false,
+          "owner_terminated_type": "bool",
+          "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+        },
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "saved": {
+        "case": "retained-natural-exit",
+        "passed": false,
+        "unresolved": false,
+        "normal_exit_success": false,
+        "evidence_success": false,
+        "result_semantics": "normal_exit_fixture",
+        "elapsed_ns": 0,
+        "events": [
+          {
+            "elapsed_ns": 0,
+            "operation": "public_poll",
+            "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+          },
+          {
+            "elapsed_ns": 0,
+            "operation": "poll/read retired",
+            "error": "original process terminal or life observation unknown"
+          }
+        ],
+        "cleanup": {
+          "state": "CLOSED",
+          "instance_id": "fake-only-original-owner",
+          "original_process_reference_retained": true,
+          "original_native_unchanged": true,
+          "terminal_confirmed": true,
+          "profile_outcome": "confirmed",
+          "original_process_exit": {
+            "resource_id": "original-process",
+            "identity_continuous": true,
+            "exit_code_recorded": false,
+            "exit_code": null,
+            "exit_code_type": "NoneType",
+            "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+            "owner_terminated": false,
+            "owner_terminated_type": "bool",
+            "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+          },
+          "resources": [
+            {
+              "label": "process",
+              "terminal_confirmed": true
+            }
+          ],
+          "resources_complete": true,
+          "evidence_complete": true,
+          "evidence_errors": [],
+          "primary_error": {
+            "type": "ValueError",
+            "message": "original process terminal or life observation unknown"
+          },
+          "unresolved_resources": []
+        },
+        "actor_receipt_snapshots": [],
+        "primary_error": null,
+        "runtime_ready_boot_ai_h12_formal": "not_run",
+        "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+        "expiry_meaning": null
+      }
+    }
+  ]
+}

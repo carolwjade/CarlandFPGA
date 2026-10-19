@@ -1,0 +1,15 @@
+{
+  "command": [
+    ".local/venv/Scripts/python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    ".planning\\deepeye-resume-20261018\\audit_actor_native_stage.py",
+    "retained-natural-exit"
+  ],
+  "exit_code": 1,
+  "failure": "AssertionError at line29: expected LF pth but original stage_runtime write_text uses Windows CRLF",
+  "observed_pth_repr": "b'python312.zip\\r\\nDLLs\\r\\n.\\r\\n'",
+  "stage_unchanged": true,
+  "native_execution": false
+}

@@ -1,0 +1,58 @@
+{
+  "job_id": "child-31468257c4304dcab47f85ea86fd6659",
+  "tests": {
+    "red-missing": {
+      "tests": 22,
+      "failures": 22,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 1,
+      "result_sha256": "550e133b366bb9241aa74db5acd357abf431997be38e865ca67ac9e869eff75d",
+      "stderr_sha256": "9f52304e6feb7bf62915fc6dc880ef86f95cd50b9c4225d47202d41aa30e3937"
+    },
+    "green-first": {
+      "tests": 170,
+      "failures": 0,
+      "errors": 3,
+      "skipped": 0,
+      "exit_code": 1,
+      "result_sha256": "ef2cffed7b6b06ae9b87217267d704c0977f7c0e472587eba79a95e8c0bbbf55",
+      "stderr_sha256": "a5f6b309557160a273c1001ab0f87dafde2185331026c938d2cfea9423c89cf2"
+    },
+    "green-second": {
+      "tests": 170,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "result_sha256": "24b8ddac698ec95cea7c7b35e3ff7107c39eb1d0032ac71fc6d85929b3730365",
+      "stderr_sha256": "024a0a9911d5b6d73d7cf595c41c7a68fb4ce44feeae800aa75a6410c35de592"
+    },
+    "red-postcommit": {
+      "tests": 24,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 1,
+      "result_sha256": "c545f722a6f85e593c991da2dbee39990b749933a28381e8940de527846b9d6a",
+      "stderr_sha256": "2acc363a6658edaac2f87c94b8bad22a65397777be6d25cef1bb4962d9df5dc7"
+    },
+    "green-final": {
+      "tests": 172,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "exit_code": 0,
+      "result_sha256": "63db88718f8278b88be4ace972df43e30651cf0ef1fef7e8aaaefe153c417572",
+      "stderr_sha256": "74148bda82861fa79eeac28e17654d946bda475b6e5679447842ae3631ae5c7f"
+    }
+  },
+  "report_sha256": "e06103253055b644a511706d07419ff4c2e77f574852f7e58ec454d2d221dee1",
+  "source_manifest_sha256": "11663f50a276bee91cb77e27693d33e101d72a47c64cba23e269d10589ea034e",
+  "baseline_sha256": "5546f05e9e1ba6a92f9ccfdcb6f285d23284ffd0496bc16dd56e7ea67ac62e1f",
+  "run_checks_sha256": "3f276ef697cf8c971ea6327757addd4ed1a87acce7417583ce9827402192bc5c",
+  "freeze_script_sha256": "47847eebe04eb8b488fa9b0ea048e2cb35b8a4f955c5923e1904d345acc83a04",
+  "complete_script_sha256": "4c4bb9bf5c6d511cb1ec2ad85f90ce99915a89ec5cd5476ca4dd0b94af2e4eae",
+  "selected_assignment_sha256": "4c943001ca2898c874ce1d52abd4b63a4d25844f430901946f8e6d6601272579",
+  "transfer_sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165"
+}

@@ -1,0 +1,712 @@
+{
+  "schema": 1,
+  "job_id": "child-37334357eaea4e4a91639bad35a47e67",
+  "agent_id": "/root/worker_results_review_20261018",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_bytes": "raw checkout bytes, not claimed Git blobs",
+  "product_head": "3f702903f1e16fa72eae15f03ba431b78de24bd0",
+  "inputs": {
+    "root/AGENTS.md": {
+      "sha256": "61033c090de13da7dbbcba9e689abdff31426b8de7c36b6138755c51b1149611",
+      "bytes": 5203
+    },
+    "root/.agents/skills/fpga-multi-node/SKILL.md": {
+      "sha256": "57077272cd366f9edf1b82a4e1c59d6558dd76d10f2df6f83f55754098436ccd",
+      "bytes": 3418
+    },
+    "root/.agents/skills/fpga-multi-node/skill-role.json": {
+      "sha256": "7e8934fd3ea51eb6ad6e78395a195073c214c3d17336bb6613226dd92e87f4b6",
+      "bytes": 146
+    },
+    "root/.agents/skills/fpga-multi-node/references/protocol.md": {
+      "sha256": "dff3f00071c50083775aae40254fc6f5aa9264afc141e6f0362bde0d0820a8e2",
+      "bytes": 10099
+    },
+    "root/.planning/deepeye-desktop-handoff-20261015/transfer.json": {
+      "sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165",
+      "bytes": 6075
+    },
+    "root/docs/competition/deepeye-2026/immutable_scope.md": {
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "bytes": 6139
+    },
+    "root/docs/competition/deepeye-2026/immutable_scope.json": {
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "bytes": 6684
+    },
+    "root/docs/competition/deepeye-2026/taskbook_final.md": {
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+      "bytes": 109430
+    },
+    "root/docs/competition/deepeye-2026/execution_plan_final.json": {
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be",
+      "bytes": 11924
+    },
+    "root/docs/competition/deepeye-2026/simulation_contract_final.json": {
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9",
+      "bytes": 8257
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-design-assignment.md": {
+      "sha256": "07324eb62068896cc34b8b54353bbaf7700923ad9e759862b390913bba8523f4",
+      "bytes": 2117
+    },
+    "root/.planning/deepeye-resume-20261018/ai-lifetime-design/design.md": {
+      "sha256": "5eb4fd822d9e30a9ca032de7a9fca969ab24e1751558bb922f654032165cbb4f",
+      "bytes": 24437
+    },
+    "root/.planning/deepeye-resume-20261018/actor-and-r02-main-selection.json": {
+      "sha256": "478cca607aa265649fea7fba0b6185f51be125446f9ac685767f43341721fb0f",
+      "bytes": 510
+    },
+    "root/.planning/deepeye-resume-20261018/bridge-and-actor-main-selection.json": {
+      "sha256": "9470d7c6b59944ca854c4ded9cc47fe6e661762c200ab5e6eae7e60d5968091b",
+      "bytes": 949
+    },
+    "root/.planning/deepeye-resume-20261018/actor-owner-review/findings.md": {
+      "sha256": "85c01193a3878a41cbd69fd516e649efb67e7a82a1de45fac01534ab2a6bdeca",
+      "bytes": 10097
+    },
+    "root/.planning/deepeye-resume-20261018/actor-owner-review/provider_detached_integration_gap.witness.json": {
+      "sha256": "edddfac001a9e3a3cb500225673d0d5f49506ccca2e34a2ad6546c0bc3ddaaaf",
+      "bytes": 247
+    },
+    "root/.planning/deepeye-resume-20261018/actor-binding-repair/source-manifest.json": {
+      "sha256": "98f792a4f5d699ab235179dbaa345867c8fd32975ed9c32d8b28e042c773f670",
+      "bytes": 5025
+    },
+    "root/.planning/deepeye-resume-20261018/actor-binding-repair/receipt.json": {
+      "sha256": "d582340e7498d0830f0a3b327470e4143f8c66214eafae171ee2eb93af0e72a6",
+      "bytes": 2172
+    },
+    "root/.planning/deepeye-resume-20261018/actor-binding-repair/native_completion.json": {
+      "sha256": "aa4ac6e2744e7b404ecbef386fbfa6b575dfeff68d3a1865e915a6ea16d026a8",
+      "bytes": 1387
+    },
+    "product/AGENTS.md": {
+      "sha256": "6a3504cd321dc19baf167d72c6faa5ee9a4549396ee6e41dbe3073edbb23fd2f",
+      "bytes": 5899
+    },
+    "product/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "sha256": "810a51ac68c9c456f956d7f6a2c9239f3e73032db00e0e0846536e28a7b6de7e",
+      "bytes": 22622
+    },
+    "product/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0",
+      "bytes": 2609
+    },
+    "product/competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "sha256": "1861316badcaacd2b47b2e311e3779595cac7055c074e72c4b9a4381ffad1eb3",
+      "bytes": 4400
+    },
+    "product/competition/deepeye/simulation/isolation/owned_resources.py": {
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e",
+      "bytes": 9095
+    },
+    "product/competition/deepeye/simulation/isolation/win32.py": {
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e",
+      "bytes": 17780
+    },
+    "product/competition/deepeye/simulation/isolation/prototype.py": {
+      "sha256": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda",
+      "bytes": 16264
+    },
+    "product/competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb",
+      "bytes": 23468
+    },
+    "product/competition/deepeye/simulation/authority/motion_executor.py": {
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62",
+      "bytes": 17156
+    },
+    "product/competition/deepeye/simulation/sensors/forward_profile.py": {
+      "sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9",
+      "bytes": 28252
+    },
+    "product/competition/deepeye/integration/host_envelope.py": {
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "bytes": 26184
+    },
+    "product/competition/deepeye/integration/pc_direct_watchdog.py": {
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1",
+      "bytes": 12255
+    },
+    "product/competition/deepeye/integration/boot_profile.py": {
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+      "bytes": 81662
+    },
+    "product/competition/deepeye/integration/clock_bounds.py": {
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "bytes": 10136
+    },
+    "product/competition/deepeye/integration/sensor_source.py": {
+      "sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57",
+      "bytes": 11285
+    },
+    "product/competition/deepeye/ai_pc/host_timing/reference.py": {
+      "sha256": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+      "bytes": 10137
+    },
+    "product/competition/deepeye/simulator/viewer/main.gd": {
+      "sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "bytes": 22526
+    },
+    "product/competition/deepeye/simulator/editor/scene_document.gd": {
+      "sha256": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+      "bytes": 27116
+    },
+    "product/competition/deepeye/docs/actor_lifetime.md": {
+      "sha256": "38f097931198b03c1cc7ee859ef79d60bd416abc50610b28aa875c35e6cf5f67",
+      "bytes": 14997
+    },
+    "product/competition/deepeye/docs/actor_native_probe.md": {
+      "sha256": "2a5393335e166175505293b233dc8b3b842a99c0ae709882caa6e00317bf4c96",
+      "bytes": 9114
+    },
+    "product/competition/deepeye/docs/runtime_checkpoint_20261019.md": {
+      "sha256": "573dc663850fb198ffc7eb3f615a984c3001164d5d0aa5f85c275344338b4a89",
+      "bytes": 8241
+    },
+    "product/competition/deepeye/docs/host_contract.json": {
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "bytes": 19892
+    },
+    "product/competition/deepeye/docs/host_timing_contract.md": {
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "bytes": 8180
+    },
+    "product/competition/deepeye/docs/boot_profiles.json": {
+      "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+      "bytes": 20395
+    },
+    "product/competition/deepeye/docs/pc_direct_runtime.md": {
+      "sha256": "90821f70cb27a67ada6fab4147c9992fd8177c426232bb2ade1e680291227665",
+      "bytes": 14963
+    },
+    "product/competition/deepeye/docs/motion_executor.md": {
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390",
+      "bytes": 8682
+    },
+    "product/competition/deepeye/docs/process_isolation_prototype.md": {
+      "sha256": "f6caa7f58d95bf70c418cf3d66dc2f953f1d1480220cfc6bd1e38be78af4cdac",
+      "bytes": 11697
+    },
+    "product/docs/superpowers/specs/2026-10-19-trusted-motion-executor-design.md": {
+      "sha256": "8073c35a6356d776e64a62ab29b232e7216e12f3d3fd7b595f4d6c4d1eae5960",
+      "bytes": 3443
+    }
+  },
+  "selected_task_dependencies": {
+    "C02": {
+      "owner": "C",
+      "stage": "s3",
+      "dependencies": [
+        "C01",
+        "B01"
+      ],
+      "status": "not_run"
+    },
+    "C03": {
+      "owner": "C",
+      "stage": "s3",
+      "dependencies": [
+        "R02",
+        "C02"
+      ],
+      "status": "not_run"
+    },
+    "C04": {
+      "owner": "C",
+      "stage": "s3",
+      "dependencies": [
+        "R03",
+        "C02"
+      ],
+      "status": "not_run"
+    },
+    "C05": {
+      "owner": "C",
+      "stage": "s3",
+      "dependencies": [
+        "R03",
+        "B05",
+        "C04"
+      ],
+      "status": "not_run",
+      "writer_packages": {
+        "A": [
+          "simulation/authority/",
+          "simulator/physics/"
+        ],
+        "C": [
+          "ai_pc/control_broker/"
+        ]
+      }
+    },
+    "G03": {
+      "owner": "A",
+      "stage": "s2",
+      "dependencies": [
+        "R03"
+      ],
+      "status": "not_run",
+      "deliverable": "真值隔离与有出处的传感响应软件"
+    },
+    "G04": {
+      "owner": "C",
+      "stage": "s3",
+      "dependencies": [
+        "G03",
+        "C01",
+        "C02"
+      ],
+      "status": "not_run",
+      "deliverable": "因果地图及三维有限曲率规划"
+    },
+    "G05": {
+      "owner": "B",
+      "stage": "s3",
+      "dependencies": [
+        "R03",
+        "B05",
+        "B06"
+      ],
+      "status": "not_run",
+      "deliverable": "双轴协议、板输出及三路独立捕获",
+      "internal_gate": "rebuild B06 same standard using exact commit containing new G05 RTL; pair fresh bit/hwh; do not reuse old build"
+    },
+    "G06": {
+      "owner": "C",
+      "stage": "s4",
+      "dependencies": [
+        "G02",
+        "G04",
+        "G05",
+        "G09",
+        "C05"
+      ],
+      "status": "not_run",
+      "deliverable": "模式合法执行与完整钻具体积/双圈验收",
+      "writer_packages": {
+        "A": [
+          "simulation/authority/",
+          "simulator/physics/",
+          "tools/verify_game.py"
+        ],
+        "C": [
+          "ai_pc/control_broker/"
+        ]
+      }
+    },
+    "G07": {
+      "owner": "A",
+      "stage": "s5",
+      "dependencies": [
+        "A02",
+        "G06",
+        "C03"
+      ],
+      "status": "not_run",
+      "deliverable": "盲测、防泄漏及现场3D/AI并发性能"
+    }
+  },
+  "source_anchors": {
+    "competition/deepeye/simulation/isolation/actor_owner.py": {
+      "_native_api": 27,
+      "_integer": 32,
+      "_relative": 38,
+      "_no_alias": 52,
+      "ActorPolicy": 59,
+      "_persist": 113,
+      "_entry": 137,
+      "ActorRegistry": 167,
+      "ActorOwner": 199,
+      "_validate": 76,
+      "call": 139,
+      "__init__": 205,
+      "_contains": 176,
+      "launch": 178,
+      "instance_id": 229,
+      "state": 232,
+      "_checkpoint": 234,
+      "_time": 239,
+      "_report": 247,
+      "_revoke": 253,
+      "_stage_files": 278,
+      "_launch": 297,
+      "bind_verified_boot": 362,
+      "ai_lease": 393,
+      "poll": 398,
+      "_close_internal": 402,
+      "close": 429,
+      "diagnostics": 434
+    },
+    "competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "_reference": 9,
+      "_sample": 23,
+      "_observe": 49
+    },
+    "competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "WindowsCleanupBackend": 6,
+      "__init__": 7,
+      "reference": 15,
+      "terminate": 21,
+      "wait_terminal": 34,
+      "close": 49,
+      "remove_profile": 52,
+      "release_reference": 55
+    },
+    "competition/deepeye/simulation/isolation/owned_resources.py": {
+      "OwnedReleaseError": 6,
+      "OwnedReference": 11,
+      "error_info": 26,
+      "OwnedResources": 34,
+      "__init__": 41,
+      "references": 53,
+      "unresolved": 57,
+      "owns": 60,
+      "bind_releaser": 63,
+      "own_handle": 68,
+      "_record_handle": 76,
+      "_record_pair": 105,
+      "own_pair": 129,
+      "own_profile": 135,
+      "set_profile_path": 148,
+      "own_process": 153,
+      "find": 160,
+      "release_once": 163,
+      "release_checked": 182,
+      "cleanup": 188,
+      "summary": 199
+    },
+    "competition/deepeye/simulation/isolation/win32.py": {
+      "bind": 20,
+      "check": 43,
+      "check_hr": 48,
+      "create_profile": 53,
+      "profile_path": 61,
+      "profile_absent": 75,
+      "own_canary": 87,
+      "canary_read": 94,
+      "parent_controls": 98,
+      "exit_code": 107,
+      "_release_temporary": 113,
+      "sid_text": 128,
+      "token_buffer": 138,
+      "user_sid": 148,
+      "set_new_object_acl": 159,
+      "SA": 198,
+      "STARTUPINFO": 202,
+      "STARTUPINFOEX": 212,
+      "PI": 216,
+      "SECURITY_CAPABILITIES": 221,
+      "BASIC_LIMIT": 226,
+      "IO_COUNTERS": 233,
+      "EXTENDED_LIMIT": 238,
+      "pipe": 268,
+      "write": 276,
+      "read": 283,
+      "handle_flags": 289,
+      "available_output": 295,
+      "create_job": 305,
+      "create_suspended": 319,
+      "inspect_process": 351
+    },
+    "competition/deepeye/simulation/isolation/prototype.py": {
+      "digest": 24,
+      "save": 28,
+      "stage_runtime": 40,
+      "RunEvidence": 83,
+      "run": 93,
+      "main": 295,
+      "source_bytes": 46,
+      "copy": 51,
+      "persist": 132,
+      "audit": 139,
+      "capture_output": 148
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "_integer": 29,
+      "_runtime_entry": 35,
+      "_NoActiveCommand": 52,
+      "BootBinding": 57,
+      "VerifiedEnvelope": 65,
+      "VerifiedObservation": 71,
+      "AiLease": 78,
+      "StepFence": 85,
+      "CommitReceipt": 95,
+      "StepResult": 105,
+      "AuthorityDependencies": 111,
+      "_Observation": 155,
+      "_Command": 161,
+      "PcDirectRuntime": 168,
+      "call": 43,
+      "verify_boot": 132,
+      "verify_board": 135,
+      "verify_observation": 138,
+      "verify_command": 141,
+      "ai_lease": 144,
+      "prepare_step": 147,
+      "commit_step": 151,
+      "__init__": 176,
+      "_trip": 202,
+      "_advance": 212,
+      "_active": 228,
+      "_event": 232,
+      "_record": 250,
+      "_same_boot": 255,
+      "boot": 261,
+      "board": 302,
+      "observe": 329,
+      "_age_cap": 360,
+      "_ai": 363,
+      "command": 374,
+      "stop": 407,
+      "_ready": 411,
+      "step": 442,
+      "activate": 265,
+      "receive": 303,
+      "admit": 375,
+      "before_commit": 466
+    },
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "GeometryBudget": 25,
+      "RendererView": 40,
+      "ControllerView": 46,
+      "_Command": 52,
+      "_CommitFrame": 65,
+      "_Root": 75,
+      "_Prepared": 91,
+      "PreparationRejected": 101,
+      "_entry": 109,
+      "_revoking_entry": 125,
+      "_integer": 137,
+      "OwnedMotionExecutor": 142,
+      "__post_init__": 31,
+      "__init__": 149,
+      "call": 128,
+      "_owner_check": 168,
+      "authority_snapshot": 171,
+      "renderer_view": 174,
+      "controller_view": 178,
+      "admitted_raw": 183,
+      "passage_state": 188,
+      "prepared_audit": 204,
+      "_revoke": 209,
+      "revoke": 220,
+      "invalidate_world": 224,
+      "activate_boot": 234,
+      "admit_command": 251,
+      "_sweep": 276,
+      "prepare_step": 290,
+      "commit_step": 326
+    },
+    "competition/deepeye/simulation/sensors/forward_profile.py": {
+      "_finite_float": 184,
+      "_fixed_length": 193,
+      "_strict_tick": 205,
+      "_channel_index": 215,
+      "Pose": 222,
+      "SensorSample": 244,
+      "_rotation_matrix": 289,
+      "_valid_sigma": 301,
+      "_counts_from_value": 310,
+      "_weight_table": 320,
+      "_kernel_channels": 384,
+      "ForwardProfile": 416,
+      "__post_init__": 233,
+      "is_valid": 257,
+      "is_saturated": 260,
+      "is_held": 263,
+      "source_fault": 267,
+      "to_payload": 270,
+      "lobe_weights": 341,
+      "__init__": 427,
+      "acquire_em": 451,
+      "sample_adc": 535
+    },
+    "competition/deepeye/integration/host_envelope.py": {
+      "ValidatedMessage": 71,
+      "_load_sibling": 80,
+      "_strict_enum": 92,
+      "_strict_const": 99,
+      "_iter_refs": 112,
+      "_sealed_schema": 123,
+      "_validators": 135,
+      "_subtree": 143,
+      "_closest_error": 153,
+      "_describe": 161,
+      "_reject_constant": 170,
+      "_parse_float": 174,
+      "_strict_object": 181,
+      "_check_nesting": 190,
+      "_reject_nonfinite": 212,
+      "_reject_denied_keys": 223,
+      "_parse_message": 237,
+      "_check_producer_argument": 260,
+      "_check_consumer_argument": 265,
+      "_check_now_argument": 275,
+      "_check_context_argument": 280,
+      "_check_message_context": 288,
+      "_check_nested_contexts": 293,
+      "_check_intervals": 307,
+      "_check_pose": 323,
+      "_check_gate": 335,
+      "_profile_name": 350,
+      "_check_target": 354,
+      "_require_observation": 375,
+      "_decode_frame": 380,
+      "_check_telem": 394,
+      "_check_event": 417,
+      "_check_candidate": 431,
+      "_check_request": 438,
+      "_check_grant": 445,
+      "_check_odometry": 461,
+      "_check_geometry": 465,
+      "_kind_validator": 475,
+      "_check_request_type": 484,
+      "_check_config_ack": 492,
+      "_check_gain_ack": 501,
+      "_check_boot_ack": 508,
+      "_check_ack3d": 517,
+      "_check_state": 528,
+      "_check_state3d": 545,
+      "_check_board_response": 561,
+      "validate_message": 589
+    },
+    "competition/deepeye/integration/pc_direct_watchdog.py": {
+      "_load_sibling": 20,
+      "_integer": 35,
+      "_context_copy": 41,
+      "StopGateDecision": 50,
+      "PcDirectWatchdog": 63,
+      "__init__": 72,
+      "context": 80,
+      "heartbeat_timeout_ns": 84,
+      "_clear_session": 87,
+      "_trip": 103,
+      "_advance": 110,
+      "_decision": 129,
+      "check": 139,
+      "ingest_heartbeat": 144,
+      "track_authority_command": 205,
+      "cancel": 236,
+      "reset": 244
+    },
+    "competition/deepeye/integration/boot_profile.py": {
+      "ProfileError": 153,
+      "_bool_allowed": 276,
+      "_scan_types": 295,
+      "_walk": 324,
+      "_rational": 405,
+      "canonical_bytes": 426,
+      "_reject_floats": 439,
+      "_unique_object": 455,
+      "_reject_constant": 465,
+      "load_document": 471,
+      "canonical_sha256": 488,
+      "slot_profile_sha128": 498,
+      "_as_sha128": 503,
+      "verify_profile_digest": 521,
+      "_validate_semantics": 525,
+      "_validate_profile": 677,
+      "_validate_speed": 851,
+      "_validate_ttl": 885,
+      "_validate_kinematics": 907,
+      "_validate_pwm": 935,
+      "_validate_channels": 971,
+      "_validate_acquisition": 995,
+      "_validate_time_identities": 1033,
+      "_validate_policy": 1059,
+      "_validate_enums": 1082,
+      "validate_document": 1106,
+      "_profile": 1124,
+      "_slot_def": 1134,
+      "_baud": 1144,
+      "_line_bits": 1153,
+      "slot_start_ms": 1165,
+      "segment_ms": 1182,
+      "branch_segments": 1197,
+      "validate_branch": 1207,
+      "window_budget": 1245,
+      "rolling_window_max_bytes": 1262,
+      "occupied_bytes": 1296,
+      "mode_segments": 1310,
+      "verify_all_mode_schedules": 1325,
+      "branch_segments_slots": 1364,
+      "ceil_ms": 1372,
+      "response_deadlines_ms": 1381,
+      "grant_mask_errors": 1392,
+      "plan_window": 1418,
+      "late_candidate_action": 1461,
+      "speed_m_s": 1507,
+      "_name_for_id": 1532,
+      "compose_boot_mode": 1540,
+      "parse_boot_mode": 1553,
+      "_u32": 1582,
+      "_u16": 1588,
+      "boot_payload": 1594,
+      "_pack_boot_payload": 1606,
+      "parse_boot_payload": 1613,
+      "boot_frame": 1629,
+      "boot_ack_frame": 1636,
+      "_decode_typed": 1657,
+      "parse_boot_frame": 1665,
+      "parse_boot_ack_frame": 1675,
+      "verify_boot_ack": 1685,
+      "bind_software_documents": 1705,
+      "verify_software_bindings": 1737,
+      "runtime_digests": 1747,
+      "note": 678,
+      "valid_binding": 595,
+      "slot_start": 713
+    },
+    "competition/deepeye/integration/clock_bounds.py": {
+      "_strict_int": 38,
+      "_require_uint32": 48,
+      "_require_full_boot_sha256": 52,
+      "Interval": 61,
+      "ClockBounds": 75,
+      "Anchor": 106,
+      "make_anchor": 144,
+      "map_tick": 156,
+      "adc_window_nominal_span_ns": 201,
+      "adc_first_sample_interval": 210,
+      "__post_init__": 122
+    },
+    "competition/deepeye/integration/sensor_source.py": {
+      "_integer": 35,
+      "_tick": 41,
+      "SourceRecord": 49,
+      "validate_record": 61,
+      "_decode": 122,
+      "validate_json": 144,
+      "LedgerSnapshot": 150,
+      "Admission": 161,
+      "SourceLedger": 167,
+      "pairs": 126,
+      "constant": 134,
+      "__init__": 175,
+      "snapshot": 182,
+      "clock_high_water_ns": 186,
+      "_observe_time": 190,
+      "_time_ns": 199,
+      "accept_json": 202,
+      "accept": 206,
+      "healthy": 255
+    },
+    "competition/deepeye/ai_pc/host_timing/reference.py": {
+      "_strict_int": 38,
+      "_require_uint32": 48,
+      "_require_full_boot_sha256": 52,
+      "Interval": 61,
+      "ClockBounds": 75,
+      "Anchor": 106,
+      "make_anchor": 144,
+      "map_tick": 156,
+      "adc_window_nominal_span_ns": 201,
+      "adc_first_sample_interval": 210,
+      "__post_init__": 122
+    }
+  },
+  "performed": "read-only source/design inspection; no product imports, tests, native or network"
+}

@@ -1,0 +1,22 @@
+test_before_after_acquisition_errors_keep_original_recovery_roots (__main__.Cases.test_before_after_acquisition_errors_keep_original_recovery_roots) ... ok
+test_claim_replay_stops_before_fake_registry_creation (__main__.Cases.test_claim_replay_stops_before_fake_registry_creation) ... ok
+test_expected_persistence_failure_keeps_original_primary_and_quarantine (__main__.Cases.test_expected_persistence_failure_keeps_original_primary_and_quarantine) ... ok
+test_normal_zero_exit_baseline_and_expiry_expected_semantics (__main__.Cases.test_normal_zero_exit_baseline_and_expiry_expected_semantics) ... ok
+test_original_reader_continuity_elapsed_and_retirement_checks (__main__.Cases.test_original_reader_continuity_elapsed_and_retirement_checks) ... ok
+test_ready_then_nonzero_crash_is_not_successful_natural_exit (__main__.Cases.test_ready_then_nonzero_crash_is_not_successful_natural_exit) ... FAIL
+test_ready_then_reader_fault_kill_is_not_successful_natural_exit (__main__.Cases.test_ready_then_reader_fault_kill_is_not_successful_natural_exit) ... ok
+test_result_write_failure_changes_memory_pass_and_retains_owner (__main__.Cases.test_result_write_failure_changes_memory_pass_and_retains_owner) ... ok
+test_unknown_cleanup_retains_owner_and_stops_next_campaign (__main__.Cases.test_unknown_cleanup_retains_owner_and_stops_next_campaign) ... ok
+
+======================================================================
+FAIL: test_ready_then_nonzero_crash_is_not_successful_natural_exit (__main__.Cases.test_ready_then_nonzero_crash_is_not_successful_natural_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-review\review_cases.py", line 115, in test_ready_then_nonzero_crash_is_not_successful_natural_exit
+    self.assertFalse(result.passed,'nonzero exit17 after READY was classified passed')
+AssertionError: True is not false : nonzero exit17 after READY was classified passed
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.205s
+
+FAILED (failures=1)

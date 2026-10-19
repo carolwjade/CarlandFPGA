@@ -1,0 +1,23 @@
+{
+  "basis": "current accepted actor manifest98f792a4 and exact unchanged native helpers; static only",
+  "ActorPolicy_fields": [
+    "run_id",
+    "evidence_parent",
+    "source_root",
+    "files",
+    "executable",
+    "arguments",
+    "system_root",
+    "local_appdata",
+    "max_stage_bytes",
+    "output_limit",
+    "readiness_timeout_ns",
+    "lifetime_timeout_ns",
+    "sample_age_cap_ns",
+    "max_probe_ns"
+  ],
+  "reader_contract": "same exact owner, original output ref/native, guarded _entry, _reference/_sample before/after; helper8192 consumption/test256 cap",
+  "exit_contract": "WindowsCleanupBackend.exit_codes[original resource_id], initialized dict; terminated initialized False/sets True only successful owner TerminateProcess; win32.exit_code returns DWORD.value",
+  "native_abi_executed": false,
+  "unreviewed_actor_composition_imported": false
+}

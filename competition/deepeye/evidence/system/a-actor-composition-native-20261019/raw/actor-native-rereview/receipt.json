@@ -1,0 +1,43 @@
+{
+  "work_id": "A-actor-native-classification-rereview-20261019-v1",
+  "job_id": "child-5c2571e073f543e5aa015745e787cfc7",
+  "finding": "ANH-R1 closed at prepared software/classification scope; no new blocking finding",
+  "main_acceptance_required": true,
+  "native_execution_authorized": false,
+  "source_manifest_sha256": "49a6b16e6e1c8d7e87cada6b88cac2052b6d572d5b37fabecbd47558580fc826",
+  "findings_sha256": "964d24c1ac7f6a6732a6aa8af735be69562b00f7df16217d3d706598ad8b783e",
+  "original9_byte_identical": true,
+  "old_evidence_unchanged": true,
+  "tests": {
+    "original9_pass": 9,
+    "closure_methods_pass": 4,
+    "offline_pass": 10,
+    "genuine_native_skips": 3,
+    "all_exit_codes": 0
+  },
+  "formal_cards": "all29 not_run",
+  "native": "not_run",
+  "product_writes": false,
+  "artifacts": {
+    "closure-witnesses.json": "293597f39a918f6e65052e2543e802cf15d1ec37f179d960a91d86b31a006a99",
+    "closure.command.json": "cd7c71619296099ade89bf99272ae30a8ebdb04cb953fb9fa0b43e2e1ddb08e0",
+    "closure.stderr.log": "43bbb9fb45a095a713d2d52cd65831926bc4165c539a770bb54905518211dfad",
+    "closure.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "closure_cases.py": "dee22286490e90afe3d8a619ec061c30e72ba76c6e7cb790a3429b7147609a72",
+    "compatibility.json": "610acf54a2ed2073d9ffbb408abd5cc10c7bbe6a3ac868e26e46205b2f29aadf",
+    "exit_boundaries.py": "dd25a13ba46afbd60152529879b550f7bdba5347da4386a7ba8179cef5c6ff3e",
+    "findings.md": "964d24c1ac7f6a6732a6aa8af735be69562b00f7df16217d3d706598ad8b783e",
+    "freeze.py": "d22c14d7f1ddc81070b25c544975be48fb74bf3103902e90e588d3c8413dea39",
+    "independent-witnesses.json": "11d73dc2b4f4f51522856316615912cadf4552ef2f98564bea48cb410c2531bf",
+    "module-origins.json": "a29c6c7a8e181991072d2397a18035dc4216db6ea2c69a00d68e6a3566d29617",
+    "offline.command.json": "08f2c4b1188f1c67d7dc2a29a4b9de05b59598f262cebb48c88aed284f460433",
+    "offline.stderr.log": "45457727507bea9fd6fa57a066d6c9c3c89e947c4fff6c0405ac45502c8c57f4",
+    "offline.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "original9.command.json": "6f52b55572465c6902ff1b334ca37c28905bbd59dd5be9ea27c8f803e7b535bb",
+    "original9.stderr.log": "99136465f81663150dac5b8d3e1e4ecb34f568492b420f0de67b17e1428b3367",
+    "original9.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "review_cases.py": "1b1befc27be8f80de7182bd5ea056a471277102595fc266eed8ada01f408b171",
+    "run.py": "8be9061c00f27cf291e336f9a402d3173d46759cb3398d1c38368cacf0157791",
+    "source-manifest.json": "49a6b16e6e1c8d7e87cada6b88cac2052b6d572d5b37fabecbd47558580fc826"
+  }
+}

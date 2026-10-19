@@ -1,0 +1,14 @@
+import asyncio,pathlib,hashlib,json,sys
+H=pathlib.Path(__file__).resolve().parent;sys.path.insert(0,str(H.parents[2]))
+from fpga_mesh.child_control import LocalControlFileClient
+def sha(n):return hashlib.sha256((H/n).read_bytes()).hexdigest()
+async def main():
+ p=json.loads((H.parent/'actor-composition-review-lease.private.json').read_text(encoding='utf-8-sig'));client=LocalControlFileClient(pathlib.Path(p['original_control_file']))
+ args={'job_id':'child-f77104b71ea14097ba5a69ae79badaca','lease_token':p['lease_token'],'agent_id':'/root/pc_direct_review_20261018'}
+ valid=await client.call('native_validate',args)
+ if valid.get('execution_allowed') is not True:print(json.dumps({k:valid.get(k) for k in ['status','terminal','execution_allowed','reason']}));return
+ text=('A-actor-composition-independent-review-20261019-v1 bounded review completed, no new blocking defect within deliberately unavailable-production software scope. Evidence .planning/deepeye-resume-20261018/actor-composition-review/. findings SHA256 '+sha('findings.md')+'; receipt '+sha('receipt.json')+'; manifest '+sha('manifest.json')+'. '
+ +'Candidate11663f50a276bee91cb77e27693d33e101d72a47c64cba23e269d10589ea034e live/frozen/raw-clean3 and55 dependencies verified;58 bytes unchanged. Actual current172(24new+148actor/runtime/executor different from earlier main148) passed once/0skip. Five distinct protection methods passed; sixth explicit negative witness confirms synthetic progress lost after prepare can commit revision1 until next poll, matching documented missing final-fence measured progress/deadline producer. Cannot simply install accepting verifier to enable production. Fixed unavailable gate has0 new registry/native/retention; original actor/process life cannot route static channel lease. Partial activation/foreign activation Wait/callback successor failure/strong quarantine checked; observed actual CAS plus late reentry and cleanup failure remains committed1 and QUARANTINED, not false no-side-effect. No existing source/assertion modifications, native/harness import, actual acquisition/runtime stage, model/service/board/network/Git effects; main retained native session/stage/evidence untouched. Original detached-provider integration gap retained. H01-H15 canonical c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged; actual AI/BOOT/fullH12/Run/game/board/formal29 remain not_run. Main owns exact bounded library acceptance.')
+ r=await client.call('native_complete',{'job_id':args['job_id'],'lease_token':p['lease_token'],'text':text});assert r.get('status')=='completed' and r.get('terminal') is True
+ (H/'native_complete.json').write_text(json.dumps(r,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print(json.dumps({k:r.get(k) for k in ['job_id','work_id','status','terminal']},ensure_ascii=False))
+asyncio.run(main())

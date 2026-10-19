@@ -1,0 +1,125 @@
+test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) ... 
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='valid-zero') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='exit17') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='missing') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='bool') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='float') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='int-subclass') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='enum') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='forced') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='malformed-terminated') ... FAIL
+  test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='missing-terminated') ... FAIL
+test_expected_negative_cases_are_not_normal_evidence_success (exit_boundaries.ExitBoundaries.test_expected_negative_cases_are_not_normal_evidence_success) ... 
+  test_expected_negative_cases_are_not_normal_evidence_success (exit_boundaries.ExitBoundaries.test_expected_negative_cases_are_not_normal_evidence_success) (case='fixed-unbound-expiry') ... FAIL
+  test_expected_negative_cases_are_not_normal_evidence_success (exit_boundaries.ExitBoundaries.test_expected_negative_cases_are_not_normal_evidence_success) (case='persistence-after-acquisition') ... FAIL
+test_other_process_zero_cannot_replace_original_exit (exit_boundaries.ExitBoundaries.test_other_process_zero_cannot_replace_original_exit) ... FAIL
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='valid-zero')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 32, in test_complete_pipeline_normal_exit_matrix
+    self.assertIsNotNone(observed,'exit provenance absent')
+AssertionError: unexpectedly None : exit provenance absent
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='exit17')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='bool')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='float')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='int-subclass')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='enum')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='forced')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='malformed-terminated')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_complete_pipeline_normal_exit_matrix (exit_boundaries.ExitBoundaries.test_complete_pipeline_normal_exit_matrix) (case='missing-terminated')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 29, in test_complete_pipeline_normal_exit_matrix
+    self.assertEqual(expected,result.passed,'READY + terminal/resource cleanup must not substitute normal exit')
+AssertionError: False != True : READY + terminal/resource cleanup must not substitute normal exit
+
+======================================================================
+FAIL: test_expected_negative_cases_are_not_normal_evidence_success (exit_boundaries.ExitBoundaries.test_expected_negative_cases_are_not_normal_evidence_success) (case='fixed-unbound-expiry')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 54, in test_expected_negative_cases_are_not_normal_evidence_success
+    self.assertFalse(persisted.get('normal_exit_success',True))
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_expected_negative_cases_are_not_normal_evidence_success (exit_boundaries.ExitBoundaries.test_expected_negative_cases_are_not_normal_evidence_success) (case='persistence-after-acquisition')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 54, in test_expected_negative_cases_are_not_normal_evidence_success
+    self.assertFalse(persisted.get('normal_exit_success',True))
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_other_process_zero_cannot_replace_original_exit (exit_boundaries.ExitBoundaries.test_other_process_zero_cannot_replace_original_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-native-repair\exit_boundaries.py", line 43, in test_other_process_zero_cannot_replace_original_exit
+    self.assertFalse(result.passed);self.assertEqual('original-process',result.original_process_resource_id)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.189s
+
+FAILED (failures=13)

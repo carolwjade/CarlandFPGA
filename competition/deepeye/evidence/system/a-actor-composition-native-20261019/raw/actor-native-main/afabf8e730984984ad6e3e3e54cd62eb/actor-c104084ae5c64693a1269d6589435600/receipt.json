@@ -1,0 +1,256 @@
+{
+  "schema": 1,
+  "instance_id": "553100bfe9284173afa890424c8dc21b:1",
+  "state": "CLOSED",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "resources": [
+    {
+      "resource_id": "self_token:1",
+      "label": "self_token",
+      "release": "kernel",
+      "native": 428,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "sid_string:2",
+      "label": "sid_string",
+      "release": "local",
+      "native": 1923402172944,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "security_descriptor:3",
+      "label": "security_descriptor",
+      "release": "local",
+      "native": 1923402110480,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "profile:4",
+      "label": "profile",
+      "release": "profile",
+      "native": "DeepEye.Actor.2a39a60bc1a144269f9c2fcd627de6bf",
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "profile_sid:5",
+      "label": "profile_sid",
+      "release": "sid",
+      "native": 1923433509312,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "sid_string:6",
+      "label": "sid_string",
+      "release": "local",
+      "native": 1923398098064,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "profile_path_string:7",
+      "label": "profile_path_string",
+      "release": "cotask",
+      "native": 1923432028320,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "security_descriptor:8",
+      "label": "security_descriptor",
+      "release": "local",
+      "native": 1923431092288,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "input_read:9",
+      "label": "input_read",
+      "release": "kernel",
+      "native": 840,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "input_write:10",
+      "label": "input_write",
+      "release": "kernel",
+      "native": 640,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "output_read:11",
+      "label": "output_read",
+      "release": "kernel",
+      "native": 836,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "output_write:12",
+      "label": "output_write",
+      "release": "kernel",
+      "native": 432,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "job:13",
+      "label": "job",
+      "release": "kernel",
+      "native": 592,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "attributes:14",
+      "label": "attributes",
+      "release": "attributes",
+      "native": 1923450827568,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "process:15",
+      "label": "process",
+      "release": "kernel",
+      "native": 868,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": true,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "primary_thread:16",
+      "label": "primary_thread",
+      "release": "kernel",
+      "native": 864,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "child_token:17",
+      "label": "child_token",
+      "release": "kernel",
+      "native": 872,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "sid_string:18",
+      "label": "sid_string",
+      "release": "local",
+      "native": 1923398098240,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    }
+  ],
+  "provenance": {
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+    "work_id": "553100bfe9284173afa890424c8dc21b:1",
+    "owner_id": "553100bfe9284173afa890424c8dc21b:1",
+    "source_hashes": [
+      [
+        "requirements",
+        "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+      ],
+      [
+        "stage:DLLs/_ctypes.pyd",
+        "0fba5ed70ca7addf63f638dbd61911d3796e3aa2924373f09d1a44f262890129"
+      ],
+      [
+        "stage:DLLs/libffi-8.dll",
+        "24fe590249f5a98730281edf1bcc23f62ef2ace6d563526a3b3ec34aaa146634"
+      ],
+      [
+        "stage:fixture.py",
+        "47946ba137eb61aa9d4d2357487c28210314bd4642ad7b1b4d781d052abab3b6"
+      ],
+      [
+        "stage:python.exe",
+        "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344"
+      ],
+      [
+        "stage:python3.dll",
+        "c4027ef4bf9926f984e8cf9d566d5aa980e9509c77c8fd338adb0d9bdf467009"
+      ],
+      [
+        "stage:python312._pth",
+        "b46d6b929fb40dabcf77086e15764ac1e66ae2fb9c8160974e8aa7896aa215bb"
+      ],
+      [
+        "stage:python312.dll",
+        "f0226ab5626a5fac95326adf53b1c8a2bef843bae11dcac0868e968baa966718"
+      ],
+      [
+        "stage:python312.zip",
+        "f4eecec7741b8d4f4f0cc86fa14a2dcdc4d575c22c3d752a4fce08ec7c8f602d"
+      ],
+      [
+        "stage:vcruntime140.dll",
+        "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066"
+      ],
+      [
+        "stage:vcruntime140_1.dll",
+        "1f2d41c4aa5db0bc33ebf7b66d72943a817d7ce6cbe880502a9403823633093f"
+      ]
+    ]
+  },
+  "primary_error": {
+    "stage": "primary",
+    "resource_id": null,
+    "type_name": "ValueError",
+    "message": "original process terminal or life observation unknown"
+  },
+  "callback_errors": [],
+  "evidence_errors": [],
+  "owner_errors": [],
+  "cleanup": {
+    "resources_complete": true,
+    "evidence_complete": true,
+    "success": false,
+    "cleanup_errors": []
+  },
+  "evidence_complete": true,
+  "cleanup_attempted": true
+}

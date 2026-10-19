@@ -1,0 +1,25 @@
+{
+  "original_ActorPolicy_fields": [
+    "run_id",
+    "evidence_parent",
+    "source_root",
+    "files",
+    "executable",
+    "arguments",
+    "system_root",
+    "local_appdata",
+    "max_stage_bytes",
+    "output_limit",
+    "readiness_timeout_ns",
+    "lifetime_timeout_ns",
+    "sample_age_cap_ns",
+    "max_probe_ns"
+  ],
+  "actual_native_compatibility": "not_run; moving actor repair not accepted here",
+  "reader_adapter_imports": [
+    "actor_owner._entry",
+    "actor_lifetime._reference",
+    "actor_lifetime._sample"
+  ],
+  "cleanup_exit_code_source": "WindowsCleanupBackend.wait_terminal stores original process resource_id -> exit_code; actor _entry only revokes on read failure and does not clean up before harness finally"
+}

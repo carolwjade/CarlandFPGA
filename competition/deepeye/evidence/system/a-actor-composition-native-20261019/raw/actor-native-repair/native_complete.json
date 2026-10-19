@@ -1,0 +1,25 @@
+{
+  "job_id": "child-bc0ea14b25eb4fbfbcbf1e2e3606266e",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-actor-native-classification-repair-20261019-v1",
+  "ownership": [
+    ".local/deepeye-implementation-a/competition/deepeye/docs/actor_native_probe.md",
+    ".local/deepeye-implementation-a/competition/deepeye/tests/isolation/test_actor_windows_live.py",
+    ".planning/deepeye-resume-20261018/actor-native-repair"
+  ],
+  "native_agent_id": "/root/pc_direct_review_20261018",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "A-actor-native-classification-repair-20261019-v1 frozen for independent review. Exact2 modified harness/doc plus unchanged fixture in3-file bundle. Evidence .planning/deepeye-resume-20261018/actor-native-repair/. source manifest SHA256 415fb81c4c47ae8b1024bc3079f24866094bc737c6ebf3760b522b14b5ca39e3; report e2fb15ae4ef7ba531964e57d6f3f647a33ed96284142c37a2f76a8c1b783f1c7; receipt f7683ebca2a31f054b29f6161f579d307ca42a731811a67717dd4019ea44c7c7; manifest b340b23959ee36549b8a42b93672ea3215c9f97a530507afe88c3045fee565f7. ANH-R1 fixed: retain exact original process ref/resource_id; after normal cleanup require its recorded builtin int exit0 and backend.terminated exactly False, preserve value/type/source and continuity separately from cleanup. Missing/bool/float/subclass/nonzero/other-process/owner-terminated outcomes fail in memory and persisted result. Expected negative cases retain fixture expectation but normal_exit_success/evidence_success False. Original9 reviewer source/assertions unchanged:RED9/1failure toGREEN9pass; added3 methods with10-entry matrix RED13subfailures toGREEN3pass. Existing13 discovered=10offline pass/3native genuine skip. Primary/cleanup-once/unknown strong recovery/exclusive result writes preserved. Only2 product paths changed; actor/G06/fixture and old evidence unchanged, hashes not oldHEAD used. No actual native/registry/process/stage/network/service/board/Git effects. H01-H15 canonical c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged; real AI/BOOT/ai_lease/fullH12/Run/game/board/all29 remain not_run. Main acceptance and fresh exact allow/native remain pending independent review.",
+    "native_agent_id": "/root/pc_direct_review_20261018"
+  },
+  "error": null,
+  "created_at": "2026-10-19T11:52:06.324460Z",
+  "updated_at": "2026-10-19T11:57:52.596880Z",
+  "duplicate": false
+}
