@@ -65,8 +65,43 @@ authentication or proof of previous physical execution.
 for the next canonical step. Resetting accumulated errors is rejected.
 `atomic_cas_completed` remains false: a real authority must recheck STOP/deadline,
 context and pose revision immediately before committing pose and phase together.
-Persistent failure latching, original clock ownership and executed-trace storage
-belong to that future executor.
+The existing owned numerical motion executor supplies the final callback/CAS,
+failure latching and actual-time trace mapping. These preview certificates do
+not replace its original clock, source-health or command-deadline checks.
+
+## Complete-step strictly outside red suffix
+
+After a slice first proves whole-body red exit, the preview now continues over
+every remaining slice of the **same original canonical plan**. Each suffix slice
+must return `SAFE` from the unchanged exit-role six-face checker, with exactly
+the six distinct faces, red `STRICT_OUTSIDE_ACTIVE` and the other five
+`STRICT_INSIDE`. Thus its full inflated swept body remains outside red and cannot
+leave through another face. All existing rho terms, guards and method identities
+remain unchanged; this is a finite conjunction of existing interval proofs.
+
+Suffix certificates are retained in order. Only the first arrival window appends
+`ARRIVED`; suffix checks append no duplicate arrival or exit-window events. The
+candidate uses the original `plan.end`, full covered duration, one revision and
+the same end errors/speed-error carry. A private `strict-red-outside-suffix-v1`
+trace tag distinguishes the newly accepted proof composition without changing
+the workspace VERSION, shared wire or host schemas.
+
+A suffix that is `SAFE` only through `APERTURE` remains `UNKNOWN`. Missing or
+non-strict face evidence also remains `UNKNOWN`. An actual suffix `UNKNOWN` or
+`VIOLATION_PROVED` retains that distinction. Every rejected suffix returns the
+original input state/history, with the checked certificates for audit: no safe
+prefix is committed. The original whole-plan slice budget is checked first.
+Single-slice arrival, entry roles and the later `ARRIVED_FROZEN` hold are unchanged.
+The new strict-suffix composition also refuses a deadline-clipped plan: every
+nanosecond of the original requested duration must be covered. A 9,999,999ns
+clipped plan cannot satisfy a 10,000,000ns suffix request.
+
+This means the full original dt is certified and committed together; it does not
+claim the exact time of red-plane crossing or truncate at the first arrival
+window. The existing executor still checks initial/full solid clearance for
+**every** original slice before preparing a handle, then performs the unchanged
+final fence and one publication. A forbidden or drilling-required final-slice
+solid blocks the whole step. No work is moved after the fence.
 
 ## Verified boundary and remaining work
 
@@ -78,8 +113,23 @@ evaluator fixture, never an AI input or precomputed controller route. The review
 also reproduced a role-string alias defect, corrected by the exact-string guard
 and a behavioral regression. None of these checks is a runtime or board trial.
 
-The implementation conservatively returns `UNKNOWN` when arrival occurs before
-the last slice of a multi-slice plan; event-window refinement remains incomplete.
+The new numerical regression seeds `EXIT_CROSSING` at z=-15.519/-15.5199 with
+yaw7000 produce two slices, 0/7,142,857/10,000,000ns. They now certify the complete
+original 10ms and retain only one arrival window. These are explicit internal
+phase fixtures, not evidence of the preceding physical/committed route. Six red
+face orientations and correct-role same-face apertures are checked likewise.
+At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The entry
+seed z14.4815 still has a blue-to-exit-role envelope gap and remains `UNKNOWN`.
+General APERTURE tails, entry role-switch refinement and exact crossing-time
+refinement are not solved by the strict suffix rule.
+
+The actual numerical executor regression uses a thin box at z=-16.0414: the
+first sweep is `CLEAR`, the final nominal cap contains the box centre, and the
+real second-slice solid check blocks the full step (water `UNKNOWN`, hard rock
+`DRILLING_REQUIRED`). This does not relabel conservative contact as a proved
+collision of an unverified asset. The positive path commits one callback/CAS,
+maps only new events to actual fence time, and freezes on a later arrived step;
+STOP, deadline equality, world invalidation and TM-R1 regressions remain active.
 All36 complete directed face pairs, same-face full U-routes, both real control
 topologies, the full fault campaign, actual B collision-body containment,
 forbidden-solid/drilling-law integration and real authority/renderer connection

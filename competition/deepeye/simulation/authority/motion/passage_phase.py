@@ -148,7 +148,7 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
     if any(getattr(actual,name)<getattr(required,name) for name in ('position_error_m','angle_error_rad','additional_margin_m')):
         return Preview('UNKNOWN',state,(),'inherited pose/numeric/speed carry budget reset')
     if len(plan.slices)>max_slices:return Preview('UNKNOWN',state,(),'slice work budget exhausted before any advance')
-    phase=state.phase;entered=state.entered;history=list(state.history);proofs=[]
+    phase=state.phase;entered=state.entered;history=list(state.history);proofs=[];strict_suffix=False
     def event(kind,index,proof):
         record=plan.slices[index]
         history.append(Event(kind,start_monotonic_ns+record.start.elapsed_ns,
@@ -158,6 +158,16 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
         proof=w.check_slice(prepared,index,role);proofs.append(proof)
         if proof.status!='SAFE':
             return Preview(proof.status,state,tuple(proofs),proof.reason,proof.status=='VIOLATION_PROVED')
+        if phase=='ARRIVED':
+            # This preview's earlier slice proved full-body red exit. Every
+            # remaining ORIGINAL slice still needs its complete exit-role proof:
+            # red strictly outside throughout, other five strictly inside.
+            if (len(proof.faces)!=len(w.FACES) or {face.face for face in proof.faces}!=set(w.FACES)
+                    or proof.role!='exit' or any(face.method!=('STRICT_OUTSIDE_ACTIVE'
+                    if face.face==context.layout.red.face else 'STRICT_INSIDE') for face in proof.faces)):
+                return Preview('UNKNOWN',state,tuple(proofs),'strict red-outside suffix certificate missing')
+            strict_suffix=True
+            continue  # Retain ARRIVED, without another ARRIVED/EXIT_WINDOW event.
         active=context.layout.blue if role=='entry' else context.layout.red
         side=next(s for s in proof.end_sides if s.face==active.face)
         if role=='entry':
@@ -174,9 +184,10 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
                 if phase=='INSIDE':event('EXIT_WINDOW',index,proof)
                 event('ARRIVED',index,proof);phase='ARRIVED'
         # At most one role completion in this slice; role switches next slice.
-        if phase=='ARRIVED' and index+1<len(plan.slices):
-            return Preview('UNKNOWN',state,tuple(proofs),'arrival within multi-slice plan needs event-window refinement')
-    trace=w.digest((state.trace_hash,prepared.binding,tuple(proofs),tuple(history)))
+    if strict_suffix and plan.covered_ns!=path.provenance.requested_dt_ns:
+        return Preview('UNKNOWN',state,tuple(proofs),'strict suffix requires the complete original duration')
+    trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
+    trace=w.digest(('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
     end=plan.end
     next_state=_state(context=context,pose=end.state,errors=end.errors,
         speed_error_upper=state.speed_error_upper+Fraction(end.speed_export_error_m_s),

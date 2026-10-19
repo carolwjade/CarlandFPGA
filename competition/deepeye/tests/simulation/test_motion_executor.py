@@ -208,7 +208,9 @@ class MotionExecutorTests(unittest.TestCase):
         self.assertEqual(0,ex.renderer_view().pose_revision)
 
     def test_T12_unresolved_multislice_arrival_and_drilling_never_grant(self):
-        ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.519)))
+        # The original T12 seed -15.519 now has a strict outside suffix;
+        # this nearby seed's suffix still needs APERTURE and must stay UNKNOWN.
+        ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.5184)))
         ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
         with self.assertRaises(m.PreparationRejected) as error:self.prepare(ex)
         self.assertEqual('UNKNOWN',error.exception.status)
@@ -217,6 +219,78 @@ class MotionExecutorTests(unittest.TestCase):
         ex=self.make(scene=scene)
         with self.assertRaises(m.PreparationRejected) as error:self.prepare(ex)
         self.assertEqual('DRILLING_REQUIRED',error.exception.status);self.assertEqual(0,ex.renderer_view().pose_revision)
+
+    def test_strict_red_suffix_commits_full_original_step_once_and_then_freezes(self):
+        for z in (-15.519,-15.5199):
+            with self.subTest(z=z):
+                state=self.seeded('EXIT_CROSSING',(0,0,z));ex=self.make(state=state)
+                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
+                before=ex.authority_snapshot();handle=self.prepare(ex);audit=ex.prepared_audit(handle)
+                self.assertIs(before,ex.authority_snapshot())
+                self.assertEqual(2,len(audit.relative.preview.proofs))
+                self.assertEqual(2,len(audit.solids))
+                self.assertTrue(all(result.status=='CLEAR' for result in audit.solids))
+                plan=audit.path.plan(start_monotonic_ns=state.monotonic_ns,
+                    deadline_monotonic_ns=state.monotonic_ns+DT+1,hard_stop=False)
+                calls=[]
+                def final():
+                    self.assertIs(before,ex.authority_snapshot());calls.append(1)
+                    return replace(self.fence(start=1_000_123_456),command_seq=4)
+                receipt=ex.commit_step(handle,final);after=ex.passage_state()
+                self.assertEqual([1],calls)
+                self.assertEqual(before.revision+1,ex.authority_snapshot().revision)
+                self.assertEqual((6,1_000_123_456,1_010_123_456),(receipt.pose_revision,receipt.start_ns,receipt.end_ns))
+                self.assertEqual(plan.end.state,after.pose);self.assertEqual(plan.end.errors,after.errors)
+                self.assertEqual('ARRIVED',after.phase)
+                self.assertEqual(state.history,after.history[:len(state.history)])
+                arrivals=[event for event in after.history if event.kind=='ARRIVED']
+                self.assertEqual(1,len(arrivals))
+                self.assertEqual((receipt.start_ns,receipt.start_ns+7_142_857),(arrivals[0].start_ns,arrivals[0].end_ns))
+                view=ex.renderer_view()
+                with self.assertRaises(m.PreparationRejected) as frozen:self.prepare(ex)
+                self.assertEqual('HELD',frozen.exception.status);self.assertEqual(view,ex.renderer_view())
+
+    def test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix(self):
+        for material in ('water','hard_rock'):
+            with self.subTest(material=material):
+                state=self.seeded('EXIT_CROSSING',(0,0,-15.519))
+                part=s.Solid('suffix-piece','v1','box',(0,0,-16.0414),(.01,.01,.00001),(0,0,0,1))
+                scene=s.Scene('suffix-scene','v1',(('suffix-object',('suffix-piece',)),),
+                    (s.SceneObject('suffix-object',material,(part,)),))
+                ex=self.make(state=state,scene=scene)
+                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
+                path=cp.CanonicalPath(state.pose,'fast_9600',20,7000,0,DT,
+                    inherited_errors=p.required_inherited_errors(state,DT),error_budget_reference=state.error_budget_reference)
+                plan=path.plan(start_monotonic_ns=10,deadline_monotonic_ns=10+DT+1,hard_stop=False)
+                self.assertEqual(2,len(plan.slices))
+                self.assertEqual('CLEAR',s.certify_scene(ex._sweep(plan.slices[0]),scene).status)
+                self.assertNotEqual('CLEAR',s.certify_scene(ex._sweep(plan.slices[1]),scene).status)
+                # The final nominal cap sphere actually contains this box's
+                # centre; this is more than an outer-envelope near miss.
+                end=path.sample(DT)
+                cap=tuple(end.state.position_m[i]+.4*end.axis[i] for i in range(3))
+                self.assertLess(sum((float(part.centre[i])-cap[i])**2 for i in range(3)),.12**2)
+                before=ex.renderer_view();calls=[]
+                with self.assertRaises(m.PreparationRejected) as blocked:
+                    handle=self.prepare(ex)
+                    ex.commit_step(handle,lambda:(calls.append(1),replace(self.fence(),command_seq=4))[1])
+                self.assertEqual(2,blocked.exception.checked_slices)
+                self.assertEqual('UNKNOWN' if material=='water' else 'DRILLING_REQUIRED',blocked.exception.status)
+                self.assertEqual([],calls);self.assertEqual(before,ex.renderer_view())
+
+    def test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto(self):
+        for failure in ('STOP','deadline','world'):
+            with self.subTest(failure=failure):
+                ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.519)))
+                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
+                handle=self.prepare(ex);before=ex.renderer_view();calls=[]
+                def final():
+                    calls.append(1)
+                    if failure=='STOP':ex.revoke('STOP after suffix prepare')
+                    if failure=='world':ex.invalidate_world('world edited after suffix prepare')
+                    return replace(self.fence(deadline=1_010_000_000 if failure=='deadline' else 1_400_000_000),command_seq=4)
+                with self.assertRaises(ValueError):ex.commit_step(handle,final)
+                self.assertEqual([1],calls);self.assertEqual(before,ex.renderer_view())
 
     def test_T13_new_boot_does_not_clear_trial_failure_or_old_history(self):
         ex=self.make();old=ex.passage_state();ex.revoke('proved fixture contact',trial_failed=True)

@@ -1,0 +1,160 @@
+test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state) ... FAIL
+test_budget_unknown_does_not_commit_partial_events (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_budget_unknown_does_not_commit_partial_events) ... ok
+test_existing_entry_and_single_slice_exit_keep_their_behavior (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_existing_entry_and_single_slice_exit_keep_their_behavior) ... ok
+test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) ... 
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='front') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='back') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='left') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='right') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='top') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='bottom') ... FAIL
+test_initial_whole_body_outside_and_correct_orientation_are_required (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_initial_whole_body_outside_and_correct_orientation_are_required) ... ok
+test_no_arbitrary_phase_or_external_plan_can_be_supplied (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_no_arbitrary_phase_or_external_plan_can_be_supplied) ... ok
+test_numeric_error_and_speed_carry_are_not_reset_on_next_command (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_numeric_error_and_speed_carry_are_not_reset_on_next_command) ... ok
+test_partial_entry_wrong_direction_does_not_reset_or_advance (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_partial_entry_wrong_direction_does_not_reset_or_advance) ... ok
+test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) ... 
+  test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) (x=0.15) ... FAIL
+test_scene_gate_epoch_and_pose_change_cannot_reuse_history (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_scene_gate_epoch_and_pose_change_cannot_reuse_history) ... ok
+test_stop_and_expired_deadline_hold_phase_pose_speed_and_revision (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_stop_and_expired_deadline_hold_phase_pose_speed_and_revision) ... ok
+test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) ... 
+  test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.519) ... FAIL
+  test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.5199) ... FAIL
+test_suffix_budget_or_stop_never_returns_a_partial_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_suffix_budget_or_stop_never_returns_a_partial_arrival) ... ok
+test_suffix_cannot_bypass_direction_rim_rotation_or_nonactive_face_failure (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_suffix_cannot_bypass_direction_rim_rotation_or_nonactive_face_failure) ... ok
+test_tip_or_center_beyond_red_is_not_full_body_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_tip_or_center_beyond_red_is_not_full_body_arrival) ... ok
+test_tip_partial_entry_is_not_entered_and_stop_does_not_complete_it (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_tip_partial_entry_is_not_entered_and_stop_does_not_complete_it) ... ok
+test_motion_executor (unittest.loader._FailedTest.test_motion_executor) ... ERROR
+
+======================================================================
+ERROR: test_motion_executor (unittest.loader._FailedTest.test_motion_executor)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_motion_executor
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 9, in <module>
+    from competition.deepeye.tests.simulation import test_pc_direct_runtime as rt
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_pc_direct_runtime.py", line 12, in <module>
+    from test_host_envelope import encode, request_document, telem_document, response_document, config_ack_frame, wire
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 29, in <module>
+    host_envelope = _load('deepeye_host_envelope', 'host_envelope.py')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_envelope.py", line 23, in _load
+    spec.loader.exec_module(module)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\host_envelope.py", line 36, in <module>
+    from jsonschema import Draft202012Validator, exceptions
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+FAIL: test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 84, in test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state
+    self.assertEqual(2,len(result.proofs))
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='front')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='back')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='left')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='right')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='top')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='bottom')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) (x=0.15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 112, in test_same_face_red_gate_does_not_accept_blue_aperture_as_exit
+    self.assertEqual(status,result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.519)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 60, in test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.5199)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 60, in test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.129s
+
+FAILED (failures=10, errors=1)

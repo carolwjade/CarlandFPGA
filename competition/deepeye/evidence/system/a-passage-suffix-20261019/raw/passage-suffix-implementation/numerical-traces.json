@@ -1,0 +1,2597 @@
+{
+  "workspace_version": "workspace-canonical-six-face-preview-v1",
+  "cases": [
+    {
+      "phase_seed": "EXIT_CROSSING",
+      "z": -15.519,
+      "yaw": 7000,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          7142857
+        ],
+        [
+          7142857,
+          10000000
+        ]
+      ],
+      "status": "SAFE",
+      "candidate_is_original": false,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "c7ccdd9508589bde0c488103cfe95647c13a1fb02ce943500754e9b2ac6364f9",
+      "preview": {
+        "status": "SAFE",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              -1.5271629055381844e-06,
+              -0.0,
+              -15.521499999378072
+            ],
+            "orientation_xyzw": [
+              -0.0,
+              0.9999998134218362,
+              0.0,
+              -0.0006108652002066433
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 7.102003805817257e-16,
+            "angle_error_rad": 1.4016657445640942e-19,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "explicit numerical phase fixture; not a preceding route",
+          "pose_revision": 6,
+          "monotonic_ns": 10000010,
+          "phase": "ARRIVED",
+          "entered": true,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTERED",
+              "start_ns": 2,
+              "end_ns": 2,
+              "pose_revision": 2,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "EXIT_WINDOW",
+              "start_ns": 3,
+              "end_ns": 3,
+              "pose_revision": 3,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ARRIVED",
+              "start_ns": 10,
+              "end_ns": 7142867,
+              "pose_revision": 6,
+              "proof_binding": "63ecb951181733ce0f47a2766962a34f8e642d09161caa5780fa450be240d326"
+            }
+          ],
+          "trace_hash": "dbe2247121ced6de1c966637815d7544eab935c56b6cdb8715156239217b8bd8"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "63ecb951181733ce0f47a2766962a34f8e642d09161caa5780fa450be240d326",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.03900000000000014566126083082053810358047485351562500",
+                "minimum_upper": "-31.03900000000000014566126083082053810358047485351562500",
+                "maximum_lower": "-29.99900000000000011013412404281552881002426147460937500",
+                "maximum_upper": "-29.99900000000000011013412404281552881002426147460937500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-0.00099999999999988986587595718447118997573852539062500",
+                "minimum_upper": "-0.00099999999999988986587595718447118997573852539062500",
+                "maximum_lower": "1.03900000000000014566126083082053810358047485351562500",
+                "maximum_upper": "1.03900000000000014566126083082053810358047485351562500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0407855617146570402396184861627167567014065046974351908916",
+                "minimum_upper": "-31.0407855617146561667646902196464837840417519753841416508857",
+                "maximum_lower": "-30.0007858663320452751071561079116760441442831808658583491143",
+                "maximum_upper": "-30.0007858663320444016322278413954430714846286515525648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.000785866332044401632227841395443071484628651552564809108464146",
+                "minimum_upper": "0.000785866332045275107156107911676044144283180865858349114243854",
+                "maximum_lower": "1.04078556171465616676469021964648378404175197538414165088575",
+                "maximum_upper": "1.04078556171465704023961848616271675670140650469743519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0412859088145545438543730127418889088381208852449784797066",
+                "upper": "-29.9984998052087963049792425878552244620572648569425215202934",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "APERTURE",
+                "lower": "-0.00150019479120369502075741214477553794273514305747847970658690",
+                "upper": "1.04128590881455454385437301274188890883812088524497847970659",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050097395596784,
+                  "inflation_upper_m": 0.0005001947912038053,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        -15.519
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "back",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": 1,
+                    "errors": {
+                      "position_error_m": 4.36721782461345e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        -15.52078571402335
+                      ],
+                      "arc_length_upper_m": 0.0017857142500000002,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.0008726646085438723
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794990260440321728787326910153256019136731379905828464395",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205009739559678271212673089846743980863268620094171535605",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005001947912038053,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          },
+          {
+            "status": "SAFE",
+            "binding": "b52dec4bbfffadf77bd48d88a93891017b443eda9f7e1603819f27dce8fa7c53",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0407855617146570402396184861627167567014065046974351908916",
+                "minimum_upper": "-31.0407855617146561667646902196464837840417519753841416508857",
+                "maximum_lower": "-30.0007858663320452751071561079116760441442831808658583491143",
+                "maximum_upper": "-30.0007858663320444016322278413954430714846286515525648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.000785866332044401632227841395443071484628651552564809108464146",
+                "minimum_upper": "0.000785866332045275107156107911676044144283180865858349114243854",
+                "maximum_lower": "1.04078556171465616676469021964648378404175197538414165088575",
+                "maximum_upper": "1.04078556171465704023961848616271675670140650469743519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0414997008530387012829079077010985656059763088090466105306",
+                "minimum_upper": "-31.0414997008530372807363735068150965763462193624273294700379",
+                "maximum_lower": "-30.0015002979031071833596227203002961085903040750726705299621",
+                "maximum_upper": "-30.0015002979031057628130883194142941193305471286909533894694"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.00150029790310576281308831941429411933054712869095338946944868",
+                "minimum_upper": "0.00150029790310718335962272030029610859030407507267052996199332",
+                "maximum_lower": "1.04149970085303728073637350681509657634621936242732947003800",
+                "maximum_upper": "1.04149970085303870128290790770109856560597630880904661053056"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1204871649060811963896218301524659355935546245372402216333",
+                "minimum_upper": "-15.1204871649060797758430874292664639463337976781555230811405",
+                "maximum_lower": "-14.8795097807681091477881519707418886005997677852495794102382",
+                "maximum_upper": "-14.8795097807681077272416175698558866113400108388678622697454"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1204902192318922727583824301441133886599891611321377302546",
+                "minimum_upper": "-15.1204902192318908522118480292581113994002322147504205897618",
+                "maximum_lower": "-14.8795128350939202241569125707335360536662023218444769188595",
+                "maximum_upper": "-14.8795128350939188036103781698475340644064453754627597783667"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0419998782359757271027843188909693180075716434899082075452",
+                "upper": "-30.0002858351654472258811369584458069385537076533850917924548",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "STRICT_OUTSIDE_ACTIVE",
+                "lower": "0.000285835165447225881136958445806938553707653385091792454920606",
+                "upper": "1.04199987823597572710278431889096931800757164348990820754509",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208483178009463270977907751828158925145215029705084140734",
+                "upper": "-14.8791493758713841083105509722963641691384043120261979077621",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208506241286158916894490277036358308615956879738020922379",
+                "upper": "-14.8791516821990536729022092248171841074854784970294915859266",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000311665976126,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          }
+        ],
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "failure_candidate": false
+      }
+    },
+    {
+      "phase_seed": "EXIT_CROSSING",
+      "z": -15.5199,
+      "yaw": 7000,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          7142857
+        ],
+        [
+          7142857,
+          10000000
+        ]
+      ],
+      "status": "SAFE",
+      "candidate_is_original": false,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "8d40f55bad1cee21129f74902b5e27cfb7ebf93c36fd831fa002cefcaf4ab6f3",
+      "preview": {
+        "status": "SAFE",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              -1.5271629055381844e-06,
+              -0.0,
+              -15.522399999378072
+            ],
+            "orientation_xyzw": [
+              -0.0,
+              0.9999998134218362,
+              0.0,
+              -0.0006108652002066433
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 7.102003805817257e-16,
+            "angle_error_rad": 1.4016657445640942e-19,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "explicit numerical phase fixture; not a preceding route",
+          "pose_revision": 6,
+          "monotonic_ns": 10000010,
+          "phase": "ARRIVED",
+          "entered": true,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTERED",
+              "start_ns": 2,
+              "end_ns": 2,
+              "pose_revision": 2,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "EXIT_WINDOW",
+              "start_ns": 3,
+              "end_ns": 3,
+              "pose_revision": 3,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ARRIVED",
+              "start_ns": 10,
+              "end_ns": 7142867,
+              "pose_revision": 6,
+              "proof_binding": "86978d604e23976a9b7e8a7c244637e9651e92e9ca7931a06b78ac03d52cf31c"
+            }
+          ],
+          "trace_hash": "4c12fdb5073fb38eb79e2955227c323adf0ad314c733ff3975428062d04e196c"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "86978d604e23976a9b7e8a7c244637e9651e92e9ca7931a06b78ac03d52cf31c",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.03989999999999982449594426725525408983230590820312500",
+                "minimum_upper": "-31.03989999999999982449594426725525408983230590820312500",
+                "maximum_lower": "-29.99989999999999978896880747925024479627609252929687500",
+                "maximum_upper": "-29.99989999999999978896880747925024479627609252929687500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-0.00010000000000021103119252074975520372390747070312500",
+                "minimum_upper": "-0.00010000000000021103119252074975520372390747070312500",
+                "maximum_lower": "1.03989999999999982449594426725525408983230590820312500",
+                "maximum_upper": "1.03989999999999982449594426725525408983230590820312500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0416855617146567190743019225974327429532375593849351908916",
+                "minimum_upper": "-31.0416855617146558455993736560811997702935830300716416508857",
+                "maximum_lower": "-30.0016858663320449539418395443463920303961142355533583491143",
+                "maximum_upper": "-30.0016858663320440804669112778301590577364597062400648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.00168586633204408046691127783015905773645970624006480910846414",
+                "minimum_upper": "0.00168586633204495394183954434639203039611423555335834911424386",
+                "maximum_lower": "1.04168556171465584559937365608119977029358303007164165088575",
+                "maximum_upper": "1.04168556171465671907430192259743274295323755938493519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0421859088145542226890564491766048950899519399324784797066",
+                "upper": "-29.9993998052087959838139260242899404483090959116300215202934",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "APERTURE",
+                "lower": "-0.000600194791204016186073975710059551690904088369978479706586900",
+                "upper": "1.04218590881455422268905644917660489508995193993247847970659",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050097395596784,
+                  "inflation_upper_m": 0.0005001947912038053,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        -15.5199
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "back",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": 1,
+                    "errors": {
+                      "position_error_m": 4.36721782461345e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        -15.52168571402335
+                      ],
+                      "arc_length_upper_m": 0.0017857142500000002,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.0008726646085438723
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794990260440321728787326910153256019136731379905828464395",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205009739559678271212673089846743980863268620094171535605",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005001947912038053,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          },
+          {
+            "status": "SAFE",
+            "binding": "39172f1fc5889ed4deb061e0e83c97b434a80804924f09c0d70324505c2fc946",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0416855617146567190743019225974327429532375593849351908916",
+                "minimum_upper": "-31.0416855617146558455993736560811997702935830300716416508857",
+                "maximum_lower": "-30.0016858663320449539418395443463920303961142355533583491143",
+                "maximum_upper": "-30.0016858663320440804669112778301590577364597062400648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.00168586633204408046691127783015905773645970624006480910846414",
+                "minimum_upper": "0.00168586633204495394183954434639203039611423555335834911424386",
+                "maximum_lower": "1.04168556171465584559937365608119977029358303007164165088575",
+                "maximum_upper": "1.04168556171465671907430192259743274295323755938493519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0423997008530383801175913441358145518578073634965466105306",
+                "minimum_upper": "-31.0423997008530369595710569432498125625980504171148294700379",
+                "maximum_lower": "-30.0024002979031068621943061567350120948421351297601705299621",
+                "maximum_upper": "-30.0024002979031054416477717558490101055823781833784533894694"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.00240029790310544164777175584901010558237818337845338946944868",
+                "minimum_upper": "0.00240029790310686219430615673501209484213512976017052996199332",
+                "maximum_lower": "1.04239970085303695957105694324981256259805041711482947003800",
+                "maximum_upper": "1.04239970085303838011759134413581455185780736349654661053056"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1204871649060811963896218301524659355935546245372402216333",
+                "minimum_upper": "-15.1204871649060797758430874292664639463337976781555230811405",
+                "maximum_lower": "-14.8795097807681091477881519707418886005997677852495794102382",
+                "maximum_upper": "-14.8795097807681077272416175698558866113400108388678622697454"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1204902192318922727583824301441133886599891611321377302546",
+                "minimum_upper": "-15.1204902192318908522118480292581113994002322147504205897618",
+                "maximum_lower": "-14.8795128350939202241569125707335360536662023218444769188595",
+                "maximum_upper": "-14.8795128350939188036103781698475340644064453754627597783667"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0428998782359754059374677553256853042594026981774082075452",
+                "upper": "-30.0011858351654469047158203948805229248055387080725917924548",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "STRICT_OUTSIDE_ACTIVE",
+                "lower": "0.00118583516544690471582039488052292480553870807259179245492060",
+                "upper": "1.04289987823597540593746775532568530425940269817740820754509",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208483178009463270977907751828158925145215029705084140734",
+                "upper": "-14.8791493758713841083105509722963641691384043120261979077621",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208506241286158916894490277036358308615956879738020922379",
+                "upper": "-14.8791516821990536729022092248171841074854784970294915859266",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000311665976126,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          }
+        ],
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "failure_candidate": false
+      }
+    },
+    {
+      "phase_seed": "EXIT_CROSSING",
+      "z": -15.5184,
+      "yaw": 7000,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          7142857
+        ],
+        [
+          7142857,
+          10000000
+        ]
+      ],
+      "status": "UNKNOWN",
+      "candidate_is_original": true,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "1ab7e06814bc62690a59330efaeb4ca8c796c0489bc3e30329c8586e6935bd28",
+      "preview": {
+        "status": "UNKNOWN",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              0.0,
+              0.0,
+              -15.5184
+            ],
+            "orientation_xyzw": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 0.0,
+            "angle_error_rad": 0.0,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "seeded numeric phase only",
+          "pose_revision": 5,
+          "monotonic_ns": 10,
+          "phase": "EXIT_CROSSING",
+          "entered": true,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTERED",
+              "start_ns": 2,
+              "end_ns": 2,
+              "pose_revision": 2,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "EXIT_WINDOW",
+              "start_ns": 3,
+              "end_ns": 3,
+              "pose_revision": 3,
+              "proof_binding": "explicit seeded numerical event"
+            }
+          ],
+          "trace_hash": "seeded numerical chain"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "ed6188caefaa7ecee95dceb4392c22f502cf57a3e00bf1ee16ef4eb60726cd54",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.03839999999999976765252540644723922014236450195312500",
+                "minimum_upper": "-31.03839999999999976765252540644723922014236450195312500",
+                "maximum_lower": "-29.99839999999999973212538861844222992658615112304687500",
+                "maximum_upper": "-29.99839999999999973212538861844222992658615112304687500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-0.00160000000000026787461138155777007341384887695312500",
+                "minimum_upper": "-0.00160000000000026787461138155777007341384887695312500",
+                "maximum_lower": "1.03839999999999976765252540644723922014236450195312500",
+                "maximum_upper": "1.03839999999999976765252540644723922014236450195312500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0401855617146566622308830617894178732632961531349351908916",
+                "minimum_upper": "-31.0401855617146557887559547952731849006036416238216416508857",
+                "maximum_lower": "-30.0001858663320448970984206835383771607061728293033583491143",
+                "maximum_upper": "-30.0001858663320440236234924170221441880465182999900648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.000185866332044023623492417022144188046518299990064809108464146",
+                "minimum_upper": "0.000185866332044897098420683538377160706172829303358349114243854",
+                "maximum_lower": "1.04018556171465578875595479527318490060364162382164165088575",
+                "maximum_upper": "1.04018556171465666223088306178941787326329615313493519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0406859088145541658456375883685900254000105336824784797066",
+                "upper": "-29.9978998052087959269705071634819255786191545053800215202934",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "APERTURE",
+                "lower": "-0.00210019479120407302949283651807442138084549461997847970658690",
+                "upper": "1.04068590881455416584563758836859002540001053368247847970659",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050097395596784,
+                  "inflation_upper_m": 0.0005001947912038053,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        -15.5184
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "back",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": 1,
+                    "errors": {
+                      "position_error_m": 4.36721782461345e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        -15.52018571402335
+                      ],
+                      "arc_length_upper_m": 0.0017857142500000002,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.0008726646085438723
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794990260440321728787326910153256019136731379905828464395",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205009739559678271212673089846743980863268620094171535605",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005001947912038053,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          },
+          {
+            "status": "SAFE",
+            "binding": "3c431261435b7848d12ff5ba1aae6e0dcc6f7ef0f420ce7677425d078c691c75",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0401855617146566622308830617894178732632961531349351908916",
+                "minimum_upper": "-31.0401855617146557887559547952731849006036416238216416508857",
+                "maximum_lower": "-30.0001858663320448970984206835383771607061728293033583491143",
+                "maximum_upper": "-30.0001858663320440236234924170221441880465182999900648091084"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.000185866332044023623492417022144188046518299990064809108464146",
+                "minimum_upper": "0.000185866332044897098420683538377160706172829303358349114243854",
+                "maximum_lower": "1.04018556171465578875595479527318490060364162382164165088575",
+                "maximum_upper": "1.04018556171465666223088306178941787326329615313493519089155"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0408997008530383232741724833277996821678659572465466105306",
+                "minimum_upper": "-31.0408997008530369027276380824417976929081090108648294700379",
+                "maximum_lower": "-30.0009002979031068053508872959269972251521937235101705299621",
+                "maximum_upper": "-30.0009002979031053848043528950409952358924367771284533894694"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.000900297903105384804352895040995235892436777128453389469448683",
+                "minimum_upper": "0.000900297903106805350887295926997225152193723510170529961993317",
+                "maximum_lower": "1.04089970085303690272763808244179769290810901086482947003800",
+                "maximum_upper": "1.04089970085303832327417248332779968216786595724654661053056"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1204871649060811963896218301524659355935546245372402216333",
+                "minimum_upper": "-15.1204871649060797758430874292664639463337976781555230811405",
+                "maximum_lower": "-14.8795097807681091477881519707418886005997677852495794102382",
+                "maximum_upper": "-14.8795097807681077272416175698558866113400108388678622697454"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1204902192318922727583824301441133886599891611321377302546",
+                "minimum_upper": "-15.1204902192318908522118480292581113994002322147504205897618",
+                "maximum_lower": "-14.8795128350939202241569125707335360536662023218444769188595",
+                "maximum_upper": "-14.8795128350939188036103781698475340644064453754627597783667"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0413998782359753490940488945176704345694612919274082075452",
+                "upper": "-29.9996858351654468478724015340725080551155973018225917924548",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "APERTURE",
+                "lower": "-0.000314164834553152127598465927491944884402698177408207545079394",
+                "upper": "1.04139987823597534909404889451767043456946129192740820754509",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12095324566258901,
+                  "inflation_upper_m": 0.0005000311665976126,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        -15.52018571402335
+                      ],
+                      "axis": [
+                        -0.0008726644977818636,
+                        -0.0,
+                        -0.9999996192282646
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "back",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": 1,
+                    "errors": {
+                      "position_error_m": 7.102003805817258e-16,
+                      "angle_error_rad": 3.0157061371517566e-20,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -1.5271629055381844e-06,
+                        -0.0,
+                        -15.520899999378072
+                      ],
+                      "arc_length_upper_m": 0.0007142857500000001,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.00034906586785215843
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208483178009463270977907751828158925145215029705084140734",
+                "upper": "-14.8791493758713841083105509722963641691384043120261979077621",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208506241286158916894490277036358308615956879738020922379",
+                "upper": "-14.8791516821990536729022092248171841074854784970294915859266",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000311665976126,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          }
+        ],
+        "reason": "strict red-outside suffix certificate missing",
+        "failure_candidate": false
+      }
+    },
+    {
+      "phase_seed": "EXIT_CROSSING",
+      "z": -15.519,
+      "yaw": 0,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          10000000
+        ]
+      ],
+      "status": "SAFE",
+      "candidate_is_original": false,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "846f8e60b856a363dd0a0f4c3e157d5df6894e575bb112fb171ed9249c78e5c7",
+      "preview": {
+        "status": "SAFE",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              -0.0,
+              -0.0,
+              -15.5215
+            ],
+            "orientation_xyzw": [
+              -0.0,
+              1.0,
+              0.0,
+              -0.0
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 4.973799150320703e-16,
+            "angle_error_rad": 0.0,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "explicit numerical phase fixture; not a preceding route",
+          "pose_revision": 6,
+          "monotonic_ns": 10000010,
+          "phase": "ARRIVED",
+          "entered": true,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTERED",
+              "start_ns": 2,
+              "end_ns": 2,
+              "pose_revision": 2,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "EXIT_WINDOW",
+              "start_ns": 3,
+              "end_ns": 3,
+              "pose_revision": 3,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ARRIVED",
+              "start_ns": 10,
+              "end_ns": 10000010,
+              "pose_revision": 6,
+              "proof_binding": "10130280a00559c11352cbf0db9ebaeb986f11905e0fb2e11ab34098e04f6f4f"
+            }
+          ],
+          "trace_hash": "f8332263f1580d3269e21c9a4159f2a9e57adefee81a7a7366fc15285efbae3d"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "10130280a00559c11352cbf0db9ebaeb986f11905e0fb2e11ab34098e04f6f4f",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.03900000000000014566126083082053810358047485351562500",
+                "minimum_upper": "-31.03900000000000014566126083082053810358047485351562500",
+                "maximum_lower": "-29.99900000000000011013412404281552881002426147460937500",
+                "maximum_upper": "-29.99900000000000011013412404281552881002426147460937500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-0.00099999999999988986587595718447118997573852539062500",
+                "minimum_upper": "-0.00099999999999988986587595718447118997573852539062500",
+                "maximum_lower": "1.03900000000000014566126083082053810358047485351562500",
+                "maximum_upper": "1.03900000000000014566126083082053810358047485351562500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004929390229335696498873599265195082199197846",
+                "minimum_upper": "-15.1199999999999994981791928694290977892510201357652175802154",
+                "maximum_lower": "-14.8800000000000005018208071305709022107489798642347824197846",
+                "maximum_upper": "-14.8799999999999995070609770664303501126400734804917800802154"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004929390229335696498873599265195082199197846",
+                "minimum_upper": "-15.1199999999999994981791928694290977892510201357652175802154",
+                "maximum_lower": "-14.8800000000000005018208071305709022107489798642347824197846",
+                "maximum_upper": "-14.8799999999999995070609770664303501126400734804917800802154"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-31.0415000000000001456612608308206840428479407406996261697846",
+                "minimum_upper": "-31.0414999999999991509014307666801319447390343569566238302154",
+                "maximum_lower": "-30.0015000000000001101341240428156747492917273617933761697846",
+                "maximum_upper": "-30.0014999999999991153742939786751226511828209780503738302154"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "0.00149999999999911537429397867512265118282097805037383021542268",
+                "minimum_upper": "0.00150000000000011013412404281567474929172736179337616978457732",
+                "maximum_lower": "1.04149999999999915090143076668013194473903435695662383021542",
+                "maximum_upper": "1.04150000000000014566126083082068404284794074069962616978458"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1200000000000004929390229335696498873599265195082199197846",
+                "minimum_upper": "-15.1199999999999994981791928694290977892510201357652175802154",
+                "maximum_lower": "-14.8800000000000005018208071305709022107489798642347824197846",
+                "maximum_upper": "-14.8799999999999995070609770664303501126400734804917800802154"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1200000000000004929390229335696498873599265195082199197846",
+                "minimum_upper": "-15.1199999999999994981791928694290977892510201357652175802154",
+                "maximum_lower": "-14.8800000000000005018208071305709022107489798642347824197846",
+                "maximum_upper": "-14.8799999999999995070609770664303501126400734804917800802154"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000000000004929390229335697484949730791459838963858553",
+                "upper": "-14.8794999999999995070609770664302515050269208540161036141447",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000000000004929390229335697484949730791459838963858553",
+                "upper": "-14.8794999999999995070609770664302515050269208540161036141447",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-31.0420000000000001456612608308207826504610933671753026358553",
+                "upper": "-29.9984999999999996127542090107451541533566556562621973641447",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "APERTURE",
+                "lower": "-0.00150000000000038724579098925484584664334434373780263585523767",
+                "upper": "1.04200000000000014566126083082078265046109336717530263585524",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050000000000051,
+                  "inflation_upper_m": 0.0005000000000004976,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        -15.519
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "back",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": 1,
+                    "errors": {
+                      "position_error_m": 4.973799150320704e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -0.0,
+                        -0.0,
+                        -15.5215
+                      ],
+                      "arc_length_upper_m": 0.0025000000000000005,
+                      "curvature_upper_per_m": 0.0,
+                      "rotation_upper_rad": 0.0
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000000000004929390229335697484949730791459838963858553",
+                "upper": "-14.8794999999999995070609770664302515050269208540161036141447",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000000000004929390229335697484949730791459838963858553",
+                "upper": "-14.8794999999999995070609770664302515050269208540161036141447",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000000000004974,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          }
+        ],
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "failure_candidate": false
+      }
+    },
+    {
+      "phase_seed": "ENTRY_CROSSING",
+      "z": 14.481,
+      "yaw": 7000,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          7142857
+        ],
+        [
+          7142857,
+          10000000
+        ]
+      ],
+      "status": "SAFE",
+      "candidate_is_original": false,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "a6b7aa22eb40df0faa08faaee518784151019f01880dd67d67b6e28916011fd7",
+      "preview": {
+        "status": "SAFE",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              -1.5271629055381844e-06,
+              -0.0,
+              14.478500000621928
+            ],
+            "orientation_xyzw": [
+              -0.0,
+              0.9999998134218362,
+              0.0,
+              -0.0006108652002066433
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 7.102003805817257e-16,
+            "angle_error_rad": 1.4016657445640942e-19,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "explicit numerical phase fixture; not a preceding route",
+          "pose_revision": 6,
+          "monotonic_ns": 10000010,
+          "phase": "INSIDE",
+          "entered": true,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTERED",
+              "start_ns": 10,
+              "end_ns": 7142867,
+              "pose_revision": 6,
+              "proof_binding": "c171b7025cc131966d478d21f1d8492e6bbac01d62bd087ad04ba75dc75f8774"
+            }
+          ],
+          "trace_hash": "bf9be879306b1408d7fc7925d354976b80c4656a515224d4cba8fe11e1386337"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "c171b7025cc131966d478d21f1d8492e6bbac01d62bd087ad04ba75dc75f8774",
+            "role": "entry",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.03900000000000014566126083082053810358047485351562500",
+                "minimum_upper": "-1.03900000000000014566126083082053810358047485351562500",
+                "maximum_lower": "0.00099999999999988986587595718447118997573852539062500",
+                "maximum_upper": "0.00099999999999988986587595718447118997573852539062500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-30.00099999999999988986587595718447118997573852539062500",
+                "minimum_upper": "-30.00099999999999988986587595718447118997573852539062500",
+                "maximum_lower": "-28.96099999999999985433873916917946189641952514648437500",
+                "maximum_upper": "-28.96099999999999985433873916917946189641952514648437500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04078556171465704023961848616271675670140650469743519089155",
+                "minimum_upper": "-1.04078556171465616676469021964648378404175197538414165088575",
+                "maximum_lower": "-0.000785866332045275107156107911676044144283180865858349114243854",
+                "maximum_upper": "-0.000785866332044401632227841395443071484628651552564809108464146"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9992141336679555983677721586045569285153713484474351908916",
+                "minimum_upper": "-29.9992141336679547248928438920883239558557168191341416508857",
+                "maximum_lower": "-28.9592144382853438332353097803535162159582480246158583491143",
+                "maximum_upper": "-28.9592144382853429597603815138372832432985934953025648091084"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "APERTURE",
+                "lower": "-1.04128590881455454385437301274188890883812088524497847970659",
+                "upper": "0.00150019479120369502075741214477553794273514305747847970658690",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050097395596784,
+                  "inflation_upper_m": 0.0005001947912038053,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        14.481
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "front",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": -1,
+                    "errors": {
+                      "position_error_m": 4.36721782461345e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        14.47921428597665
+                      ],
+                      "arc_length_upper_m": 0.0017857142500000002,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.0008726646085438723
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "back",
+                "method": "STRICT_INSIDE",
+                "lower": "-30.0015001947912036950207574121447755379427351430574784797066",
+                "upper": "-28.9587140911854454561456269872581110911618791147550215202934",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794990260440321728787326910153256019136731379905828464395",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205009739559678271212673089846743980863268620094171535605",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005001947912038053,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          },
+          {
+            "status": "SAFE",
+            "binding": "2c1977ea5fa54ec5832554c0c8850f4ae7892713a59c915ccdbc918ac8305d75",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04078556171465704023961848616271675670140650469743519089155",
+                "minimum_upper": "-1.04078556171465616676469021964648378404175197538414165088575",
+                "maximum_lower": "-0.000785866332045275107156107911676044144283180865858349114243854",
+                "maximum_upper": "-0.000785866332044401632227841395443071484628651552564809108464146"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9992141336679555983677721586045569285153713484474351908916",
+                "minimum_upper": "-29.9992141336679547248928438920883239558557168191341416508857",
+                "maximum_lower": "-28.9592144382853438332353097803535162159582480246158583491143",
+                "maximum_upper": "-28.9592144382853429597603815138372832432985934953025648091084"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04149970085303870128290790770109856560597630880904661053056",
+                "minimum_upper": "-1.04149970085303728073637350681509657634621936242732947003800",
+                "maximum_lower": "-0.00150029790310718335962272030029610859030407507267052996199332",
+                "maximum_upper": "-0.00150029790310576281308831941429411933054712869095338946944868"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9984997020968942371869116805857058806694528713090466105306",
+                "minimum_upper": "-29.9984997020968928166403772796997038914096959249273294700379",
+                "maximum_lower": "-28.9585002991469627192636264931849034236537806375726705299621",
+                "maximum_upper": "-28.9585002991469612987170920922989014343940236911909533894694"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1204871649060811963896218301524659355935546245372402216333",
+                "minimum_upper": "-15.1204871649060797758430874292664639463337976781555230811405",
+                "maximum_lower": "-14.8795097807681091477881519707418886005997677852495794102382",
+                "maximum_upper": "-14.8795097807681077272416175698558866113400108388678622697454"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1204902192318922727583824301441133886599891611321377302546",
+                "minimum_upper": "-15.1204902192318908522118480292581113994002322147504205897618",
+                "maximum_lower": "-14.8795128350939202241569125707335360536662023218444769188595",
+                "maximum_upper": "-14.8795128350939188036103781698475340644064453754627597783667"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "STRICT_INSIDE",
+                "lower": "-1.04199987823597572710278431889096931800757164348990820754509",
+                "upper": "-0.000285835165447225881136958445806938553707653385091792454920606",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "STRICT_INSIDE",
+                "lower": "-29.9997141648345527741188630415541930614462923466149082075452",
+                "upper": "-28.9580001217640242728972156811090306819924283565100917924548",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208483178009463270977907751828158925145215029705084140734",
+                "upper": "-14.8791493758713841083105509722963641691384043120261979077621",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208506241286158916894490277036358308615956879738020922379",
+                "upper": "-14.8791516821990536729022092248171841074854784970294915859266",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000311665976126,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          }
+        ],
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "failure_candidate": false
+      }
+    },
+    {
+      "phase_seed": "ENTRY_CROSSING",
+      "z": 14.4815,
+      "yaw": 7000,
+      "software_numerical_seed_only": true,
+      "requested_dt_ns": 10000000,
+      "covered_ns": 10000000,
+      "slice_windows": [
+        [
+          0,
+          7142857
+        ],
+        [
+          7142857,
+          10000000
+        ]
+      ],
+      "status": "UNKNOWN",
+      "candidate_is_original": true,
+      "motion_grant": false,
+      "cas_completed": false,
+      "candidate_seal": "bcbf9a2d1241c8f3c69c10a2dc5e86a3645aa007c82653d0dd475f7186d49e0b",
+      "preview": {
+        "status": "UNKNOWN",
+        "candidate": {
+          "context": {
+            "run_id": "run-1",
+            "scene_revision": "fixture-scene",
+            "epoch": 1,
+            "layout": {
+              "blue": {
+                "face": "front",
+                "u": 0.0,
+                "v": 0.0
+              },
+              "red": {
+                "face": "back",
+                "u": 0.0,
+                "v": 0.0
+              }
+            },
+            "envelope": {
+              "half_segment_m": 0.4,
+              "radius_m": 0.12,
+              "pivot_radius_m": 0.52,
+              "reference": "explicit numerical fixture, not calibrated B asset",
+              "exact_fixture": false
+            },
+            "owner_reference": "test authority only"
+          },
+          "pose": {
+            "position_m": [
+              0.0,
+              0.0,
+              14.4815
+            ],
+            "orientation_xyzw": [
+              0.0,
+              1.0,
+              0.0,
+              0.0
+            ],
+            "speed_m_s": 0.25
+          },
+          "errors": {
+            "position_error_m": 0.0,
+            "angle_error_rad": 0.0,
+            "additional_margin_m": 0.0
+          },
+          "speed_error_upper": "0",
+          "error_budget_reference": "seeded numeric phase only",
+          "pose_revision": 5,
+          "monotonic_ns": 10,
+          "phase": "ENTRY_CROSSING",
+          "entered": false,
+          "history": [
+            {
+              "kind": "INITIAL_OUTSIDE",
+              "start_ns": 0,
+              "end_ns": 0,
+              "pose_revision": 0,
+              "proof_binding": "explicit seeded numerical event"
+            },
+            {
+              "kind": "ENTRY_WINDOW",
+              "start_ns": 1,
+              "end_ns": 1,
+              "pose_revision": 1,
+              "proof_binding": "explicit seeded numerical event"
+            }
+          ],
+          "trace_hash": "seeded numerical chain"
+        },
+        "proofs": [
+          {
+            "status": "SAFE",
+            "binding": "5a247277eea2ee1615f0529a46a41bc037a0b4d4308f6b6158a4b4219c2d3c5f",
+            "role": "entry",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.03849999999999953459450807713437825441360473632812500",
+                "minimum_upper": "-1.03849999999999953459450807713437825441360473632812500",
+                "maximum_lower": "0.00150000000000050093262871087063103914260864257812500",
+                "maximum_upper": "0.00150000000000050093262871087063103914260864257812500"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-30.00150000000000050093262871087063103914260864257812500",
+                "minimum_upper": "-30.00150000000000050093262871087063103914260864257812500",
+                "maximum_lower": "-28.96150000000000046540549192286562174558639526367187500",
+                "maximum_upper": "-28.96150000000000046540549192286562174558639526367187500"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.11999999999999999555910790149937383830547332763671875",
+                "minimum_upper": "-15.11999999999999999555910790149937383830547332763671875",
+                "maximum_lower": "-14.88000000000000000444089209850062616169452667236328125",
+                "maximum_upper": "-14.88000000000000000444089209850062616169452667236328125"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04028556171465642917286573247655690753453638750993519089155",
+                "minimum_upper": "-1.04028556171465555569793746596032393487488185819664165088575",
+                "maximum_lower": "-0.000285866332044664040403354225516194977413063678358349114243854",
+                "maximum_upper": "-0.000285866332043790565475087709283222317758534365064809108464146"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9997141336679562094345249122907167776822414656349351908916",
+                "minimum_upper": "-29.9997141336679553359595966457744838050225869363216416508857",
+                "maximum_lower": "-28.9597144382853444443020625340396760651251181418033583491143",
+                "maximum_upper": "-28.9597144382853435708271342675234430924654636124900648091084"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "APERTURE",
+                "lower": "-1.04078590881455393278762025905572905967125076805747847970659",
+                "upper": "0.00200019479120430608751016583093538710960526024497847970658690",
+                "gate_certificate": {
+                  "status": "SAFE_IF_INTERSECTING",
+                  "radial_upper_m": 0.12050097395596784,
+                  "inflation_upper_m": 0.0005001947912038053,
+                  "nonempty_proved": false,
+                  "angle_proved": true,
+                  "plane_separated": false,
+                  "reason": "Entire inflated chord envelope fits whenever it intersects; no phase inferred.",
+                  "inputs": {
+                    "capsule": {
+                      "position_m": [
+                        0.0,
+                        0.0,
+                        14.4815
+                      ],
+                      "axis": [
+                        -0.0,
+                        -0.0,
+                        -1.0
+                      ],
+                      "half_segment_m": 0.4,
+                      "radius_m": 0.12
+                    },
+                    "gate": {
+                      "face": "front",
+                      "u": 0.0,
+                      "v": 0.0
+                    },
+                    "direction": -1,
+                    "errors": {
+                      "position_error_m": 4.36721782461345e-16,
+                      "angle_error_rad": 0.0,
+                      "additional_margin_m": 0.0
+                    },
+                    "slice_bounds": {
+                      "end_position_m": [
+                        -7.791647640264073e-07,
+                        -0.0,
+                        14.47971428597665
+                      ],
+                      "arc_length_upper_m": 0.0017857142500000002,
+                      "curvature_upper_per_m": 0.4886921905584123,
+                      "rotation_upper_rad": 0.0008726646085438723
+                    }
+                  },
+                  "assumptions": [
+                    "Given capsule is the tested envelope; actual asset and pivot containment are unverified here.",
+                    "Explicit relative position, angular and additional margins bound all relevant poses; their sources are unverified here.",
+                    "Finite binary64 inputs and exactly normalized axes are enclosed by Decimal60 arithmetic; Godot conversion and query error require separate margins.",
+                    "This geometric certificate is not a motion grant, gate phase, collision-world query or arrival result.",
+                    "Arc length bounds the complete continuous centre curve, whose arclength tangent is continuous and curvature is bounded as supplied.",
+                    "Rotation bounds the entire slice relative to its start, e.g. total angular variation; endpoint net rotation is insufficient.",
+                    "Endpoint, slice and uncertainty bounds require binding to the actual integrator; no MotionStep or Godot cast is verified here."
+                  ]
+                }
+              },
+              {
+                "face": "back",
+                "method": "STRICT_INSIDE",
+                "lower": "-30.0020001947912043060875101658309353871096052602449784797066",
+                "upper": "-28.9592140911854460672123797409442709403287492319425215202934",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205001947912038007139893564596781862724699453035722297066",
+                "upper": "-14.8794990260440321728787326910153256019136731379905828464395",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205009739559678271212673089846743980863268620094171535605",
+                "upper": "-14.8794998052087961992860106435403218137275300546964277702934",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005001947912038053,
+            "monotone_at_gate": true,
+            "reason": "complete continuous six-face conjunction"
+          },
+          {
+            "status": "UNKNOWN",
+            "binding": "82aae14f4743138ac16cabdbf4df0491cad14f4a7bd48f5a4eae58cef8cf942a",
+            "role": "exit",
+            "start_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000004322965720347574903246353005922933655200029",
+                "minimum_upper": "-15.1199999999999995588216437682412573519756460629800719799971",
+                "maximum_lower": "-14.8800000000000004411783562317587426480243539370199280200029",
+                "maximum_upper": "-14.8799999999999995677034279652425096753646994077066344799971"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04028556171465642917286573247655690753453638750993519089155",
+                "minimum_upper": "-1.04028556171465555569793746596032393487488185819664165088575",
+                "maximum_lower": "-0.000285866332044664040403354225516194977413063678358349114243854",
+                "maximum_upper": "-0.000285866332043790565475087709283222317758534365064809108464146"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9997141336679562094345249122907167776822414656349351908916",
+                "minimum_upper": "-29.9997141336679553359595966457744838050225869363216416508857",
+                "maximum_lower": "-28.9597144382853444443020625340396760651251181418033583491143",
+                "maximum_upper": "-28.9597144382853435708271342675234430924654636124900648091084"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1203482866343491513466998922331797595836005048030353974198",
+                "minimum_upper": "-15.1203482866343482778717716257169467869239459754897418574138",
+                "maximum_lower": "-14.8796501550361236693136724692330607894483401910985682948785",
+                "maximum_upper": "-14.8796501550361227958387442027168278167886856617852747548725"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1203498449638772041612557972831721832113143382147252451275",
+                "minimum_upper": "-15.1203498449638763306863275307669392105516598089014317051215",
+                "maximum_lower": "-14.8796517133656517221282283742830532130760540245102581425862",
+                "maximum_upper": "-14.8796517133656508486533001077668202404163994951969646025802"
+              }
+            ],
+            "end_sides": [
+              {
+                "face": "top",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "bottom",
+                "minimum_lower": "-15.1200000000000007058323751019423748329353518008275773202463",
+                "minimum_upper": "-15.1199999999999992852858407010563728436755948544458601797537",
+                "maximum_lower": "-14.8800000000000007147141592989436271563244051455541398202463",
+                "maximum_upper": "-14.8799999999999992941676248980576251670646481991724226797537"
+              },
+              {
+                "face": "front",
+                "minimum_lower": "-1.04099970085303809021615515401493871643910619162154661053056",
+                "minimum_upper": "-1.04099970085303666966962075312893672717934924523982947003800",
+                "maximum_lower": "-0.00100029790310657229286996661413625942343395788517052996199332",
+                "maximum_upper": "-0.00100029790310515174633556572813427016367701150345338946944868"
+              },
+              {
+                "face": "back",
+                "minimum_lower": "-29.9989997020968948482536644342718657298363229884965466105306",
+                "minimum_upper": "-29.9989997020968934277071300333858637405765660421148294700379",
+                "maximum_lower": "-28.9590002991469633303303792468710632728206507547601705299621",
+                "maximum_upper": "-28.9590002991469619097838448459850612835608938083784533894694"
+              },
+              {
+                "face": "left",
+                "minimum_lower": "-15.1204871649060811963896218301524659355935546245372402216333",
+                "minimum_upper": "-15.1204871649060797758430874292664639463337976781555230811405",
+                "maximum_lower": "-14.8795097807681091477881519707418886005997677852495794102382",
+                "maximum_upper": "-14.8795097807681077272416175698558866113400108388678622697454"
+              },
+              {
+                "face": "right",
+                "minimum_lower": "-15.1204902192318922727583824301441133886599891611321377302546",
+                "minimum_upper": "-15.1204902192318908522118480292581113994002322147504205897618",
+                "maximum_lower": "-14.8795128350939202241569125707335360536662023218444769188595",
+                "maximum_upper": "-14.8795128350939188036103781698475340644064453754627597783667"
+              }
+            ],
+            "faces": [
+              {
+                "face": "top",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "bottom",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1205000311665976080476629177071264575662215904608385366565",
+                "upper": "-14.8794999688334023919523370822928735424337784095391614633435",
+                "gate_certificate": null
+              },
+              {
+                "face": "front",
+                "method": "ENVELOPE_NOT_CLEAR",
+                "lower": "-1.04149987823597511603603156520480946884070152630240820754509",
+                "upper": "0.000214164834553385185615795240352910613162463802408207545079394",
+                "gate_certificate": null
+              },
+              {
+                "face": "back",
+                "method": "STRICT_INSIDE",
+                "lower": "-30.0002141648345533851856157952403529106131624638024082075452",
+                "upper": "-28.9585001217640248839639684347951905311592984736975917924548",
+                "gate_certificate": null
+              },
+              {
+                "face": "left",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208483178009463270977907751828158925145215029705084140734",
+                "upper": "-14.8791493758713841083105509722963641691384043120261979077621",
+                "gate_certificate": null
+              },
+              {
+                "face": "right",
+                "method": "STRICT_INSIDE",
+                "lower": "-15.1208506241286158916894490277036358308615956879738020922379",
+                "upper": "-14.8791516821990536729022092248171841074854784970294915859266",
+                "gate_certificate": null
+              }
+            ],
+            "rho_m": 0.0005000311665976126,
+            "monotone_at_gate": true,
+            "reason": "insufficient envelope/aperture/budget evidence"
+          }
+        ],
+        "reason": "insufficient envelope/aperture/budget evidence",
+        "failure_candidate": false
+      }
+    }
+  ]
+}
