@@ -1,0 +1,73 @@
+[
+  {
+    "operation": "B-DEEPEYE-BLOCK-ENCODER-20261018-08",
+    "worktree_sha256": "727444428494502fe9c7d4298338721132b9ed3ec2eb4577372d4746a1a3a7d0",
+    "worktree_size": 106772,
+    "crlf": 1605,
+    "request": {
+      "code_commit": "4d244c5b4ed282dfa4ee610e6a2fa7b4d9ca4c40",
+      "expected_result": "Isolated single-clock digital RTL encoder candidate and independent completion audit accepted locally only. B01/B03, public ABI/R03 and all eight B root cards remain incomplete. Synthesis unavailable/not performed, implementation/board/system not_run. A/C cooperation needed for public interfaces, independent interoperability and actual integrated acceptance; local B work remains.",
+      "operation_id": "B-DEEPEYE-BLOCK-ENCODER-20261018-08",
+      "requester": "node-b",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "test_steps": [
+        "Read immutable H01-H15 DEEPEYE-HUMAN-LOCK-20261014/r1 sourcef5989cd5defce561f9ba98e6b18fc2682945f0a2 requirements SHA256c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804; frozen design1011259415a0916054eb580687612580bc1e5f09.",
+        "Read the eight-card B completion matrix in competition/deepeye/evidence/audit/independent-completion-20261018-v1/completion_matrix.md. Existing candidates are not root-card acceptance; local acquisition/stream/link/control/build/assets/three-axis gaps remain.",
+        "Run explicit-path ModelSim commands in competition/deepeye/evidence/codec/block-encoder-20261018-08/main/readme.md. Corrected regression expects828 cases/7447 checks; independent port review expects1559 cases,69312 successful-block samples,26 error transactions,40 aborts/fresh recoveries and81264 stability checks.",
+        "Verify BE01 original17-bit writer failure, main32-bit correction,52 forced unary cases, exact final RTL/runner/raw-port hashes, and six-file portable reproduction. Reject preexisting output/input aliases; preserve failed attempts.",
+        "Inspect35 corrupted-log and4 actual defective-RTL negative controls and exact preliminary-fix/final comment-only equivalence boundary; negative controls are not product implementations.",
+        "A/C independently review fixed inner codec bytes; this is MSB-first internal block output, not the public TRACE little-endian payload or scheduling. Do not enable type7 or motion based on this candidate. Return same PR operation/request_hash/tested_commit/log hashes; no board execution requested."
+      ]
+    },
+    "request_hash": "1d9241391495c931a925203b8b9efb2f7e2cf31256042aae997c009b2e186440",
+    "433db2a82854a669778eb8c3cd35c309623a087e": {
+      "exit": 0,
+      "sha256": "854f092b0d79c014bbd8669ae407d88c0375933b0c672f494f964b6ad2c414ab",
+      "size": 105167,
+      "crlf": 0,
+      "equals_worktree": false
+    },
+    "1c8ce8433b2adf5b50947b124f7397c603f7a978": {
+      "exit": 0,
+      "sha256": "854f092b0d79c014bbd8669ae407d88c0375933b0c672f494f964b6ad2c414ab",
+      "size": 105167,
+      "crlf": 0,
+      "equals_worktree": false
+    }
+  },
+  {
+    "operation": "B-DEEPEYE-STREAM-RESET-20261018-09",
+    "worktree_sha256": "e6149beab779f6df7db1e8f780ef1c2d1ad5e555b780684500ba82cce37766a3",
+    "worktree_size": 87895,
+    "crlf": 0,
+    "request": {
+      "code_commit": "1c3fc4d0f0a5b1390787cc8c44ac34b055aa9818",
+      "expected_result": "Main-reviewed two-slot internal codec stream candidate only. B01/B03 and all eight B root cards remain incomplete. Actual digital simulation is separate from synthesis/implementation/physical timing/CDC/board/system; no hardware or runtime motion authority is implied.",
+      "operation_id": "B-DEEPEYE-STREAM-RESET-20261018-09",
+      "requester": "node-b",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "test_steps": [
+        "Read pinned H01-H15 DEEPEYE-HUMAN-LOCK-20261014/revision1 at f5989cd5defce561f9ba98e6b18fc2682945f0a2; canonical requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804; frozen design1011259415a0916054eb580687612580bc1e5f09 unchanged.",
+        "Verify unchanged actual encoder SHA256870bc5dcfe9a3a82124cf5d305082964b9a6ebf3447c13f1a92ec052a591d8a5 and new wrapper SHA256c8f8c0d99769efc64a91402ee23e7157368ff90ec765db5c413f02546715fff4. Read fixed two-slot/counters/reset/error contract in competition/deepeye/evidence/stream/stream-reset-20261018-09/main/main_stream_spec.md.",
+        "Follow explicit-path portable ModelSim reproduction in competition/deepeye/evidence/stream/stream-reset-20261018-09/main/readme.md;54 cases/1353306 checks passed with corrected raw-capture runner and flat input/output paths containing spaces. Existing-output/input-alias guards exit2 and preserve bytes.",
+        "Independently inspect real public-port evidence:374 admissions,290 complete outputs,31 errors,53 flushed blocks,14011 samples,13100 observed bytes,540297 clocks and25377 stall checks;22 config/retire and26 sample/retire overlaps. Five counter seeds are whitebox diagnostics only. Oracle imports neither worker code nor golden model.",
+        "Verify original fill-slot failure and worker correction, main raw-pipe capture correction, retained main harness assumption correction,4 actually compiled/simulated defective wrappers and27 corrupted-log rejections. Do not turn failed attempts or derived text logs into raw-byte evidence.",
+        "Read current eight-card completion matrix. Candidate is internal MSB-first two-slot stream; public TRACE/register/BOOT/sample-clock bindings and whole B01/B03 remain open. Consumer must discard partial frames on the shared synchronous reset/cancel boundary. No board operation requested.",
+        "Return independent same-PR feedback bound to operation_id/request_hash/tested_commit and actual logs/hash; preserve A public ABI ownership, C decoder role, and A-only physical board."
+      ]
+    },
+    "request_hash": "34ee72df3b3b2dee80402865d79dcdc1084b128ed3ae41487bca073b1261d126",
+    "433db2a82854a669778eb8c3cd35c309623a087e": {
+      "exit": 0,
+      "sha256": "e6149beab779f6df7db1e8f780ef1c2d1ad5e555b780684500ba82cce37766a3",
+      "size": 87895,
+      "crlf": 0,
+      "equals_worktree": true
+    },
+    "1c8ce8433b2adf5b50947b124f7397c603f7a978": {
+      "exit": 128
+    }
+  }
+]

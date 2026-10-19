@@ -1,0 +1,131 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-C-PR25-REVIEW-20261019-v1",
+  "job_id": "child-e678319dd7f34a93893ddc7e044ee414",
+  "agent_id": "/root/pc_direct_review_20261018",
+  "tested_commit": "942fa309ffc8f1d32c816cfa643b009b031d7d0a",
+  "result": "no_blocking_defect_found_in_named_offline_software_scope",
+  "old_head_acceptance_inherited": false,
+  "operations": [
+    {
+      "operation_id": "C-DEEPEYE-REVIEWFIXES-20261018-12",
+      "request_hash": "ac9671977fa3e3cab5f81a63cdfd5edb06eb7437bfc85812c19b37496d6ab220",
+      "artifact_count": 202
+    },
+    {
+      "operation_id": "C-DEEPEYE-TRACE-CANDIDATE-DECODE-20261018-14",
+      "request_hash": "3102d6d5e65dad3dfc6dba65eea465d7ac91816a65413d36b8825e2e71eb800e",
+      "artifact_count": 70
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "H01_H15_preserved": true,
+  "tests": {
+    "motion-author": {
+      "exit_code": 0,
+      "run": 38,
+      "passed": 38,
+      "skipped": 0
+    },
+    "mailbox-author": {
+      "exit_code": 0,
+      "run": 44,
+      "passed": 44,
+      "skipped": 0
+    },
+    "deadlines-author": {
+      "exit_code": 0,
+      "run": 34,
+      "passed": 34,
+      "skipped": 0
+    },
+    "motion-C-main": {
+      "exit_code": 0,
+      "run": 4,
+      "passed": 4,
+      "skipped": 0
+    },
+    "motion-A-independent": {
+      "exit_code": 0,
+      "run": 8,
+      "passed": 8,
+      "skipped": 0
+    },
+    "parser-inventory": {
+      "exit_code": 0,
+      "run": 26,
+      "passed": 26,
+      "skipped": 0
+    },
+    "parser-preprocess": {
+      "exit_code": 0,
+      "run": 36,
+      "passed": 36,
+      "skipped": 0
+    },
+    "parser-C-main": {
+      "exit_code": 0,
+      "run": 2,
+      "passed": 2,
+      "skipped": 0
+    },
+    "verifier-pure": {
+      "exit_code": 0,
+      "run": 57,
+      "passed": 54,
+      "skipped": 3
+    },
+    "trace-provenance": {
+      "exit_code": 0
+    },
+    "trace-replay": {
+      "exit_code": 0,
+      "groups": 81
+    },
+    "trace-QA": {
+      "exit_code": 0,
+      "run": 5,
+      "passed": 5,
+      "skipped": 0
+    },
+    "trace-C-main": {
+      "exit_code": 0,
+      "run": 4,
+      "passed": 4,
+      "skipped": 0
+    },
+    "trace-A-independent": {
+      "exit_code": 0,
+      "run": 5,
+      "passed": 5,
+      "skipped": 0
+    }
+  },
+  "verified_manifest_git_blobs": 272,
+  "candidate_clean_and_unchanged": true,
+  "findings": {
+    "bytes": 9228,
+    "sha256": "fb036aa53dfe72b3ea0832df013e7905ee650272975739607d621e579de1204a"
+  },
+  "proposed_pr_feedback": {
+    "bytes": 2290,
+    "sha256": "d87111bd072cc0a3d743561c73d7f4acce899bb972e8e15a862eaf336f0c8720"
+  },
+  "evidence_manifest": {
+    "bytes": 121480,
+    "sha256": "0f217bb4e8fe9c3449e60a404d3f5b72ebf59e2c28cecc2adfdd363fcd0b2dfe"
+  },
+  "not_run": [
+    "3 original FORCE archive-dependent verifier tests",
+    "6 original-archive independent CLI scenarios",
+    "public ABI acceptance",
+    "runtime/BOOT/clock/liveness/slot integration",
+    "real compression/latency",
+    "physical board",
+    "C01 full/C05/G06/full game/system acceptance"
+  ],
+  "write_scope": ".planning/deepeye-resume-20261018/c-pr25-newhead-review/",
+  "external_feedback_posted": false
+}

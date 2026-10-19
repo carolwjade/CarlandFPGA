@@ -1,0 +1,201 @@
+{
+  "environment": {
+    "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-host-deps",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\temp",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\temp",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "DEEPEYE_FORCE_ARCHIVE": "unset"
+  },
+  "runs": [
+    {
+      "label": "motion-author",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\control_broker\\test_motion_request.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "motion-author.stdout.log",
+      "stderr": "motion-author.stderr.log"
+    },
+    {
+      "label": "mailbox-author",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\control_broker\\test_mailbox.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "mailbox-author.stdout.log",
+      "stderr": "mailbox-author.stderr.log"
+    },
+    {
+      "label": "deadlines-author",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\control_broker\\test_deadlines.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "deadlines-author.stdout.log",
+      "stderr": "deadlines-author.stderr.log"
+    },
+    {
+      "label": "motion-C-main",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\motion_request\\review_repair2\\main_review\\independent_motion_review.py",
+        "--product-root",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "motion-C-main.stdout.log",
+      "stderr": "motion-C-main.stderr.log"
+    },
+    {
+      "label": "motion-A-independent",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\independent_motion.py",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "motion-A-independent.stdout.log",
+      "stderr": "motion-A-independent.stderr.log"
+    },
+    {
+      "label": "parser-inventory",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\data_model\\test_force_inventory.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "parser-inventory.stdout.log",
+      "stderr": "parser-inventory.stderr.log"
+    },
+    {
+      "label": "parser-preprocess",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\data_model\\test_force_preprocess.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "parser-preprocess.stdout.log",
+      "stderr": "parser-preprocess.stderr.log"
+    },
+    {
+      "label": "parser-C-main",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\data_boundary_repair\\main_review\\independent_headers.py",
+        "--product-root",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "parser-C-main.stdout.log",
+      "stderr": "parser-C-main.stderr.log"
+    },
+    {
+      "label": "verifier-pure",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\tests\\ai\\data_model\\test_verify_data.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "verifier-pure.stdout.log",
+      "stderr": "verifier-pure.stderr.log"
+    },
+    {
+      "label": "trace-provenance",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\trace_candidate_decode\\provenance.py",
+        "--check-only"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "trace-provenance.stdout.log",
+      "stderr": "trace-provenance.stderr.log"
+    },
+    {
+      "label": "trace-replay",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\trace_candidate_decode\\replay.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "trace-replay.stdout.log",
+      "stderr": "trace-replay.stderr.log"
+    },
+    {
+      "label": "trace-QA",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\trace_candidate_decode\\independent_review\\probe.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "trace-QA.stdout.log",
+      "stderr": "trace-QA.stderr.log"
+    },
+    {
+      "label": "trace-C-main",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\trace_candidate_decode\\main_review\\main_probe.py",
+        "--candidate",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review\\scratch\\competition\\deepeye\\evidence\\ai\\trace_candidate_decode\\candidate_decode.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\c-pr25-newhead-review",
+      "exit_code": 0,
+      "stdout": "trace-C-main.stdout.log",
+      "stderr": "trace-C-main.stderr.log"
+    }
+  ]
+}
