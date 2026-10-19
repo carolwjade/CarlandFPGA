@@ -1,0 +1,36 @@
+{
+  "at_utc": "2026-10-19T17:21:20.289464+00:00",
+  "original_job": "child-f64a187972674ab3855aa5f7516dc3e3",
+  "terminal": true,
+  "tested_pr_head": "cd48ae70082e33c7a669a6686a0c965f8e541757",
+  "observed_current_pr_head": "f7e95af8f8abae6d4a5312c08d99e095a7e5dec1",
+  "source_pins_checked": 18,
+  "review_artifacts": {
+    "receipt.json": "808851620181df3bc1b8c6c9d194ff45585ee12b6b9327b135206a31bbdc1cba",
+    "findings.md": "0d0cc04d1f713582db6c7fbc00ab226caf4c82b242657bfbdb575f53ec0ca4cf",
+    "inspection_manifest.json": "783e6cba4d9661a75a3c20885e26952676642cedd639292169651abc4eefb7cb"
+  },
+  "raw_runs_checked": 4,
+  "operation10": "accepted bounded offline Python reference only",
+  "operation11": "accepted descriptor arithmetic only; runtime proposal remains unapproved",
+  "main_counts": {
+    "accessible_words": 28,
+    "apply_boundaries": 19,
+    "command_strobe_cases": 1104,
+    "config_lifecycle_checks": 12,
+    "expected_rejections": 283,
+    "invalid_capture_cases": 34,
+    "random_capture_projections": 128,
+    "reader_revocation_interleavings": 136,
+    "shadow_reference_cases": 3000,
+    "snapshot_words": 17,
+    "stale_ticket_schedules": 6
+  },
+  "all29_formal_cards": "not_run",
+  "public_abi_freeze": true,
+  "candidate_register_or_extension_approval": false,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "current_head_reviewed": false,
+  "auxiliary_attempt": "initial structural assertion compared unlike before/after schemas and stopped before writes; corrected to compare actual path, hash and byte fields",
+  "side_effects": "local evidence audit only; no rerun of completed tests or original receipt"
+}
