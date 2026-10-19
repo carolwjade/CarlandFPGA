@@ -11,7 +11,7 @@ from time import monotonic_ns
 
 from ..isolation.actor_owner import ActorPolicy, ActorRegistry
 from .motion_executor import OwnedMotionExecutor
-from .pc_direct_runtime import (AuthorityDependencies, BootBinding, PcDirectRuntime,
+from .pc_direct_runtime import (AiLease, AuthorityDependencies, BootBinding, PcDirectRuntime,
                                 VerifiedEnvelope, VerifiedObservation)
 from ...integration import host_envelope
 
@@ -34,6 +34,8 @@ class AuthorityConfig:
     budget: object
     heartbeat_timeout_ns: int
     max_slices: int
+    progress_max_age_ns: int
+    ai_model_sha256: str
 
 
 @dataclass(frozen=True)
@@ -50,6 +52,127 @@ class StepOutcome:
 _FACTORY = object()
 _STOPPED = object()
 _RETAINED = []  # Strong recovery ownership before any acquisition; no auto-eviction.
+_MAX_NS = (1 << 63) - 1  # Existing host_contract integer bound.
+
+
+def _bounded(value, minimum=0):
+    if type(value) is not int or not minimum <= value <= _MAX_NS:
+        raise ValueError('strict bounded progress integer required')
+    return value
+
+
+@dataclass(frozen=True)
+class _CompletedInference:
+    """Private original-verifier result, never a credential or receipt claim.
+
+    The real producer is absent. source/domain identity only checks trusted
+    in-process correlation; it does not authenticate a model/backend/endpoint.
+    """
+    boot: BootBinding
+    source: object
+    clock_domain: object
+    candidate_raw: bytes
+    invocation_id: int
+    dispatch_lower_ns: int
+    completion_lower_ns: int
+    completion_upper_ns: int
+
+
+@dataclass(frozen=True)
+class _BoundProgress:
+    request_raw: bytes
+    candidate_raw: bytes
+    command_seq: int
+    candidate_id: int
+    invocation_id: int
+    dispatch_lower_ns: int
+    completion_lower_ns: int
+    completion_upper_ns: int
+    deadline_ns: int
+
+
+class _ProgressGate:
+    """One activation, one current command, irreversible expiry/revocation."""
+    def __init__(self, boot, source, clock_domain, model_hash, max_age, now):
+        self.boot, self.source, self.clock_domain = boot, source, clock_domain
+        self.model_hash, self.max_age = model_hash, _bounded(max_age, 1)
+        self.started = self.high_water = _bounded(now)
+        self.initial_deadline = _bounded(now + max_age)
+        self.context = host_envelope._parse_message(boot.context_json)
+        self.generation, self.revoked, self.bound = 0, False, None
+
+    def revoke(self):
+        self.generation += 1
+        self.revoked = True  # Keep the original record for diagnosis, no reset.
+
+    def observe_time(self, now):
+        try:
+            _bounded(now)
+            if self.revoked or now < self.high_water:
+                raise ValueError('progress retired or monotonic clock regressed')
+            self.high_water = now  # Retain even if subsequent validation fails.
+            deadline = self.initial_deadline if self.bound is None else self.bound.deadline_ns
+            if now >= deadline:
+                raise ValueError('fixed inference progress deadline expired')
+            return now
+        except BaseException:
+            self.revoke()
+            raise
+
+    def admit(self, proof, request_raw, now):
+        try:
+            self._admit(proof, request_raw, now)
+        except BaseException:
+            self.revoke()
+            raise
+
+    def _admit(self, proof, request_raw, now):
+        self.observe_time(now)
+        if (type(proof) is not _CompletedInference or proof.boot is not self.boot or
+                proof.source is not self.source or proof.clock_domain is not self.clock_domain or
+                type(proof.candidate_raw) is not bytes or type(request_raw) is not bytes):
+            raise ValueError('original verified inference association required')
+        request = host_envelope.validate_message(request_raw, producer='control_broker',
+            consumer='world_authority', context=self.context, now_ns=now)
+        candidate = host_envelope.validate_message(proof.candidate_raw, producer='ai_controller',
+            consumer='control_broker', context=self.context, now_ns=now)
+        if request.kind != 'motion_request' or candidate.kind != 'model_candidate':
+            raise ValueError('original candidate and motion request required')
+        request, candidate = request.document, candidate.document
+        if (request['target']['action'] == 0 or candidate['model_sha256'] != self.model_hash or
+                any(request[key] != candidate[key] for key in ('candidate_id', 'observation', 'target'))):
+            raise ValueError('completion does not match approved model and causal command')
+        invocation = _bounded(proof.invocation_id, 1)
+        dispatch = _bounded(proof.dispatch_lower_ns)
+        lower, upper = _bounded(proof.completion_lower_ns), _bounded(proof.completion_upper_ns)
+        claimed = _bounded(candidate['completed_monotonic_ns'])
+        issue = _bounded(request['host_issue_monotonic_ns'])
+        sequence, candidate_id = _bounded(request['command_seq']), _bounded(candidate['candidate_id'])
+        if not self.started <= dispatch <= lower <= claimed <= upper <= issue <= now:
+            raise ValueError('completion interval lacks ordered original host-time bounds')
+        deadline = _bounded(lower + self.max_age)
+        if now >= deadline:
+            raise ValueError('original inference completion already stale')
+        proposed = _BoundProgress(request_raw, proof.candidate_raw, sequence, candidate_id,
+            invocation, dispatch, lower, upper, deadline)
+        old = self.bound
+        if old is not None:
+            if sequence == old.command_seq:
+                if proposed != old:
+                    raise ValueError('changed duplicate inference/command association')
+                return  # Exact original bytes/bounds; receipt cannot renew.
+            if (sequence < old.command_seq or candidate_id <= old.candidate_id or
+                    invocation <= old.invocation_id):
+                raise ValueError('retired inference/candidate/command replay')
+        self.bound = proposed
+        self.generation += 1
+
+    def deadline_for(self, request_raw, now):
+        self.observe_time(now)
+        if self.bound is None or request_raw != self.bound.request_raw:
+            self.revoke()
+            raise ValueError('no original command-bound inference completion')
+        return self.bound.deadline_ns
 
 
 def _production_channels(config):
@@ -138,21 +261,51 @@ class _Dependencies(AuthorityDependencies):
 
     def verify_command(self, event, boot):
         record = self._verify('verify_command', event, boot, VerifiedEnvelope)
-        self._owner._command_record = record
+        owner = self._owner
+        epoch = owner._veto
+        now = owner._progress_time()
+        command = host_envelope.validate_message(record.raw, producer='control_broker',
+            consumer='world_authority', context=owner._progress.context, now_ns=now)
+        if command.kind != 'motion_request':
+            raise ValueError('broker command must be a motion request')
+        if command.document['target']['action'] != 0:
+            proof = owner._channels.completion_for_command(event, boot)
+            owner._checkpoint(epoch)
+            now = owner._progress_time()
+            owner._progress.admit(proof, record.raw, now)
+        owner._checkpoint(epoch)
+        owner._command_record = record
         return record
 
     def ai_lease(self, boot, now_ns):
         owner = self._owner
         owner._active()
         epoch = owner._veto
+        gate = owner._progress
+        generation = gate.generation
         # The only lifetime target: no channel/provider fallback or cached lease.
         result = owner._actor.ai_lease(boot, now_ns)
         owner._checkpoint(epoch)
-        return result
+        if (owner._progress is not gate or gate.generation != generation or
+                type(result) is not AiLease or result.boot is not boot or
+                type(result.instance_id) is not str or result.instance_id != boot.ai_instance):
+            raise ValueError('original life/progress activation changed during sample')
+        _bounded(result.deadline_ns)
+        record = owner._command_record
+        if record is None or record.boot is not boot:
+            raise ValueError('missing original admitted command for progress')
+        if owner._runtime._stepping:
+            command = owner._runtime._command
+            if command is None or command.raw != record.raw:
+                raise ValueError('runtime command differs from bound progress')
+        deadline = gate.deadline_for(record.raw, now_ns)
+        return AiLease(result.boot, result.instance_id, min(result.deadline_ns, deadline))
 
     def prepare_step(self, boot, command_raw, expected_pose_revision, dt_ns):
         owner = self._owner
         owner._active(); epoch = owner._veto
+        if owner._progress.bound is None or command_raw != owner._progress.bound.request_raw:
+            raise ValueError('geometry command differs from bound progress')
         result = owner._executor.prepare_step(boot, command_raw, expected_pose_revision, dt_ns)
         owner._checkpoint(epoch)
         return result
@@ -173,12 +326,14 @@ class ActorComposition:
         if key is not _FACTORY: raise CompositionRejected('trusted factory required')
         self._thread = threading.get_ident()
         self._config, self._channels = config, channels
+        self._clock = monotonic_ns
         self._foreign = threading.Event()
         self._state, self._busy, self._retired = 'STARTING', False, False
         self._veto, self._revoking, self._cleanup_attempted = 0, False, False
         self._registry = self._actor = self._runtime = self._executor = None
         self._runtime_activation = self._executor_activation = None
         self._boot = self._boot_event = self._command_record = None
+        self._progress = None
         self._boot_taken = False
         self._primary_error, self._errors, self._last_step = None, [], None
 
@@ -217,6 +372,8 @@ class ActorComposition:
     def _retire(self, reason):
         self._veto += 1
         self._retired = True  # Gate first, before callbacks or cleanup.
+        if self._progress is not None:
+            self._progress.revoke()
         if self._state not in ('CLOSED', 'QUARANTINED'): self._state = 'RETIRED'
         self._dispatch_stop(reason)
 
@@ -242,7 +399,7 @@ class ActorComposition:
         self._executor = OwnedMotionExecutor(initial_state=config.initial_state, scene=config.scene,
             model=config.model, budget=config.budget, max_slices=config.max_slices)
         self._runtime = PcDirectRuntime(run_id=config.actor_policy.run_id,
-            dependencies=_Dependencies(self), clock=monotonic_ns,
+            dependencies=_Dependencies(self), clock=self._clock,
             heartbeat_timeout_ns=config.heartbeat_timeout_ns)
         self._checkpoint()
         self._actor = self._registry.launch(config.actor_policy)
@@ -260,6 +417,9 @@ class ActorComposition:
                 proposed.ai_instance != self._actor.instance_id):
             raise ValueError('original independently verified binding required')
         self._boot, self._boot_event = proposed, event
+        self._progress = _ProgressGate(proposed, self._channels, self._clock,
+            self._config.ai_model_sha256, self._config.progress_max_age_ns, self._clock())
+        self._checkpoint(epoch)
         self._state = 'ACTIVATING'
         # Intended original activations are captured before either call; never
         # adopt whatever successor an exceptional callback leaves behind.
@@ -280,6 +440,14 @@ class ActorComposition:
         epoch = self._veto
         self._channels.checkpoint()
         self._checkpoint(epoch)
+        if self._progress is not None:
+            self._progress_time()
+
+    def _progress_time(self):
+        epoch = self._veto
+        now = self._clock()
+        self._checkpoint(epoch)
+        return self._progress.observe_time(now)
 
     def _runtime_active(self):
         if self._runtime._latched: raise ValueError('runtime stopped')
@@ -349,6 +517,11 @@ def create_authority(config):
     """
     if type(config) is not AuthorityConfig or type(config.actor_policy) is not ActorPolicy:
         raise CompositionRejected('explicit trusted authority configuration required')
+    _bounded(config.progress_max_age_ns, 1)
+    digest = config.ai_model_sha256
+    if (type(digest) is not str or len(digest) != 64 or
+            any(character not in '0123456789abcdef' for character in digest)):
+        raise CompositionRejected('explicit approved inference model hash required')
     channels = _production_channels(config)  # Must precede ActorRegistry construction.
     owner = ActorComposition(_FACTORY, config, channels)
     _RETAINED.append(owner)

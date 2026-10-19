@@ -1,0 +1,263 @@
+{
+  "source_base": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "sources": {
+    "competition/deepeye/simulation/authority/actor_composition.py": {
+      "bytes": 22798,
+      "sha256": "17799e984e0bd67b0de2a2b43b62ec7183b96e0a6bf88e404916844f44a2123c"
+    },
+    "competition/deepeye/tests/simulation/test_actor_composition.py": {
+      "bytes": 28160,
+      "sha256": "c9ef3876e4999b627cc14b0a6f3a9ad67f8a24d5bb05a922feda094959314485"
+    },
+    "competition/deepeye/docs/actor_composition.md": {
+      "bytes": 11759,
+      "sha256": "3d58d15d91f806728e9b8eaa12552ff7ce089b6f741d851ac46422b8cc0a72fa"
+    }
+  },
+  "formal29": "not_run",
+  "raw_artifacts": 59,
+  "excluded_local_temp_paths": [],
+  "files": {
+    "raw/actor-progress-design/complete.py": {
+      "bytes": 5672,
+      "sha256": "7a9e1660767e466ba0cd8f52ef0564bc15e5cefceef1516074cb1a3c87ae2870"
+    },
+    "raw/actor-progress-design/design.md": {
+      "bytes": 19170,
+      "sha256": "cb91477153276369c6eaead242cbecb70423804f6939bbbef49a788a931451db"
+    },
+    "raw/actor-progress-design/input-manifest.json": {
+      "bytes": 23055,
+      "sha256": "622a73b7e556b35389b07a2b860c19e01f83ec290af70c728207e39310df7f62"
+    },
+    "raw/actor-progress-design/input-recheck.json": {
+      "bytes": 202,
+      "sha256": "9774dfc1fddffa5d89f801830fd0431238da784de00daef41c384af416522fc1"
+    },
+    "raw/actor-progress-design/native_completion.json": {
+      "bytes": 1234,
+      "sha256": "85ed7f0634f1cb778f542a48bfe70ff2b0a52dcba57b493746a5dca7741add09"
+    },
+    "raw/actor-progress-design/native_completion_attempt.json": {
+      "bytes": 136,
+      "sha256": "3ee06b0dfbd55bab4e711feb926b29d4decc86be896ff72daecb29e72906f9f0"
+    },
+    "raw/actor-progress-design/native_completion_text.txt": {
+      "bytes": 997,
+      "sha256": "0ec598cc3291ad54b02df63684cc8c7a1b039adf3b0cccc6976b4df5af01e97e"
+    },
+    "raw/actor-progress-design/receipt.json": {
+      "bytes": 1429,
+      "sha256": "fbaceff5b3515b7d3e0a62110fe3f465f267c3cc96ee02335425bffe5515a899"
+    },
+    "raw/actor-progress-design/snapshot.py": {
+      "bytes": 6058,
+      "sha256": "d4b75cd1d1994cff4830e6e238a9d5043594e9e2ce3df0dba8be28e37707e1b2"
+    },
+    "raw/actor-progress-design/source-manifest.json": {
+      "bytes": 1334,
+      "sha256": "90c513b8afd24a3af3b0f199043fa3c7df83654b24db723e5934f7e7c6d178b8"
+    },
+    "raw/actor-progress-design/validation.json": {
+      "bytes": 127,
+      "sha256": "06d2bb0ab745e6cc5b928c032473a0b4658f8039a626b91feaa0cd454b301d65"
+    },
+    "raw/actor-progress-design/verification.json": {
+      "bytes": 626,
+      "sha256": "00805c302ae78f6d8e4f2d2e78c26eaf91416962e70a57936eb39eb32e91961a"
+    },
+    "raw/actor-progress-main/baseline/competition/deepeye/docs/actor_composition.md": {
+      "bytes": 7876,
+      "sha256": "4a18f8ad9ce83eca86fde98384536f056368690f4961f28a664d3868eb0317ac"
+    },
+    "raw/actor-progress-main/baseline/competition/deepeye/simulation/authority/actor_composition.py": {
+      "bytes": 14480,
+      "sha256": "856f015e15d729d91f2f046c54cccc4bc8dba8e0c2d559f4c2c38824bf6bafa5"
+    },
+    "raw/actor-progress-main/baseline/competition/deepeye/tests/simulation/test_actor_composition.py": {
+      "bytes": 14779,
+      "sha256": "5672fdfb2071a89300a4fa321bdc64c661654ee5d28008d95f0448ccb6094282"
+    },
+    "raw/actor-progress-main/candidate-manifest.json": {
+      "bytes": 10132,
+      "sha256": "23e07f12b6a22b0c264b2c8ed59312e0546a364423d2008d5f63894a8317b17f"
+    },
+    "raw/actor-progress-main/focused-01-command.json": {
+      "bytes": 1131,
+      "sha256": "5c7a1669abb5477bcc8cd8c8b8e363bef510e8be2995ac38374bc72123f5bd8b"
+    },
+    "raw/actor-progress-main/focused-01-result.json": {
+      "bytes": 11857,
+      "sha256": "1d1d5def2595e4e6063257dec4ee0089cd673a93b790d49420a6a96cff59dc3b"
+    },
+    "raw/actor-progress-main/focused-01.stderr.log": {
+      "bytes": 8422,
+      "sha256": "55271ff9769446a2271cb6970651efae904dc9c0b074a3cc08e4fdac264124c9"
+    },
+    "raw/actor-progress-main/focused-01.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-progress-main/focused-low-fix-01-command.json": {
+      "bytes": 1139,
+      "sha256": "11310907e9d3031aae00e33393cfbe10cd31a664c2f9b6537b9c2c27f0b361e6"
+    },
+    "raw/actor-progress-main/focused-low-fix-01-result.json": {
+      "bytes": 11857,
+      "sha256": "7675f422b3b87ff58218d79154ff74c46d1138c73b704f166a1092f5ba45df8c"
+    },
+    "raw/actor-progress-main/focused-low-fix-01.stderr.log": {
+      "bytes": 9656,
+      "sha256": "57b39a9a3baa9ae3ace7aba8886232b446d836e44a901b6dc6816d389b5555c6"
+    },
+    "raw/actor-progress-main/focused-low-fix-01.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-progress-main/freeze_candidate.py": {
+      "bytes": 1869,
+      "sha256": "e69184dd9335765254391337da41c4301fbf5fcdd361bb4397c32a026aed6953"
+    },
+    "raw/actor-progress-main/implementation-decisions.md": {
+      "bytes": 5133,
+      "sha256": "0fdb79e9000df084a4a60bdd6efdec09b8d0048039e25bd737b328c09a7587c9"
+    },
+    "raw/actor-progress-main/low-finding-test-only.patch": {
+      "bytes": 1515,
+      "sha256": "6d0fc5e14716184f73d828f188be8fce74ab85bb6b8c9c05c68023639496d6e4"
+    },
+    "raw/actor-progress-main/main-design-selection.json": {
+      "bytes": 9348,
+      "sha256": "d9bf2352aa2d5b9e45007d5d90033dd79a3a2d75e2921da346d968e59cc5cede"
+    },
+    "raw/actor-progress-main/pre-low-fix-test.py": {
+      "bytes": 27628,
+      "sha256": "985ca64bd69e104109254ec9211663e5f11eb85b771c75c8931ef8be379cb59e"
+    },
+    "raw/actor-progress-main/progress_gap_red.py": {
+      "bytes": 2743,
+      "sha256": "81751d6a83b788200a78629d6eaddeb51f0e82092c99b22d948ba75eb8006602"
+    },
+    "raw/actor-progress-main/red-command.json": {
+      "bytes": 8549,
+      "sha256": "82e0db6f661c1e5a8fea394c313ea6b16ca78e69ff2dfcd8dd65ea8b3136e07f"
+    },
+    "raw/actor-progress-main/red-result.json": {
+      "bytes": 11806,
+      "sha256": "23e844e772f1ebd56a664ef8939c01979ddac9fda07129d1701a0d2ef3f2872f"
+    },
+    "raw/actor-progress-main/red.stderr.log": {
+      "bytes": 2672,
+      "sha256": "8966f702b6243096659137ca9a23069477d165901afafdfdeba7de5df4ab9b74"
+    },
+    "raw/actor-progress-main/red.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-progress-main/regression-01-command.json": {
+      "bytes": 1134,
+      "sha256": "ccdfd5a1fb1e21c4ded06edb067d8660f6a35c2ba3bf124127d076ef92de70f5"
+    },
+    "raw/actor-progress-main/regression-01-result.json": {
+      "bytes": 12216,
+      "sha256": "755fd480aac609ded6d519d8e8aa2059e96546e62807c152ddec86385857df3f"
+    },
+    "raw/actor-progress-main/regression-01.stderr.log": {
+      "bytes": 40685,
+      "sha256": "92fe48941cabb7ec252bda490c187790620f6dbf283404b4d2cd927a9af2e802"
+    },
+    "raw/actor-progress-main/regression-01.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-progress-main/review-audit-before-low-fix.json": {
+      "bytes": 772,
+      "sha256": "c837e556a641fa496d16a94da57410e8b2ac6fbcbb3ada79f7676e75ba4ab338"
+    },
+    "raw/actor-progress-main/run_checks.py": {
+      "bytes": 3484,
+      "sha256": "f81b6517483cca26d8e836318c66c2a7995967554c1421fc0a885a17856a1e6a"
+    },
+    "raw/actor-progress-main/run_red_payload.py": {
+      "bytes": 1179,
+      "sha256": "2cc5143fca79de25cfa03446c5de851a6c448a50d0bfcbb2cb9a51989e0da285"
+    },
+    "raw/actor-progress-review/affected193-command.json": {
+      "bytes": 16433,
+      "sha256": "22967cd0a805d3d8841e6e98e2345d6e58d47d03b046b2c7b9ec2567a2e87df5"
+    },
+    "raw/actor-progress-review/affected193-result.json": {
+      "bytes": 12793,
+      "sha256": "9173ac6b6ad82ff1195c3c661db2f0e5dd1c4912f1acddf99f2971f428f3d434"
+    },
+    "raw/actor-progress-review/affected193.stderr.log": {
+      "bytes": 40685,
+      "sha256": "0eb7d9cf17418d60f3d93827c7d14e968ebf95d453ce1e006088e8539ce250f1"
+    },
+    "raw/actor-progress-review/affected193.stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/actor-progress-review/counterexamples-result.json": {
+      "bytes": 3448,
+      "sha256": "a808e71e1f840e1d94440442786aea6c683109d95150bbd7a0113d894d34a9c3"
+    },
+    "raw/actor-progress-review/counterexamples.log": {
+      "bytes": 2422,
+      "sha256": "275c5d8c33d05c0005d07dd7bcff4da3924c4320b734d6961b8fc187822a0dd7"
+    },
+    "raw/actor-progress-review/counterexamples.py": {
+      "bytes": 7116,
+      "sha256": "a30fa906ca51f6ff7891bce84296d5ea73d78a59282bb5c9a0337b64f2f7e8ce"
+    },
+    "raw/actor-progress-review/counterexamples_ids.log": {
+      "bytes": 2046,
+      "sha256": "3b20842ece95f5f22569abb456ed1b0113b90524e38e35a350ea399a0061a513"
+    },
+    "raw/actor-progress-review/counterexamples_ids.py": {
+      "bytes": 4421,
+      "sha256": "a4688adc379bef8cccf779abe655a82def7687cefeb13e823076d45bfb9e8f87"
+    },
+    "raw/actor-progress-review/final_input_check.json": {
+      "bytes": 15283,
+      "sha256": "9099709ba3f9b260cac6cde896083d2611e1664f6df8bfa090ae860c59127182"
+    },
+    "raw/actor-progress-review/findings.md": {
+      "bytes": 7545,
+      "sha256": "fe57474e36bfb1fa377e31891357febff7cb357d8ae283e80a3ad4248fb29519"
+    },
+    "raw/actor-progress-review/inspection_manifest.json": {
+      "bytes": 40081,
+      "sha256": "24d348685e2623a603df39d7b3a65e43e6c0657bd231576a1463026b9502518a"
+    },
+    "raw/actor-progress-review/receipt.json": {
+      "bytes": 32386,
+      "sha256": "9addc552c19e5bfdef7a4c09ec12badff25275236845e74ece2f00c0a8e68383"
+    },
+    "raw/actor-progress-review/review_runner.py": {
+      "bytes": 5681,
+      "sha256": "7836e3161eb51403b9781f1974423d88459d78826530cbc58d19a126348bc137"
+    },
+    "raw/actor-progress-main-selection.json": {
+      "bytes": 2361,
+      "sha256": "d11dee5ec911a200d658325b6cafa778855bbbbe921562d82e7392f9aab120a7"
+    },
+    "raw/actor-progress-review-terminal.json": {
+      "bytes": 3607,
+      "sha256": "cd8a5e0f707f94fb89a06ae5b76d15307c3801adc184453629b58a55e63f5731"
+    },
+    "raw/select_actor_progress.py": {
+      "bytes": 4676,
+      "sha256": "3b7c6decac2101be4c4424a7da5328cc9515c0de27da2ecfd1525d252afc9595"
+    },
+    "raw/audit_progress_review.py": {
+      "bytes": 2502,
+      "sha256": "b60c6ff5c3dfbbbb606486821b1dd06a654b08e8efb36e1e9e37ed340efaf606"
+    },
+    ".gitattributes": {
+      "bytes": 29,
+      "sha256": "bb55e6fe5435fe4b9283ff2b03e2245780b9261d1b524cf484af6e5c547c5081"
+    }
+  }
+}

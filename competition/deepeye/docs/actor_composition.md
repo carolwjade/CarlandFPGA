@@ -13,7 +13,8 @@ The library does not enable viewer Run, register a product provider, stage a mod
 process or implement the four product processes. Importing it does not load the native backend.
 
 The explicit config is private trusted-main state: actor policy, initial world state, solid
-scene/model/budget, heartbeat timeout and geometry slice bound. It is neither a credential nor
+scene/model/budget, heartbeat timeout, geometry slice bound, approved inference model SHA256
+and fixed inference progress age cap. It is neither a credential nor
 an untrusted controller message. The factory has no public provider, verifier, registry,
 executor, actor, PID, HANDLE, alive boolean or AiLease injection argument. The only lifetime
 adapter target is this factory's original actor.ai_lease; geometry targets its own executor.
@@ -45,8 +46,51 @@ implementation needs separately reviewed bounded persistent IPC, original endpoi
 one-use readiness association, approved model/package provenance and actual device/initialization
 evidence. Model initialization still does not establish H11 usefulness. Current synchronous
 write helpers provide no hard cancellation deadline; this library adds no IPC protocol or wire
-fields. Real progress/source/timing deadlines and their final-fence integration remain missing
-provider obligations. The fixture health check before events/steps is not their acceptance.
+fields. Original authenticated inference completion/source/timing evidence remains a missing
+provider obligation. The progress gate below consumes private verifier results; synthetic
+test records and fixture health checks do not fulfill that obligation.
+
+## Command-bound inference progress
+
+Progress work `A-ACTOR-PROGRESS-IMPLEMENTATION-20261019-v1` follows selected design SHA256
+`cb91477153276369c6eaead242cbecb70423804f6939bbbef49a788a931451db`.
+`progress_max_age_ns` is an explicit integer in 1..2**63-1; `ai_model_sha256` is an
+explicit 64-character lowercase hex hash. Neither has a permissive default. Invalid policy
+rejects before acquisition. These values are trusted-main policy, not measured AI performance.
+
+Each activation captures one monotonic callable and starts an EMPTY gate with fixed deadline
+activation time + age cap. EMPTY has no positive progress lease. The first completed inference
+must arrive within that initial budget. Time, IDs and sums are bounded; booleans, integer
+subclasses, overflow and clock regression reject. The gate retains one current immutable
+command/completion and increasing command, candidate and invocation IDs, not an unbounded cache.
+
+The private `_CompletedInference` record must come from the original channel verifier and bind
+the exact BOOT object, channel object and clock domain. It includes the original candidate bytes,
+invocation ID and conservative dispatch/completion time bounds. The existing host-envelope
+validators check the candidate and broker request; model hash, candidate ID, full target and
+causal observation must match. The ordered times are:
+
+`activation <= dispatch_lower <= completion_lower <= candidate_completed <= completion_upper <= request_issue <= trusted_now`.
+
+The deadline is **original completion_lower + fixed age cap**, never receipt time + age cap.
+An exact duplicate preserves both bytes and original metadata/deadline; changed duplicates
+reject. A newer command needs strictly increasing candidate/invocation IDs while the old gate
+is still healthy. Unrelated inference, channel heartbeat, ACK, polling or process survival
+cannot renew the current command. Expiry/revocation is irreversible within this activation;
+late completion cannot resurrect it. STOP requires no completion lookup and retires admission.
+All callbacks are bracketed by the existing owner veto and trusted clock checks.
+
+Every runtime lease request still calls the original `actor.ai_lease`. After that HANDLE sample,
+the adapter rechecks the exact gate/generation, actor instance, BOOT and current admitted bytes,
+then returns the minimum of the original actor lifetime deadline and the bound progress deadline.
+The final lease seam adds no IPC, channel callback, envelope parsing or clock callback. Existing
+runtime post-sample time checks and executor strict `step_end < deadline` apply to the full dt,
+including expiry during geometry preparation, original HANDLE observation and actual commit.
+Revocation sets the gate before cleanup callbacks; later callbacks cannot restore freshness.
+
+Private object identity and valid JSON remain in-process correlation checks, **not authentication**.
+There is still no real completion producer, bounded authenticated IPC or genuine AI model here.
+The production gate remains unavailable. A responsive fixture is not evidence of H11 usefulness.
 
 ## Revocation and outcomes
 
@@ -97,6 +141,14 @@ and during final checks, real pose publication, partial activation, identity-fen
 STOP, malformed/reentrant/foreign calls, strong recovery and post-CAS veto semantics. Existing
 actor/runtime/executor regressions use the accepted actor-repair/current-G06 dependency bytes.
 The separately owned moving native harness/document are not imported or pinned dependencies.
+
+Progress verification retained all 24 original test methods unchanged. Three preimplementation
+counterexamples actually committed after progress expiry/at the full-step deadline; their RED
+logs are preserved separately. Added tests exercise the actual executor fence, both deadline
+minimum orders, end equality versus one nanosecond before, monotonic advancement/replay,
+duplicate nonrenewal, absent/wrong completion, source/model/clock binding, integer/overflow
+bounds, expiry during original Wait, irreversible revoke and heartbeat nonrenewal. These are
+offline software tests with synthetic time and original-verifier fixtures, not native AI runs.
 
 No native actor, genuine AI/readiness, real source/channel/BOOT/timing authentication, product
 Run, both complete H12 chains, game rendering/interaction, hardware/board or all29 formal card

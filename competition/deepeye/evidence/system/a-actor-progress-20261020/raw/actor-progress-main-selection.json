@@ -1,0 +1,43 @@
+{
+  "at_utc": "2026-10-19T16:37:56.324984+00:00",
+  "work_id": "A-ACTOR-PROGRESS-IMPLEMENTATION-20261019-v1",
+  "owner": "01a13d7e-dcf1-7272-a738-a637dd62ff9d generation2",
+  "base_head": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1",
+  "decision": "accepted bounded offline progress gate and publishable evidence",
+  "review_job": "child-b46bbb395d26401a900990f5e65f0fe3",
+  "review_candidate_sha256": "23e07f12b6a22b0c264b2c8ed59312e0546a364423d2008d5f63894a8317b17f",
+  "review_artifact_pins": {
+    "findings.md": "fe57474e36bfb1fa377e31891357febff7cb357d8ae283e80a3ad4248fb29519",
+    "inspection_manifest.json": "24d348685e2623a603df39d7b3a65e43e6c0657bd231576a1463026b9502518a",
+    "receipt.json": "9addc552c19e5bfdef7a4c09ec12badff25275236845e74ece2f00c0a8e68383"
+  },
+  "source_files": {
+    "competition/deepeye/simulation/authority/actor_composition.py": "17799e984e0bd67b0de2a2b43b62ec7183b96e0a6bf88e404916844f44a2123c",
+    "competition/deepeye/tests/simulation/test_actor_composition.py": "c9ef3876e4999b627cc14b0a6f3a9ad67f8a24d5bb05a922feda094959314485",
+    "competition/deepeye/docs/actor_composition.md": "3d58d15d91f806728e9b8eaa12552ff7ce089b6f741d851ac46422b8cc0a72fa"
+  },
+  "reviewed_implementation_and_docs_unchanged": true,
+  "dependency_pins_unchanged": 55,
+  "author_regression": 193,
+  "independent_regression": 193,
+  "independent_counterexamples": 8,
+  "main_followup_tests": 45,
+  "low_finding_resolution": {
+    "method": "test_unrelated_new_completion_does_not_extend_old_command",
+    "before_sha256": "985ca64bd69e104109254ec9211663e5f11eb85b771c75c8931ef8be379cb59e",
+    "after_sha256": "c9ef3876e4999b627cc14b0a6f3a9ad67f8a24d5bb05a922feda094959314485",
+    "patch_sha256": "6d0fc5e14716184f73d828f188be8fce74ab85bb6b8c9c05c68023639496d6e4",
+    "scope": "only new test body corrected after review; final test hash was not independently rerun; production remains exact reviewed source"
+  },
+  "original24_test_methods_unchanged": true,
+  "formal29": "not_run",
+  "production_channels": "unavailable",
+  "native_ai": "not_run",
+  "board": "not_run",
+  "remaining": [
+    "genuine completion producer and authentication",
+    "original BOOT/causal source/clock providers",
+    "bounded live IPC and renderer integration",
+    "meaningful AI plus both H12 end-to-end controls"
+  ]
+}
