@@ -1,0 +1,156 @@
+{
+  "head": "ccf3698cce065e20dbfa24bb6d07a97be7e38de6",
+  "source": "32b64d907375d3fff42db457de29d3f820450e8d",
+  "base": "f7736ac737d1c7b256974beb1574b94096819270",
+  "manifest_files_verified": 149,
+  "request_hash": "cd8362506041657d4295bc4a47511d87e0ed561f87907e8bec1ee579b36e9ddd",
+  "changed_existing": [
+    "competition/deepeye/tests/control/test_pwm_applied_capture_runner.py",
+    "competition/deepeye/tools/control3d/run_pwm_applied_capture.py"
+  ],
+  "added_files": 149,
+  "removed_files": [],
+  "old_tree_count": 4945,
+  "unchanged_old_files": 4943,
+  "snapshot": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-op17-review-main-20261021\\snapshot",
+  "commands": [
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "ls-tree",
+        "-r",
+        "-z",
+        "--full-tree",
+        "f7736ac737d1c7b256974beb1574b94096819270"
+      ],
+      "exit": 0,
+      "stdout_bytes": 817855,
+      "stdout_sha256": "77ee730b75238cef6e8e23fff7c01b8c70f2fbac72a55511d745a461e299b244"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "ls-tree",
+        "-r",
+        "-z",
+        "--full-tree",
+        "ccf3698cce065e20dbfa24bb6d07a97be7e38de6"
+      ],
+      "exit": 0,
+      "stdout_bytes": 844158,
+      "stdout_sha256": "bb155110cf6e019152ac64b4bff5f4247a4adea73d0ec0d8137d117017ce9f90"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "-p",
+        "ccf3698cce065e20dbfa24bb6d07a97be7e38de6"
+      ],
+      "exit": 0,
+      "stdout_bytes": 336,
+      "stdout_sha256": "9f5c08ab03345653d6f398898df2763ce3429fffed7428d30412146a0917d322"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "merge-base",
+        "f7736ac737d1c7b256974beb1574b94096819270",
+        "ccf3698cce065e20dbfa24bb6d07a97be7e38de6"
+      ],
+      "exit": 0,
+      "stdout_bytes": 41,
+      "stdout_sha256": "8aa74fd96cf9440adceffad7e50cd8f09f9052fea3d68bd11173948c58178451"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "--batch"
+      ],
+      "exit": 0,
+      "stdout_bytes": 4361547,
+      "stdout_sha256": "b8bfc75315ae98a5cce99b9a60a34161907124d9f1c6b3bd30fc1dc1de4da878"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "4071806742e7261d3d0963d17674d1a70d8718d7"
+      ],
+      "exit": 0,
+      "stdout_bytes": 47136,
+      "stdout_sha256": "b4ac06464af965999d35444f607fa6c7db537b80c340d39cbcc233ee2dce37b0"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "6989cedcdd1dfdb973b2388b35d8d9c750914d60"
+      ],
+      "exit": 0,
+      "stdout_bytes": 11886,
+      "stdout_sha256": "1483b0ca72cf9d66f3c85eac17f3d81f6fccf51eab21deee0e3431b84620ecf8"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "840af0ed1295e3dcd2928ba0a380a2ef9ff372b6"
+      ],
+      "exit": 0,
+      "stdout_bytes": 23616,
+      "stdout_sha256": "33e6439c7aeb078e646b830493aab1ee27b640b8004d90baccb5b620342c9a3b"
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "core.longpaths=true",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "87c91deb24f8a7e0fb7afa7dc8d4feb1b1fb825a"
+      ],
+      "exit": 0,
+      "stdout_bytes": 59780,
+      "stdout_sha256": "8f0dd8188e640f3abbbc118cbf40bf6f559a8a2f06d950560924dec49b151a8d"
+    }
+  ]
+}
