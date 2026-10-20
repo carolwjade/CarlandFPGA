@@ -23,8 +23,9 @@ loopback0 and is required there. Existing final-exit qualification remains.
 ## Actual independent A execution
 
 One hidden, bounded Python worker, exit0,30s cap,3.641s actual owned tree.
-Launcher22092, console51256 and worker22952 were held by original process
-handles; all signaled, job active0, no missing member or timeout.
+The receipt identifies launcher22092 and held member objects22092/51256/22952;
+all signaled, job active0, no missing member or timeout. Per-child image
+identities were not captured, so console/worker labels are not asserted.
 
 - 31 current unit methods pass.
 - 23 original method bodies are AST-identical. The exact old test module was
