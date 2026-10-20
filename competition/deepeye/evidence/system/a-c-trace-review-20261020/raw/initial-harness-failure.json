@@ -1,0 +1,10 @@
+{
+  "script_snapshot": "run_checks.failed-v1.py",
+  "actual_exit_code": 1,
+  "failure": "KeyError: files at manifest iteration",
+  "cause": "Independent review manifest uses artifacts mapping; author manifest uses files list.",
+  "observed_execution_directory_exists_after_failure": false,
+  "any_candidate_test_executed": false,
+  "correction": "Support each observed manifest representation while preserving exact hashes and containment checks.",
+  "original_git_export_modified": false
+}
