@@ -1,0 +1,64 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_g02_ui_fit (G02 responsive layout regression) ==
+CONTRACT DEEPEYE-HUMAN-LOCK-20261014/revision1 requirements_sha256=c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+UI_FIT size=(1920, 1080) requested=(1920.0, 1080.0) root=[P: (0.0, 0.0), S: (1920.0, 1080.0)] left=[P: (0.0, 36.0), S: (280.0, 934.0)] central=[P: (280.0, 36.0), S: (1352.0, 934.0)] right=[P: (1632.0, 36.0), S: (288.0, 934.0)] top=[P: (0.0, 0.0), S: (1920.0, 36.0)] bottom=[P: (0.0, 970.0), S: (1920.0, 110.0)] ratio=60.897377%
+UI_FIT size=(2560, 1440) requested=(2560.0, 1440.0) root=[P: (0.0, 0.0), S: (2560.0, 1440.0)] left=[P: (0.0, 36.0), S: (272.0, 1294.0)] central=[P: (272.0, 36.0), S: (2000.0, 1294.0)] right=[P: (2272.0, 36.0), S: (288.0, 1294.0)] top=[P: (0.0, 0.0), S: (2560.0, 36.0)] bottom=[P: (0.0, 1330.0), S: (2560.0, 110.0)] ratio=70.203993%
+UI_FIT size=(1280, 720) requested=(1280.0, 720.0) root=[P: (0.0, 0.0), S: (1280.0, 720.0)] left=[P: (0.0, 44.0), S: (280.0, 566.0)] central=[P: (280.0, 44.0), S: (712.0, 566.0)] right=[P: (992.0, 44.0), S: (288.0, 566.0)] top=[P: (0.0, 0.0), S: (1280.0, 44.0)] bottom=[P: (0.0, 610.0), S: (1280.0, 110.0)] ratio=43.727431%
+UI_FIT_WRAP label=@Label@138 size=(272.0, 1377.0) minimum=(1.0, 1377.0) viewport=(280.0, 934.0) lines=60
+UI_FIT_WRAP label=@Label@175 size=(280.0, 1377.0) minimum=(1.0, 1377.0) viewport=(288.0, 934.0) lines=60
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_STATUS size=(1920, 1080) chars=14 lines=1 visible_lines=1 status=[P: (280.0, 970.0), S: (1352.0, 20.0)] bottom=110.0 ratio=60.897377%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (1920, 1080)
+UI_FIT_CHECK_FAIL maximum accepted status preserves 60 percent central area at (1920, 1080)
+UI_FIT_STATUS size=(1920, 1080) chars=521 lines=6 visible_lines=6 status=[P: (280.0, 921.0), S: (1352.0, 135.0)] bottom=159.0 ratio=57.702546%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (1920, 1080)
+UI_FIT_CHECK_FAIL maximum accepted status preserves 60 percent central area at (1920, 1080)
+UI_FIT_STATUS size=(1920, 1080) chars=521 lines=103 visible_lines=103 status=[P: (280.0, 36.0), S: (1352.0, 2366.0)] bottom=2390.0 ratio=0.000000%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_STATUS size=(2560, 1440) chars=14 lines=1 visible_lines=1 status=[P: (272.0, 1330.0), S: (2000.0, 20.0)] bottom=110.0 ratio=70.203993%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (2560, 1440)
+UI_FIT_STATUS size=(2560, 1440) chars=521 lines=4 visible_lines=4 status=[P: (272.0, 1327.0), S: (2000.0, 89.0)] bottom=113.0 ratio=70.041233%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (2560, 1440)
+UI_FIT_CHECK_FAIL maximum accepted status preserves 60 percent central area at (2560, 1440)
+UI_FIT_STATUS size=(2560, 1440) chars=521 lines=103 visible_lines=103 status=[P: (280.0, 36.0), S: (1992.0, 2366.0)] bottom=2390.0 ratio=0.000000%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_STATUS size=(1280, 720) chars=14 lines=1 visible_lines=1 status=[P: (280.0, 610.0), S: (712.0, 20.0)] bottom=110.0 ratio=43.727431%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (1280, 720)
+UI_FIT_STATUS size=(1280, 720) chars=521 lines=12 visible_lines=12 status=[P: (280.0, 423.0), S: (712.0, 273.0)] bottom=297.0 ratio=29.280382%
+UI_FIT_CHECK_FAIL full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_CHECK_FAIL normal/max/multiline status cannot grow bottom band at (1280, 720)
+UI_FIT_CHECK_FAIL maximum accepted status keeps positive 720p central area
+UI_FIT_STATUS size=(1280, 720) chars=521 lines=103 visible_lines=103 status=[P: (280.0, 36.0), S: (712.0, 2366.0)] bottom=2390.0 ratio=0.000000%
+UI_FIT_DIALOG size=(1920, 1080) action=save rect=[P: (240.0, 129.0), S: (960.0, 600.0)] ok=[P: (629.0, 561.0), S: (44.0, 31.0)] cancel=[P: (286.0, 561.0), S: (60.0, 31.0)] title=另存私有布局（仅几何，不覆盖）
+UI_FIT_DIALOG size=(1920, 1080) action=open rect=[P: (240.0, 129.0), S: (960.0, 600.0)] ok=[P: (625.0, 561.0), S: (50.0, 31.0)] cancel=[P: (284.0, 561.0), S: (60.0, 31.0)] title=打开私有布局（严格校验）
+UI_FIT_DIALOG size=(2560, 1440) action=save rect=[P: (560.0, 270.0), S: (960.0, 600.0)] ok=[P: (629.0, 561.0), S: (44.0, 31.0)] cancel=[P: (286.0, 561.0), S: (60.0, 31.0)] title=另存私有布局（仅几何，不覆盖）
+UI_FIT_DIALOG size=(2560, 1440) action=open rect=[P: (560.0, 270.0), S: (960.0, 600.0)] ok=[P: (625.0, 561.0), S: (50.0, 31.0)] cancel=[P: (284.0, 561.0), S: (60.0, 31.0)] title=打开私有布局（严格校验）
+UI_FIT_DIALOG size=(1280, 720) action=save rect=[P: (141.0, 60.0), S: (960.0, 600.0)] ok=[P: (629.0, 561.0), S: (44.0, 31.0)] cancel=[P: (286.0, 561.0), S: (60.0, 31.0)] title=另存私有布局（仅几何，不覆盖）
+UI_FIT_DIALOG size=(1280, 720) action=open rect=[P: (141.0, 60.0), S: (960.0, 600.0)] ok=[P: (625.0, 561.0), S: (50.0, 31.0)] cancel=[P: (284.0, 561.0), S: (60.0, 31.0)] title=打开私有布局（严格校验）
+UI_FIT checks=251 failures=19
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (1920, 1080)
+UI_FIT_FAILURE: maximum accepted status preserves 60 percent central area at (1920, 1080)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1920, 1080)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (1920, 1080)
+UI_FIT_FAILURE: maximum accepted status preserves 60 percent central area at (1920, 1080)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (2560, 1440)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (2560, 1440)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (2560, 1440)
+UI_FIT_FAILURE: maximum accepted status preserves 60 percent central area at (2560, 1440)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (1280, 720)
+UI_FIT_FAILURE: full diagnostic is available to pointer tooltip at (1280, 720)
+UI_FIT_FAILURE: normal/max/multiline status cannot grow bottom band at (1280, 720)
+UI_FIT_FAILURE: maximum accepted status keeps positive 720p central area
+UI_FIT_RESULT FAIL

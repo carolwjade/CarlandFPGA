@@ -12,6 +12,14 @@ extends CanvasLayer
 const DocScript = preload("res://editor/scene_document.gd")
 const LayoutStoreScript = preload("res://editor/layout_store.gd")
 
+const LEFT_PANEL_MIN_WIDTH := 272.0
+const RIGHT_PANEL_MIN_WIDTH := 288.0
+const TOP_BAND_MIN_HEIGHT := 36.0
+const BOTTOM_BAND_MIN_HEIGHT := 110.0
+const DIALOG_MIN_SIZE := Vector2i(960, 600)
+const DIALOG_MAX_SIZE := Vector2i(1440, 900)
+const DIALOG_FALLBACK_RATIO := 0.90
+
 var pick_mode := "select" ## "select" | "add" | "gate"
 var axis_lock := "free" ## "free" | "x" | "y" | "z"
 var snap_enabled := true
@@ -20,6 +28,18 @@ var active_gate := "entry"
 var _main: Node = null
 var _document = null
 var _root: Control
+var _layout: VBoxContainer
+var _main_row: HBoxContainer
+var _top_band: PanelContainer
+var _bottom_band: PanelContainer
+var _top_left_gutter: Control
+var _top_right_gutter: Control
+var _bottom_left_gutter: Control
+var _bottom_right_gutter: Control
+var _top_flow: HFlowContainer
+var _central_viewport: Control
+var _left_scroll: ScrollContainer
+var _right_scroll: ScrollContainer
 var _left_panel: PanelContainer
 var _right_panel: PanelContainer
 var _top_strip: PanelContainer
@@ -53,6 +73,7 @@ var _gate_u: SpinBox
 var _gate_v: SpinBox
 var _gate_status_label: Label
 var _status_labels: Dictionary = {}
+var _presentation_label: Label
 var _run_button: Button
 var _pause_button: Button
 var _continue_button: Button
@@ -64,6 +85,7 @@ var _pending_label: Label
 var _overlap_label: Label
 var _events_log: RichTextLabel
 var _hint_label: Label
+var _action_status_label: Label
 var _ratio_label: Label
 var _ticks_check: CheckButton
 
@@ -105,68 +127,186 @@ func _build_ui() -> void:
 	add_child(_root)
 	_root.resized.connect(_on_root_resized)
 
-	_left_panel = PanelContainer.new()
-	_left_panel.name = "LeftToolbar"
-	_left_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	_root.add_child(_left_panel)
-	var scroll := ScrollContainer.new()
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	_left_panel.add_child(scroll)
-	var left_box := VBoxContainer.new()
-	left_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	left_box.add_theme_constant_override("separation", 8)
-	scroll.add_child(left_box)
-	_build_left(left_box)
+	_layout = VBoxContainer.new()
+	_layout.name = "ResponsiveLayout"
+	_layout.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_layout.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_layout.add_theme_constant_override("separation", 0)
+	_root.add_child(_layout)
 
-	_right_panel = PanelContainer.new()
-	_right_panel.name = "RightStatus"
-	_right_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	_root.add_child(_right_panel)
-	var right_box := VBoxContainer.new()
-	right_box.add_theme_constant_override("separation", 8)
-	_right_panel.add_child(right_box)
-	_build_right(right_box)
-	_build_file_dialog()
+	_top_band = PanelContainer.new()
+	_top_band.name = "TopBand"
+	_top_band.mouse_filter = Control.MOUSE_FILTER_STOP
+	_top_band.custom_minimum_size = Vector2(0.0, TOP_BAND_MIN_HEIGHT)
+	_top_band.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_top_band.add_theme_stylebox_override("panel", _band_style())
+	_layout.add_child(_top_band)
+	var top_inset := HBoxContainer.new()
+	top_inset.name = "TopInset"
+	top_inset.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top_inset.add_theme_constant_override("separation", 0)
+	_top_band.add_child(top_inset)
+	_top_left_gutter = _make_gutter("TopLeftGutter")
+	top_inset.add_child(_top_left_gutter)
 
 	_top_strip = PanelContainer.new()
 	_top_strip.name = "TopBar"
 	_top_strip.mouse_filter = Control.MOUSE_FILTER_STOP
-	_root.add_child(_top_strip)
-	var top_box := HBoxContainer.new()
-	top_box.add_theme_constant_override("separation", 14)
-	_top_strip.add_child(top_box)
+	_top_strip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_top_strip.add_theme_stylebox_override("panel", _band_style())
+	top_inset.add_child(_top_strip)
+	_top_flow = HFlowContainer.new()
+	_top_flow.name = "TopStatusFlow"
+	_top_flow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_top_flow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_top_flow.add_theme_constant_override("h_separation", 14)
+	_top_flow.add_theme_constant_override("v_separation", 4)
+	_top_strip.add_child(_top_flow)
 	for key in ["source", "topology", "baud", "age"]:
-		var label := Label.new()
-		label.text = _top_label(key)
-		top_box.add_child(label)
+		var label := _status_label(_top_label(key))
+		_top_flow.add_child(label)
 		_status_labels[key] = label
-	_run_state_label = Label.new()
-	_run_state_label.text = "状态: 编辑中"
-	top_box.add_child(_run_state_label)
-	var spacer := Control.new()
-	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	spacer.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	top_box.add_child(spacer)
-	_ratio_label = Label.new()
-	_ratio_label.text = "3D视口: --"
-	top_box.add_child(_ratio_label)
+	_run_state_label = _status_label("状态: 编辑中")
+	_top_flow.add_child(_run_state_label)
+	_ratio_label = _status_label("3D视口: --")
+	_top_flow.add_child(_ratio_label)
+	_top_right_gutter = _make_gutter("TopRightGutter")
+	top_inset.add_child(_top_right_gutter)
+
+	_main_row = HBoxContainer.new()
+	_main_row.name = "MainRow"
+	_main_row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_main_row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_main_row.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_row.add_theme_constant_override("separation", 0)
+	_layout.add_child(_main_row)
+
+	_left_panel = PanelContainer.new()
+	_left_panel.name = "LeftToolbar"
+	_left_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	_left_panel.custom_minimum_size = Vector2(LEFT_PANEL_MIN_WIDTH, 0.0)
+	_left_panel.size_flags_horizontal = Control.SIZE_FILL
+	_left_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_row.add_child(_left_panel)
+	_left_scroll = ScrollContainer.new()
+	_left_scroll.name = "LeftScroll"
+	_left_scroll.mouse_filter = Control.MOUSE_FILTER_STOP
+	_left_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_left_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_left_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_left_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_left_panel.add_child(_left_scroll)
+	var left_box := VBoxContainer.new()
+	left_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left_box.add_theme_constant_override("separation", 8)
+	_left_scroll.add_child(left_box)
+	_build_left(left_box)
+
+	_central_viewport = Control.new()
+	_central_viewport.name = "CentralViewport"
+	_central_viewport.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_central_viewport.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_central_viewport.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_row.add_child(_central_viewport)
+
+	_right_panel = PanelContainer.new()
+	_right_panel.name = "RightStatus"
+	_right_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	_right_panel.custom_minimum_size = Vector2(RIGHT_PANEL_MIN_WIDTH, 0.0)
+	_right_panel.size_flags_horizontal = Control.SIZE_FILL
+	_right_panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_main_row.add_child(_right_panel)
+	_right_scroll = ScrollContainer.new()
+	_right_scroll.name = "RightScroll"
+	_right_scroll.mouse_filter = Control.MOUSE_FILTER_STOP
+	_right_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_right_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_right_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_right_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_right_panel.add_child(_right_scroll)
+	var right_box := VBoxContainer.new()
+	right_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right_box.add_theme_constant_override("separation", 8)
+	_right_scroll.add_child(right_box)
+	_build_right(right_box)
+	_build_file_dialog()
+
+	_bottom_band = PanelContainer.new()
+	_bottom_band.name = "BottomBand"
+	_bottom_band.mouse_filter = Control.MOUSE_FILTER_STOP
+	_bottom_band.custom_minimum_size = Vector2(0.0, BOTTOM_BAND_MIN_HEIGHT)
+	_bottom_band.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_bottom_band.add_theme_stylebox_override("panel", _band_style())
+	_layout.add_child(_bottom_band)
+	var bottom_inset := HBoxContainer.new()
+	bottom_inset.name = "BottomInset"
+	bottom_inset.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bottom_inset.add_theme_constant_override("separation", 0)
+	_bottom_band.add_child(bottom_inset)
+	_bottom_left_gutter = _make_gutter("BottomLeftGutter")
+	bottom_inset.add_child(_bottom_left_gutter)
 
 	_bottom_panel = PanelContainer.new()
 	_bottom_panel.name = "EventTimeline"
 	_bottom_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	_root.add_child(_bottom_panel)
+	_bottom_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_bottom_panel.add_theme_stylebox_override("panel", _band_style())
+	bottom_inset.add_child(_bottom_panel)
 	var bottom_box := VBoxContainer.new()
+	bottom_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bottom_box.add_theme_constant_override("separation", 2)
 	_bottom_panel.add_child(bottom_box)
+	_action_status_label = Label.new()
+	_action_status_label.name = "ActionStatus"
+	_action_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# Keep long diagnostics from expanding the bottom VBox into the 3D area.
+	# The full accepted text remains available on hover.
+	_action_status_label.max_lines_visible = 1
+	_action_status_label.clip_text = true
+	_action_status_label.custom_minimum_size = Vector2(0.0, 24.0)
+	_action_status_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	_action_status_label.mouse_filter = Control.MOUSE_FILTER_STOP
+	_action_status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_action_status_label.text = "文件操作: 就绪"
+	bottom_box.add_child(_action_status_label)
 	var events_title := Label.new()
 	events_title.text = "事件时间线（状态机/编辑/链路；未连接事件不伪造）"
+	events_title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	events_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bottom_box.add_child(events_title)
 	_events_log = RichTextLabel.new()
 	_events_log.bbcode_enabled = true
 	_events_log.scroll_following = true
 	_events_log.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bottom_box.add_child(_events_log)
+	_bottom_right_gutter = _make_gutter("BottomRightGutter")
+	bottom_inset.add_child(_bottom_right_gutter)
+
+	_left_panel.resized.connect(_on_side_panel_resized)
+	_right_panel.resized.connect(_on_side_panel_resized)
+	_central_viewport.resized.connect(_update_ratio)
 	_relayout(_root.size)
+	_relayout.call_deferred(_root.size)
+
+func _band_style() -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.045, 0.065, 0.095, 0.96)
+	style.set_content_margin_all(0.0)
+	return style
+
+func _make_gutter(node_name: String) -> Control:
+	var gutter := Control.new()
+	gutter.name = node_name
+	gutter.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	gutter.custom_minimum_size = Vector2(0.0, 0.0)
+	gutter.size_flags_horizontal = Control.SIZE_FILL
+	return gutter
+
+func _status_label(text: String) -> Label:
+	var label := Label.new()
+	label.text = text
+	label.custom_minimum_size = Vector2(0.0, 0.0)
+	return label
 
 func _build_left(box: VBoxContainer) -> void:
 	box.add_child(_title("编辑工具"))
@@ -204,6 +344,7 @@ func _build_left(box: VBoxContainer) -> void:
 
 	box.add_child(_title("选中对象（数值编辑）"))
 	_selected_label = Label.new()
+	_selected_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_selected_label.text = "未选择"
 	box.add_child(_selected_label)
 	box.add_child(_spin_row("位置 X/Y/Z", ["m", "m", "m"], 0.25, 15.0, _position_spins, _on_position_changed))
@@ -218,6 +359,7 @@ func _build_left(box: VBoxContainer) -> void:
 	hist_row.add_child(_undo_button)
 	hist_row.add_child(_redo_button)
 	_history_label = Label.new()
+	_history_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_history_label.text = "撤销 0 / 重做 0"
 	box.add_child(_history_label)
 
@@ -277,7 +419,7 @@ func _build_left(box: VBoxContainer) -> void:
 
 	box.add_child(_title("相机"))
 	var cam_grid := GridContainer.new()
-	cam_grid.columns = 4
+	cam_grid.columns = 3
 	box.add_child(cam_grid)
 	for view in [["顶", "top"], ["底", "bottom"], ["前", "front"], ["后", "back"],
 			["左", "left"], ["右", "right"], ["等轴测", "iso"]]:
@@ -285,6 +427,7 @@ func _build_left(box: VBoxContainer) -> void:
 		var cam_button := _button(view[0], func() -> void: _request_camera(view_name))
 		cam_grid.add_child(cam_button)
 	cam_grid.add_child(_button("聚焦选中", func() -> void: _request_focus()))
+	cam_grid.add_child(_button("聚焦钻头", func() -> void: _request_drill_focus()))
 	_ticks_check = CheckButton.new()
 	_ticks_check.text = "坐标刻度"
 	_ticks_check.button_pressed = true
@@ -296,6 +439,10 @@ func _build_left(box: VBoxContainer) -> void:
 	box.add_child(_hint_label)
 
 func _build_right(box: VBoxContainer) -> void:
+	_presentation_label = Label.new()
+	_presentation_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_presentation_label.text = "呈现资源: 加载中；权威未连接"
+	box.add_child(_presentation_label)
 	box.add_child(_title("链路与权威状态（未连接不伪造）"))
 	for row in [["工况来源", "source"], ["控制拓扑", "topology"], ["实际波特率", "baud"],
 			["数据年龄", "age"], ["AI 状态", "ai"], ["权威桥", "bridge"]]:
@@ -361,6 +508,9 @@ func _title(text: String) -> Label:
 	var label := Label.new()
 	label.text = text
 	label.add_theme_font_size_override("font_size", 16)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size = Vector2(0.0, 0.0)
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return label
 
 func _small_label(text: String) -> Label:
@@ -440,17 +590,37 @@ func _on_root_resized() -> void:
 func _relayout(viewport_size: Vector2) -> void:
 	if viewport_size.x < 100.0 or viewport_size.y < 100.0:
 		return
-	var left_w := clampf(viewport_size.x * 0.13, 210.0, 330.0)
-	left_w = maxf(left_w, _left_panel.get_combined_minimum_size().x)
-	var right_w := clampf(viewport_size.x * 0.14, 220.0, 400.0)
-	var bottom_h := clampf(viewport_size.y * 0.09, 84.0, 180.0)
-	var top_h := 30.0
-	_anchor(_left_panel, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, left_w, 0.0)
-	_anchor(_right_panel, 1.0, 0.0, 1.0, 1.0, -right_w, 0.0, 0.0, 0.0)
-	_anchor(_top_strip, 0.0, 0.0, 1.0, 0.0, left_w, 0.0, -right_w, top_h)
-	_anchor(_bottom_panel, 0.0, 1.0, 1.0, 1.0, left_w, -bottom_h, -right_w, 0.0)
-	var central := (viewport_size.x - left_w - right_w) * (viewport_size.y - top_h - bottom_h)
-	var ratio := central / maxf(1.0, viewport_size.x * viewport_size.y) * 100.0
+	_sync_band_insets()
+	_update_ratio()
+
+func _on_side_panel_resized() -> void:
+	_sync_band_insets.call_deferred()
+
+func _sync_band_insets() -> void:
+	if _left_panel == null or _right_panel == null:
+		return
+	var left_w := maxf(LEFT_PANEL_MIN_WIDTH, _left_panel.size.x)
+	var right_w := maxf(RIGHT_PANEL_MIN_WIDTH, _right_panel.size.x)
+	if _left_panel.size.x <= 0.0:
+		left_w = maxf(LEFT_PANEL_MIN_WIDTH, _left_panel.get_combined_minimum_size().x)
+	if _right_panel.size.x <= 0.0:
+		right_w = maxf(RIGHT_PANEL_MIN_WIDTH, _right_panel.get_combined_minimum_size().x)
+	if _top_left_gutter != null:
+		_top_left_gutter.custom_minimum_size.x = left_w
+	if _top_right_gutter != null:
+		_top_right_gutter.custom_minimum_size.x = right_w
+	if _bottom_left_gutter != null:
+		_bottom_left_gutter.custom_minimum_size.x = left_w
+	if _bottom_right_gutter != null:
+		_bottom_right_gutter.custom_minimum_size.x = right_w
+
+func _update_ratio() -> void:
+	if _ratio_label == null or _central_viewport == null or _root == null:
+		return
+	var root_size: Vector2 = _root.size
+	var central_rect: Rect2 = _central_viewport.get_global_rect()
+	var central_area: float = maxf(0.0, central_rect.size.x) * maxf(0.0, central_rect.size.y)
+	var ratio := central_area / maxf(1.0, root_size.x * root_size.y) * 100.0
 	_ratio_label.text = "3D视口: %.1f%%" % ratio
 
 func _anchor(control: Control, al: float, at: float, ar: float, ab: float, ol: float, ot: float, or_: float, ob: float) -> void:
@@ -573,6 +743,14 @@ func _sync_gate_controls() -> void:
 	_updating = false
 
 func _configure_file_dialog(action: String) -> bool:
+	if not _prepare_file_dialog(action):
+		return false
+	var target := _dialog_target_size(_root.size)
+	_file_dialog.size = target
+	_file_dialog.popup_centered_clamped(target, DIALOG_FALLBACK_RATIO)
+	return true
+
+func _prepare_file_dialog(action: String) -> bool:
 	_dialog_action = action
 	var layout_dir: String = _layout_store.default_layout_dir()
 	if not DirAccess.dir_exists_absolute(layout_dir):
@@ -581,14 +759,19 @@ func _configure_file_dialog(action: String) -> bool:
 	_file_dialog.current_file = ""
 	if action == "save":
 		var stamp := Time.get_datetime_string_from_system().replace(":", "-").replace(" ", "_")
-		_file_dialog.title = "另存私有布局（仅几何，不覆盖）"
 		_file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 		_file_dialog.current_file = "layout-%s.json" % stamp
+		_file_dialog.title = "另存私有布局（仅几何，不覆盖）"
 	else:
-		_file_dialog.title = "打开私有布局（严格校验）"
 		_file_dialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	_file_dialog.popup_centered_ratio(0.72)
+		_file_dialog.title = "打开私有布局（严格校验）"
+	_file_dialog.min_size = DIALOG_MIN_SIZE
 	return true
+
+func _dialog_target_size(client_size: Vector2) -> Vector2i:
+	var width := clampi(int(round(client_size.x * 0.78)), DIALOG_MIN_SIZE.x, DIALOG_MAX_SIZE.x)
+	var height := clampi(int(round(client_size.y * 0.76)), DIALOG_MIN_SIZE.y, DIALOG_MAX_SIZE.y)
+	return Vector2i(width, height)
 
 func _on_save_layout_pressed() -> void:
 	if _document == null or _layout_store == null:
@@ -783,8 +966,16 @@ func _on_gate_result(result: Dictionary, changed: String) -> void:
 	_sync_gate_controls()
 
 func _set_hint(text: String) -> void:
-	if _hint_label != null:
-		_hint_label.text = text
+	if _action_status_label != null:
+		_action_status_label.text = text
+		# Hard-wrap the tooltip too: the engine otherwise makes an unbroken CJK
+		# diagnostic wider than the window. Escape embedded line breaks so a
+		# multiline reason cannot make the tooltip taller than the client.
+		var escaped := text.c_escape()
+		var lines := PackedStringArray()
+		for start in range(0, escaped.length(), 48):
+			lines.append(escaped.substr(start, 48))
+		_action_status_label.tooltip_text = "\n".join(lines)
 
 func _on_run_pressed() -> void:
 	if _document != null:
@@ -826,3 +1017,13 @@ func _request_camera(view_name: String) -> void:
 func _request_focus() -> void:
 	if _main != null and _main.has_method("focus_selected"):
 		_main.focus_selected()
+
+func _request_drill_focus() -> void:
+	if _main != null and _main.has_method("focus_drill"):
+		_main.focus_drill()
+
+func set_presentation_report(report: Dictionary) -> void:
+	if _presentation_label == null:
+		return
+	_presentation_label.text = "呈现资源已加载；权威未连接" if report.state == "ready" else "资源加载失败·开发灰盒；权威未连接"
+	_presentation_label.tooltip_text = "\n".join(report.diagnostics)

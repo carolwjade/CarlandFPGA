@@ -1,0 +1,224 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-20T02:08:36.390662+00:00",
+  "job_id": "child-d9f9c52cb946453183722e1957978fe0",
+  "agent": "/root/g01_asset_adapter_repair_20261020",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "changed_owned_files": [
+    {
+      "path": "viewer/asset_presenter.gd",
+      "bytes": 13061,
+      "sha256": "b9b9f5560300abcd05f0871f60fac6bc8c60e8e9f9c40f3be7c244e83c7675db"
+    },
+    {
+      "path": "viewer/main.gd",
+      "bytes": 26870,
+      "sha256": "6b51496e1224660a1935df533c6bfa835933b0767cab9d5479998653191abba2"
+    },
+    {
+      "path": "tests/test_viewer_asset_integration.gd",
+      "bytes": 22447,
+      "sha256": "36c332f58e78f1d8ca0a39acf6bf442b4b6fc48038eeefd5624f90e2c47b6bcb"
+    }
+  ],
+  "unowned_product_files_unchanged": true,
+  "source_before_sha256": "3839e76724bce910eb921312c37b8124bec259b19c9d69ba2244bc28d0df7865",
+  "source_after_sha256": "dcbb63df5f52a62d953f2e7f63372c343796d661ac1dd626900b7fb1cc9ebee6",
+  "repair_diff_sha256": "96e3c47e5729e3f813e22934cacec104840a524691a13c2d2ab3eabd777e0849",
+  "final_stage_manifest_sha256": "1b35e5b4aff5935334c7c4779d836138ffaeecad4520f6ff20572673ea709e6d",
+  "unchanged_oracles": [
+    {
+      "path": "test_failure_review.gd",
+      "sha256": "f06d23dd921359b002a0e8bdc93473924319ed7088f5fbe45591917c6ff47b47",
+      "reviewer_sha256": "f06d23dd921359b002a0e8bdc93473924319ed7088f5fbe45591917c6ff47b47"
+    },
+    {
+      "path": "test_independent.gd",
+      "sha256": "8dd08ce4b3a94547bd4d0347943f72b52d833d9af171a5b434127ca43a6e5ca2",
+      "reviewer_sha256": "8dd08ce4b3a94547bd4d0347943f72b52d833d9af171a5b434127ca43a6e5ca2"
+    },
+    {
+      "path": "test_independent_first_attempt.gd",
+      "sha256": "15a6920307959b5c56a9068fee9d94cd7c64c4788fa381dad3cfedc21a391868",
+      "reviewer_sha256": "15a6920307959b5c56a9068fee9d94cd7c64c4788fa381dad3cfedc21a391868"
+    }
+  ],
+  "original_red_reuse_sha256": "b8ea75d4fd6d78207e260a750d30094e0adc8136ff1ac16537760bdc9afe1ab0",
+  "final_harness_red": {
+    "checks": 136,
+    "failures": 11,
+    "terminal": true,
+    "exit_code": 1,
+    "receipt_sha256": "63e21331c98005cea78f68460e9c9c8c8a0614de889f8b9357d8e838875842c8"
+  },
+  "fresh_runs": [
+    {
+      "label": "frozen-import",
+      "summary": null,
+      "pid": 38920,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "516c6daf0f3c93f13b8d29f45b6a19aba8ba928d1b86fd75d594d4a962c70830",
+      "stdout_sha256": "9f36e2775ec43068ed6da9e55ccbd49b763d14c0cef60e7bb1034e6db16dba92",
+      "stderr_sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 4,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-integration",
+      "summary": "VIEWER_ASSET_INTEGRATION checks=136 failures=0",
+      "pid": 54808,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "c2c936526e81868eb1ad89aa0aefed16077558bae125b811ab254bbb9f036d71",
+      "stdout_sha256": "45ec7b00afc24ab6c58f503dcb9c27e10d3734edc53742bb93756dcb3ef504f6",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-independent",
+      "summary": "INDEPENDENT checks=54 failures=0",
+      "pid": 31616,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "8030a17f98b786666a4ad8dcbedf90af6dd7987f4d08d5ebdba7ebca94954ea8",
+      "stdout_sha256": "813b377270cbe3bdbe5c49a84f053bcf0edc2f42815eaa0fc37468dea87930ce",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-persistence",
+      "summary": "TESTS checks=628 failures=0",
+      "pid": 31236,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "d4bdba5524659d19afeb160a1458a0a753b384f5a65ce4b672a8b02e1cdc1628",
+      "stdout_sha256": "224eb95a591e24f3d31122c277726ef750ea0d4547d2e155ff50e509fe226200",
+      "stderr_sha256": "9538d70279dedcc7039e07a41666db108df82e82f2340543177f559bd6ea2a6f",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 4,
+      "warnings": 3,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-editor",
+      "summary": "TESTS checks=696 failures=0",
+      "pid": 53648,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "199302791325cce03be3b5b8e1dee83f9be937c78addb7bf17a8855d724c09ab",
+      "stdout_sha256": "8098e93db54f0602c1bdf6d24b85f9d5c79cdc7c49e1635bf5373da440e11c04",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-g02-ui-fit",
+      "summary": "UI_FIT checks=266 failures=0",
+      "pid": 50860,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "618b9a6d9d0ac58e1107c32d956f9847130f4cd24d4cfb81317ccebde0938dbe",
+      "stdout_sha256": "46508db0969c05cae7ea29d774be2de03d5b6ed6d303090752ef7f891652b015",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-negative-bad-license",
+      "summary": "FAILURE_REVIEW mode=bad-license checks=14 failures=0",
+      "pid": 50240,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "c3cb4ac79dce3cc7492bdafea23fc27dc9f8dc322b46a23410ade12a7a289932",
+      "stdout_sha256": "c17e2deefcbf669c737a40fc043281612d9622bc624442773eb0093a745168d0",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-negative-signature",
+      "summary": "FAILURE_REVIEW mode=signature checks=10 failures=0",
+      "pid": 15432,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "31f91195acfa1de28badcbb701c1a96e5daaa72fc8089b8e0472a1ea85f53f90",
+      "stdout_sha256": "35eb07c7a8c8bd57e29467b54fdbfa83bb1c0b8e84d8f8a4f622761cf06bf907",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-negative-empty-visual",
+      "summary": "FAILURE_REVIEW mode=empty-visual checks=14 failures=0",
+      "pid": 53492,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "4af8e058af9d1b49c98109b70b4b5b44dae3c36150ba698300bdff9c5f6c219b",
+      "stdout_sha256": "5372016f6661e78f5318c2eaec7cbb5522c31a8e4a812399bf4b831669c5ec41",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    },
+    {
+      "label": "frozen-negative-null",
+      "summary": "FAILURE_REVIEW mode=null checks=16 failures=0",
+      "pid": 45340,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "receipt_sha256": "2cda8ca5eb9134adf4d7e7c2d71f8c31e6d696a85af3c6490408240fbde268a0",
+      "stdout_sha256": "f96365f33a3a57ec44aaa74d21c3c61449a160c05c3a317557cf8cb0a553388e",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "warnings": 0,
+      "source_pins_match": true
+    }
+  ],
+  "reused_B622_sha256": "041f57f1b499cedf9bcc64ed9194042cb224639fa2f164293182ce2fac75e584",
+  "fixed_findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+  ],
+  "processes_remaining": 0,
+  "native_ui": "not_run",
+  "engine_clean": "not_satisfied_inherited_Unicode_NUL",
+  "formal_cards": {
+    "count": 29,
+    "state": "not_run"
+  },
+  "acceptance_owner": "sole A main; repair evidence only; independent re-review pending"
+}

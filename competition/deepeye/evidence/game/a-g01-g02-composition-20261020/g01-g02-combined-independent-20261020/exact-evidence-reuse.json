@@ -1,0 +1,73 @@
+[
+  {
+    "label": "grammar176",
+    "receipt": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\raw\\grammar-state-final\\result.json",
+    "receipt_sha256": "4e18bf48bd1e24e8137baa3bd40091c6b2b64329885ff9a6256fcbd3f452e9ab",
+    "stdout_sha256": "57af17ce72ece092cbf1ace0cca6f9fff747ef0cef7907475a5281b8fbe9565a",
+    "stderr_sha256": "efa449f60884dc4e1a3ff197df2d6fc4413ce977dca762ee3211b4af9fa6c1ef",
+    "verified_dependencies": [
+      "editor/gate_json_numbers.gd",
+      "editor/gate_numeric.gd",
+      "editor/layout_codec.gd",
+      "editor/scene_document.gd"
+    ],
+    "terminal": true,
+    "exit_code": 0,
+    "diagnostics": [],
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage",
+      "--script",
+      "res://tests/grammar_probe.gd"
+    ],
+    "pid": 3160,
+    "exact_harness_dependencies": {
+      "tests/grammar_probe.gd": "5685853d7421d79a46ade8f7e142b9e76b428294a828a2a4fd290d1afd67ca22",
+      "tests/grammar_cases.json": "237910ec610d70831c917c6dcff7b811ce6732478e62aabd33ba280af1401117",
+      "grammar-fixtures/leading-zero.json": "c2c5786f62c893cb3f9774610097cf21fbbaac3b35fb197b39e5c248dcd5a453",
+      "grammar-fixtures/missing-fraction-with-exponent.json": "f1d8c719e1e09b36814c9d614bf530bdbc2cb5dd86aa95639b58703d23ad8ed0",
+      "grammar-fixtures/missing-fraction.json": "044500804dcff5f673b864582e3462bd277ecc9cde248250181bc3e603724436",
+      "grammar-fixtures/valid-exponent.json": "e79b2909decaadda22851f211a65c0095eac65167b645c7c774059722213a7fb"
+    },
+    "grammar_observations_sha256": "55dbcb2308237259ffddfb2cd8276c91bbf19672217c9d950b15e99c44b8fe08"
+  },
+  {
+    "label": "B622",
+    "receipt": ".planning\\deepeye-resume-20261018\\g01-asset-adapter-implementation-20261020\\final-assets.json",
+    "receipt_sha256": "25930e9d12178b6481d1cb0bb14c4b6c121a620065da5227dbc3c2c3071bdb03",
+    "stdout_sha256": "db972c99d154d241a0d49dd1b586512866b16205b244cd54d48aa002a8a577cc",
+    "stderr_sha256": "f214b82fd6fa9f9b69d2a3b2cde48773590918c14e425fefef5d3219a43607bf",
+    "verified_dependencies": [
+      "assets/.gitattributes",
+      "assets/LICENSES.md",
+      "assets/scene_catalog.json",
+      "project.godot",
+      "tests/test_asset_contract.gd",
+      "world/.gitattributes",
+      "world/asset_library.gd",
+      "world/asset_library.gd.uid",
+      "world/drill_geometry.gd",
+      "world/drill_geometry.gd.uid",
+      "world/frame_geometry.gd",
+      "world/frame_geometry.gd.uid",
+      "world/obstacle_geometry.gd",
+      "world/obstacle_geometry.gd.uid"
+    ],
+    "terminal": true,
+    "exit_code": 0,
+    "diagnostics": [
+      "ERROR: DeepEyeObstacleGeometry: unknown obstacle kind 'bogus_kind'; valid kinds: water, hard_rock, fault, void, casing"
+    ],
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+      "--headless",
+      "--path",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-asset-adapter-implementation-20261020\\final-stage",
+      "--script",
+      "res://tests/test_asset_contract.gd"
+    ],
+    "pid": 44940
+  }
+]

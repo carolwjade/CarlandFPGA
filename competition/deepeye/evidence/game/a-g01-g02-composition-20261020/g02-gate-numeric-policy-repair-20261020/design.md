@@ -1,0 +1,19 @@
+# Private G02 numeric candidate design
+
+Main authorized the candidate investigation and explicitly approved sharing the predicate between document and codec. Scope is only the owned evidence directory; final adoption and independent review belong to the main. Contract DEEPEYE-HUMAN-LOCK-20261014/revision1, H01-H15, canonical requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 remain unchanged. All 29 formal cards remain not_run.
+
+Taskbook sections 8.3/G02 require rejecting edge violations and overlap while allowing non-overlapping same-face gates. Python Gate uses finite binary64 coordinates bounded inclusively by the binary64 value 14.85, and Fraction exact subtraction/squared-distance against twice the binary64 radius .15 (equal to binary64 .30). Python's boundary policy remains authoritative. This differs from interpreting all source decimals as exact mathematical decimal rationals: the supported edge value 14.85 is already represented, and the exact difference 15 - binary64(.15) need not equal that represented limit. This candidate deliberately matches the existing Python semantics.
+
+Alternatives considered:
+
+1. Delete epsilon and retain sqrt: small patch but rounded subtraction/products/sqrt can misclassify represented boundaries; not sufficient.
+2. Use compensated floating expansions: smaller/faster but handling arbitrary finite/subnormal inputs and underflow requires an additional audited numerical contract; not chosen here.
+3. Exact dyadic integers: finite binary64 values are integer multiples of 2^-1074. Decode sign/exponent/mantissa, compare exact integer squared distances. Chosen for a bounded independently checkable implementation without dependencies. Both validators call the shared helper.
+
+Only gate predicates change. Existing unrelated obstacle EPSILON remains. Both axes reject NaN, infinities and abs(value)>14.85 before arithmetic. Negative zero equals zero. Invalid inputs fail closed and document/codec return their existing readable geometric reasons. Non-overlapping circles on different faces have no same-face distance constraint.
+
+Each magnitude is stored as base-32768 little-endian limbs. For legal coordinates, exact differences are below 29.7: at most 1079 bits, 72 limbs. Each square uses at most 144 limbs; adding both squares still fits 144 limbs. Schoolbook multiply with carry after each operation has intermediate at most BASE^2-1 <2^30, far below signed-int64 capacity. Add/subtract intermediates are below 2*BASE. A multiplication has at most 5184 inner iterations, three multiplications and a sum per predicate, with bounded arrays; there is no numeric-input-dependent unbounded growth. No float geometry subtraction, product or sqrt influences acceptance. Rounded sqrt remains only in the existing rejection message.
+
+Tests first derive expected validity using independent Fraction and 2500-digit Decimal arithmetic and compare those results to the actual pinned Python Gate/validate_gate_pair. Inputs arrive at Godot as raw little-endian double hex, avoiding a decimal parser as the oracle. Cases include all 36 face pairs, both axes/signs/edges, nextafter neighbors, translated tangencies, diagonal near-tangencies and subnormals. The real document validator, setter, encode/decode and apply-import paths are exercised; rejected edits/imports preserve geometry and history. Persistence uses JSON full_precision=true; six-decimal commitment formatting is identity metadata, never geometry input. Actual saved coordinate values require separate bit comparison in Python.
+
+Execution plan: preserve genuine defect RED; implement the helper and two call sites privately; run boundary GREEN and inspect every raw stream; extend finite/serialization and helper arithmetic probes as necessary; run relevant existing document/persistence regressions; bind final source/artifacts and terminal completion. Preserve every failed attempt rather than relabel it.

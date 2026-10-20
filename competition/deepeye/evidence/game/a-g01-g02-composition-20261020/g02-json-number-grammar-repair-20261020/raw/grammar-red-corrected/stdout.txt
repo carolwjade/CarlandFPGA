@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL original exact fixture leading-zero
+FAIL reject leading-zero
+FAIL preserve leading-zero
+FAIL original exact fixture missing-fraction
+FAIL reject missing-fraction
+FAIL preserve missing-fraction
+FAIL original exact fixture missing-fraction-with-exponent
+FAIL reject missing-fraction-with-exponent
+FAIL preserve missing-fraction-with-exponent
+FAIL object:01
+FAIL object:-01
+FAIL object:1.
+FAIL object:1.e0
+FAIL object:1e
+FAIL object:1e+
+FAIL object:1e-
+FAIL object:+1
+GRAMMAR checks=176 failures=48 rows=81

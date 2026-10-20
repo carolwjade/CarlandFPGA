@@ -8,10 +8,12 @@ extends Node3D
 ##    layout, six-face gate picking.
 ##  - Camera: RMB orbit, MMB pan, wheel zoom, six views, isometric, focus. Mouse
 ##    input over any UI panel never moves the camera (_unhandled_input + hover check).
-##  - No physics bodies, no drill motion, no timeline, no fabricated link state.
+##  - B presentation collision bodies/shapes stay disabled; no authority physics,
+##    drill motion, timeline or fabricated link state.
 ##    Run/continue remain disabled; Esc only emits stop_requested via the document.
 
 const DocScript = preload("res://editor/scene_document.gd")
+const PresenterScript = preload("res://viewer/asset_presenter.gd")
 
 var document
 var shell
@@ -24,6 +26,10 @@ var _ticks_root: Node3D
 var _drill_root: Node3D
 var _selection_box: MeshInstance3D
 var _material_cache: Dictionary = {}
+var _asset_presenter
+var _obstacle_labels: Dictionary = {}
+var _fallback_obstacles: Dictionary = {}
+var _reported_asset_diagnostics: Array[String] = []
 
 var _focus_point := Vector3.ZERO
 var _yaw_deg := 35.0
@@ -47,9 +53,10 @@ func _ready() -> void:
 	_gate_root = Node3D.new()
 	_gate_root.name = "Gates"
 	_world.add_child(_gate_root)
+	_asset_presenter = PresenterScript.new()
 	_build_frame()
 	_build_ticks()
-	_build_drill_greybox()
+	_build_drill()
 	_selection_box = MeshInstance3D.new()
 	_selection_box.name = "SelectionBox"
 	var selection_mesh := BoxMesh.new()
@@ -72,7 +79,7 @@ func _ready() -> void:
 	_sync_obstacles()
 	_sync_gates()
 	apply_camera()
-	document.log_event("系统", "World 视图就绪：12条边+角标+坐标刻度；障碍为开发灰盒；蓝/红圈0.30m；无物理、无运动（运行禁用）")
+	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.30m；权威未连接、无运动（运行禁用）")
 
 # ---------------------------------------------------------------------------
 # Input (camera + editing). Esc is global; everything else ignores UI hover.
@@ -139,11 +146,11 @@ func _handle_mouse_button(event: InputEventMouseButton) -> void:
 			_panning = event.pressed
 		MOUSE_BUTTON_WHEEL_UP:
 			if event.pressed:
-				_distance = clampf(_distance * 0.89, 1.5, 260.0)
+				_distance = clampf(_distance * 0.89, 0.5, 260.0)
 				apply_camera()
 		MOUSE_BUTTON_WHEEL_DOWN:
 			if event.pressed:
-				_distance = clampf(_distance * 1.12, 1.5, 260.0)
+				_distance = clampf(_distance * 1.12, 0.5, 260.0)
 				apply_camera()
 
 func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
@@ -292,6 +299,27 @@ func _focus_at_screen_point(screen_pos: Vector2) -> void:
 		_focus_point = hit
 		apply_camera()
 
+func focus_drill() -> void:
+	if _asset_presenter == null or _drill_root == null:
+		return
+	var drill := _drill_root.get_node_or_null("DrillPDC") as Node3D
+	var bounds := AABB(_drill_root.global_position-Vector3(.12,.12,.4),Vector3(.24,.24,.8))
+	if drill != null:
+		bounds = _asset_presenter.world_visual_bounds(drill)
+	_focus_point = bounds.get_center()
+	var rect := _camera.get_viewport().get_visible_rect().size
+	var aspect := rect.x/maxf(rect.y,1.0)
+	var fixed_half_fov := deg_to_rad(_camera.fov)*.5
+	var vertical := fixed_half_fov
+	var horizontal := atan(tan(vertical)*aspect)
+	if _camera.keep_aspect == Camera3D.KEEP_WIDTH:
+		horizontal = fixed_half_fov
+		vertical = atan(tan(horizontal)/aspect)
+	_distance = maxf(.5,1.25*bounds.size.length()*.5/sin(minf(vertical,horizontal)))
+	_camera.near = .02
+	apply_camera()
+	document.log_event("操作", "聚焦钻头（实际比例；仅相机，权威未连接）")
+
 # ---------------------------------------------------------------------------
 # Picking (pure math, no physics bodies)
 # ---------------------------------------------------------------------------
@@ -306,11 +334,19 @@ func _pick_object(screen_pos: Vector2) -> int:
 	var ray := _ray(screen_pos)
 	var from: Vector3 = ray["from"]
 	var direction: Vector3 = ray["dir"]
-	var best_id := -1
-	var best_t := INF
+	var best_id: int = _asset_presenter.pick_obstacle(from,direction)
+	var best_t: float = _asset_presenter.obstacle_ray_t(best_id,from,direction) if best_id >= 0 else INF
 	for obstacle in document.obstacles:
-		var half: Vector3 = document.world_half_extent(obstacle.size, obstacle.rotation_deg)
-		var t := _ray_hits_aabb(from, direction, obstacle.position, half)
+		if not _fallback_obstacles.has(int(obstacle.object_id)):
+			continue
+		var fallback: MeshInstance3D = _fallback_obstacles[int(obstacle.object_id)]
+		if not fallback.global_transform.is_finite() or absf(fallback.global_basis.determinant()) < 1e-12:
+			continue
+		var inverse := fallback.global_transform.affine_inverse()
+		var local_bounds: AABB = fallback.mesh.get_aabb()
+		# Do not normalize: the local ray retains the same world parameter t
+		# as the asset-presenter ray, even under nonuniform scale and shear.
+		var t := _ray_hits_aabb(inverse*from, inverse.basis*direction, local_bounds.get_center(),local_bounds.size*.5)
 		if t >= 0.0 and t < best_t:
 			best_t = t
 			best_id = int(obstacle.object_id)
@@ -421,8 +457,18 @@ func _flat_material(color: Color, emission_energy: float) -> StandardMaterial3D:
 	return material
 
 func _build_frame() -> void:
+	var frame: Node3D = _asset_presenter.create_frame()
+	if frame != null:
+		_world.add_child(frame)
+	else:
+		_build_frame_greybox()
+		var label := _asset_label("资源加载失败·开发灰盒: 工作区边框")
+		label.position = Vector3(0,15.7,0)
+		_world.add_child(label)
+	_build_corners()
+
+func _build_frame_greybox() -> void:
 	var edge_material := _flat_material(Color(0.55, 0.62, 0.72), 0.05)
-	var corner_material := _flat_material(Color(0.35, 0.85, 0.95), 0.4)
 	var half := DocScript.CUBE_HALF
 	var thickness := 0.07
 	for axis in 3:
@@ -447,6 +493,10 @@ func _build_frame() -> void:
 				edge.material_override = edge_material
 				edge.position = offset
 				_world.add_child(edge)
+
+func _build_corners() -> void:
+	var corner_material := _flat_material(Color(0.35, 0.85, 0.95), 0.4)
+	var half := DocScript.CUBE_HALF
 	for sx in [-1.0, 1.0]:
 		for sy in [-1.0, 1.0]:
 			for sz in [-1.0, 1.0]:
@@ -490,6 +540,19 @@ func set_ticks_visible(visible_state: bool) -> void:
 		_ticks_root.visible = visible_state
 		document.log_event("操作", "坐标刻度显示: %s" % ("开" if visible_state else "关"))
 
+func _build_drill() -> void:
+	var drill: Node3D = _asset_presenter.create_drill()
+	if drill == null:
+		_build_drill_greybox()
+		return
+	_drill_root = Node3D.new()
+	_drill_root.name = "DrillPresentation"
+	_world.add_child(_drill_root)
+	_drill_root.add_child(drill)
+	var label := _asset_label("实体钻头·静态观察（权威未连接）")
+	label.position = Vector3(0,.8,0)
+	_drill_root.add_child(label)
+
 func _build_drill_greybox() -> void:
 	_drill_root = Node3D.new()
 	_drill_root.name = "DrillGreybox"
@@ -520,7 +583,7 @@ func _build_drill_greybox() -> void:
 	tip.position = Vector3(0.0, 0.0, 0.29)
 	_drill_root.add_child(tip)
 	var label := Label3D.new()
-	label.text = "开发灰盒·钻头（静态；无运动）"
+	label.text = "资源加载失败·开发灰盒·钻头（静态；无运动）"
 	label.font_size = 30
 	label.pixel_size = 0.009
 	label.modulate = Color(0.95, 0.9, 0.6)
@@ -558,29 +621,72 @@ func _kind_material(kind: String) -> StandardMaterial3D:
 	return material
 
 func _sync_obstacles() -> void:
-	for child in _obstacle_root.get_children():
-		_obstacle_root.remove_child(child)
-		child.free()
+	var result: Dictionary = _asset_presenter.sync_obstacles(_obstacle_root,document.obstacles)
+	var live := {}
 	for obstacle in document.obstacles:
-		var box := MeshInstance3D.new()
-		var mesh := BoxMesh.new()
-		mesh.size = obstacle.size
-		box.mesh = mesh
-		box.material_override = _kind_material(String(obstacle.kind))
-		box.position = obstacle.position
-		box.rotation_degrees = obstacle.rotation_deg
-		_obstacle_root.add_child(box)
-		var label := Label3D.new()
-		label.text = "开发灰盒·" + String(DocScript.KIND_LABELS[String(obstacle.kind)])
-		label.font_size = 30
-		label.pixel_size = 0.009
-		label.modulate = Color(0.95, 0.9, 0.6)
-		label.outline_size = 8
-		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		label.no_depth_test = true
-		label.position = obstacle.position + Vector3(0.0, obstacle.size.y * 0.5 + 0.7, 0.0)
-		_obstacle_root.add_child(label)
+		var id := int(obstacle.object_id)
+		live[id] = true
+		var asset: Node3D = _asset_presenter.obstacle_node(id)
+		var degraded: bool = result.failed_ids.has(id)
+		if not degraded and _fallback_obstacles.has(id):
+			_remove_presentation_node(_fallback_obstacles,id)
+		var bounds: AABB
+		if degraded:
+			if not _fallback_obstacles.has(id):
+				var box := MeshInstance3D.new()
+				box.mesh = BoxMesh.new()
+				_obstacle_root.add_child(box)
+				_fallback_obstacles[id] = box
+			var fallback: MeshInstance3D = _fallback_obstacles[id]
+			fallback.mesh.size = obstacle.size
+			fallback.material_override = _kind_material(String(obstacle.kind))
+			fallback.position = obstacle.position
+			fallback.rotation_degrees = obstacle.rotation_deg
+			var local_bounds: AABB = fallback.mesh.get_aabb()
+			bounds = AABB(fallback.global_transform*local_bounds.get_endpoint(0),Vector3.ZERO)
+			for corner in range(1,8):
+				bounds = bounds.expand(fallback.global_transform*local_bounds.get_endpoint(corner))
+		else:
+			bounds = _asset_presenter.world_visual_bounds(asset)
+		if not _obstacle_labels.has(id):
+			var label := _asset_label("")
+			_obstacle_root.add_child(label)
+			_obstacle_labels[id] = label
+		var label: Label3D = _obstacle_labels[id]
+		label.text = ("资源加载失败·开发灰盒·" if degraded else "") + String(DocScript.KIND_LABELS[String(obstacle.kind)])
+		label.global_position = Vector3(bounds.get_center().x,bounds.end.y+.7,bounds.get_center().z)
+	for nodes in [_obstacle_labels,_fallback_obstacles]:
+		for id in nodes.keys():
+			if not live.has(id):
+				_remove_presentation_node(nodes,id)
+	_report_presentation()
 	_sync_selection_box()
+
+func _asset_label(text: String) -> Label3D:
+	var label := Label3D.new()
+	label.text = text
+	label.font_size = 30
+	label.pixel_size = .009
+	label.modulate = Color(.95,.9,.6)
+	label.outline_size = 8
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	return label
+
+func _remove_presentation_node(nodes: Dictionary, id: int) -> void:
+	var node: Node = nodes[id]
+	node.get_parent().remove_child(node)
+	node.free()
+	nodes.erase(id)
+
+func _report_presentation() -> void:
+	var report: Dictionary = _asset_presenter.report()
+	for diagnostic in report.diagnostics:
+		if not _reported_asset_diagnostics.has(diagnostic):
+			_reported_asset_diagnostics.append(diagnostic)
+			document.log_event("资源",diagnostic)
+	if shell != null:
+		shell.set_presentation_report(report)
 
 func _on_selection_changed(_object_id: int) -> void:
 	_sync_selection_box()

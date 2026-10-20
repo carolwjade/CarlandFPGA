@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS document add remains usable
+PASS invalid startup/factory/schema degrades report
+PASS failure records persistent diagnostic
+PASS invalid or empty asset rejected
+PASS real visible fallback preserves document object
+PASS object label explicitly discloses fallback
+PASS shell explicitly discloses degraded presentation
+PASS no failed-factory retries or repeated logs
+PASS failure grants no authority or motion
+PASS clear leaves no obstacle roots or labels
+FAILURE_REVIEW mode=parser checks=10 failures=0 report={"diagnostics":["资源加载失败·开发灰盒: 固定工厂脚本不可用"],"factory_calls":{"drill":0,"frame":0,"obstacle":0},"state":"degraded"}

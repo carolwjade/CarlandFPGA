@@ -1,0 +1,387 @@
+--- /dev/null
++++ b/editor/gate_json_numbers.gd
+@@ -0,0 +1,97 @@
++extends RefCounted
++## Structural gate-number extraction after the engine validates JSON grammar.
++## Does not rewrite JSON or change schema. Duplicate decoded object keys reject.
++const Numeric = preload("res://editor/gate_numeric.gd")
++const PATHS := [["layout","gates","entry","u"],["layout","gates","entry","v"],
++	["layout","gates","exit","u"],["layout","gates","exit","v"]]
++
++static func restore(text: String, data: Dictionary) -> Dictionary:
++	var state := {"at":0,"error":"","tokens":{}}
++	_walk(text, state, [], 0)
++	if state.error != "": return {"ok":false,"reason":state.error}
++	_space(text, state)
++	if state.at != text.length(): return {"ok":false,"reason":"布局文件 JSON 尾部含多余数据"}
++	# Only overwrite numeric scalar gates. The existing codec checks types,
++	# supported fields, contract, dimensions, hash and geometry afterwards.
++	for index in PATHS.size():
++		if not state.tokens.has(index): continue
++		var converted: Dictionary = Numeric.read_decimal(state.tokens[index])
++		if not converted.ok: return converted
++		var path: Array = PATHS[index]
++		if data.get("layout") is Dictionary and data.layout.get("gates") is Dictionary:
++			var gate = data.layout.gates.get(path[2])
++			if gate is Dictionary: gate[path[3]] = converted.value
++	return {"ok":true}
++
++static func _space(text: String, state: Dictionary) -> void:
++	while state.at < text.length() and text[state.at] in [" ","\t","\r","\n"]: state.at += 1
++
++static func _string_end(text: String, state: Dictionary) -> String:
++	var start: int = state.at
++	if start >= text.length() or text[start] != "\"":
++		state.error = "布局文件 JSON 字符串边界无效"; return ""
++	state.at += 1
++	while state.at < text.length():
++		var ch: String = text[state.at]
++		state.at += 1
++		if ch == "\\": state.at += 1
++		elif ch == "\"": return text.substr(start, state.at - start)
++	state.error = "门坐标词元读取失败"
++	return ""
++
++static func _walk(text: String, state: Dictionary, path: Array, depth: int) -> void:
++	if state.error != "": return
++	if depth > 32:
++		state.error = "门坐标 JSON 嵌套超限"; return
++	_space(text, state)
++	if state.at >= text.length():
++		state.error = "门坐标词元读取失败"; return
++	var ch: String = text[state.at]
++	if ch == "{":
++		state.at += 1; _space(text, state)
++		var keys: Dictionary = {}
++		if state.at >= text.length(): state.error = "布局文件 JSON 对象未结束"; return
++		if text[state.at] == "}": state.at += 1; return
++		while state.error == "":
++			var raw_key: String = _string_end(text, state)
++			if state.error != "": return
++			var key = JSON.parse_string(raw_key)
++			if not key is String:
++				state.error = "JSON 对象键无效"; return
++			if keys.has(key):
++				state.error = "布局文件含重复 JSON 键"; return
++			keys[key] = true
++			_space(text, state)
++			if state.at >= text.length() or text[state.at] != ":": state.error = "布局文件 JSON 缺少冒号"; return
++			state.at += 1
++			_walk(text, state, path + [key], depth + 1)
++			if state.error != "": return
++			_space(text, state)
++			if state.at >= text.length(): state.error = "布局文件 JSON 对象未结束"; return
++			if text[state.at] == "}": state.at += 1; return
++			if text[state.at] != ",": state.error = "布局文件 JSON 对象分隔无效"; return
++			state.at += 1; _space(text, state)
++	elif ch == "[":
++		state.at += 1; _space(text, state)
++		if state.at >= text.length(): state.error = "布局文件 JSON 数组未结束"; return
++		if text[state.at] == "]": state.at += 1; return
++		var index: int = 0
++		while state.error == "":
++			_walk(text, state, path + [index], depth + 1)
++			if state.error != "": return
++			_space(text, state)
++			if state.at >= text.length(): state.error = "布局文件 JSON 数组未结束"; return
++			if text[state.at] == "]": state.at += 1; return
++			if text[state.at] != ",": state.error = "布局文件 JSON 数组分隔无效"; return
++			state.at += 1; index += 1
++	elif ch == "\"":
++		_string_end(text, state)
++	elif ch in ["t","f","n"]:
++		state.at += 4 if ch != "f" else 5
++	else:
++		var start: int = state.at
++		while state.at < text.length() and text[state.at] in ["0","1","2","3","4","5","6","7","8","9","-","+",".","e","E"]:
++			state.at += 1
++		if state.at == start: state.error = "布局文件 JSON 数值词元无效"; return
++		for index in PATHS.size():
++			if path == PATHS[index]: state.tokens[index] = text.substr(start, state.at-start)
+--- /dev/null
++++ b/editor/gate_numeric.gd
+@@ -0,0 +1,221 @@
++extends RefCounted
++## Geometry policy shared by editor and private layout codec.
++## Inputs mean their exact finite binary64 values, matching Python Gate.
++## Coordinates are bounded before arithmetic. Limbs store nonnegative integers
++## in units of 2^-1074, so subtraction and squared-distance comparison are exact.
++## Base 2^15 bounds every multiply/add/carry intermediate below 2^30.
++## For |coordinate| <= 14.85, differences need at most 72 limbs and squared
++## distances at most 144. No epsilon, sqrt, float subtraction or normalization.
++const EDGE_LIMIT := 14.85
++const BASE := 32768
++const MASK := 32767
++const LIMB_BITS := 15
++
++static func valid_coordinate(value: float) -> bool:
++	return is_finite(value) and absf(value) <= EDGE_LIMIT
++
++static func circles_overlap(au: float, av: float, bu: float, bv: float) -> bool:
++	# Invalid coordinates fail closed; callers also report the edge/finite reason.
++	if not (valid_coordinate(au) and valid_coordinate(av) and valid_coordinate(bu) and valid_coordinate(bv)):
++		return true
++	var du := _difference_magnitude(au, bu)
++	var dv := _difference_magnitude(av, bv)
++	var diameter := _magnitude(0.30)
++	return _compare(_add(_multiply(du, du), _multiply(dv, dv)), _multiply(diameter, diameter)) < 0
++
++static func _magnitude(value: float) -> Array[int]:
++	var bytes := PackedByteArray()
++	bytes.resize(8)
++	bytes.encode_double(0, value)
++	var high: int = bytes.decode_u32(4)
++	var exponent: int = (high >> 20) & 2047
++	var significand: int = ((high & 1048575) << 32) | bytes.decode_u32(0)
++	if exponent != 0:
++		significand |= 1 << 52
++	if significand == 0:
++		return []
++	# Normal exponent E has scale 2^(E-1) in units of 2^-1074;
++	# subnormals already use those units directly.
++	var shift: int = maxi(exponent - 1, 0)
++	var result: Array[int] = []
++	result.resize(shift / LIMB_BITS)
++	result.fill(0)
++	var carry: int = 0
++	while significand != 0:
++		var part: int = ((significand & MASK) << (shift % LIMB_BITS)) | carry
++		result.append(part & MASK)
++		carry = part >> LIMB_BITS
++		significand >>= LIMB_BITS
++	if carry != 0:
++		result.append(carry)
++	return result
++
++static func _difference_magnitude(a: float, b: float) -> Array[int]:
++	var x := _magnitude(a)
++	var y := _magnitude(b)
++	if (a < 0.0) != (b < 0.0):
++		return _add(x, y)
++	return _subtract(x, y) if _compare(x, y) >= 0 else _subtract(y, x)
++
++static func _compare(a: Array[int], b: Array[int]) -> int:
++	if a.size() != b.size():
++		return 1 if a.size() > b.size() else -1
++	for i in range(a.size() - 1, -1, -1):
++		if a[i] != b[i]:
++			return 1 if a[i] > b[i] else -1
++	return 0
++
++static func _trim(value: Array[int]) -> Array[int]:
++	while not value.is_empty() and value.back() == 0:
++		value.pop_back()
++	return value
++
++static func _add(a: Array[int], b: Array[int]) -> Array[int]:
++	var result: Array[int] = []
++	var carry: int = 0
++	for i in maxi(a.size(), b.size()):
++		var part: int = carry + (a[i] if i < a.size() else 0) + (b[i] if i < b.size() else 0)
++		result.append(part & MASK)
++		carry = part >> LIMB_BITS
++	if carry != 0:
++		result.append(carry)
++	return result
++
++static func _subtract(a: Array[int], b: Array[int]) -> Array[int]:
++	# Precondition a >= b.
++	var result: Array[int] = []
++	var borrow: int = 0
++	for i in a.size():
++		var part: int = a[i] - (b[i] if i < b.size() else 0) - borrow
++		borrow = 1 if part < 0 else 0
++		result.append(part + BASE if part < 0 else part)
++	return _trim(result)
++
++static func _multiply(a: Array[int], b: Array[int]) -> Array[int]:
++	if a.is_empty() or b.is_empty():
++		return []
++	var result: Array[int] = []
++	result.resize(a.size() + b.size())
++	result.fill(0)
++	for i in a.size():
++		if a[i] == 0:
++			continue
++		var carry: int = 0
++		for j in b.size():
++			var part: int = result[i + j] + a[i] * b[j] + carry
++			result[i + j] = part & MASK
++			carry = part >> LIMB_BITS
++		result[i + b.size()] = carry
++	return _trim(result)
++
++static func _small_product(a: Array[int], multiplier: int, extra: int = 0) -> Array[int]:
++	var result: Array[int] = []
++	var carry: int = extra
++	for digit in a:
++		var part: int = digit * multiplier + carry
++		result.append(part & MASK)
++		carry = part >> LIMB_BITS
++	while carry != 0:
++		result.append(carry & MASK)
++		carry >>= LIMB_BITS
++	return _trim(result)
++
++static func _float_bits(value: float) -> int:
++	var bytes := PackedByteArray(); bytes.resize(8); bytes.encode_double(0, value)
++	return bytes.decode_u64(0)
++
++static func _from_bits(value: int, negative: bool = false) -> float:
++	var bytes := PackedByteArray(); bytes.resize(8); bytes.encode_u64(0, value)
++	if negative:
++		bytes.encode_u32(4, bytes.decode_u32(4) | 2147483648)
++	return bytes.decode_double(0)
++
++static func _decimal_compare(target: Array[int], denominator: Array[int], bits: int) -> int:
++	return _compare(target, _multiply(_magnitude(_from_bits(bits)), denominator))
++
++static func _digit_at(token: String, index: int) -> bool:
++	return index < token.length() and token.unicode_at(index) >= 48 and token.unicode_at(index) <= 57
++
++static func _valid_decimal_token(token: String) -> bool:
++	var index: int = 1 if token.begins_with("-") else 0
++	if not _digit_at(token, index): return false
++	if token[index] == "0": index += 1
++	else:
++		while _digit_at(token, index): index += 1
++	if index < token.length() and token[index] == ".":
++		index += 1
++		if not _digit_at(token, index): return false
++		while _digit_at(token, index): index += 1
++	if index < token.length() and token[index] in ["e","E"]:
++		index += 1
++		if index < token.length() and token[index] in ["-","+"]: index += 1
++		if not _digit_at(token, index): return false
++		while _digit_at(token, index): index += 1
++	return index == token.length()
++
++static func read_decimal(token: String) -> Dictionary:
++	# Only called with a JSON numeric token already accepted by the JSON parser.
++	# Limit lexical work independently of numeric value. Normal saved binary64
++	# tokens are <=25 characters. Long unsupported tokens are explicitly rejected.
++	if token.is_empty() or token.length() > 2048:
++		return {"ok":false,"reason":"门坐标数字词元超过2048字符上限"}
++	if not _valid_decimal_token(token): return {"ok":false,"reason":"门坐标数字词元不是 JSON 数值"}
++	var negative: bool = token.begins_with("-")
++	var text: String = token.substr(1) if negative else token
++	var exponent: int = 0
++	var e_index: int = text.to_lower().find("e")
++	if e_index >= 0:
++		var e_text: String = text.substr(e_index + 1)
++		var e_negative: bool = e_text.begins_with("-")
++		if e_text.begins_with("-") or e_text.begins_with("+"):
++			e_text = e_text.substr(1)
++		for ch in e_text:
++			exponent = mini(10000, exponent * 10 + ch.unicode_at(0) - 48)
++		if e_negative: exponent = -exponent
++		text = text.substr(0, e_index)
++	var dot: int = text.find(".")
++	if dot >= 0:
++		exponent -= text.length() - dot - 1
++		text = text.replace(".", "")
++	var leading: int = 0
++	while leading < text.length() and text[leading] == "0": leading += 1
++	text = text.substr(leading)
++	if text.is_empty(): return {"ok":true,"value":_from_bits(0, negative)}
++	var order: int = text.length() + exponent
++	if order > 2: return {"ok":false,"reason":"门坐标超出有限几何范围"}
++	if order < -324: return {"ok":true,"value":_from_bits(0, negative)}
++	var numerator: Array[int] = []
++	for ch in text: numerator = _small_product(numerator, 10, ch.unicode_at(0) - 48)
++	var denominator: Array[int] = [1]
++	for i in absi(exponent):
++		if exponent > 0: numerator = _small_product(numerator, 10)
++		else: denominator = _small_product(denominator, 10)
++	var target := _multiply(_magnitude(1.0), numerator)
++	var upper: int = _float_bits(16.0)
++	if _decimal_compare(target, denominator, upper) >= 0:
++		return {"ok":false,"reason":"门坐标超出有限几何范围"}
++	var approximation: float = absf(token.to_float())
++	var floor_bits: int = _float_bits(approximation) if is_finite(approximation) and approximation < 16.0 else upper
++	var found: bool = false
++	for attempt in 4:
++		var relation: int = _decimal_compare(target, denominator, floor_bits)
++		if relation == 0: return {"ok":true,"value":_from_bits(floor_bits, negative)}
++		if relation < 0:
++			floor_bits -= 1
++		elif _decimal_compare(target, denominator, floor_bits + 1) < 0:
++			found = true
++			break
++		else:
++			floor_bits += 1
++	if not found:
++		var low: int = 0
++		var high: int = upper
++		while high - low > 1:
++			var mid: int = low + ((high - low) >> 1)
++			if _decimal_compare(target, denominator, mid) >= 0: low = mid
++			else: high = mid
++		floor_bits = low
++	var midpoint := _add(_magnitude(_from_bits(floor_bits)), _magnitude(_from_bits(floor_bits + 1)))
++	var side: int = _compare(_small_product(target, 2), _multiply(midpoint, denominator))
++	var rounded: int = floor_bits + 1 if side > 0 or (side == 0 and (floor_bits & 1) != 0) else floor_bits
++	return {"ok":true,"value":_from_bits(rounded, negative)}
+--- a/editor/layout_codec.gd
++++ b/editor/layout_codec.gd
+@@ -1,5 +1,8 @@
+ class_name LayoutCodec
+ extends RefCounted
++
++const GateNumericScript = preload("res://editor/gate_numeric.gd")
++const GateJsonNumbersScript = preload("res://editor/gate_json_numbers.gd")
+ ## Strict, versioned, geometry-only private layout codec.
+ ##
+ ## The file is plain JSON data, never a Godot Resource. This codec performs no
+@@ -74,6 +77,9 @@
+ 	var data = parser.get_data()
+ 	if not (data is Dictionary):
+ 		return _fail("布局文件根节点必须是 JSON 对象")
++	var restored_numbers: Dictionary = GateJsonNumbersScript.restore(text, data)
++	if not restored_numbers.ok:
++		return _fail(String(restored_numbers.reason))
+ 	var field_error := _check_fields(data, TOP_FIELDS, "文件")
+ 	if field_error != "":
+ 		return _fail(field_error)
+@@ -260,13 +266,13 @@
+ static func _validate_gate_geometry(gates: Dictionary) -> String:
+ 	for which in ["entry", "exit"]:
+ 		var gate: Dictionary = gates[which]
+-		if absf(float(gate.u)) > GATE_EDGE_LIMIT + EPSILON or absf(float(gate.v)) > GATE_EDGE_LIMIT + EPSILON:
++		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
+ 			return "%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [which, GATE_EDGE_LIMIT]
+ 	if String(gates.entry.face) == String(gates.exit.face):
+ 		var du := float(gates.entry.u) - float(gates.exit.u)
+ 		var dv := float(gates.entry.v) - float(gates.exit.v)
+ 		var separation := sqrt(du * du + dv * dv)
+-		if separation < MIN_SAME_FACE_SEPARATION - EPSILON:
++		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
+ 			return "同面两圈重叠：圈心距 %.3fm < 0.30m" % separation
+ 	return ""
+ 
+--- a/editor/scene_document.gd
++++ b/editor/scene_document.gd
+@@ -1,5 +1,7 @@
+ class_name SceneDocument
+ extends RefCounted
++
++const GateNumericScript = preload("res://editor/gate_numeric.gd")
+ ## G02 editing foundation document: single owner of editor data and state.
+ ##
+ ## Contract: competition/deepeye/docs/resource_contract.json (frozen by A).
+@@ -478,13 +480,13 @@
+ 		if gate.is_empty() or not FACES.has(gate.get("face", "")):
+ 			errors.append("%s: 未知面" % label)
+ 			continue
+-		if absf(float(gate.u)) > limit + 0.000000001 or absf(float(gate.v)) > limit + 0.000000001:
++		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
+ 			errors.append("%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [label, limit])
+ 	if FACES.has(gates.get("entry", {}).get("face", "")) and gates["entry"].face == gates["exit"].face:
+ 		var du := float(gates.entry.u) - float(gates.exit.u)
+ 		var dv := float(gates.entry.v) - float(gates.exit.v)
+ 		var separation := sqrt(du * du + dv * dv)
+-		if separation < MIN_SAME_FACE_SEPARATION_M - 0.000000001:
++		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
+ 			errors.append("同面两圈重叠：圈心距 %.3fm < 0.30m" % separation)
+ 	var pending := [
+ 		"起止端内侧1m初始化/对准空间与禁入体重叠：待 world_authority 复核",

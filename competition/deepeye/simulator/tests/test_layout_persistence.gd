@@ -658,9 +658,9 @@ func _document_state(document) -> String:
 
 func _viewer_state(scene) -> String:
 	var meshes: Array = []
-	for child in scene._obstacle_root.get_children():
-		if child is MeshInstance3D:
-			meshes.append([child.position, child.rotation_degrees, child.mesh.size])
+	for obstacle in scene.document.obstacles:
+		var node: Node3D = scene._asset_presenter.obstacle_node(int(obstacle.object_id))
+		meshes.append([int(obstacle.object_id), node.get_meta("asset_id"), node.get_instance_id(), node.transform] if node != null else [int(obstacle.object_id),null])
 	var gates: Array = []
 	for child in scene._gate_root.get_children():
 		gates.append([child.name, child.position, child.quaternion])
@@ -668,17 +668,32 @@ func _viewer_state(scene) -> String:
 	return var_to_str({"meshes": meshes, "gates": gates, "drill": drill, "camera": scene._camera.global_transform})
 
 func _check_viewer_matches(document, scene, label: String) -> void:
-	var meshes: Array = []
+	var presenter = scene._asset_presenter
+	var count := 0
 	for child in scene._obstacle_root.get_children():
-		if child is MeshInstance3D:
-			meshes.append(child)
-	_check(meshes.size() == document.obstacle_count(), label + " rebuilds one mesh per obstacle")
-	for index in mini(meshes.size(), document.obstacle_count()):
-		var obstacle: Dictionary = document.obstacles[index]
-		var mesh_node: MeshInstance3D = meshes[index]
-		_check(mesh_node.position.is_equal_approx(obstacle.position), label + " mesh position matches object %d" % index)
-		_check(mesh_node.rotation_degrees.is_equal_approx(obstacle.rotation_deg), label + " mesh rotation matches object %d" % index)
-		_check((mesh_node.mesh as BoxMesh).size.is_equal_approx(obstacle.size), label + " mesh size matches object %d" % index)
+		if child.has_meta("asset_id"):
+			count += 1
+	_check(count == document.obstacle_count(), label + " rebuilds one presentation root per obstacle")
+	for obstacle in document.obstacles:
+		var id := int(obstacle.object_id)
+		var node: Node3D = presenter.obstacle_node(id)
+		_check(node != null, label + " has presentation for ID %d" % id)
+		if node == null:
+			continue
+		_check(node.get_meta("asset_id") == "obstacle_"+String(obstacle.kind)+"_v1", label + " correct asset kind for ID %d" % id)
+		_check(node.position.is_equal_approx(obstacle.position), label + " asset position matches ID %d" % id)
+		var envelope: Dictionary = node.get_meta("declared_envelope")
+		var scale: Vector3 = obstacle.size/(envelope.bounds_max-envelope.bounds_min)
+		var rotation := Basis.from_euler(obstacle.rotation_deg*(PI/180.0))
+		var basis := Basis(rotation.x*scale.x,rotation.y*scale.y,rotation.z*scale.z)
+		_check(node.basis.is_equal_approx(basis), label + " complete nominal-scale rotated basis matches ID %d" % id)
+		var bounds: AABB = presenter.world_visual_bounds(node)
+		var contains := true
+		for mesh in node.find_children("*","MeshInstance3D",true,false):
+			for vertex in mesh.mesh.get_faces():
+				if not bounds.grow(.00001).has_point(mesh.global_transform*vertex):
+					contains = false
+		_check(contains, label + " world bounds contain actual vertices at 1e-5m tolerance for ID %d" % id)
 	var entry_node: Node3D = scene._gate_root.get_node_or_null("Gate_entry") as Node3D
 	var exit_node: Node3D = scene._gate_root.get_node_or_null("Gate_exit") as Node3D
 	_check(entry_node != null and entry_node.position.is_equal_approx(document.gate_position("entry")), label + " rebuilds entry gate transform")

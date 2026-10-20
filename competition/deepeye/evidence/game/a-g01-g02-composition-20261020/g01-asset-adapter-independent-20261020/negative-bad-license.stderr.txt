@@ -1,0 +1,12 @@
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+SCRIPT ERROR: Invalid call. Nonexistent 'String' constructor.
+   at: DeepEyeAssetPresenter._validate_asset (res://viewer/asset_presenter.gd:80)
+   GDScript backtrace (most recent call first):
+       [0] _validate_asset (res://viewer/asset_presenter.gd:80)
+       [1] _create (res://viewer/asset_presenter.gd:64)
+       [2] sync_obstacles (res://viewer/asset_presenter.gd:137)
+       [3] _sync_obstacles (res://viewer/main.gd:618)
+       [4] add_obstacle (res://editor/scene_document.gd:193)
+       [5] _run (res://tests/test_failure_review.gd:15)

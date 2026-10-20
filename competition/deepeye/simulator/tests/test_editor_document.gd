@@ -350,6 +350,12 @@ func test_greybox_drill_actual_mesh_envelope() -> void:
 	root.add_child(scene)
 	await process_frame
 	await process_frame
+	# Exercise the actual retained fallback, with all greybox geometry oracles
+	# unchanged. The B drill is tested independently by asset integration tests.
+	var integrated: Node3D = scene._drill_root
+	integrated.get_parent().remove_child(integrated)
+	integrated.free()
+	scene._build_drill_greybox()
 	var drill: Node3D = scene._drill_root
 	_check(drill.global_transform.basis == Basis.IDENTITY, "static greybox world basis has unit scale and no shear/reflection")
 	var meshes: Array = []

@@ -1,0 +1,31 @@
+--- baseline/ui/shell.gd
++++ candidate/ui/shell.gd
+@@ -258,6 +258,13 @@
+ 	_action_status_label = Label.new()
+ 	_action_status_label.name = "ActionStatus"
+ 	_action_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
++	# Keep long diagnostics from expanding the bottom VBox into the 3D area.
++	# The full accepted text remains available on hover.
++	_action_status_label.max_lines_visible = 1
++	_action_status_label.clip_text = true
++	_action_status_label.custom_minimum_size = Vector2(0.0, 24.0)
++	_action_status_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
++	_action_status_label.mouse_filter = Control.MOUSE_FILTER_STOP
+ 	_action_status_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+ 	_action_status_label.text = "文件操作: 就绪"
+ 	bottom_box.add_child(_action_status_label)
+@@ -955,6 +962,14 @@
+ func _set_hint(text: String) -> void:
+ 	if _action_status_label != null:
+ 		_action_status_label.text = text
++		# Hard-wrap the tooltip too: the engine otherwise makes an unbroken CJK
++		# diagnostic wider than the window. Escape embedded line breaks so a
++		# multiline reason cannot make the tooltip taller than the client.
++		var escaped := text.c_escape()
++		var lines := PackedStringArray()
++		for start in range(0, escaped.length(), 48):
++			lines.append(escaped.substr(start, 48))
++		_action_status_label.tooltip_text = "\n".join(lines)
+ 
+ func _on_run_pressed() -> void:
+ 	if _document != null:

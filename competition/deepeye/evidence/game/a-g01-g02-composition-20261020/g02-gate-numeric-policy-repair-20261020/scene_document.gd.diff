@@ -1,0 +1,26 @@
+--- a/editor/scene_document.gd
++++ b/editor/scene_document.gd
+@@ -1,5 +1,7 @@
+ class_name SceneDocument
+ extends RefCounted
++
++const GateNumericScript = preload("res://editor/gate_numeric.gd")
+ ## G02 editing foundation document: single owner of editor data and state.
+ ##
+ ## Contract: competition/deepeye/docs/resource_contract.json (frozen by A).
+@@ -478,13 +480,13 @@
+ 		if gate.is_empty() or not FACES.has(gate.get("face", "")):
+ 			errors.append("%s: 未知面" % label)
+ 			continue
+-		if absf(float(gate.u)) > limit + 0.000000001 or absf(float(gate.v)) > limit + 0.000000001:
++		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
+ 			errors.append("%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [label, limit])
+ 	if FACES.has(gates.get("entry", {}).get("face", "")) and gates["entry"].face == gates["exit"].face:
+ 		var du := float(gates.entry.u) - float(gates.exit.u)
+ 		var dv := float(gates.entry.v) - float(gates.exit.v)
+ 		var separation := sqrt(du * du + dv * dv)
+-		if separation < MIN_SAME_FACE_SEPARATION_M - 0.000000001:
++		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
+ 			errors.append("同面两圈重叠：圈心距 %.3fm < 0.30m" % separation)
+ 	var pending := [
+ 		"起止端内侧1m初始化/对准空间与禁入体重叠：待 world_authority 复核",

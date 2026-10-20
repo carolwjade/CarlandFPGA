@@ -1,0 +1,23 @@
+WARNING: Exponent too high
+   at: built_in_strtod (core/string/ustring.cpp:2553)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://editor/layout_codec.gd:73)
+       [1] apply_layout_text (res://editor/scene_document.gd:380)
+       [2] reject (res://tests/test_gate_reader.gd:18)
+       [3] _initialize (res://tests/test_gate_reader.gd:50)
+WARNING: Exponent too high
+   at: built_in_strtod (core/string/ustring.cpp:2553)
+   GDScript backtrace (most recent call first):
+       [0] decode (res://editor/layout_codec.gd:73)
+       [1] apply_layout_text (res://editor/scene_document.gd:380)
+       [2] reject (res://tests/test_gate_reader.gd:18)
+       [3] _initialize (res://tests/test_gate_reader.gd:50)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _walk (res://editor/gate_json_numbers.gd:56)
+       [1] restore (res://editor/gate_json_numbers.gd:10)
+       [2] decode (res://editor/layout_codec.gd:80)
+       [3] apply_layout_text (res://editor/scene_document.gd:380)
+       [4] reject (res://tests/test_gate_reader.gd:18)
+       [5] _initialize (res://tests/test_gate_reader.gd:52)

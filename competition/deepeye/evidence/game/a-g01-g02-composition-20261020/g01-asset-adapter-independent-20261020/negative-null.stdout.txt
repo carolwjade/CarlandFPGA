@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS document add remains usable
+PASS invalid startup/factory/schema degrades report
+PASS failure records persistent diagnostic
+PASS invalid or empty asset rejected
+PASS real visible fallback preserves document object
+PASS object label explicitly discloses fallback
+PASS shell explicitly discloses degraded presentation
+PASS no failed-factory retries or repeated logs
+PASS failure grants no authority or motion
+PASS parameter open with same ID new kind succeeds
+PASS valid kind repairs geometry
+PASS recovery frees fallback rather than hiding stale geometry
+PASS failure history remains truthful until restart
+FALLBACK_LABEL actual=(2.000001, 5.7, 3.999999) expected=(10.67287, 7.7, -1.448521)
+FAIL fallback label honors full parent world transform
+FALLBACK_PICK actual=-1 expected=1 world_center=(10.67287, 5.0, -1.448521)
+FAIL fallback remains selectable at its displayed transformed position
+PASS clear leaves no obstacle roots or labels
+FAILURE_REVIEW mode=null checks=16 failures=2 report={"diagnostics":["资源加载失败·开发灰盒: obstacle/water: 工厂没有返回 Node3D"],"factory_calls":{"drill":1,"frame":1,"obstacle":3},"state":"degraded"}

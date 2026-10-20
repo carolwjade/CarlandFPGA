@@ -1,0 +1,204 @@
+[
+  {
+    "pid": 3592,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "conversion",
+    "result_sha256": "b3984c840987dcfa6ef7bf712cb98c97822271871ae4ef442a1d6f602d28b8b8",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 48812,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "document-regression",
+    "result_sha256": "e33b1d8bb60bd3de5bd48a9a7809cd5b951a3c01710855c046fc3d0221ca84a7",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 48004,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "finite",
+    "result_sha256": "e445608b188e88381c8df6002c031c9f37e3fcbafaaffb3e53dd2b2b369f93cf",
+    "source_unchanged": false,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 48360,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "finite-final",
+    "result_sha256": "62cb9c707a1fc569e499e662faf8a0e82667ee1036e102eebdc27cdae1e0982f",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 16468,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "finite-normalized-zero-final",
+    "result_sha256": "8c34429243f19b08fefd45f38564075d88337caa8234647726b2e0fb0d85df40",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 52096,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "finite-zero-policy-final",
+    "result_sha256": "81bd832546749756211390e0af2d9705fa991fdcc46c0b8eba9e2661536c72cf",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 52608,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "finite-zeros-final",
+    "result_sha256": "e586b325881cdd58bef144e059f4629b464175061adb0f16d8629dc41534413f",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 38928,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": true,
+    "label": "green",
+    "result_sha256": "de9cb66577a9c7ef07c295eff134c9b49fe5c4766066b2ce4cfadb763996b967",
+    "source_unchanged": true,
+    "product_unchanged": false,
+    "external_product_deltas": [
+      "viewer/asset_presenter.gd"
+    ]
+  },
+  {
+    "pid": 46600,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "green-exact-reader",
+    "result_sha256": "8cdeb4325e1c95833e8442b431645beeb2f624178898a3a6db6d3ba8b39a8b58",
+    "source_unchanged": true,
+    "product_unchanged": false,
+    "external_product_deltas": [
+      "tests/test_viewer_asset_integration.gd"
+    ]
+  },
+  {
+    "pid": 54812,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "green-v2",
+    "result_sha256": "96628c2d32dfc9a9b6729e79e050378a770fe78983d63d0eb4b79d852274d4f3",
+    "source_unchanged": true,
+    "product_unchanged": false,
+    "external_product_deltas": [
+      "tests/test_editor_document.gd",
+      "tests/test_layout_persistence.gd"
+    ]
+  },
+  {
+    "pid": 46040,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "numeric-final",
+    "result_sha256": "2bcfa43e316d038c127052a0488a7661a9ad5a8f2a21c10294f0c24c3b4bddaf",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 5060,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "persistence-regression",
+    "result_sha256": "1357a39c000291d9706b9a2be29a0435dbd5a7567c80a93dc3810a366dc775a3",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 5060,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "python-independent-oracles",
+    "result_sha256": "abb02ad4ff654b68a5b69ee4322f9aa07a787f28c4d8eac3dbd387c5082f8f3a"
+  },
+  {
+    "pid": 53868,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "reader",
+    "result_sha256": "b949546cfcacadf42ae72d12caf9b2920a995696f94059fb60a9294e5e1b5bd4",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 49680,
+    "exit_code": 0,
+    "terminal": true,
+    "timed_out": false,
+    "label": "reader-final",
+    "result_sha256": "ae0efe63020b7e00a1ff814d290b7efbc42f9346237e7f24e01b82941cc62461",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 38444,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "reader-grammar-red",
+    "result_sha256": "211fb04bbf8e4bec7eebfbb8f22ba68b4c1ec18c67a7bd811282156b2a8906ff",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 39852,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "red",
+    "result_sha256": "c4c76e03f76186040d1a2483db0015822cfecf9c2494220e0a6022c10ec10a38",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  },
+  {
+    "pid": 43364,
+    "exit_code": 1,
+    "terminal": true,
+    "timed_out": false,
+    "label": "transport-diagnostic",
+    "result_sha256": "7185522b181a6c4892c5ec75562d682a1325203c94b576b9c3c7b4c03d2fa0d0",
+    "source_unchanged": true,
+    "product_unchanged": true,
+    "external_product_deltas": []
+  }
+]

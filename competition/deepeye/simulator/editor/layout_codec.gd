@@ -1,5 +1,8 @@
 class_name LayoutCodec
 extends RefCounted
+
+const GateNumericScript = preload("res://editor/gate_numeric.gd")
+const GateJsonNumbersScript = preload("res://editor/gate_json_numbers.gd")
 ## Strict, versioned, geometry-only private layout codec.
 ##
 ## The file is plain JSON data, never a Godot Resource. This codec performs no
@@ -74,6 +77,9 @@ static func decode(text: String) -> Dictionary:
 	var data = parser.get_data()
 	if not (data is Dictionary):
 		return _fail("布局文件根节点必须是 JSON 对象")
+	var restored_numbers: Dictionary = GateJsonNumbersScript.restore(text, data)
+	if not restored_numbers.ok:
+		return _fail(String(restored_numbers.reason))
 	var field_error := _check_fields(data, TOP_FIELDS, "文件")
 	if field_error != "":
 		return _fail(field_error)
@@ -260,13 +266,13 @@ static func _validate_position(position: Vector3) -> String:
 static func _validate_gate_geometry(gates: Dictionary) -> String:
 	for which in ["entry", "exit"]:
 		var gate: Dictionary = gates[which]
-		if absf(float(gate.u)) > GATE_EDGE_LIMIT + EPSILON or absf(float(gate.v)) > GATE_EDGE_LIMIT + EPSILON:
+		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
 			return "%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [which, GATE_EDGE_LIMIT]
 	if String(gates.entry.face) == String(gates.exit.face):
 		var du := float(gates.entry.u) - float(gates.exit.u)
 		var dv := float(gates.entry.v) - float(gates.exit.v)
 		var separation := sqrt(du * du + dv * dv)
-		if separation < MIN_SAME_FACE_SEPARATION - EPSILON:
+		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
 			return "同面两圈重叠：圈心距 %.3fm < 0.30m" % separation
 	return ""
 

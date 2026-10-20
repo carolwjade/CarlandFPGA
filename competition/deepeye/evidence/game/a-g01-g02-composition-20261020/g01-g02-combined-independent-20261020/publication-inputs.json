@@ -1,0 +1,84 @@
+{
+  "files": {
+    "tests/test_gate_numeric.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\test_gate_numeric.gd",
+      "sha256": "07b73b6355818b76584b09d35348a2f4ee34dc1c8ce3a56f1a2389eb9d47beb1",
+      "unchanged": true
+    },
+    "tests/numeric_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\numeric_cases.json",
+      "sha256": "e98ed17cc2cf4926c51397d4c60fdd5e397f1849c71291843924c26a5540ceae",
+      "unchanged": true
+    },
+    "tests/test_gate_reader.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\test_gate_reader.gd",
+      "sha256": "e578b3df2f5f48697f64786472aeed8f76bab838138cb2802ed3339652bea279",
+      "unchanged": true
+    },
+    "tests/reader_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\reader_cases.json",
+      "sha256": "e0cf9367c4ddda8456e2948c8db96c6e3a701d2b1af391771116a57615e2eec8",
+      "unchanged": true
+    },
+    "tests/grammar_probe.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\tests\\grammar_probe.gd",
+      "sha256": "5685853d7421d79a46ade8f7e142b9e76b428294a828a2a4fd290d1afd67ca22",
+      "unchanged": true
+    },
+    "tests/grammar_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\tests\\grammar_cases.json",
+      "sha256": "237910ec610d70831c917c6dcff7b811ce6732478e62aabd33ba280af1401117",
+      "unchanged": true
+    },
+    "grammar-fixtures/leading-zero.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\leading-zero.json",
+      "sha256": "c2c5786f62c893cb3f9774610097cf21fbbaac3b35fb197b39e5c248dcd5a453",
+      "unchanged": true
+    },
+    "grammar-fixtures/missing-fraction-with-exponent.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\missing-fraction-with-exponent.json",
+      "sha256": "f1d8c719e1e09b36814c9d614bf530bdbc2cb5dd86aa95639b58703d23ad8ed0",
+      "unchanged": true
+    },
+    "grammar-fixtures/missing-fraction.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\missing-fraction.json",
+      "sha256": "044500804dcff5f673b864582e3462bd277ecc9cde248250181bc3e603724436",
+      "unchanged": true
+    },
+    "grammar-fixtures/valid-exponent.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\valid-exponent.json",
+      "sha256": "e79b2909decaadda22851f211a65c0095eac65167b645c7c774059722213a7fb",
+      "unchanged": true
+    }
+  },
+  "assertions_changed": false,
+  "can_live_unchanged_under_simulator_tests": true,
+  "required_resource_paths": {
+    "numeric": [
+      "res://tests/numeric_cases.json"
+    ],
+    "reader": [
+      "res://tests/reader_cases.json"
+    ],
+    "grammar": [
+      "res://tests/grammar_cases.json",
+      "res://grammar-fixtures/leading-zero.json",
+      "res://grammar-fixtures/missing-fraction.json",
+      "res://grammar-fixtures/missing-fraction-with-exponent.json",
+      "res://grammar-fixtures/valid-exponent.json"
+    ]
+  },
+  "generated_outputs": [
+    "res://tests/numeric_observations.json",
+    "res://tests/grammar_observations.json"
+  ],
+  "read_dependencies": [
+    "res://editor/scene_document.gd",
+    "res://editor/layout_codec.gd",
+    "res://editor/gate_numeric.gd",
+    "res://editor/gate_json_numbers.gd"
+  ],
+  "environment": "Godot 4.7.2 pinned executable, --headless --path <simulator> --script res://tests/<name>.gd; write permission for generated observations. Private APPDATA/LOCALAPPDATA/TEMP/TMP/XDG roots used by review; no external input/network required.",
+  "grammar_evidence": "176 assertions reused only after exact dependency, original harness/input, log, terminal and oracle verification; no new grammar execution claimed",
+  "oracle_analysis": "review.py analyze uses Python standard library Fraction/struct and current simulation/authority/motion/gate_geometry.py; no corpus regeneration"
+}

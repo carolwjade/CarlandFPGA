@@ -1,0 +1,159 @@
+{
+  "editor": [
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "top",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    },
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "bottom",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    },
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "front",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    },
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "back",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    },
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "left",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    },
+    {
+      "coordinate_14.85": true,
+      "coordinate_14.8500000005": true,
+      "coordinate_14.850001": false,
+      "face": "right",
+      "policy": "editor_1e-9_m_tolerance",
+      "separation_0.299999": false,
+      "separation_0.2999999995": true,
+      "setup_ok": true,
+      "tangent_0.30": true
+    }
+  ],
+  "python": [
+    {
+      "face": "top",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    },
+    {
+      "face": "bottom",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    },
+    {
+      "face": "front",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    },
+    {
+      "face": "back",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    },
+    {
+      "face": "left",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    },
+    {
+      "face": "right",
+      "policy": "python_strict_exact",
+      "observations": {
+        "separation_0.3": true,
+        "separation_0.2999999995": false,
+        "separation_0.299999": false,
+        "coordinate_14.85": true,
+        "coordinate_14.8500000005": false,
+        "coordinate_14.850001": false
+      },
+      "editor_accepts_near_cases": true,
+      "common_near_boundary_semantics": false
+    }
+  ],
+  "common_near_boundary_semantics": false,
+  "policy_changed": false,
+  "formal_G02_closure": "separate main followup required"
+}

@@ -1,0 +1,65 @@
+# Independent G02 numeric evidence for main review
+
+No gate arithmetic or gate-token rounding disagreement was found in the reviewed candidate at patch `e403b274483c3074423950a4d12a358a0b95b4263345cfd62c339e7429e3c292`. One reproducible preexisting non-gate JSON grammar limitation remains. This report supplies source analysis and test evidence; adoption, integration and acceptance remain the responsible main's decisions. PRODUCT was read only. All 29 formal cards remain `not_run`.
+
+Contract `DEEPEYE-HUMAN-LOCK-20261014/revision1`, H01-H15, canonical requirements SHA256 `c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804` were checked in root and PRODUCT. Active generation-2 transfer and node-A identity were read. Original job `child-1d03916dd1ca4cc18240fe9491f9da5a` validated before work and revalidated after platform interruption; no replacement job was reserved.
+
+## Actionable finding: whole-file strict JSON is not established
+
+`gate_json_numbers.gd::_walk` (line 42, numeric branch at the end of the function) lexes numeric-looking characters throughout the tree but calls `_valid_decimal_token` only indirectly for the four gate coordinates. Godot accepts malformed numeric grammar elsewhere. Starting with a valid saved envelope, change `"schema": 1` to `"schema": 01`, `"schema": 1.` or `"schema": 1.e0`: `LayoutCodec.decode` returns `ok=true`. CPython `json.loads` rejects each exact saved fixture. The valid control `1e+0` passes both implementations.
+
+This behavior was independently reproduced in both the exact baseline codec (`c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72`) and the candidate. The two strict-JSON assertion runs each have three failures, exit 1, actual terminal=true, no script errors and no timeout. Their negative evidence is intentionally retained in `raw/baseline-grammar` and `raw/candidate-grammar`. Exact complete envelopes are in `grammar-fixtures/`; `grammar_probe.gd` is the executable reproducer. Equivalent malformed gate tokens reject correctly. This is not evidence of a gate geometry bypass or a newly introduced regression.
+
+If whole-file JSON conformance is required, a follow-up should validate every number token's grammar in the structural walk, while preserving the four-path restriction on exact coordinate conversion. Whole-file strictness should not be claimed from the present gate-only repair. No repair was made here and no adoption veto or approval is implied.
+
+## Fresh executable evidence
+
+All native runs used the actual pinned Godot 4.7.2 executable `ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424`, headless, with private process environment locations. Every subprocess has actual argv, PID, executable hash, source before/after maps, stdout/stderr hashes, exit, timeout and terminal records. The bound was 55 seconds; none timed out. Seven actual subprocess records are verified in `execution-ledger.json`, including preparation and Python analysis. No completed tests were rerun after the interruption.
+
+| Run | Result |
+|---|---|
+| Independently selected inputs | 282 geometry rows, 123 decimal rows, 1,729 assertions, 0 failures, exit 0; 3.406 s |
+| Original numeric corpus, fresh private replay | 2,100 rows, 14,628 assertions, 0 failures, exit 0; 5.547 s |
+| Independent Python reread of original replay | actual current Python Gate and Fraction agree on all 2,100 rows; all 1,116 legal wire/reopen coordinate bit sequences match; exit 0 |
+| Strict-JSON baseline and candidate characterizations | each: 3 retained intentional failures, exit 1, terminal=true |
+| Additional width/depth/resource probe | 1,033,955-byte object rejected by codec in 990,875 microseconds; depth 31/32 reader succeeds, 33 rejects; surrogate-pair duplicate decoded key rejects; exit 0 |
+
+The independent geometry cases use a separately seeded angular/translated nextafter construction, powers-of-two cancellation, subnormal components, finite edges, nonfinite values and all 36 directed face pairs. Expected decisions were generated with Python `Fraction` over the represented binary64 values and independently checked against the actual current Python `Gate`/`validate_gate_pair` implementation. Its source was privately copied, pinned, and matched the author's authority source. No candidate limb or decimal-search implementation was used to generate these expectations.
+
+Decimal fixtures include independently computed exact adjacent-float midpoint decimals and both sides of each midpoint, both signs, zero/minimum subnormal, normal/subnormal transition, powers of two, odd/even significands, edge coordinates, values rounding up to 16, long coefficient/exponent combinations, huge signed exponents, exact 2,048-character support and 2,049-character rejection. CPython's conversion supplies expected binary64 bytes; midpoint strings were constructed with Decimal precision 4,000 from exact floats. This is independent of the candidate's limb implementation and local-step/binary-search strategy.
+
+Structural probes cover escaped genuine paths, duplicate escaped keys, strings containing decoys, arrays at each fake path component, deep and wide objects, invalid scalar types through the reused original corpus, overlength numbers and out-of-bound exact decimals. Rejected imports preserve gates, obstacles, commitment and undo/redo depths even when redo history is present. Source inspection confirms rejection returns before geometry/history replacement; rejection may add a log event. Successful nonzero coordinates retain exact bits. The existing emitter's negative-zero normalization remains geometry-equivalent per main instruction; bit preservation of emitted -0 is not claimed. Author's two failed sign-bit probes remain untouched.
+
+## Source and arithmetic audit
+
+`gate_numeric.gd:26` decodes the pinned runtime's raw double bytes into signless integers measured in 2^-1074 units. Normal exponent-field E contributes shift E-1 and a 53-bit significand; subnormals use their raw fraction without an implicit leading bit. Raw little-endian Python/Godot cases exercise this representation in the actual Windows binary. There is no new cross-platform byte-order claim.
+
+Sign handling is correct for opposite signs and for -0: same-sign coordinates subtract the smaller magnitude from the larger; opposite signs add; zero has an empty magnitude. Trimming preserves normalized lengths. `_multiply` at line 94 carries after every inner product. With B=2^15, each inner intermediate is at most `(B-1)^2 + (B-1) + (B-1) = B^2-1 < 2^30`. The final carry cell is fresh for that row; skipped zero rows cannot hide a previous carry. Addition, subtraction, shifted significand parts and decimal small products also stay far below signed int64 limits.
+
+For valid coordinates, a component difference is at most 29.7 and therefore occupies fewer than 2^1079 scaled units, at most 72 limbs. Two squared components together require fewer than 2^2159 units and fit 144 limbs. The comparison is strictly `< diameter^2`, so exact represented tangency is accepted. `.30` equals twice represented `.15` exactly. Finite and inclusive ±14.85 checks occur before arithmetic; distinct-face legality follows the Python authority. Remaining float subtraction/sqrt in callers only formats an error message and does not decide validity.
+
+`read_decimal` at line 156 first enforces length and ASCII JSON numeric grammar. Sign is reapplied after unsigned conversion. The exponent accumulator saturates at 10,000, safely exceeding any exponent whose cancellation by a <=2,048-character mantissa could yield a supported nonzero coordinate. Leading zeros are removed before decimal order checks. `order > 2` cannot contain a supported coordinate; `order < -324` is strictly below half the minimum subnormal and safely rounds to signed zero. A zero coefficient returns signed zero before exponent resource work.
+
+For surviving numbers, coefficient digit count N <= 2,048 and order N+exponent >= -324 imply denominator exponent <= 2,372. Coefficients and denominators require at most about 526 limbs; products with a scaled binary64 midpoint below 32 require fewer than 600 limbs. Decimal digits are accumulated exactly in base 10. The target is numerator times 2^1074; comparisons against the candidate float magnitude times denominator therefore compare the original decimal rational exactly.
+
+The approximate float only chooses a starting bit pattern. Exact comparisons bracket the value or fall back after four local attempts. Search starts at 0 and the positive 16.0 bit pattern, so at most 63 halving iterations suffice without signed overflow in `low + ((high-low)>>1)`. The midpoint test compares twice the target with the sum of adjacent scaled magnitudes times denominator, selecting the even low bit on equality. A positive target cannot decrement the local floor below zero. This gives a bounded termination argument independent of approximate parser quality. The measured largest-token samples had approximation errors 0 or -1 ULP; they do not independently demonstrate execution of the fallback branch. No forced-branch mutant was run or represented as candidate evidence.
+
+`GateJsonNumbers.restore` structurally tracks decoded object keys and integer array indexes, rejects duplicate decoded keys throughout the tree and only converts the four true object paths. Its result mutates the private parsed dictionary before schema/hash/geometry validation, not the live document. `apply_layout_text` at line 377 returns on decode failure before replacing live geometry/history. `set_gate` at line 449 restores the gate backup on invalid candidate geometry. The wire remains full precision; the six-decimal commitment remains identity metadata, not a geometry oracle.
+
+The codec checks its 1 MiB byte limit and depth limit before engine parsing/restoration. Scanner traversal, per-object duplicate sets and bounded-depth path copies are bounded by file size and depth; at most four tokens receive exact conversion. The direct reader by itself has no file-byte cap and relies on the codec entry boundary. This is relevant if future callers bypass `LayoutCodec.decode`.
+
+## Resource observations and limits
+
+Actual 2,048-character dense-coefficient conversions took 64,435 and 75,275 microseconds. The independently chosen 2,048-character near-midpoint token took 65,664 microseconds. Four repeated maximum near-midpoint gate tokens in a valid 8,673-byte envelope took 271,233 / 269,939 / 269,854 microseconds per complete decode. A 186,964-byte/18,000-key reader probe took 170,072 microseconds. The later 1,033,955-byte/95,000-key codec probe completed rejection in 990,875 microseconds. These are actual one-host observations plus the source bounds above, not a universal latency guarantee; synchronous imports of pathological supported input can visibly occupy the calling thread for hundreds of milliseconds.
+
+No arithmetic, rounding or structural-path defect was found in the bounded evidence. Coverage counts alone are not a correctness proof; fallback execution coverage and all possible parser divergences are not claimed. Whole-file strict JSON remains the explicit preexisting finding.
+
+## Integrity and handoff limits
+
+All 173 entries of the author's manifest `2630b35ae6dda34dddf8bca434d6af0c21d79ac6b94485e2fd6411452ede2cb8` were rehashed, including preserved negative evidence. Its native completion is terminal/completed and its persisted text equals its final-result file. Four candidate files still match `input-pins.json` and `source-final.json`; PRODUCT's two editor baseline hashes remain exact. No PRODUCT editor file was changed or adopted.
+
+Each of the seven subprocess intervals observed no PRODUCT delta. Across the interruption/finalization interval, three separately owned PRODUCT files changed: `viewer/asset_presenter.gd`, `viewer/main.gd`, and `tests/test_viewer_asset_integration.gd`; exact before/after hashes are retained in `source-final.json`. No attribution beyond concurrent external edits is inferred. The frozen author-stage regressions and prior combined evidence have integrity support, but do not test these new PRODUCT bytes. Current combined G01/G02 integration still requires main-arranged verification after any adoption.
+
+The original author's parse/timeout, malformed-grammar RED, negative-zero assertion failures and other negative evidence remain untouched. The first independent runner also copied the preceding independent observations into the original-corpus result folder; this inherited copy was explicitly renamed `inherited-independent-observations.json` and was not used as numeric replay evidence. Actual fresh replay observations are `raw/original-corpus/numeric-observations.json` and were independently checked by Python.
+
+No GUI, product Run, network, Git, board, service, credential/provider, queue/lock, peer publication or child operation occurred. No simulation-to-board, UI/game, route/crossing, causal-sensing, AI/control-chain or formal acceptance claim follows from this review.

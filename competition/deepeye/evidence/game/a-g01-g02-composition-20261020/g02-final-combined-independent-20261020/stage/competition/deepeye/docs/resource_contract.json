@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "status": "implementation_boundary_frozen_runtime_not_run",
+  "decision_owner": "A",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "engine": {"version": "4.7.2-stable", "binary_sha256": null, "templates_sha256": null, "runtime_status": "not_run", "renderer_candidate": "forward_plus", "final_renderer": null},
+  "project_root": "competition/deepeye/simulator",
+  "entry_scene": "res://viewer/main.tscn",
+  "entry_script": "res://viewer/main.gd",
+  "single_writer": {"project.godot": "A-main", "export_presets.cfg": "A-main", "viewer": "A", "ui": "A", "editor": "A", "physics": "A", "export": "A", "world": "B", "assets": "B", "tests/test_asset_contract.gd": "B"},
+  "coordinates": {"units": "metre", "cube_min": [-15, -15, -15], "cube_max": [15, 15, 15], "forward_local": "+Z", "up": "+Y", "quaternion_serialization": "xyzw", "asset_origin": "rigid body centre", "physics_hz": 100},
+  "drill": {"diameter_m": 0.24, "length_m": 0.8, "gate_diameter_m": 0.3, "turn_radius_min_m": 2, "acceleration_max_m_s2": 0.25, "asset_pivot_radius_requires_measurement": true},
+  "asset_factory": {
+    "script": "res://world/asset_library.gd",
+    "class_name": "DeepEyeAssetLibrary",
+    "methods": ["static func create_drill() -> Node3D", "static func create_obstacle(kind: String) -> Node3D", "static func create_frame() -> Node3D"],
+    "kind_ids": ["water", "hard_rock", "fault", "void", "casing"],
+    "drill_children": ["Visual", "Collision"],
+    "obstacle_children": ["Visual", "Collision"],
+    "collision_node_type": "StaticBody3D with CollisionShape3D descendants, disabled in viewer",
+    "metadata": ["asset_contract_version=1", "source_license", "geometry_bounds_m", "pivot_bound_radius_m"],
+    "frame_geometry": "12 visible edges only, no enclosing surfaces",
+    "runtime_truth_boundary": "Viewer assets are presentation only; authoritative collision/integration belongs to A world_authority in a separate process. Collision shapes here define the asset envelope, never grant controller truth access."
+  },
+  "viewer_initial_state": "editing",
+  "motion_modes": ["hil_pc_fpga", "pc_direct", "fpga_local"],
+  "motion_start_policy": "disabled until real mode-specific observation/authority bridge is verified; no autonomous demo route",
+  "proof_scope": "This file freezes resource names and ownership only. It does not pass R03, G01, G02, renderer performance, collision, sensors or hardware."
+}

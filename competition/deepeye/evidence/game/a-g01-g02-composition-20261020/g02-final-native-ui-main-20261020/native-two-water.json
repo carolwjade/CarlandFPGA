@@ -1,0 +1,63 @@
+{
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "layout": {
+    "gates": {
+      "entry": {
+        "face": "front",
+        "u": 0.0,
+        "v": 0.0
+      },
+      "exit": {
+        "face": "back",
+        "u": 0.0,
+        "v": 0.0
+      }
+    },
+    "obstacles": [
+      {
+        "kind": "water",
+        "object_id": 1,
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "priority": 2,
+        "rotation_deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": {
+          "x": 6.0,
+          "y": 4.0,
+          "z": 2.0
+        }
+      },
+      {
+        "kind": "water",
+        "object_id": 2,
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "priority": 2,
+        "rotation_deg": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "size": {
+          "x": 6.0,
+          "y": 4.0,
+          "z": 2.0
+        }
+      }
+    ]
+  },
+  "layout_hash": "3290cf6397e4e221a01cf7f4987992a3d60647949a260ddfedee0adbfdaa5db7",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "schema": 1,
+  "units": "m"
+}

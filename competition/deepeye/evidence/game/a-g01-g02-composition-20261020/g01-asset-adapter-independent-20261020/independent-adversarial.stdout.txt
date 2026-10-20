@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS all five real assets under transformed nonuniform parent
+PASS independent quaternion transform of actual vertices water
+PASS world visual bounds contain all actual vertices water
+PASS generator pivot retained water
+PASS water asymmetric local bounds preserved
+PASS independent quaternion transform of actual vertices hard_rock
+PASS world visual bounds contain all actual vertices hard_rock
+PASS generator pivot retained hard_rock
+PASS independent quaternion transform of actual vertices fault
+PASS world visual bounds contain all actual vertices fault
+PASS generator pivot retained fault
+PASS independent quaternion transform of actual vertices void
+PASS world visual bounds contain all actual vertices void
+PASS generator pivot retained void
+PASS independent quaternion transform of actual vertices casing
+PASS world visual bounds contain all actual vertices casing
+PASS generator pivot retained casing
+PASS 25 updates retain actual mesh/material instances and factories
+PASS changed kind reconciles
+PASS ID reuse replaces geometry
+PASS invalid kind removes stale previous geometry
+PASS kind repair recreates live geometry
+PASS clear empties success and failure caches
+PASS nearest world t under rotated scaled translated parent
+PASS world ray distance retained under anisotropic parent
+PASS away ray misses under transformed parent
+PASS parallel-axis miss under transformed parent
+PASS no cache/node growth cycle 0
+PASS no cache/node growth cycle 1
+PASS no cache/node growth cycle 2
+PASS no cache/node growth cycle 3
+PASS no cache/node growth cycle 4
+PASS no cache/node growth cycle 5
+PASS no cache/node growth cycle 6
+PASS no cache/node growth cycle 7
+PASS no cache/node growth cycle 8
+PASS no cache/node growth cycle 9
+PASS no cache/node growth cycle 10
+PASS no cache/node growth cycle 11
+PASS reject malformed asset missing_visual
+PASS reject malformed asset missing_license
+PASS reject malformed asset bad_bounds_type
+PASS reject malformed asset nan_bounds
+PASS reject malformed asset zero_envelope
+PASS reject malformed asset nan_transform
+PASS reject malformed asset layer
+PASS reject malformed asset mask
+PASS reject malformed asset shape
+PASS reject malformed asset polygon
+INDEPENDENT checks=49 failures=0

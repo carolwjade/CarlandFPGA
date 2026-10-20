@@ -1,0 +1,7 @@
+{
+  "command": "initial read-only metadata inspection assumed files key for both manifest formats",
+  "exit_code": 1,
+  "error": "KeyError: files",
+  "product_writes": false,
+  "correction": "UI uses artifact_files with root-relative paths; face uses files with evidence-relative paths"
+}

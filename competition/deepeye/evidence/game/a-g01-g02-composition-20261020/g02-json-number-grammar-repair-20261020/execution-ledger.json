@@ -1,0 +1,102 @@
+[
+  {
+    "run": "analyze",
+    "record": "raw/analyze/result.json",
+    "record_sha256": "9ef417e0279b1f0fad5b91d9c640fb0a44434f4d83f20d729f52875eb10e015a",
+    "pid": 43016,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.20300000000861473
+  },
+  {
+    "run": "analyze-final",
+    "record": "raw/analyze-final/result.json",
+    "record_sha256": "e10085dd37c2e864e685c367c0740cd1b473dd7855b128addd1436879ad8f68c",
+    "pid": 1992,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.17100000000209548
+  },
+  {
+    "run": "grammar-final",
+    "record": "raw/grammar-final/result.json",
+    "record_sha256": "418223cbd3cab6a920f30057a9b9ac7b656dbc190ab4857331aa7e6fa80779b3",
+    "pid": 15168,
+    "exit_code": 1,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.26600000000325963
+  },
+  {
+    "run": "grammar-final-corrected",
+    "record": "raw/grammar-final-corrected/result.json",
+    "record_sha256": "b17808a1373dd6eaee03180bb37119abc30645a134c7351cde9baa513875b2a2",
+    "pid": 26992,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.25
+  },
+  {
+    "run": "grammar-red",
+    "record": "raw/grammar-red/result.json",
+    "record_sha256": "af3fdf581420a6b2cf1619689a337158fb12255a3c55a0c6cc7f96bb627c0141",
+    "pid": 51124,
+    "exit_code": 1,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.375
+  },
+  {
+    "run": "grammar-red-corrected",
+    "record": "raw/grammar-red-corrected/result.json",
+    "record_sha256": "354a352eff82447a773d0ea60b895bab205534def4e5530b238754a15ebc0f20",
+    "pid": 53456,
+    "exit_code": 1,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.26600000000325963
+  },
+  {
+    "run": "grammar-state-final",
+    "record": "raw/grammar-state-final/result.json",
+    "record_sha256": "4e18bf48bd1e24e8137baa3bd40091c6b2b64329885ff9a6256fcbd3f452e9ab",
+    "pid": 3160,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.25
+  },
+  {
+    "run": "numeric-final",
+    "record": "raw/numeric-final/result.json",
+    "record_sha256": "569c3448e55bebfee2bd4b04f88e8ef4d4ddc2442b7277d00efaea977787af21",
+    "pid": 44216,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 4.342999999993481
+  },
+  {
+    "run": "prepare",
+    "record": "raw/prepare/result.json",
+    "record_sha256": "1cc5f63355633e79eae27fe4b7ece299910df97f21c379b5d2bbde9ffb4506d3",
+    "pid": 46928,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.3120000000053551
+  },
+  {
+    "run": "reader-final",
+    "record": "raw/reader-final/result.json",
+    "record_sha256": "9c50ed3822383e3d66e036dffe212df75c8c4549f3c60ca427ac862dd39a2360",
+    "pid": 27856,
+    "exit_code": 0,
+    "terminal": true,
+    "script_errors": false,
+    "elapsed_seconds": 0.7349999999860302
+  }
+]

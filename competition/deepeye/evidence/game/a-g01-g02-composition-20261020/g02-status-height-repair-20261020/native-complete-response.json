@@ -1,0 +1,25 @@
+{
+  "job_id": "child-eeef333aae7e40aeb9835ac9a822213f",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-G02-STATUS-HEIGHT-REPAIR-20261020-v1",
+  "ownership": [
+    ".local/deepeye-implementation-a/competition/deepeye/simulator/tests/test_g02_ui_fit.gd",
+    ".local/deepeye-implementation-a/competition/deepeye/simulator/ui/shell.gd",
+    ".planning/deepeye-resume-20261018/g02-status-height-repair-20261020"
+  ],
+  "native_agent_id": "/root/g02_status_height_repair_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "Completed assigned bounded status-height repair candidate; pending responsible main independent review and acceptance.\nTask DEEPEYE-IMPLEMENTATION-20261014/v1; job child-eeef333aae7e40aeb9835ac9a822213f; agent /root/g02_status_height_repair_20261020.\nContract DEEPEYE-HUMAN-LOCK-20261014/revision1 H01-H15 preserved, canonical requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804. All 29 formal cards remain not_run.\n\nCandidate SHA256:\nui/shell.gd bf61c548fec75793773606e9203666efa0acdf497ecce67535ca9d7d1255bbcc\ntests/test_g02_ui_fit.gd 2c95090dceb98518c331dbb803f1bd1bb4e9d438439b58173e2bee78aa857db4\nproject.godot unchanged f713d8279b16a9710cc9a2a892a54c620a64dbeb36179fa4ac4cd3c7651d26f2\nIndependent probe unchanged 964ad14344b9c111eb1a2ac2c00a7f5aafc6b362dd00d1f7e53f6159fa797623\n\nFinal candidate focused 266/0 exit 0, unchanged independent probe 15/0 exit 0, unchanged editor regression 696/0 exit 0, unchanged persistence regression 618/0 exit 0, headless scene smoke exit 0. Final import engine exit 0; wrapper exit 1 for new staged probe UID only. All existing stage source and PRODUCT bytes unchanged during that import. See preserved-execution-notes.md for all failures and exact provenance limits.\nSame unchanged independent probe RED 15/1 exit 1 at 57.702546% central area, GREEN 15/0 exit 0 at 60.897377% central area. Final max/normal/multiline status keeps bottom 110 px, visible status 24 px / 1 line; 1080p 60.897377%, 1440p 70.203993%, 720p 43.727431% positive only. Full diagnostic text retained and reversible escaped/wrapped tooltip access; synthetic 512-CJK tooltip 736x254 contained at all 3 sizes. Startup NUL diagnostics remain unresolved; no clean stderr claim.\nOnly assigned source/test changed; all 15 other original simulator files unchanged. All 21 engines terminated normally with no timeout/forced kill, exact before/after pins and actual engine exits recorded. No GUI, Run, board, services, credentials, Git mutation or external messages. findings.md, final-hashes.json, audit-after.json and process-termination.json contain evidence and limits; candidate/ freezes exact bytes.\n",
+    "native_agent_id": "/root/g02_status_height_repair_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T00:44:34.507574Z",
+  "updated_at": "2026-10-20T00:51:19.594064Z",
+  "duplicate": false
+}
