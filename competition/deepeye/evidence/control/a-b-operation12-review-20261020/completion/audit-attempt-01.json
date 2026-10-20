@@ -1,0 +1,8 @@
+{
+  "command": ".local/venv/Scripts/python.exe -B -X utf8 .planning/deepeye-resume-20261018/b-op12-review-completion-20261020/reconcile.py",
+  "exit_code": 1,
+  "reported_error": "AssertionError: author summary",
+  "evidence_layer": "tool-returned exit and traceback; raw stderr was not separately captured for this first attempt",
+  "root_cause": "New reconciliation script incorrectly compared the author's richer summary dictionary to a four-key dictionary. Actual cases=9, pass=9, fail=0, checks=90644277 match; seven other counters are also present.",
+  "repair_scope": "Only the new owned reconciliation script; compare the four intended keys and permit reuse of byte-identical immutable input indexes. Original source and review evidence unchanged. No simulator failure or rerun."
+}

@@ -1,0 +1,1799 @@
+{
+  "at_utc": "2026-10-19T17:41:51.989617+00:00",
+  "tested_head": "f7e95af8f8abae6d4a5312c08d99e095a7e5dec1",
+  "code_commit": "61141302a68c3085951721074abbfeec31bfcb3a",
+  "request_hash": "9951beb894c52fa1e9ec6ae6f487856125a9a91e7e91b8aae75c297b04420e56",
+  "tar_bytes": 32450442,
+  "tar_sha256": "20e8034ff74e5dc6dc7244a8ac4f8e641f2b66c0201bc6b1453a47bf21a38520",
+  "all_tar_members_safe": 2549,
+  "manifest_entries": 353,
+  "selected_files": 357,
+  "files": {
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/.gitattributes": {
+      "bytes": 9,
+      "sha256": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+      "git_blob": "625449502ba4b4d7c229c6ccee42e3ec41cc780c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/.gitignore": {
+      "bytes": 46,
+      "sha256": "b79346c589f1b063b3b1332803426aa830a8112689f18101490114071dfa66a9",
+      "git_blob": "199c48336c72c8b79924aea811be41c9b7d652d5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/LOCAL_RETENTION.json": {
+      "bytes": 129835,
+      "sha256": "9acd75d37b36dad8b39e353c8e1f90ef2b723239c1c30be48d1fee2be634b3d8",
+      "git_blob": "e3532c462a863419dc2c0a16c6daca87eabe12fc"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/README.md": {
+      "bytes": 5809,
+      "sha256": "93c9baf4fdeadc1761841476fc6ab3ca306088d13ab545db48fa91f6002654d5",
+      "git_blob": "fa760c9c52337b2bb188bc7f8c14eef11d9e0545"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/apwm_pass_probe.txt": {
+      "bytes": 21,
+      "sha256": "fd04edd772da86a42756eee446251688806aeef5e02b340d9dcb142100865d86",
+      "git_blob": "a5803b310003026fb8791a0224d136dbeb90854c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe10.txt": {
+      "bytes": 21,
+      "sha256": "605534c3a2951cbed3d877531efc876feab46977a4abfa40f013b07c30f51a59",
+      "git_blob": "c69e3af8154cb7278a602243d4d608e5f29f01d0"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe11.txt": {
+      "bytes": 19,
+      "sha256": "98522aa142984237e79d6f4b6b8a98d4b0deebe3075405e5b414f969a5e5d9c0",
+      "git_blob": "9e2e264b2f9b809216ad6bccc0cd671d9ff0be08"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe13.txt": {
+      "bytes": 27,
+      "sha256": "82833f4f26ac2345eab453e891db0ac0e0ccfc47c18d4f0d8caaaa5980653a75",
+      "git_blob": "4de9e0f07fd63769a500c818d1f7171b0f2a48a1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe14.txt": {
+      "bytes": 18,
+      "sha256": "6e67694e31f16a14bcd8bb2037c98d21f0aefd320a1ed254cca7ae0bea56d667",
+      "git_blob": "3d2704857c230875e03ec2886a0958328d0a945d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe15.txt": {
+      "bytes": 25,
+      "sha256": "9aa4e29daa0f5ff1c6f316c598a9f1f5f773cb5715cb5c476a7f665f7a907661",
+      "git_blob": "f51b70fb54c20ffde52378d5848946de8bc27f33"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe16.txt": {
+      "bytes": 27,
+      "sha256": "16e1d5eabc0bae915a253e1e96fdd827369631291ea64b4691314e8fb57f7f9e",
+      "git_blob": "4cc73728bab8f283f4341560c88f8dff101f7d3c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe17.sv": {
+      "bytes": 113,
+      "sha256": "784f1a064f89c6dcf42f40c2c9b68d73c60a4e02366a92d0a5f434ac3c6bae96",
+      "git_blob": "1d56f35ce05498e19a86f152b9b655d552193e8e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe3.txt": {
+      "bytes": 20,
+      "sha256": "a3255d8b1286d03b5bc610e9bc6051feade849f40452f1b89749d790ee089278",
+      "git_blob": "6089eca7643d3750ff8d20458f614c3c05c2b410"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe6.txt": {
+      "bytes": 19,
+      "sha256": "c42d27505ffb2a921604a19a4059ac3bfe119ed9850d58960d492a265a945a51",
+      "git_blob": "5dcc3fc272d6ceac68ffb0d8e648314299a8a34a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe8.txt": {
+      "bytes": 25,
+      "sha256": "0e169dcef97df7c61f9026c9d8d2cead5ff4c5969a12d4c71ed85ceba290277a",
+      "git_blob": "633dd0fbad4a596fa2e0b330265ed7144bb606b1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/display_probe9.txt": {
+      "bytes": 22,
+      "sha256": "fa07d5241655c72f1c465c3b42a283d9b9cade650927828291e48cb7f6abfda2",
+      "git_blob": "dc3683556751543cfc54b95bd260c3d0aef1d338"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/dollar_probe.txt": {
+      "bytes": 10,
+      "sha256": "9361ea9a5c8502bcb309575f726ced0184ad8a7bbf476556e6277c2659836660",
+      "git_blob": "b5a08860d92a7af709fda8e40885652c61e67e8a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/finish_probe.txt": {
+      "bytes": 105,
+      "sha256": "843c56a3a3e0f23eaa7a36fc7ae7a563da2ef5bcfb16cee92541ef29d9479a71",
+      "git_blob": "bd124c991eed933b7e6308c45499425d5504fe52"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/patch_probe.txt": {
+      "bytes": 6,
+      "sha256": "25be323556dad377abb57fe7ec8c4b99a6527f488dda28d0c9b686528659c909",
+      "git_blob": "da0c4eb8d9a48d171a33574b380752e183286751"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/percent_probe.txt": {
+      "bytes": 56,
+      "sha256": "0199a8fda40a1b9a0057961f9cae641fc484fa38932536a40843e5ade42cf255",
+      "git_blob": "aad61d7aabeafa753faaca65abace76cad5079f1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/quote_probe.txt": {
+      "bytes": 7,
+      "sha256": "4f2799acc5612773094500e06ebf3ee7edf336a7f842e2b47a7f557e662c2c8d",
+      "git_blob": "c60795a24a1a9172286e0065e9b5ade249b0adb8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/quote_probe3.txt": {
+      "bytes": 23,
+      "sha256": "8414636b492b70cb0e890ae4ce6276b6a1112b1fba16e2d44928589c62190cd0",
+      "git_blob": "e44ab6945fab6f4afaca3b518239a1df18594fe3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/AUTHOR_EVIDENCE_MANIFEST.json": {
+      "bytes": 7964,
+      "sha256": "fc9c508268f97e50188d1acabd6f74ac430f3db113650955e59916a8ea503f15",
+      "git_blob": "51d44c0363844bd504ad6ac5fb0bd6be503d5b5e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/RUN_STATUS.json": {
+      "bytes": 337,
+      "sha256": "7f3b5f5082401d38b72295115645c7ac943cb05ff5c955b877250394132d7ade",
+      "git_blob": "03f6464cd09ff70fe3117c4d80d7536fd0ffdeaf"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/SHA256SUMS.txt": {
+      "bytes": 4237,
+      "sha256": "3f474a21d6db3d7f187b3a2f40ab5ef2317866da8f8e833d10916f8ee668f7f1",
+      "git_blob": "652cb68ead6dd488dd42683f27628b92f5326f8e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/command_catalog.json": {
+      "bytes": 6476,
+      "sha256": "c3db36a2c1e256d9f40f518def1d759af3f0bca2cc06617985bd1fe420faedcb",
+      "git_blob": "4ef6f720c8c777b99221b3af33e00a3b8f9d4860"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/inputs/rtl/deepeye_atomic_pwm.sv": {
+      "bytes": 7842,
+      "sha256": "c7af3a96554d927e724e7cf2e41c460affe4e551eae4cb2bf41134335cd498d7",
+      "git_blob": "93d768457d8d778ad4c8ed5321399672681debc7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/inputs/runner/run_atomic_pwm.py": {
+      "bytes": 30387,
+      "sha256": "53cb84612ca8822a13e9d074d5cce22c2aa478e0286c657030937d218118fa01",
+      "git_blob": "f0ec9ce48749c5a4a78596c2322fec871b4152b3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/inputs/testbench/tb_atomic_pwm.sv": {
+      "bytes": 56951,
+      "sha256": "cf5cfb0155b2d31581c386971b0df098c4c9affaaad84fc3d7345e27bb0643ac",
+      "git_blob": "196d56a14aa5a4df9fdde042855a4ad13ba7f982"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/01_vlog_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/01_vlog_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/01_vlog_version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/02_vsim_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/02_vsim_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/02_vsim_version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/03_vlib_create_work.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/03_vlib_create_work.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/03_vlib_create_work.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/04_vlog_compile.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/04_vlog_compile.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/04_vlog_compile.stdout.txt": {
+      "bytes": 616,
+      "sha256": "bd5e7eeb6fbef8a9262be554670bae68f7962aa5f835e0fefd158e6dafda0d72",
+      "git_blob": "d3cc985fb2d338150ba4654a4ace8a3bffab6c36"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/05_vsim_main.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/05_vsim_main.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/logs/05_vsim_main.stdout.txt": {
+      "bytes": 2435,
+      "sha256": "b3a5cdbefda2f7967610086861377a601e688288124a7c9ca0f8828affbfa34c",
+      "git_blob": "f69847de68a50eeca869dac0013cd481b178add6"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/replay_events.log.txt": {
+      "bytes": 518305,
+      "sha256": "650b2cd668a33d40ffc84c54f49bcc8d7eec47ad9ff14e1d69959d3625a4e017",
+      "git_blob": "a279eb76a032f2f56042c0a5ca19ab978f5870d7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/runner_start.json": {
+      "bytes": 2359,
+      "sha256": "f21e0bac25972413d04f893afecb78f87e22cc6f5e8fc20a4f738d1589f2e6b8",
+      "git_blob": "72bfcf37d3c82dd7b2fde65b156a5a8ef3247e81"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/source_manifest.json": {
+      "bytes": 1178,
+      "sha256": "d15dfb2e3073bab72904323a3e0f21bdd18fee1f609b857b0ac59bd33f308a3d",
+      "git_blob": "3ecec7dd6fa2fd3f5f8e46edf1fa5bce84fda8e4"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/tool_discovery.json": {
+      "bytes": 716,
+      "sha256": "4b746254a3acee6e35c6425bd7a7b5a321be6a54217dc297fd67707154930b38",
+      "git_blob": "cc6cf5907beda4f9135c106d2ca1f5097b6f9dea"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/tool_versions.json": {
+      "bytes": 865,
+      "sha256": "30a97f92cb1b0328817a99de2c9de9f89fc5e1faa3041513369509d870d3d32a",
+      "git_blob": "0cfb416d9290f5c19695e03b585f3d5a4c194dd8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-a/transcript.txt": {
+      "bytes": 2383,
+      "sha256": "00eafe35fe6d896969097b657eb0f9895469a5518a4a56942b22f56e1586790c",
+      "git_blob": "de612b4c75e080ae58b299769c05eb48a5363578"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/AUTHOR_EVIDENCE_MANIFEST.json": {
+      "bytes": 7964,
+      "sha256": "af6f4967eabf6b1462d94bfce19c7af62166bf5a073de3ad9787b1096b44bc03",
+      "git_blob": "15bb75d78f5463fb29e46beef20b4f732caf6d2c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/RUN_STATUS.json": {
+      "bytes": 352,
+      "sha256": "b1cdd8987f994f9af619b0675309dbdacd31a1c61d0ef5f28fac139fa36c339d",
+      "git_blob": "b396ac693fa04e7d4cb403461282b1116e4b0ad7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/SHA256SUMS.txt": {
+      "bytes": 4237,
+      "sha256": "6da1f6c17419c9f21bbe2d4d522f8cd4368874b61074d835c5740edba78a5cfc",
+      "git_blob": "db19ba024574f67a6b3504194c712a556db6c9d8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/command_catalog.json": {
+      "bytes": 6476,
+      "sha256": "5e42c0eab0020771512bacfe80676d7d6494d74b1a78de528ea1cccb54eee124",
+      "git_blob": "4413979b4d76f56c4502f78609d2d2a0fc15e931"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/inputs/rtl/deepeye_atomic_pwm.sv": {
+      "bytes": 7842,
+      "sha256": "c7af3a96554d927e724e7cf2e41c460affe4e551eae4cb2bf41134335cd498d7",
+      "git_blob": "93d768457d8d778ad4c8ed5321399672681debc7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/inputs/runner/run_atomic_pwm.py": {
+      "bytes": 30393,
+      "sha256": "9857e6d3a19047f65463868c941942a5859ae8895fb00410a98384f7feda6f53",
+      "git_blob": "15e108030f0ade80d546f0c3e616da1c458fc876"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/inputs/testbench/tb_atomic_pwm.sv": {
+      "bytes": 56951,
+      "sha256": "cf5cfb0155b2d31581c386971b0df098c4c9affaaad84fc3d7345e27bb0643ac",
+      "git_blob": "196d56a14aa5a4df9fdde042855a4ad13ba7f982"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/01_vlog_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/01_vlog_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/01_vlog_version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/02_vsim_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/02_vsim_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/02_vsim_version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/03_vlib_create_work.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/03_vlib_create_work.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/03_vlib_create_work.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/04_vlog_compile.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/04_vlog_compile.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/04_vlog_compile.stdout.txt": {
+      "bytes": 616,
+      "sha256": "cc926e9cad36c766f3d1ac4c684a8917e10fe1602ae48e431369d117d0c11ad3",
+      "git_blob": "40ceefa4f33ce7b21270a470b4ff32548db894f5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/05_vsim_main.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/05_vsim_main.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/logs/05_vsim_main.stdout.txt": {
+      "bytes": 2435,
+      "sha256": "8ed6ba72f9d7086455eb520b8b212784055985a78ef7e0774ea1ccea9419bd55",
+      "git_blob": "b13378fc1145f5c654b00faab0c8f1afeaf4562a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/replay_events.log.txt": {
+      "bytes": 518305,
+      "sha256": "650b2cd668a33d40ffc84c54f49bcc8d7eec47ad9ff14e1d69959d3625a4e017",
+      "git_blob": "a279eb76a032f2f56042c0a5ca19ab978f5870d7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/runner_start.json": {
+      "bytes": 2359,
+      "sha256": "9258a4a7c65ca9d8df3bc5ba14367b66c409e08aae0d58b443009beeec8a2b9f",
+      "git_blob": "2e8cf32ae3a3bf8148730150d89d58ea2d48a5fe"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/source_manifest.json": {
+      "bytes": 1178,
+      "sha256": "5c76bc0c6962120876893764ff78956919e76259d38a5d5910e0414dc28951ca",
+      "git_blob": "a89ddbb0376b39310bed134158d2244d2d04fbf3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/tool_discovery.json": {
+      "bytes": 716,
+      "sha256": "108a1468ac8681b2e3a60164411a825478ea4aea96991a4cdeae20df999cfdfb",
+      "git_blob": "6fb72cf71aaa5ac22aeb99ad1ee02081f28fa301"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/tool_versions.json": {
+      "bytes": 865,
+      "sha256": "73f7f06239e500b8af3c22c785662032075f35263d6c782b6541e1e55c035eeb",
+      "git_blob": "8083d2a7b5238b9b53dc5e5dc101d33ade87a719"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-b/transcript.txt": {
+      "bytes": 2383,
+      "sha256": "d1284fa926076dfb2235945690ac2e6070a7db30c757bb081f8228d6bb83abfc",
+      "git_blob": "5eb1078a80adc33168edd38a4fda3e4214ee1a73"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/AUTHOR_EVIDENCE_MANIFEST.json": {
+      "bytes": 7964,
+      "sha256": "8e47a2cb1e302107213b48e4493bc37b4889c4d470e681cd9cc2f76efb9377d7",
+      "git_blob": "0779a7a6d16f240ebea8222ace63760c35877f4a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/RUN_STATUS.json": {
+      "bytes": 349,
+      "sha256": "8a51df294d0ba422dc83591b3a4be1bed1c99682b4af8666345f046340b2790d",
+      "git_blob": "aac28f4ed4eddafd9496c908ca92fc0a2fba8c01"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/SHA256SUMS.txt": {
+      "bytes": 4237,
+      "sha256": "6fe8ec1fe8448b26fd18b4337a993b7fb98f4f80771c36b290caf82ff92ab1e6",
+      "git_blob": "95fb9718b5c0d2e9b8d45631e7d54c2e431c62fb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/command_catalog.json": {
+      "bytes": 6474,
+      "sha256": "fae0ddc3bae0675f8b8b57ed9e3294c91f681424001f6ea34a1cea702f4c3f63",
+      "git_blob": "b48d7e364669cd896c423ef79ea84310040bcd7c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/inputs/rtl/deepeye_atomic_pwm.sv": {
+      "bytes": 7842,
+      "sha256": "c7af3a96554d927e724e7cf2e41c460affe4e551eae4cb2bf41134335cd498d7",
+      "git_blob": "93d768457d8d778ad4c8ed5321399672681debc7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/inputs/runner/run_atomic_pwm.py": {
+      "bytes": 30401,
+      "sha256": "f799fd0894f69a10cd4bfc0432a88bc8b5f65a91a03cbeda9f8bb6fabb3556bb",
+      "git_blob": "3d343a44b194e2d2471ae578ff170097426893e3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/inputs/testbench/tb_atomic_pwm.sv": {
+      "bytes": 56951,
+      "sha256": "cf5cfb0155b2d31581c386971b0df098c4c9affaaad84fc3d7345e27bb0643ac",
+      "git_blob": "196d56a14aa5a4df9fdde042855a4ad13ba7f982"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/01_vlog_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/01_vlog_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/01_vlog_version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/02_vsim_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/02_vsim_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/02_vsim_version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/03_vlib_create_work.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/03_vlib_create_work.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/03_vlib_create_work.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/04_vlog_compile.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/04_vlog_compile.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/04_vlog_compile.stdout.txt": {
+      "bytes": 616,
+      "sha256": "5d19240601fc686c4eb287dc6e91346a641caeeff977f643987d10ff5c31ba14",
+      "git_blob": "aaa0c78425e268f2a89e3695f3b192200d8c2c1a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/05_vsim_main.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/05_vsim_main.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/logs/05_vsim_main.stdout.txt": {
+      "bytes": 2435,
+      "sha256": "ac4406a7259f3e01235cbe204beebb211b1ed80424963f9f5e92b476b9103981",
+      "git_blob": "6fb5021151b448c3af8695b9f2ccef2688daab09"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/replay_events.log.txt": {
+      "bytes": 518305,
+      "sha256": "650b2cd668a33d40ffc84c54f49bcc8d7eec47ad9ff14e1d69959d3625a4e017",
+      "git_blob": "a279eb76a032f2f56042c0a5ca19ab978f5870d7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/runner_start.json": {
+      "bytes": 2359,
+      "sha256": "b063841d05461fc026fb3ac1b929552a249f5ce7bd5ceacc4ba6d675d273d586",
+      "git_blob": "7d6a648fd3d0e132f7bc917cdd8f28e27e41bea9"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/source_manifest.json": {
+      "bytes": 1178,
+      "sha256": "3fd03c6aa45f3dbe2d7eecd7669e7be459bd151b4c438c34e117e6fee90c78a4",
+      "git_blob": "7dce09424893d81b8e2131f841ad3a4ac2e779eb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/tool_discovery.json": {
+      "bytes": 716,
+      "sha256": "3864fbc607de1aaf4d7396924cba98ca958ff0f32368f74d56173c622ce9cedb",
+      "git_blob": "484198aff3fd32fe9632640ac43132e48c5a37fb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/tool_versions.json": {
+      "bytes": 865,
+      "sha256": "130d5b1c7e4513bc93ee091636ce9b1de47fd6ea842a70e58724e3c1713033d7",
+      "git_blob": "091c485bc560187dfad3f9424ac075e11bcd9f78"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-c/transcript.txt": {
+      "bytes": 2383,
+      "sha256": "dfb1cf4013d751552c18488764b5e42a529e1bd482c491bc4e088641a874c466",
+      "git_blob": "2aaf51955d0eae69457a6306ea5388fda11abd03"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/AUTHOR_EVIDENCE_MANIFEST.json": {
+      "bytes": 14980,
+      "sha256": "9dc0dbd1e46d2d11045a21a2562ba2ece9a86b9f44d8a8db85bc50fae9bcca74",
+      "git_blob": "216ed5e78ebdf2abae582d3a2d3947dc0a7c0339"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/RUN_STATUS.json": {
+      "bytes": 253,
+      "sha256": "a4e9b40abc717aa4bb16ac527e62994ed0c6f8c4e0ff4e93dcafee68968fd6de",
+      "git_blob": "dd0a8d286f28b96374d10618ff80b051e68d1465"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/SHA256SUMS.txt": {
+      "bytes": 8216,
+      "sha256": "2a972d8cd5bb84e13a547724f4fa95b43aa36b2d2889e8fae085d5985c26bd5d",
+      "git_blob": "ad2a8c7b3a97789a57283ea5439d5209398437f7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/command_catalog.json": {
+      "bytes": 12324,
+      "sha256": "33c1c3696e0a59409007d81188ecd249dcdfc082cb9ebd63eb5617d814534cff",
+      "git_blob": "1e09823e1bcc2fe2ba7dfd4393651295927e42ab"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/inputs/rtl/deepeye_atomic_pwm.sv": {
+      "bytes": 7842,
+      "sha256": "c7af3a96554d927e724e7cf2e41c460affe4e551eae4cb2bf41134335cd498d7",
+      "git_blob": "93d768457d8d778ad4c8ed5321399672681debc7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/inputs/runner/run_atomic_pwm.py": {
+      "bytes": 31306,
+      "sha256": "864e7bb6a471db36534757f938697bc28601ba867582a0506855f0123485f4b5",
+      "git_blob": "8ef158fb5586dda0191a7ff38b6d6cddbc28a2c6"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/inputs/testbench/tb_atomic_pwm.sv": {
+      "bytes": 57075,
+      "sha256": "fb54036dfa496fab1bde085234708897798e68c2b526a39b95f0f7e0882d12c9",
+      "git_blob": "af84d17dead6159ae5b07b78ff9369517b4066fb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/01_vlog_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/01_vlog_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/01_vlog_version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/02_vsim_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/02_vsim_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/02_vsim_version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/03_vlib_create_work.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/03_vlib_create_work.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/03_vlib_create_work.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/04_vlog_compile.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/04_vlog_compile.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/04_vlog_compile.stdout.txt": {
+      "bytes": 616,
+      "sha256": "9627c620e56e77576ff84943defdbd16ca56c32a8ce96467d0006055fe485352",
+      "git_blob": "e5744bb274dfc8f435336cb6a135ad1c82f848d9"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/05_vsim_main.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/05_vsim_main.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/05_vsim_main.stdout.txt": {
+      "bytes": 2435,
+      "sha256": "93cd3e71f586e6bc115a12be2479b2f688897e058d705f005acb61a4b7e03bbd",
+      "git_blob": "2b3e74de51909e3a5d8af3f5a48c5a0acfe1da5f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.stdout.txt": {
+      "bytes": 1798,
+      "sha256": "36b5ea5ab44105049db6d41fe45baf99f2017cc96878106c2524770853537969",
+      "git_blob": "f0db81d138139ab35dd7877da6bf3e2408a6fb87"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.stdout.txt": {
+      "bytes": 1800,
+      "sha256": "55070beb41745defa666bc4a4a1b0b5e1c05cc70af8123364ffcaf2d5ceac6af",
+      "git_blob": "52386fff0ad86c07cdb3d6f66d232c87c8793581"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.stdout.txt": {
+      "bytes": 1798,
+      "sha256": "f09de2bd0c9dcae3c168fbc31647f7097b381bb3676aeee3970d2401fcecbfcd",
+      "git_blob": "ea52e2490161b52321916849c9db7d3d79845ec1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.stdout.txt": {
+      "bytes": 1800,
+      "sha256": "73f08956368cd064541d1f4c6e200bd5308c40ef45de603467707812f957a73e",
+      "git_blob": "795f05c90751fd04663a8aea0081456d0cfd7fe1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/parameter_guards.json": {
+      "bytes": 1891,
+      "sha256": "f97f6dace2a46123fafbde25b8dcf3fe7cf7d15af7c9427c65e00e7369733477",
+      "git_blob": "021a631c9b1308d7c0146786f804201134966da8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/replay_events.log.txt": {
+      "bytes": 518357,
+      "sha256": "8f1ca2c0b5d5b01a0b69ecf609da263c780e32449558aeb1aebd58127510cdfc",
+      "git_blob": "7ca90dff3e75e557612d8db0a0644cae5cf13b4c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/run_summary.json": {
+      "bytes": 8268,
+      "sha256": "60063a5efbc03138f623faf5d373440ed8ffd7f7dd08e711284eebf2abd59db6",
+      "git_blob": "a201226f566c34d010377254b678354ff14290e4"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/runner_start.json": {
+      "bytes": 2359,
+      "sha256": "1a8aa287916db7fefb4d10c25af02265822d7d0b54da2de7fc4107364c6d7fc1",
+      "git_blob": "22a174a695503636827a88e4b5387f495ad0829d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/source_manifest.json": {
+      "bytes": 1178,
+      "sha256": "a170423d7c3dcf74cf7f8177a6973dd97785c9ef56f5b132b46407fe1a212ce3",
+      "git_blob": "b1e581210c4e8684a9e4f98b1c697c4e9cd87a4c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/tool_discovery.json": {
+      "bytes": 716,
+      "sha256": "6d5ac6e02838ddba54e2b3a5852be3b7b02600b4677e5c51e65399c5e5eebf0d",
+      "git_blob": "129229af3a65da23801ad8d3f3c843fc0a2f81b2"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/tool_versions.json": {
+      "bytes": 865,
+      "sha256": "4c9687a90a18c804b982ad57d728a93df5049c995726ba73d85373bb41e1ec4a",
+      "git_blob": "5e1ef04b9afce61301d80f9c5b3feac2af3df2a2"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/run-author-20261020-12-d/transcript.txt": {
+      "bytes": 1748,
+      "sha256": "a622968940a40aec869544691db62000d5874950efb8d484fcc8277114768aef",
+      "git_blob": "e423e1956cfaf779d2e1990af81e65112e4d935a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/runner_negative_controls-1.txt": {
+      "bytes": 2313,
+      "sha256": "e3df2b660c3d5943f13041e4baf10807d7bd0261aac1f24e291d061693699d18",
+      "git_blob": "a8e8641a920b8a6fed8c59fe692199426df17a8e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/author/string_probe.sv": {
+      "bytes": 216,
+      "sha256": "90de1b949c39eb2b46345b3a5427413cf9075850190296a4f56810536d60d311",
+      "git_blob": "3aea7434b8f4fde05a7fff30e2fca45c3c456d50"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/ACCEPTANCE.json": {
+      "bytes": 3264,
+      "sha256": "27e222732e0ed49f0b6831d0badecfb1fe3507e81536d0d00452505038221e78",
+      "git_blob": "f1f883e2e98e1de2f8ea3e224ddc4a0eff09bfc5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/AUTHOR_EVIDENCE_MANIFEST.json": {
+      "bytes": 14980,
+      "sha256": "491e7fa65ef7b0052e8b1a109144ca1fbda14f8077cb3b362e16089d46d09ccd",
+      "git_blob": "84d8dca2bc7b96ee2f4d08fbcbb24f62062828b1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/RUN_STATUS.json": {
+      "bytes": 253,
+      "sha256": "18c3307314b1c0be0e414711ebdfffd5f977d07b10c2dc388e1711540208238f",
+      "git_blob": "44c657f7560929c5e760b9c66ccc3a06bfb70d6f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/SHA256SUMS.txt": {
+      "bytes": 8216,
+      "sha256": "08a1cf321ea600a2d2b15ed73db3d44ac5f25715be43d747b92d2f2dc9b20e38",
+      "git_blob": "f40972961c2b440baf853112ca2b377c0124e093"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/command_catalog.json": {
+      "bytes": 12223,
+      "sha256": "b54d00544352072bde2748d9a29524dfbaf22649e26f30ed2d192267954674d8",
+      "git_blob": "04be1e1c511fe275512206cb0801486d187523ed"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/inputs/rtl/deepeye_atomic_pwm.sv": {
+      "bytes": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/inputs/runner/run_atomic_pwm.py": {
+      "bytes": 31306,
+      "sha256": "864e7bb6a471db36534757f938697bc28601ba867582a0506855f0123485f4b5",
+      "git_blob": "8ef158fb5586dda0191a7ff38b6d6cddbc28a2c6"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/inputs/testbench/tb_atomic_pwm.sv": {
+      "bytes": 57075,
+      "sha256": "fb54036dfa496fab1bde085234708897798e68c2b526a39b95f0f7e0882d12c9",
+      "git_blob": "af84d17dead6159ae5b07b78ff9369517b4066fb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/01_vlog_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/01_vlog_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/01_vlog_version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/02_vsim_version.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/02_vsim_version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/02_vsim_version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/03_vlib_create_work.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/03_vlib_create_work.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/03_vlib_create_work.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/04_vlog_compile.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/04_vlog_compile.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/04_vlog_compile.stdout.txt": {
+      "bytes": 616,
+      "sha256": "03ef35381fb9ce3ee2377c9c432a04144fb96e94b5c2fd36c83549b15f6fab1d",
+      "git_blob": "f305f83df8c6bdfee4585b59fc25045f4c543979"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/05_vsim_main.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/05_vsim_main.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/05_vsim_main.stdout.txt": {
+      "bytes": 2435,
+      "sha256": "cc25241cfcea9386f7cf94d2ea3a4e63f8f54af62c1c7311e59f2c827e7dd497",
+      "git_blob": "080e027ffc7458deb41f01fcaf8156aa976f520c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/06_guard_invalid_COUNT_W_1_TAG_W_32.stdout.txt": {
+      "bytes": 1798,
+      "sha256": "c34ef40064e721eff0e07fe8fea66b775120a1a50d631069df435d28411500a9",
+      "git_blob": "f880d4f4a0c9175e2c830fa90c2982f0f80325d8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/07_guard_invalid_COUNT_W_33_TAG_W_32.stdout.txt": {
+      "bytes": 1800,
+      "sha256": "c215cf419273e5a8cc3d2e90e24a1ae68f56cadf57e8426d8574c3dea23d09fa",
+      "git_blob": "b3f32ed8595e8342dcd6f66e8fb150b042d5a128"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/08_guard_invalid_COUNT_W_32_TAG_W_0.stdout.txt": {
+      "bytes": 1798,
+      "sha256": "d72c228b1df73ad4fbdfd839c991f1339efac3e6dcfe3640e77c85f3ac018d78",
+      "git_blob": "b9e4b1b609a2d0d590f1de89b88f9ab083cfdae2"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.exit_code.txt": {
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "git_blob": "18748286e5b8b4de5db905f87cdfed1a7d48fe60"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/logs/09_guard_invalid_COUNT_W_32_TAG_W_65.stdout.txt": {
+      "bytes": 1800,
+      "sha256": "70029793093fc9012c479e56199d0082f908db09f1950f416972e2f02f090540",
+      "git_blob": "db7f7cf48b7834695371253ccff33359f3ad07fc"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/parameter_guards.json": {
+      "bytes": 1891,
+      "sha256": "455ecd73bf31f0e5622174e3b765dd5009188841252422a4380a589605037c35",
+      "git_blob": "0bc00ae6b850ffe0e6352fb3bbd236e2028af555"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/replay_events.log.txt": {
+      "bytes": 518357,
+      "sha256": "8f1ca2c0b5d5b01a0b69ecf609da263c780e32449558aeb1aebd58127510cdfc",
+      "git_blob": "7ca90dff3e75e557612d8db0a0644cae5cf13b4c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/run_summary.json": {
+      "bytes": 8268,
+      "sha256": "2c253767757af02084abc6c787f0e5aa923976c62f326cfcdc1c087f28f7ca73",
+      "git_blob": "06f3dcb82212cbdcd3b273adec7e501c5c763a57"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/runner_start.json": {
+      "bytes": 2346,
+      "sha256": "9112e16c37c2805bcc457e340a017212a63fab69ca7449fddf17484aa7313b0a",
+      "git_blob": "44a879367e219387d170a5fe16a86e981c3aede7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/source_manifest.json": {
+      "bytes": 1178,
+      "sha256": "a61eaebb0d756fa07c2a1e8e98556aae29ecd20feae523cbd84ac41589831feb",
+      "git_blob": "76f91becc9d91e5802053d7273aec7c37581f143"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/tool_discovery.json": {
+      "bytes": 716,
+      "sha256": "78910d6285bac3368787087e879b059b097048242b47223343e6fb3fb6f92a9f",
+      "git_blob": "5f746af137e65fcb2c244d6a839ad7a701e984da"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/tool_versions.json": {
+      "bytes": 865,
+      "sha256": "fe0f42639dd45c5f3e61b79a73fda2a5f261247965439843c0856e3b38016361",
+      "git_blob": "c02b87eb92763a3b650e61cf61fe1660f51bf305"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author-rerun-01/transcript.txt": {
+      "bytes": 1748,
+      "sha256": "aed66ab395017648fbc97ffc9db3bb345f13d7b98be1f55f025ca406c9ebc6f9",
+      "git_blob": "3199f0d1acd5ac12ebb7bce45c9275fe398ac784"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author_audit.json": {
+      "bytes": 16210,
+      "sha256": "d468b3a039572ada9a6714b6772bd52859a310736ae8ad93f27d6a957372457d",
+      "git_blob": "ab6536116cefdfc6977e3c6f580ba544ccdf560c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author_final/atomic_pwm_candidate.md": {
+      "bytes": 10008,
+      "sha256": "dc70bf987db1080d21af4293b11d48f600fe4c617748cb13ecbad96a4cf10635",
+      "git_blob": "e07d5ac190461c60ea74015673d0cf29d21e0e41"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author_final/deepeye_atomic_pwm.sv": {
+      "bytes": 7842,
+      "sha256": "c7af3a96554d927e724e7cf2e41c460affe4e551eae4cb2bf41134335cd498d7",
+      "git_blob": "93d768457d8d778ad4c8ed5321399672681debc7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author_final/run_atomic_pwm.py": {
+      "bytes": 31306,
+      "sha256": "864e7bb6a471db36534757f938697bc28601ba867582a0506855f0123485f4b5",
+      "git_blob": "8ef158fb5586dda0191a7ff38b6d6cddbc28a2c6"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/author_final/tb_atomic_pwm.sv": {
+      "bytes": 57075,
+      "sha256": "fb54036dfa496fab1bde085234708897798e68c2b526a39b95f0f7e0882d12c9",
+      "git_blob": "af84d17dead6159ae5b07b78ff9369517b4066fb"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/G05_SOURCE_CLARIFICATION.json": {
+      "bytes": 1257,
+      "sha256": "bf967e3e6c09cb20e7f6827dab38fb9b207b6d750e05f98262a0c5b3f5a07128",
+      "git_blob": "45cc586f5a48754e8a5b5bd24103b3273f3810a9"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/REVIEW_CONSUMED.json": {
+      "bytes": 1373,
+      "sha256": "d0d5fb58348429466c203d3c36f176f502bc17e615c0b8071199276e392870eb",
+      "git_blob": "6b568694412fb488690106c883370b0fb98f111f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/SCOPE.md": {
+      "bytes": 10016,
+      "sha256": "04851894139aebc6c6c0a740d9e1d8d6a732333da98f7da3f6a2ed635c3bb87c",
+      "git_blob": "2bf2f4e699b50949d73edd8cf03f4829c698c0fa"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/TOOL_VERSIONS.json": {
+      "bytes": 909,
+      "sha256": "b9d079686f3a4ccf334c10a15c7fe39bba214ea7c8e8024ca547921d23ef312b",
+      "git_blob": "1180c7dedca777cbc1ef0884bcef14d0e881d4d4"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/input_manifest.json": {
+      "bytes": 1009,
+      "sha256": "c387789b1cc597cde125152f2df33c476e30c5a63e84d60da11fb65fbc839184",
+      "git_blob": "08a3a62412a0b8c271708928c87aa3eabfed6fe0"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/preflight.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/inputs/preflight.stdout.txt": {
+      "bytes": 191,
+      "sha256": "5d2d81a287ab88c887192369f46afeaee33b63e48b8aec8421accf0b280be73a",
+      "git_blob": "3f2b55f7c0568a83d45a04e1e212ae2bdfd6e4b7"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/long_fixture_boundary.md": {
+      "bytes": 969,
+      "sha256": "5ff1e5695ec05d94ad23a85d5eafb6aa86eee6b49ad920bf9bff846babad7b5c",
+      "git_blob": "858e6f11c060de1dc24fa1ead5fdb606366ba155"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/pitch_from_yaw.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/pitch_from_yaw.stdout.txt": {
+      "bytes": 3388,
+      "sha256": "a3c185750986a233aabb5da8d75f7ec15370faa9579c996a54ad041f4f9f0c64",
+      "git_blob": "23dcef8cdbf301ece0b25d900ef1137b565fe650"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/pitch_from_yaw.sv": {
+      "bytes": 7981,
+      "sha256": "b0d89c1ae1b81d91ad6ddb06f41ca9459004e76c9b138a6fd4bba8df97f64395",
+      "git_blob": "c12cde352d0ed34951ce976d6950eb2981fcf6a1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/stop_ignored.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/stop_ignored.stdout.txt": {
+      "bytes": 3376,
+      "sha256": "0e800092dc03688fc4f9f5b522472b1a5d4a908cfc36b6c5e5e127afa3ab8031",
+      "git_blob": "455d0d10f5fbbd1aaa5e54fd1f86621b528d945e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/mutations/stop_ignored.sv": {
+      "bytes": 7975,
+      "sha256": "ef7e14d5ab26813bdcdb29c26066ee75c85b16b697ee246206e4e45b2ec38486",
+      "git_blob": "ea6bd97317cbe5ef8c4bcba88b33b6910ffa4e4b"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/dut.sv": {
+      "bytes": 7981,
+      "sha256": "b0d89c1ae1b81d91ad6ddb06f41ca9459004e76c9b138a6fd4bba8df97f64395",
+      "git_blob": "c12cde352d0ed34951ce976d6950eb2981fcf6a1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/result.json": {
+      "bytes": 4057,
+      "sha256": "1a60e09e7880c1cf3471a40623ffde4d652f8883f65523d28fcbb988a885a7aa",
+      "git_blob": "ca2e876f0689a806df4fd7c72145baf1fb67f2ae"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/runner.py": {
+      "bytes": 10008,
+      "sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+      "git_blob": "73f556932eb243feb11dd6519ba4a99898da4f7e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/tb.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/transcript.txt": {
+      "bytes": 1280,
+      "sha256": "9486e3aa850e3dc0a2aa9d6d051cb2492cef5307ed93b1fb80be084fca8e3159",
+      "git_blob": "6a28d016bfeb52fd06a7b3d00f20b956a56e8434"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlib.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlib.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlog-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlog-version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlog.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vlog.stdout.txt": {
+      "bytes": 420,
+      "sha256": "0aea696bc2b1532d62f9e4c0535ba3555bb5e05a674786bca54f039163488349",
+      "git_blob": "06d0791a838f017df9d37de954701ce116a9a5f3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vsim-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/vsim-version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/w2_t1.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/w2_t1.ports.txt": {
+      "bytes": 3142,
+      "sha256": "b5e32585b1ca0f190c7a188add73e948d15c4d50a16f205d849e68ba068bc6d1",
+      "git_blob": "4dc5cd1d5c2c20a13c22366936236a22e0ce2643"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/w2_t1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/w2_t1.stdout.txt": {
+      "bytes": 1332,
+      "sha256": "ca1677df395e74922a2f3a809019aa4eeb962de1a29e3135c71953293196ba32",
+      "git_blob": "798efa242e9f266bcf56ef53e826d8d7688af5e3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-pitch_from_yaw/w2_t1.vectors.txt": {
+      "bytes": 309809,
+      "sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7",
+      "git_blob": "ad09bd2dbb8bb47c79b7ad869e4163224a0b3a62"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/dut.sv": {
+      "bytes": 7975,
+      "sha256": "ef7e14d5ab26813bdcdb29c26066ee75c85b16b697ee246206e4e45b2ec38486",
+      "git_blob": "ea6bd97317cbe5ef8c4bcba88b33b6910ffa4e4b"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/result.json": {
+      "bytes": 4045,
+      "sha256": "3ddf0283ff580b2f12f67747e8b61ccdcc1addf0cc372e6f7718dd044affa88c",
+      "git_blob": "10e48b1b85ecc811bd7e712afa7fdf1ed14cca16"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/runner.py": {
+      "bytes": 10008,
+      "sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+      "git_blob": "73f556932eb243feb11dd6519ba4a99898da4f7e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/tb.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/transcript.txt": {
+      "bytes": 1283,
+      "sha256": "2c6a92aa9f0666446486489594f3b1c140367ac1fcbe062fb79c7e56fec9d982",
+      "git_blob": "1baa90316f727cc2699025d3b386ca072b07232f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlib.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlib.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlog-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlog-version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlog.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vlog.stdout.txt": {
+      "bytes": 420,
+      "sha256": "0aea696bc2b1532d62f9e4c0535ba3555bb5e05a674786bca54f039163488349",
+      "git_blob": "06d0791a838f017df9d37de954701ce116a9a5f3"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vsim-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/vsim-version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/w2_t1.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/w2_t1.ports.txt": {
+      "bytes": 198082,
+      "sha256": "dc6d2d034cf0e7059010bc46516b7f2cff1b7d0f13baf7fc4c2de2eca414262b",
+      "git_blob": "23adea0130319948395074ddb2bd074277edc079"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/w2_t1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/w2_t1.stdout.txt": {
+      "bytes": 1335,
+      "sha256": "9480d160487735d1663414be8375555adfc5d35b4889c0ca38f8a49b6b5233be",
+      "git_blob": "f7b541765ab1b8a527d356486062de19e33b18e5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative-stop_ignored/w2_t1.vectors.txt": {
+      "bytes": 309809,
+      "sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7",
+      "git_blob": "ad09bd2dbb8bb47c79b7ad869e4163224a0b3a62"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/negative_controls.json": {
+      "bytes": 3647,
+      "sha256": "786eefb4132dbe7a8dc4f6be083078729518bcb260cf4d31de9512fc7e6a6857",
+      "git_blob": "d91f3f3b9d93fb4ed77b56a8d5d705333355d94b"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/oracle_frozen.json": {
+      "bytes": 1635,
+      "sha256": "e5ebe8febe30f57f26d0d56c51a444880a2551308ca4864b47f698b14183fa0d",
+      "git_blob": "6c64ff3109f643a08bd6e208cf74031e2bf6d64e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/preliminary_read.json": {
+      "bytes": 1300,
+      "sha256": "753e49009f71cfb6ad05290aa00a8e0a96351148261f8618eb73790c059b83ce",
+      "git_blob": "e9974c689dcb7fa6095b6e79cc419706fcd4311c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/dut.sv": {
+      "bytes": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/result.json": {
+      "bytes": 3954,
+      "sha256": "d6d94704bf890aa5c5df7effe333e7b4e098672676e5537a5790b548b921b193",
+      "git_blob": "225dc9df88ae5633572932de704b0b523a9d1bac"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/runner-before.py": {
+      "bytes": 10006,
+      "sha256": "e34e0bf9da8453eb3523756b4f4b60ca67daed637bc716636e7732ecfdf3d093",
+      "git_blob": "0aa2da8443fb2e1a65cfca7426dc3ecf0becfff4"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/tb.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/transcript.txt": {
+      "bytes": 1156,
+      "sha256": "1964e9367778a85162002bbe1de5742ecea1660781cf6ef8f4b286ed7297e447",
+      "git_blob": "7806e07347d5a9bae158a4eb98100b1798e3f176"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlib.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlib.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlog-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlog-version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlog.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vlog.stdout.txt": {
+      "bytes": 420,
+      "sha256": "4557738f017c14ec1d1891fad803b8635dcbb11c8415fb3070ef5633210c1821",
+      "git_blob": "794e3ef79c5b214ed51baea0846d558527fb4757"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vsim-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/vsim-version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/w2_t1.do": {
+      "bytes": 72,
+      "sha256": "721d595a617d24192827de2fabfc40f088fec0e61c453e2775c601c131368a6d",
+      "git_blob": "928a5b965463aa2ef2208e9f6192654ee88e3940"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/w2_t1.ports.txt": {
+      "bytes": 1716894,
+      "sha256": "2da7df7035c9386ba89e46b6c375d665d85de6427d9aa9bba052b4836ff744d1",
+      "git_blob": "12ca100f757ada34bdde2745107b57c9e9d6c5c5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/w2_t1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/w2_t1.stdout.txt": {
+      "bytes": 1208,
+      "sha256": "45e27f4b7699d0dd7675e5f6431a24ca9c0ec0e626f5b320b8c7a6366b85fcab",
+      "git_blob": "f38ae7a9291b53c679444b41166211643a30654d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-01/w2_t1.vectors.txt": {
+      "bytes": 316851,
+      "sha256": "8f73daebfcd4975b9ef5cbdc293bf264c1ab771a9b08d8cf3d55ba0eaca96e2b",
+      "git_blob": "d8113693b40e7cb37df2a13ccb838707ae05041d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/dut.sv": {
+      "bytes": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w1_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w1_t32.stdout.txt": {
+      "bytes": 1370,
+      "sha256": "c82cb4f111baf3181d4274340cbdaa6fa6505a7acc158cd08cef7e82e41822e8",
+      "git_blob": "1892550460ff2d174dcb4381078208b076d23a20"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w33_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w33_t32.stdout.txt": {
+      "bytes": 1373,
+      "sha256": "8e7163d94cb15aeb72f2f1ec31061be26221e6bfdead607e5d9a7b8843641139",
+      "git_blob": "1467482fca00b50fd4a63ccbd57f89a494d8779a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w3_t0.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w3_t0.stdout.txt": {
+      "bytes": 1367,
+      "sha256": "32e9c9e7b52f2bc0da2891f536ec3b42ccc6a3ace58ac6f30306792e2cead9f5",
+      "git_blob": "8fb64a4c163c30ad3d990e3ad5b107b7f12713a1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w3_t65.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/invalid_w3_t65.stdout.txt": {
+      "bytes": 1370,
+      "sha256": "853e9e1a951b6ec5f42d432072c71a2456510593d91bbf077af06a725e1cff8a",
+      "git_blob": "7fef9d08b74bc82be7c8da487c638d9362ade69a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/long.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/long.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/long.stdout.txt": {
+      "bytes": 1231,
+      "sha256": "e889b64499ad03927605b16cb102e0f6612bf3994965bf25bc549cd2f1f99eef",
+      "git_blob": "26b8f24cdc3a6bd00c1e1c2980280264a2aba60c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/result.json": {
+      "bytes": 10631,
+      "sha256": "8fcf39ac1593553b4c47674064e9746cb943ab7e58642bc97175105d5baaa935",
+      "git_blob": "a7b3380a7c3f6d7910b0e11c1a044224de8fdd6c"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/runner.py": {
+      "bytes": 10006,
+      "sha256": "74dd50ff0bc22c78cb8581f58c68fb9c026efc9691b3bfc3f7bb303623afc446",
+      "git_blob": "b528633d3472f49fa9ef8482c3a94f3b237abc4f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/tb.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/transcript.txt": {
+      "bytes": 1318,
+      "sha256": "78dcc9919ca03882003b9d356199be6cdd1762eb29a3b37ddef6c8eea27aff84",
+      "git_blob": "f07db12707ada4a79ac3337ba8ff3ca5cb29596d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlib.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlib.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlog-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlog-version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlog.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vlog.stdout.txt": {
+      "bytes": 420,
+      "sha256": "5411d372b147d749816f9b90761cb9288c22753c92e330711b61d5c98e1c4554",
+      "git_blob": "3edeb1f1cd738b45b7939c5406fa07f0c0ba05ed"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vsim-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/vsim-version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w2_t1.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w2_t1.ports.txt": {
+      "bytes": 1716894,
+      "sha256": "2da7df7035c9386ba89e46b6c375d665d85de6427d9aa9bba052b4836ff744d1",
+      "git_blob": "12ca100f757ada34bdde2745107b57c9e9d6c5c5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w2_t1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w2_t1.stdout.txt": {
+      "bytes": 1236,
+      "sha256": "99306f7210e15665964e6d760eb6f9bc1471b84219120c5070cc2113088ea64c",
+      "git_blob": "7264e77b2bcda647f69cc8d8bc62ac5a786539cc"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w2_t1.vectors.txt": {
+      "bytes": 316851,
+      "sha256": "8f73daebfcd4975b9ef5cbdc293bf264c1ab771a9b08d8cf3d55ba0eaca96e2b",
+      "git_blob": "d8113693b40e7cb37df2a13ccb838707ae05041d"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w32_t32.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w32_t32.ports.txt": {
+      "bytes": 3062660,
+      "sha256": "9a6ea46ebf2b07001385fcb8a17165b670cd4fc798ce04ad3393b5cddbcf5582",
+      "git_blob": "a16e6b504dbf08f39cd3227cd0a9b4ff836bba10"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w32_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w32_t32.stdout.txt": {
+      "bytes": 1250,
+      "sha256": "d03f3bf4ea640dc341b4e8ef50d5da0adfb9c02ed307c2472d4dac14f88e3bf5",
+      "git_blob": "a347e29f3da003718c2f8d03087cebe1b98848dc"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w32_t32.vectors.txt": {
+      "bytes": 804381,
+      "sha256": "c074b278cc3f5a3905c508f52b3892546189229199376715ae978aa59bcfc5c6",
+      "git_blob": "40494f4d714b3b77cc377e510dab007518ef201b"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w3_t64.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w3_t64.ports.txt": {
+      "bytes": 6506625,
+      "sha256": "e766b74117cff8715bd045174aad7565d54f32bc8cff322575f20a278ae52852",
+      "git_blob": "d5fd969e194b501b75eaab3dc0571d86b0f7665a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w3_t64.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w3_t64.stdout.txt": {
+      "bytes": 1244,
+      "sha256": "ca7f16a037ac2fdeb7beb95908951c4abe38df29681e808436154cd194ee530c",
+      "git_blob": "dd6d92cd21225334ec4cc90776b8981d6725aeaa"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-02/w3_t64.vectors.txt": {
+      "bytes": 1513021,
+      "sha256": "72bf89c287492b3eb1b6a3ae2d41d4cd40f18876cbb9ff1e83c5071be9940fc1",
+      "git_blob": "c0b7a3a668de52c2d66c064dc4bdb3b0c5d22215"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/dut.sv": {
+      "bytes": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w1_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w1_t32.stdout.txt": {
+      "bytes": 1370,
+      "sha256": "7cede3a46eece2541beb1f67f66685ddf707a1c212459b868a1d1ad0d40e880d",
+      "git_blob": "672756fac4dd0b3c9263ba855e475fc59f2f81d8"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w33_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w33_t32.stdout.txt": {
+      "bytes": 1373,
+      "sha256": "72026c4d677376362cecb61d93eeab09347c8f94f130b2e7be120db26a81618b",
+      "git_blob": "c5607002d909c89534736ebf563c21627dfd93d1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w3_t0.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w3_t0.stdout.txt": {
+      "bytes": 1367,
+      "sha256": "c7f6d429145bbcb8eeacf211e73161ec03cf6a5bb692dcfed8cc857f2f2ecedb",
+      "git_blob": "addba293346237de6364ca198aed1d4851406d28"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w3_t65.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/invalid_w3_t65.stdout.txt": {
+      "bytes": 1370,
+      "sha256": "595db7cb4b1cfed80f1941bfefb9faf8545974cc4aa14b50912579970e3f0c9e",
+      "git_blob": "58839bd8fabaa3967f03a6426db61255e3be8de5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/long.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/long.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/long.stdout.txt": {
+      "bytes": 1231,
+      "sha256": "5fb42f2285b562acb4eaedb4ba83b9dc0bdf96225a0c27e92ce84f1a5ec8fed9",
+      "git_blob": "13dbc3b713f825f975cbf5e570a4825d00e08b63"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/result.json": {
+      "bytes": 10631,
+      "sha256": "4d8c2633bc3486c4b30dd31982f29560bad100bc6f6a566852f6c2efb3a2fd71",
+      "git_blob": "02c7b6a1b1057dae3b86d4eb0f48f1b5ea3869a1"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/runner.py": {
+      "bytes": 10008,
+      "sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+      "git_blob": "73f556932eb243feb11dd6519ba4a99898da4f7e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/tb.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/transcript.txt": {
+      "bytes": 1318,
+      "sha256": "f8f1549865a745e2d6a7454b29d01bb6946091e2f2e1a6df3abbeef7e4d86b54",
+      "git_blob": "60f239a5a532c01b20d60f9cf75d54c7dbb36078"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlib.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlib.stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlog-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlog-version.stdout.txt": {
+      "bytes": 72,
+      "sha256": "450cbd4d529ae1b7171936b09c40fb69418692c325bfe1ccdb2f41e2be0da677",
+      "git_blob": "af5a057b95680fd79547f215031533ec3e7e102f"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlog.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vlog.stdout.txt": {
+      "bytes": 420,
+      "sha256": "063a1d848b547af88309c0756edc39e0a9b45c2575c736edb358fb5f8d104a54",
+      "git_blob": "c567f3c2ebf333957e74248d76d0b256c49ef97e"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vsim-version.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/vsim-version.stdout.txt": {
+      "bytes": 73,
+      "sha256": "68964a09257980c917b9d6d2da28be34ecc0ce9c4921777f689c9467703bad27",
+      "git_blob": "19c82f4c46c41229fbb5896b734ac0111f822427"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w2_t1.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w2_t1.ports.txt": {
+      "bytes": 1716894,
+      "sha256": "2da7df7035c9386ba89e46b6c375d665d85de6427d9aa9bba052b4836ff744d1",
+      "git_blob": "12ca100f757ada34bdde2745107b57c9e9d6c5c5"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w2_t1.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w2_t1.stdout.txt": {
+      "bytes": 1236,
+      "sha256": "4c54602aed5d9af942c3c53d81578612379f03b5f4f3d7b4ef0d4377891fe299",
+      "git_blob": "529d33e70bf85afd6b268097f96e50456e758ca9"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w2_t1.vectors.txt": {
+      "bytes": 309809,
+      "sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7",
+      "git_blob": "ad09bd2dbb8bb47c79b7ad869e4163224a0b3a62"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w32_t32.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w32_t32.ports.txt": {
+      "bytes": 3062660,
+      "sha256": "9a6ea46ebf2b07001385fcb8a17165b670cd4fc798ce04ad3393b5cddbcf5582",
+      "git_blob": "a16e6b504dbf08f39cd3227cd0a9b4ff836bba10"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w32_t32.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w32_t32.stdout.txt": {
+      "bytes": 1250,
+      "sha256": "5539bd3ef53b9b0475ef6ebe4af1d69c1c99856fc16dc0765c976ca451780905",
+      "git_blob": "480c11c577434d6fd9393b2ba04754c5ad84da91"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w32_t32.vectors.txt": {
+      "bytes": 791834,
+      "sha256": "a399c4d33ec1dd4cd3c1301d55d456ff3c9539dd3063606c792c7db48edceee7",
+      "git_blob": "12597d1cc7c73e1bae7ff4ee710307ca58844341"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w3_t64.do": {
+      "bytes": 48,
+      "sha256": "e3dee9285eee8d47c0097bed279bd20d280ae7d5f533a381c1f063c965f39c83",
+      "git_blob": "a258139cbd7f92e150022e931cc09fd869b46831"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w3_t64.ports.txt": {
+      "bytes": 6506625,
+      "sha256": "e766b74117cff8715bd045174aad7565d54f32bc8cff322575f20a278ae52852",
+      "git_blob": "d5fd969e194b501b75eaab3dc0571d86b0f7665a"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w3_t64.stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w3_t64.stdout.txt": {
+      "bytes": 1244,
+      "sha256": "d9be53e603f07b28da349297b04f9abc610d01ae0fdfe0c52ee1bd498b76d905",
+      "git_blob": "796e9c1a5896e93e4aa074bf93943928643b5563"
+    },
+    "competition/deepeye/evidence/control3d/pwm-atomic-20261020-12/main/run-03/w3_t64.vectors.txt": {
+      "bytes": 1486417,
+      "sha256": "1ffad1a5a2d8c65016c6a2aa05d915255d130112a90b9d0fcc6cd5c5445d7201",
+      "git_blob": "4638aea8b42d56e9eeafd5962a20ea23bfa860b1"
+    },
+    "competition/deepeye/fpga/control3d/atomic_pwm_candidate.md": {
+      "bytes": 10454,
+      "sha256": "b1d5f7d671b2f3c32ba980bd32fc4beec0611e0dbad3ae1853ff798177f0d3aa",
+      "git_blob": "5deebbd5d385eb1f9c34a223db5c3e9a2de83a7a"
+    },
+    "competition/deepeye/fpga/control3d/deepeye_atomic_pwm.sv": {
+      "bytes": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    "competition/deepeye/tests/rtl/control3d/main_tb_atomic_pwm.sv": {
+      "bytes": 4990,
+      "sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+      "git_blob": "bfd3d2877646a8f76725d6f1103bfb82e00627bd"
+    },
+    "competition/deepeye/tests/rtl/control3d/tb_atomic_pwm.sv": {
+      "bytes": 57075,
+      "sha256": "fb54036dfa496fab1bde085234708897798e68c2b526a39b95f0f7e0882d12c9",
+      "git_blob": "af84d17dead6159ae5b07b78ff9369517b4066fb"
+    },
+    "competition/deepeye/tools/control3d/main_verify_atomic_pwm.py": {
+      "bytes": 10008,
+      "sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+      "git_blob": "73f556932eb243feb11dd6519ba4a99898da4f7e"
+    },
+    "competition/deepeye/tools/control3d/run_atomic_pwm.py": {
+      "bytes": 31306,
+      "sha256": "864e7bb6a471db36534757f938697bc28601ba867582a0506855f0123485f4b5",
+      "git_blob": "8ef158fb5586dda0191a7ff38b6d6cddbc28a2c6"
+    },
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "git_blob": "190e46b7dee1dba49f0d92f9044a898931a7644b"
+    },
+    "docs/competition/deepeye-2026/immutable_scope.md": {
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "git_blob": "f744f507f5e972f77a07de7099bb381c1085961d"
+    },
+    "handoffs/b/B-DEEPEYE-PWM-ATOMIC-20261020-12/input.json": {
+      "bytes": 42887,
+      "sha256": "bb95b3a75cb348f21322e432410899b6c8908c698b8c4a2b58cb1c3babcc38e7",
+      "git_blob": "9c4c3794486f906eae0cb1b76afd1ed4ea7b384c"
+    },
+    "handoffs/b/B-DEEPEYE-PWM-ATOMIC-20261020-12/manifest.json": {
+      "bytes": 122501,
+      "sha256": "6d6de98ec58741efdd20110dba91ea3cff644ae59901413910fc654376b7cd04",
+      "git_blob": "986e8885ade7cf6e2d5a08a5a5bba2b0da5462ed"
+    }
+  },
+  "semantics": "Artifact byte identity only. No source, runner or simulation has yet been accepted or executed by this fetch."
+}

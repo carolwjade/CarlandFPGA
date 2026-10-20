@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "snapshot_root": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source",
+  "snapshot_aggregate_sha256": "63bc299b223c2bab97eaa063f98bb9b7dec86ea951ef94bc25557d02d3995c5f",
+  "selected_files": 357,
+  "manifest_entries": 353,
+  "selected_not_in_manifest": [
+    "docs/competition/deepeye-2026/immutable_scope.json",
+    "docs/competition/deepeye-2026/immutable_scope.md",
+    "handoffs/b/B-DEEPEYE-PWM-ATOMIC-20261020-12/input.json",
+    "handoffs/b/B-DEEPEYE-PWM-ATOMIC-20261020-12/manifest.json"
+  ],
+  "all_selected_size_sha256_git_blob_match": true,
+  "all_manifest_size_sha256_match": true,
+  "all_tar_members_safe": 2549,
+  "archive": {
+    "bytes": 32450442,
+    "sha256": "20e8034ff74e5dc6dc7244a8ac4f8e641f2b66c0201bc6b1453a47bf21a38520"
+  },
+  "artifact_integrity": {
+    "bytes": 105067,
+    "sha256": "64b8320644b3433d0a4113e4c161ae0c9bbc3a7ed0c047d5a1b631fd2da912c3"
+  },
+  "manifest_file": {
+    "bytes": 122501,
+    "sha256": "6d6de98ec58741efdd20110dba91ea3cff644ae59901413910fc654376b7cd04"
+  },
+  "input_file": {
+    "bytes": 42887,
+    "sha256": "bb95b3a75cb348f21322e432410899b6c8908c698b8c4a2b58cb1c3babcc38e7"
+  },
+  "request": {
+    "canonical_bytes": 1221,
+    "sha256": "9951beb894c52fa1e9ec6ae6f487856125a9a91e7e91b8aae75c297b04420e56"
+  },
+  "pins": {
+    "tested_head": "f7e95af8f8abae6d4a5312c08d99e095a7e5dec1",
+    "code_parent": "61141302a68c3085951721074abbfeec31bfcb3a",
+    "manifest_sha256": "6d6de98ec58741efdd20110dba91ea3cff644ae59901413910fc654376b7cd04",
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "requirement_ids": [
+      "H01",
+      "H02",
+      "H03",
+      "H04",
+      "H05",
+      "H06",
+      "H07",
+      "H08",
+      "H09",
+      "H10",
+      "H11",
+      "H12",
+      "H13",
+      "H14",
+      "H15"
+    ],
+    "historical_verifier_in_run03": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839"
+  },
+  "relevant_hashes": {
+    "rtl": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+    "main_tb": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+    "verifier": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+    "author_tb": "fb54036dfa496fab1bde085234708897798e68c2b526a39b95f0f7e0882d12c9",
+    "author_runner": "864e7bb6a471db36534757f938697bc28601ba867582a0506855f0123485f4b5",
+    "oracle": "e5ebe8febe30f57f26d0d56c51a444880a2551308ca4864b47f698b14183fa0d",
+    "candidate_note": "b1d5f7d671b2f3c32ba980bd32fc4beec0611e0dbad3ae1853ff798177f0d3aa"
+  },
+  "source_pycache_dirs": []
+}

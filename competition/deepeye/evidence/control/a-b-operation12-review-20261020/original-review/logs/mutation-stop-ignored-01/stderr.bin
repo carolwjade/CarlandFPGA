@@ -1,0 +1,2 @@
+COMPAT_VSIM ['C:\\modeltech64_2020.4\\win64\\vsim.exe', '-batch', '-syncio', '-version']
+COMPAT_VSIM ['C:\\modeltech64_2020.4\\win64\\vsim.exe', '-batch', '-syncio', 'work.main_tb_atomic_pwm', '-gCOUNT_W=2', '-gTAG_W=1', '+VECTORS=w2_t1.vectors.txt', '+TRACE=w2_t1.ports.txt', '-do', 'w2_t1.do']

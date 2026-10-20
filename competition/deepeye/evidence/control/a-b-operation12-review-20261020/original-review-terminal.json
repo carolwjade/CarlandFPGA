@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-10-20T00:06:00.422936+00:00",
+  "result": [
+    {
+      "job_id": "child-5345bee33b45490bbc0c070bd3473a41",
+      "instance_id": "deepseek-a-28",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "route": "deepseek",
+      "work_id": "A-B-PWM-ATOMIC-REVIEW-20261020-v1",
+      "ownership": [
+        ".planning/deepeye-resume-20261018/b-pr30-followup-20261020/review"
+      ],
+      "native_agent_id": null,
+      "status": "failed",
+      "terminal": true,
+      "stale": false,
+      "result": null,
+      "error": "TimeoutError: ",
+      "created_at": "2026-10-19T17:43:14.493387Z",
+      "updated_at": "2026-10-20T00:06:00.410054Z"
+    }
+  ]
+}

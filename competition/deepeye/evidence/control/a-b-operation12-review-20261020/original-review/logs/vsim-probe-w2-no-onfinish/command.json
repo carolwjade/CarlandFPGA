@@ -1,0 +1,37 @@
+{
+  "label": "vsim-probe-w2-no-onfinish",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-c",
+    "work.main_tb_atomic_pwm",
+    "-gCOUNT_W=2",
+    "-gTAG_W=1",
+    "+VECTORS=R:\\main-run-03\\w2_t1.vectors.txt",
+    "+TRACE=probe.ports.txt",
+    "-do",
+    "run -all; quit -code 0"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work\\vlog-probe-R",
+  "started_utc": "2026-10-19T18:01:09.057739+00:00",
+  "finished_utc": "2026-10-19T18:01:12.240038+00:00",
+  "duration_s": 3.187,
+  "timed_out": false,
+  "exit_code": 0,
+  "stdout": {
+    "bytes": 632,
+    "sha256": "3073381c2301833e2b35b9b72b643eddff17ff2e44ca298d692435305597c70e"
+  },
+  "stderr": {
+    "bytes": 67,
+    "sha256": "16c0b42bc087e0dc98fe45fa085d32060994423969c7f28674e1163ac58634ff"
+  },
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONPYCACHEPREFIX": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\vsim-probe-w2-no-onfinish\\pycache",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\vsim-probe-w2-no-onfinish",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\vsim-probe-w2-no-onfinish"
+  },
+  "removed_pythonpath": null
+}
