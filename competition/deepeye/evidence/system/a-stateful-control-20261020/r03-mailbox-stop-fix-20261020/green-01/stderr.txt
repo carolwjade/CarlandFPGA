@@ -1,0 +1,98 @@
+test_age_cannot_be_renewed_by_late_completion (pinned_mailbox_tests.MailboxTests.test_age_cannot_be_renewed_by_late_completion) ... ok
+test_boot_digest_and_context_are_bound (pinned_mailbox_tests.MailboxTests.test_boot_digest_and_context_are_bound) ... ok
+test_bounded_session_retirement_and_observation_storage (pinned_mailbox_tests.MailboxTests.test_bounded_session_retirement_and_observation_storage) ... ok
+test_changed_epoch_mode_profile_same_session_never_reactivates (pinned_mailbox_tests.MailboxTests.test_changed_epoch_mode_profile_same_session_never_reactivates) ... ok
+test_clock_regression_and_bad_time_stop (pinned_mailbox_tests.MailboxTests.test_clock_regression_and_bad_time_stop) ... ok
+test_conflicting_duplicate_cannot_extend_deadline (pinned_mailbox_tests.MailboxTests.test_conflicting_duplicate_cannot_extend_deadline) ... ok
+test_correctly_shaped_stop_forms_both_modes (pinned_mailbox_tests.MailboxTests.test_correctly_shaped_stop_forms_both_modes) ... ok
+test_defensive_context_profile_and_snapshot (pinned_mailbox_tests.MailboxTests.test_defensive_context_profile_and_snapshot) ... ok
+test_different_candidates_cannot_consume_same_slot (pinned_mailbox_tests.MailboxTests.test_different_candidates_cannot_consume_same_slot) ... ok
+test_duplicate_observation_preserves_original_age_and_conflict_stops (pinned_mailbox_tests.MailboxTests.test_duplicate_observation_preserves_original_age_and_conflict_stops) ... ok
+test_exact_duplicate_after_consume_cannot_rearm (pinned_mailbox_tests.MailboxTests.test_exact_duplicate_after_consume_cannot_rearm) ... ok
+test_late_consume_preserves_candidate_until_next_legal_slot (pinned_mailbox_tests.MailboxTests.test_late_consume_preserves_candidate_until_next_legal_slot) ... ok
+test_later_arrival_of_older_observation_never_overwrites (pinned_mailbox_tests.MailboxTests.test_later_arrival_of_older_observation_never_overwrites) ... ok
+test_literal_fast_stress_timelines_both_modes (pinned_mailbox_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) ... ok
+test_malformed_stop_duplicate_reason_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_duplicate_reason_latches_both_modes) ... 
+  test_malformed_stop_duplicate_reason_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_duplicate_reason_latches_both_modes) (mode=2, shape='duplicate_reason') ... ERROR
+test_malformed_stop_excess_positional_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_excess_positional_latches_both_modes) ... 
+  test_malformed_stop_excess_positional_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_excess_positional_latches_both_modes) (mode=2, shape='too_many_positional') ... ERROR
+test_malformed_stop_unexpected_keyword_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_unexpected_keyword_latches_both_modes) ... 
+  test_malformed_stop_unexpected_keyword_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_unexpected_keyword_latches_both_modes) (mode=2, shape='unexpected_keyword') ... ERROR
+test_missing_wrong_generation_and_wrong_window_grants_preserve_pending (pinned_mailbox_tests.MailboxTests.test_missing_wrong_generation_and_wrong_window_grants_preserve_pending) ... ok
+test_new_session_retires_old_completion_context (pinned_mailbox_tests.MailboxTests.test_new_session_retires_old_completion_context) ... ok
+test_newer_observation_completion_replaces_pending (pinned_mailbox_tests.MailboxTests.test_newer_observation_completion_replaces_pending) ... ok
+test_observation_half_range_and_wrap_stop (pinned_mailbox_tests.MailboxTests.test_observation_half_range_and_wrap_stop) ... ok
+test_observation_mapping_must_remain_conservative (pinned_mailbox_tests.MailboxTests.test_observation_mapping_must_remain_conservative) ... ok
+test_older_valid_observation_among_four_is_usable_then_eviction_blocks (pinned_mailbox_tests.MailboxTests.test_older_valid_observation_among_four_is_usable_then_eviction_blocks) ... ok
+test_plan_does_not_consume_and_consume_requires_exact_slot (pinned_mailbox_tests.MailboxTests.test_plan_does_not_consume_and_consume_requires_exact_slot) ... ok
+test_retired_candidate_cannot_return_after_newer_consumption (pinned_mailbox_tests.MailboxTests.test_retired_candidate_cannot_return_after_newer_consumption) ... ok
+test_same_observation_higher_candidate_and_invocation_can_replace (pinned_mailbox_tests.MailboxTests.test_same_observation_higher_candidate_and_invocation_can_replace) ... ok
+test_selection_and_completion_are_immutable (pinned_mailbox_tests.MailboxTests.test_selection_and_completion_are_immutable) ... ok
+test_source_association_and_causal_completion_are_required (pinned_mailbox_tests.MailboxTests.test_source_association_and_causal_completion_are_required) ... ok
+test_stop_requires_fresh_activation_and_rejects_retired_session (pinned_mailbox_tests.MailboxTests.test_stop_requires_fresh_activation_and_rejects_retired_session) ... ok
+test_unknown_source_clock_bounds_or_sample_has_no_selection (pinned_mailbox_tests.MailboxTests.test_unknown_source_clock_bounds_or_sample_has_no_selection) ... ok
+
+======================================================================
+ERROR: test_malformed_stop_duplicate_reason_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_duplicate_reason_latches_both_modes) (mode=2, shape='duplicate_reason')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 37, in call
+    return method(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 156, in activate
+    raise ValueError('new session, matching full BOOT and supported mode required')
+ValueError: new session, matching full BOOT and supported mode required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\test_candidate_mailbox.py", line 289, in _check_stop_argument_binding
+    owner.activate(encode(fresh), generation=3, slot_origin_ns=0,
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 40, in call
+    raise ValueError(str(error)) from error
+ValueError: new session, matching full BOOT and supported mode required
+
+======================================================================
+ERROR: test_malformed_stop_excess_positional_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_excess_positional_latches_both_modes) (mode=2, shape='too_many_positional')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 37, in call
+    return method(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 156, in activate
+    raise ValueError('new session, matching full BOOT and supported mode required')
+ValueError: new session, matching full BOOT and supported mode required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\test_candidate_mailbox.py", line 289, in _check_stop_argument_binding
+    owner.activate(encode(fresh), generation=3, slot_origin_ns=0,
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 40, in call
+    raise ValueError(str(error)) from error
+ValueError: new session, matching full BOOT and supported mode required
+
+======================================================================
+ERROR: test_malformed_stop_unexpected_keyword_latches_both_modes (pinned_mailbox_tests.MailboxTests.test_malformed_stop_unexpected_keyword_latches_both_modes) (mode=2, shape='unexpected_keyword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 37, in call
+    return method(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 156, in activate
+    raise ValueError('new session, matching full BOOT and supported mode required')
+ValueError: new session, matching full BOOT and supported mode required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\test_candidate_mailbox.py", line 289, in _check_stop_argument_binding
+    owner.activate(encode(fresh), generation=3, slot_origin_ns=0,
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-stop-fix-20261020\mirror\integration\candidate_mailbox.py", line 40, in call
+    raise ValueError(str(error)) from error
+ValueError: new session, matching full BOOT and supported mode required
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.298s
+
+FAILED (errors=3)

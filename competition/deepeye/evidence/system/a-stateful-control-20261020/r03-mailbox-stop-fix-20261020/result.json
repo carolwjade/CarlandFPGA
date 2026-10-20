@@ -1,0 +1,80 @@
+{
+  "work_id": "A-R03-MAILBOX-STOP-FIX-20261020-v1",
+  "job_id": "child-4126792ead044c7da100414b353266f8",
+  "agent_id": "/root/r02_static_dependency_review_20261020",
+  "implementation_delta": "One @_entry decorator above stop; no body or lifecycle/clock/slot change",
+  "original_module_sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0",
+  "proposed_module_sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+  "original_test_sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af",
+  "proposed_test_sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82",
+  "vector_sha256_unchanged": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c",
+  "original_product_inputs_unchanged": 13,
+  "old_review_files_rechecked": 26,
+  "runs": [
+    {
+      "run": "red-01",
+      "exit_code": 1,
+      "tests": 30,
+      "failure_subcases": 6,
+      "errors": 0,
+      "seconds": 0.7189999999827705,
+      "source_snapshots": {
+        "candidate_mailbox.py": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0",
+        "test_candidate_mailbox.py": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+      },
+      "held_member_count": 3,
+      "all_held_signaled_and_job_empty": true
+    },
+    {
+      "run": "green-01",
+      "exit_code": 1,
+      "tests": 30,
+      "failure_subcases": 0,
+      "errors": 3,
+      "seconds": 0.6410000000032596,
+      "source_snapshots": {
+        "candidate_mailbox.py": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+        "test_candidate_mailbox.py": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+      },
+      "held_member_count": 3,
+      "all_held_signaled_and_job_empty": true
+    },
+    {
+      "run": "red-02",
+      "exit_code": 1,
+      "tests": 30,
+      "failure_subcases": 6,
+      "errors": 0,
+      "seconds": 0.625,
+      "source_snapshots": {
+        "candidate_mailbox.py": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0",
+        "test_candidate_mailbox.py": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+      },
+      "held_member_count": 3,
+      "all_held_signaled_and_job_empty": true
+    },
+    {
+      "run": "green-02",
+      "exit_code": 0,
+      "tests": 30,
+      "failure_subcases": 0,
+      "errors": 0,
+      "seconds": 0.6409999999741558,
+      "source_snapshots": {
+        "candidate_mailbox.py": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+        "test_candidate_mailbox.py": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+      },
+      "held_member_count": 3,
+      "all_held_signaled_and_job_empty": true
+    }
+  ],
+  "final_tests": 30,
+  "original_tests_retained": 26,
+  "new_test_methods": 4,
+  "malformed_stop_mode_shape_pairs": 6,
+  "product_modified": false,
+  "main_application": "pending independent review and main action",
+  "R03": "not_run",
+  "all29": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

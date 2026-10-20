@@ -1,0 +1,62 @@
+{
+  "work_id": "A-R03-MAILBOX-INDEPENDENT-20261020-v1",
+  "job_id": "child-2658fcebb6e94501aefddf919647e34e",
+  "agent_id": "/root/g03_controls_reference_review_20261020",
+  "review_outcome": "one reproducible defect submitted to main; main decides acceptance",
+  "findings": [
+    {
+      "id": "R03-MBIR-01",
+      "proposed_priority": "P2",
+      "path": "competition/deepeye/integration/candidate_mailbox.py",
+      "lines": [
+        315,
+        316
+      ],
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0",
+      "trigger": "stop(reason='emergency', unexpected=True)",
+      "actual": "TypeError; pending remains; subsequent exact-slot consume returns candidate1 in both modes",
+      "expected": "invalid public input latches STOP, no subsequent selection"
+    }
+  ],
+  "runs": {
+    "suite-01": {
+      "test_methods": 16,
+      "failing_subcases": 2,
+      "errors": 0,
+      "skips": 0,
+      "exit_code": 1,
+      "failure": "R03-MBIR-01",
+      "seconds": 0.6410000000032596,
+      "module_file_count": 187,
+      "all_processes_terminated": true,
+      "held_process_objects": 3,
+      "prohibited_attempts": []
+    },
+    "stop-callshape-01": {
+      "test_methods": 3,
+      "failing_subcases": 2,
+      "errors": 0,
+      "skips": 0,
+      "exit_code": 1,
+      "failure": "R03-MBIR-01",
+      "seconds": 0.3590000000258442,
+      "module_file_count": 187,
+      "all_processes_terminated": true,
+      "held_process_objects": 3,
+      "prohibited_attempts": []
+    }
+  },
+  "distinct_held_process_objects_signaled": 6,
+  "independent_saved_vector_calculations": 12,
+  "new_nanosecond_boundary_mode_cases": 24,
+  "all29": "not_run",
+  "R03": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "product_modified": false,
+  "author_modified": false,
+  "C_dirty_modified": false,
+  "full_suite_replayed": false,
+  "runtime_activated": false,
+  "physical_execution": false,
+  "credential_scan": "No private lease read; public serialization checked for token assignments."
+}

@@ -1,0 +1,88 @@
+--- original/test_candidate_mailbox.py
++++ proposed/test_candidate_mailbox.py
+@@ -246,4 +246,85 @@
+         self.assertIsNotNone(self.owner.consume(710*NS,grant=self.grant(1)))
+ 
+ 
++    def _check_stop_argument_binding(self, shape):
++        for topology in (1, 2):
++            with self.subTest(mode=topology, shape=shape):
++                owner = self.make(topology=topology)
++                self.observe(owner=owner)
++                old = self.completion()
++                self.assertTrue(owner.complete(old, now_ns=150*NS))
++                self.assertIsNotNone(owner.plan(150*NS, grant=self.grant()))
++                caught = None
++                try:
++                    if shape == 'unexpected_keyword':
++                        owner.stop(reason='emergency', unexpected=True)
++                    elif shape == 'too_many_positional':
++                        owner.stop('emergency', 'extra')
++                    else:
++                        owner.stop('emergency', reason='duplicate')
++                except (TypeError, ValueError) as error:
++                    caught = error
++                after = owner.snapshot()
++                selected = owner.consume(210*NS, grant=self.grant())
++                STOP_BINDING_TRACES.append({
++                    'mode': topology, 'shape': shape,
++                    'exception': None if caught is None else type(caught).__name__,
++                    'snapshot_after_call': after,
++                    'candidate_consumed_after_call': None if selected is None else selected.candidate_id,
++                })
++                self.assertTrue(after['stopped'], 'malformed STOP left activation live')
++                self.assertIsNone(after['pending_candidate_id'])
++                self.assertEqual(after['observation_count'], 0)
++                self.assertIsNone(selected)
++                self.assertIsInstance(caught, ValueError)
++                self.assertIsInstance(caught.__cause__, TypeError)
++                with self.assertRaises(ValueError):
++                    owner.activate(encode(self.ctx), generation=2, slot_origin_ns=0,
++                        source=self.source, clock_domain=self.clock_domain,
++                        bounds=mailbox.TransferBounds(10*NS, 5*NS), now_ns=220*NS)
++                self.assertTrue(owner.snapshot()['stopped'])
++                with self.assertRaises(ValueError):
++                    owner.complete(old, now_ns=221*NS)
++                fresh = dict(self.ctx, session=self.ctx['session']+1)
++                owner.activate(encode(fresh), generation=3, slot_origin_ns=0,
++                    source=self.source, clock_domain=self.clock_domain,
++                    bounds=mailbox.TransferBounds(10*NS, 5*NS), now_ns=230*NS)
++                self.ctx = fresh
++                self.observe(sample=230, owner=owner)
++                new = self.completion(candidate=2, dispatch=230, completed=250, generation=3)
++                self.assertTrue(owner.complete(new, now_ns=250*NS))
++                self.assertEqual(owner.plan(250*NS, grant=self.grant(1, 3)).slot_start_ns, 710*NS)
++                self.assertEqual(owner.consume(710*NS, grant=self.grant(1, 3)).candidate_raw, new.candidate_raw)
++                self.assertFalse(owner.snapshot()['stopped'])
++
++    def test_malformed_stop_unexpected_keyword_latches_both_modes(self):
++        self._check_stop_argument_binding('unexpected_keyword')
++
++    def test_malformed_stop_excess_positional_latches_both_modes(self):
++        self._check_stop_argument_binding('too_many_positional')
++
++    def test_malformed_stop_duplicate_reason_latches_both_modes(self):
++        self._check_stop_argument_binding('duplicate_reason')
++
++    def test_correctly_shaped_stop_forms_both_modes(self):
++        for topology in (1, 2):
++            for shape in ('default', 'positional', 'keyword'):
++                with self.subTest(mode=topology, shape=shape):
++                    owner = self.make(topology=topology)
++                    self.observe(owner=owner)
++                    owner.complete(self.completion(), now_ns=150*NS)
++                    if shape == 'default':
++                        owner.stop()
++                    elif shape == 'positional':
++                        owner.stop('operator')
++                    else:
++                        owner.stop(reason='operator')
++                    self.assertTrue(owner.snapshot()['stopped'])
++                    self.assertIsNone(owner.snapshot()['pending_candidate_id'])
++                    self.assertIsNone(owner.consume(210*NS, grant=self.grant()))
++
++
++STOP_BINDING_TRACES = []
++
++
+ if __name__=='__main__':unittest.main(verbosity=2)

@@ -1,0 +1,10 @@
+{
+  "exit_code": 1,
+  "phase": "byte delta verification after read-only manifest and terminal verification",
+  "failure": "Verifier guessed CRLF for the inserted decorator; exact source files both use LF only.",
+  "actual_delta_verified_read_only": "after == before.replace(stop_signature, LF decorator plus stop_signature)",
+  "created_test_files": false,
+  "tests_executed": false,
+  "product_modified": false,
+  "correction": "Use verified LF in exact-byte comparison; all remaining source equality remains strict."
+}

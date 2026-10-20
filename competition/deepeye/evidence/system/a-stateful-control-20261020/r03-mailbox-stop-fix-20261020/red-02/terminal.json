@@ -1,0 +1,63 @@
+{
+  "status": "failed",
+  "exit_code": 1,
+  "stop_reason": null,
+  "seconds": 0.625,
+  "launcher_pid": 45488,
+  "observed_job_pids": [
+    23172,
+    45488,
+    47072
+  ],
+  "all_processes_terminated": true,
+  "active_processes_final": 0,
+  "total_job_processes": 3,
+  "peak_job_memory_bytes": 26451968,
+  "peak_tree_bytes_observed": 641518,
+  "outputs": {
+    "stdout": {
+      "received_bytes": 311,
+      "persisted_bytes": 311
+    },
+    "stderr": {
+      "received_bytes": 10373,
+      "persisted_bytes": 10373
+    }
+  },
+  "faults": [],
+  "held_members": [
+    {
+      "pid": 45488,
+      "creation_filetime": 134369794474910818,
+      "wait_result": 0,
+      "signaled": true,
+      "exit_code": 1
+    },
+    {
+      "pid": 23172,
+      "creation_filetime": 134369794475021643,
+      "wait_result": 0,
+      "signaled": true,
+      "exit_code": 0
+    },
+    {
+      "pid": 47072,
+      "creation_filetime": 134369794475180022,
+      "wait_result": 0,
+      "signaled": true,
+      "exit_code": 1
+    }
+  ],
+  "absent_before_handle_open": [],
+  "empty_job_with_pending_handles": [],
+  "logs": {
+    "stdout": {
+      "sha256": "5c5d1244f27849ac065c5050f794b037a33136182672e738bcdb74cfa2f5c6b3",
+      "bytes": 311
+    },
+    "stderr": {
+      "sha256": "2640bf424d445e2d351c89a337778f795986a361f8be4f951225ae789fa32a06",
+      "bytes": 10373
+    }
+  }
+}

@@ -1,0 +1,311 @@
+test_accepted_applied_and_incomplete_quality_are_not_capture (__main__.HilTrackerTests.test_accepted_applied_and_incomplete_quality_are_not_capture) ... FAIL
+test_ack_state3d_current_codes_and_deadlines (__main__.HilTrackerTests.test_ack_state3d_current_codes_and_deadlines) ... FAIL
+test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers (__main__.HilTrackerTests.test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers) ... FAIL
+test_bounded_history_eviction_and_no_replay (__main__.HilTrackerTests.test_bounded_history_eviction_and_no_replay) ... FAIL
+test_callback_stop_failure_and_caught_reentry_cannot_publish (__main__.HilTrackerTests.test_callback_stop_failure_and_caught_reentry_cannot_publish) ... FAIL
+test_capture_sequence_wrap_refuses (__main__.HilTrackerTests.test_capture_sequence_wrap_refuses) ... FAIL
+test_changed_duplicate_and_out_of_order_response_stop (__main__.HilTrackerTests.test_changed_duplicate_and_out_of_order_response_stop) ... FAIL
+test_changed_payload_same_key_rejects_and_stops (__main__.HilTrackerTests.test_changed_payload_same_key_rejects_and_stops) ... FAIL
+test_clock_regression_first_send_and_future_receipt_refuse (__main__.HilTrackerTests.test_clock_regression_first_send_and_future_receipt_refuse) ... FAIL
+test_duplicate_response_receipt_does_not_renew (__main__.HilTrackerTests.test_duplicate_response_receipt_does_not_renew) ... FAIL
+test_expired_request_not_revived_by_new_observation (__main__.HilTrackerTests.test_expired_request_not_revived_by_new_observation) ... FAIL
+test_fault_rejected_stopped_revoke_current (__main__.HilTrackerTests.test_fault_rejected_stopped_revoke_current) ... FAIL
+test_first_lost_ack_late_retry_cannot_restart_twelve_seconds (__main__.HilTrackerTests.test_first_lost_ack_late_retry_cannot_restart_twelve_seconds) ... FAIL
+test_invalid_ttl_curvature_and_bad_crc (__main__.HilTrackerTests.test_invalid_ttl_curvature_and_bad_crc) ... FAIL
+test_literal_hand_derived_deadlines (__main__.HilTrackerTests.test_literal_hand_derived_deadlines) ... FAIL
+test_missing_timing_capture_and_nonnull_hashes_are_not_verification (__main__.HilTrackerTests.test_missing_timing_capture_and_nonnull_hashes_are_not_verification) ... FAIL
+test_new_boot_cannot_reuse_retired_session_and_old_capture (__main__.HilTrackerTests.test_new_boot_cannot_reuse_retired_session_and_old_capture) ... FAIL
+test_no_default_verifier_or_pc_direct_capture (__main__.HilTrackerTests.test_no_default_verifier_or_pc_direct_capture) ... FAIL
+test_observation_eviction_invalidates_original_association (__main__.HilTrackerTests.test_observation_eviction_invalidates_original_association) ... FAIL
+test_public_call_shape_errors_latch_even_when_caught (__main__.HilTrackerTests.test_public_call_shape_errors_latch_even_when_caught) ... FAIL
+test_records_and_snapshots_are_defensive (__main__.HilTrackerTests.test_records_and_snapshots_are_defensive) ... FAIL
+test_request_sequence_half_range_wrap_and_epoch_change_stop (__main__.HilTrackerTests.test_request_sequence_half_range_wrap_and_epoch_change_stop) ... FAIL
+test_response_target_and_capture_epoch_mismatch_refuse (__main__.HilTrackerTests.test_response_target_and_capture_epoch_mismatch_refuse) ... FAIL
+test_retry_changes_tick_crc_but_not_original_payload_time (__main__.HilTrackerTests.test_retry_changes_tick_crc_but_not_original_payload_time) ... FAIL
+test_same_sequence_different_type_is_separate_non_motion_key (__main__.HilTrackerTests.test_same_sequence_different_type_is_separate_non_motion_key) ... FAIL
+test_state8_and_non_motion_responses_never_qualify (__main__.HilTrackerTests.test_state8_and_non_motion_responses_never_qualify) ... FAIL
+test_stop_request_needs_no_observation_and_cannot_restart (__main__.HilTrackerTests.test_stop_request_needs_no_observation_and_cannot_restart) ... FAIL
+test_stop_zero_field_rule_and_command_id_match (__main__.HilTrackerTests.test_stop_zero_field_rule_and_command_id_match) ... FAIL
+test_superseded_request_cannot_qualify_late_ack (__main__.HilTrackerTests.test_superseded_request_cannot_qualify_late_ack) ... FAIL
+test_unknown_original_observation_is_never_backfilled (__main__.HilTrackerTests.test_unknown_original_observation_is_never_backfilled) ... FAIL
+test_unknown_source_or_observation_verifier_does_not_qualify (__main__.HilTrackerTests.test_unknown_source_or_observation_verifier_does_not_qualify) ... FAIL
+test_unsupported_request_type_refuses (__main__.HilTrackerTests.test_unsupported_request_type_refuses) ... FAIL
+test_wrong_boot_request_raw_batch_and_capture_codes_refuse (__main__.HilTrackerTests.test_wrong_boot_request_raw_batch_and_capture_codes_refuse) ... FAIL
+test_wrong_request_type_cannot_match_motion_seq (__main__.HilTrackerTests.test_wrong_request_type_cannot_match_motion_seq) ... FAIL
+
+======================================================================
+FAIL: test_accepted_applied_and_incomplete_quality_are_not_capture (__main__.HilTrackerTests.test_accepted_applied_and_incomplete_quality_are_not_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_ack_state3d_current_codes_and_deadlines (__main__.HilTrackerTests.test_ack_state3d_current_codes_and_deadlines)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers (__main__.HilTrackerTests.test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_bounded_history_eviction_and_no_replay (__main__.HilTrackerTests.test_bounded_history_eviction_and_no_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_callback_stop_failure_and_caught_reentry_cannot_publish (__main__.HilTrackerTests.test_callback_stop_failure_and_caught_reentry_cannot_publish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_capture_sequence_wrap_refuses (__main__.HilTrackerTests.test_capture_sequence_wrap_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_changed_duplicate_and_out_of_order_response_stop (__main__.HilTrackerTests.test_changed_duplicate_and_out_of_order_response_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_changed_payload_same_key_rejects_and_stops (__main__.HilTrackerTests.test_changed_payload_same_key_rejects_and_stops)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_clock_regression_first_send_and_future_receipt_refuse (__main__.HilTrackerTests.test_clock_regression_first_send_and_future_receipt_refuse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_duplicate_response_receipt_does_not_renew (__main__.HilTrackerTests.test_duplicate_response_receipt_does_not_renew)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_expired_request_not_revived_by_new_observation (__main__.HilTrackerTests.test_expired_request_not_revived_by_new_observation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_fault_rejected_stopped_revoke_current (__main__.HilTrackerTests.test_fault_rejected_stopped_revoke_current)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_first_lost_ack_late_retry_cannot_restart_twelve_seconds (__main__.HilTrackerTests.test_first_lost_ack_late_retry_cannot_restart_twelve_seconds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_invalid_ttl_curvature_and_bad_crc (__main__.HilTrackerTests.test_invalid_ttl_curvature_and_bad_crc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_literal_hand_derived_deadlines (__main__.HilTrackerTests.test_literal_hand_derived_deadlines)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_missing_timing_capture_and_nonnull_hashes_are_not_verification (__main__.HilTrackerTests.test_missing_timing_capture_and_nonnull_hashes_are_not_verification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_new_boot_cannot_reuse_retired_session_and_old_capture (__main__.HilTrackerTests.test_new_boot_cannot_reuse_retired_session_and_old_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_no_default_verifier_or_pc_direct_capture (__main__.HilTrackerTests.test_no_default_verifier_or_pc_direct_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_observation_eviction_invalidates_original_association (__main__.HilTrackerTests.test_observation_eviction_invalidates_original_association)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_public_call_shape_errors_latch_even_when_caught (__main__.HilTrackerTests.test_public_call_shape_errors_latch_even_when_caught)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_records_and_snapshots_are_defensive (__main__.HilTrackerTests.test_records_and_snapshots_are_defensive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_request_sequence_half_range_wrap_and_epoch_change_stop (__main__.HilTrackerTests.test_request_sequence_half_range_wrap_and_epoch_change_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_response_target_and_capture_epoch_mismatch_refuse (__main__.HilTrackerTests.test_response_target_and_capture_epoch_mismatch_refuse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_retry_changes_tick_crc_but_not_original_payload_time (__main__.HilTrackerTests.test_retry_changes_tick_crc_but_not_original_payload_time)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_same_sequence_different_type_is_separate_non_motion_key (__main__.HilTrackerTests.test_same_sequence_different_type_is_separate_non_motion_key)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_state8_and_non_motion_responses_never_qualify (__main__.HilTrackerTests.test_state8_and_non_motion_responses_never_qualify)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_stop_request_needs_no_observation_and_cannot_restart (__main__.HilTrackerTests.test_stop_request_needs_no_observation_and_cannot_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_stop_zero_field_rule_and_command_id_match (__main__.HilTrackerTests.test_stop_zero_field_rule_and_command_id_match)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_superseded_request_cannot_qualify_late_ack (__main__.HilTrackerTests.test_superseded_request_cannot_qualify_late_ack)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_unknown_original_observation_is_never_backfilled (__main__.HilTrackerTests.test_unknown_original_observation_is_never_backfilled)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_unknown_source_or_observation_verifier_does_not_qualify (__main__.HilTrackerTests.test_unknown_source_or_observation_verifier_does_not_qualify)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_unsupported_request_type_refuses (__main__.HilTrackerTests.test_unsupported_request_type_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_wrong_boot_request_raw_batch_and_capture_codes_refuse (__main__.HilTrackerTests.test_wrong_boot_request_raw_batch_and_capture_codes_refuse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+======================================================================
+FAIL: test_wrong_request_type_cannot_match_motion_seq (__main__.HilTrackerTests.test_wrong_request_type_cannot_match_motion_seq)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_hil_request_tracker.py", line 91, in setUp
+    self.assertIsNotNone(hil,'selected HIL tracker implementation absent')
+AssertionError: unexpectedly None : selected HIL tracker implementation absent
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.003s
+
+FAILED (failures=34)

@@ -1,0 +1,119 @@
+{
+  "author_and_product_pins_unchanged": true,
+  "imports_rehashed": 187,
+  "prequeued_imports_rehashed": 173,
+  "runs": {
+    "execution": {
+      "exit": 1,
+      "seconds": 0.14000000001396984,
+      "launcher_pid": 31940,
+      "held_members": [
+        {
+          "pid": 31940,
+          "creation_filetime": 134369781067786604,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 1
+        },
+        {
+          "pid": 12384,
+          "creation_filetime": 134369781067873325,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 0
+        },
+        {
+          "pid": 45900,
+          "creation_filetime": 134369781068026042,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 1
+        }
+      ],
+      "terminal_pin": {
+        "bytes": 1424,
+        "sha256": "880259557ec12c5899561112bb55eae2d16d19e3a6271eb7ca1e080a5cf6ffd1"
+      },
+      "started_pin": {
+        "bytes": 1961,
+        "sha256": "12b8ec32a14b206b9f18825cd40bf776b484d56be2ef623fbad383f805b143b5"
+      }
+    },
+    "execution-controls": {
+      "exit": 1,
+      "seconds": 0.5780000000086147,
+      "launcher_pid": 33928,
+      "held_members": [
+        {
+          "pid": 33928,
+          "creation_filetime": 134369782023340430,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 1
+        },
+        {
+          "pid": 31908,
+          "creation_filetime": 134369782023433831,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 0
+        },
+        {
+          "pid": 52200,
+          "creation_filetime": 134369782023602100,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 1
+        }
+      ],
+      "terminal_pin": {
+        "bytes": 1427,
+        "sha256": "e16eb53331b329a71dadda3992076d0f841c1d03b638113e3c92542539fbc290"
+      },
+      "started_pin": {
+        "bytes": 1979,
+        "sha256": "ca8194af5b472a1c0a18cf89ba724d2bdaea428432f303881602cb3983466776"
+      }
+    },
+    "execution-prequeued": {
+      "exit": 0,
+      "seconds": 0.40599999998812564,
+      "launcher_pid": 44996,
+      "held_members": [
+        {
+          "pid": 44996,
+          "creation_filetime": 134369789100181885,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 0
+        },
+        {
+          "pid": 33504,
+          "creation_filetime": 134369789100270638,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 0
+        },
+        {
+          "pid": 50144,
+          "creation_filetime": 134369789100431174,
+          "wait_result": 0,
+          "signaled": true,
+          "exit_code": 0
+        }
+      ],
+      "terminal_pin": {
+        "bytes": 1426,
+        "sha256": "3e44da62acb6ce8e33519497dc83b0baf5fd5b6141b5eb22c74f9b2174734e81"
+      },
+      "started_pin": {
+        "bytes": 1992,
+        "sha256": "6721b53db1769443a32c47e0b7d156f2e74666f24b7f4da43e6a02d78f72f7d1"
+      }
+    }
+  },
+  "tests_rerun_during_seal": 0,
+  "failure_count_preserved": 1,
+  "scope": "static read/hash/AST only",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

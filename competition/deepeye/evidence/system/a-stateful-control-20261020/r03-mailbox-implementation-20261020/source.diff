@@ -1,0 +1,605 @@
+--- /dev/null
++++ b/competition/deepeye/integration/candidate_mailbox.py
+@@ -0,0 +1,325 @@
++"""Bounded R03 candidate-to-slot policy, never authentication or motion authority.
++
++The serialized owner supplies original independently verified source, clock,
++BOOT, completion and slot-grant associations. Identity objects and these local
++dataclasses are NOT credentials or proof of measurement. Unknown inputs cannot
++be consumed. No transport, inference, process, board or product activation occurs.
++PC_DIRECT decision epochs emit no HIL wire command or physical capture fact.
++"""
++from collections import OrderedDict
++from dataclasses import dataclass
++from fractions import Fraction
++from functools import wraps
++import json
++
++if __package__:
++    from . import boot_profile as boot, host_envelope as envelope
++else:
++    import boot_profile as boot
++    import host_envelope as envelope
++
++NS_PER_MS = 1_000_000
++MAX_ACTIVATIONS = 64
++MAX_OBSERVATIONS = 4
++MAX_TIME = (1 << 63) - 1
++
++
++def _integer(value, label, low=0, high=MAX_TIME):
++    if type(value) is not int or not low <= value <= high:
++        raise ValueError(label + ' must be a strict bounded integer')
++    return value
++
++
++def _entry(method):
++    @wraps(method)
++    def call(self, /, *args, **kwargs):
++        try:
++            return method(self, *args, **kwargs)
++        except (ValueError, TypeError, KeyError, OverflowError) as error:
++            self._halt('invalid_' + method.__name__)
++            raise ValueError(str(error)) from error
++    return call
++
++
++@dataclass(frozen=True)
++class TransferBounds:
++    """Explicit verifier-supplied costs; construction does not authenticate them."""
++    usb_upper_ns: int
++    packing_upper_ns: int
++
++
++@dataclass(frozen=True)
++class Completion:
++    generation: int
++    source: object
++    clock_domain: object
++    candidate_raw: bytes
++    invocation_id: int
++    dispatch_lower_ns: int
++    completion_lower_ns: int
++    completion_upper_ns: int
++    deadline_ns: int
++
++
++@dataclass(frozen=True)
++class SlotGrant:
++    """One verified activation/window association, not a caller credential."""
++    generation: int
++    window_index: int
++
++
++@dataclass(frozen=True)
++class Selection:
++    generation: int
++    context_raw: bytes
++    mode: str
++    window_index: int
++    slot_start_ns: int
++    deadline_ns: int
++    ready_ns: int
++    sample_lower_ns: int
++    candidate_id: int
++    invocation_id: int
++    candidate_raw: bytes
++
++
++@dataclass(frozen=True)
++class _Observation:
++    raw: bytes
++    sample_lower_ns: int | None
++    receipt_upper_ns: int
++
++
++@dataclass(frozen=True)
++class _Completed:
++    record: Completion
++    observed_seq: int
++    candidate_id: int
++    fingerprint: tuple
++
++
++class LatestCompletedMailbox:
++    """Single serialized owner, one pending result and bounded identity history.
++
++    STOP never reactivates an old session. A new object cannot independently
++    establish global/restart session uniqueness; the real BOOT provider must.
++    plan() is diagnostic scheduling only. consume() additionally requires exact
++    selected-slot time; its return still grants no permission to send or move.
++    """
++    def __init__(self, profile_document):
++        errors = boot.validate_document(profile_document)
++        if errors:
++            raise ValueError('; '.join(errors))
++        self._document = json.loads(boot.canonical_bytes(profile_document))
++        self._digest = boot.canonical_sha256(self._document).hex()
++        self._sessions = set()
++        self._generation = 0
++        self._time_high = 0
++        self._stopped = True
++        self._reason = 'not_activated'
++        self._observations = OrderedDict()
++        self._last_observed = None
++        self._pending = self._completed = None
++        self._last_slot = -1
++
++    def _halt(self, reason):
++        self._stopped, self._reason = True, reason
++        self._pending = None
++        self._observations.clear()
++
++    def _time(self, now):
++        _integer(now, 'now_ns')
++        if now < self._time_high:
++            raise ValueError('host clock regressed')
++        self._time_high = now
++        return now
++
++    def _active(self):
++        if self._stopped:
++            raise ValueError('activation is stopped')
++
++    @_entry
++    def activate(self, context_raw, *, generation, slot_origin_ns, source,
++                 clock_domain, bounds, now_ns):
++        self._halt('activation_replaced')
++        now = self._time(now_ns)
++        generation = _integer(generation, 'generation', 1)
++        origin = _integer(slot_origin_ns, 'slot_origin_ns')
++        if generation <= self._generation or origin > now:
++            raise ValueError('fresh generation and established slot origin required')
++        if type(context_raw) is not bytes:
++            raise ValueError('immutable context bytes required')
++        context = envelope._parse_message(context_raw)
++        envelope._check_context_argument(context, envelope._validators()[1])
++        if (context['boot_sha256'] != self._digest or context['topology_id'] not in (1, 2)
++                or context['session'] in self._sessions or len(self._sessions) >= MAX_ACTIVATIONS):
++            raise ValueError('new session, matching full BOOT and supported mode required')
++        if bounds is not None:
++            if type(bounds) is not TransferBounds:
++                raise ValueError('explicit bounds record required')
++            _integer(bounds.usb_upper_ns, 'usb_upper_ns')
++            _integer(bounds.packing_upper_ns, 'packing_upper_ns')
++        self._sessions.add(context['session'])
++        self._generation, self._origin, self._started = generation, origin, now
++        self._context_raw, self._context = bytes(context_raw), context
++        self._source, self._clock_domain, self._bounds = source, clock_domain, bounds
++        self._profile = 'fast_9600' if context['transport_profile_id'] == 1 else 'stress_300'
++        self._mode = 'HIL_PC_FPGA' if context['topology_id'] == 1 else 'PC_DIRECT'
++        self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
++        self._observations.clear()
++        self._last_observed = None
++        self._pending = self._completed = None
++        self._last_slot = -1
++        self._stopped, self._reason = False, 'active_no_completion'
++
++    @_entry
++    def observe(self, raw, *, sample_lower_ns, now_ns):
++        now = self._time(now_ns)
++        self._active()
++        if type(raw) is not bytes:
++            raise ValueError('immutable observation bytes required')
++        parsed = envelope.validate_message(raw, producer='hardware_bridge',
++            consumer='world_authority', context=self._context, now_ns=now)
++        if parsed.kind not in ('telem_observation', 'event_observation'):
++            raise ValueError('TELEM/EVENT observation required')
++        doc = parsed.document
++        mapped = doc['adc_last_interval_ns'] if parsed.kind == 'telem_observation' else doc['trigger_sample_interval_ns']
++        if sample_lower_ns is not None:
++            _integer(sample_lower_ns, 'sample_lower_ns')
++            native = doc.get('native_em_interval_ns')
++            if (mapped is None or sample_lower_ns > mapped['lower_ns'] or sample_lower_ns > now
++                    or (native is not None and sample_lower_ns > native['lower_ns'])):
++                raise ValueError('unknown/nonconservative acquisition mapping')
++        receipt = doc['receipt_interval_ns']
++        if receipt['lower_ns'] < self._started or receipt['upper_ns'] > now:
++            raise ValueError('observation outside activation or host receipt time')
++        seq = doc['observed_seq']
++        observation = _Observation(raw, sample_lower_ns, receipt['upper_ns'])
++        if seq in self._observations:
++            if self._observations[seq] != observation:
++                raise ValueError('changed duplicate observation')
++            return False
++        if self._last_observed is not None:
++            advance = seq - self._last_observed
++            if not 0 < advance < 32768:
++                raise ValueError('old, half-range or wrapped observation sequence')
++        self._observations[seq] = observation
++        self._last_observed = seq
++        if len(self._observations) > MAX_OBSERVATIONS:
++            self._observations.popitem(last=False)
++        return True
++
++    @_entry
++    def complete(self, record, *, now_ns):
++        now = self._time(now_ns)
++        self._active()
++        if (type(record) is not Completion or record.generation != self._generation
++                or type(record.generation) is not int or record.source is not self._source
++                or record.clock_domain is not self._clock_domain or type(record.candidate_raw) is not bytes):
++            raise ValueError('original activation/source/clock/completion association required')
++        for name in ('invocation_id','dispatch_lower_ns','completion_lower_ns','completion_upper_ns','deadline_ns'):
++            _integer(getattr(record, name), name, 1 if name == 'invocation_id' else 0)
++        parsed = envelope.validate_message(record.candidate_raw, producer='ai_controller',
++            consumer='control_broker', context=self._context, now_ns=now)
++        if parsed.kind != 'model_candidate' or parsed.document['target']['action'] == 0:
++            raise ValueError('non-STOP model candidate required; STOP is a separate event')
++        doc = parsed.document
++        seq = doc['observation']['observed_seq']
++        fingerprint = (record.generation, record.candidate_raw, record.invocation_id,
++            record.dispatch_lower_ns, record.completion_lower_ns, record.completion_upper_ns, record.deadline_ns)
++        last = self._completed
++        if last is not None:
++            if fingerprint == last.fingerprint:
++                return False  # Preserved after consume; never reinstalls pending.
++            if doc['candidate_id'] == last.candidate_id or record.invocation_id == last.record.invocation_id:
++                raise ValueError('conflicting duplicate completion identity')
++            if (seq < last.observed_seq or doc['candidate_id'] < last.candidate_id
++                    or record.invocation_id < last.record.invocation_id):
++                return False  # Delayed old completion cannot displace a newer result.
++            if seq - last.observed_seq >= 32768:
++                raise ValueError('ambiguous observation ordering')
++        observation = self._observations.get(seq)
++        if observation is None:
++            raise ValueError('completion lacks retained original observation')
++        if not (self._started <= record.dispatch_lower_ns <= record.completion_lower_ns
++                <= doc['completed_monotonic_ns'] <= record.completion_upper_ns <= now
++                and observation.receipt_upper_ns <= record.dispatch_lower_ns
++                and now < record.deadline_ns):
++            raise ValueError('original causal completion timeline/deadline required')
++        entry = _Completed(record, seq, doc['candidate_id'], fingerprint)
++        self._pending = self._completed = entry
++        self._reason = 'completion_pending'
++        return True
++
++    def _plan(self, now, grant):
++        if self._stopped or self._pending is None:
++            return None
++        if grant is None:
++            return None
++        if type(grant) is not SlotGrant:
++            raise ValueError('activation/window grant association required')
++        _integer(grant.generation, 'grant generation', 1)
++        _integer(grant.window_index, 'grant window')
++        if (grant.generation != self._generation or self._source is None
++                or self._clock_domain is None or self._bounds is None):
++            return None
++        entry = self._pending
++        observation = self._observations.get(entry.observed_seq)
++        if observation is None or observation.sample_lower_ns is None:
++            return None
++        record = entry.record
++        deadline = min(record.deadline_ns, observation.sample_lower_ns + self._age_cap)
++        ready = record.completion_upper_ns + self._bounds.usb_upper_ns + self._bounds.packing_upper_ns
++        if max(now, ready) >= deadline:
++            return None
++        relative_ready = Fraction(max(now, ready) - self._origin, NS_PER_MS)
++        relative_deadline = Fraction(deadline - self._origin, NS_PER_MS)
++        action = boot.late_candidate_action(self._document, self._profile,
++            relative_ready, relative_deadline)
++        if action['action'] == 'stop':
++            return None
++        start_ms = action['start_ms'] if action['action'] == 'send' else action['deferred_start_ms']
++        start_ns = self._origin + start_ms * NS_PER_MS
++        if Fraction(start_ns).denominator != 1:
++            raise ValueError('legal slot cannot be represented in integer nanoseconds')
++        start_ns = int(start_ns)
++        # late_candidate_action's ready<=start branch does NOT check deadline.
++        if start_ns >= deadline or start_ns < max(now, ready):
++            return None
++        first_ms = boot.slot_start_ms(self._document, self._profile, 'control_primary')
++        window_ms = self._document['profiles'][self._profile]['window_ms']
++        window = Fraction(start_ms - first_ms, window_ms)
++        if window.denominator != 1 or window < 0:
++            raise ValueError('not a complete fixed legal slot')
++        window = int(window)
++        if window != grant.window_index or window <= self._last_slot:
++            return None
++        return Selection(self._generation, self._context_raw, self._mode, window,
++            start_ns, deadline, ready, observation.sample_lower_ns, entry.candidate_id,
++            record.invocation_id, record.candidate_raw)
++
++    @_entry
++    def plan(self, now_ns, *, grant=None):
++        return self._plan(self._time(now_ns), grant)
++
++    @_entry
++    def consume(self, now_ns, *, grant=None):
++        selected = self._plan(self._time(now_ns), grant)
++        if selected is None or now_ns != selected.slot_start_ns:
++            return None
++        self._last_slot = selected.window_index
++        self._pending = None
++        self._reason = 'completion_consumed'
++        return selected
++
++    def stop(self, reason='stop'):
++        self._halt(reason if type(reason) is str else 'stop')
++
++    def snapshot(self):
++        return {'stopped':self._stopped, 'reason':self._reason,
++            'generation':self._generation, 'retired_session_count':len(self._sessions),
++            'observation_count':len(self._observations),
++            'observation_sequences':list(self._observations),
++            'pending_candidate_id':None if self._pending is None else self._pending.candidate_id,
++            'candidate_high_water':None if self._completed is None else self._completed.candidate_id,
++            'last_consumed_window':self._last_slot, 'host_time_high_water_ns':self._time_high}
+--- /dev/null
++++ b/competition/deepeye/integration/test_candidate_mailbox.py
+@@ -0,0 +1,249 @@
++"""Mailbox state/timeline fixtures only: no inference, authentication or board."""
++import copy
++import dataclasses
++import json
++from pathlib import Path
++import unittest
++
++import boot_profile as boot
++from test_host_envelope import encode, telem_document, candidate_document, CONTEXT
++try:
++    import candidate_mailbox as mailbox
++except ModuleNotFoundError as error:
++    if error.name != 'candidate_mailbox': raise
++    mailbox = None
++
++NS = 1_000_000
++PRODUCT = Path(__file__).resolve().parents[1]
++
++
++class MailboxTests(unittest.TestCase):
++    def setUp(self):
++        self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
++        self.doc = boot.load_document(PRODUCT/'docs/boot_profiles.json')
++        self.ctx = dict(CONTEXT, boot_sha256=boot.canonical_sha256(self.doc).hex())
++        self.source, self.clock_domain = object(), object()
++        self.owner = self.make()
++
++    def make(self, profile=1, topology=1, source=True, clock=True, bounds=True):
++        owner = mailbox.LatestCompletedMailbox(self.doc)
++        self.ctx = dict(self.ctx, transport_profile_id=profile, topology_id=topology)
++        owner.activate(encode(self.ctx), generation=1, slot_origin_ns=0,
++            source=self.source if source else None, clock_domain=self.clock_domain if clock else None,
++            bounds=mailbox.TransferBounds(10*NS,5*NS) if bounds else None, now_ns=0)
++        return owner
++
++    def observe(self, seq=9, sample=0, now=None, owner=None, mapped=True):
++        owner = self.owner if owner is None else owner
++        now = sample if now is None else now
++        doc = telem_document(context=self.ctx, count=50 if self.ctx['transport_profile_id']==1 else 800,
++            seq=seq, tick=seq, receipt=dict(lower_ns=now*NS,upper_ns=now*NS),
++            adc_last=dict(lower_ns=sample*NS,upper_ns=sample*NS))
++        if not mapped: doc['adc_last_interval_ns']=None
++        raw=encode(doc)
++        owner.observe(raw, sample_lower_ns=sample*NS if mapped else None, now_ns=now*NS)
++        return raw
++
++    def completion(self, seq=9, candidate=1, invocation=None, completed=150, dispatch=0,
++                   deadline=2000, source=None, raw=None, generation=1):
++        raw=raw or encode(candidate_document(context=self.ctx, candidate_id=candidate,
++            observation=dict(context=self.ctx,observed_seq=seq),completed=completed*NS))
++        return mailbox.Completion(generation,self.source if source is None else source,
++            self.clock_domain,raw,candidate if invocation is None else invocation,
++            dispatch*NS,completed*NS,completed*NS,deadline*NS)
++
++    def grant(self, window=0, generation=1):
++        return mailbox.SlotGrant(generation,window)
++
++    def arm(self, **kw):
++        self.observe(); c=self.completion(**kw);self.owner.complete(c,now_ns=c.completion_upper_ns);return c
++
++    def test_literal_fast_stress_timelines_both_modes(self):
++        vectors=json.loads((PRODUCT/'tests/vectors/r03_mailbox_lifecycle.json').read_bytes())
++        self.assertEqual(len(vectors['timelines']),12)
++        for topology in (1,2):
++            for v in vectors['timelines']:
++                with self.subTest(mode=topology,name=v['name']):
++                    owner=self.make(v['profile'],topology)
++                    self.observe(sample=v['sample_ms'],owner=owner)
++                    c=self.completion(completed=v['completed_ms'],dispatch=v['sample_ms'],deadline=v['deadline_ms'])
++                    self.assertTrue(owner.complete(c,now_ns=v['completed_ms']*NS))
++                    got=owner.plan(v['now_ms']*NS,grant=self.grant(v['grant_window']))
++                    if v['expected_slot_ms'] is None:self.assertIsNone(got)
++                    else:
++                        self.assertEqual(got.slot_start_ns,v['expected_slot_ms']*NS)
++                        self.assertEqual(got.mode,'HIL_PC_FPGA' if topology==1 else 'PC_DIRECT')
++                        self.assertEqual(got.candidate_raw,c.candidate_raw)
++
++    def test_plan_does_not_consume_and_consume_requires_exact_slot(self):
++        c=self.arm();g=self.grant()
++        self.assertEqual(self.owner.plan(150*NS,grant=g).slot_start_ns,210*NS)
++        self.assertIsNone(self.owner.consume(200*NS,grant=g))
++        selected=self.owner.consume(210*NS,grant=g)
++        self.assertEqual(selected.candidate_raw,c.candidate_raw)
++        self.assertIsNone(self.owner.consume(210*NS,grant=g))
++        self.assertIsNone(self.owner.plan(211*NS,grant=self.grant(1)))
++
++    def test_late_consume_preserves_candidate_until_next_legal_slot(self):
++        self.arm()
++        self.assertIsNone(self.owner.consume(211*NS,grant=self.grant()))
++        self.assertEqual(self.owner.plan(211*NS,grant=self.grant(1)).slot_start_ns,710*NS)
++        self.assertIsNotNone(self.owner.consume(710*NS,grant=self.grant(1)))
++
++    def test_later_arrival_of_older_observation_never_overwrites(self):
++        self.observe(seq=9);self.observe(seq=10)
++        newer=self.completion(seq=10,candidate=2,completed=150)
++        self.owner.complete(newer,now_ns=150*NS)
++        old=self.completion(seq=9,candidate=100,completed=250)
++        self.assertFalse(self.owner.complete(old,now_ns=250*NS))
++        self.assertEqual(self.owner.plan(250*NS,grant=self.grant(1)).candidate_raw,newer.candidate_raw)
++
++    def test_newer_observation_completion_replaces_pending(self):
++        self.observe(seq=9);self.observe(seq=10)
++        self.owner.complete(self.completion(seq=9,candidate=1),now_ns=150*NS)
++        new=self.completion(seq=10,candidate=2,completed=200)
++        self.owner.complete(new,now_ns=200*NS)
++        self.assertEqual(self.owner.plan(200*NS,grant=self.grant(1)).candidate_raw,new.candidate_raw)
++
++    def test_same_observation_higher_candidate_and_invocation_can_replace(self):
++        self.arm();new=self.completion(candidate=2,completed=200)
++        self.assertTrue(self.owner.complete(new,now_ns=200*NS))
++        self.assertEqual(self.owner.plan(200*NS,grant=self.grant(1)).candidate_raw,new.candidate_raw)
++
++    def test_exact_duplicate_after_consume_cannot_rearm(self):
++        c=self.arm();self.owner.consume(210*NS,grant=self.grant())
++        self.assertFalse(self.owner.complete(c,now_ns=220*NS))
++        self.assertIsNone(self.owner.plan(220*NS,grant=self.grant(1)))
++
++    def test_conflicting_duplicate_cannot_extend_deadline(self):
++        c=self.arm();changed=dataclasses.replace(c,deadline_ns=c.deadline_ns+NS)
++        with self.assertRaises(ValueError):self.owner.complete(changed,now_ns=160*NS)
++        self.assertTrue(self.owner.snapshot()['stopped'])
++
++    def test_retired_candidate_cannot_return_after_newer_consumption(self):
++        c=self.arm();new=self.completion(candidate=2,completed=180)
++        self.owner.complete(new,now_ns=180*NS);self.owner.consume(210*NS,grant=self.grant())
++        self.assertFalse(self.owner.complete(c,now_ns=220*NS))
++        self.assertIsNone(self.owner.plan(220*NS,grant=self.grant(1)))
++
++    def test_older_valid_observation_among_four_is_usable_then_eviction_blocks(self):
++        for seq in range(9,13):self.observe(seq=seq)
++        self.owner.complete(self.completion(seq=9),now_ns=150*NS)
++        self.assertIsNotNone(self.owner.plan(150*NS,grant=self.grant()))
++        self.observe(seq=13,sample=160,now=160)
++        self.assertIsNone(self.owner.plan(160*NS,grant=self.grant()))
++        self.assertEqual(self.owner.snapshot()['observation_count'],4)
++
++    def test_duplicate_observation_preserves_original_age_and_conflict_stops(self):
++        raw=self.observe();self.owner.observe(raw,sample_lower_ns=0,now_ns=100*NS)
++        self.assertEqual(self.owner.snapshot()['observation_count'],1)
++        with self.assertRaises(ValueError):self.owner.observe(raw,sample_lower_ns=NS,now_ns=100*NS)
++
++    def test_age_cannot_be_renewed_by_late_completion(self):
++        self.observe();c=self.completion(completed=1490,deadline=10000)
++        self.owner.complete(c,now_ns=1490*NS)
++        self.assertIsNone(self.owner.plan(1490*NS,grant=self.grant(3)))
++
++    def test_unknown_source_clock_bounds_or_sample_has_no_selection(self):
++        for which in ('source','clock','bounds','sample'):
++            with self.subTest(which=which):
++                owner=self.make(source=which!='source',clock=which!='clock',bounds=which!='bounds')
++                self.observe(owner=owner,mapped=which!='sample')
++                c=self.completion()
++                c=dataclasses.replace(c,source=self.source if which!='source' else None,
++                    clock_domain=self.clock_domain if which!='clock' else None)
++                owner.complete(c,now_ns=150*NS)
++                self.assertIsNone(owner.plan(150*NS,grant=self.grant()))
++
++    def test_missing_wrong_generation_and_wrong_window_grants_preserve_pending(self):
++        self.arm()
++        self.assertIsNone(self.owner.plan(150*NS,grant=None))
++        self.assertIsNone(self.owner.plan(150*NS,grant=self.grant(generation=2)))
++        self.assertIsNone(self.owner.plan(150*NS,grant=self.grant(1)))
++        self.assertIsNotNone(self.owner.plan(150*NS,grant=self.grant()))
++
++    def test_stop_requires_fresh_activation_and_rejects_retired_session(self):
++        self.arm();self.owner.stop('operator')
++        self.assertIsNone(self.owner.plan(160*NS,grant=self.grant()))
++        with self.assertRaises(ValueError):self.owner.activate(encode(self.ctx),generation=2,
++            slot_origin_ns=0,source=self.source,clock_domain=self.clock_domain,bounds=None,now_ns=160*NS)
++        fresh=dict(self.ctx,session=8)
++        self.owner.activate(encode(fresh),generation=3,slot_origin_ns=0,
++            source=self.source,clock_domain=self.clock_domain,bounds=mailbox.TransferBounds(0,0),now_ns=170*NS)
++        self.ctx=fresh;self.observe(sample=170);c=self.completion(dispatch=170,completed=180,generation=3)
++        self.owner.complete(c,now_ns=180*NS)
++        self.assertIsNotNone(self.owner.plan(180*NS,grant=self.grant(generation=3)))
++
++    def test_changed_epoch_mode_profile_same_session_never_reactivates(self):
++        for change in ({'config_epoch':3},{'topology_id':2},{'transport_profile_id':2}):
++            owner=self.make();self.observe(owner=owner)
++            with self.assertRaises(ValueError):owner.activate(encode(dict(self.ctx,**change)),generation=2,
++                slot_origin_ns=0,source=self.source,clock_domain=self.clock_domain,bounds=None,now_ns=NS)
++            self.assertTrue(owner.snapshot()['stopped'])
++
++    def test_new_session_retires_old_completion_context(self):
++        c=self.arm();fresh=dict(self.ctx,session=8)
++        self.owner.activate(encode(fresh),generation=2,slot_origin_ns=0,
++            source=self.source,clock_domain=self.clock_domain,bounds=mailbox.TransferBounds(0,0),now_ns=160*NS)
++        with self.assertRaises(ValueError):self.owner.complete(c,now_ns=170*NS)
++
++    def test_clock_regression_and_bad_time_stop(self):
++        for bad in (149*NS,True,-1,1.5):
++            owner=self.make();self.observe(owner=owner);owner.complete(self.completion(),now_ns=150*NS)
++            with self.assertRaises(ValueError):owner.plan(bad,grant=self.grant())
++            self.assertTrue(owner.snapshot()['stopped'])
++
++    def test_observation_half_range_and_wrap_stop(self):
++        for first,second in ((0,32768),(65535,0),(10,9)):
++            owner=self.make();self.observe(seq=first,owner=owner)
++            with self.assertRaises(ValueError):self.observe(seq=second,owner=owner)
++            self.assertTrue(owner.snapshot()['stopped'])
++
++    def test_defensive_context_profile_and_snapshot(self):
++        self.arm();self.doc['profiles']['fast_9600']['window_ms']=1
++        self.ctx['session']=999;snap=self.owner.snapshot();snap['observation_sequences'].clear()
++        self.assertEqual(self.owner.snapshot()['observation_count'],1)
++        self.assertEqual(self.owner.plan(150*NS,grant=self.grant()).slot_start_ns,210*NS)
++
++    def test_selection_and_completion_are_immutable(self):
++        c=self.arm();selected=self.owner.plan(150*NS,grant=self.grant())
++        with self.assertRaises(dataclasses.FrozenInstanceError):selected.deadline_ns=999
++        with self.assertRaises(dataclasses.FrozenInstanceError):c.deadline_ns=999
++
++    def test_source_association_and_causal_completion_are_required(self):
++        for field,value in [('source',object()),('clock_domain',object()),('dispatch_lower_ns',151*NS),
++                            ('completion_lower_ns',151*NS),('candidate_raw',bytearray(b'{}')),
++                            ('invocation_id',True),('deadline_ns',150*NS)]:
++            owner=self.make();self.observe(owner=owner);c=dataclasses.replace(self.completion(),**{field:value})
++            with self.assertRaises(ValueError):owner.complete(c,now_ns=150*NS)
++
++    def test_observation_mapping_must_remain_conservative(self):
++        raw=self.observe()
++        with self.assertRaises(ValueError):self.owner.observe(raw,sample_lower_ns=NS,now_ns=NS)
++
++    def test_boot_digest_and_context_are_bound(self):
++        owner=mailbox.LatestCompletedMailbox(self.doc)
++        with self.assertRaises(ValueError):owner.activate(encode(dict(self.ctx,boot_sha256='0'*64)),generation=1,
++            slot_origin_ns=0,source=self.source,clock_domain=self.clock_domain,bounds=None,now_ns=0)
++
++    def test_bounded_session_retirement_and_observation_storage(self):
++        for i in range(2,65):
++            ctx=dict(self.ctx,session=100+i)
++            self.owner.activate(encode(ctx),generation=i,slot_origin_ns=0,
++                source=self.source,clock_domain=self.clock_domain,bounds=None,now_ns=i*NS)
++        self.assertEqual(self.owner.snapshot()['retired_session_count'],64)
++        with self.assertRaises(ValueError):self.owner.activate(encode(dict(self.ctx,session=999)),generation=65,
++            slot_origin_ns=0,source=self.source,clock_domain=self.clock_domain,bounds=None,now_ns=65*NS)
++        self.assertTrue(self.owner.snapshot()['stopped'])
++
++    def test_different_candidates_cannot_consume_same_slot(self):
++        self.arm(completed=100);self.owner.consume(210*NS,grant=self.grant())
++        # Original completion was already ready before210; only consumed-slot
++        # high-water, rather than transfer cost, must block this second result.
++        c=self.completion(candidate=2,completed=180)
++        self.owner.complete(c,now_ns=210*NS)
++        self.assertIsNone(self.owner.consume(210*NS,grant=self.grant()))
++        self.assertIsNotNone(self.owner.consume(710*NS,grant=self.grant(1)))
++
++
++if __name__=='__main__':unittest.main(verbosity=2)
+--- /dev/null
++++ b/competition/deepeye/tests/vectors/r03_mailbox_lifecycle.json
+@@ -0,0 +1,22 @@
++{
++  "schema": 1,
++  "evidence_scope": "Independent literal software timelines; no measured bounds, live producer or motion authority",
++  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
++  "origin_ms": 0,
++  "usb_upper_ms": 10,
++  "packing_upper_ms": 5,
++  "timelines": [
++    {"name":"FAST150","profile":1,"sample_ms":0,"completed_ms":150,"now_ms":150,"deadline_ms":2000,"grant_window":0,"expected_slot_ms":210},
++    {"name":"FAST250","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":2000,"grant_window":1,"expected_slot_ms":710},
++    {"name":"STRESS150","profile":2,"sample_ms":0,"completed_ms":150,"now_ms":150,"deadline_ms":15000,"grant_window":0,"expected_slot_ms":2050},
++    {"name":"STRESS250","profile":2,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":15000,"grant_window":0,"expected_slot_ms":2050},
++    {"name":"FAST_multiple_missed_slots","profile":1,"sample_ms":1000,"completed_ms":1150,"now_ms":1211,"deadline_ms":2400,"grant_window":3,"expected_slot_ms":1710},
++    {"name":"STRESS_multiple_missed_slots","profile":2,"sample_ms":17000,"completed_ms":17150,"now_ms":18051,"deadline_ms":29000,"grant_window":3,"expected_slot_ms":26050},
++    {"name":"FAST_ready_early_deadline_before_slot","profile":1,"sample_ms":0,"completed_ms":20,"now_ms":20,"deadline_ms":100,"grant_window":0,"expected_slot_ms":null},
++    {"name":"FAST_deadline_equals_slot","profile":1,"sample_ms":0,"completed_ms":20,"now_ms":20,"deadline_ms":210,"grant_window":0,"expected_slot_ms":null},
++    {"name":"FAST_sample_age_excludes_next_slot","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":1211,"deadline_ms":3000,"grant_window":3,"expected_slot_ms":null},
++    {"name":"FAST_age_exactly_equals_slot","profile":1,"sample_ms":210,"completed_ms":250,"now_ms":1211,"deadline_ms":3000,"grant_window":3,"expected_slot_ms":null},
++    {"name":"FAST_packing_misses_primary","profile":1,"sample_ms":0,"completed_ms":200,"now_ms":200,"deadline_ms":1500,"grant_window":1,"expected_slot_ms":710},
++    {"name":"FAST_wrong_grant","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":1500,"grant_window":0,"expected_slot_ms":null}
++  ]
++}

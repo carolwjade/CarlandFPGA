@@ -1,0 +1,1048 @@
+{
+  "utc": "2026-10-20T14:36:47.500902+00:00",
+  "work_id": "A-R03-STATEFUL-CONTROL-ADOPTION-20261020-v1",
+  "source_groups": {
+    "r03-mailbox-implementation-20261020": {
+      "manifest": "artifact-manifest.json",
+      "sha256": "b2ff0aa626b0a391594f169ad7bb9d54c2dfd199fa13c76d745d5e56b4ff539b",
+      "files_verified": 46
+    },
+    "r03-mailbox-independent-20261020": {
+      "manifest": "artifact-manifest.json",
+      "sha256": "f9341aa1e1387d06f6301cc9764d57acaff9b3ae60c6535fb9235c79bdfc9ef1",
+      "files_verified": 26
+    },
+    "r03-mailbox-stop-fix-20261020": {
+      "manifest": "artifact-manifest.json",
+      "sha256": "b8d3ed1a2903be504d83509bc9db5e99a705a4225287eed919f7079addc2de60",
+      "files_verified": 64
+    },
+    "r03-hil-request-implementation-20261020": {
+      "manifest": "artifact-manifest.json",
+      "sha256": "b1e2fe9cd8be1991cefd3b74dcc083d89e1965621fa92132dd178d122bdcced2",
+      "files_verified": 43
+    },
+    "r03-hil-request-independent-20261020": {
+      "manifest": "nonsecret-artifact-manifest.json",
+      "sha256": "ce18feeedb5c05ab7eaa1226f8eaa3a937c79498a8f86bc2195ac83b859d61c5",
+      "files_verified": 41
+    }
+  },
+  "files": {
+    ".gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "r03-hil-main-adoption-20261020/after-lf.py": {
+      "bytes": 21578,
+      "sha256": "94cb2318c65791e9ce6875dda54b6838d41a54ed9b26017372c5a2d45492e34d"
+    },
+    "r03-hil-main-adoption-20261020/after.py": {
+      "bytes": 21581,
+      "sha256": "6cc8264741e59657c744b21212795cbefb84d126b92911875876af3c4dd48d05"
+    },
+    "r03-hil-main-adoption-20261020/before.py": {
+      "bytes": 21363,
+      "sha256": "7e3b9f8661eb54b51c504ec1d32adef2c39d7168ae53987a91b65ce4ccd9c77f"
+    },
+    "r03-hil-main-adoption-20261020/clarify_and_verify.py": {
+      "bytes": 7229,
+      "sha256": "5d89c9ef3d4c4f5cf3087635927d883884061785644a7a514ee6aafb4efa3127"
+    },
+    "r03-hil-main-adoption-20261020/documentation.diff": {
+      "bytes": 787,
+      "sha256": "a0cbcdc3cb75905790519b5002014f1c3eeb2b12c574bff1f0e6218843802f4d"
+    },
+    "r03-hil-main-adoption-20261020/line-ending-readback.json": {
+      "bytes": 410,
+      "sha256": "26c31f2aa00e41a6d6cbaabcecd8fb344175f705fadcff2fff23e8bc7bbcdc3d"
+    },
+    "r03-hil-main-adoption-20261020/plan.md": {
+      "bytes": 2010,
+      "sha256": "73e8761fafad527486209af7821fbf2fb956ff53a18f765eb0f8823e86e2b7cc"
+    },
+    "r03-hil-main-adoption-20261020/preserve_lf.py": {
+      "bytes": 1335,
+      "sha256": "21716932b188ace68287318ce78b55fce55b636c011c4875c5131d5c30bf8efe"
+    },
+    "r03-hil-main-adoption-20261020/verification.json": {
+      "bytes": 1601,
+      "sha256": "28763d354df889fbf61121dccba701253e2c082fc9e7d8257609b03c2301a8ae"
+    },
+    "r03-hil-request-implementation-20261020/api-resolution.md": {
+      "bytes": 5466,
+      "sha256": "8272360b6fc3c096287fee23f6564cbe92e6371d38c14b1720b2df25b06d89f7"
+    },
+    "r03-hil-request-implementation-20261020/artifact-manifest.json": {
+      "bytes": 6660,
+      "sha256": "b1e2fe9cd8be1991cefd3b74dcc083d89e1965621fa92132dd178d122bdcced2"
+    },
+    "r03-hil-request-implementation-20261020/assignment.md": {
+      "bytes": 2693,
+      "sha256": "bb5470a74c92ba81c7010630ee0dce73a4cafaecea7699f67772f86c8aeb43ad"
+    },
+    "r03-hil-request-implementation-20261020/baseline.json": {
+      "bytes": 3828,
+      "sha256": "fe91b156f6e37afeed6a0a1315c4281dc26846f00a2e0357d82cb02f70aa5b51"
+    },
+    "r03-hil-request-implementation-20261020/closeout.py": {
+      "bytes": 5980,
+      "sha256": "4db1158fb5388586cec45df2c469be7aa981a106a3cdd15980cf6fd8d59efc95"
+    },
+    "r03-hil-request-implementation-20261020/credential-scan.json": {
+      "bytes": 79,
+      "sha256": "1f57780d6d12b234d2905a3389e975e937e7bd5b116e240f172b7540cd0170e9"
+    },
+    "r03-hil-request-implementation-20261020/final-green/execution.json": {
+      "bytes": 1985,
+      "sha256": "4e016da942df3aafb5e85a210182f1d030e0a02991b7264481c0e9e83b4f2c4d"
+    },
+    "r03-hil-request-implementation-20261020/final-green/hil_request_tracker.py": {
+      "bytes": 21363,
+      "sha256": "7e3b9f8661eb54b51c504ec1d32adef2c39d7168ae53987a91b65ce4ccd9c77f"
+    },
+    "r03-hil-request-implementation-20261020/final-green/r03_hil_request_lifecycle.json": {
+      "bytes": 2473,
+      "sha256": "80726d2bf6bde3eafc77cdf64e4a120b814ea9b6481dd200950eff3bb8d6af55"
+    },
+    "r03-hil-request-implementation-20261020/final-green/stderr.txt": {
+      "bytes": 5319,
+      "sha256": "270b8be35a54e6874036ff55e733c56037a5b962fb02f6a8371cbed169dde462"
+    },
+    "r03-hil-request-implementation-20261020/final-green/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-implementation-20261020/final-green/test_hil_request_tracker.py": {
+      "bytes": 21671,
+      "sha256": "10f486d7df70442cde111087afa1c2bb768a4afe81fea1199dd4bce5d2421f32"
+    },
+    "r03-hil-request-implementation-20261020/final-green-imports.json": {
+      "bytes": 37805,
+      "sha256": "32bd76830c8d8c703461f000d035d6d8ab5b742cf0016e8069b4665c73b716c8"
+    },
+    "r03-hil-request-implementation-20261020/final-result.txt": {
+      "bytes": 998,
+      "sha256": "34f159773418ab62c014c05db756193b7ec761e7ac799ae8f9ac22400efc47a0"
+    },
+    "r03-hil-request-implementation-20261020/final-source/hil_request_tracker.py": {
+      "bytes": 21363,
+      "sha256": "7e3b9f8661eb54b51c504ec1d32adef2c39d7168ae53987a91b65ce4ccd9c77f"
+    },
+    "r03-hil-request-implementation-20261020/final-source/r03_hil_request_lifecycle.json": {
+      "bytes": 2473,
+      "sha256": "80726d2bf6bde3eafc77cdf64e4a120b814ea9b6481dd200950eff3bb8d6af55"
+    },
+    "r03-hil-request-implementation-20261020/final-source/test_hil_request_tracker.py": {
+      "bytes": 21671,
+      "sha256": "10f486d7df70442cde111087afa1c2bb768a4afe81fea1199dd4bce5d2421f32"
+    },
+    "r03-hil-request-implementation-20261020/green-01/execution.json": {
+      "bytes": 1976,
+      "sha256": "bbfdf8c8805709b80a0dc94ba30303828667ef0944ade8499340ac6a39031c99"
+    },
+    "r03-hil-request-implementation-20261020/green-01/hil_request_tracker.py": {
+      "bytes": 21277,
+      "sha256": "ea7291f35f4fc097fe3cfa5fea90bccc268e4bc23c5f8cea3562a29c44195cda"
+    },
+    "r03-hil-request-implementation-20261020/green-01/r03_hil_request_lifecycle.json": {
+      "bytes": 2473,
+      "sha256": "80726d2bf6bde3eafc77cdf64e4a120b814ea9b6481dd200950eff3bb8d6af55"
+    },
+    "r03-hil-request-implementation-20261020/green-01/stderr.txt": {
+      "bytes": 4842,
+      "sha256": "e41eeb13329dc90bbb4df3227d81640d4eae1c0fe716b4ba59405452fc3776ef"
+    },
+    "r03-hil-request-implementation-20261020/green-01/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-implementation-20261020/green-01/test_hil_request_tracker.py": {
+      "bytes": 20095,
+      "sha256": "79e1f6515263ac82d0baf9b3dd3efb116c5e7e6b3b66c1cddc1ca2902322492b"
+    },
+    "r03-hil-request-implementation-20261020/green-01-imports.json": {
+      "bytes": 37805,
+      "sha256": "06b3497f44e06a0fced391a548125e6b2ed0843b7f550d7255a0325468b1d69e"
+    },
+    "r03-hil-request-implementation-20261020/implementation-report.md": {
+      "bytes": 6887,
+      "sha256": "95057fec963c7362612368363917bedb83cb7f4422e690c066b4858b7924952a"
+    },
+    "r03-hil-request-implementation-20261020/native-validate-response.json": {
+      "bytes": 342,
+      "sha256": "de826e73e3aaa9902ac62d6acb65b7485c7eabd32be8c0c0565954a5133eb2d4"
+    },
+    "r03-hil-request-implementation-20261020/red-01/execution.json": {
+      "bytes": 1908,
+      "sha256": "14a01ac1e09f35c608e1fb9577ded872acb7569367b03ab054b79c6e1ec55e3c"
+    },
+    "r03-hil-request-implementation-20261020/red-01/r03_hil_request_lifecycle.json": {
+      "bytes": 2473,
+      "sha256": "80726d2bf6bde3eafc77cdf64e4a120b814ea9b6481dd200950eff3bb8d6af55"
+    },
+    "r03-hil-request-implementation-20261020/red-01/stderr.txt": {
+      "bytes": 27244,
+      "sha256": "a45a22e04751b41c7853ce46de9e12c161a9e112bec606d744474127c994c0bd"
+    },
+    "r03-hil-request-implementation-20261020/red-01/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-implementation-20261020/red-01/test_hil_request_tracker.py": {
+      "bytes": 20095,
+      "sha256": "79e1f6515263ac82d0baf9b3dd3efb116c5e7e6b3b66c1cddc1ca2902322492b"
+    },
+    "r03-hil-request-implementation-20261020/red-01-imports.json": {
+      "bytes": 16448,
+      "sha256": "a8c6357e37068b999e9934e2d874e634f77aa6b21d17e537579fc258371d7680"
+    },
+    "r03-hil-request-implementation-20261020/reserve-request.json": {
+      "bytes": 3400,
+      "sha256": "7f8bd6c44b4b5eb41618c1db58c57971c07316804454a8efd7b94c84ce4f127f"
+    },
+    "r03-hil-request-implementation-20261020/result.json": {
+      "bytes": 6362,
+      "sha256": "be89bbf3734db0cbb093507fd9d6b4cbe51f089d3035817821c2a013c6260364"
+    },
+    "r03-hil-request-implementation-20261020/run_target.py": {
+      "bytes": 1290,
+      "sha256": "7247ecbb683d2885301ebd0ad8f7657d488c5640afe4a1c06f79a49323cf6b4d"
+    },
+    "r03-hil-request-implementation-20261020/run_tests.py": {
+      "bytes": 2056,
+      "sha256": "58bdd01a6541813d1802ca0884a08c5fbdf826e7e53c1745d081cab79fee9b44"
+    },
+    "r03-hil-request-implementation-20261020/source.diff": {
+      "bytes": 47557,
+      "sha256": "c4000e813770ec92afbe0e29b5e9b766f690c28c7c8276b49a6f6ed0ae8b2af7"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/execution.json": {
+      "bytes": 1999,
+      "sha256": "e5787abfec09827b00c8ceffdc449155f1f0eed7bce3460eb00447d27aeb1523"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/hil_request_tracker.py": {
+      "bytes": 21277,
+      "sha256": "ea7291f35f4fc097fe3cfa5fea90bccc268e4bc23c5f8cea3562a29c44195cda"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/r03_hil_request_lifecycle.json": {
+      "bytes": 2473,
+      "sha256": "80726d2bf6bde3eafc77cdf64e4a120b814ea9b6481dd200950eff3bb8d6af55"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/stderr.txt": {
+      "bytes": 6058,
+      "sha256": "70f87efe0330c47870360dcb6eeb772184d555de0d0e08b018ae9d1e265dbd23"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red/test_hil_request_tracker.py": {
+      "bytes": 21671,
+      "sha256": "10f486d7df70442cde111087afa1c2bb768a4afe81fea1199dd4bce5d2421f32"
+    },
+    "r03-hil-request-implementation-20261020/strict-field-red-imports.json": {
+      "bytes": 37805,
+      "sha256": "8971aeddfe0a30bf9e4ae89df1efd507ecffa47e08c78f21429a63aafec1fc79"
+    },
+    "r03-hil-request-independent-20261020/assignment.md": {
+      "bytes": 2543,
+      "sha256": "62ede9586a126416d137ef307170c9c708584dfffbb965a9a26f44d5ecde65cb"
+    },
+    "r03-hil-request-independent-20261020/controls-results.json": {
+      "bytes": 4948,
+      "sha256": "d1147d9f3189cba51b039a8a2f63ea53e46a30975c2d1a694c86b0ba7bbce338"
+    },
+    "r03-hil-request-independent-20261020/execution/bootstrap-source/review_controls.py": {
+      "bytes": 29206,
+      "sha256": "8444d775e5040924198b576162ad13b4c30e7e35949c5d7ca038686313dff824"
+    },
+    "r03-hil-request-independent-20261020/execution/bootstrap-source/run_review.py": {
+      "bytes": 2120,
+      "sha256": "710b16fb9c67c352410f3d0cfa17542f4b1fac7fb0a83b6d7233a1c813818b74"
+    },
+    "r03-hil-request-independent-20261020/execution/bootstrap-source/verify_inputs.py": {
+      "bytes": 4382,
+      "sha256": "703e06f4a525ad6ff5f2da280bcb56c01d5a6bf061a1845c613239826bedfad7"
+    },
+    "r03-hil-request-independent-20261020/execution/process/started.json": {
+      "bytes": 1947,
+      "sha256": "9104221d10c2a2b6c3b9edcd21f0fc30e37b4c7db4ff942a4d8890804ea4445c"
+    },
+    "r03-hil-request-independent-20261020/execution/process/stderr.txt": {
+      "bytes": 606,
+      "sha256": "6a346aad1aa820d4ff5d9726e01df6c401cbc9a67cca514ed466c3edc3dd5b23"
+    },
+    "r03-hil-request-independent-20261020/execution/process/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-independent-20261020/execution/process/terminal.json": {
+      "bytes": 1424,
+      "sha256": "880259557ec12c5899561112bb55eae2d16d19e3a6271eb7ca1e080a5cf6ffd1"
+    },
+    "r03-hil-request-independent-20261020/execution/started.json": {
+      "bytes": 1961,
+      "sha256": "12b8ec32a14b206b9f18825cd40bf776b484d56be2ef623fbad383f805b143b5"
+    },
+    "r03-hil-request-independent-20261020/execution/terminal.json": {
+      "bytes": 1424,
+      "sha256": "880259557ec12c5899561112bb55eae2d16d19e3a6271eb7ca1e080a5cf6ffd1"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/process/started.json": {
+      "bytes": 1965,
+      "sha256": "87004bf23723fb4e848c4242c86f0bb5178a82f12cb80cddf3046fff9bdd7460"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/process/stderr.txt": {
+      "bytes": 4276,
+      "sha256": "28c0fba52bef12c44d41e36c9578258e2f7267bacefc0ba960c59450def5bdcf"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/process/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/process/terminal.json": {
+      "bytes": 1427,
+      "sha256": "e16eb53331b329a71dadda3992076d0f841c1d03b638113e3c92542539fbc290"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/started.json": {
+      "bytes": 1979,
+      "sha256": "ca8194af5b472a1c0a18cf89ba724d2bdaea428432f303881602cb3983466776"
+    },
+    "r03-hil-request-independent-20261020/execution-controls/terminal.json": {
+      "bytes": 1427,
+      "sha256": "e16eb53331b329a71dadda3992076d0f841c1d03b638113e3c92542539fbc290"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/process/started.json": {
+      "bytes": 1972,
+      "sha256": "63b5e56f9b4371096904f16e6e45c836e833dfda189299b1b894df3ef9ecfe2d"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/process/stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/process/stdout.txt": {
+      "bytes": 100,
+      "sha256": "e719c7374f72e47ca2500fe82d01dae58aad135e818d71051be1dde4d80114c4"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/process/terminal.json": {
+      "bytes": 1426,
+      "sha256": "3e44da62acb6ce8e33519497dc83b0baf5fd5b6141b5eb22c74f9b2174734e81"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/started.json": {
+      "bytes": 1992,
+      "sha256": "6721b53db1769443a32c47e0b7d156f2e74666f24b7f4da43e6a02d78f72f7d1"
+    },
+    "r03-hil-request-independent-20261020/execution-prequeued/terminal.json": {
+      "bytes": 1426,
+      "sha256": "3e44da62acb6ce8e33519497dc83b0baf5fd5b6141b5eb22c74f9b2174734e81"
+    },
+    "r03-hil-request-independent-20261020/final-result.txt": {
+      "bytes": 3559,
+      "sha256": "7ed51eb841f0f8f96b405f726255a4293c4fc79f19397175b05b0506a1d65bdb"
+    },
+    "r03-hil-request-independent-20261020/findings.md": {
+      "bytes": 12375,
+      "sha256": "c0a77d1055816ba83472ca438beea4ed0df1dc08e1552dabe98832bcf920d969"
+    },
+    "r03-hil-request-independent-20261020/imports-and-reads.json": {
+      "bytes": 95736,
+      "sha256": "c01430e7500e84fe179e7b3018203115f27504edd02b018ffbb60eb4da0a7d86"
+    },
+    "r03-hil-request-independent-20261020/input-verification.json": {
+      "bytes": 10809,
+      "sha256": "3f0eb132d6a6ac7f188527711e3e6cf171126a9237205ce2b1b498433c0d9da9"
+    },
+    "r03-hil-request-independent-20261020/literal-traces.json": {
+      "bytes": 294219,
+      "sha256": "ad14b16944e6848832f939156244aceca969289df6ee2f367e193d6d06a09e48"
+    },
+    "r03-hil-request-independent-20261020/native-validate-response.json": {
+      "bytes": 325,
+      "sha256": "74304d57c36dea03996e6fa835b17be857dbc38180bcded7439e4b5a8d4bf732"
+    },
+    "r03-hil-request-independent-20261020/nonsecret-artifact-manifest.json": {
+      "bytes": 6704,
+      "sha256": "ce18feeedb5c05ab7eaa1226f8eaa3a937c79498a8f86bc2195ac83b859d61c5"
+    },
+    "r03-hil-request-independent-20261020/pending-before-entry-result.json": {
+      "bytes": 44020,
+      "sha256": "41e08e8c80acb879931f825497d567c04088c6062fae2573c72f525e4530433b"
+    },
+    "r03-hil-request-independent-20261020/pending_before_entry.py": {
+      "bytes": 5368,
+      "sha256": "10d20bb996abba6cdae73e42beee860150cae56db84a1e6661405e09b01a15c7"
+    },
+    "r03-hil-request-independent-20261020/progress.md": {
+      "bytes": 2125,
+      "sha256": "e50d128eb20fdf8138e6c13a4d3cd568590a64fdf19b7f8d9c00d04f787cc459"
+    },
+    "r03-hil-request-independent-20261020/recorded-evidence-verification.json": {
+      "bytes": 3202,
+      "sha256": "b9c18edece0e2e23353a3e2ce5f510f97f805db0906d23c9111863a364e4836c"
+    },
+    "r03-hil-request-independent-20261020/review_controls.py": {
+      "bytes": 29180,
+      "sha256": "b5faa84794743735f31428570dcde3964faa46bde5143ebef44484016e422829"
+    },
+    "r03-hil-request-independent-20261020/run_prequeued.py": {
+      "bytes": 2360,
+      "sha256": "16613eb006ce10fba787da0df059b3130affb0279bd768acc10ece28c126200a"
+    },
+    "r03-hil-request-independent-20261020/run_review.py": {
+      "bytes": 2388,
+      "sha256": "1d436d8c36e8f6cb3b8493bb231c53a2bc801bb7f7ce918eaaa8a389a09453a6"
+    },
+    "r03-hil-request-independent-20261020/seal_public.py": {
+      "bytes": 8511,
+      "sha256": "601ca4ce8812bb5f8c21842c5537ee778b9f0f4f71934dead4b65ddd2eec43a4"
+    },
+    "r03-hil-request-independent-20261020/source-evidence.json": {
+      "bytes": 75653,
+      "sha256": "65cddad914d67ece9500085fd43392dd4831710222333427d41a5f38b73e3271"
+    },
+    "r03-hil-request-independent-20261020/task_plan.md": {
+      "bytes": 1394,
+      "sha256": "79e5a5720054becabc517525c7cf1ce90cabef881ab7d2107e264a1808f8cbca"
+    },
+    "r03-hil-request-independent-20261020/three-stop-orderings.json": {
+      "bytes": 980,
+      "sha256": "a26d3523e472b628d0a7298b978befcd0f89549ecd922ac5ad8b1868a9396bbf"
+    },
+    "r03-hil-request-independent-20261020/verify_inputs.py": {
+      "bytes": 4352,
+      "sha256": "a3cfaba07e2a5446a29b61d9fa545c243b75670b5dcc145d55db5002b22d06e0"
+    },
+    "r03-mailbox-implementation-20261020/artifact-manifest.json": {
+      "bytes": 7141,
+      "sha256": "b2ff0aa626b0a391594f169ad7bb9d54c2dfd199fa13c76d745d5e56b4ff539b"
+    },
+    "r03-mailbox-implementation-20261020/assignment.md": {
+      "bytes": 5702,
+      "sha256": "004ee43f1b67da463932dc8dcd025ac359bd22c9db4c56dd95cfe61236da0212"
+    },
+    "r03-mailbox-implementation-20261020/baseline.json": {
+      "bytes": 2608,
+      "sha256": "6b8e4d7210c82e522363bccc7f6387bf5889126c5eaeb961334198505c2e5455"
+    },
+    "r03-mailbox-implementation-20261020/closeout.py": {
+      "bytes": 11094,
+      "sha256": "a9537a16db83d180e22de19cb526e0297b077f3f538ca76e6619af19799cc27c"
+    },
+    "r03-mailbox-implementation-20261020/credential-scan.json": {
+      "bytes": 79,
+      "sha256": "1f57780d6d12b234d2905a3389e975e937e7bd5b116e240f172b7540cd0170e9"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/execution.json": {
+      "bytes": 2006,
+      "sha256": "7b58a30ab8b54aae254c2e838db30cc49c8d0e2aa4bcb7c11b348d5eb11141f5"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/stderr.txt": {
+      "bytes": 8311,
+      "sha256": "060e26db9243b3f85236ebb5e723324010419c61637a0a7fcae252e60e8ffdfc"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control/test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control-imports.json": {
+      "bytes": 38081,
+      "sha256": "5a07e3060a10642096366ae80e4896b81b141e8de8a516f91c8336160b957661"
+    },
+    "r03-mailbox-implementation-20261020/deadline-negative-control-mutant.py": {
+      "bytes": 14882,
+      "sha256": "06688dcfeeccb0e98a2506108fe28b7df88dc05557c287894336775c130880aa"
+    },
+    "r03-mailbox-implementation-20261020/design-api.md": {
+      "bytes": 5074,
+      "sha256": "386bd193d4ff8c8faf1d0e4770441ff92c80cae3cc5c8f64c3970e5ee10a1d45"
+    },
+    "r03-mailbox-implementation-20261020/final-green/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-implementation-20261020/final-green/execution.json": {
+      "bytes": 1963,
+      "sha256": "9105ecd379bcf25b8ac6126d54f9942a43f87db8c485133e19a52ecac3d423fc"
+    },
+    "r03-mailbox-implementation-20261020/final-green/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-implementation-20261020/final-green/stderr.txt": {
+      "bytes": 3766,
+      "sha256": "c99359f68ba9fab76fe8d48dd0723cee5f71045b3d99367f20cfd4aa1a44f417"
+    },
+    "r03-mailbox-implementation-20261020/final-green/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-mailbox-implementation-20261020/final-green/test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "r03-mailbox-implementation-20261020/final-green-imports.json": {
+      "bytes": 38244,
+      "sha256": "7353039654b950997c6dabbe7cdd166372c0a08f5dceff44c46adb17bf19e86d"
+    },
+    "r03-mailbox-implementation-20261020/final-result.txt": {
+      "bytes": 978,
+      "sha256": "960f4840a4ef00e32975206575d8b83dff98136aedad928c05433ac5684ec4c6"
+    },
+    "r03-mailbox-implementation-20261020/final-source/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-implementation-20261020/final-source/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-implementation-20261020/final-source/test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "r03-mailbox-implementation-20261020/green-01/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-implementation-20261020/green-01/execution.json": {
+      "bytes": 1955,
+      "sha256": "735bba02f6bb20671f0836c65374c272315b0b71ffa67faae27cfcdc03c22825"
+    },
+    "r03-mailbox-implementation-20261020/green-01/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-implementation-20261020/green-01/stderr.txt": {
+      "bytes": 3766,
+      "sha256": "c0fdfc870d5e67bb9ccc0a17afdf28c3b7352331c77d99ea1e62898f6dcd91a2"
+    },
+    "r03-mailbox-implementation-20261020/green-01/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-mailbox-implementation-20261020/green-01/test_candidate_mailbox.py": {
+      "bytes": 14263,
+      "sha256": "90afee87075bfe74390ea70ec5dca989d2dd92cddba1ca6bcb0c18f3ca7c2067"
+    },
+    "r03-mailbox-implementation-20261020/green-01-imports.json": {
+      "bytes": 38244,
+      "sha256": "bc837583dda9f66ebce039a55455e80f4a3f0275271eb781f0c85cc99914dd7f"
+    },
+    "r03-mailbox-implementation-20261020/implementation-report.md": {
+      "bytes": 4858,
+      "sha256": "f817dfdbd3c1f492ffa1b5399759518b7df4798c211b44b4cbd1d33b75cfc607"
+    },
+    "r03-mailbox-implementation-20261020/native-validate-response.json": {
+      "bytes": 338,
+      "sha256": "fd5224c94e7df2ccac73a07cc082d75b8a26903ec6ba446def3b633f41ddbc6e"
+    },
+    "r03-mailbox-implementation-20261020/red-01/execution.json": {
+      "bytes": 1886,
+      "sha256": "4a2c29e1b1a53d26cc07e5a523481b78a2458807e887253a8399716f2d140dd0"
+    },
+    "r03-mailbox-implementation-20261020/red-01/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-implementation-20261020/red-01/stderr.txt": {
+      "bytes": 20966,
+      "sha256": "295fb26296c71091f4d914dfd77396964df5d3444ec0f04c77b4cee8153e5d30"
+    },
+    "r03-mailbox-implementation-20261020/red-01/stdout.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "r03-mailbox-implementation-20261020/red-01/test_candidate_mailbox.py": {
+      "bytes": 14263,
+      "sha256": "90afee87075bfe74390ea70ec5dca989d2dd92cddba1ca6bcb0c18f3ca7c2067"
+    },
+    "r03-mailbox-implementation-20261020/red-01-imports.json": {
+      "bytes": 37800,
+      "sha256": "ef1bd76e9a24216d206fd769e30c8465507bca2125f3b87b1f4b2d87fa3d07c4"
+    },
+    "r03-mailbox-implementation-20261020/reserve-request.json": {
+      "bytes": 6440,
+      "sha256": "3dbc5debb36678fda86b1c88192e3cd95d54422a9b0f57b303268cb1914e4673"
+    },
+    "r03-mailbox-implementation-20261020/result.json": {
+      "bytes": 18588,
+      "sha256": "03213e9f72934510a6c0e8bf3f84356e2c790b32f834157a65ab055ac5618c51"
+    },
+    "r03-mailbox-implementation-20261020/run_target.original.py": {
+      "bytes": 1271,
+      "sha256": "c8adaf2ddbf8b68e3778c11bf940182cdb48b886a321c9ca900be2189492e742"
+    },
+    "r03-mailbox-implementation-20261020/run_target.py": {
+      "bytes": 2307,
+      "sha256": "48e4ac82790f514274b1721beb14775509d96973133d4c047c114ad689f86ce3"
+    },
+    "r03-mailbox-implementation-20261020/run_tests.original.py": {
+      "bytes": 2038,
+      "sha256": "a61ca4af1d3f4c4f5cb7b9cb00cd3bd6325b5de9de9bd8f8a05d20c6bc9eafb6"
+    },
+    "r03-mailbox-implementation-20261020/run_tests.py": {
+      "bytes": 2038,
+      "sha256": "a61ca4af1d3f4c4f5cb7b9cb00cd3bd6325b5de9de9bd8f8a05d20c6bc9eafb6"
+    },
+    "r03-mailbox-implementation-20261020/source.diff": {
+      "bytes": 32687,
+      "sha256": "60311a487573898575d7ba55d24ca0016cfd9d8c11eb6ccc6ab7731f36a0e697"
+    },
+    "r03-mailbox-independent-20261020/artifact-manifest.json": {
+      "bytes": 4288,
+      "sha256": "f9341aa1e1387d06f6301cc9764d57acaff9b3ae60c6535fb9235c79bdfc9ef1"
+    },
+    "r03-mailbox-independent-20261020/assignment.md": {
+      "bytes": 2658,
+      "sha256": "ad898e8e35937208a9d9eed3dba3b4cbd145653f13fd8b9e27e717b575b58912"
+    },
+    "r03-mailbox-independent-20261020/audit_inputs.py": {
+      "bytes": 4510,
+      "sha256": "649bafedbc4017c557a26458a8c4c2058f450797404ae8b88f99d32234e4b1a8"
+    },
+    "r03-mailbox-independent-20261020/boundary.py": {
+      "bytes": 13074,
+      "sha256": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+    },
+    "r03-mailbox-independent-20261020/closeout.py": {
+      "bytes": 8224,
+      "sha256": "adc0fe0dc7bb1a940c0e6da07a165395ad474c4cbbe76662a66027a167ee9cca"
+    },
+    "r03-mailbox-independent-20261020/final-audit.json": {
+      "bytes": 10676,
+      "sha256": "aa8243a6b7ffdceb519f09d2ab8dea84bb855b8a022eb121a7fc04cbe02cc31b"
+    },
+    "r03-mailbox-independent-20261020/final-result.txt": {
+      "bytes": 1269,
+      "sha256": "e4ad116bb12c0dbbaf5068efee517c562783ed30375d4c3e52c0a2aa3a20a5ed"
+    },
+    "r03-mailbox-independent-20261020/findings.md": {
+      "bytes": 7146,
+      "sha256": "922b80bca2c3623071728d9d3dd65a536427c1f55f78c303d87943d8c9da5f08"
+    },
+    "r03-mailbox-independent-20261020/import-pin-readback.json": {
+      "bytes": 44557,
+      "sha256": "830bc0cb3745011c668216a74eac2785e0370f6b104d794749476f40a774707e"
+    },
+    "r03-mailbox-independent-20261020/independent_controls.py": {
+      "bytes": 22651,
+      "sha256": "361bdd67d1cc1ebadcb3f1a7ad5aa5c610169e8c52e9ed254fd900ab7e8df5ea"
+    },
+    "r03-mailbox-independent-20261020/initial-audit.json": {
+      "bytes": 10633,
+      "sha256": "a2b81dc6b545571fe439be6a951b79feac6d0608dcd64e000bf140a983f77a4d"
+    },
+    "r03-mailbox-independent-20261020/native-validate-response.json": {
+      "bytes": 336,
+      "sha256": "74a1419c4053166743ee553f35050391a4716623f29dffb3761270172e0fac1a"
+    },
+    "r03-mailbox-independent-20261020/progress.md": {
+      "bytes": 1339,
+      "sha256": "77b146ee4d666dc7fe2b5de7887728fca37ab42b002ca6bdeb7716d24d37745e"
+    },
+    "r03-mailbox-independent-20261020/result.json": {
+      "bytes": 2139,
+      "sha256": "90a4e3e3c56c49a09c5c3d69d7e4a1b60a58c5abe57dbf7d9931df8e82b86d13"
+    },
+    "r03-mailbox-independent-20261020/run_review.py": {
+      "bytes": 2181,
+      "sha256": "0617c1d3e78b8e570cd1c0ac4073d407e25d6857fc4726ddc55bfb0f1f239549"
+    },
+    "r03-mailbox-independent-20261020/stop-callshape-01/checks.json": {
+      "bytes": 38308,
+      "sha256": "9378ead95ad9e6c900671a236fdc86323cfe24d02de0100060fcd9c64cf4216b"
+    },
+    "r03-mailbox-independent-20261020/stop-callshape-01/started.json": {
+      "bytes": 1953,
+      "sha256": "3eb44bc410c373c70195d7c8cddda889034f719dc5a68e756f3cfb758b351111"
+    },
+    "r03-mailbox-independent-20261020/stop-callshape-01/stderr.txt": {
+      "bytes": 2514,
+      "sha256": "8f437e43cf392f6eabe2c65f3a6cc4e17eacce157474986fd7eb66a084ee9b4a"
+    },
+    "r03-mailbox-independent-20261020/stop-callshape-01/stdout.txt": {
+      "bytes": 83,
+      "sha256": "b03b6a1084e08889f0cb43e7f914bf829c88c7590488976e6f5ee3d7dbde2e8c"
+    },
+    "r03-mailbox-independent-20261020/stop-callshape-01/terminal.json": {
+      "bytes": 1430,
+      "sha256": "e958b3cd30f46db9c72a3bad9de79c32b968dd9ec9b6784b572a7eafcddf7f89"
+    },
+    "r03-mailbox-independent-20261020/suite-01/checks.json": {
+      "bytes": 39797,
+      "sha256": "5a64c3cf2508a7227c7224088a5c23c02a18ff82ca7b65abe4d7e326d6970c70"
+    },
+    "r03-mailbox-independent-20261020/suite-01/started.json": {
+      "bytes": 1943,
+      "sha256": "e4d873b63dbbdbeeb7c859fd7f34f4f5d4d579c03f7af7593fd09fdca5016d4d"
+    },
+    "r03-mailbox-independent-20261020/suite-01/stderr.txt": {
+      "bytes": 4348,
+      "sha256": "498117b3eeec40af7d21ad5c15cf259e38194c4e1228f5f4446a14e0d040fa27"
+    },
+    "r03-mailbox-independent-20261020/suite-01/stdout.txt": {
+      "bytes": 84,
+      "sha256": "8cc584acfd9df84bfe844431a372b1431b70acf3141a8cc19a4152855c7d4bb0"
+    },
+    "r03-mailbox-independent-20261020/suite-01/terminal.json": {
+      "bytes": 1430,
+      "sha256": "641de96dd736974a3e721376c522ef28caee533fc783031358b44210a2730ce4"
+    },
+    "r03-mailbox-independent-20261020/task_plan.md": {
+      "bytes": 1361,
+      "sha256": "9b0cbbcccb7ff9af46e45315c051e6a64df504b228cfb1919181b49d3425f093"
+    },
+    "r03-mailbox-independent-20261020/win_job.py": {
+      "bytes": 19842,
+      "sha256": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d"
+    },
+    "r03-mailbox-stop-fix-20261020/artifact-manifest.json": {
+      "bytes": 10124,
+      "sha256": "b8d3ed1a2903be504d83509bc9db5e99a705a4225287eed919f7079addc2de60"
+    },
+    "r03-mailbox-stop-fix-20261020/assignment.md": {
+      "bytes": 2437,
+      "sha256": "25268dbe1ee8bbca4ec15b8c50e901288b2cc3951b12ba98d5abde3d4bfebb1a"
+    },
+    "r03-mailbox-stop-fix-20261020/boundary.py": {
+      "bytes": 13074,
+      "sha256": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+    },
+    "r03-mailbox-stop-fix-20261020/candidate_mailbox.py.diff": {
+      "bytes": 285,
+      "sha256": "a8f5a6338a8178e4e2d7a7038bd199ccca66da9a8ac3046b696880ed9328878e"
+    },
+    "r03-mailbox-stop-fix-20261020/closeout.py": {
+      "bytes": 12821,
+      "sha256": "2c29e80191dae5ba5d3f71e57a6ff31f3761393319602f1b5e4d3b2857d45836"
+    },
+    "r03-mailbox-stop-fix-20261020/correct_test_fixture.py": {
+      "bytes": 3407,
+      "sha256": "47ead0130e6efd3b2b8080f9b1664db7acbca8c70660e5ad00f0a2b5a7d55eff"
+    },
+    "r03-mailbox-stop-fix-20261020/design-plan.md": {
+      "bytes": 2012,
+      "sha256": "4639c26cc174d7585dc70416fdb5128256b25715cf097d49ba27feb91acec451"
+    },
+    "r03-mailbox-stop-fix-20261020/final-result.txt": {
+      "bytes": 1194,
+      "sha256": "5bf46875756f0646677f69b80f7b79e89e50610d434534c52b9ea5e54c11f328"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/checks.json": {
+      "bytes": 44645,
+      "sha256": "a923bb88ec8dd92727dfa4e755893cefc9a70fde25d8106137705d394679d3cb"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/started.json": {
+      "bytes": 1910,
+      "sha256": "b7af9592cee66827db0ca7af00cc51f0b738a130f37fe536f79da651f9403089"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/stderr.txt": {
+      "bytes": 10430,
+      "sha256": "da9b98cfcae942c9968f296c8f32acf321b468085e4d466e127b96995f90cabe"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/stdout.txt": {
+      "bytes": 311,
+      "sha256": "93e19cb7f40c535367de4571d638d685360f7614cae454c4ac9d1283bf466e5b"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/terminal.json": {
+      "bytes": 1434,
+      "sha256": "ddd37da6d34fa0beb1e4e64f69fe191a88e997f7ff3335e2e064f00b578f8a0f"
+    },
+    "r03-mailbox-stop-fix-20261020/green-01/test_candidate_mailbox.py": {
+      "bytes": 18751,
+      "sha256": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/checks.json": {
+      "bytes": 39642,
+      "sha256": "5be00c068e257366c7d573a59e80dcbe7789a19e9ffc122035215655751b37a6"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/started.json": {
+      "bytes": 1910,
+      "sha256": "d6d2603b6776c054ec698f520352175afb74f01a189c147a4b462c604a84bf33"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/stderr.txt": {
+      "bytes": 4684,
+      "sha256": "bfec548c37ee6708ee1d68db516579a5183c71781fe81ac43e3d48c78da97fec"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/stdout.txt": {
+      "bytes": 311,
+      "sha256": "946242dbf7de0e2903b9f85afaca1d89fb51fd0340ffcc500ef719be6b237e4a"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/terminal.json": {
+      "bytes": 1432,
+      "sha256": "17730f962d9f562f51459e71b09d29cd3385d797ca66aa84d33532896810b2fb"
+    },
+    "r03-mailbox-stop-fix-20261020/green-02/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "r03-mailbox-stop-fix-20261020/initial-test-proposal.diff": {
+      "bytes": 4732,
+      "sha256": "35b0bb204387fea11c72b56623fa2b75d5ebb82545bcdda62dc9841e17b1ffba"
+    },
+    "r03-mailbox-stop-fix-20261020/initial-test-worker-byte-reconstruction.py": {
+      "bytes": 3317,
+      "sha256": "eeeb06223429c9520815bd0f44fdf7de4deb31aed3d6f68e19b6586d174f5a34"
+    },
+    "r03-mailbox-stop-fix-20261020/input-pins.json": {
+      "bytes": 4186,
+      "sha256": "d31391f09b88960b7907a7ac512857e29bac6d8f310beb78d6a9815780690f1c"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/docs/boot_profiles.json": {
+      "bytes": 20395,
+      "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/docs/enums.json": {
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/docs/host_contract.json": {
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/docs/host_timing_contract.md": {
+      "bytes": 8180,
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/docs/interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/boot_profile.py": {
+      "bytes": 81662,
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/host_envelope.py": {
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/motion.py": {
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/test_host_envelope.py": {
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/integration/wire.py": {
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "r03-mailbox-stop-fix-20261020/mirror/tests/vectors/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "r03-mailbox-stop-fix-20261020/native-validate-response.json": {
+      "bytes": 332,
+      "sha256": "201a8ae55e63bd436b100dbda3a26374a48e3005f32c17a16d125c8176494676"
+    },
+    "r03-mailbox-stop-fix-20261020/new-test-methods.txt": {
+      "bytes": 4302,
+      "sha256": "46909adda954441b18608924420c50160dbea4fec0114ebcec4f5524408f8e21"
+    },
+    "r03-mailbox-stop-fix-20261020/prepare_green.py": {
+      "bytes": 2008,
+      "sha256": "9e32b20257f6ea7a5de4aaeda5fa3a98ff54ea59f41ecb2cf84f4fa631c11b70"
+    },
+    "r03-mailbox-stop-fix-20261020/prepare_red.py": {
+      "bytes": 3605,
+      "sha256": "f9f757cb2663e270124c1db08f5916115404ffe2dcc854bbd7fe6dda7998b0dc"
+    },
+    "r03-mailbox-stop-fix-20261020/proposed/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "r03-mailbox-stop-fix-20261020/proposed/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/checks.json": {
+      "bytes": 43765,
+      "sha256": "0e18c1972164289b5de20d9765265039cbe376aa6345c89b3cdef49806507b49"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/started.json": {
+      "bytes": 1908,
+      "sha256": "d7f0da7108603bfc1af473cc37f07786d10b06185dd14d0dac69c62d972ab8ad"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/stderr.txt": {
+      "bytes": 10373,
+      "sha256": "4028f5bb4ddec3430f42ac2764c7f7e4d8bfd7572adb548ee7cb1052a16b3e25"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/stdout.txt": {
+      "bytes": 311,
+      "sha256": "221f0c314cdb23ccba3203634a9692c7fde4d8d6a6aaa7f23e9ae5502d274d2d"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/terminal.json": {
+      "bytes": 1436,
+      "sha256": "a01c18efe443d1a4847621ae52677ac285863e82b96ffa8c2f071d596add1175"
+    },
+    "r03-mailbox-stop-fix-20261020/red-01/test_candidate_mailbox.py": {
+      "bytes": 18751,
+      "sha256": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/checks.json": {
+      "bytes": 43765,
+      "sha256": "2c88a40ffff8444c5467782a3704accc74c7724ad2ad664b715aa0d05a488915"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/started.json": {
+      "bytes": 1908,
+      "sha256": "e8a79ed414294bdc744f574a34c659b455a95051e255368bfeeb84dd19463af1"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/stderr.txt": {
+      "bytes": 10373,
+      "sha256": "2640bf424d445e2d351c89a337778f795986a361f8be4f951225ae789fa32a06"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/stdout.txt": {
+      "bytes": 311,
+      "sha256": "5c5d1244f27849ac065c5050f794b037a33136182672e738bcdb74cfa2f5c6b3"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/terminal.json": {
+      "bytes": 1423,
+      "sha256": "6eeff36c0b03a4d85fbdc777780330c24728c8137f20eb8f11ba4f77f52abeb1"
+    },
+    "r03-mailbox-stop-fix-20261020/red-02/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "r03-mailbox-stop-fix-20261020/report.md": {
+      "bytes": 4745,
+      "sha256": "81206ccce0f241701d6c463b1ac4e1289427ab9a9443a8a6640ee6a623f95c9d"
+    },
+    "r03-mailbox-stop-fix-20261020/result.json": {
+      "bytes": 3181,
+      "sha256": "e5ff7588730ac68c12923c9c9ebdbc6aa8283d2816736ef210ac172df868da1b"
+    },
+    "r03-mailbox-stop-fix-20261020/run_tests.py": {
+      "bytes": 1565,
+      "sha256": "5f4a6e7e568d96dc687a85ed3ae3a785461732404da932c9a8c7521b14404690"
+    },
+    "r03-mailbox-stop-fix-20261020/test-fixture-correction.json": {
+      "bytes": 459,
+      "sha256": "280fdf1b9a9c98667ea0437a9512f92435d6cefc53cb8d31cd9cdd129e472d58"
+    },
+    "r03-mailbox-stop-fix-20261020/test_candidate_mailbox.py.diff": {
+      "bytes": 4752,
+      "sha256": "67527a862734b65e3cc757fafa080059759fcb15fe551427e265c7a5f0887ad2"
+    },
+    "r03-mailbox-stop-fix-20261020/test_worker.py": {
+      "bytes": 3339,
+      "sha256": "e2a8030ff78ad44fd2d995cc08639d4cba178d553b7b4338510f687cc53f58b1"
+    },
+    "r03-mailbox-stop-fix-20261020/win_job.py": {
+      "bytes": 19842,
+      "sha256": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d"
+    },
+    "r03-mailbox-stop-main-review-20261020/application.json": {
+      "bytes": 1088,
+      "sha256": "5205189d7a8b971e99761033415d284f7723007a006cc17444487af9f693fc59"
+    },
+    "r03-mailbox-stop-main-review-20261020/apply_reviewed.py": {
+      "bytes": 3517,
+      "sha256": "9dea20c17e76c3497270d4ec31696399c559b804adfeddf6a40ca411aa2b8230"
+    },
+    "r03-mailbox-stop-main-review-20261020/boundary.py": {
+      "bytes": 13074,
+      "sha256": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+    },
+    "r03-mailbox-stop-main-review-20261020/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "r03-mailbox-stop-main-review-20261020/independent_controls.py": {
+      "bytes": 22659,
+      "sha256": "1a621ced80916802d5cba545c2cb94077cb9689f7efc692bfba84cdf6fa89d42"
+    },
+    "r03-mailbox-stop-main-review-20261020/initial-audit.json": {
+      "bytes": 4598,
+      "sha256": "5fa370eb255c271767e0c2e2d5685929f4a70dd9cedc0ba53f26b3f489b49623"
+    },
+    "r03-mailbox-stop-main-review-20261020/original-independent-controls.py.reference": {
+      "bytes": 22651,
+      "sha256": "361bdd67d1cc1ebadcb3f1a7ad5aa5c610169e8c52e9ed254fd900ab7e8df5ea"
+    },
+    "r03-mailbox-stop-main-review-20261020/pre-application-candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "r03-mailbox-stop-main-review-20261020/pre-application-test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "r03-mailbox-stop-main-review-20261020/prepare-attempt01-failure.json": {
+      "bytes": 521,
+      "sha256": "8b2884622f3a05cba91d65018096b313408b5c81c6b4ee1016909086d46eb759"
+    },
+    "r03-mailbox-stop-main-review-20261020/prepare.py": {
+      "bytes": 4794,
+      "sha256": "ba6769d6f1f647afa0f790cca47b9864db197b1221d3d2c263c8a8a3e08ff0bb"
+    },
+    "r03-mailbox-stop-main-review-20261020/run_review.py": {
+      "bytes": 2181,
+      "sha256": "0617c1d3e78b8e570cd1c0ac4073d407e25d6857fc4726ddc55bfb0f1f239549"
+    },
+    "r03-mailbox-stop-main-review-20261020/stop-callshape-01/checks.json": {
+      "bytes": 37030,
+      "sha256": "27bfdac7aed3f35bf6083131f251f3a70e90cb14aa574dbb2d949425a914649f"
+    },
+    "r03-mailbox-stop-main-review-20261020/stop-callshape-01/started.json": {
+      "bytes": 1973,
+      "sha256": "6ac6b37cdb48d6adbee455ed15d4625917ebbe678a224eca0e8fb21b727e98a4"
+    },
+    "r03-mailbox-stop-main-review-20261020/stop-callshape-01/stderr.txt": {
+      "bytes": 559,
+      "sha256": "ae2c19f3648499eae31718a0f2fb0f7bca86ebe16b0c3fc8e30555ce4be41fec"
+    },
+    "r03-mailbox-stop-main-review-20261020/stop-callshape-01/stdout.txt": {
+      "bytes": 83,
+      "sha256": "32ec798e3774dfd5ddd438f00d1a59ec5fe7119ffc6a97d57f8b57d60df875d5"
+    },
+    "r03-mailbox-stop-main-review-20261020/stop-callshape-01/terminal.json": {
+      "bytes": 1415,
+      "sha256": "920fd6b3b96a3e23f1db4461a42c6ecb8bc0665e034a9edff7552225297e9de3"
+    },
+    "r03-mailbox-stop-main-review-20261020/win_job.py": {
+      "bytes": 19842,
+      "sha256": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d"
+    }
+  },
+  "credential_canary_hits": 0,
+  "R03": "not_run",
+  "all29": "not_run"
+}

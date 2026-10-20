@@ -1,0 +1,43 @@
+{
+  "argv": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\pending_before_entry.py"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020",
+  "environment": {
+    "SYSTEMROOT": "C:\\WINDOWS",
+    "WINDIR": "C:\\WINDOWS",
+    "PATH": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\execution-prequeued",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\execution-prequeued"
+  },
+  "budget": {
+    "seconds": 20,
+    "job_memory_bytes": 536870912,
+    "process_memory_bytes": 268435456,
+    "active_processes": 4,
+    "stdout_bytes": 1048576,
+    "stderr_bytes": 1048576,
+    "tree_bytes": 16777216,
+    "tree_entries": 500,
+    "free_reserve_bytes": 10737418240
+  },
+  "runner_pins": {
+    "win_job.py": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d",
+    "boundary.py": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+  },
+  "started_utc": "2026-10-20T14:08:30.010289+00:00",
+  "source_pins": {
+    "pending_before_entry.py": "10d20bb996abba6cdae73e42beee860150cae56db84a1e6661405e09b01a15c7",
+    "run_prequeued.py": "16613eb006ce10fba787da0df059b3130affb0279bd768acc10ece28c126200a",
+    "verify_inputs.py": "a3cfaba07e2a5446a29b61d9fa545c243b75670b5dcc145d55db5002b22d06e0"
+  },
+  "scope": "one main-requested prequeued foreign STOP ordering control; no prior suite replay"
+}

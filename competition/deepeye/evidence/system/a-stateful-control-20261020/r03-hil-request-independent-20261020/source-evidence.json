@@ -1,0 +1,2045 @@
+[
+  {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\hil_request_tracker.py",
+    "bytes": 21363,
+    "sha256": "7e3b9f8661eb54b51c504ec1d32adef2c39d7168ae53987a91b65ce4ccd9c77f",
+    "extracts": [
+      {
+        "start": 37,
+        "end": 65,
+        "lines": [
+          {
+            "line": 37,
+            "text": "def _entry(method):"
+          },
+          {
+            "line": 38,
+            "text": "    @wraps(method)"
+          },
+          {
+            "line": 39,
+            "text": "    def call(self, /, *args, **kwargs):"
+          },
+          {
+            "line": 40,
+            "text": "        self._owner_call()"
+          },
+          {
+            "line": 41,
+            "text": "        if self._busy:"
+          },
+          {
+            "line": 42,
+            "text": "            self._halt('reentrant_' + method.__name__)"
+          },
+          {
+            "line": 43,
+            "text": "            raise ValueError('reentrant tracker transition')"
+          },
+          {
+            "line": 44,
+            "text": "        self._busy = True"
+          },
+          {
+            "line": 45,
+            "text": "        try:"
+          },
+          {
+            "line": 46,
+            "text": "            return method(self, *args, **kwargs)"
+          },
+          {
+            "line": 47,
+            "text": "        except BaseException as error:"
+          },
+          {
+            "line": 48,
+            "text": "            self._halt('failed_' + method.__name__)"
+          },
+          {
+            "line": 49,
+            "text": "            raise ValueError(str(error)) from error"
+          },
+          {
+            "line": 50,
+            "text": "        finally:"
+          },
+          {
+            "line": 51,
+            "text": "            self._busy = False"
+          },
+          {
+            "line": 52,
+            "text": "    return call"
+          },
+          {
+            "line": 53,
+            "text": ""
+          },
+          {
+            "line": 54,
+            "text": ""
+          },
+          {
+            "line": 55,
+            "text": "def _side_entry(method):"
+          },
+          {
+            "line": 56,
+            "text": "    \"\"\"STOP/read remain callable in a verifier; malformed shapes still veto.\"\"\""
+          },
+          {
+            "line": 57,
+            "text": "    @wraps(method)"
+          },
+          {
+            "line": 58,
+            "text": "    def call(self, /, *args, **kwargs):"
+          },
+          {
+            "line": 59,
+            "text": "        self._owner_call()"
+          },
+          {
+            "line": 60,
+            "text": "        try:"
+          },
+          {
+            "line": 61,
+            "text": "            return method(self, *args, **kwargs)"
+          },
+          {
+            "line": 62,
+            "text": "        except BaseException as error:"
+          },
+          {
+            "line": 63,
+            "text": "            self._halt('failed_' + method.__name__)"
+          },
+          {
+            "line": 64,
+            "text": "            raise ValueError(str(error)) from error"
+          },
+          {
+            "line": 65,
+            "text": "    return call"
+          }
+        ]
+      },
+      {
+        "start": 159,
+        "end": 221,
+        "lines": [
+          {
+            "line": 159,
+            "text": "class HilRequestTracker:"
+          },
+          {
+            "line": 160,
+            "text": "    \"\"\"Serialized owner; bounded session/request/observation/replay histories."
+          },
+          {
+            "line": 161,
+            "text": ""
+          },
+          {
+            "line": 162,
+            "text": "    Providers must be synchronous and must not hide verification failure or"
+          },
+          {
+            "line": 163,
+            "text": "    fabricate evidence. Global/restart BOOT uniqueness remains their obligation."
+          },
+          {
+            "line": 164,
+            "text": "    Foreign-thread input requests a pending STOP; owner drains before publishing."
+          },
+          {
+            "line": 165,
+            "text": "    \"\"\""
+          },
+          {
+            "line": 166,
+            "text": "    def __init__(self, *, run_id, dependencies=None):"
+          },
+          {
+            "line": 167,
+            "text": "        if type(run_id) is not str or not 0 < len(run_id) <= 256:"
+          },
+          {
+            "line": 168,
+            "text": "            raise ValueError('bounded run_id required')"
+          },
+          {
+            "line": 169,
+            "text": "        if dependencies is not None and not isinstance(dependencies, HilDependencies):"
+          },
+          {
+            "line": 170,
+            "text": "            raise ValueError('explicit verifier dependencies required')"
+          },
+          {
+            "line": 171,
+            "text": "        self._run, self._deps = run_id, dependencies"
+          },
+          {
+            "line": 172,
+            "text": "        self._thread = threading.get_ident()"
+          },
+          {
+            "line": 173,
+            "text": "        self._pending_stop = threading.Event()"
+          },
+          {
+            "line": 174,
+            "text": "        self._busy = False"
+          },
+          {
+            "line": 175,
+            "text": "        self._veto = 0"
+          },
+          {
+            "line": 176,
+            "text": "        self._time_high = 0"
+          },
+          {
+            "line": 177,
+            "text": "        self._stopped, self._reason = True, 'not_booted'"
+          },
+          {
+            "line": 178,
+            "text": "        self._sessions = set()"
+          },
+          {
+            "line": 179,
+            "text": "        self._generation = 0"
+          },
+          {
+            "line": 180,
+            "text": "        self._boot = None"
+          },
+          {
+            "line": 181,
+            "text": "        self._entries = OrderedDict()"
+          },
+          {
+            "line": 182,
+            "text": "        self._observations = OrderedDict()"
+          },
+          {
+            "line": 183,
+            "text": "        self._high_waters = {}"
+          },
+          {
+            "line": 184,
+            "text": "        self._active_key = None"
+          },
+          {
+            "line": 185,
+            "text": "        self._last_observation = None"
+          },
+          {
+            "line": 186,
+            "text": "        self._last_response = None"
+          },
+          {
+            "line": 187,
+            "text": "        self._last_capture = None"
+          },
+          {
+            "line": 188,
+            "text": ""
+          },
+          {
+            "line": 189,
+            "text": "    def _owner_call(self):"
+          },
+          {
+            "line": 190,
+            "text": "        if threading.get_ident() != self._thread:"
+          },
+          {
+            "line": 191,
+            "text": "            self._pending_stop.set()"
+          },
+          {
+            "line": 192,
+            "text": "            raise ValueError('constructing serialized owner required')"
+          },
+          {
+            "line": 193,
+            "text": "        if self._pending_stop.is_set():"
+          },
+          {
+            "line": 194,
+            "text": "            self._pending_stop.clear()"
+          },
+          {
+            "line": 195,
+            "text": "            self._halt('foreign_thread_stop')"
+          },
+          {
+            "line": 196,
+            "text": ""
+          },
+          {
+            "line": 197,
+            "text": "    def _halt(self, reason):"
+          },
+          {
+            "line": 198,
+            "text": "        self._veto += 1"
+          },
+          {
+            "line": 199,
+            "text": "        self._stopped, self._reason = True, reason"
+          },
+          {
+            "line": 200,
+            "text": "        self._observations.clear()"
+          },
+          {
+            "line": 201,
+            "text": "        current = self._entries.get(self._active_key)"
+          },
+          {
+            "line": 202,
+            "text": "        if current is not None:"
+          },
+          {
+            "line": 203,
+            "text": "            current.state, current.qualified = 'stopped', False"
+          },
+          {
+            "line": 204,
+            "text": ""
+          },
+          {
+            "line": 205,
+            "text": "    def _time(self, now):"
+          },
+          {
+            "line": 206,
+            "text": "        _integer(now, 'now_ns')"
+          },
+          {
+            "line": 207,
+            "text": "        if now < self._time_high:"
+          },
+          {
+            "line": 208,
+            "text": "            raise ValueError('host clock regressed')"
+          },
+          {
+            "line": 209,
+            "text": "        self._time_high = now"
+          },
+          {
+            "line": 210,
+            "text": "        return now"
+          },
+          {
+            "line": 211,
+            "text": ""
+          },
+          {
+            "line": 212,
+            "text": "    def _fence(self, epoch):"
+          },
+          {
+            "line": 213,
+            "text": "        self._owner_call()"
+          },
+          {
+            "line": 214,
+            "text": "        if self._veto != epoch:"
+          },
+          {
+            "line": 215,
+            "text": "            raise ValueError('verification transition was vetoed')"
+          },
+          {
+            "line": 216,
+            "text": ""
+          },
+          {
+            "line": 217,
+            "text": "    def _callback(self, method, *args):"
+          },
+          {
+            "line": 218,
+            "text": "        epoch = self._veto"
+          },
+          {
+            "line": 219,
+            "text": "        result = getattr(self._deps, method)(*args)"
+          },
+          {
+            "line": 220,
+            "text": "        self._fence(epoch)"
+          },
+          {
+            "line": 221,
+            "text": "        return result"
+          }
+        ]
+      },
+      {
+        "start": 236,
+        "end": 284,
+        "lines": [
+          {
+            "line": 236,
+            "text": "    def _refresh(self, entry, now):"
+          },
+          {
+            "line": 237,
+            "text": "        if entry.state in ('superseded', 'stopped', 'expired', 'observation_evicted', 'evicted'):"
+          },
+          {
+            "line": 238,
+            "text": "            entry.qualified = False"
+          },
+          {
+            "line": 239,
+            "text": "            return False"
+          },
+          {
+            "line": 240,
+            "text": "        if entry.deadline_ns is not None and now >= entry.deadline_ns:"
+          },
+          {
+            "line": 241,
+            "text": "            entry.state, entry.qualified = 'expired', False"
+          },
+          {
+            "line": 242,
+            "text": "            return False"
+          },
+          {
+            "line": 243,
+            "text": "        original = entry.original"
+          },
+          {
+            "line": 244,
+            "text": "        if original.key[1] == 14 and original.ttl_ms:"
+          },
+          {
+            "line": 245,
+            "text": "            if original.sample_lower_ns is None:"
+          },
+          {
+            "line": 246,
+            "text": "                entry.state, entry.qualified = 'unknown_observation', False"
+          },
+          {
+            "line": 247,
+            "text": "                return False"
+          },
+          {
+            "line": 248,
+            "text": "            old = self._observations.get(original.observed_seq)"
+          },
+          {
+            "line": 249,
+            "text": "            if old is None or old.sample_lower_ns != original.sample_lower_ns:"
+          },
+          {
+            "line": 250,
+            "text": "                entry.state, entry.qualified = 'observation_evicted', False"
+          },
+          {
+            "line": 251,
+            "text": "                return False"
+          },
+          {
+            "line": 252,
+            "text": "        return True"
+          },
+          {
+            "line": 253,
+            "text": ""
+          },
+          {
+            "line": 254,
+            "text": "    @_entry"
+          },
+          {
+            "line": 255,
+            "text": "    def boot(self, event, *, now_ns):"
+          },
+          {
+            "line": 256,
+            "text": "        self._halt('boot_replaced')"
+          },
+          {
+            "line": 257,
+            "text": "        now = self._time(now_ns)"
+          },
+          {
+            "line": 258,
+            "text": "        if self._deps is None:"
+          },
+          {
+            "line": 259,
+            "text": "            raise ValueError('BOOT verifier unavailable')"
+          },
+          {
+            "line": 260,
+            "text": "        epoch = self._veto"
+          },
+          {
+            "line": 261,
+            "text": "        proposed = self._deps.verify_boot(event)"
+          },
+          {
+            "line": 262,
+            "text": "        if (type(proposed) is not BootBinding or type(proposed.run_id) is not str or proposed.run_id != self._run"
+          },
+          {
+            "line": 263,
+            "text": "                or type(proposed.context_raw) is not bytes):"
+          },
+          {
+            "line": 264,
+            "text": "            raise ValueError('original verified run/BOOT binding required')"
+          },
+          {
+            "line": 265,
+            "text": "        _integer(proposed.generation, 'BOOT generation', 1)"
+          },
+          {
+            "line": 266,
+            "text": "        context = envelope._parse_message(proposed.context_raw)"
+          },
+          {
+            "line": 267,
+            "text": "        envelope._check_context_argument(context, envelope._validators()[1])"
+          },
+          {
+            "line": 268,
+            "text": "        if (proposed.generation <= self._generation or context['session'] in self._sessions"
+          },
+          {
+            "line": 269,
+            "text": "                or len(self._sessions) >= MAX_SESSIONS):"
+          },
+          {
+            "line": 270,
+            "text": "            raise ValueError('fresh generation and unused session required')"
+          },
+          {
+            "line": 271,
+            "text": "        # A valid verifier proposal cannot be replayed after caught STOP/reentry."
+          },
+          {
+            "line": 272,
+            "text": "        self._sessions.add(context['session'])"
+          },
+          {
+            "line": 273,
+            "text": "        self._generation = proposed.generation"
+          },
+          {
+            "line": 274,
+            "text": "        if context['topology_id'] != 1:"
+          },
+          {
+            "line": 275,
+            "text": "            raise ValueError('HIL only; PC_DIRECT cannot acquire board capture')"
+          },
+          {
+            "line": 276,
+            "text": "        self._fence(epoch)"
+          },
+          {
+            "line": 277,
+            "text": "        self._boot, self._context, self._started = proposed, context, now"
+          },
+          {
+            "line": 278,
+            "text": "        self._profile = 'fast_9600' if context['transport_profile_id'] == 1 else 'stress_300'"
+          },
+          {
+            "line": 279,
+            "text": "        self._ttl_cap = 3000 if context['transport_profile_id'] == 1 else 12000"
+          },
+          {
+            "line": 280,
+            "text": "        self._age_cap = (clock_bounds.FAST_OBSERVATION_AGE_CAP_NS if context['transport_profile_id'] == 1"
+          },
+          {
+            "line": 281,
+            "text": "                         else clock_bounds.STRESS_OBSERVATION_AGE_CAP_NS)"
+          },
+          {
+            "line": 282,
+            "text": "        self._entries.clear(); self._observations.clear(); self._high_waters.clear()"
+          },
+          {
+            "line": 283,
+            "text": "        self._active_key = self._last_observation = self._last_response = self._last_capture = None"
+          },
+          {
+            "line": 284,
+            "text": "        self._stopped, self._reason = False, 'active_no_request'"
+          }
+        ]
+      },
+      {
+        "start": 324,
+        "end": 384,
+        "lines": [
+          {
+            "line": 324,
+            "text": "    @_entry"
+          },
+          {
+            "line": 325,
+            "text": "    def request(self, packet, *, first_send_ns, now_ns):"
+          },
+          {
+            "line": 326,
+            "text": "        now = self._time(now_ns); self._active()"
+          },
+          {
+            "line": 327,
+            "text": "        first = _integer(first_send_ns, 'first_send_ns')"
+          },
+          {
+            "line": 328,
+            "text": "        if not self._started <= first <= now or type(packet) is not bytes:"
+          },
+          {
+            "line": 329,
+            "text": "            raise ValueError('original immutable request/send time required')"
+          },
+          {
+            "line": 330,
+            "text": "        frame = wire.decode(packet)"
+          },
+          {
+            "line": 331,
+            "text": "        if (frame.type_id not in SUPPORTED_REQUESTS or frame.config_epoch != self._context['config_epoch']"
+          },
+          {
+            "line": 332,
+            "text": "                or struct.unpack_from('<I', frame.payload)[0] != self._context['session']):"
+          },
+          {
+            "line": 333,
+            "text": "            raise ValueError('unsupported request or wrong session/config epoch')"
+          },
+          {
+            "line": 334,
+            "text": "        key = (self._context['session'], frame.type_id, frame.sequence)"
+          },
+          {
+            "line": 335,
+            "text": "        existing = self._entries.get(key)"
+          },
+          {
+            "line": 336,
+            "text": "        if existing is not None:"
+          },
+          {
+            "line": 337,
+            "text": "            if existing.original.payload != frame.payload:"
+          },
+          {
+            "line": 338,
+            "text": "                raise ValueError('same request key changed semantic payload')"
+          },
+          {
+            "line": 339,
+            "text": "            existing.latest_raw = packet"
+          },
+          {
+            "line": 340,
+            "text": "            self._refresh(existing, now)"
+          },
+          {
+            "line": 341,
+            "text": "            return existing.original"
+          },
+          {
+            "line": 342,
+            "text": "        high = self._high_waters.get(frame.type_id)"
+          },
+          {
+            "line": 343,
+            "text": "        if high is not None and not 0 < frame.sequence - high < 32768:"
+          },
+          {
+            "line": 344,
+            "text": "            raise ValueError('evicted, half-range or wrapped request identity')"
+          },
+          {
+            "line": 345,
+            "text": "        ttl = observed = sample = target = None"
+          },
+          {
+            "line": 346,
+            "text": "        action = None"
+          },
+          {
+            "line": 347,
+            "text": "        if frame.type_id == 14:"
+          },
+          {
+            "line": 348,
+            "text": "            session, cmd, action, yaw, pitch, speed, ttl, observed = struct.unpack('<IHBhhBHH', frame.payload)"
+          },
+          {
+            "line": 349,
+            "text": "            if cmd != frame.sequence or action not in (0, 1):"
+          },
+          {
+            "line": 350,
+            "text": "                raise ValueError('CONTROL3D id/action mismatch')"
+          },
+          {
+            "line": 351,
+            "text": "            if action == 0:"
+          },
+          {
+            "line": 352,
+            "text": "                if any((yaw, pitch, speed, ttl)):"
+          },
+          {
+            "line": 353,
+            "text": "                    raise ValueError('STOP requires zero target/TTL')"
+          },
+          {
+            "line": 354,
+            "text": "            else:"
+          },
+          {
+            "line": 355,
+            "text": "                if not 0 < ttl <= self._ttl_cap:"
+          },
+          {
+            "line": 356,
+            "text": "                    raise ValueError('TTL outside active profile')"
+          },
+          {
+            "line": 357,
+            "text": "                motion.validate(self._profile, speed, yaw, pitch)"
+          },
+          {
+            "line": 358,
+            "text": "                obs = self._observations.get(observed)"
+          },
+          {
+            "line": 359,
+            "text": "                if obs is not None and obs.receipt_upper_ns <= first:"
+          },
+          {
+            "line": 360,
+            "text": "                    sample = obs.sample_lower_ns"
+          },
+          {
+            "line": 361,
+            "text": "            target = (yaw, pitch, speed)"
+          },
+          {
+            "line": 362,
+            "text": "        original = OriginalRequest(self._boot, key, packet, bytes(frame.payload), first,"
+          },
+          {
+            "line": 363,
+            "text": "            ttl, observed, sample, target)"
+          },
+          {
+            "line": 364,
+            "text": "        deadline = None if ttl is None else first + ttl * NS_PER_MS"
+          },
+          {
+            "line": 365,
+            "text": "        if sample is not None:"
+          },
+          {
+            "line": 366,
+            "text": "            deadline = min(deadline, sample + self._age_cap)"
+          },
+          {
+            "line": 367,
+            "text": "        state = 'non_motion' if frame.type_id != 14 else ('pending' if sample is not None else 'unknown_observation')"
+          },
+          {
+            "line": 368,
+            "text": "        entry = _Entry(original, packet, deadline, state)"
+          },
+          {
+            "line": 369,
+            "text": "        if frame.type_id == 14:"
+          },
+          {
+            "line": 370,
+            "text": "            old = self._current()"
+          },
+          {
+            "line": 371,
+            "text": "            if old is not None:"
+          },
+          {
+            "line": 372,
+            "text": "                old.state, old.qualified = ('stopped' if action == 0 else 'superseded'), False"
+          },
+          {
+            "line": 373,
+            "text": "            self._active_key = key"
+          },
+          {
+            "line": 374,
+            "text": "        self._entries[key] = entry; self._high_waters[frame.type_id] = frame.sequence"
+          },
+          {
+            "line": 375,
+            "text": "        if len(self._entries) > MAX_HISTORY:"
+          },
+          {
+            "line": 376,
+            "text": "            evicted_key, evicted = self._entries.popitem(last=False)"
+          },
+          {
+            "line": 377,
+            "text": "            if evicted_key == self._active_key:"
+          },
+          {
+            "line": 378,
+            "text": "                evicted.state, evicted.qualified = 'evicted', False"
+          },
+          {
+            "line": 379,
+            "text": "                self._active_key = None"
+          },
+          {
+            "line": 380,
+            "text": "        if action == 0:"
+          },
+          {
+            "line": 381,
+            "text": "            self._halt('STOP_request')"
+          },
+          {
+            "line": 382,
+            "text": "        else:"
+          },
+          {
+            "line": 383,
+            "text": "            self._refresh(entry, now)"
+          },
+          {
+            "line": 384,
+            "text": "        return original"
+          }
+        ]
+      },
+      {
+        "start": 399,
+        "end": 491,
+        "lines": [
+          {
+            "line": 399,
+            "text": "    @_entry"
+          },
+          {
+            "line": 400,
+            "text": "    def response(self, raw, *, now_ns):"
+          },
+          {
+            "line": 401,
+            "text": "        now = self._time(now_ns)"
+          },
+          {
+            "line": 402,
+            "text": "        if self._stopped:"
+          },
+          {
+            "line": 403,
+            "text": "            return self._association(self._current(), 'stopped', False)"
+          },
+          {
+            "line": 404,
+            "text": "        if type(raw) is not bytes:"
+          },
+          {
+            "line": 405,
+            "text": "            raise ValueError('immutable response envelope required')"
+          },
+          {
+            "line": 406,
+            "text": "        parsed = envelope.validate_message(raw, producer='hardware_bridge',"
+          },
+          {
+            "line": 407,
+            "text": "            consumer='world_authority', context=self._context, now_ns=now)"
+          },
+          {
+            "line": 408,
+            "text": "        if parsed.kind != 'board_response':"
+          },
+          {
+            "line": 409,
+            "text": "            raise ValueError('board response required')"
+          },
+          {
+            "line": 410,
+            "text": "        doc = parsed.document; packet = bytes.fromhex(doc['wire_frame_hex']); frame = wire.decode(packet)"
+          },
+          {
+            "line": 411,
+            "text": "        receipt = doc['receipt_interval_ns']"
+          },
+          {
+            "line": 412,
+            "text": "        if receipt['lower_ns'] < self._started or receipt['upper_ns'] > now:"
+          },
+          {
+            "line": 413,
+            "text": "            raise ValueError('response receipt outside activation/current time')"
+          },
+          {
+            "line": 414,
+            "text": "        if frame.type_id not in (15, 16):"
+          },
+          {
+            "line": 415,
+            "text": "            return self._association(None, 'non_motion_response', False)"
+          },
+          {
+            "line": 416,
+            "text": "        seq, phase, target, remaining, fault, capture_seq, epoch, quality = self._decode_response(frame)"
+          },
+          {
+            "line": 417,
+            "text": "        key = (self._context['session'], 14, seq); entry = self._entries.get(key)"
+          },
+          {
+            "line": 418,
+            "text": "        if entry is None:"
+          },
+          {
+            "line": 419,
+            "text": "            return self._association(None)"
+          },
+          {
+            "line": 420,
+            "text": "        if not self._refresh(entry, now) or key != self._active_key:"
+          },
+          {
+            "line": 421,
+            "text": "            return self._association(entry, qualified=False)"
+          },
+          {
+            "line": 422,
+            "text": "        previous = self._last_response"
+          },
+          {
+            "line": 423,
+            "text": "        if previous is not None:"
+          },
+          {
+            "line": 424,
+            "text": "            if frame.sequence == previous[0]:"
+          },
+          {
+            "line": 425,
+            "text": "                if packet != previous[1]:"
+          },
+          {
+            "line": 426,
+            "text": "                    raise ValueError('changed duplicate response identity')"
+          },
+          {
+            "line": 427,
+            "text": "                return self._association(entry, 'duplicate_response', False)"
+          },
+          {
+            "line": 428,
+            "text": "            if not 0 < frame.sequence - previous[0] < 32768:"
+          },
+          {
+            "line": 429,
+            "text": "                raise ValueError('response reordered, half-range or wrapped')"
+          },
+          {
+            "line": 430,
+            "text": "        self._last_response = (frame.sequence, packet)"
+          },
+          {
+            "line": 431,
+            "text": "        entry.qualified = False"
+          },
+          {
+            "line": 432,
+            "text": "        if fault or phase in (0, 4):"
+          },
+          {
+            "line": 433,
+            "text": "            self._halt('board_fault_or_stop')"
+          },
+          {
+            "line": 434,
+            "text": "            return self._association(entry, qualified=False)"
+          },
+          {
+            "line": 435,
+            "text": "        if phase != 3 or quality != 15 or target != entry.original.target:"
+          },
+          {
+            "line": 436,
+            "text": "            return self._association(entry, 'not_current_capture', False)"
+          },
+          {
+            "line": 437,
+            "text": "        if remaining > entry.original.ttl_ms:"
+          },
+          {
+            "line": 438,
+            "text": "            raise ValueError('remaining TTL exceeds original request')"
+          },
+          {
+            "line": 439,
+            "text": "        original = entry.original"
+          },
+          {
+            "line": 440,
+            "text": "        if receipt['upper_ns'] < original.first_send_ns or self._boot.source is None:"
+          },
+          {
+            "line": 441,
+            "text": "            return self._association(entry, 'unknown_source_or_time', False)"
+          },
+          {
+            "line": 442,
+            "text": "        transition = self._veto"
+          },
+          {
+            "line": 443,
+            "text": "        timing = self._callback('verify_timing', raw, self._boot, original)"
+          },
+          {
+            "line": 444,
+            "text": "        if timing is None:"
+          },
+          {
+            "line": 445,
+            "text": "            return self._association(entry, 'unknown_timing', False)"
+          },
+          {
+            "line": 446,
+            "text": "        self._evidence(timing, TimingEvidence, raw, original)"
+          },
+          {
+            "line": 447,
+            "text": "        delays = sum(_integer(getattr(timing, name), name) for name in"
+          },
+          {
+            "line": 448,
+            "text": "            ('serial_upper_ns', 'usb_processing_upper_ns', 'clock_error_upper_ns'))"
+          },
+          {
+            "line": 449,
+            "text": "        capture = self._callback('verify_capture', raw, self._boot, original)"
+          },
+          {
+            "line": 450,
+            "text": "        if capture is None:"
+          },
+          {
+            "line": 451,
+            "text": "            return self._association(entry, 'unknown_capture', False)"
+          },
+          {
+            "line": 452,
+            "text": "        self._evidence(capture, CaptureEvidence, raw, original)"
+          },
+          {
+            "line": 453,
+            "text": "        values = tuple(_integer(getattr(capture, name), name, -15000 if name in ('yaw_q','pitch_q') else 0)"
+          },
+          {
+            "line": 454,
+            "text": "            for name in ('yaw_q','pitch_q','speed_code','capture_seq','control_epoch','quality'))"
+          },
+          {
+            "line": 455,
+            "text": "        if values != (*target, capture_seq, epoch, quality) or capture.batch is None:"
+          },
+          {
+            "line": 456,
+            "text": "            raise ValueError('independent capture batch/codes/epoch mismatch')"
+          },
+          {
+            "line": 457,
+            "text": "        if self._last_capture is not None and capture_seq < self._last_capture:"
+          },
+          {
+            "line": 458,
+            "text": "            raise ValueError('capture sequence wrapped or regressed')"
+          },
+          {
+            "line": 459,
+            "text": "        deadline = min(original.first_send_ns + original.ttl_ms * NS_PER_MS,"
+          },
+          {
+            "line": 460,
+            "text": "            receipt['lower_ns'] + max(0, remaining * NS_PER_MS - delays),"
+          },
+          {
+            "line": 461,
+            "text": "            original.sample_lower_ns + self._age_cap, entry.deadline_ns)"
+          },
+          {
+            "line": 462,
+            "text": "        self._fence(transition)"
+          },
+          {
+            "line": 463,
+            "text": "        entry.deadline_ns = deadline"
+          },
+          {
+            "line": 464,
+            "text": "        self._last_capture = capture_seq"
+          },
+          {
+            "line": 465,
+            "text": "        entry.qualified = now < deadline"
+          },
+          {
+            "line": 466,
+            "text": "        entry.state = 'associated' if entry.qualified else 'expired'"
+          },
+          {
+            "line": 467,
+            "text": "        return self._association(entry)"
+          },
+          {
+            "line": 468,
+            "text": ""
+          },
+          {
+            "line": 469,
+            "text": "    @_entry"
+          },
+          {
+            "line": 470,
+            "text": "    def check(self, *, now_ns):"
+          },
+          {
+            "line": 471,
+            "text": "        now = self._time(now_ns); current = self._current()"
+          },
+          {
+            "line": 472,
+            "text": "        if self._stopped:"
+          },
+          {
+            "line": 473,
+            "text": "            return self._association(current, 'stopped', False)"
+          },
+          {
+            "line": 474,
+            "text": "        if current is not None:"
+          },
+          {
+            "line": 475,
+            "text": "            self._refresh(current, now)"
+          },
+          {
+            "line": 476,
+            "text": "        return self._association(current)"
+          },
+          {
+            "line": 477,
+            "text": ""
+          },
+          {
+            "line": 478,
+            "text": "    @_side_entry"
+          },
+          {
+            "line": 479,
+            "text": "    def stop(self, reason='stop'):"
+          },
+          {
+            "line": 480,
+            "text": "        self._halt(reason[:256] if type(reason) is str else 'stop')"
+          },
+          {
+            "line": 481,
+            "text": ""
+          },
+          {
+            "line": 482,
+            "text": "    @_side_entry"
+          },
+          {
+            "line": 483,
+            "text": "    def snapshot(self):"
+          },
+          {
+            "line": 484,
+            "text": "        return {'stopped':self._stopped, 'reason':self._reason, 'generation':self._generation,"
+          },
+          {
+            "line": 485,
+            "text": "            'session_count':len(self._sessions), 'request_count':len(self._entries),"
+          },
+          {
+            "line": 486,
+            "text": "            'observation_count':len(self._observations), 'request_high_waters':dict(self._high_waters),"
+          },
+          {
+            "line": 487,
+            "text": "            'host_time_high_water_ns':self._time_high,"
+          },
+          {
+            "line": 488,
+            "text": "            'requests':[{'key':list(e.original.key),'state':e.state,'qualified':e.qualified,"
+          },
+          {
+            "line": 489,
+            "text": "                'deadline_ns':e.deadline_ns,'first_send_ns':e.original.first_send_ns,"
+          },
+          {
+            "line": 490,
+            "text": "                'ttl_ms':e.original.ttl_ms,'first_raw_hex':e.original.first_raw.hex(),"
+          },
+          {
+            "line": 491,
+            "text": "                'latest_raw_hex':e.latest_raw.hex()} for e in self._entries.values()]}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\host_envelope.py",
+    "bytes": 26184,
+    "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+    "extracts": [
+      {
+        "start": 1,
+        "end": 24,
+        "lines": [
+          {
+            "line": 1,
+            "text": "\"\"\"Strict host-envelope record validator; bounded, stateless and non-authorizing."
+          },
+          {
+            "line": 2,
+            "text": ""
+          },
+          {
+            "line": 3,
+            "text": "Validates one JSON envelope against the local sealed whitelist"
+          },
+          {
+            "line": 4,
+            "text": "``docs/host_contract.json`` (JSON Schema Draft 2020-12, every ``$ref`` local)"
+          },
+          {
+            "line": 5,
+            "text": "plus the static cross-field rules frozen in ``docs/host_timing_contract.md``,"
+          },
+          {
+            "line": 6,
+            "text": "``docs/enums.json`` and ``docs/interface.json`` (wire layout revision 1)."
+          },
+          {
+            "line": 7,
+            "text": ""
+          },
+          {
+            "line": 8,
+            "text": "Deliberate limits - a successful return is NOT motion authorization:"
+          },
+          {
+            "line": 9,
+            "text": "- No authentication or ACL: the caller asserts the authenticated ``producer``"
+          },
+          {
+            "line": 10,
+            "text": "  and the active negotiated ``context``; process/pipe isolation is a separate"
+          },
+          {
+            "line": 11,
+            "text": "  runtime gate (host_contract.json x-cross-field-invariants)."
+          },
+          {
+            "line": 12,
+            "text": "- No history or ledger: observation freshness, duplicate-command retention,"
+          },
+          {
+            "line": 13,
+            "text": "  mailbox consumption, codec rollback and monotonic deadline renewal are"
+          },
+          {
+            "line": 14,
+            "text": "  stateful checks owned by the caller. Nothing here reads a live ledger."
+          },
+          {
+            "line": 15,
+            "text": "- No measured time: anchors, USB/clock/holdover bounds and sample-window"
+          },
+          {
+            "line": 16,
+            "text": "  arithmetic come from ``host_timing_contract.md`` with independently verified"
+          },
+          {
+            "line": 17,
+            "text": "  measurement records; nullable hash fields here are references, never"
+          },
+          {
+            "line": 18,
+            "text": "  authentication, and a null timing/capture reference authorizes nothing."
+          },
+          {
+            "line": 19,
+            "text": "- No BOOT handshake completion, physical capture validation, register/reset"
+          },
+          {
+            "line": 20,
+            "text": "  semantics, collision or route legality, sensor calibration or board state."
+          },
+          {
+            "line": 21,
+            "text": "- No routing: ``board_response`` is hardware-bridge-to-authority only; the"
+          },
+          {
+            "line": 22,
+            "text": "  optional ``consumer`` argument refuses to mark it safe for any other role."
+          },
+          {
+            "line": 23,
+            "text": "- No network, board, model, service or live-ledger access: parsing and"
+          },
+          {
+            "line": 24,
+            "text": "  checking only. Every rejection (including bad input types) raises ValueError."
+          }
+        ]
+      },
+      {
+        "start": 484,
+        "end": 574,
+        "lines": [
+          {
+            "line": 484,
+            "text": "def _check_request_type(request_type, expected):"
+          },
+          {
+            "line": 485,
+            "text": "    if request_type not in KNOWN_REQUEST_TYPES:"
+          },
+          {
+            "line": 486,
+            "text": "        raise ValueError('unknown request_type {}'.format(request_type))"
+          },
+          {
+            "line": 487,
+            "text": "    if request_type != expected:"
+          },
+          {
+            "line": 488,
+            "text": "        raise ValueError('request_type {} does not match the expected request {}'.format("
+          },
+          {
+            "line": 489,
+            "text": "            request_type, expected))"
+          },
+          {
+            "line": 490,
+            "text": ""
+          },
+          {
+            "line": 491,
+            "text": ""
+          },
+          {
+            "line": 492,
+            "text": "def _check_config_ack(frame, context):"
+          },
+          {
+            "line": 493,
+            "text": "    fields = struct.unpack('<IHBBBBBHBBBH', frame.payload)"
+          },
+          {
+            "line": 494,
+            "text": "    _check_request_type(fields[2], RESPONSE_REQUEST_TYPE[9])"
+          },
+          {
+            "line": 495,
+            "text": "    if fields[3] not in PHASES:"
+          },
+          {
+            "line": 496,
+            "text": "        raise ValueError('CONFIG_ACK carries unknown phase {}'.format(fields[3]))"
+          },
+          {
+            "line": 497,
+            "text": "    if fields[10] != context['config_epoch']:"
+          },
+          {
+            "line": 498,
+            "text": "        raise ValueError('CONFIG_ACK applied_epoch does not match the active context')"
+          },
+          {
+            "line": 499,
+            "text": ""
+          },
+          {
+            "line": 500,
+            "text": ""
+          },
+          {
+            "line": 501,
+            "text": "def _check_gain_ack(frame, context):"
+          },
+          {
+            "line": 502,
+            "text": "    fields = struct.unpack('<IHBBBHHHHB', frame.payload)"
+          },
+          {
+            "line": 503,
+            "text": "    _check_request_type(fields[2], RESPONSE_REQUEST_TYPE[11])"
+          },
+          {
+            "line": 504,
+            "text": "    if fields[3] not in PHASES:"
+          },
+          {
+            "line": 505,
+            "text": "        raise ValueError('GAIN_ACK carries unknown phase {}'.format(fields[3]))"
+          },
+          {
+            "line": 506,
+            "text": ""
+          },
+          {
+            "line": 507,
+            "text": ""
+          },
+          {
+            "line": 508,
+            "text": "def _check_boot_ack(frame, context):"
+          },
+          {
+            "line": 509,
+            "text": "    mode, = struct.unpack_from('<B', frame.payload, 4)"
+          },
+          {
+            "line": 510,
+            "text": "    expected = (context['transport_profile_id'] | (context['source_id'] << 2)"
+          },
+          {
+            "line": 511,
+            "text": "                | (context['topology_id'] << 5))"
+          },
+          {
+            "line": 512,
+            "text": "    if mode != expected:"
+          },
+          {
+            "line": 513,
+            "text": "        raise ValueError('BOOT_ACK mode {} does not echo the proposed context encoding {}'.format("
+          },
+          {
+            "line": 514,
+            "text": "            mode, expected))"
+          },
+          {
+            "line": 515,
+            "text": ""
+          },
+          {
+            "line": 516,
+            "text": ""
+          },
+          {
+            "line": 517,
+            "text": "def _check_ack3d(frame, context):"
+          },
+          {
+            "line": 518,
+            "text": "    fields = struct.unpack('<IHBBhhBHBHBB', frame.payload)"
+          },
+          {
+            "line": 519,
+            "text": "    _check_request_type(fields[2], RESPONSE_REQUEST_TYPE[15])"
+          },
+          {
+            "line": 520,
+            "text": "    if fields[3] not in PHASES:"
+          },
+          {
+            "line": 521,
+            "text": "        raise ValueError('ACK3D carries unknown phase {}'.format(fields[3]))"
+          },
+          {
+            "line": 522,
+            "text": "    if fields[10] != context['config_epoch']:"
+          },
+          {
+            "line": 523,
+            "text": "        raise ValueError('ACK3D control_epoch does not match the active context')"
+          },
+          {
+            "line": 524,
+            "text": "    if fields[11] & CAPTURE_QUALITY_RESERVED_MASK:"
+          },
+          {
+            "line": 525,
+            "text": "        raise ValueError('ACK3D capture_quality uses reserved bits')"
+          },
+          {
+            "line": 526,
+            "text": ""
+          },
+          {
+            "line": 527,
+            "text": ""
+          },
+          {
+            "line": 528,
+            "text": "def _check_state(frame, context):"
+          },
+          {
+            "line": 529,
+            "text": "    \"\"\"Frozen 18-byte physical GAIN/PC_DIRECT diagnostic heartbeat."
+          },
+          {
+            "line": 530,
+            "text": ""
+          },
+          {
+            "line": 531,
+            "text": "    Its tick can anchor a separately measured clock. Its capture-looking"
+          },
+          {
+            "line": 532,
+            "text": "    fields never establish three-axis motion or a PC_DIRECT command lease."
+          },
+          {
+            "line": 533,
+            "text": "    \"\"\""
+          },
+          {
+            "line": 534,
+            "text": "    fields = struct.unpack('<IHhBBHHHBB', frame.payload)"
+          },
+          {
+            "line": 535,
+            "text": "    if fields[4] not in PHASES:"
+          },
+          {
+            "line": 536,
+            "text": "        raise ValueError('STATE carries unknown phase {}'.format(fields[4]))"
+          },
+          {
+            "line": 537,
+            "text": "    if fields[6] > 0xFF:"
+          },
+          {
+            "line": 538,
+            "text": "        raise ValueError('STATE fault_flags must zero the high byte')"
+          },
+          {
+            "line": 539,
+            "text": "    if fields[8] != context['config_epoch']:"
+          },
+          {
+            "line": 540,
+            "text": "        raise ValueError('STATE control_epoch does not match the active context')"
+          },
+          {
+            "line": 541,
+            "text": "    if fields[9] & CAPTURE_QUALITY_RESERVED_MASK:"
+          },
+          {
+            "line": 542,
+            "text": "        raise ValueError('STATE capture_quality uses reserved bits')"
+          },
+          {
+            "line": 543,
+            "text": ""
+          },
+          {
+            "line": 544,
+            "text": ""
+          },
+          {
+            "line": 545,
+            "text": "def _check_state3d(frame, context):"
+          },
+          {
+            "line": 546,
+            "text": "    fields = struct.unpack('<IHhhBBHHHBB', frame.payload)"
+          },
+          {
+            "line": 547,
+            "text": "    if fields[5] not in PHASES:"
+          },
+          {
+            "line": 548,
+            "text": "        raise ValueError('STATE3D carries unknown phase {}'.format(fields[5]))"
+          },
+          {
+            "line": 549,
+            "text": "    if fields[7] > 0xFF:"
+          },
+          {
+            "line": 550,
+            "text": "        raise ValueError('STATE3D fault_flags must zero the high byte')"
+          },
+          {
+            "line": 551,
+            "text": "    if fields[9] != context['config_epoch']:"
+          },
+          {
+            "line": 552,
+            "text": "        raise ValueError('STATE3D control_epoch does not match the active context')"
+          },
+          {
+            "line": 553,
+            "text": "    if fields[10] & CAPTURE_QUALITY_RESERVED_MASK:"
+          },
+          {
+            "line": 554,
+            "text": "        raise ValueError('STATE3D capture_quality uses reserved bits')"
+          },
+          {
+            "line": 555,
+            "text": ""
+          },
+          {
+            "line": 556,
+            "text": ""
+          },
+          {
+            "line": 557,
+            "text": "_BOARD_RESPONSE_TYPES = {8: _check_state, 9: _check_config_ack, 11: _check_gain_ack, 13: _check_boot_ack,"
+          },
+          {
+            "line": 558,
+            "text": "                         15: _check_ack3d, 16: _check_state3d}"
+          },
+          {
+            "line": 559,
+            "text": ""
+          },
+          {
+            "line": 560,
+            "text": ""
+          },
+          {
+            "line": 561,
+            "text": "def _check_board_response(document, context, now_ns):"
+          },
+          {
+            "line": 562,
+            "text": "    frame = _decode_frame(document['wire_frame_hex'], context)"
+          },
+          {
+            "line": 563,
+            "text": "    handler = _BOARD_RESPONSE_TYPES.get(frame.type_id)"
+          },
+          {
+            "line": 564,
+            "text": "    if handler is None:"
+          },
+          {
+            "line": 565,
+            "text": "        raise ValueError("
+          },
+          {
+            "line": 566,
+            "text": "            'board_response may carry only STATE(8), CONFIG_ACK(9), GAIN_ACK(11), BOOT_ACK(13), '"
+          },
+          {
+            "line": 567,
+            "text": "            'ACK3D(15) or STATE3D(16)')"
+          },
+          {
+            "line": 568,
+            "text": "    session, = struct.unpack_from('<I', frame.payload, 0)"
+          },
+          {
+            "line": 569,
+            "text": "    if session != context['session']:"
+          },
+          {
+            "line": 570,
+            "text": "        raise ValueError('board_response session does not match the active context')"
+          },
+          {
+            "line": 571,
+            "text": "    handler(frame, context)"
+          },
+          {
+            "line": 572,
+            "text": "    if frame.type_id == 8 and context['topology_id'] == 2:"
+          },
+          {
+            "line": 573,
+            "text": "        if document['physical_capture_record_sha256'] is not None:"
+          },
+          {
+            "line": 574,
+            "text": "            raise ValueError('PC_DIRECT STATE heartbeat cannot claim physical motion capture')"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\host_timing_contract.md",
+    "bytes": 8180,
+    "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+    "extracts": [
+      {
+        "start": 49,
+        "end": 66,
+        "lines": [
+          {
+            "line": 49,
+            "text": "                   receipt_ns + max(0, remaining_ttl_ns - frame_serial_upper_ns"
+          },
+          {
+            "line": 50,
+            "text": "                                       - usb_processing_upper_ns - clock_error_upper_ns),"
+          },
+          {
+            "line": 51,
+            "text": "                   sample_lo + observation_age_cap_ns,"
+          },
+          {
+            "line": 52,
+            "text": "                   previous_deadline_ns if present)"
+          },
+          {
+            "line": 53,
+            "text": ""
+          },
+          {
+            "line": 54,
+            "text": "Each delay component must have a documented non-overlapping meaning. A response with unknown terms is not usable. first_send/original_ttl are immutable across retries. ACK accepted/applied are insufficient: current session, matching request_type/seq, valid capture, faults and current profile are also required by authority. A deadline at or before now grants no motion."
+          },
+          {
+            "line": 55,
+            "text": ""
+          },
+          {
+            "line": 56,
+            "text": "PC_DIRECT uses min(host_issue_ns + bounded_duration_ns, sample_lo + age_cap, previous_deadline if present). It still requires actual FPGA observations for the formal chain; there is no fictional board motion ACK/capture. STOP requires no fresh observation. A heartbeat never extends any command or observation deadline."
+          },
+          {
+            "line": 57,
+            "text": ""
+          },
+          {
+            "line": 58,
+            "text": "## Local process boundary"
+          },
+          {
+            "line": 59,
+            "text": ""
+          },
+          {
+            "line": 60,
+            "text": "host_contract.json is a strict whitelist for transport envelopes, with additionalProperties=false at every object boundary. Runtime validation additionally enforces the cross-field rules in this document and enums.json. JSON validation alone does not prove process/ACL isolation, model usefulness, calibrated sensing or either complete control chain."
+          },
+          {
+            "line": 61,
+            "text": ""
+          },
+          {
+            "line": 62,
+            "text": "world_authority alone issues motion grants and integrates physics. ai_controller supplies candidates; hardware_bridge supplies received framed observations/capture facts. No controller pipe admits obstacle identifiers, layout/seed/editor history, exact collision queries, future sensor values, screen access or a hidden-map route. Public task geometry contains only cube/drill, chosen gates and uncertain initial odometry. Both HIL and PC_DIRECT remain required."
+          },
+          {
+            "line": 63,
+            "text": ""
+          },
+          {
+            "line": 64,
+            "text": "The bridge-to-authority `board_response` envelope transports the exact bounded ABI3 STATE (0x08, 32 bytes), CONFIG_ACK, GAIN_ACK, BOOT_ACK, ACK3D or STATE3D bytes and receipt interval, plus nullable measurement-record SHA256 references. It is not available to ai_controller and never itself authorizes motion. Authority reparses CRC/type/length/session/epoch and binds the original request and capture history. BOOT_ACK uses the proposed stopped-state context until exact handshake verification succeeds. Nullable measurement references are explicit unknowns; nonnull hashes still require independently authenticated records."
+          },
+          {
+            "line": 65,
+            "text": ""
+          },
+          {
+            "line": 66,
+            "text": "STATE 0x08 carries physical GAIN or PC_DIRECT clock/health diagnostics using the frozen 18-byte payload. Its capture-shaped fields never authorize three-axis movement. PC_DIRECT STATE requires a null physical motion-capture reference. Fault/phase changes are delivered to authority, which stops when required; STATE never creates an observation, changes its acquisition time, or renews any command deadline. A missing heartbeat remains a separate runtime stop gate; structural parsing is not proof that a live board is present."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\taskbook_final.md",
+    "bytes": 109430,
+    "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+    "extracts": [
+      {
+        "start": 126,
+        "end": 142,
+        "lines": [
+          {
+            "line": 126,
+            "text": "|STATE 0x08|32B|物理GAIN或PC_DIRECT心跳；session/phase/TTL/fault等沿用冻结18B结构，不声称PC动作来自板输出|"
+          },
+          {
+            "line": 127,
+            "text": "|CONFIG_ACK 0x09|32B|session4、request_seq2、request_type1、phase1、profile1、E1、rate1、threshold2、apply_block1、quality1、applied_epoch1、first_sample_index_low2|"
+          },
+          {
+            "line": 128,
+            "text": "|GAIN 0x0a / GAIN_ACK 0x0b|24B / 32B|物理量程结构不变，gain_code有限档；回读actual ratio/quality及当前TTL，不能占用同窗3D运动槽|"
+          },
+          {
+            "line": 129,
+            "text": "|BOOT 0x0c / BOOT_ACK 0x0d|41B / 41B|session4、mode1、slot_profile_sha128共16、guard_total_ms2、primary_slot_ms2、config_slot_ms2，仅停止状态握手|"
+          },
+          {
+            "line": 130,
+            "text": "|CONTROL3D 0x0e|30B|session4、cmd_id2、action1、yaw_q2、pitch_q2、speed_code1、ttl_ms2、observed_seq2，共16B|"
+          },
+          {
+            "line": 131,
+            "text": "|ACK3D 0x0f|34B|session4、request_seq2、request_type1、phase1、captured_yaw2、captured_pitch2、captured_speed1、remaining_ttl_ms2、fault_flags1、capture_seq2、control_epoch1、capture_quality1，共20B|"
+          },
+          {
+            "line": 132,
+            "text": "|STATE3D 0x10|34B|session4、last_control_seq2、captured_yaw2、captured_pitch2、captured_speed1、phase1、remaining_ttl_ms2、fault_flags2、capture_seq2、control_epoch1、capture_quality1，共20B|"
+          },
+          {
+            "line": 133,
+            "text": ""
+          },
+          {
+            "line": 134,
+            "text": "GAIN/GAIN_ACK和STATE的每字段长度沿用v3修订1，R03须在interface.json展开，独立向量比对，不能只凭总长度声称兼容。所有请求唯一键为(session,request_type,header.seq)，CONTROL3D.cmd_id必须等于header.seq。同键同负载只缓存事务结果与首次应用时刻，每次应答重新取当前phase/capture/fault/remaining_ttl、发送tick和CRC；同键不同负载拒绝。重复不重新应用或续期；被更新命令覆盖的旧请求回superseded/rejected；过期回stopped。旧会话拒绝，seq/epoch回绕前停止换新会话。"
+          },
+          {
+            "line": 135,
+            "text": ""
+          },
+          {
+            "line": 136,
+            "text": "CONFIG在块边界原子生效，CONFIG_ACK给实际profile/E/rate/threshold、applied_epoch及首个生效采样序号；采样低16位只能在小于半周期关联范围内比较。phase为accepted/applied/captured/rejected/stopped，由interface.json冻结数值；accepted或写寄存器不等于电气执行。BOOT的slot_profile_sha128为完整规范SHA256前16B，覆盖ABI、topology、线速、所有槽/重试偏移、响应时限、通道单位、速度映射、TTL和运动学约束；完整SHA在host证据保存，不仅哈希一张槽表。不一致不得ENABLE，切模式必须停止、新session和BOOT回读。"
+          },
+          {
+            "line": 137,
+            "text": ""
+          },
+          {
+            "line": 138,
+            "text": "CONTROL3D中yaw_q和pitch_q均为有符号int16、0.001°/s每码，各±15000；speed_code0–20。FAST_9600每码0.0125m/s、最高0.25m/s、TTL≤3000ms；STRESS_300每码0.0001m/s、最高0.002m/s、TTL≤12000ms。两个映射不得混用，profile匹配先于执行。PC、PL和world均校验量化后的合成曲率与profile。码值表示在本命令目标速度v_target处的角速度参考；v_target>0时κcmd=(yaw_q,pitch_q)×π/(180000×v_target)，要求其范数≤0.5/m；v_target=0须两角速码=0。PL按profile/speed_code ROM的保守整数阈值判yaw_q²+pitch_q²≤floor((v_target×180000/(2π))²)，64bit中间量，越界拒绝而非偷偷clip。执行器保持κcmd，按加速度界更新v_actual，每物理步ω_actual=v_actual×κcmd；减速直至0时角速度同时归0，禁止原地转向，换命令同样先校验。三路电气捕获证明目标参考/速度码，实际运动学另留轨迹，不能把目标码当瞬时实际角速。完整障碍几何只在合法信念图及world各自边界内检查，PL不读取隐藏障碍。"
+          },
+          {
+            "line": 139,
+            "text": ""
+          },
+          {
+            "line": 140,
+            "text": "HIL三路yaw/pitch/speed GPIO/PWM均经真实物理短线回到独立捕获逻辑。两角速参考的30001个合法码候选以20ms周期、100MHz计数时钟、high_ticks=10000+16×(q+15000)表示，高电平0.1–4.9ms；speed high_ticks=50000+1000×speed_code，即0.5–0.7ms，周期相同。R03/G05须证明实际IO稳定、捕获计数、码型/定时容差并写入BOOT规范；周期/高电平不匹配则capture无效，不把粗舵机PWM冒充此精度。独立捕获按最近合法高电平计数解码，角速捕获候选容差≤2tick，严格小于半码8tick，实测成立才允许ENABLE；若实物抖动不能满足必须优化电气编码并重冻结ABI规范，不放宽曲率或伪造量化精度。ACK3D/STATE3D的34B在线短帧只返回表内解码yaw/pitch/speed、capture_seq/control_epoch/quality，不能免费附加三路原始period/count；原始周期、计数和边沿tick留PL寄存器与本地取证，不进入AI旁路。不能只回读写寄存器伪称真实IO捕获。断任一路即capture无效，运动停止。A在R02选实际可用且不冲突的引脚/电平；PGA量程另走GAIN，measured_ratio来自调节前后ADC标定读数，不伪造MCP6S21不存在的SO读回。HIL电气因果、PC_DIRECT host命令因果和真实PGA物理响应三类证据分报。"
+          },
+          {
+            "line": 141,
+            "text": ""
+          },
+          {
+            "line": 142,
+            "text": "TTL从PL首次应用起计；ACK/STATE头tick为首字节发送时刻，remaining_ttl为该次当前值。TELEM.tick_ms为最后纳入摘要的样本采样tick，不能以发送tick冒充新样本；摘要跨度在profile固定。host保存first_send_monotonic与original_ttl，重试不重置；截止=min(first_send+original_ttl, receipt+max(0,current_remaining_ttl−frame_serial_time−USB/处理延迟上界−时钟误差界))。每个物理步检查截止、会话和capture；首次ACK丢失、8秒后同键重试且STATE/EVENT持续丢失时，不得在首次成功收到晚ACK后重新给12秒。USB/时钟界无法建立即停止，不以新TELEM/重复ACK复活旧动作。"
+          }
+        ]
+      },
+      {
+        "start": 264,
+        "end": 274,
+        "lines": [
+          {
+            "line": 264,
+            "text": "### 8.8 三条合法控制链路与因果证据"
+          },
+          {
+            "line": 265,
+            "text": ""
+          },
+          {
+            "line": 266,
+            "text": "|控制拓扑|分工及正式用途|允许驱动软件的证据|失效处理|"
+          },
+          {
+            "line": 267,
+            "text": "|---|---|---|---|"
+          },
+          {
+            "line": 268,
+            "text": "|HIL_PC_FPGA 主展示|FPGA采集/压缩上传；PC AI感知建图规划；命令回FPGA校验/输出；PC执行|有效会话的ACK3D/STATE3D，yaw/pitch/speed三路实际电气捕获；观测seq与命令/原TTL关联|拔回采线、板fault/TTL或断链必须停止；原TTL不得由晚ACK刷新|"
+          },
+          {
+            "line": 269,
+            "text": "|PC_DIRECT 必交对照|FPGA采集/压缩上传；PC AI直接向模拟执行器发指令，减少一次下行往返|经白名单broker校验的PC命令、对应已收板观测、run/session/seq/TTL和来源标记；不强求不存在的板端运动ACK|没有新鲜FPGA观测/心跳、AI停机或租期届满即停；不能自动切离板卡继续跑|"
+          },
+          {
+            "line": 270,
+            "text": "|FPGA_LOCAL 保守对照|板端在危险/过量程/过时状态快速停止或减速，可按方向差分有限偏转；PC记录和显示|实际板端输出捕获/状态，标local_rule；无PC高级路线规划时不宣称完整智能到达|用于响应/保护消融，默认不要求凭简单PL规则完成任意三维终点任务|"
+          },
+          {
+            "line": 271,
+            "text": ""
+          },
+          {
+            "line": 272,
+            "text": "两种完整导向模式均由PC AI实际参与，FPGA仍承担不可省略的数据入口、压缩和链路。三条路径复用统一MotionCommand内部契约：run_id、session、cmd_seq、observed_seq、source、yaw_rate、pitch_rate、speed、ttl、model_hash和plan_id；wire只传冻结的紧凑字段，其他在host证据关联，不能当免费字节。运动执行只能来自启动时固定的一种拓扑；切换先停机/清租期/新握手，新run不继承上次动作。"
+          },
+          {
+            "line": 273,
+            "text": ""
+          },
+          {
+            "line": 274,
+            "text": "HIL沿用v3的首次发送时刻上界、剩余TTL当前重算、幂等不续期及过期不复活；新增俯仰输出与独立回采。PC_DIRECT截止取命令首次发出＋TTL与最后有效采样时刻＋观测年龄限两者的较早值；FAST年龄限1500ms、STRESS12000ms，STATE心跳不刷新旧样本年龄。重放/同seq不续期；顶栏明确PC直控，不能伪装板端输出。硬件调试旁路、UI按钮、world碰撞oracle均无权替AI补路线。"
+          }
+        ]
+      },
+      {
+        "start": 340,
+        "end": 348,
+        "lines": [
+          {
+            "line": 340,
+            "text": "### R03 协议 寄存器和编排器"
+          },
+          {
+            "line": 341,
+            "text": ""
+          },
+          {
+            "line": 342,
+            "text": "A维护ABI和pipeline，B/C独立互操作。输出docs/interface.json、registers.csv、tests/vectors及tools/pipeline.py。python tools/check_interface.py核abi_v3及双轴长度/CRC/端序/会话/请求type＋seq关联/FAST与STRESS逐窗和滑窗预算；python tools/pipeline.py verify --selftest核status不发模型、重复work_id不重排、文件冲突拒绝、failed/unknown不重放。错误格式、有界长度、seq/epoch回绕全部有向量。"
+          },
+          {
+            "line": 343,
+            "text": ""
+          },
+          {
+            "line": 344,
+            "text": ""
+          },
+          {
+            "line": 345,
+            "text": "A同时交付simulator/project.godot、export_presets.cfg和最小启动入口，B的资产可先独立制作，G01可运行验收须等本骨架。公共ABI须包括新角速单位/编码/速度曲率ROM/摘要窗口/quality位/时标；三机互操作向量至少含STRESS(57,0)合法、(58,0)拒绝、(40,40)合法、(41,41)拒绝及零速非零拒绝，检查最终量化码而非仅浮点候选。"
+          },
+          {
+            "line": 346,
+            "text": ""
+          },
+          {
+            "line": 347,
+            "text": ""
+          },
+          {
+            "line": 348,
+            "text": "为避免150ms计算永远错过141.667ms空档，PC使用latest-completed有界邮箱：本槽未就绪的结果可在下一合法槽消费，但必须仍满足原观察年龄/会话/profile/epoch，旧完成不得覆盖更新结果；不能每窗无条件丢弃后从零重算。PL保存最近4项已发TELEM的seq/tick/session/profile/epoch，CONTROL3D可引用其中新鲜历史obs，不强制等于本窗最新seq；当前grant只授权槽，不把旧观察改标新。HIL与PC_DIRECT共同截止封顶于引用采样时刻+FAST1500ms/STRESS12000ms，任何重复ACK/STATE不续期。150/250ms固定计算、反序完成、过期和旧obs/丢ACK均有向量；以绝对candidate-ready截止扣USB/打包开销，超时延后或停并计入端到端分布。"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-implementation-20261020\\api-resolution.md",
+    "bytes": 5466,
+    "sha256": "8272360b6fc3c096287fee23f6564cbe92e6371d38c14b1720b2df25b06d89f7",
+    "extracts": [
+      {
+        "start": 1,
+        "end": 19,
+        "lines": [
+          {
+            "line": 1,
+            "text": "# HIL request tracker API resolution"
+          },
+          {
+            "line": 2,
+            "text": ""
+          },
+          {
+            "line": 3,
+            "text": "The main-selected plan is ../next-software-main-20261020/hil-request-design-plan.md. This is a diagnostic association component, not a sender, authority, measurement authenticator or HIL executor. Three assigned new product paths only; mailbox is read-only and never imported."
+          },
+          {
+            "line": 4,
+            "text": ""
+          },
+          {
+            "line": 5,
+            "text": "`HilRequestTracker(run_id, dependencies=None)` is owned by its constructing thread. `HilDependencies` supplies explicit `verify_boot(event)`, `verify_observation(raw, boot)`, `verify_timing(raw, boot, original_request)` and `verify_capture(raw, boot, original_request)` methods. No permissive provider exists. Frozen result dataclasses retain exact original BOOT/request/raw associations; they are not credentials. Source/clock/capture authenticity and nonoverlapping measured delay meanings remain upstream obligations. None is unknown and cannot qualify an association."
+          },
+          {
+            "line": 6,
+            "text": ""
+          },
+          {
+            "line": 7,
+            "text": "`boot(event, now_ns=...)` replaces the previous activation with STOP before calling the verifier. A returned strict same-run BootBinding carries immutable existing sealed context, increasing generation and an original source identity (None remains unknown). Only topology1 HIL is accepted; PC_DIRECT is refused, never recast as capture. At most64 used/proposed sessions are remembered, with refusal on exhaustion. A structurally valid verified proposal is retired before the final veto fence, so caught STOP/reentry cannot make it reusable. New BOOT resets per-session request/observation/response high waters, not the used-session/generation history or host clock high-water."
+          },
+          {
+            "line": 8,
+            "text": ""
+          },
+          {
+            "line": 9,
+            "text": "`observe(raw, now_ns=...)` validates CRC/schema/active context and the verifier's exact original source association/sample lower bound; at most four same-activation TELEM/EVENT references are retained. Unknown source/mapping does not admit an observation. Receipt/completion time never replaces sample acquisition. Same raw duplicate does not renew; conflict, backward/half-range/wrap requires STOP/fresh session."
+          },
+          {
+            "line": 10,
+            "text": ""
+          },
+          {
+            "line": 11,
+            "text": "`request(packet, first_send_ns=..., now_ns=...)` accepts only wire CONTROL3D14, CONFIG5 and GAIN10. Non-motion types retain identity/bytes only and cannot qualify. BOOT wire exchange belongs to verify_boot and is not admitted here. CONTROL3D parses the existing16-byte payload, session/cmd_id/header.seq/config epoch, STOP zero-field rule, bounded TTL, speed and quantized curvature. The immutable OriginalRequest stores `(session,type,seq)`, first raw packet, semantic payload, first-send, original TTL, original observation reference/sample and target codes. Entry separately stores only the latest received raw retry. Same payload may have a different tick/CRC but retains original time/deadline; changed payload rejects. History is16 entries; three per-type nonwrapping sequence high waters protect eviction. Different request types have different keys. Superseding CONTROL3D retires the old command. STOP latches the activation; expiry/eviction permanently retires that request, while a new command may use new valid evidence."
+          },
+          {
+            "line": 12,
+            "text": ""
+          },
+          {
+            "line": 13,
+            "text": "`response(raw_board_response, now_ns=...)` uses existing host validator before callbacks/state mutation. ACK3D must bind type14/request_seq; STATE3D must bind last_control_seq/current request. Other board responses, including STATE8, are diagnostics only. Captured phase3, fault0, quality15, exact target codes, current independent capture/BOOT/request/batch and strict timing evidence are required. The existing validator already requires response control_epoch==active context.config_epoch: preserve that strict frozen rule rather than invent a second domain. A changed/wrapped epoch needs a new verified session. Capture sequence is nondecreasing without wrap. Changed duplicate response identities and backward/half-range sender sequence fail closed; an exact wire repeat cannot renew, even with a new receipt envelope."
+          },
+          {
+            "line": 14,
+            "text": ""
+          },
+          {
+            "line": 15,
+            "text": "Deadline is exactly min(original first-send+TTL, receipt.lower+max(0,current remainingTTL−serialUpper−usbProcessingUpper−clockErrorUpper), original sample lower+FAST1500ms/STRESS12000ms, previous deadline). Receipt.lower is conservative. Equality to now expires. No new observation/retry/ACK/STATE can increase a request deadline or resurrect retired requests. Unknown original observation remains unknown even if a later observation arrives. `check(now_ns=...)` returns the current frozen Association diagnostic; `snapshot()` is detached bounded state. A qualified association is still not send/motion permission."
+          },
+          {
+            "line": 16,
+            "text": ""
+          },
+          {
+            "line": 17,
+            "text": "All time-taking methods use strict nonregressing host integers. Public wrappers catch malformed call shapes before a trusted callback can catch them without recording a veto. Reentry invalidates the in-flight transition. STOP is always permitted and changes veto generation; verifiers are fenced immediately on return and before publication. Exceptions fail closed. Foreign-thread calls set a pending STOP for the owner and reject; providers may not do asynchronous/reentrant admission. A malicious trusted verifier hiding internal failure or fabricating original evidence is outside the valid provider contract, not made trustworthy by dataclass type/hash/boolean."
+          },
+          {
+            "line": 18,
+            "text": ""
+          },
+          {
+            "line": 19,
+            "text": "TDD: independent binascii CRC packet builders and hand-derived JSON event deadlines; actual initial RED, minimal implementation, targeted GREEN and retained failures. No full245 run, no existing source/schema/BOOT/gate edits, Git index/commit, native runtime, network, UI, board or service action. All29/R03/G05/full H12 remain not_run."
+          }
+        ]
+      }
+    ]
+  }
+]

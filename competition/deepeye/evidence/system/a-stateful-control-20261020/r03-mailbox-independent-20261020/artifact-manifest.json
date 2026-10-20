@@ -1,0 +1,123 @@
+{
+  "work_id": "A-R03-MAILBOX-INDEPENDENT-20261020-v1",
+  "files": {
+    "assignment.md": {
+      "bytes": 2658,
+      "sha256": "ad898e8e35937208a9d9eed3dba3b4cbd145653f13fd8b9e27e717b575b58912"
+    },
+    "audit_inputs.py": {
+      "bytes": 4510,
+      "sha256": "649bafedbc4017c557a26458a8c4c2058f450797404ae8b88f99d32234e4b1a8"
+    },
+    "boundary.py": {
+      "bytes": 13074,
+      "sha256": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+    },
+    "closeout.py": {
+      "bytes": 8224,
+      "sha256": "adc0fe0dc7bb1a940c0e6da07a165395ad474c4cbbe76662a66027a167ee9cca"
+    },
+    "final-audit.json": {
+      "bytes": 10676,
+      "sha256": "aa8243a6b7ffdceb519f09d2ab8dea84bb855b8a022eb121a7fc04cbe02cc31b"
+    },
+    "final-result.txt": {
+      "bytes": 1269,
+      "sha256": "e4ad116bb12c0dbbaf5068efee517c562783ed30375d4c3e52c0a2aa3a20a5ed"
+    },
+    "findings.md": {
+      "bytes": 7146,
+      "sha256": "922b80bca2c3623071728d9d3dd65a536427c1f55f78c303d87943d8c9da5f08"
+    },
+    "import-pin-readback.json": {
+      "bytes": 44557,
+      "sha256": "830bc0cb3745011c668216a74eac2785e0370f6b104d794749476f40a774707e"
+    },
+    "independent_controls.py": {
+      "bytes": 22651,
+      "sha256": "361bdd67d1cc1ebadcb3f1a7ad5aa5c610169e8c52e9ed254fd900ab7e8df5ea"
+    },
+    "initial-audit.json": {
+      "bytes": 10633,
+      "sha256": "a2b81dc6b545571fe439be6a951b79feac6d0608dcd64e000bf140a983f77a4d"
+    },
+    "native-validate-response.json": {
+      "bytes": 336,
+      "sha256": "74a1419c4053166743ee553f35050391a4716623f29dffb3761270172e0fac1a"
+    },
+    "progress.md": {
+      "bytes": 1339,
+      "sha256": "77b146ee4d666dc7fe2b5de7887728fca37ab42b002ca6bdeb7716d24d37745e"
+    },
+    "result.json": {
+      "bytes": 2139,
+      "sha256": "90a4e3e3c56c49a09c5c3d69d7e4a1b60a58c5abe57dbf7d9931df8e82b86d13"
+    },
+    "run_review.py": {
+      "bytes": 2181,
+      "sha256": "0617c1d3e78b8e570cd1c0ac4073d407e25d6857fc4726ddc55bfb0f1f239549"
+    },
+    "stop-callshape-01/checks.json": {
+      "bytes": 38308,
+      "sha256": "9378ead95ad9e6c900671a236fdc86323cfe24d02de0100060fcd9c64cf4216b"
+    },
+    "stop-callshape-01/started.json": {
+      "bytes": 1953,
+      "sha256": "3eb44bc410c373c70195d7c8cddda889034f719dc5a68e756f3cfb758b351111"
+    },
+    "stop-callshape-01/stderr.txt": {
+      "bytes": 2514,
+      "sha256": "8f437e43cf392f6eabe2c65f3a6cc4e17eacce157474986fd7eb66a084ee9b4a"
+    },
+    "stop-callshape-01/stdout.txt": {
+      "bytes": 83,
+      "sha256": "b03b6a1084e08889f0cb43e7f914bf829c88c7590488976e6f5ee3d7dbde2e8c"
+    },
+    "stop-callshape-01/terminal.json": {
+      "bytes": 1430,
+      "sha256": "e958b3cd30f46db9c72a3bad9de79c32b968dd9ec9b6784b572a7eafcddf7f89"
+    },
+    "suite-01/checks.json": {
+      "bytes": 39797,
+      "sha256": "5a64c3cf2508a7227c7224088a5c23c02a18ff82ca7b65abe4d7e326d6970c70"
+    },
+    "suite-01/started.json": {
+      "bytes": 1943,
+      "sha256": "e4d873b63dbbdbeeb7c859fd7f34f4f5d4d579c03f7af7593fd09fdca5016d4d"
+    },
+    "suite-01/stderr.txt": {
+      "bytes": 4348,
+      "sha256": "498117b3eeec40af7d21ad5c15cf259e38194c4e1228f5f4446a14e0d040fa27"
+    },
+    "suite-01/stdout.txt": {
+      "bytes": 84,
+      "sha256": "8cc584acfd9df84bfe844431a372b1431b70acf3141a8cc19a4152855c7d4bb0"
+    },
+    "suite-01/terminal.json": {
+      "bytes": 1430,
+      "sha256": "641de96dd736974a3e721376c522ef28caee533fc783031358b44210a2730ce4"
+    },
+    "task_plan.md": {
+      "bytes": 1361,
+      "sha256": "9b0cbbcccb7ff9af46e45315c051e6a64df504b228cfb1919181b49d3425f093"
+    },
+    "win_job.py": {
+      "bytes": 19842,
+      "sha256": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d"
+    }
+  },
+  "directories": [
+    "stop-callshape-01",
+    "suite-01"
+  ],
+  "excluded": [
+    "artifact-manifest.json",
+    "lease.private.json",
+    "native-complete-response.json",
+    "reserve-request.json"
+  ],
+  "completion_rule": "final-result is exact native result; terminal receipt follows manifest and is excluded",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "all29": "not_run",
+  "R03": "not_run"
+}

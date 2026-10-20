@@ -1,0 +1,10 @@
+import datetime,hashlib,json,os,pathlib,subprocess,sys,time
+D=pathlib.Path(__file__).resolve().parent;R=D.parents[2];P=R/'.local/deepeye-implementation-a/competition/deepeye';label=sys.argv[1];A=D/label;A.mkdir();names=['integration/hil_request_tracker.py','integration/test_hil_request_tracker.py','tests/vectors/r03_hil_request_lifecycle.json'];before={}
+for name in names:
+ p=P/name;before[name]=hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else None
+ if p.is_file():(A/p.name).write_bytes(p.read_bytes())
+cmd=[sys.executable,'-B','-X','utf8',str(D/'run_target.py'),label];env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','PYTHONIOENCODING':'utf-8','PYTHONPATH':str(R/'.local/deepeye-host-deps'),'TEMP':str(A),'TMP':str(A)};rec={'argv':cmd,'cwd':str(P),'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'environment_override':{k:env[k] for k in ['PYTHONDONTWRITEBYTECODE','PYTHONIOENCODING','PYTHONPATH','TEMP','TMP']},'input_hashes':before,'hidden':True,'below_normal':True,'timeout_seconds':50};start=time.monotonic();q=subprocess.Popen(cmd,cwd=P,env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=subprocess.CREATE_NO_WINDOW|subprocess.BELOW_NORMAL_PRIORITY_CLASS);rec['launcher_pid']=q.pid
+try:out,err=q.communicate(timeout=50)
+except subprocess.TimeoutExpired:
+ q.kill();out,err=q.communicate();rec['timed_out']=True
+(A/'stdout.txt').write_bytes(out);(A/'stderr.txt').write_bytes(err);after={n:hashlib.sha256((P/n).read_bytes()).hexdigest() if (P/n).is_file() else None for n in names};rec.update(exit=q.returncode,elapsed_seconds=time.monotonic()-start,ended_utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),inputs_unchanged=before==after,stdout_sha256=hashlib.sha256(out).hexdigest(),stderr_sha256=hashlib.sha256(err).hexdigest());(A/'execution.json').write_text(json.dumps(rec,indent=2)+'\n',encoding='utf-8');print(out.decode());print(err.decode());print(json.dumps({k:v for k,v in rec.items() if k not in ['environment_override','input_hashes']}));sys.exit(q.returncode)

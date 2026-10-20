@@ -1,0 +1,72 @@
+{
+  "author_manifest_sha256": "b8d3ed1a2903be504d83509bc9db5e99a705a4225287eed919f7079addc2de60",
+  "author_files_verified": 64,
+  "original_job": "child-4126792ead044c7da100414b353266f8",
+  "completed": true,
+  "terminal": true,
+  "exact_result": true,
+  "implementation_exact_single_decorator": true,
+  "original_test_methods_ast_unchanged": 32,
+  "original_inputs": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\boot_profile.py": {
+      "bytes": 81662,
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\host_envelope.py": {
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\test_host_envelope.py": {
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\wire.py": {
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\integration\\motion.py": {
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\boot_profiles.json": {
+      "bytes": 20395,
+      "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\host_contract.json": {
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\host_timing_contract.md": {
+      "bytes": 8180,
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\enums.json": {
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\vectors\\r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    }
+  },
+  "proposed_module_sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+  "proposed_test_sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82",
+  "controls_old_sha256": "361bdd67d1cc1ebadcb3f1a7ad5aa5c610169e8c52e9ed254fd900ab7e8df5ea",
+  "controls_new_sha256": "1a621ced80916802d5cba545c2cb94077cb9689f7efc692bfba84cdf6fa89d42",
+  "controls_delta": "Only prepend owned proposed module import path; existing independent STOP assertions unchanged.",
+  "new_run": "stop-callshape-01 in this new directory only",
+  "product_application": "pending independent focused result",
+  "R03": "not_run"
+}

@@ -1,0 +1,46 @@
+test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) ... 
+  test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=1, name='FAST_ready_early_deadline_before_slot') ... FAIL
+  test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=1, name='FAST_deadline_equals_slot') ... FAIL
+  test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=2, name='FAST_ready_early_deadline_before_slot') ... FAIL
+  test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=2, name='FAST_deadline_equals_slot') ... FAIL
+
+======================================================================
+FAIL: test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=1, name='FAST_ready_early_deadline_before_slot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 72, in test_literal_fast_stress_timelines_both_modes
+    if v['expected_slot_ms'] is None:self.assertIsNone(got)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Selection(generation=1, context_raw=b'{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1}', mode='HIL_PC_FPGA', window_index=0, slot_start_ns=210000000, deadline_ns=100000000, ready_ns=35000000, sample_lower_ns=0, candidate_id=1, invocation_id=1, candidate_raw=b'{"schema_version":1,"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1},"kind":"model_candidate","candidate_id":1,"model_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","observation":{"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1},"observed_seq":9},"completed_monotonic_ns":20000000,"target":{"action":1,"yaw_q":0,"pitch_q":0,"speed_code":5,"duration_ms":1000}}') is not None
+
+======================================================================
+FAIL: test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=1, name='FAST_deadline_equals_slot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 72, in test_literal_fast_stress_timelines_both_modes
+    if v['expected_slot_ms'] is None:self.assertIsNone(got)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Selection(generation=1, context_raw=b'{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1}', mode='HIL_PC_FPGA', window_index=0, slot_start_ns=210000000, deadline_ns=210000000, ready_ns=35000000, sample_lower_ns=0, candidate_id=1, invocation_id=1, candidate_raw=b'{"schema_version":1,"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1},"kind":"model_candidate","candidate_id":1,"model_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","observation":{"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":1,"acquisition_profile_id":1},"observed_seq":9},"completed_monotonic_ns":20000000,"target":{"action":1,"yaw_q":0,"pitch_q":0,"speed_code":5,"duration_ms":1000}}') is not None
+
+======================================================================
+FAIL: test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=2, name='FAST_ready_early_deadline_before_slot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 72, in test_literal_fast_stress_timelines_both_modes
+    if v['expected_slot_ms'] is None:self.assertIsNone(got)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Selection(generation=1, context_raw=b'{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1}', mode='PC_DIRECT', window_index=0, slot_start_ns=210000000, deadline_ns=100000000, ready_ns=35000000, sample_lower_ns=0, candidate_id=1, invocation_id=1, candidate_raw=b'{"schema_version":1,"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1},"kind":"model_candidate","candidate_id":1,"model_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","observation":{"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1},"observed_seq":9},"completed_monotonic_ns":20000000,"target":{"action":1,"yaw_q":0,"pitch_q":0,"speed_code":5,"duration_ms":1000}}') is not None
+
+======================================================================
+FAIL: test_literal_fast_stress_timelines_both_modes (deadline_tests.MailboxTests.test_literal_fast_stress_timelines_both_modes) (mode=2, name='FAST_deadline_equals_slot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 72, in test_literal_fast_stress_timelines_both_modes
+    if v['expected_slot_ms'] is None:self.assertIsNone(got)
+                                     ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Selection(generation=1, context_raw=b'{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1}', mode='PC_DIRECT', window_index=0, slot_start_ns=210000000, deadline_ns=210000000, ready_ns=35000000, sample_lower_ns=0, candidate_id=1, invocation_id=1, candidate_raw=b'{"schema_version":1,"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1},"kind":"model_candidate","candidate_id":1,"model_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","observation":{"context":{"session":7,"config_epoch":2,"boot_sha256":"b7abdd50d04337c4526ae43de6912c9b7f05e9803e79a519dd4fd7528edc3b46","transport_profile_id":1,"source_id":3,"topology_id":2,"acquisition_profile_id":1},"observed_seq":9},"completed_monotonic_ns":20000000,"target":{"action":1,"yaw_q":0,"pitch_q":0,"speed_code":5,"duration_ms":1000}}') is not None
+
+----------------------------------------------------------------------
+Ran 1 test in 0.084s
+
+FAILED (failures=4)

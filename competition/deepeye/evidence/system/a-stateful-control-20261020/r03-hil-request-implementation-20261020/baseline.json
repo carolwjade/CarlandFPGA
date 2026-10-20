@@ -1,0 +1,77 @@
+{
+  "head": "0f1c80be5cf1140d743d125fcfee36c4c4ee5792",
+  "status": " M docs/competition/deepeye-2026/.gitattributes\n?? competition/deepeye/ai_pc/\n?? competition/deepeye/evidence/ai/\n?? competition/deepeye/integration/candidate_mailbox.py\n?? competition/deepeye/integration/test_candidate_mailbox.py\n?? competition/deepeye/tests/ai/\n?? competition/deepeye/tests/vectors/r03_mailbox_lifecycle.json\n",
+  "new_owned_files_absent": [
+    "competition/deepeye/integration/hil_request_tracker.py",
+    "competition/deepeye/integration/test_hil_request_tracker.py",
+    "competition/deepeye/tests/vectors/r03_hil_request_lifecycle.json"
+  ],
+  "input_pins": {
+    "docs/competition/deepeye-2026/immutable_scope.md": {
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    "docs/competition/deepeye-2026/taskbook_final.md": {
+      "bytes": 109430,
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+    },
+    "competition/deepeye/docs/interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "competition/deepeye/docs/enums.json": {
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    "competition/deepeye/docs/host_contract.json": {
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    "competition/deepeye/docs/host_timing_contract.md": {
+      "bytes": 8180,
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff"
+    },
+    "competition/deepeye/integration/wire.py": {
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "competition/deepeye/integration/motion.py": {
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "competition/deepeye/integration/host_envelope.py": {
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "competition/deepeye/integration/clock_bounds.py": {
+      "bytes": 10136,
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08"
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "bytes": 23468,
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb"
+    },
+    "competition/deepeye/integration/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "competition/deepeye/integration/test_candidate_mailbox.py": {
+      "bytes": 14421,
+      "sha256": "3213da1b59984d5f368404ee7b523a89d25fdd08ef832bf9dda6e0c7458510af"
+    },
+    "competition/deepeye/tests/vectors/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    }
+  },
+  "C_dirty_files": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013"
+  }
+}
