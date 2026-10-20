@@ -1,0 +1,10 @@
+{
+  "original_sha256": "d8c33ebad98acca113e18dbc5831643646663b946714af139d8b1637047356f3",
+  "mutant_sha256": "b2be6aae2683b5445ee88b8aa835a2b0dee454813b35194b6a02d4b63a4b3c63",
+  "replacements": [
+    [
+      "assign out_valid = transport_window && c_armed && !raw_fault &&\n                       c_out_valid && raw_equal;",
+      "assign out_valid = transport_window && c_armed && !raw_fault &&\n                       c_out_valid;"
+    ]
+  ]
+}

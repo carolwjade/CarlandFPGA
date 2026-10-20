@@ -1,0 +1,872 @@
+{
+  "commands": [
+    {
+      "label": "subst-before",
+      "argv": [
+        "subst"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt02",
+      "pid": 54580,
+      "start": "2026-10-20T01:09:36.161636+00:00",
+      "end": "2026-10-20T01:09:36.187195+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-create",
+      "argv": [
+        "subst",
+        "R:",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt02"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt02",
+      "pid": 44772,
+      "start": "2026-10-20T01:09:36.195270+00:00",
+      "end": "2026-10-20T01:09:36.217386+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlog-version",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-version"
+      ],
+      "cwd": "R:/",
+      "pid": 53588,
+      "start": "2026-10-20T01:09:36.225648+00:00",
+      "end": "2026-10-20T01:09:36.271439+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "9949950d6f825cd33090c7c244a9bfc5b0bfdcf492ad0f1979aca71861a775cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vsim-version",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-version"
+      ],
+      "cwd": "R:/",
+      "pid": 38012,
+      "start": "2026-10-20T01:09:36.283073+00:00",
+      "end": "2026-10-20T01:09:36.356243+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlib",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+        "lib"
+      ],
+      "cwd": "R:/build",
+      "pid": 37152,
+      "start": "2026-10-20T01:09:36.365563+00:00",
+      "end": "2026-10-20T01:09:36.419670+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlog",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-sv",
+        "-work",
+        "lib",
+        "R:/snapshot/deepeye_atomic_pwm.sv",
+        "R:/snapshot/deepeye_pwm_coherent_capture.sv",
+        "R:/snapshot/deepeye_pwm_applied_capture.sv",
+        "R:/snapshot/independent_tb.sv"
+      ],
+      "cwd": "R:/build",
+      "pid": 49956,
+      "start": "2026-10-20T01:09:36.427171+00:00",
+      "end": "2026-10-20T01:09:36.530688+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "5c580a8dfa5257b094902ff34f54cda3fe326cba102fc0be2749f0fd17744d19",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "positive-4-8-8",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/positive-4-8-8.transcript",
+        "-wlf",
+        "R:/positive-4-8-8.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=4",
+        "-gWITNESS_W=8",
+        "-gTAG_W=8",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/positive-4-8-8.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 46892,
+      "start": "2026-10-20T01:09:36.549762+00:00",
+      "end": "2026-10-20T01:09:38.519831+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "376a24d22b9be2ff4de166d883c0e893cc73152790b0947a81b9fdfdb811fcd2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "positive-2-2-1",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/positive-2-2-1.transcript",
+        "-wlf",
+        "R:/positive-2-2-1.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=2",
+        "-gWITNESS_W=2",
+        "-gTAG_W=1",
+        "+VEC=R:/positive-2-2-1.vec",
+        "+LOG=R:/positive-2-2-1.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 39220,
+      "start": "2026-10-20T01:09:38.585496+00:00",
+      "end": "2026-10-20T01:09:40.124428+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "4e04f1bc5b26f62f9b441ed52aa33d8eb0334eb98a8e78a7702f8264fd2a2b7d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "runs": [
+    {
+      "edges": 2376,
+      "errors": [
+        {
+          "edge": 1,
+          "label": "scenario_min_handshake_registered_pwm_loopback"
+        }
+      ],
+      "error_count": 1,
+      "scenarios": [
+        {
+          "name": "independent_literal_positive",
+          "edges": 17,
+          "handshakes": 5,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "registered_pwm_loopback",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [
+            2
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 11,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(5, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 5, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 1, 5)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_same",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_changed",
+          "edges": 39,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_illegal",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_same",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_changed",
+          "edges": 40,
+          "handshakes": 14,
+          "valid_observations": 28,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_illegal",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_same",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_changed",
+          "edges": 41,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_illegal",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_same",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_changed",
+          "edges": 42,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_illegal",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_same",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_changed",
+          "edges": 43,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_illegal",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "old_full_slot_boundary_rst",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_stop",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_same",
+          "edges": 33,
+          "handshakes": 2,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_illegal",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 2
+        },
+        {
+          "name": "held_valid_pending_0",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "held_valid_pending_1",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_mismatch",
+          "edges": 66,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_incoherent",
+          "edges": 59,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            2
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_period",
+          "edges": 72,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            3
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_witness",
+          "edges": 312,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_overrun",
+          "edges": 71,
+          "handshakes": 3,
+          "valid_observations": 16,
+          "starts": 2,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_0",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_7",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "bounded_max_command",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        }
+      ],
+      "handshakes": 86,
+      "valid_observations": 277,
+      "name": "positive-4-8-8",
+      "config": [
+        4,
+        8,
+        8
+      ],
+      "trace_sha256": "14765c13e34c51ff8abe6af59394b47dc02cba1e7c2cc12d5a7763f56853e69f"
+    },
+    {
+      "edges": 104,
+      "errors": [],
+      "error_count": 0,
+      "scenarios": [
+        {
+          "name": "independent_literal_positive",
+          "edges": 10,
+          "handshakes": 1,
+          "valid_observations": 2,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "registered_pwm_loopback",
+          "edges": 18,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 11,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(2, 1, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 2, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 1, 2)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "minimum_witness_exhaustion",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        }
+      ],
+      "handshakes": 1,
+      "valid_observations": 2,
+      "name": "positive-2-2-1",
+      "config": [
+        2,
+        2,
+        1
+      ],
+      "trace_sha256": "f0b13e74ea99daa1ec82c3f812780d866e77ecab352136c3143217120b35ddbb"
+    }
+  ],
+  "guards": [],
+  "mutants": [],
+  "formal_cards": "all29 not_run",
+  "authority": "quality main alone decides acceptance",
+  "private_mapping": "R:"
+}

@@ -1,0 +1,62 @@
+{
+  "at_utc": "2026-10-20T01:25:40.316085+00:00",
+  "verified": {
+    "14": {
+      "head": "7dd2c4108ee49cc6e0feb7c715d786f8b11a99c2",
+      "code": "21ae4c6bc9d03aea8a79bf784d9873ebdaf1c903",
+      "operation_id": "B-DEEPEYE-PWM-COHERENT-CAPTURE-20261020-14",
+      "request_hash": "1d23fc80980b0269bece376230d3722892355b725e217f7644e5b519b8230970",
+      "source_manifest_sha256": "f93e490bb0da5fb7e676538ec29e73aa56aacd388b574351de008b1d61ea8602",
+      "source_files": 309,
+      "review_files": 233,
+      "review_manifest_name": "evidence-manifest.json",
+      "review_manifest_sha256": "6a7bc06a179fccf873cd4136b313c42a33330e704bb33dc70c88a3b0533db47b",
+      "findings_sha256": "137efe9cb41db7c77fd4675d81bcf021f729cbc28709ba8f8a2263efdf8b81d8",
+      "review_result_sha256": "0ba62b26eb518b7ebabd51b2b0ff329a50a7f6e472ed2b00426bbd091707f98f",
+      "receipt_sha256": "152577a1dd3c80e886631c31190dc92be1e0e0e4e1ed2c7c1cbb891370996d61",
+      "commands": 30,
+      "fresh_edges": 800870,
+      "rle_rows": 65156,
+      "small_legal_triples": 450,
+      "guards": 11,
+      "mutants": 2,
+      "disposition": "Bounded synchronous coherent three-channel capture review accepted; no freshness/authority/physical ABI grant."
+    },
+    "15": {
+      "head": "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b",
+      "code": "52dc249c529b92a7b6be06550db5e7203c5c5a42",
+      "operation_id": "B-DEEPEYE-PWM-APPLIED-CAPTURE-20261020-15",
+      "request_hash": "564729a70a21b5ff71526b85958f6a113a50e7943ae0ed07a72d976723d39272",
+      "source_manifest_sha256": "331e7fcc5971ea61208bc052efa430be7ed4dc802037198a4975df6040290ba9",
+      "source_files": 1795,
+      "review_files": 567,
+      "review_manifest_name": "manifest.json",
+      "review_manifest_sha256": "c3dfc246b0a3d3c5a1a17b3c10742539763202c83ab56cc864a043b93089e615",
+      "findings_sha256": "0cfacbb415f5388a88ce734b769c5dae0e7f06f8df6e0162d53bb994269bb9e4",
+      "review_result_sha256": "6e8bc24f0968a98c07e3bde17703684baf6ae55a4152811f7e03209876798713",
+      "receipt_sha256": "f6c1db53502c679106a3313b3f323058e47d5263278ffe99f7b934620d8f59f7",
+      "commands": 57,
+      "fresh_edges": 4472,
+      "handshakes": 173,
+      "guards": 9,
+      "mutant_copies": 4,
+      "repaired_actual_commands": 47,
+      "actual_positive_runs": 19,
+      "findings": [
+        "R15-PARSER-SUBSTRING: completed exit0 plus NOT_TB_PASS_MARKER and zero stats is accepted",
+        "R15-PARSER-MULTISTATS: completed exit0 plus PASS and conflicting zero/nonzero stats rows is accepted"
+      ],
+      "disposition": "Bounded wrapper public-port campaign verified. Runner qualification remains open: require anchored unique PASS and one complete consistent stats row; original actual47 logs unaffected by reproduced synthetic defects. No unconditional runner acceptance."
+    }
+  },
+  "ownership_exception": "B15 reviewer briefly created and removed7byte recheck_unused.tmp outside ownership; retained disclosure, not retroactively approved.",
+  "all29_formal_cards": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "unproven": [
+    "physical/asynchronous capture",
+    "source freshness and TTL/BOOT/profile",
+    "synthesis/timing/CDC/RDC",
+    "motion authority and H12 both complete chains",
+    "board/system/formalR03"
+  ]
+}

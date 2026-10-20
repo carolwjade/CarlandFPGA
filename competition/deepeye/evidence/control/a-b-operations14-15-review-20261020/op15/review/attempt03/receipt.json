@@ -1,0 +1,1839 @@
+{
+  "commands": [
+    {
+      "label": "subst-before",
+      "argv": [
+        "subst"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt03",
+      "pid": 51656,
+      "start": "2026-10-20T01:10:17.181915+00:00",
+      "end": "2026-10-20T01:10:17.195493+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-create",
+      "argv": [
+        "subst",
+        "R:",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt03"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt03",
+      "pid": 40436,
+      "start": "2026-10-20T01:10:17.205669+00:00",
+      "end": "2026-10-20T01:10:17.224384+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlog-version",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-version"
+      ],
+      "cwd": "R:/",
+      "pid": 39556,
+      "start": "2026-10-20T01:10:17.237216+00:00",
+      "end": "2026-10-20T01:10:17.291785+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "9949950d6f825cd33090c7c244a9bfc5b0bfdcf492ad0f1979aca71861a775cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vsim-version",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-version"
+      ],
+      "cwd": "R:/",
+      "pid": 49804,
+      "start": "2026-10-20T01:10:17.301216+00:00",
+      "end": "2026-10-20T01:10:17.365671+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlib",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+        "lib"
+      ],
+      "cwd": "R:/build",
+      "pid": 43456,
+      "start": "2026-10-20T01:10:17.375462+00:00",
+      "end": "2026-10-20T01:10:17.429766+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlog",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-sv",
+        "-work",
+        "lib",
+        "R:/snapshot/deepeye_atomic_pwm.sv",
+        "R:/snapshot/deepeye_pwm_coherent_capture.sv",
+        "R:/snapshot/deepeye_pwm_applied_capture.sv",
+        "R:/snapshot/independent_tb.sv"
+      ],
+      "cwd": "R:/build",
+      "pid": 51356,
+      "start": "2026-10-20T01:10:17.433761+00:00",
+      "end": "2026-10-20T01:10:17.541388+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "4edab46e627c307568ec9d20a832e8843b9e953804c7a92b1e0715d49b5a26b9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "positive-4-8-8",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/positive-4-8-8.transcript",
+        "-wlf",
+        "R:/positive-4-8-8.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=4",
+        "-gWITNESS_W=8",
+        "-gTAG_W=8",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/positive-4-8-8.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 53044,
+      "start": "2026-10-20T01:10:17.554201+00:00",
+      "end": "2026-10-20T01:10:19.622452+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "2cbcc90654482a1685dfc852e01a20da2fbf388ad591fa1041ddeb3b096b5403",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "positive-2-2-1",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/positive-2-2-1.transcript",
+        "-wlf",
+        "R:/positive-2-2-1.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=2",
+        "-gWITNESS_W=2",
+        "-gTAG_W=1",
+        "+VEC=R:/positive-2-2-1.vec",
+        "+LOG=R:/positive-2-2-1.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 49856,
+      "start": "2026-10-20T01:10:19.686001+00:00",
+      "end": "2026-10-20T01:10:21.193017+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "b4cbd68b015645505ae593d997eb368cd81baa3d3e6697365900e4e3510a5569",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "positive-32-64-64",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/positive-32-64-64.transcript",
+        "-wlf",
+        "R:/positive-32-64-64.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=64",
+        "-gTAG_W=64",
+        "+VEC=R:/positive-32-64-64.vec",
+        "+LOG=R:/positive-32-64-64.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 22612,
+      "start": "2026-10-20T01:10:21.216066+00:00",
+      "end": "2026-10-20T01:10:23.079579+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "93b0332e95b27c44a96836ccbf0607feac467f1a81dc709b5c6957bd68e05e8b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-0-64-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-0-64-32.transcript",
+        "-wlf",
+        "R:/guard-0-64-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=0",
+        "-gWITNESS_W=64",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-0-64-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 11148,
+      "start": "2026-10-20T01:10:23.134874+00:00",
+      "end": "2026-10-20T01:10:24.687828+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "4ff94657cf3c57f60ef686b15091c79455214379df51f9cfa051960cf66d4377",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard--1-64-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard--1-64-32.transcript",
+        "-wlf",
+        "R:/guard--1-64-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=-1",
+        "-gWITNESS_W=64",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard--1-64-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 2516,
+      "start": "2026-10-20T01:10:24.707262+00:00",
+      "end": "2026-10-20T01:10:26.143514+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "de1da7db31e03a44d662ee4167317e005b95e2f9de8195aba7277c32ef6cddab",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-33-64-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-33-64-32.transcript",
+        "-wlf",
+        "R:/guard-33-64-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=33",
+        "-gWITNESS_W=64",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-33-64-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 50764,
+      "start": "2026-10-20T01:10:26.162224+00:00",
+      "end": "2026-10-20T01:10:27.637512+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "7d271a30d990fe05136d055dd360247f62d843524042940cc3ec349ca6f2c6ae",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32-0-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32-0-32.transcript",
+        "-wlf",
+        "R:/guard-32-0-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=0",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32-0-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 39272,
+      "start": "2026-10-20T01:10:27.653867+00:00",
+      "end": "2026-10-20T01:10:29.175361+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "228ad25fb1afe3ef282ce57c7c48552caa1329faba57af8b8c3156590eee11b5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32--2-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32--2-32.transcript",
+        "-wlf",
+        "R:/guard-32--2-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=-2",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32--2-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 38192,
+      "start": "2026-10-20T01:10:29.197179+00:00",
+      "end": "2026-10-20T01:10:30.715480+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "1afd641a6e02e0d1c59aa5f9550db5cfb54a1dc6468d7afab2e35c043837c8e2",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32-65-32",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32-65-32.transcript",
+        "-wlf",
+        "R:/guard-32-65-32.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=65",
+        "-gTAG_W=32",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32-65-32.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 17260,
+      "start": "2026-10-20T01:10:30.729795+00:00",
+      "end": "2026-10-20T01:10:32.217708+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "8964d053a4c5f25d28812ab0ce97a76e2b7d225c80d93735285e7acda86214ae",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32-64-0",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32-64-0.transcript",
+        "-wlf",
+        "R:/guard-32-64-0.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=64",
+        "-gTAG_W=0",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32-64-0.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 52480,
+      "start": "2026-10-20T01:10:32.231895+00:00",
+      "end": "2026-10-20T01:10:33.699881+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "8269c46cc8e98c75fb893b59bae5b3590fd631df5a7c7b014f4314cfbd9096c1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32-64--1",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32-64--1.transcript",
+        "-wlf",
+        "R:/guard-32-64--1.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=64",
+        "-gTAG_W=-1",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32-64--1.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 30768,
+      "start": "2026-10-20T01:10:33.718429+00:00",
+      "end": "2026-10-20T01:10:35.227436+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "9831e56b119b081b317b57f5b229e4260d9766e429fffbbd98bc574486d7dd70",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guard-32-64-65",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-l",
+        "R:/guard-32-64-65.transcript",
+        "-wlf",
+        "R:/guard-32-64-65.wlf",
+        "-do",
+        "run.do",
+        "-gCOUNT_W=32",
+        "-gWITNESS_W=64",
+        "-gTAG_W=65",
+        "+VEC=R:/positive-4-8-8.vec",
+        "+LOG=R:/guard-32-64-65.trace"
+      ],
+      "cwd": "R:/build",
+      "pid": 52900,
+      "start": "2026-10-20T01:10:35.256157+00:00",
+      "end": "2026-10-20T01:10:36.727116+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "c2c8f372d7664bc41084c2961251cd63c583875f89f948a6754e3b2fcaa2e9e1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-remove",
+      "argv": [
+        "subst",
+        "R:",
+        "/d"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt03",
+      "pid": 49836,
+      "start": "2026-10-20T01:10:36.749444+00:00",
+      "end": "2026-10-20T01:10:36.766040+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-after",
+      "argv": [
+        "subst"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\attempt03",
+      "pid": 40224,
+      "start": "2026-10-20T01:10:36.779867+00:00",
+      "end": "2026-10-20T01:10:36.791587+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "runs": [
+    {
+      "edges": 2376,
+      "errors": [],
+      "error_count": 0,
+      "scenarios": [
+        {
+          "name": "independent_literal_positive",
+          "edges": 17,
+          "handshakes": 5,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "registered_pwm_loopback",
+          "edges": 30,
+          "handshakes": 3,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 11,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 1
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(5, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 5, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 1, 5)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_same",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_changed",
+          "edges": 39,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_illegal",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_same",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_changed",
+          "edges": 40,
+          "handshakes": 14,
+          "valid_observations": 28,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_illegal",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_same",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_changed",
+          "edges": 41,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_illegal",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_same",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_changed",
+          "edges": 42,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_illegal",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_same",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_changed",
+          "edges": 43,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_illegal",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "old_full_slot_boundary_rst",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_stop",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_same",
+          "edges": 33,
+          "handshakes": 2,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_illegal",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 2
+        },
+        {
+          "name": "held_valid_pending_0",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "held_valid_pending_1",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_mismatch",
+          "edges": 66,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_incoherent",
+          "edges": 59,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            2
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_period",
+          "edges": 72,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            3
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_witness",
+          "edges": 312,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_overrun",
+          "edges": 71,
+          "handshakes": 3,
+          "valid_observations": 16,
+          "starts": 2,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_0",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_7",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "bounded_max_command",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        }
+      ],
+      "handshakes": 89,
+      "valid_observations": 284,
+      "name": "positive-4-8-8",
+      "config": [
+        4,
+        8,
+        8
+      ],
+      "trace_sha256": "0411ea4e2216ca014faf5e40da3f43d0866bf5b32ac134f01860c6ec63fc0c5d"
+    },
+    {
+      "edges": 104,
+      "errors": [],
+      "error_count": 0,
+      "scenarios": [
+        {
+          "name": "independent_literal_positive",
+          "edges": 10,
+          "handshakes": 1,
+          "valid_observations": 2,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "registered_pwm_loopback",
+          "edges": 18,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 11,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(2, 1, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 2, 1)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 1, 2)",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "minimum_witness_exhaustion",
+          "edges": 13,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [
+            4
+          ],
+          "old_slots": 0
+        }
+      ],
+      "handshakes": 1,
+      "valid_observations": 2,
+      "name": "positive-2-2-1",
+      "config": [
+        2,
+        2,
+        1
+      ],
+      "trace_sha256": "04fe9da1787bf614a6b0017ca2a30cd5aede2689e4cae06b7d4f1399c569d5d7"
+    },
+    {
+      "edges": 1992,
+      "errors": [],
+      "error_count": 0,
+      "scenarios": [
+        {
+          "name": "independent_literal_positive",
+          "edges": 17,
+          "handshakes": 5,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "registered_pwm_loopback",
+          "edges": 30,
+          "handshakes": 3,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 11,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 1
+        },
+        {
+          "name": "legal_unmeasurable_(0, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(5, 1, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 5, 1)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "legal_unmeasurable_(1, 1, 5)",
+          "edges": 19,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 0,
+          "codes": [
+            6
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_same",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_changed",
+          "edges": 39,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_0_illegal",
+          "edges": 39,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_same",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_changed",
+          "edges": 40,
+          "handshakes": 14,
+          "valid_observations": 28,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_1_illegal",
+          "edges": 40,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_same",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_changed",
+          "edges": 41,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_2_illegal",
+          "edges": 41,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_same",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_changed",
+          "edges": 42,
+          "handshakes": 12,
+          "valid_observations": 24,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_3_illegal",
+          "edges": 42,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_same",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_changed",
+          "edges": 43,
+          "handshakes": 13,
+          "valid_observations": 26,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "transfer_phase_4_illegal",
+          "edges": 43,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "old_full_slot_boundary_rst",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_stop",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_same",
+          "edges": 33,
+          "handshakes": 2,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "old_full_slot_boundary_illegal",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 2
+        },
+        {
+          "name": "held_valid_pending_0",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "held_valid_pending_1",
+          "edges": 70,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 2,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_mismatch",
+          "edges": 66,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            1
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_incoherent",
+          "edges": 59,
+          "handshakes": 3,
+          "valid_observations": 6,
+          "starts": 2,
+          "codes": [
+            2
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "failure_overrun",
+          "edges": 71,
+          "handshakes": 3,
+          "valid_observations": 16,
+          "starts": 2,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_0",
+          "edges": 24,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_1",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_2",
+          "edges": 26,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_3",
+          "edges": 27,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_4",
+          "edges": 28,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_rst_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_5",
+          "edges": 29,
+          "handshakes": 0,
+          "valid_observations": 1,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_6",
+          "edges": 30,
+          "handshakes": 0,
+          "valid_observations": 3,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_7",
+          "edges": 31,
+          "handshakes": 0,
+          "valid_observations": 5,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_8",
+          "edges": 32,
+          "handshakes": 0,
+          "valid_observations": 7,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_9",
+          "edges": 33,
+          "handshakes": 0,
+          "valid_observations": 9,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_stop_10",
+          "edges": 34,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 1
+        },
+        {
+          "name": "abort_rst_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "abort_stop_11",
+          "edges": 35,
+          "handshakes": 0,
+          "valid_observations": 10,
+          "starts": 1,
+          "codes": [
+            5
+          ],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_0",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "constant_7",
+          "edges": 21,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        },
+        {
+          "name": "bounded_max_command",
+          "edges": 25,
+          "handshakes": 0,
+          "valid_observations": 0,
+          "starts": 1,
+          "codes": [],
+          "old_slots": 0
+        }
+      ],
+      "handshakes": 83,
+      "valid_observations": 272,
+      "name": "positive-32-64-64",
+      "config": [
+        32,
+        64,
+        64
+      ],
+      "trace_sha256": "4d62981b7fbb51e2ba052e578cce5ddb58739054982523b04f385772cef1c2c7"
+    }
+  ],
+  "guards": [
+    {
+      "name": "guard-0-64-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=0 WITNESS_W=64 TAG_W=32 SAFE_COUNT_W=2 SAFE_WITNESS_W=64 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard--1-64-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=-1 WITNESS_W=64 TAG_W=32 SAFE_COUNT_W=2 SAFE_WITNESS_W=64 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-33-64-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=33 WITNESS_W=64 TAG_W=32 SAFE_COUNT_W=32 SAFE_WITNESS_W=64 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32-0-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=0 TAG_W=32 SAFE_COUNT_W=32 SAFE_WITNESS_W=2 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32--2-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=-2 TAG_W=32 SAFE_COUNT_W=32 SAFE_WITNESS_W=2 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32-65-32",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=65 TAG_W=32 SAFE_COUNT_W=32 SAFE_WITNESS_W=64 SAFE_TAG_W=32",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32-64-0",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=64 TAG_W=0 SAFE_COUNT_W=32 SAFE_WITNESS_W=64 SAFE_TAG_W=1",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32-64--1",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=64 TAG_W=-1 SAFE_COUNT_W=32 SAFE_WITNESS_W=64 SAFE_TAG_W=1",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    },
+    {
+      "name": "guard-32-64-65",
+      "exit": 0,
+      "exact_guard_diagnostic": true,
+      "diagnostic": "DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM COUNT_W=32 WITNESS_W=64 TAG_W=65 SAFE_COUNT_W=32 SAFE_WITNESS_W=64 SAFE_TAG_W=64",
+      "actual_diagnostics": [
+        "** Fatal: DEEPEYE_APPLIED_CAPTURE_INVALID_PARAM unsupported widths\r"
+      ]
+    }
+  ],
+  "mutants": [],
+  "formal_cards": "all29 not_run",
+  "authority": "quality main alone decides acceptance",
+  "private_mapping": "R:",
+  "status": "fresh_runs_complete",
+  "mapping_removed": true
+}

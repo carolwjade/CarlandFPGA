@@ -1,0 +1,56 @@
+{
+  "original": {
+    "source_sha256": "331b3a4aa4cc9baa3b378e27dc1accd50f2e2bce60ad50348b57603ccd17d18e",
+    "baseline_mismatches": 13,
+    "additional": [
+      {
+        "name": "substring-pass",
+        "exit": 0,
+        "expected": false,
+        "observed": true,
+        "matches": false
+      },
+      {
+        "name": "duplicate-stats",
+        "exit": 0,
+        "expected": false,
+        "observed": true,
+        "matches": false
+      },
+      {
+        "name": "fatal-stderr",
+        "exit": 0,
+        "expected": false,
+        "observed": true,
+        "matches": false
+      }
+    ]
+  },
+  "repaired": {
+    "source_sha256": "83f192c70ab48427e70a0dc66662e4a24a66be90633a454a82e179a6a79ddf98",
+    "baseline_mismatches": 0,
+    "additional": [
+      {
+        "name": "substring-pass",
+        "exit": 0,
+        "expected": false,
+        "observed": true,
+        "matches": false
+      },
+      {
+        "name": "duplicate-stats",
+        "exit": 0,
+        "expected": false,
+        "observed": true,
+        "matches": false
+      },
+      {
+        "name": "fatal-stderr",
+        "exit": 0,
+        "expected": false,
+        "observed": false,
+        "matches": true
+      }
+    ]
+  }
+}

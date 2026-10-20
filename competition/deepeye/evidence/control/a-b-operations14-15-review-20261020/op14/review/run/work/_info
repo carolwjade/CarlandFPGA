@@ -1,0 +1,115 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dQ:/run
+T_opt
+!s110 1792457289
+V5ko4>ah4kPVOc7MZ9EGNY1
+Z1 04 8 4 work guard_tb fast 0
+=1-b025aa6d451b-6ad6ba49-fa-bf18
+o-quiet -auto_acc_if_foreign -work work -g COUNT_W=3 -g WITNESS_W=8 -g TAG_W=-1
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.4;71
+R0
+T_opt1
+!s110 1792457290
+Vo:590GAgcTzhm11gaOR5<0
+R1
+=1-b025aa6d451b-6ad6ba4a-2be-9aa8
+o-quiet -auto_acc_if_foreign -work work -g COUNT_W=3 -g WITNESS_W=8 -g TAG_W=65
+R2
+n@_opt1
+R3
+T_opt2
+!s110 1792457288
+V;CAQ6:=0H9E>]HKkU75aX3
+R1
+=1-b025aa6d451b-6ad6ba47-30b-d720
+o-quiet -auto_acc_if_foreign -work work -g COUNT_W=3 -g WITNESS_W=8 -g TAG_W=0
+R2
+n@_opt2
+R3
+R0
+vdeepeye_pwm_coherent_capture
+Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z5 !s110 1792457260
+!i10b 1
+!s100 b03gYUi1LA3G54:kj_=6b3
+Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IEA6>B^KJ9OECLkcoCh3cl1
+S1
+R0
+Z7 w1792457258
+8dut.sv
+Fdut.sv
+!i122 0
+L0 27 323
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z10 !s108 1792457260.000000
+Z11 !s107 guard_tb.sv|tb.sv|dut.sv|
+Z12 !s90 -sv|-work|work|dut.sv|tb.sv|guard_tb.sv|
+!i113 0
+Z13 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vguard_tb
+R4
+R5
+!i10b 1
+!s100 NBN9S3L4SfYz;nASnCCgg0
+R6
+IGZT_QnzKo?nGV:YnNeeje0
+S1
+R0
+R7
+8guard_tb.sv
+Fguard_tb.sv
+!i122 0
+L0 3 17
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vmain_tb_pwm_coherent_capture
+R4
+R5
+!i10b 1
+!s100 8U5@IXVW9Vl_UjFei@TPb3
+R6
+IaD[d57OXIe0iH`5?_UR4b2
+S1
+R0
+R7
+8tb.sv
+Ftb.sv
+!i122 0
+L0 3 45
+R8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2

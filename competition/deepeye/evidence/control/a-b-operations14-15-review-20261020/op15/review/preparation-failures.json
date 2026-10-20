@@ -1,0 +1,28 @@
+{
+  "audit_attempt01": {
+    "command": ".local/venv/Scripts/python.exe -B -X utf8 .planning/deepeye-resume-20261018/b-op15-independent-20261020/audit.py",
+    "exit": 1,
+    "error": "FileNotFoundError: wrong ROOT parent index resolved .planning/docs/competition/deepeye-2026/immutable_scope.json; corrected before successful audit"
+  },
+  "launch_attempt01": {
+    "receipt": "receipt.json",
+    "actual_simulator_exit": 0,
+    "actual_stderr": "Error: can't read \"FileWatch(fileName)\": no such element in array",
+    "claim": "rejected; no TB trace completion"
+  },
+  "attempt02": {
+    "receipt": "attempt02/receipt.json",
+    "outer_exec_session": 55084,
+    "outer_exit": 1,
+    "interruption": "Ctrl-C after detected huge maximum-width vector preparation; no maximum-width simulator launched",
+    "loopback_expectation_failure": "source switched to loopback after application baseline; actual incoherent fault, corrected source held through application",
+    "cleanup": "R mapping removed explicitly; no recorded/review process remains in cleanup-current.json"
+  },
+  "scope_deviation": {
+    "path": ".planning/deepeye-resume-20261018/recheck_unused.tmp",
+    "content": "unused\n",
+    "bytes": 7,
+    "effect": "new temporary file accidentally created outside ownership then immediately removed",
+    "current_absent": true
+  }
+}

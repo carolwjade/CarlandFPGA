@@ -1,0 +1,435 @@
+{
+  "status": "audit_passed",
+  "manifest_entries_verified": 293,
+  "selected_files_verified_against_head_tree": 309,
+  "source_unchanged": true,
+  "commands": 30,
+  "actual_exits_all_zero": true,
+  "positive_runs": 6,
+  "sampled_edges": 800870,
+  "rle_rows": 65156,
+  "independent_triples_w2": 9,
+  "independent_triples_w3": 441,
+  "B_guard_diagnostics": [
+    {
+      "log": "invalid_c-1_w8_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 5",
+      "width_warnings": 5,
+      "sha256": "36f6c0c2a76461dd6aa7dc85b81a37c6a46ce14b29f3a58275a6c8f62b56a79c"
+    },
+    {
+      "log": "invalid_c0_w8_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 0",
+      "width_warnings": 0,
+      "sha256": "b2784c178fd43908b64c69730d2c563c5729c3a6d76937c755419dab99c4c189"
+    },
+    {
+      "log": "invalid_c1_w8_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 5",
+      "width_warnings": 5,
+      "sha256": "57b94d1c726653abcd28f00427dc5d2b00152699828c93909da3d70160bae21b"
+    },
+    {
+      "log": "invalid_c33_w8_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 5",
+      "width_warnings": 5,
+      "sha256": "764949ecfb3a2e1f0d74f4e20300384599f81409d62b9985a01ebeef4f195a2c"
+    },
+    {
+      "log": "invalid_c3_w-1_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "92f6a5943690b1d1e7fefd9e4011e811041ee211a7ac3d78357552ffedb3dd46"
+    },
+    {
+      "log": "invalid_c3_w0_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 0",
+      "width_warnings": 0,
+      "sha256": "251c5155a051977d0e9e1e57d0368b92e0ece53312d8f72f4a28ff7e2487f994"
+    },
+    {
+      "log": "invalid_c3_w1_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "bbb58714dfbc2eae55976093289ab07ca63bdbf6a8e6fc6935addbdfa532bfbc"
+    },
+    {
+      "log": "invalid_c3_w65_t32.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "1d8ee47daab23e5dcd8a9ee903c24dfe9e9ccf532a8b684004ab66c2e23db63f"
+    },
+    {
+      "log": "invalid_c3_w8_t-1.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "305a3cc6051f34848b39c4afc03105122a4a905e82ff4528402e6f6df1546c3e"
+    },
+    {
+      "log": "invalid_c3_w8_t0.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "d76c82156a9caf64217baa8afa45cbbd54bffbcb2480bafac354692b03585ed9"
+    },
+    {
+      "log": "invalid_c3_w8_t65.stdout.txt",
+      "errors_warnings": "Errors: 1, Warnings: 2",
+      "width_warnings": 2,
+      "sha256": "18ce193cd05880086b535df2d8256ca66e207a863a3635d663db32a7ded91ad9"
+    }
+  ],
+  "B_preserved_initial_failure": "AssertionError('explicit DUT diagnostic must identify the unsupported parameter values')",
+  "mutant_counterexample_context": [
+    {
+      "mutant": "relaxed_common_R1",
+      "row": 5363,
+      "one_based_sample": 7362,
+      "field": 2,
+      "expected_port_value": 0,
+      "nearby_rows": [
+        {
+          "row": 5359,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            7,
+            0,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 5360,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            6,
+            0,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 5361,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            4,
+            0,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 5362,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 5363,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "mutant": "stale_rearm_slot",
+      "row": 6876,
+      "one_based_sample": 9242,
+      "field": 3,
+      "expected_port_value": 0,
+      "nearby_rows": [
+        {
+          "row": 6872,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            18446744073709551615,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 6873,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            7,
+            18446744073709551615,
+            0
+          ],
+          "expected_ports": [
+            0,
+            1,
+            1,
+            5,
+            1,
+            2,
+            4,
+            5,
+            10,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 6874,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            0,
+            6,
+            18446744073709551615,
+            0
+          ],
+          "expected_ports": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            2,
+            4,
+            5,
+            10,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 6875,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            2,
+            0,
+            0,
+            0,
+            4,
+            18446744073709551615,
+            0
+          ],
+          "expected_ports": [
+            1,
+            1,
+            1,
+            5,
+            1,
+            2,
+            4,
+            5,
+            10,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "row": 6876,
+          "repeat_rst_stop_rearm_levels_tag_ready": [
+            1,
+            0,
+            0,
+            1,
+            7,
+            18446744073709551615,
+            1
+          ],
+          "expected_ports": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "cleanup_verified": true,
+  "receipt_sha256": "152577a1dd3c80e886631c31190dc92be1e0e0e4e1ed2c7c1cbb891370996d61",
+  "oracle_freeze_sha256": "0fbb7b99610e6b2f89a0b9c3a09210a8b66f01128f354180299aa687bdd1035f"
+}

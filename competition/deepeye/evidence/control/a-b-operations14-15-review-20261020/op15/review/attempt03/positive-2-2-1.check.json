@@ -1,0 +1,104 @@
+{
+  "edges": 104,
+  "errors": [],
+  "error_count": 0,
+  "scenarios": [
+    {
+      "name": "independent_literal_positive",
+      "edges": 10,
+      "handshakes": 1,
+      "valid_observations": 2,
+      "starts": 1,
+      "codes": [
+        4
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "registered_pwm_loopback",
+      "edges": 18,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 1,
+      "codes": [
+        4
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "legal_unmeasurable_(0, 1, 1)",
+      "edges": 11,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 0,
+      "codes": [
+        6
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "legal_unmeasurable_(0, 1, 1)",
+      "edges": 13,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 0,
+      "codes": [
+        6
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "legal_unmeasurable_(2, 1, 1)",
+      "edges": 13,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 0,
+      "codes": [
+        6
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "legal_unmeasurable_(1, 2, 1)",
+      "edges": 13,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 0,
+      "codes": [
+        6
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "legal_unmeasurable_(1, 1, 2)",
+      "edges": 13,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 0,
+      "codes": [
+        6
+      ],
+      "old_slots": 0
+    },
+    {
+      "name": "minimum_witness_exhaustion",
+      "edges": 13,
+      "handshakes": 0,
+      "valid_observations": 0,
+      "starts": 1,
+      "codes": [
+        4
+      ],
+      "old_slots": 0
+    }
+  ],
+  "handshakes": 1,
+  "valid_observations": 2,
+  "name": "positive-2-2-1",
+  "config": [
+    2,
+    2,
+    1
+  ],
+  "trace_sha256": "04fe9da1787bf614a6b0017ca2a30cd5aede2689e4cae06b7d4f1399c569d5d7"
+}

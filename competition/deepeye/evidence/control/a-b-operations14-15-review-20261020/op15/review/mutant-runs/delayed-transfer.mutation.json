@@ -1,0 +1,10 @@
+{
+  "original_sha256": "d8c33ebad98acca113e18dbc5831643646663b946714af139d8b1637047356f3",
+  "mutant_sha256": "a44f96fca0797078bf607776a8b9c1929b9a1b0d6d421a841d30059725d1ac7f",
+  "replacements": [
+    [
+      "rst || stop || transfer_now || g_pending || !g_running",
+      "rst || stop || g_pending || !g_running"
+    ]
+  ]
+}
