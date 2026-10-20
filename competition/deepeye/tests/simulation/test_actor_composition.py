@@ -2,12 +2,14 @@
 from dataclasses import replace
 import importlib
 import threading
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from competition.deepeye.tests.simulation.test_actor_owner import OwnerFixture, a
 from competition.deepeye.tests.simulation import test_pc_direct_runtime as rt
 from competition.deepeye.tests.simulation import test_motion_executor as mt
+from competition.deepeye.simulation.authority import candidate_owner as co
 
 try:
     c = importlib.import_module('competition.deepeye.simulation.authority.actor_composition')
@@ -21,7 +23,8 @@ class FakeChannels:
     def __init__(self, fixture):
         self.fixture, self.ready, self.used, self.records = fixture, object(), False, []
         self.healthy, self.hook = True, None
-        self.completions = {}
+        self.last_completion = None
+        self.slot_origin_ns, self.slot_window = 0, 0
     def checkpoint(self):
         hook, self.hook = self.hook, None
         if hook: hook()
@@ -30,7 +33,11 @@ class FakeChannels:
         self.checkpoint()
         if event is not self.ready or self.used: raise ValueError('original synthetic readiness missing')
         self.used = True
-        return replace(self.fixture.boot_binding(), run_id=run_id, ai_instance=instance_id)
+        binding = replace(self.fixture.boot_binding(), run_id=run_id, ai_instance=instance_id)
+        context = rt.runtime.envelope._parse_message(binding.context_json)
+        document = co.boot_profile.load_document(Path(co.__file__).resolve().parents[2] / 'docs/boot_profiles.json')
+        context['boot_sha256'] = co.boot_profile.canonical_sha256(document).hex()
+        return replace(binding, context_json=rt.encode(context))
     def event(self, record):
         opaque = object(); self.records.append((opaque, record)); return opaque
     def _verify(self, event):
@@ -42,24 +49,37 @@ class FakeChannels:
     def verify_observation(self, event, boot): return self._verify(event)
     def verify_command(self, event, boot): return self._verify(event)
 
-    def completion_for_command(self, event, boot):
-        # Synthetic original completion cache, not receipt-time freshness.
-        request = rt.runtime.envelope._parse_message(self._verify(event).raw)
-        key = (id(boot), request['candidate_id'])
-        if key not in self.completions:
-            completed = request['host_issue_monotonic_ns']
-            candidate = dict(schema_version=1, kind='model_candidate', context=request['context'],
-                candidate_id=request['candidate_id'], model_sha256='a' * 64,
-                observation=request['observation'], target=request['target'],
-                completed_monotonic_ns=completed)
-            self.completions[key] = c._CompletedInference(boot, self, c.monotonic_ns,
-                rt.encode(candidate), request['candidate_id'] + 1, completed, completed, completed)
-        return self.completions[key]
+    def verify_completion(self, event, boot): return self._verify(event)
+    def verify_slot(self, event, boot): return self._verify(event)
+
+    def mailbox_activation_for_boot(self, boot):
+        self.checkpoint()
+        return co._MailboxActivation(boot,self,c.monotonic_ns,self.slot_origin_ns,0,0)
+
+    def slot_event(self, boot):
+        return self.event(co._VerifiedSlot(boot,self,c.monotonic_ns,self.slot_window))
+
+    def completion_event(self, boot, *, seq=3, obs=9, issue=None, duration=1000, **unused):
+        # Explicit upstream synthetic event, created before any broker command.
+        # No command parsing/lookup and no completion history or receipt renewal.
+        completed = self.fixture.clock.value if issue is None else issue
+        context = rt.runtime.envelope._parse_message(boot.context_json)
+        candidate = dict(schema_version=1,kind='model_candidate',context=context,
+            candidate_id=seq,model_sha256='a'*64,
+            observation=dict(context=context,observed_seq=obs),
+            target=dict(action=1,yaw_q=0,pitch_q=0,speed_code=5,duration_ms=duration),
+            completed_monotonic_ns=completed)
+        self.last_completion = c._CompletedInference(boot,self,c.monotonic_ns,
+            rt.encode(candidate),seq+1,completed,completed,completed)
+        return self.event(self.last_completion)
 
 
 class ActorCompositionTests(OwnerFixture):
     def setUp(self):
         super().setUp()
+        # Established synthetic origin=0, first legal slot=210 ms. The clock
+        # starts at that instant; no production clock is replaced by slot time.
+        self.clock.value = 210_000_000
         self.assertIsNotNone(c, 'trusted actor composition is not implemented')
         self.f = rt.PcDirectRuntimeTests(); self.f.setUp(); self.f.clock = self.clock
         self.channels = FakeChannels(self.f)
@@ -91,11 +111,27 @@ class ActorCompositionTests(OwnerFixture):
         self.f.owner = SimpleNamespace(
             board=lambda record: self.comp.accept_board(self.channels.event(record)),
             observe=lambda record: self.comp.accept_observation(self.channels.event(record)),
-            command=lambda record: self.comp.accept_command(self.channels.event(record)))
+            command=lambda record: self.comp.accept_command(self.channels.event(record),
+                slot_event=self.channels.slot_event(self.comp._boot)))
+        original_command = self.f.command
+        def completed_then_command(**values):
+            if values.get('action',1) != 0:
+                self.comp.accept_completion(self.channels.completion_event(self.comp._boot,**values))
+            return original_command(**values)
+        self.f.command = completed_then_command
         self.f.beat()
 
     def arm(self):
         self.activate(); self.f.observe(); self.f.command()
+
+    def next_slot(self):
+        # Explicit synthetic schedule traversal: keep the real 500 ms heartbeat
+        # policy alive mid-window, then reach the next exact 500 ms decision slot.
+        self.clock.value += 250_000_000
+        self.f.beat(seq=11,tick=350)
+        self.clock.value += 250_000_000
+        self.f.beat(seq=12,tick=600)
+        self.channels.slot_window = 1
 
     def step(self): return self.comp.step(expected_pose_revision=0, dt_ns=1_000_000)
 
@@ -338,27 +374,30 @@ class ActorCompositionTests(OwnerFixture):
 
     def test_changed_duplicate_invocation_is_rejected_without_new_freshness(self):
         self.arm(); record = self.comp._command_record
-        proof = next(iter(self.channels.completions.values()))
-        with patch.object(self.channels, 'completion_for_command', return_value=replace(proof, invocation_id=proof.invocation_id + 1)):
-            with self.assertRaises(c.CompositionRejected): self.comp.accept_command(self.channels.event(record))
+        proof = self.channels.last_completion
+        with patch.object(self.channels, 'verify_completion', return_value=replace(proof, invocation_id=proof.invocation_id + 1)):
+            with self.assertRaises(c.CompositionRejected): self.comp.accept_completion(self.channels.event(proof))
         self.assertTrue(self.comp._progress.revoked)
         self.assert_no_pose()
 
     def test_unrelated_new_completion_does_not_extend_old_command(self):
         self.arm(); old = self.comp._progress.bound
         record = self.comp._command_record
-        proof = next(iter(self.channels.completions.values()))
+        proof = self.channels.last_completion
         self.clock.value += 10_000_000
         candidate = rt.runtime.envelope._parse_message(proof.candidate_raw)
         candidate.update(candidate_id=99, completed_monotonic_ns=self.clock.value)
         unrelated = replace(proof, candidate_raw=rt.encode(candidate), invocation_id=99,
             dispatch_lower_ns=self.clock.value, completion_lower_ns=self.clock.value,
             completion_upper_ns=self.clock.value)
-        with patch.object(self.channels, 'completion_for_command', return_value=unrelated) as lookup:
-            with self.assertRaises(c.CompositionRejected):
-                self.comp.accept_command(self.channels.event(record))
+        with patch.object(self.channels, 'verify_completion', return_value=unrelated) as lookup:
+            self.comp.accept_completion(self.channels.event(unrelated))
         self.assertEqual(lookup.call_count, 1)
         self.assertIs(self.comp._progress.bound, old)
+        self.comp.accept_command(self.channels.event(record))
+        self.assertIs(self.comp._progress.bound, old)
+        self.clock.value = old.deadline_ns
+        self.assertFalse(self.step().committed)
         self.assertTrue(self.comp._progress.revoked)
         self.assert_no_pose()
 
@@ -372,32 +411,32 @@ class ActorCompositionTests(OwnerFixture):
 
     def test_missing_original_completion_rejects_alive_actor(self):
         self.activate(); self.f.observe()
-        with patch.object(self.channels, 'completion_for_command', return_value=None):
+        with patch.object(self.channels, 'verify_completion', return_value=None):
             with self.assertRaises(c.CompositionRejected): self.f.command()
         self.assert_no_pose()
 
     def test_broker_stop_needs_no_inference_completion(self):
         self.activate()
-        with patch.object(self.channels, 'completion_for_command', side_effect=AssertionError('STOP must not ask')) as lookup:
+        with patch.object(self.channels, 'verify_completion', side_effect=AssertionError('STOP must not ask')) as lookup:
             self.f.command(action=0)
         self.assertEqual(lookup.call_count, 0)
         self.assert_no_pose()
 
     def test_original_completion_lookup_time_cannot_refresh_initial_deadline(self):
         self.config = replace(self.config, progress_max_age_ns=5_000_000)
-        self.activate(); self.f.observe(); original = self.channels.completion_for_command
+        self.activate(); self.f.observe(); original = self.channels.verify_completion
         def slow(event, boot):
             result = original(event, boot)
             self.clock.value = self.comp._progress.initial_deadline
             return result
-        with patch.object(self.channels, 'completion_for_command', slow):
+        with patch.object(self.channels, 'verify_completion', slow):
             with self.assertRaises(c.CompositionRejected): self.f.command()
         self.assertIsNone(self.comp._progress.bound)
         self.assert_no_pose()
 
     def test_revoke_during_original_wait_cannot_restore_progress(self):
         self.arm(); gate = self.comp._progress
-        proof = next(iter(self.channels.completions.values())); raw = self.comp._command_record.raw
+        proof = self.channels.last_completion; raw = self.comp._command_record.raw
         refused = []
         def invalidate():
             gate.revoke()
@@ -418,7 +457,7 @@ class ActorCompositionTests(OwnerFixture):
     def test_private_proof_identity_bounds_and_model_are_not_caller_claims(self):
         from enum import IntEnum
         class Disguised(IntEnum): ONE = 1
-        self.arm(); proof = next(iter(self.channels.completions.values()))
+        self.arm(); proof = self.channels.last_completion
         raw = self.comp._command_record.raw
         bad_model = rt.runtime.envelope._parse_message(proof.candidate_raw)
         bad_model['model_sha256'] = 'b' * 64
@@ -470,8 +509,9 @@ class ActorCompositionTests(OwnerFixture):
         self.assert_no_pose()
 
     def test_new_completed_candidate_advances_bound_and_commits(self):
+        self.config = replace(self.config, progress_max_age_ns=750_000_000)
         self.arm(); old = self.comp._progress.bound
-        self.clock.value += 1_000_000
+        self.next_slot()
         self.f.observe(seq=10); self.f.command(seq=4, obs=10)
         current = self.comp._progress.bound
         self.assertGreater(current.command_seq, old.command_seq)
@@ -480,15 +520,16 @@ class ActorCompositionTests(OwnerFixture):
         self.assertTrue(self.step().committed)
 
     def test_old_command_replay_cannot_replace_new_completion(self):
+        self.config = replace(self.config, progress_max_age_ns=750_000_000)
         self.arm(); record = self.comp._command_record
-        self.clock.value += 1_000_000
+        self.next_slot()
         self.f.command(seq=4); current = self.comp._progress.bound
         with self.assertRaises(c.CompositionRejected): self.comp.accept_command(self.channels.event(record))
         self.assertIs(self.comp._progress.bound, current)
         self.assert_no_pose()
 
     def test_time_addition_overflow_never_produces_progress(self):
-        self.arm(); proof = next(iter(self.channels.completions.values()))
+        self.arm(); proof = self.channels.last_completion
         raw = self.comp._command_record.raw
         with self.assertRaises(ValueError):
             c._ProgressGate(proof.boot, self.channels, self.comp._clock,

@@ -11,6 +11,7 @@ from time import monotonic_ns
 
 from ..isolation.actor_owner import ActorPolicy, ActorRegistry
 from .motion_executor import OwnedMotionExecutor
+from .candidate_owner import _CandidateOwner, _CompletedInference, _InputTransaction
 from .pc_direct_runtime import (AiLease, AuthorityDependencies, BootBinding, PcDirectRuntime,
                                 VerifiedEnvelope, VerifiedObservation)
 from ...integration import host_envelope
@@ -59,23 +60,6 @@ def _bounded(value, minimum=0):
     if type(value) is not int or not minimum <= value <= _MAX_NS:
         raise ValueError('strict bounded progress integer required')
     return value
-
-
-@dataclass(frozen=True)
-class _CompletedInference:
-    """Private original-verifier result, never a credential or receipt claim.
-
-    The real producer is absent. source/domain identity only checks trusted
-    in-process correlation; it does not authenticate a model/backend/endpoint.
-    """
-    boot: BootBinding
-    source: object
-    clock_domain: object
-    candidate_raw: bytes
-    invocation_id: int
-    dispatch_lower_ns: int
-    completion_lower_ns: int
-    completion_upper_ns: int
 
 
 @dataclass(frozen=True)
@@ -224,6 +208,7 @@ def _entry(method):
                 return StepOutcome(False, None)
             raise CompositionRejected('composition rejected; admission retired') from None
         finally:
+            self._input_transaction = None
             self._busy = False
             if self._retired:
                 self._cleanup()
@@ -249,6 +234,8 @@ class _Dependencies(AuthorityDependencies):
         epoch = owner._veto
         record = getattr(owner._channels, name)(event, boot)
         owner._checkpoint(epoch)
+        owner._progress_time()
+        owner._checkpoint(epoch)
         if type(record) is not kind or record.boot is not boot or type(record.raw) is not bytes:
             raise ValueError('original verified channel record required')
         return record
@@ -257,7 +244,12 @@ class _Dependencies(AuthorityDependencies):
         return self._verify('verify_board', event, boot, VerifiedEnvelope)
 
     def verify_observation(self, event, boot):
-        return self._verify('verify_observation', event, boot, VerifiedObservation)
+        record = self._verify('verify_observation', event, boot, VerifiedObservation)
+        transaction = self._owner._input_transaction
+        if transaction is None or transaction.kind != 'observation':
+            raise ValueError('original observation transaction required')
+        transaction.observation_record = record
+        return record
 
     def verify_command(self, event, boot):
         record = self._verify('verify_command', event, boot, VerifiedEnvelope)
@@ -269,10 +261,18 @@ class _Dependencies(AuthorityDependencies):
         if command.kind != 'motion_request':
             raise ValueError('broker command must be a motion request')
         if command.document['target']['action'] != 0:
-            proof = owner._channels.completion_for_command(event, boot)
-            owner._checkpoint(epoch)
-            now = owner._progress_time()
+            transaction = owner._input_transaction
+            if transaction is None or transaction.kind != 'command':
+                raise ValueError('original command transaction required')
+            proof = owner._candidates.duplicate_proof(record.raw)
+            if proof is None:
+                grant = owner._channels.verify_slot(transaction.slot_event, boot)
+                owner._checkpoint(epoch)
+                now = owner._progress_time()
+                owner._checkpoint(epoch)
+                proof = owner._candidates.select(record.raw, grant, now)
             owner._progress.admit(proof, record.raw, now)
+            transaction.selected_proof, transaction.request_raw = proof, record.raw
         owner._checkpoint(epoch)
         owner._command_record = record
         return record
@@ -334,6 +334,7 @@ class ActorComposition:
         self._runtime_activation = self._executor_activation = None
         self._boot = self._boot_event = self._command_record = None
         self._progress = None
+        self._candidates = self._input_transaction = None
         self._boot_taken = False
         self._primary_error, self._errors, self._last_step = None, [], None
 
@@ -372,6 +373,9 @@ class ActorComposition:
     def _retire(self, reason):
         self._veto += 1
         self._retired = True  # Gate first, before callbacks or cleanup.
+        self._input_transaction = None
+        if self._candidates is not None:
+            self._candidates.retire()
         if self._progress is not None:
             self._progress.revoke()
         if self._state not in ('CLOSED', 'QUARANTINED'): self._state = 'RETIRED'
@@ -432,6 +436,16 @@ class ActorComposition:
         self._checkpoint(epoch)
         self._channels.checkpoint()
         self._checkpoint(epoch)
+        self._progress_time()
+        activation = self._channels.mailbox_activation_for_boot(proposed)
+        self._checkpoint(epoch)
+        now = self._progress_time()
+        self._checkpoint(epoch)
+        self._candidates = _CandidateOwner(proposed, self._channels, self._clock,
+            self._config.ai_model_sha256, self._config.progress_max_age_ns,
+            self._progress.started, activation, now)
+        self._progress_time()
+        self._checkpoint(epoch)
         self._actor.poll()
         self._checkpoint(epoch)
         self._state = 'ACTIVE'
@@ -461,12 +475,29 @@ class ActorComposition:
     @_entry
     def accept_observation(self, event):
         self._active(); self._channel_health()
+        self._input_transaction = _InputTransaction('observation')
         self._runtime.observe(event)
         self._runtime_active()
+        now = self._progress_time()
+        transaction = self._input_transaction
+        if transaction is None or transaction.observation_record is None:
+            raise ValueError('original runtime-admitted observation missing')
+        self._candidates.observe(transaction.observation_record, now)
 
     @_entry
-    def accept_command(self, event):
+    def accept_completion(self, event):
         self._active(); self._channel_health()
+        epoch = self._veto
+        proof = self._channels.verify_completion(event, self._boot)
+        self._checkpoint(epoch)
+        now = self._progress_time()
+        self._checkpoint(epoch)
+        return self._candidates.offer(proof, now)
+
+    @_entry
+    def accept_command(self, event, *, slot_event=None):
+        self._active(); self._channel_health()
+        self._input_transaction = _InputTransaction('command', slot_event=slot_event)
         self._command_record = None
         self._runtime.command(event)
         self._checkpoint()
@@ -478,6 +509,11 @@ class ActorComposition:
             return _STOPPED
         self._runtime_active()
         self._executor.admit_command(self._boot, record.raw)
+        self._checkpoint()
+        transaction = self._input_transaction
+        if transaction is None or transaction.request_raw != record.raw:
+            raise ValueError('original command transaction lost after admission')
+        self._candidates.commit(record.raw, transaction.selected_proof)
 
     @_entry
     def step(self, *, expected_pose_revision, dt_ns):

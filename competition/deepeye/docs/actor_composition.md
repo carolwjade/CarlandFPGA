@@ -77,7 +77,7 @@ An exact duplicate preserves both bytes and original metadata/deadline; changed 
 reject. A newer command needs strictly increasing candidate/invocation IDs while the old gate
 is still healthy. Unrelated inference, channel heartbeat, ACK, polling or process survival
 cannot renew the current command. Expiry/revocation is irreversible within this activation;
-late completion cannot resurrect it. STOP requires no completion lookup and retires admission.
+late completion cannot resurrect it. STOP requires no completion or slot verifier and retires admission.
 All callbacks are bracketed by the existing owner veto and trusted clock checks.
 
 Every runtime lease request still calls the original `actor.ai_lease`. After that HANDLE sample,
@@ -91,6 +91,78 @@ Revocation sets the gate before cleanup callbacks; later callbacks cannot restor
 Private object identity and valid JSON remain in-process correlation checks, **not authentication**.
 There is still no real completion producer, bounded authenticated IPC or genuine AI model here.
 The production gate remains unavailable. A responsive fixture is not evidence of H11 usefulness.
+
+## Stateful original-completion owner
+
+Work `A-R03-STATEFUL-OWNER-IMPLEMENTATION-20261020-v1` implements the selected
+private PC_DIRECT composition design. `_CompletedInference` now lives in
+`candidate_owner.py`, with its private import alias retained in the composition.
+The progress gate's identity, interval, replay and deadline checks are unchanged.
+Its record is still a container; constructing it, a mailbox Selection, a HIL
+Association, a boolean or a C ordinal does not establish authentication.
+
+Three additional **mandatory original providers remain absent**:
+
+| Private channel method | Required original evidence |
+|---|---|
+| `mailbox_activation_for_boot(boot)` | Exact BOOT/source/clock identity, pre-established slot origin, measured conservative USB and packing upper bounds |
+| `verify_completion(event, boot)` | Original retained actor completion/IPC event and invocation provenance, approved model/candidate, conservative dispatch/completion intervals in the owner clock |
+| `verify_slot(event, boot)` | Original current decision-window event for that BOOT/source/clock |
+
+Missing methods or unknown bounds refuse. No provider is created by the private
+record types; `create_authority` still fails before any registry acquisition.
+The adopted mailbox uses the frozen BOOT profile document and its full digest.
+No command receipt, local time, C ordinal, caller proof or Selection reconstructs
+missing evidence.
+
+After actual runtime observation admission succeeds, the owner offers the same
+single verified observation record's original bytes and sample lower bound to
+the mailbox. It neither re-verifies nor taps an observation rejected by runtime.
+`accept_completion(event)` verifies an original event before command selection.
+The owner refreshes its actual monotonic clock after every external verifier
+callback and rechecks the same veto epoch. The mailbox deadline is checked
+`completion_lower_ns + progress_max_age_ns`; offering a completion never updates
+the initial/current progress deadline.
+
+For a new non-STOP `accept_command(event, slot_event=...)`, the existing broker
+verifier runs first, then the original slot verifier. Selection consumes only
+at the refreshed actual clock's exact legal slot instant. A verifier returning
+one nanosecond late refuses. No scheduled timestamp, equality relaxation or
+fictional jitter allowance is substituted. These rules do not establish that
+any real scheduler can hit that instant.
+
+The exact retained original completion object passes through selection to the
+unchanged progress gate. The adapter keeps only one pending proof, one committed
+command/proof association and one synchronous input transaction. The current
+association is installed only after runtime and executor admission both succeed.
+Failure retires the owner; a consumed proposal is never reinserted. Exact
+current command bytes reuse the original committed proof without another slot,
+consume or completion callback and cannot renew any deadline. Changed duplicates
+and a newly numbered command using an already consumed candidate refuse.
+
+STOP and failed transitions clear pending/current proof and the input transaction,
+and stop the mailbox before cleanup/authority callbacks. Retirement has no reset
+or mailbox reactivation path. New ownership requires a new composition and
+independently fresh original BOOT. The actor lifetime target, runtime freshness,
+geometry checks and executor's final callback/root CAS remain unchanged; no new
+work is inserted between that final callback and CAS. A later veto preserves
+an already observed positive CAS receipt.
+
+The integration fixtures retain real mailbox/runtime/executor and synthetic
+upstream/native/time only. Their initial clock is explicitly placed at 210 ms
+with a pre-established origin 0 and zero synthetic transfer costs. This is a
+deterministic legal test slot, not measured scheduling/transport evidence. The
+old placeholder BOOT digest is replaced by the actual frozen profile digest.
+Fixture completion events are emitted before broker command creation; the old
+command-to-completion lookup is removed. Existing verifier-adversary tests now
+target `verify_completion`. A legitimate unrelated completion may remain
+pending, but the old command still expires at its original deadline.
+
+Two tests that genuinely traverse the next 500 ms window explicitly use a
+750 ms progress policy and intermediate STATE8 heartbeats. Their original
+ordering/replay assertions remain. Separate controls preserve refusal when a
+5 ms policy attempts that wait. The default 100 ms and all 5 ms full-dt boundary
+tests remain as stated; no production policy or equality was tuned.
 
 ## Revocation and outcomes
 
