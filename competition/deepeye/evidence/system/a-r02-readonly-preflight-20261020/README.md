@@ -27,3 +27,7 @@ This accepts neither R02 nor accelerator compatibility, ROCm execution,
 trained-model benefit, calibration, board or system behavior. All 29 formal
 cards remain `not_run`. H01-H15 and their canonical requirements hash remain
 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+
+Frozen v1 sources use a flat `main-history/candidate-v1/` directory to keep
+Windows archive paths short. Their original bytes and source paths remain
+bound by the manifest; the initial archive commit remains in branch history.
