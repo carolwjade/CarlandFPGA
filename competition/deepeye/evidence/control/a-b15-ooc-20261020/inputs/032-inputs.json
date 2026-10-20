@@ -1,0 +1,47 @@
+{
+  "utc": "2026-10-20T07:50:58.529221+00:00",
+  "source_commit": "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "sources": [
+    {
+      "path": "competition/deepeye/fpga/control3d/deepeye_atomic_pwm.sv",
+      "snapshot": "sources/deepeye_atomic_pwm.sv",
+      "blob": "65d2f3137f3136c918657a19957e4c54d8220f33",
+      "size": 7983,
+      "sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428"
+    },
+    {
+      "path": "competition/deepeye/fpga/control3d/deepeye_pwm_coherent_capture.sv",
+      "snapshot": "sources/deepeye_pwm_coherent_capture.sv",
+      "blob": "7b3444f889371b7fb7c71eee2aace402ee83690f",
+      "size": 17155,
+      "sha256": "4baddfc31248c49000c00ac74bc2319cef6c9016c7df3f1822030c69cd82f456"
+    },
+    {
+      "path": "competition/deepeye/fpga/control3d/deepeye_pwm_applied_capture.sv",
+      "snapshot": "sources/deepeye_pwm_applied_capture.sv",
+      "blob": "45b020f24dff3d36a702dabbc3064b213959aa28",
+      "size": 15841,
+      "sha256": "d8c33ebad98acca113e18dbc5831643646663b946714af139d8b1637047356f3"
+    }
+  ],
+  "batch": "D:\\AMDFPGA\\2026.1\\Vivado\\bin\\vivado.bat",
+  "launcher_sha256": "2711603a1917c0a13c5ae83e77472de96cac99a46b006f483b363a2c8acd4220",
+  "license_file_exists": true,
+  "alias": "C:\\Users\\CarlJade\\AppData\\Local\\Temp\\deepeye-a-b15-ooc-20261020-fix2",
+  "alias_target": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\a-b15-ooc-synthesis-fix2-20261020",
+  "top": "deepeye_pwm_applied_capture",
+  "part": "xc7z020clg400-1",
+  "parameters": {
+    "COUNT_W": 32,
+    "WITNESS_W": 64,
+    "TAG_W": 32
+  },
+  "clock_constraint": null,
+  "implementation": "not_run",
+  "board": "not_run",
+  "formal_cards": "all29 not_run",
+  "correction": "Export checkpoint/netlist under actual child artifacts directory; preserve rejected junction-root export.",
+  "original_failed_result_sha256": "937ef6e547632db5e075a868297942234a45cb1143845c1da4b53821aa2a6537",
+  "previous_failed_result_sha256": "bad0b349ff7066528f7c229a37f7ccc50380547bb414fc5d6ec199265957f066"
+}
