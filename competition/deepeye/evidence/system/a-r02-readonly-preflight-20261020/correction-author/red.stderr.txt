@@ -1,0 +1,118 @@
+test_bad_utf8_or_oversize_collector_source_never_starts_process (test_preflight.PreflightTests.test_bad_utf8_or_oversize_collector_source_never_starts_process) ... 
+  test_bad_utf8_or_oversize_collector_source_never_starts_process (test_preflight.PreflightTests.test_bad_utf8_or_oversize_collector_source_never_starts_process) (size=17) ... FAIL
+  test_bad_utf8_or_oversize_collector_source_never_starts_process (test_preflight.PreflightTests.test_bad_utf8_or_oversize_collector_source_never_starts_process) (size=1048577) ... FAIL
+test_command_is_required (test_preflight.PreflightTests.test_command_is_required) ... ok
+test_default_command_cannot_exit_success (test_preflight.PreflightTests.test_default_command_cannot_exit_success) ... ok
+test_exclusive_output_is_identical_and_refuses_before_query (test_preflight.PreflightTests.test_exclusive_output_is_identical_and_refuses_before_query) ... ok
+test_fixed_collector_text_and_digest_share_one_strict_bounded_read (test_preflight.PreflightTests.test_fixed_collector_text_and_digest_share_one_strict_bounded_read) ... FAIL
+test_forged_contract_never_invokes_collector (test_preflight.PreflightTests.test_forged_contract_never_invokes_collector) ... ok
+test_inventory_complete_does_not_close_r02 (test_preflight.PreflightTests.test_inventory_complete_does_not_close_r02) ... ok
+test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8 (test_preflight.PreflightTests.test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8) ... ok
+test_metadata_error_prevents_success (test_preflight.PreflightTests.test_metadata_error_prevents_success) ... ok
+test_metadata_is_current_interpreter_only_and_does_not_import_packages (test_preflight.PreflightTests.test_metadata_is_current_interpreter_only_and_does_not_import_packages) ... ok
+test_nonzero_exit_is_not_a_successful_inventory (test_preflight.PreflightTests.test_nonzero_exit_is_not_a_successful_inventory) ... ERROR
+test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators) ... 
+  test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators) (name='Unknown device') ... FAIL
+test_partial_query_preserves_actual_error (test_preflight.PreflightTests.test_partial_query_preserves_actual_error) ... ok
+test_required_groups_fields_and_integer_types (test_preflight.PreflightTests.test_required_groups_fields_and_integer_types) ... ok
+test_timeout_kills_waits_owned_process_once_and_retains_diagnostics (test_preflight.PreflightTests.test_timeout_kills_waits_owned_process_once_and_retains_diagnostics) ... ERROR
+test_unsupported_platform_never_queries (test_preflight.PreflightTests.test_unsupported_platform_never_queries) ... ok
+
+======================================================================
+ERROR: test_nonzero_exit_is_not_a_successful_inventory (test_preflight.PreflightTests.test_nonzero_exit_is_not_a_successful_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 239, in test_nonzero_exit_is_not_a_successful_inventory
+    preflight.collect_windows("# fixed collector text")
+TypeError: collect_windows() takes 0 positional arguments but 1 was given
+
+======================================================================
+ERROR: test_timeout_kills_waits_owned_process_once_and_retains_diagnostics (test_preflight.PreflightTests.test_timeout_kills_waits_owned_process_once_and_retains_diagnostics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 219, in test_timeout_kills_waits_owned_process_once_and_retains_diagnostics
+    preflight.collect_windows("# fixed collector text")
+TypeError: collect_windows() takes 0 positional arguments but 1 was given
+
+======================================================================
+FAIL: test_bad_utf8_or_oversize_collector_source_never_starts_process (test_preflight.PreflightTests.test_bad_utf8_or_oversize_collector_source_never_starts_process) (size=17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 294, in test_bad_utf8_or_oversize_collector_source_never_starts_process
+    self.assertEqual(preflight.main(["--inventory-only"]), 2)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\preflight.py", line 263, in main
+    result["observations"] = collect_windows()
+                             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\preflight.py", line 179, in collect_windows
+    process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+AssertionError: must not query
+
+======================================================================
+FAIL: test_bad_utf8_or_oversize_collector_source_never_starts_process (test_preflight.PreflightTests.test_bad_utf8_or_oversize_collector_source_never_starts_process) (size=1048577)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 294, in test_bad_utf8_or_oversize_collector_source_never_starts_process
+    self.assertEqual(preflight.main(["--inventory-only"]), 2)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\preflight.py", line 263, in main
+    result["observations"] = collect_windows()
+                             ^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\preflight.py", line 179, in collect_windows
+    process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+AssertionError: must not query
+
+======================================================================
+FAIL: test_fixed_collector_text_and_digest_share_one_strict_bounded_read (test_preflight.PreflightTests.test_fixed_collector_text_and_digest_share_one_strict_bounded_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 273, in test_fixed_collector_text_and_digest_share_one_strict_bounded_read
+    self.assertEqual(preflight.main(["--inventory-only"]), 0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tools\preflight.py", line 257, in main
+    result["collector_source_sha256"] = hashlib.sha256(COLLECTOR_PATH.read_bytes()).hexdigest()
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 264, in controlled_open
+    self.assertEqual(args, ("rb",))
+AssertionError: Tuples differ: () != ('rb',)
+
+Second tuple contains 1 additional elements.
+First extra element 0:
+'rb'
+
+- ()
++ ('rb',)
+
+======================================================================
+FAIL: test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators) (name='Unknown device')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 116, in test_npu_candidates_are_not_input_devices_or_tested_accelerators
+    self.assertEqual(preflight.is_npu_candidate(name, device_id), expected)
+AssertionError: True != False
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.058s
+
+FAILED (failures=4, errors=2)

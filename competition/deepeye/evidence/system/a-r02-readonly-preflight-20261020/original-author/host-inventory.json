@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "R02": "not_run",
+  "formal_acceptance": false,
+  "inventory_complete": false,
+  "errors": [
+    {
+      "code": "collector_exit",
+      "message": "Collector exited unsuccessfully",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "File C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\ufffd\ufffd\ufffd\u042d\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\\.local\\deepeye-implementation-a\\competition\\deepeye\\tools\\pre\r\nflight_windows.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see \r\nabout_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.\r\n    + CategoryInfo          : SecurityError: (:) [], ParentContainsErrorRecordException\r\n    + FullyQualifiedErrorId : UnauthorizedAccess\r\n"
+    }
+  ],
+  "observations": null,
+  "gates": {
+    "physical_board": "not_run",
+    "calibration": "not_run",
+    "rocm_project": "not_run",
+    "npu_runtime": "not_run",
+    "device_compatibility": "unknown",
+    "trained_model_benefit": "not_run"
+  },
+  "interpreter": {
+    "version": "3.12.14",
+    "architecture_bits": 64,
+    "executable": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe"
+  },
+  "interpretation": "Empty device query lists mean no matching rows, not proven absence or support. NPU rows are candidates only.",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+    "expected_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "actual_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "valid": true
+  },
+  "collector_source_sha256": "75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2",
+  "package_metadata": {
+    "scope": "metadata only; selected distributions in current interpreter, not all environments",
+    "complete": true,
+    "packages": {
+      "torch": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnxruntime": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnxruntime-directml": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnx": {
+        "status": "not_installed",
+        "version": null
+      },
+      "rocm": {
+        "status": "not_installed",
+        "version": null
+      },
+      "rocm-bootstrap": {
+        "status": "not_installed",
+        "version": null
+      },
+      "numpy": {
+        "status": "not_installed",
+        "version": null
+      },
+      "setuptools": {
+        "status": "not_installed",
+        "version": null
+      },
+      "typing-extensions": {
+        "status": "installed",
+        "version": "4.16.0"
+      }
+    }
+  }
+}

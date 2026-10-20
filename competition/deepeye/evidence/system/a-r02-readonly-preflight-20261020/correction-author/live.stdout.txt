@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "R02": "not_run",
+  "formal_acceptance": false,
+  "inventory_complete": true,
+  "errors": [],
+  "observations": {
+    "schema": 1,
+    "observed_at_utc": "2026-10-20T06:45:31.2976419Z",
+    "groups": {
+      "cpu": {
+        "status": "ok",
+        "rows": [
+          {
+            "name": "AMD Ryzen 7 8845H w/ Radeon 780M Graphics",
+            "architecture": "9",
+            "address_width": 64,
+            "cores": 8,
+            "logical_processors": 16
+          }
+        ],
+        "error": null
+      },
+      "os": {
+        "status": "ok",
+        "rows": [
+          {
+            "name": "Microsoft Windows 11 Home",
+            "version": "10.0.26200",
+            "build": "26200",
+            "architecture": "64-bit",
+            "total_memory_bytes": 33601986560
+          }
+        ],
+        "error": null
+      },
+      "gpu": {
+        "status": "ok",
+        "rows": [
+          {
+            "name": "AMD Radeon 780M Graphics",
+            "device_id": "PCI\\VEN_1002&DEV_1900&SUBSYS_13951D05&REV_C5\\4&188E8E81&0&0041",
+            "adapter_ram_bytes": 536870912,
+            "driver_version": "32.0.31035.1003",
+            "driver_date": "2026-07-24T00:00:00.0000000Z"
+          },
+          {
+            "name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+            "device_id": "PCI\\VEN_10DE&DEV_2820&SUBSYS_13951D05&REV_A1\\4&137A6E07&0&0009",
+            "adapter_ram_bytes": 4293918720,
+            "driver_version": "32.0.15.7283",
+            "driver_date": "2025-03-14T00:00:00.0000000Z"
+          }
+        ],
+        "error": null
+      },
+      "npu_candidates": {
+        "status": "ok",
+        "rows": [
+          {
+            "name": "NPU Compute Accelerator Device",
+            "device_id": "PCI\\VEN_1022&DEV_1502&SUBSYS_13951D05&REV_00\\4&2B483F26&0&0142",
+            "status": "OK"
+          }
+        ],
+        "error": null
+      },
+      "drivers": {
+        "status": "ok",
+        "rows": [
+          {
+            "device_id": "PCI\\VEN_1022&DEV_1502&SUBSYS_13951D05&REV_00\\4&2B483F26&0&0142",
+            "device_name": "NPU Compute Accelerator Device",
+            "driver_version": "32.0.203.240",
+            "driver_date": "2024-12-03T00:00:00.0000000Z"
+          },
+          {
+            "device_id": "PCI\\VEN_1002&DEV_1900&SUBSYS_13951D05&REV_C5\\4&188E8E81&0&0041",
+            "device_name": "AMD Radeon 780M Graphics",
+            "driver_version": "32.0.31035.1003",
+            "driver_date": "2026-07-24T00:00:00.0000000Z"
+          },
+          {
+            "device_id": "PCI\\VEN_10DE&DEV_2820&SUBSYS_13951D05&REV_A1\\4&137A6E07&0&0009",
+            "device_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+            "driver_version": "32.0.15.7283",
+            "driver_date": "2025-03-14T00:00:00.0000000Z"
+          }
+        ],
+        "error": null
+      },
+      "disks": {
+        "status": "ok",
+        "rows": [
+          {
+            "device_id": "C:",
+            "filesystem": "NTFS",
+            "total_bytes": 213729144832,
+            "free_bytes": 25084116992
+          },
+          {
+            "device_id": "D:",
+            "filesystem": "NTFS",
+            "total_bytes": 808387080192,
+            "free_bytes": 240049147904
+          }
+        ],
+        "error": null
+      }
+    }
+  },
+  "gates": {
+    "physical_board": "not_run",
+    "calibration": "not_run",
+    "rocm_project": "not_run",
+    "npu_runtime": "not_run",
+    "device_compatibility": "unknown",
+    "trained_model_benefit": "not_run"
+  },
+  "interpreter": {
+    "version": "3.12.14",
+    "architecture_bits": 64,
+    "executable": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe"
+  },
+  "interpretation": "Empty device query lists mean no matching rows, not proven absence or support. NPU rows are candidates only.",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+    "expected_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "actual_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "valid": true
+  },
+  "collector_source_sha256": "f1af74889d292b1bacfdc1542e81a14fd0b9cfc01bfb8d02d890d3f75a5599ca",
+  "package_metadata": {
+    "scope": "metadata only; selected distributions in current interpreter, not all environments",
+    "complete": true,
+    "packages": {
+      "torch": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnxruntime": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnxruntime-directml": {
+        "status": "not_installed",
+        "version": null
+      },
+      "onnx": {
+        "status": "not_installed",
+        "version": null
+      },
+      "rocm": {
+        "status": "not_installed",
+        "version": null
+      },
+      "rocm-bootstrap": {
+        "status": "not_installed",
+        "version": null
+      },
+      "numpy": {
+        "status": "not_installed",
+        "version": null
+      },
+      "setuptools": {
+        "status": "not_installed",
+        "version": null
+      },
+      "typing-extensions": {
+        "status": "installed",
+        "version": "4.16.0"
+      }
+    }
+  }
+}

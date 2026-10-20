@@ -1,0 +1,65 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-R02-PREFLIGHT-FIX1-INDEPENDENT-20261020-v1",
+  "job_id": "child-92ad27ad88fa4d9db393b239dc66d590",
+  "agent_id": "/root/r02_preflight_independent_20261020",
+  "at_utc": "2026-10-20T06:56:01.877147+00:00",
+  "spec_verdict": "PASS_SCOPED_TASK1_MAIN_JSON_EQUIVALENCE",
+  "quality_verdict": "PASS_SCOPED_FOUR_FILE_CANDIDATE",
+  "recommendation": "Ready for responsible main adoption decision as read-only inventory tool",
+  "main_retains_acceptance": true,
+  "blocking_findings": [],
+  "additional_actionable_findings": [],
+  "prior_findings": {
+    "F1": "resolved",
+    "F2": "resolved_under_explicit_main_JSON_equivalence_choice",
+    "F3": "resolved"
+  },
+  "known_limits": [
+    "replacement-decoded child diagnostics can lose original bytes",
+    "successful inventory does not establish compatibility/runtime/model/board/formal acceptance"
+  ],
+  "candidate_hashes": {
+    "competition/deepeye/tools/preflight.py": "94d574a5e6c742fb4948df65e3e9fdfb1137f950ab1b8798317aed1423a7786b",
+    "competition/deepeye/tools/preflight_windows.ps1": "f1af74889d292b1bacfdc1542e81a14fd0b9cfc01bfb8d02d890d3f75a5599ca",
+    "competition/deepeye/tests/test_preflight.py": "a0b4e8b02452647d474e135773cd60b2220e963517dc2f43deb20521347bffc2",
+    "competition/deepeye/hardware/preflight.md": "766283e8bcf090c010c80323526ed3a27a91e7b35fa5114469fa56981db5925f"
+  },
+  "base": {
+    "expected": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "saved_author_head": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "fresh_git_executed": false
+  },
+  "evidence": {
+    "findings_sha256": "b1556329dff1d76cefda3648df7d8f884e6eee830ac8bc3500b40e9ec310def5",
+    "verification_sha256": "4718d38db10fe7083dd6bf6bc311a3e834927ebd2913188f8e307def4852a12e",
+    "verification_receipt_sha256": "e5a0452f85a1668208a617a785c73dc275f1f5dcd471f6afb8b0393a6ea46cb4"
+  },
+  "verification": {
+    "fresh_saved_evidence_audit_exit": 0,
+    "original_plus_delta_matches_current": true,
+    "saved_author_green_tests": 16,
+    "saved_author_green_exit": 0,
+    "saved_live_exit": 0,
+    "saved_live_typed_groups": {
+      "cpu": 1,
+      "os": 1,
+      "gpu": 2,
+      "npu_candidates": 1,
+      "drivers": 3,
+      "disks": 2
+    },
+    "saved_live_JSON_equivalence": true,
+    "suite_rerun": false,
+    "CIM_rerun": false,
+    "synthetic_checks": 0,
+    "author_original_terminal_exact": true
+  },
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "R02": "not_run",
+  "all29": "not_run",
+  "formal_acceptance": false,
+  "ownership_released_after_original_native_terminal": true
+}

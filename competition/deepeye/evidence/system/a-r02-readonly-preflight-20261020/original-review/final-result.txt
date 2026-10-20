@@ -1,0 +1,12 @@
+Independent R02 preflight review completed; main retains acceptance.
+Specification verdict: CHANGES_REQUIRED.
+Code-quality verdict: CHANGES_REQUIRED.
+Original job: child-46e36fbd55aa432fb4cb499f314750c8.
+Work: A-R02-PREFLIGHT-INDEPENDENT-20261020-v1.
+Candidate: base f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe plus the four exact-hash uncommitted files in review-status.json.
+Required findings: P1 -File launch denied/no host inventory; P2 stdout CRLF versus LF file violates byte promise and is masked by StringIO test; P2 DEV_17F0 candidate rule needs source or removal.
+Nonblocking: replacement decoding loses original non-UTF8 collector diagnostic bytes.
+Fixed-text -Command proposal is acceptable in principle for a separate minimal review, with fixed source text/hash binding, one hidden/below-normal bounded invocation, no policy flags/settings change/retry. It was not executed here and is not a proven host fix.
+Fresh hidden/below-normal <=30s saved-evidence/synthetic audit exited 0; four source/diff hashes and both raw author receipts/logs verified. Author saved suite: 14 passed; not rerun. Original live exit 2/UnauthorizedAccess preserved; no actual inventory obtained. No model/backend/board/network/GUI/input/service/policy/Git mutation, further agent, product edit or publication. Only assigned review folder written. H01-H15 pinned digest verified; R02 and all29 remain not_run, formal_acceptance=false.
+Artifacts: findings.md SHA256 bed2b07038e32dafed6c1e9d5967c93fb68be37c33fc87040ba100afc2803224; review-status.json SHA256 43d3cd0db7b9e39f1153d017295ed8926f28b1c349a14b34235120d70445e024; verification.json SHA256 94bdd310907ec2c4f8d6cba69fe2f50823ede4875db34f5b9696569f5a7c22e4.
+Review ownership is released after this original job reaches its recorded completed terminal; no product ownership was acquired.

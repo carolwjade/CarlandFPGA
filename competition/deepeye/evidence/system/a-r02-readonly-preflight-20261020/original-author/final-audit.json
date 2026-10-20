@@ -1,0 +1,49 @@
+{
+  "at_utc": "2026-10-20T06:19:11.035271+00:00",
+  "source_hashes": {
+    "competition/deepeye/tools/preflight.py": "5052890bc30b9b7a3170a771b1f2e247210d81c11c98c221e07d011db870037d",
+    "competition/deepeye/tools/preflight_windows.ps1": "75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2",
+    "competition/deepeye/tests/test_preflight.py": "b554eb98c5fe587f6f91fc9fab6b82e0a6155243aafe0ef882c948b0b78b1ebc",
+    "competition/deepeye/hardware/preflight.md": "16503a3383843dbdc1554d17ad760bfe92eb831ccc89b04f95560aea7e2beab3",
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013",
+    "docs/competition/deepeye-2026/immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+  },
+  "protected_dirty_bytes_preserved": true,
+  "protected_files_unstaged": true,
+  "test_and_live_sources_identical": true,
+  "stdout_output_bytes_identical": false,
+  "stdout_output_json_identical": true,
+  "git": {
+    "head": {
+      "command": [
+        "C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe\n",
+      "stderr": ""
+    },
+    "status": {
+      "command": [
+        "C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stdout": " M docs/competition/deepeye-2026/.gitattributes\n?? competition/deepeye/ai_pc/host_timing/reference.py\n?? competition/deepeye/evidence/ai/host_timing/reference_evidence.txt\n?? competition/deepeye/hardware/preflight.md\n?? competition/deepeye/tests/ai/host_timing/test_reference.py\n?? competition/deepeye/tests/test_preflight.py\n?? competition/deepeye/tools/preflight.py\n?? competition/deepeye/tools/preflight_windows.ps1\n?? docs/superpowers/plans/2026-10-20-r02-readonly-preflight.md\n",
+      "stderr": ""
+    }
+  },
+  "live_exit_code": 2,
+  "live_inventory_complete": false,
+  "live_error": "collector_exit"
+}

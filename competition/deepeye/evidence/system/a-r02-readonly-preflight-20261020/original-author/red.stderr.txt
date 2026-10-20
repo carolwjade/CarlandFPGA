@@ -1,0 +1,131 @@
+test_command_is_required (test_preflight.PreflightTests.test_command_is_required) ... FAIL
+test_default_command_cannot_exit_success (test_preflight.PreflightTests.test_default_command_cannot_exit_success) ... FAIL
+test_exclusive_output_is_identical_and_refuses_before_query (test_preflight.PreflightTests.test_exclusive_output_is_identical_and_refuses_before_query) ... FAIL
+test_forged_contract_never_invokes_collector (test_preflight.PreflightTests.test_forged_contract_never_invokes_collector) ... FAIL
+test_inventory_complete_does_not_close_r02 (test_preflight.PreflightTests.test_inventory_complete_does_not_close_r02) ... FAIL
+test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8 (test_preflight.PreflightTests.test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8) ... FAIL
+test_metadata_error_prevents_success (test_preflight.PreflightTests.test_metadata_error_prevents_success) ... FAIL
+test_metadata_is_current_interpreter_only_and_does_not_import_packages (test_preflight.PreflightTests.test_metadata_is_current_interpreter_only_and_does_not_import_packages) ... FAIL
+test_nonzero_exit_is_not_a_successful_inventory (test_preflight.PreflightTests.test_nonzero_exit_is_not_a_successful_inventory) ... FAIL
+test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators) ... FAIL
+test_partial_query_preserves_actual_error (test_preflight.PreflightTests.test_partial_query_preserves_actual_error) ... FAIL
+test_required_groups_fields_and_integer_types (test_preflight.PreflightTests.test_required_groups_fields_and_integer_types) ... FAIL
+test_timeout_kills_waits_owned_process_once_and_retains_diagnostics (test_preflight.PreflightTests.test_timeout_kills_waits_owned_process_once_and_retains_diagnostics) ... FAIL
+test_unsupported_platform_never_queries (test_preflight.PreflightTests.test_unsupported_platform_never_queries) ... FAIL
+
+======================================================================
+FAIL: test_command_is_required (test_preflight.PreflightTests.test_command_is_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_default_command_cannot_exit_success (test_preflight.PreflightTests.test_default_command_cannot_exit_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_exclusive_output_is_identical_and_refuses_before_query (test_preflight.PreflightTests.test_exclusive_output_is_identical_and_refuses_before_query)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_forged_contract_never_invokes_collector (test_preflight.PreflightTests.test_forged_contract_never_invokes_collector)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_inventory_complete_does_not_close_r02 (test_preflight.PreflightTests.test_inventory_complete_does_not_close_r02)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8 (test_preflight.PreflightTests.test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_metadata_error_prevents_success (test_preflight.PreflightTests.test_metadata_error_prevents_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_metadata_is_current_interpreter_only_and_does_not_import_packages (test_preflight.PreflightTests.test_metadata_is_current_interpreter_only_and_does_not_import_packages)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_nonzero_exit_is_not_a_successful_inventory (test_preflight.PreflightTests.test_nonzero_exit_is_not_a_successful_inventory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_partial_query_preserves_actual_error (test_preflight.PreflightTests.test_partial_query_preserves_actual_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_required_groups_fields_and_integer_types (test_preflight.PreflightTests.test_required_groups_fields_and_integer_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_timeout_kills_waits_owned_process_once_and_retains_diagnostics (test_preflight.PreflightTests.test_timeout_kills_waits_owned_process_once_and_retains_diagnostics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+======================================================================
+FAIL: test_unsupported_platform_never_queries (test_preflight.PreflightTests.test_unsupported_platform_never_queries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\test_preflight.py", line 38, in setUp
+    self.assertIsNotNone(preflight, "missing required tools/preflight.py entrypoint")
+AssertionError: unexpectedly None : missing required tools/preflight.py entrypoint
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.003s
+
+FAILED (failures=14)
