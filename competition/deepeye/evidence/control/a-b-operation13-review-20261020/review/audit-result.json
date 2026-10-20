@@ -1,0 +1,91 @@
+{
+  "status": "reconciled",
+  "simulator_rerun": false,
+  "commands_verified": 25,
+  "tool_hashes_unchanged": true,
+  "source_entries_verified": 373,
+  "exact_guards": [
+    {
+      "count_w": 1,
+      "tag_w": 32,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": 33,
+      "tag_w": 32,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": 3,
+      "tag_w": 0,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": 3,
+      "tag_w": 65,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": 0,
+      "tag_w": 32,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": -1,
+      "tag_w": 32,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    },
+    {
+      "count_w": 3,
+      "tag_w": -1,
+      "time": "0 ps",
+      "scope": "main_tb_pwm_edge_measure.dut.g_param_guard",
+      "file": "dut.sv",
+      "line": 202,
+      "outer_exit": 0
+    }
+  ],
+  "mutant_diagnostics": [
+    {
+      "label": "high-plus-one",
+      "counterexample": "PUBLIC_PORT_MISMATCH post row=4 repeat=0 edge=5",
+      "diagnostic_location": "24 ns  Scope: main_tb_pwm_edge_measure File: tb.sv Line: 30",
+      "outer_exit": 0
+    },
+    {
+      "label": "rearm-stale-slot",
+      "counterexample": "PUBLIC_PORT_MISMATCH post row=84 repeat=0 edge=119",
+      "diagnostic_location": "594 ns  Scope: main_tb_pwm_edge_measure File: tb.sv Line: 30",
+      "outer_exit": 0
+    }
+  ],
+  "five_frozen_vector_and_public_trace_hashes_equal_B": true,
+  "private_token_absent_from_authored_artifacts": true,
+  "process_cleanup_checked": true,
+  "formal_cards": "29 not_run",
+  "acceptance": "main only"
+}
