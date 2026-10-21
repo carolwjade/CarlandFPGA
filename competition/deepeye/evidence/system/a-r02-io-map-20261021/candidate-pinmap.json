@@ -1,0 +1,416 @@
+{
+  "status": "A-proposed revised static R02 candidate; I2C J3 contact positions unresolved pending actual board revision/net continuity; main review and integrated-top adoption pending",
+  "board_assumption": "TUL PYNQ-Z2 XC7Z020-1CLG400C with schematic-compatible expansion headers; actual board PCB revision not inspected",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "digital_signals": [
+    {
+      "port": "yaw_pwm_o",
+      "connector": "PMODB",
+      "position": 1,
+      "board_net": "JB1_P",
+      "package_pin": "W14",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "yaw capture jumper to PMODB pin 7",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "pitch_pwm_o",
+      "connector": "PMODB",
+      "position": 2,
+      "board_net": "JB1_N",
+      "package_pin": "Y14",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "pitch capture jumper to PMODB pin 8",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "speed_pwm_o",
+      "connector": "PMODB",
+      "position": 3,
+      "board_net": "JB2_P",
+      "package_pin": "T11",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "speed capture jumper to PMODB pin 9",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "yaw_capture_i",
+      "connector": "PMODB",
+      "position": 7,
+      "board_net": "JB3_P",
+      "package_pin": "V16",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "in",
+      "external_connection": "external jumper from PMODB pin 1",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "pitch_capture_i",
+      "connector": "PMODB",
+      "position": 8,
+      "board_net": "JB3_N",
+      "package_pin": "W16",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "in",
+      "external_connection": "external jumper from PMODB pin 2",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "speed_capture_i",
+      "connector": "PMODB",
+      "position": 9,
+      "board_net": "JB4_P",
+      "package_pin": "V12",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "in",
+      "external_connection": "external jumper from PMODB pin 3",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "pga_cs_n_o",
+      "connector": "ARDUINO_SPI",
+      "position": 5,
+      "board_net": "AR_SS",
+      "package_pin": "F16",
+      "bank": 35,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "MCP6S21 CS, active low",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "pga_sck_o",
+      "connector": "ARDUINO_SPI",
+      "position": 3,
+      "board_net": "AR_SCK",
+      "package_pin": "H15",
+      "bank": 35,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "MCP6S21 SCK",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "pga_sdi_o",
+      "connector": "ARDUINO_SPI",
+      "position": 4,
+      "board_net": "AR_MOSI",
+      "package_pin": "T12",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "MCP6S21 SI; MISO unused",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "dac_scl_io",
+      "connector": "ARDUINO_J3",
+      "position": null,
+      "board_net": "AR_SCL",
+      "package_pin": "P15",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "bidir_open_drain",
+      "external_connection": "MCP4728 SCL; open drain; board schematic R49/R50 already show 2.2k pullups to VCC3V3; verify fitted board and module pullup parallel value before adding any resistor",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ],
+      "physical_position_status": "UNRESOLVED_SOURCE_CONFLICT",
+      "position_candidates": {
+        "TUL_manual_v1_1_table16": 10,
+        "TUL_schematic_download_R12_internal_title_R10_sheet4": 9
+      },
+      "source_conflict": "Package pin and board net remain supported by Xilinx/PYNQ XDC; physical J3 contact number cannot be selected from conflicting TUL primary documents."
+    },
+    {
+      "port": "dac_sda_io",
+      "connector": "ARDUINO_J3",
+      "position": null,
+      "board_net": "AR_SDA",
+      "package_pin": "P16",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "bidir_open_drain",
+      "external_connection": "MCP4728 SDA; open drain; board schematic R49/R50 already show 2.2k pullups to VCC3V3; verify fitted board and module pullup parallel value before adding any resistor",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ],
+      "physical_position_status": "UNRESOLVED_SOURCE_CONFLICT",
+      "position_candidates": {
+        "TUL_manual_v1_1_table16": 9,
+        "TUL_schematic_download_R12_internal_title_R10_sheet4": 10
+      },
+      "source_conflict": "Package pin and board net remain supported by Xilinx/PYNQ XDC; physical J3 contact number cannot be selected from conflicting TUL primary documents."
+    },
+    {
+      "port": "rs485_tx_o",
+      "connector": "ARDUINO_J4",
+      "position": 5,
+      "board_net": "AR4",
+      "package_pin": "V15",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "THVD1450 D/DI",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "rs485_rx_i",
+      "connector": "ARDUINO_J4",
+      "position": 6,
+      "board_net": "AR5",
+      "package_pin": "T15",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "in",
+      "external_connection": "THVD1450 R/RO",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "rs485_de_o",
+      "connector": "ARDUINO_J4",
+      "position": 7,
+      "board_net": "AR6",
+      "package_pin": "R16",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "THVD1450 DE; external 10k pull-down candidate",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "port": "rs485_re_n_o",
+      "connector": "ARDUINO_J4",
+      "position": 8,
+      "board_net": "AR7",
+      "package_pin": "U17",
+      "bank": 34,
+      "iostandard": "LVCMOS33",
+      "direction": "out",
+      "external_connection": "THVD1450 /RE; external 10k pull-down candidate",
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    }
+  ],
+  "analog_signals": [
+    {
+      "header": "ARDUINO_J1",
+      "label": "A0",
+      "position": 6,
+      "xadc_channel": "VAUX1",
+      "xadc_package_p": "E17",
+      "xadc_package_n": "D18",
+      "bank": 35,
+      "header_input_range_v": [
+        0.0,
+        3.3
+      ],
+      "xadc_pair_nominal_range_v": [
+        0.0,
+        1.0
+      ],
+      "front_end": "2.32k upper / 1k lower divider; 140 ohm P and 845 ohm N series; 1nF P-N filter; no board clamp identified",
+      "role": "PGA VOUT after gain",
+      "digital_tap_not_used": true,
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "header": "ARDUINO_J1",
+      "label": "A1",
+      "position": 5,
+      "xadc_channel": "VAUX9",
+      "xadc_package_p": "E18",
+      "xadc_package_n": "E19",
+      "bank": 35,
+      "header_input_range_v": [
+        0.0,
+        3.3
+      ],
+      "xadc_pair_nominal_range_v": [
+        0.0,
+        1.0
+      ],
+      "front_end": "2.32k upper / 1k lower divider; 140 ohm P and 845 ohm N series; 1nF P-N filter; no board clamp identified",
+      "role": "DAC B or pressure stimulus",
+      "digital_tap_not_used": true,
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "header": "ARDUINO_J1",
+      "label": "A2",
+      "position": 4,
+      "xadc_channel": "VAUX6",
+      "xadc_package_p": "K14",
+      "xadc_package_n": "J14",
+      "bank": 35,
+      "header_input_range_v": [
+        0.0,
+        3.3
+      ],
+      "xadc_pair_nominal_range_v": [
+        0.0,
+        1.0
+      ],
+      "front_end": "2.32k upper / 1k lower divider; 140 ohm P and 845 ohm N series; 1nF P-N filter; no board clamp identified",
+      "role": "DAC C or obstacle stimulus",
+      "digital_tap_not_used": true,
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    },
+    {
+      "header": "ARDUINO_J1",
+      "label": "A3",
+      "position": 3,
+      "xadc_channel": "VAUX15",
+      "xadc_package_p": "K16",
+      "xadc_package_n": "J16",
+      "bank": 35,
+      "header_input_range_v": [
+        0.0,
+        3.3
+      ],
+      "xadc_pair_nominal_range_v": [
+        0.0,
+        1.0
+      ],
+      "front_end": "2.32k upper / 1k lower divider; 140 ohm P and 845 ohm N series; 1nF P-N filter; no board clamp identified",
+      "role": "same pre-PGA source as PGA CH0; reference ratio",
+      "digital_tap_not_used": true,
+      "source_refs": [
+        "tul_manual",
+        "tul_schematic",
+        "pynq_base_xdc"
+      ]
+    }
+  ],
+  "reserved": {
+    "PMODB": {
+      "4": "T10 spare",
+      "5": "GND",
+      "6": "3.3V",
+      "10": "W13 spare",
+      "11": "GND",
+      "12": "3.3V"
+    },
+    "ARDUINO_SPI": {
+      "1": "MISO W15 unused",
+      "2": "3.3V",
+      "6": "GND"
+    }
+  },
+  "jumper_pairs": [
+    {
+      "axis": "yaw",
+      "output_pmodb_pin": 1,
+      "capture_pmodb_pin": 7,
+      "physical_external_jumper_required": true
+    },
+    {
+      "axis": "pitch",
+      "output_pmodb_pin": 2,
+      "capture_pmodb_pin": 8,
+      "physical_external_jumper_required": true
+    },
+    {
+      "axis": "speed",
+      "output_pmodb_pin": 3,
+      "capture_pmodb_pin": 9,
+      "physical_external_jumper_required": true
+    }
+  ],
+  "clock_reset": {
+    "clock": "100 MHz PS FCLK0 generated by Zynq PS from 50 MHz PS_CLK; no external PL package-pin XDC line. Board also exposes a distinct 125 MHz PL Ethernet-PHY reference on H16, not the selected 100 MHz source.",
+    "reset": "PS FCLK_RESET0_N through processor_system_reset, synchronous deassertion in 100 MHz domain; no Arduino J7 AR_RST/PS MIO12 as PL reset pin",
+    "integration_gate": "BD/top clock frequency and reset polarity must be proven by Vivado generated constraints and HWH before implementation"
+  },
+  "external_devices": {
+    "pga": "proposed MCP6S21 at 3.3V; SPI CS/SCK/SI only, no SO; VSS and VREF to GND for unipolar stimulus; CH0 from same source tapped to A3; VOUT to A0. Gain write then verify measured A0/A3 ratio within unsaturated range; no register echo",
+    "dac": "Proposed MCP4728 at 3.3V, 4 channels and I2C open-drain. TUL schematic sheet4 shows board R49/R50 nominal 2.2k pullups from AR_SCL/AR_SDA to VCC3V3; confirm fitted PCB and every module/adapter pullup before adding any external resistor; parallel equivalent is 1/(1/2200 + sum(1/Rmodule_i)) ohms. Microchip DS22187E section 7.1 describes typically 1-10k for standard/fast modes, with its Fig 7-1 showing 5-10k for 100-400kHz example; actual rise time and sink current depend on total bus capacitance. 7-bit address depends on EEPROM bits and actual module. DAC A feeds PGA CH0 and A3; B->A1; C->A2; D spare. J3 SCL/SDA physical contact numbers unresolved owing to manual/schematic conflict.",
+    "rs485": "proposed TI THVD1450 at 3.3V half-duplex; D/RO/DE and active-low /RE connect to PL; transceiver A/B differential pair to PC-side RS485 adapter, common reference/termination/bias per cable topology; never wire A/B to PL GPIO"
+  },
+  "source_keys": [
+    "tul_manual",
+    "tul_schematic",
+    "pynq_base_xdc",
+    "tul_board_xml",
+    "mcp6s21",
+    "mcp4728",
+    "thvd1450"
+  ],
+  "physical_wiring_gate": "Resolve J3 SCL/SDA contact numbers on the actual PCB/revision with authoritative as-built documentation or de-energized continuity before attaching the DAC; do not use the manual or schematic number alone."
+}
