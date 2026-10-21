@@ -1,0 +1,48 @@
+{
+  "utc": "2026-10-21T06:29:40.960919+00:00",
+  "product_head": "68814fc6963f8ad8e774aa25f598bbd94c34acc1",
+  "source_groups": {
+    "r03-pipe-read-implementation-20261021": {
+      "manifest_sha256": "a9cf431593a8edfbc4c3d5717f0634244b55535f91a882488074d75e8d48861f",
+      "files": 50,
+      "job_id": "child-d0981a47801240d8b289804acb5209ca",
+      "completed": true,
+      "terminal": true,
+      "exact_result_text": true
+    },
+    "r03-pipe-read-independent-20261021": {
+      "manifest_sha256": "e1805621459103becabd8cad259f50904cfdbb6b6b08d3754cebce1a5b5e4285",
+      "files": 28,
+      "job_id": "child-e84f7e2fa1c74fa2ad45983fa5fc5953",
+      "completed": true,
+      "terminal": true,
+      "exact_result_text": true
+    }
+  },
+  "rehashed_product_inputs": 37,
+  "product_files": {
+    "simulation/isolation/pipe_read.py": {
+      "bytes": 2052,
+      "sha256": "08186c9c6132a04b33ef90f3d015cfed7a6634f2fc1094241b361d347bca3785"
+    },
+    "tests/simulation/test_pipe_read.py": {
+      "bytes": 9116,
+      "sha256": "daa5cc3c5180ec0a1e7d8a19b361f16d03e6ad2470a24d89c963b56c4dc36eea"
+    },
+    "docs/pipe_read_boundary.md": {
+      "bytes": 3289,
+      "sha256": "2453ee137cb07e39421c4900f76d936ce9f480ab3a9ea815c8dc0a2fe9ff024f"
+    }
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "independent_controls": 2,
+  "native_endpoint_closes": 4,
+  "independent_held_processes_signaled": 3,
+  "protected_files_unchanged": true,
+  "author_final": "12/12; prior RED and failed GREEN preserved",
+  "production_consumer": "none",
+  "production_factory": "closed",
+  "R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run"
+}
