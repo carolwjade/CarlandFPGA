@@ -1,0 +1,611 @@
+{
+  "utc": "2026-10-21T12:40:13.538802+00:00",
+  "review": {
+    "utc": "2026-10-21T12:39:08.886590+00:00",
+    "status": "ACCEPT_NEW_S2_EVIDENCE_ONLY",
+    "new_corrected_accuracy_screen_pass": false,
+    "design_review": {
+      "utc": "2026-10-21T12:15:01.416745+00:00",
+      "status": "ACCEPT_TARGETED_S2_DESIGN_FOR_ONE_DIAGNOSTIC_INCREMENT",
+      "manifest_files": 8,
+      "source_pins": 39,
+      "design_sha256": "d58f089dc7a6dbcabdc5c046abd8da211f822c40e198f354c7acd0436aa152e3",
+      "native_job": "child-17219ad8d8854def92c04510bb9b5c70",
+      "native_actual_text_bytes_exact": true,
+      "independent_derivation": "For q^2=i*omega*mu*zeta and (Laplacian-q^2)G=-delta, E=(Hessian-q^2 I)G*m/zeta yields the -i*omega*mu*m delta source and curl E=-i*omega*mu*(grad G cross m). This expands to the stated dyadic coefficients; no sigma-only E branch is called. Partition AII eI+AIB gB=bI gives new correction -AIB*gB. The complex receiver is ordinary linear, not conjugate linear.",
+      "selected_sequence": [
+        "New discrete-gradient closure and new E/H representation controls using frozen source moments",
+        "New Born-field receiver-functional diagnosis on frozen trace support",
+        "New tangential Born boundary edge integration with fixed moment/edge pairs",
+        "Only if controls qualify, one new boundary correction RHS and saved-AII solve"
+      ],
+      "no_old_test_replay": true,
+      "physical_accuracy": "unqualified",
+      "generic_heterogeneous_boundary": "not_supplied",
+      "finite_tau": "not_run",
+      "all29": "not_run"
+    },
+    "source_review": {
+      "utc": "2026-10-21T12:27:19.855883+00:00",
+      "status": "ACCEPT_S2_FROZEN_SOURCE_FOR_SELECTED_DIAGNOSTIC",
+      "verified_pins": 51,
+      "source_pins_sha256": "02a6a867f60794375ac0ac5ae088c93c8a1dcb6612b419e39da0d4e38979aa45",
+      "sources": {
+        "s2_electric.py": {
+          "bytes": 2000,
+          "sha256": "935b08ffb18dc8b2241c65e5c7049654c0a052bb3dd351fe32b4136188d77bfa"
+        },
+        "test_point.py": {
+          "bytes": 1982,
+          "sha256": "45598b8026c360787048945e2c4cc2fae9fd39af652fe30eb8885d384bf99df4"
+        },
+        "s2_math.py": {
+          "bytes": 6881,
+          "sha256": "9a382bf96649a906c7a3e8462bc6230cce4aff14d3203f0ef96f094ab0d2d8ba"
+        },
+        "s2_stages.py": {
+          "bytes": 11724,
+          "sha256": "ca39e0c32e3033b401a8ea73926765be6abff9c7fe0ac1180cdb155c100d4caf"
+        },
+        "s2_worker.py": {
+          "bytes": 3099,
+          "sha256": "127afce1f44d266ae56014f4f6d62fbec3f02a159e65d3cbd6f3fa97adf9d7e3"
+        },
+        "run_s2.py": {
+          "bytes": 6196,
+          "sha256": "3d092058b62919a29a428a7a81732ee00fbea8de4e4ee4ebe6854f9ee9862c22"
+        }
+      },
+      "static_findings": [
+        "Explicit E uses full admittivity and the reviewed dyadic coefficients; positive real-space separation checked before division and targets blocked128/source count<=512.",
+        "New nonaxis curl-E/H control uses the selected two five-point finite differences and unchanged1e-5 screen. New whole incidence-row closure tests the frozen receiver trace against nodal gradients.",
+        "New E line integral and receiver-edge reference use frozen S1 moments and H voltages; no old primary/H integration or C/A construction. Receiver interpolation error is reported rather than cancelled or tuned away.",
+        "Boundary stage evaluates only new Born E for selected tangential edges and fixed source/edge pairs. Actual stage exactly partitions saved A/AII and constructs only -AIB*gB, then one COLAMD solve.",
+        "Corrected voltage uses ordinary complex-linear trace. Existing S1 zero-boundary field remains immutable; no old forcing or wire residual is added.",
+        "Stage cache and temp paths remain stage-local, output is exclusive, all stage source pins read back, previous success and free-memory preconditions precede the next stage."
+      ],
+      "qualifications": [
+        "No generic arbitrary-source/material/singular-input API qualification.",
+        "128eps absolute summation scale is a cancellation diagnostic; it does not establish physical accuracy or a rigorously rounded global forward bound.",
+        "Expected singular negative control sets minimum-distance accumulator to0 in controls; result explicitly includes the expected negative and must not be called a positive minimum.",
+        "No operating-system sandbox claim from Python audit. Timers remain sampled thresholds.",
+        "Await actual stage/handle results before numerical acceptance. No production or formal G03/R03/all29 acceptance."
+      ],
+      "old_tests_repeated": false
+    },
+    "controls_boundary_review": {
+      "status": "ACCEPT_NEW_S2_CONTROLS_AND_BOUNDARY_ARRAYS",
+      "gradient_incidence_relative": [
+        7.456377443895634e-17,
+        1.0148958187524616e-16
+      ],
+      "independent_E_line_V": [
+        [
+          3.64634059047395e-11,
+          1.6203190665815304e-10
+        ],
+        [
+          -1.4542433251711369e-12,
+          -6.4536241272248445e-12
+        ],
+        [
+          3.646216110529568e-11,
+          1.6202638781477815e-10
+        ],
+        [
+          -1.4542434056597376e-12,
+          -6.453624483298475e-12
+        ]
+      ],
+      "independent_E_vs_saved_H_relative": [
+        [
+          7.344339294666013e-12,
+          1.854766615245671e-13
+        ],
+        [
+          5.842192122486925e-12,
+          3.2441452726667163e-12
+        ]
+      ],
+      "independent_E_line_pair": [
+        3.406515485245128e-05,
+        5.518259160146272e-08
+      ],
+      "receiver_functional_bias_V": [
+        [
+          1.220789337821176e-13,
+          5.426308490677713e-13
+        ],
+        [
+          -3.0139495485201996e-15,
+          -1.3393752367747504e-14
+        ]
+      ],
+      "receiver_functional_bias_relative": [
+        0.0033489828831812377,
+        0.002075246223861678
+      ],
+      "boundary_relative_pairs": {
+        "edge_order": 3.7790023095175173e-13,
+        "source_moments": 9.311575298844901e-09
+      },
+      "boundary_inf_Vpm": 1.9040859728318847e-06,
+      "role_of_bias": "Reference-field functional diagnosis only, not solved-field unique error attribution.",
+      "utc": "2026-10-21T12:31:34.274404+00:00",
+      "old_tests_repeated": false,
+      "E_or_H_evaluations": 0,
+      "matrix_assemblies": 0,
+      "factorizations": 0,
+      "physical_accuracy": "unqualified",
+      "finite_tau": "not_run",
+      "G03": "not_run",
+      "R03": "not_run",
+      "all29": "not_run",
+      "inputs": {
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\terminal.json": {
+          "bytes": 1429,
+          "sha256": "5ce53c14f476b3ec1013a784feede3876ce4306ebb351affd2e6d29dcdb81d15"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\terminal.json": {
+          "bytes": 1421,
+          "sha256": "62f9741475df0720c2e3978fc338781b58866ebde9acfcadc56763a592c166f9"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\result.json": {
+          "bytes": 7635,
+          "sha256": "3040cf7c26446982fc945615f63b585dec0358e724f183689c88e7c687bdc414"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\result.json": {
+          "bytes": 1016,
+          "sha256": "7b17350a322b02ad70ee317d34810ab092060bd248d64b3f0e92855820924ff9"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\gradient_incidence.npy": {
+          "bytes": 350128,
+          "sha256": "68bf78e89ff520406c4540e8ab49c896533c36a8efcbb0bae8c04bb67cbebc94"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\receiver_trace_m.npy": {
+          "bytes": 1012128,
+          "sha256": "db2ca1a7f480d52db314641d76996237fcbcf3bf13e1eee4f59fbd96a1c47ae3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\controls-01\\edge_starts_m.npy": {
+          "bytes": 1518128,
+          "sha256": "3e169520d139a7b3722dfac28d788aac1583ed0884a4ed8cb71b02192a81d521"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\controls-01\\edge_ends_m.npy": {
+          "bytes": 1518128,
+          "sha256": "e7fc5322ed2f996d09685dde724f39032aa2acf4ba665226a9f2e57d744dfacf"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\point-control.json": {
+          "bytes": 1237,
+          "sha256": "6f04fe41f23c6a2635bad572a999bbec3d0d9a0cab3f92783679ade55b8aa414"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\assignment.json": {
+          "bytes": 7168,
+          "sha256": "4614bde23487dd453baaaa3df9606a76a720dffde8eb10af02481c63b08d35c2"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\E_line_V.npy": {
+          "bytes": 192,
+          "sha256": "b3c8a71ba5936642e712039ecd7570e983d48b14dec070ff7406e45d56da0282"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\E_line_absolute_sum_scale_V.npy": {
+          "bytes": 160,
+          "sha256": "ae04aa9bff7a2ad79ef0d9745b9f97f772e05ce59f33e3cef450b736e563a0c4"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\low_rx1_Born_E_Vpm.npy": {
+          "bytes": 6272,
+          "sha256": "fb2c6dcdba93566026423fae32880314c0074da5ea23e5d3e0a8bead6b5e2a40"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\low_rx1_contour_dl_m.npy": {
+          "bytes": 3200,
+          "sha256": "3ff26ed8fb0fbaade8747ce64e4e75a59969cd6b3847bde8f6347d0646b7e625"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\low_rx2_Born_E_Vpm.npy": {
+          "bytes": 6272,
+          "sha256": "d1e7f95e9fbb99f69046919d4b58f6164148ab79f473fc723f3263041ecaa8e2"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\low_rx2_contour_dl_m.npy": {
+          "bytes": 3200,
+          "sha256": "3ff26ed8fb0fbaade8747ce64e4e75a59969cd6b3847bde8f6347d0646b7e625"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\high_rx1_Born_E_Vpm.npy": {
+          "bytes": 12416,
+          "sha256": "3129c24757677dd028cb14a873c9990210a42f283ad5ffb4b481d59998a9768b"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\high_rx1_contour_dl_m.npy": {
+          "bytes": 6272,
+          "sha256": "4285a39dc67467ed9de89697d19fbd3fe97926dad2d4edf725687a4c0cd94d0d"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\high_rx2_Born_E_Vpm.npy": {
+          "bytes": 12416,
+          "sha256": "8383c60b8c1aa6127337f10b5e0479b1c7b8a3c24773de4467decdd79df2adf2"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\high_rx2_contour_dl_m.npy": {
+          "bytes": 6272,
+          "sha256": "4285a39dc67467ed9de89697d19fbd3fe97926dad2d4edf725687a4c0cd94d0d"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\oracle-01\\Born_derivative_V.npy": {
+          "bytes": 192,
+          "sha256": "21ef28e6e184f46b6392e387f2cb21f715b3c4d80f3ed8ddbde9dda80913d110"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\receiver_support_indices.npy": {
+          "bytes": 3456,
+          "sha256": "2519f44fc2c3690a4364dff8209228035a3c97294c36fbfd87a9ff96e32fb262"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\Born_E_receiver_edge_average_g8_Vpm.npy": {
+          "bytes": 6784,
+          "sha256": "b68749e4deb93e8fb2baf4abd5d2544a2a5bd6569fce6b1bbf63652912bfcb92"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\Born_E_receiver_edge_absolute_sum_g8_Vpm.npy": {
+          "bytes": 3456,
+          "sha256": "61dd44fa720d0ead620b6a56e87aab02e2172491b514465bed4268d74a122101"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\Born_E_receiver_edge_average_g16_Vpm.npy": {
+          "bytes": 6784,
+          "sha256": "ab3851eacff0fb72cdfba74ef0ecbbb6f031d88c283f0bf477ef91e81c35e66a"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\Born_E_receiver_edge_absolute_sum_g16_Vpm.npy": {
+          "bytes": 3456,
+          "sha256": "629238e9eda158799ba71ab9f1717f21d7493ee10ca23228c0e8f6a11f8acb24"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\receiver_reference_trace_V.npy": {
+          "bytes": 192,
+          "sha256": "8e63377b6d5b8f65642ff6662286da82c880b4f0ec939e9bdabdd2d1ad5ac4f6"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\controls-01\\functional_bias_V.npy": {
+          "bytes": 160,
+          "sha256": "8c4d3e015a3836f05a6178fe6449218423de61dfc9b2a6102567c4717cfdb121"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\gB_high_g16_Vpm.npy": {
+          "bytes": 141440,
+          "sha256": "d3c2b736940a747ee7cc49912e017ce74c11701cbe24d09b4fbb5110ac3052c3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\gB_high_g8_Vpm.npy": {
+          "bytes": 141440,
+          "sha256": "28cd8c3ec00655f31b26546b9663a37a82654a7d71aea7b2505fa358d677fa0d"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\gB_low_g16_Vpm.npy": {
+          "bytes": 141440,
+          "sha256": "c3ed67b74930355de9fdf2454acbacfd84e8394ba96f27d3dd382628a7b2ff22"
+        }
+      }
+    },
+    "actual_array_review": {
+      "status": "ACCEPT_NEW_S2_CORRECTION_EVIDENCE_ONLY",
+      "new1percent_screen_pass": false,
+      "independent_eta": 1.3842626285787516e-15,
+      "eta_gate": 2.842170943040401e-14,
+      "independent_boundary_delta_V": [
+        [
+          -1.1199420620570434e-13,
+          -4.967493960280023e-13
+        ],
+        [
+          -3.8841467854408965e-13,
+          -1.7185300251011175e-12
+        ]
+      ],
+      "independent_corrected_V": [
+        [
+          3.1841272389172614e-11,
+          1.414866128011982e-10
+        ],
+        [
+          -1.5176766861732828e-12,
+          -6.735723959700928e-12
+        ]
+      ],
+      "independent_corrected_relative_errors": [
+        0.12676630175689402,
+        0.04370733149662455
+      ],
+      "independent_corrected_absolute_errors_V": [
+        2.10531463229448e-11,
+        2.891433825550177e-13
+      ],
+      "relative_metric_difference": [
+        4.126088359868163e-12,
+        2.976646706898123e-13
+      ],
+      "propagated_relative_roundoff_bound": [
+        5.25285135182718e-09,
+        3.1890594461816722e-09
+      ],
+      "new_correction_residual_full_operator_verified": true,
+      "role_of_correction": "Measured change from zero to sampled Born boundary for this derivative; no generic exterior boundary model.",
+      "utc": "2026-10-21T12:35:24.490018+00:00",
+      "old_tests_repeated": false,
+      "E_or_H_evaluations": 0,
+      "matrix_assemblies": 0,
+      "factorizations": 0,
+      "physical_accuracy": "unqualified",
+      "finite_tau": "not_run",
+      "G03": "not_run",
+      "R03": "not_run",
+      "all29": "not_run",
+      "inputs": {
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\result.json": {
+          "bytes": 2706,
+          "sha256": "522fe76babfa8d44ed509bcc091af5ce3cc1972a294e9d9d49605d4b51e5e2f1"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\terminal.json": {
+          "bytes": 1420,
+          "sha256": "22e7442e67107c62d833898fda05ce07383f0e50153c5eeee1aa4e464b6308d4"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\interior_indices.npy": {
+          "bytes": 435472,
+          "sha256": "5359f7ab0a0e12110fbe059fa1b84923e11a8c0d634ee43d0224bdff80b28ea3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\boundary_indices.npy": {
+          "bytes": 35456,
+          "sha256": "4a0cbdf0f192f95e1a7782e37fd3ad7321405a226c465a5828a56171aa1b3e9c"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\run-01\\A-csr.npz": {
+          "bytes": 16149414,
+          "sha256": "5f5a6fe42950ca94c6b381477799db232b683f65dd66cde84c93f3a176e29426"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\run-01\\AII-csc.npz": {
+          "bytes": 13869766,
+          "sha256": "e97b0d767ee2731266cbd1b5ec39a4470e3c3f8ee3fc0cacfce22908993f3b40"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\selected_gB_Vpm.npy": {
+          "bytes": 141440,
+          "sha256": "d3c2b736940a747ee7cc49912e017ce74c11701cbe24d09b4fbb5110ac3052c3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\gB_high_g16_Vpm.npy": {
+          "bytes": 141440,
+          "sha256": "d3c2b736940a747ee7cc49912e017ce74c11701cbe24d09b4fbb5110ac3052c3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\new_boundary_correction_RHS.npy": {
+          "bytes": 870816,
+          "sha256": "ee909a8a5e1512347a2442b9f78bcc482284f44246427d1663961ed3e362462f"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\interior_correction_Vpm.npy": {
+          "bytes": 870816,
+          "sha256": "e1fbf6b43ce7ff885ce46af34dfb5b8b2469ec6348d2256773aaeedbced26a04"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\full_correction_Vpm.npy": {
+          "bytes": 1012128,
+          "sha256": "da4b29cfd1396fea423a9c958b2b75d19efa3b769bcca934f9683a7d5ad3694a"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\corrected_derivative_Vpm.npy": {
+          "bytes": 1012128,
+          "sha256": "23690e9511e423e8432c9db3c6cc5304c5c573353a69d23af3a66eecaeac6558"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\run-01\\full_derivative_Vpm.npy": {
+          "bytes": 1012128,
+          "sha256": "cc65400a069fd731b4a5a141010600e66b859ed413fdd55e0b159305715293d3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\correction_residual.npy": {
+          "bytes": 870816,
+          "sha256": "906efd630ce5f86e7277dba78cb75896beb9d6f2d0266e61494b8b32f0d59f9a"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\receiver_trace_m.npy": {
+          "bytes": 1012128,
+          "sha256": "db2ca1a7f480d52db314641d76996237fcbcf3bf13e1eee4f59fbd96a1c47ae3"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\run-01\\derivative_voltage_V.npy": {
+          "bytes": 160,
+          "sha256": "fb1e1a974a07ca528aecd799a9b646f5475493921e145e10e4deb8536094832d"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\oracle-01\\Born_derivative_V.npy": {
+          "bytes": 192,
+          "sha256": "21ef28e6e184f46b6392e387f2cb21f715b3c4d80f3ed8ddbde9dda80913d110"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\boundary_delta_V.npy": {
+          "bytes": 160,
+          "sha256": "0976a34939d0cebe06726fa4f76ccb3e248bf2b9510433d7a91473045069c819"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\V_corrected_V.npy": {
+          "bytes": 160,
+          "sha256": "2e15d4713ae3a95cf37300cc24ac443b8062dc87476f2331eb6fded5611ef9b6"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\R_corrected_V.npy": {
+          "bytes": 160,
+          "sha256": "f3bb73ca6dd024707ffe13bc273d7ab5ca67739189427d730af4dbb71b493123"
+        },
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\R0_V.npy": {
+          "bytes": 160,
+          "sha256": "e8a97d31580d36c3fecef7f8f5e95457b979f499280f8e951f2a4e5cafe4bcf8"
+        }
+      }
+    },
+    "sealed": [
+      {
+        "folder": "g03-s2-boundary-correction-20261021",
+        "manifest_sha256": "0e8e9644eb2a9050add8759d11ccb67954433a478162906ca237de9c9c661cf0",
+        "manifest_files": 96,
+        "source_pins": 51,
+        "native_job": "child-25b4c7d06a4f4856a2b8ad9bff610cfd",
+        "native_status": "failed",
+        "native_error": "Selected one S2 -AIB*gB boundary correction completed, but fixed1% independent-reference voltage screen failed: corrected relative errors0.1267663017610201 and0.043707331496922214. New controls/boundary pairs and correction eta passed. Original exit2 and all12 retained handles terminated; no retry.",
+        "actual_native_terminal_readback": true,
+        "held_processes_signaled": 12,
+        "final_text_sha256": "3a02c86234107dd9fae391f52c54a2f0ed9fcf9ec3a6cd2cde06c7850d1ee4b9"
+      }
+    ],
+    "old_tests_repeated": false,
+    "main_factorizations": 0,
+    "main_matrix_assemblies": 0,
+    "main_Green_evaluations": 0,
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "physical_accuracy": "unqualified",
+    "finite_tau": "not_run",
+    "noise_gate": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run"
+  },
+  "array_review": {
+    "status": "ACCEPT_NEW_S2_CORRECTION_EVIDENCE_ONLY",
+    "new1percent_screen_pass": false,
+    "independent_eta": 1.3842626285787516e-15,
+    "eta_gate": 2.842170943040401e-14,
+    "independent_boundary_delta_V": [
+      [
+        -1.1199420620570434e-13,
+        -4.967493960280023e-13
+      ],
+      [
+        -3.8841467854408965e-13,
+        -1.7185300251011175e-12
+      ]
+    ],
+    "independent_corrected_V": [
+      [
+        3.1841272389172614e-11,
+        1.414866128011982e-10
+      ],
+      [
+        -1.5176766861732828e-12,
+        -6.735723959700928e-12
+      ]
+    ],
+    "independent_corrected_relative_errors": [
+      0.12676630175689402,
+      0.04370733149662455
+    ],
+    "independent_corrected_absolute_errors_V": [
+      2.10531463229448e-11,
+      2.891433825550177e-13
+    ],
+    "relative_metric_difference": [
+      4.126088359868163e-12,
+      2.976646706898123e-13
+    ],
+    "propagated_relative_roundoff_bound": [
+      5.25285135182718e-09,
+      3.1890594461816722e-09
+    ],
+    "new_correction_residual_full_operator_verified": true,
+    "role_of_correction": "Measured change from zero to sampled Born boundary for this derivative; no generic exterior boundary model.",
+    "utc": "2026-10-21T12:35:24.490018+00:00",
+    "old_tests_repeated": false,
+    "E_or_H_evaluations": 0,
+    "matrix_assemblies": 0,
+    "factorizations": 0,
+    "physical_accuracy": "unqualified",
+    "finite_tau": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run",
+    "inputs": {
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\result.json": {
+        "bytes": 2706,
+        "sha256": "522fe76babfa8d44ed509bcc091af5ce3cc1972a294e9d9d49605d4b51e5e2f1"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\terminal.json": {
+        "bytes": 1420,
+        "sha256": "22e7442e67107c62d833898fda05ce07383f0e50153c5eeee1aa4e464b6308d4"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\interior_indices.npy": {
+        "bytes": 435472,
+        "sha256": "5359f7ab0a0e12110fbe059fa1b84923e11a8c0d634ee43d0224bdff80b28ea3"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\boundary_indices.npy": {
+        "bytes": 35456,
+        "sha256": "4a0cbdf0f192f95e1a7782e37fd3ad7321405a226c465a5828a56171aa1b3e9c"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\run-01\\A-csr.npz": {
+        "bytes": 16149414,
+        "sha256": "5f5a6fe42950ca94c6b381477799db232b683f65dd66cde84c93f3a176e29426"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-l5-propagation-z-refinement-20261021\\run-01\\AII-csc.npz": {
+        "bytes": 13869766,
+        "sha256": "e97b0d767ee2731266cbd1b5ec39a4470e3c3f8ee3fc0cacfce22908993f3b40"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\selected_gB_Vpm.npy": {
+        "bytes": 141440,
+        "sha256": "d3c2b736940a747ee7cc49912e017ce74c11701cbe24d09b4fbb5110ac3052c3"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\boundary-01\\gB_high_g16_Vpm.npy": {
+        "bytes": 141440,
+        "sha256": "d3c2b736940a747ee7cc49912e017ce74c11701cbe24d09b4fbb5110ac3052c3"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\new_boundary_correction_RHS.npy": {
+        "bytes": 870816,
+        "sha256": "ee909a8a5e1512347a2442b9f78bcc482284f44246427d1663961ed3e362462f"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\interior_correction_Vpm.npy": {
+        "bytes": 870816,
+        "sha256": "e1fbf6b43ce7ff885ce46af34dfb5b8b2469ec6348d2256773aaeedbced26a04"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\full_correction_Vpm.npy": {
+        "bytes": 1012128,
+        "sha256": "da4b29cfd1396fea423a9c958b2b75d19efa3b769bcca934f9683a7d5ad3694a"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\corrected_derivative_Vpm.npy": {
+        "bytes": 1012128,
+        "sha256": "23690e9511e423e8432c9db3c6cc5304c5c573353a69d23af3a66eecaeac6558"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\run-01\\full_derivative_Vpm.npy": {
+        "bytes": 1012128,
+        "sha256": "cc65400a069fd731b4a5a141010600e66b859ed413fdd55e0b159305715293d3"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\correction_residual.npy": {
+        "bytes": 870816,
+        "sha256": "906efd630ce5f86e7277dba78cb75896beb9d6f2d0266e61494b8b32f0d59f9a"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\controls-01\\receiver_trace_m.npy": {
+        "bytes": 1012128,
+        "sha256": "db2ca1a7f480d52db314641d76996237fcbcf3bf13e1eee4f59fbd96a1c47ae3"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\run-01\\derivative_voltage_V.npy": {
+        "bytes": 160,
+        "sha256": "fb1e1a974a07ca528aecd799a9b646f5475493921e145e10e4deb8536094832d"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s1-cache-path-continuation-20261021\\oracle-01\\Born_derivative_V.npy": {
+        "bytes": 192,
+        "sha256": "21ef28e6e184f46b6392e387f2cb21f715b3c4d80f3ed8ddbde9dda80913d110"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\boundary_delta_V.npy": {
+        "bytes": 160,
+        "sha256": "0976a34939d0cebe06726fa4f76ccb3e248bf2b9510433d7a91473045069c819"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\V_corrected_V.npy": {
+        "bytes": 160,
+        "sha256": "2e15d4713ae3a95cf37300cc24ac443b8062dc87476f2331eb6fded5611ef9b6"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\R_corrected_V.npy": {
+        "bytes": 160,
+        "sha256": "f3bb73ca6dd024707ffe13bc273d7ab5ca67739189427d730af4dbb71b493123"
+      },
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g03-s2-boundary-correction-20261021\\run-01\\R0_V.npy": {
+        "bytes": 160,
+        "sha256": "e8a97d31580d36c3fecef7f8f5e95457b979f499280f8e951f2a4e5cafe4bcf8"
+      }
+    }
+  },
+  "public_derivatives": [
+    {
+      "published_path": "g03-s2-boundary-correction-20261021/author-red-01/started-public.json",
+      "original_local_sha256": "353de68ee773b864365fa4f91cb674e334aa64486041bfff637d933e22759a88"
+    },
+    {
+      "published_path": "g03-s2-boundary-correction-20261021/boundary-01/started-public.json",
+      "original_local_sha256": "3e5dae2c8f191e1e8b6b93428645b585f7f8ca3ab9d7d6d1f784b9e45378cdee"
+    },
+    {
+      "published_path": "g03-s2-boundary-correction-20261021/controls-01/started-public.json",
+      "original_local_sha256": "f2d742decc01e9dbdfceef109d5b05c8288b32254f70b2d86c200ab2389460f0"
+    },
+    {
+      "published_path": "g03-s2-boundary-correction-20261021/run-01/started-public.json",
+      "original_local_sha256": "cd726f151fac5b4910cb039341980acde2f9da32a9b6a47b6c5116d5b3b44930"
+    },
+    {
+      "published_path": "g03-s2-main-review-20261021/actual-review-run-01/started-public.json",
+      "original_local_sha256": "a1dc0aeac64101ba2d642de11899c9ed177945f22063007fb4fe8352b47f717d"
+    },
+    {
+      "published_path": "g03-s2-main-review-20261021/controls-review-run-01/started-public.json",
+      "original_local_sha256": "039f026e388b5741a469283b25c49c5ec6671c209390d919ca0a124dbcac244b"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_tests_repeated": false,
+  "factorizations_in_main_review": 0,
+  "physical_accuracy": "unqualified",
+  "finite_tau": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}
