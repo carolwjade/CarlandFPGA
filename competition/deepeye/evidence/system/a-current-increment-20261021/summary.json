@@ -1,0 +1,124 @@
+{
+  "utc": "2026-10-21T07:59:38.527720+00:00",
+  "parent_product_head": "0b30bab0253f655506682c95e3e9d67ae4234565",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "G03_conditional_transfer": {
+    "decision": "accept_current_conditional_transfer_result",
+    "new_actual_runs": 1,
+    "actual_runtime_seconds": 6.937999999994645,
+    "frozen_delta_reused_no_full48_replay": true,
+    "counts": {
+      "A_assemblies": 1,
+      "metric_C_constructions": 1,
+      "LU_factorizations": 1,
+      "solved_columns": 49,
+      "SVDs": 1,
+      "interpolation_points": 32,
+      "source_calls": 0,
+      "RHS_calls": 0,
+      "fields_calls": 0,
+      "sampler_calls": 0,
+      "reference_calls": 0
+    },
+    "observed_abs_delta_V": [
+      7.266574824975231e-21,
+      3.635898391555066e-21
+    ],
+    "conditional_bound_V": 1.453555705290784e-20,
+    "maximum_normalized_column_residual": 9.13659674250848e-17,
+    "kappa2_diagnostic": 461.7733816605193,
+    "result_sha256": "3ebacf13aa602d200f9c30c21f9c819e327b2b8df1b9abe3e30d34ef7a8cbe36",
+    "input_bytes_unchanged": true,
+    "original_held_objects_stopped": 3,
+    "open_physical_gates": [
+      "source and absolute-voltage equivalence",
+      "mesh/domain and continuous-coil accuracy",
+      "material/receiver budget and real observability"
+    ],
+    "G03": "not_run",
+    "R03": "not_run",
+    "fullH12": "not_run",
+    "all29": "not_run"
+  },
+  "B_op19_review": {
+    "head": "aef19351f1836b23f9a714bc5626db4eb4df98c5",
+    "decision": "ACCEPT_BOUNDED_PYTHON_QUALIFICATION_REPAIR",
+    "new_test_methods": 12,
+    "independent_diagnostic_cases": 8,
+    "old_test_classes_AST_unchanged": true,
+    "old_tests_not_repeated": true,
+    "original_process_objects_stopped": 3,
+    "B_op18_RTL_scope_not_promoted": true,
+    "full_R03": "not_run",
+    "full_H12": "not_run",
+    "all29": "not_run"
+  },
+  "R02_complete_wheel": {
+    "decision": "accept_complete_locally_reconstructed_gfx1103_wheel",
+    "manifest_files_independently_verified": 15,
+    "artifact_independently_rehashed": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r02-same-object-continuation-20261021\\artifacts\\amd_torch_device_gfx1103-2.12.0+rocm7.14.1-cp312-cp312-win_amd64.whl",
+      "bytes": 50718246,
+      "sha256": "a684f7689d514b20b889c56bb5aa6b137028b8351f3edc4fd4f8c81e81188140"
+    },
+    "native_job_id": "child-659e6b9beb6b4181b866b5e6b4078cb1",
+    "native_terminal": true,
+    "native_result_json_equals_result_file": true,
+    "source_review": [
+      "fixed original 200/206 URL, ETag, version and Content-Range",
+      "byte-exact 7773 overlap and source hashes during exclusive copy",
+      "one whole archive streaming verification; no vendor code",
+      "original failed GET and partial preserved"
+    ],
+    "new_functional_tests_run_by_main": 0,
+    "original_held_objects_stopped": 3,
+    "publisher_full_hash_available": false,
+    "R02": "not_run"
+  },
+  "public_environment_derivatives": [
+    {
+      "published_path": "g03-finite-coil-transfer-preparation-20261021/green-01/started-public.json",
+      "original_sha256": "c077a498aa93c3ce9bef52da17622478f0eb98ad9e9193848f5b3bb907b426a1"
+    },
+    {
+      "published_path": "g03-finite-coil-transfer-preparation-20261021/green-02/started-public.json",
+      "original_sha256": "7076186b7a2ac7376d847f9a004c7b269d89f9540c876cf84fe97a3f27ddbbc0"
+    },
+    {
+      "published_path": "g03-finite-coil-transfer-preparation-20261021/red-01/started-public.json",
+      "original_sha256": "85949e3d4fd0db66cdabea6eb49bc9f1ab40145ffb650cb677057e5d640a9c4e"
+    },
+    {
+      "published_path": "g03-finite-coil-transfer-preparation-20261021/red-02/started-public.json",
+      "original_sha256": "d8c9f79ca8d2378977378817ad44bcf5f7fc5eebfc9a6e48388b9301951b9ac6"
+    },
+    {
+      "published_path": "g03-fixed-transfer-main-20261021/run-01/started-public.json",
+      "original_sha256": "b35e9fc8546d33f258909a77271e4e7bd88c07baec973f8a4c7c45d769acb2f5"
+    },
+    {
+      "published_path": "b-op19-current-review-20261021/new-tests/process/started-public.json",
+      "original_sha256": "aad40badd929d925ce8cf2e28c4f2bbc7ea580d5441711a093c2697ee6d234c4"
+    },
+    {
+      "published_path": "r02-same-object-continuation-20261021/runs/reconstruct-verify/started-public.json",
+      "original_sha256": "ea03023a3878ae3590083c99149c4dc690ac4e5adc1950f0ff0e03122390017f"
+    },
+    {
+      "published_path": "r02-amd-wheel-acquisition-20261021/requests/001-amd-torch-device-gfx1103/download-result-public.json",
+      "original_sha256": "8b25398fb78aa7f00a44fc5c5b79d583e49d62b3242e4eeb3de9d42060e8cc21"
+    },
+    {
+      "published_path": "r02-amd-wheel-acquisition-20261021/requests/001-amd-torch-device-gfx1103/download-started-public.json",
+      "original_sha256": "6850974185e736da78b7666caf1740c45f1c7f774f7d12753e4d5707cc074fae"
+    },
+    {
+      "published_path": "r02-amd-wheel-acquisition-20261021/runs/001-amd-torch-device-gfx1103-curl/started-public.json",
+      "original_sha256": "5f81d003b9b6b29a79b6cd2f3adfb90722c29041acf4b9c41fa17fbd107c89fd"
+    }
+  ],
+  "old_functional_tests_repeated": false,
+  "R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run"
+}
