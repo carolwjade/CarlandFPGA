@@ -1,0 +1,385 @@
+{
+  "utc": "2026-10-21T13:54:12.184875+00:00",
+  "review": {
+    "utc": "2026-10-21T13:52:29.370276+00:00",
+    "status": "ACCEPT_NEW_S3_EVIDENCE_ONLY",
+    "sealed": [
+      {
+        "folder": "g03-s3-cell-source-projection-20261021",
+        "manifest_sha256": "3297d3d9bd4474e5af29d30f3c42d11e4fc9e7bbd79d83502ce80d8ba02ade04",
+        "files": 38,
+        "job_id": "child-7a47f23c3278418ea1a3f1d4beacebce",
+        "native_status": "failed",
+        "native_error": "S3 first manufactured control failed exit1 at initial Gauss2 record JSON serialization: TypeError Object of type bool is not JSON serializable; NumPy boolean comparison was not converted. Original partial JSON and failed terminal preserved; no physical targets/projection/solve or automatic retry. All6 held handles stopped.",
+        "terminal": true,
+        "exact_final_text_match": null
+      },
+      {
+        "folder": "g03-s3-independent-review-20261021",
+        "manifest_sha256": "ea43afe140291bbd6c49df82889486f440f0d4112729171e8a8eeaec2c358002",
+        "files": 9,
+        "job_id": "child-e656fcf47bef4f23a0262544cba3fdf9",
+        "native_status": "completed",
+        "native_error": null,
+        "terminal": true,
+        "exact_final_text_match": true
+      },
+      {
+        "folder": "g03-s3-json-continuation-20261021",
+        "manifest_sha256": "4779df292d7a4450f96008ad4b16e1ad6055eb036a1ff40eed9448fc9a78e4db",
+        "files": 105,
+        "job_id": "child-0be3050f77fe4bcf93857c08dfc58e02",
+        "native_status": "failed",
+        "native_error": "Selected S3 cell-projected source increment completed; manufactured/physical source pair controls and eta passed, but unchanged1% Rx screen failed with relative errors0.13308598717270753 and0.03211049986823993. Original exit2 and9signaled held handles retained; S2gB unchanged, no retry.",
+        "terminal": true,
+        "exact_final_text_match": null
+      },
+      {
+        "folder": "g03-s3-json-independent-review-20261021",
+        "manifest_sha256": "b02df0ced8273007f610b6695f8c2da97c7f005fada07dec71072cd1c6bec667",
+        "files": 17,
+        "job_id": "child-fec30cc5c1ec4bc280a414d22a885ca6",
+        "native_status": "completed",
+        "native_error": null,
+        "terminal": true,
+        "exact_final_text_match": true
+      }
+    ],
+    "frozen_inputs_verified": 57,
+    "author_terminals": {
+      "controls-01": {
+        "status": "success",
+        "exit_code": 0,
+        "seconds": 0.8119999999762513,
+        "peak_job_memory_bytes": 61755392
+      },
+      "projection-01": {
+        "status": "success",
+        "exit_code": 0,
+        "seconds": 0.75,
+        "peak_job_memory_bytes": 93384704
+      },
+      "run-01": {
+        "status": "failed",
+        "exit_code": 2,
+        "seconds": 57.45299999997951,
+        "peak_job_memory_bytes": 3349176320
+      }
+    },
+    "independent_audit_terminal": {
+      "status": "success",
+      "exit_code": 0,
+      "seconds": 0.8279999999795109,
+      "peak_job_memory_bytes": 90054656
+    },
+    "source_pair": 3.149261716080581e-05,
+    "source_difference_pair": 0.0006410996856396376,
+    "new_corrected_accuracy_screen_pass": false,
+    "receiver_relative_errors": [
+      0.13308598717270753,
+      0.03211049986823993
+    ],
+    "backward_eta": 4.187683382636219e-18,
+    "resolved_denominators": true,
+    "root_review": "Read exact source diff and independent audit implementation; verified sealed bytes, actual original native states, all stage terminals, input readbacks and reported scalar reductions.",
+    "no_new_array_audit_or_primary_or_solve_in_root": true,
+    "old_test_groups_repeated": 0,
+    "prior_failure_preserved": true,
+    "next_scientific_work": "No additional solve selected; remaining error cause is not isolated.",
+    "physical_accuracy": "unqualified",
+    "noise_gate": "unqualified",
+    "finite_tau": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run"
+  },
+  "array_review": {
+    "frozen_inputs": 57,
+    "frozen_support": 300,
+    "checks": {},
+    "orders": {
+      "g2": {
+        "constant_V_over_4": {
+          "pass": true,
+          "absolute": 2.3120400991731073e-25,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_local_analytic": {
+          "pass": true,
+          "absolute": 1.0587911840678754e-22,
+          "bound": 9.525713551283845e-18,
+          "scale": 0.00033515625000000006
+        },
+        "constant_scatter": {
+          "pass": true,
+          "absolute": 5.849050204022881e-25,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_scatter": {
+          "pass": true,
+          "absolute": 2.117582368135751e-22,
+          "bound": 9.525713551283845e-18,
+          "scale": 0.00033515625000000006
+        },
+        "constant_saved_mass_action": {
+          "pass": true,
+          "absolute": 1.1698100408045763e-24,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_charge_exact": {
+          "pass": true,
+          "absolute": 1.0587911840678754e-22,
+          "bound": 2.4025963510365686e-19,
+          "scale": 8.453384399414065e-06
+        },
+        "weight_volume": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 2.6645352591003765e-18,
+          "scale": 9.375000000000003e-05
+        },
+        "current_zeta_primary": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 2.9138400844444834e-15,
+          "scale": 0.10252163373844836
+        },
+        "physical_local_from_saved_current": {
+          "pass": true,
+          "absolute": 3.330618200214112e-27,
+          "bound": 2.667700272485263e-22,
+          "scale": 9.38613590086e-09
+        },
+        "physical_scatter": {
+          "pass": true,
+          "absolute": 6.661236400428224e-27,
+          "bound": 2.6677002723179196e-22,
+          "scale": 9.386135900271213e-09
+        },
+        "single_minus_iomega": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 3.3523310309973864e-15,
+          "scale": 0.11794966235954985
+        },
+        "full_rhs_subtraction": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 9.943885022995101e-17,
+          "scale": 0.003498693506576234
+        },
+        "physical_compatible_charge": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 1.0343484548594715e-23,
+          "scale": 3.6392900905284096e-10
+        },
+        "boundary_zero": {
+          "pass": true
+        }
+      },
+      "g4": {
+        "constant_V_over_4": {
+          "pass": true,
+          "absolute": 5.169878828456423e-25,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_local_analytic": {
+          "pass": true,
+          "absolute": 1.5881867761018131e-22,
+          "bound": 9.525713551283845e-18,
+          "scale": 0.00033515625000000006
+        },
+        "constant_scatter": {
+          "pass": true,
+          "absolute": 5.849050204022881e-25,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_scatter": {
+          "pass": true,
+          "absolute": 2.117582368135751e-22,
+          "bound": 9.525713551283845e-18,
+          "scale": 0.00033515625000000006
+        },
+        "constant_saved_mass_action": {
+          "pass": true,
+          "absolute": 9.24816039669243e-25,
+          "bound": 2.1008074197548177e-20,
+          "scale": 7.391558994363258e-07
+        },
+        "affine_charge_exact": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 2.4025963510365686e-19,
+          "scale": 8.453384399414065e-06
+        },
+        "weight_volume": {
+          "pass": true,
+          "absolute": 2.117582368135751e-22,
+          "bound": 2.6645352591003765e-18,
+          "scale": 9.375000000000003e-05
+        },
+        "current_zeta_primary": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 2.3318804067931033e-14,
+          "scale": 0.8204574789926548
+        },
+        "physical_local_from_saved_current": {
+          "pass": true,
+          "absolute": 3.25631997206933e-27,
+          "bound": 2.66770212444334e-22,
+          "scale": 9.386142416858208e-09
+        },
+        "physical_scatter": {
+          "pass": true,
+          "absolute": 6.661236400428224e-27,
+          "bound": 2.66770212427608e-22,
+          "scale": 9.386142416269714e-09
+        },
+        "single_minus_iomega": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 3.3523333582366474e-15,
+          "scale": 0.11794974424200194
+        },
+        "full_rhs_subtraction": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 9.940318174966488e-17,
+          "scale": 0.0034974385334940036
+        },
+        "physical_compatible_charge": {
+          "pass": true,
+          "absolute": 1.332247280085645e-26,
+          "bound": 1.0343459358752415e-23,
+          "scale": 3.639281227640566e-10
+        },
+        "boundary_zero": {
+          "pass": true
+        }
+      }
+    },
+    "actual": {
+      "independent_eta": 4.187683382636219e-18,
+      "relative_receiver_error": [
+        0.13308598717270753,
+        0.03211049986823993
+      ],
+      "fixed_receiver_gate": 0.01,
+      "physical_screen_pass": false,
+      "checks": {
+        "full_delta_rhs": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 9.940318174966488e-17,
+          "scale": 0.0034974385334940036
+        },
+        "interior_rhs": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 9.940318174966486e-17,
+          "scale": 0.0034974385334940027
+        },
+        "boundary_delta_exact_zero": {
+          "pass": true
+        },
+        "interior_delta": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 3.279711739472281e-15,
+          "scale": 0.11539459818570318
+        },
+        "field_S2_plus_delta": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 2.21512749639256e-13,
+          "scale": 7.79378700572787
+        },
+        "saved_residual": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 1.3826296687143557e-12,
+          "scale": 48.64695672510441
+        },
+        "eta_gate": {
+          "pass": true
+        },
+        "trace_deltaV": {
+          "pass": true,
+          "absolute": 3.064970742450557e-23,
+          "bound": 1.6857128994070833e-20,
+          "scale": 5.931074988768265e-07
+        },
+        "V2_plus_deltaV": {
+          "pass": true,
+          "absolute": 0.0,
+          "bound": 8.572190657989278e-24,
+          "scale": 3.016071457271044e-10
+        },
+        "trace_fullV": {
+          "pass": true,
+          "absolute": 1.2589431196057602e-21,
+          "bound": 9.033664125271833e-19,
+          "scale": 3.178437999090972e-05
+        },
+        "field_voltage_identity": {
+          "pass": true,
+          "absolute": 1.712781953081584e-22,
+          "bound": 9.033664125271833e-19,
+          "scale": 3.178437999090972e-05
+        }
+      }
+    },
+    "pair_source": 3.149261716080581e-05,
+    "pair_difference": 0.0006410996856396376,
+    "pair_pass": true,
+    "array_audit_pass": true
+  },
+  "public_environment_derivatives": [
+    {
+      "path": "g03-s3-cell-source-projection-20261021/author-red-01/started-public.json",
+      "original_local_sha256": "03363a4026fa50d6aab8404aff0ab81a6b9e5832d102284b63b68a9934afa8cc"
+    },
+    {
+      "path": "g03-s3-cell-source-projection-20261021/controls-01/started-public.json",
+      "original_local_sha256": "b81bce82badc438a0b960a36ef5a61bc7aeb684e3a70547502b2722a8cb73f66"
+    },
+    {
+      "path": "g03-s3-json-continuation-20261021/controls-01/started-public.json",
+      "original_local_sha256": "12490348e69aad7f9284b74b224ec82e2393182f5408991c68f57640b9a81836"
+    },
+    {
+      "path": "g03-s3-json-continuation-20261021/projection-01/started-public.json",
+      "original_local_sha256": "09ef89e9da217cac2124bc2056162aa2a1b7bf9c86dcf6d68c7759a828692180"
+    },
+    {
+      "path": "g03-s3-json-continuation-20261021/run-01/started-public.json",
+      "original_local_sha256": "b511a8b72c7baebb7388f7f2372ca1164c8ed09a6a44ce09ea42545c4ee17485"
+    },
+    {
+      "path": "g03-s3-json-independent-review-20261021/run-01/started-public.json",
+      "original_local_sha256": "525e11cda38eda18e522c819655fcc4d5e152c519a2852e255de9077076916a7"
+    }
+  ],
+  "preserved_malformed_evidence": [
+    {
+      "path": "g03-s3-cell-source-projection-20261021/controls-01/manufactured_g2.json",
+      "bytes": 40,
+      "sha256": "be31fbbcbf32fd7d937fe5b5db019d3f4c9523141b1943601ff264be2c7659ad",
+      "preserved_original_partial_json": true
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_test_groups_repeated": 0,
+  "new_board_operations": 0,
+  "physical_accuracy": "unqualified",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

@@ -1,10 +1,18 @@
 ﻿item_id,part_or_item,planned_quantity,presence_and_selection_status,evidence_or_source
 PC,AMD Ryzen 7 8845H / Radeon 780M 主站,1,已有主站，复用环境记录,hardware/environment.json
 FPGA,TUL PYNQ-Z2 / XC7Z020-1CLG400C,1,已完成基础板测；PCB 版本待核,board-baseline-20261021/board-report.json
+PRESSURE,FSR402 压力传感器及适配前端,1,任务选型；实物、前端及标定未核,taskbook section 4 / R02
+MOISTURE,3.3 V 电容式土壤湿度模块,1,任务选型；具体模块、量程及标定未核,taskbook section 4 / R02
+LIGHT,TEMT6000 光照模块,1,任务选型；实物、模拟输出及标定未核,taskbook section 4 / R02
+STORAGE,PYNQ MicroSD 启动卡,1,任务要求；实际型号、容量与镜像待登记,taskbook section 4
 DAC,Microchip MCP4728，3.3 V，四通道,1,拟选；实物与地址未核,mcp4728
 PGA,Microchip MCP6S21，3.3 V,1,任务选型；实物未核,mcp6s21
-RS485,TI THVD1450，3.3 V 半双工,1,拟选；模块电路未核,thvd1450
+RS485,TI THVD1450，3.3 V 半双工,2,拟选；1块板端、1块备件/离线对照，均未核,thvd1450 / taskbook section 4
 HOST_LINK,PC 端 USB-RS485 适配器,1,具体型号、收发极性待核,taskbook G05/B04
 CAPTURE,PMODB 外部输出到回采跳线,3,必须独立实接；当前未核,accepted candidate-pinmap.json
 ANALOG,模拟信号线、公共地及本地去耦,按实际模块,线长、负载、供电去耦待核,vendor datasheets / accepted design
-MEASURE,独立时序及模拟测量设备,按测试方案,设备型号、精度待登记,taskbook R02/B04/G05
+SOURCE_SELECT,可拔插单源模拟线组（断电人工选源）,3,拟定接线方式；实物接头与状态待核,wiring source-mode installation rule
+PROTECTION,限流及输入保护元件,1套,任务要求；按实际前端核参数及装配,taskbook section 4 / R04
+MOUNTING,底板与固定件,1套,任务要求；实物与固定状态待核,taskbook section 4
+LOGIC,逻辑分析仪，8 通道 USB 款或等效,1,优先已有；型号及可用性待登记,taskbook section 4 / B04 / G05
+MEASURE,独立模拟测量设备,按测试方案,设备型号、精度待登记,taskbook R02/R04

@@ -1,0 +1,30 @@
+{
+  "work_id": "A-R02-HARDWARE-DOCS-COMPLETENESS-REVIEW-20261021-v1",
+  "review_stage": "final_candidate_delta_only",
+  "route": "direct_native_collaboration_recorded_ownership_optional_mesh_lease",
+  "candidate_directory": ".planning/deepeye-resume-20261018/r02-hardware-docs-completeness-final-20261021/candidate",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "director_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "candidate_hashes_verified": {
+    "bom.csv": "97f89bc18675e573d3099d916762a4a929b364c4473c6eee0be06a6918a677a3",
+    "wiring.pdf": "492561505ff55fdab2adf9fea2fa309f8840102ba9f13868ab8c3330a440855a",
+    "wiring_sources.json": "f6e41e7de012f5990d40bb1a38bdf7702ee8565bb05da107fc319925d04b2d6e"
+  },
+  "source_input_hashes_verified": 7,
+  "bom_rows_verified": 17,
+  "render_pages_visually_inspected": 4,
+  "previous_findings_closed_in_candidate": [
+    "MicroSD and current-limiting/input-protection and mounting materials explicitly listed, with physical details unverified",
+    "three unplug-and-replug single-source analog cable groups and de-energized manual mode selection explicitly listed; source_mode locks after wiring confirmation",
+    "second RS485 module explicitly designated spare or offline comparison; board transceiver links to PC USB-RS485 adapter"
+  ],
+  "new_document_contradiction_found_in_delta": false,
+  "remaining_scope": "physical models, connector wiring, installed board revision, protection component values and assembly, actual source-mode switch and electrical measurements remain unverified",
+  "prior_review_retained": true,
+  "product_files_modified": false,
+  "board_or_runtime_tests": 0,
+  "R02": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}
