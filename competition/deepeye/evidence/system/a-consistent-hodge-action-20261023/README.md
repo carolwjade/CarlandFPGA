@@ -1,0 +1,13 @@
+# Consistent-Hodge kernel and one saved-field action
+
+Root accepts this bounded implementation/evidence increment after independent review. The new physical edge-average local mass/curl forms passed eleven independent analytic comparisons, five rejection cases and two energy checks. Those completed checks were reused, not rerun. One saved full S3-field delta-operator action completed in 0.796 s (46,522,368 B peak, BLAS 1, all three held processes terminated), with full saved boundary included before selecting interior rows.
+
+The combined interior operator difference is 2.4713203812440533e-4 A m/s, above its maximum explicit summation threshold 7.466260395862646e-11. This measures an operator difference, not receiver improvement or physical accuracy. No PDE solve is in this acceptance.
+
+Independent review checked source formulas, input identities, exact saved arithmetic and twelve representative global rows from separate rational polynomial moments. The successful array audit took 0.656 s, 48,967,680 B peak; all three held processes terminated. The twelve row comparisons passed unchanged summation bounds. It is not an exhaustive second full-field action.
+
+The archive preserves the original JSON adapter failure and the initial independent audit failure. The adapter successor changed only the root-level z_nodes_m lookup. The audit successor uses the original TensorMesh cumulative-coordinate ordering for endpoint matching; only two Z coordinates differ from nominal values by at most 3.469446951953614e-18 m. It retains exact comparisons and unchanged nominal operator moments. Root's incorrect preliminary reconstruction guess and corrected diagnosis are also retained with their actual status. Public raw controller completion wrappers are omitted explicitly; the root terminal summary and exact source manifests remain available. Private leases are excluded.
+
+Files reproduce selected source/evidence with the original pinned .planning layout and scientific environment; this is not a standalone redistributable runtime. Original S3 receiver errors remain 13.3085987173% / 3.2110499868%, both above the unchanged 1% gates. A separate subsequent consistent-system solve is selected but is outside this archive. Physical accuracy, finite-strength/noise/OOD/training and G03/R03/all29 formal acceptance remain unqualified/not_run. H01-H15 contract DEEPEYE-HUMAN-LOCK-20261014/revision1 and requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 are unchanged.
+
+Archive SHA256: 5be34f9ecab640353c61df0cc69a3abda789c6edad4988dbf3108700fb61b1ff; 164 indexed members.
