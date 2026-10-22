@@ -1,0 +1,31 @@
+{
+  "decision": "ACCEPT_NEW_FACE_IMPLEMENTATION_AND_FAILED_SOURCE_SCREEN_EVIDENCE",
+  "independent_manifest_file": "manifest-final.json",
+  "independent_manifest_sha256": "506836cac97fa090301185a55044f4928dab4fb4441caa549a23f2d966e518b4",
+  "original_manifest_sha256": "be76a5f5fd79c84e4396bea30fd7ce7214c62757c44c46eb63ab90c73ab0781c",
+  "manifest_file_counts": {
+    "g03-face-enrichment-20261023": 91,
+    "g03-face-enrichment-independent-20261023": 22
+  },
+  "independent_review": "no confirmed implementation defect; source gate failure verified",
+  "new_cases": 12,
+  "new_polynomial_checks": 114,
+  "new_source_checks": 60,
+  "total_probes": 113088,
+  "source_pair_relative_inf": 0.0012562635425821533,
+  "fixed_source_gate": 0.001,
+  "original_native_status": "failed",
+  "original_indicator_exit": 2,
+  "independent_native_status": "completed",
+  "selected_patches": 0,
+  "concentration_acceptance": "not_evaluated_after_source_gate_failure",
+  "integration_allowed": false,
+  "source_refinement_requires_new_pinned_assignment": true,
+  "old_tests_replayed": 0,
+  "PDE_solves": 0,
+  "H01_H15": "preserved",
+  "physical_accuracy": "unqualified",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}
