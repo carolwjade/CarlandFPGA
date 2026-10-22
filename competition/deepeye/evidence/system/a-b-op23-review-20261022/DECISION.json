@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-10-22T15:52:29.807181+00:00",
+  "decision": "REVISE_EVIDENCE_ONLY",
+  "operation_id": "B-DEEPEYE-RAW-SCAN-QUEUE-20261022-23",
+  "reviewed_commit": "f49e30d2cf9a82b1a8f7963768ad3520f68dbd47",
+  "request_hash": "9f1f2d28bffcb973a73b53fe49a090a2ac29f20a1d3ebf8d539e1fd4bc7366d1",
+  "manifest_sha256": "d154382bdb01110b645169084603cd423e169b5aab8ea09352e0846f2fe9e597",
+  "review_sha256": "ad1bc245264e611ca034f01e7ac6267d6e4575fabaf76c76129534df0ebf88f5",
+  "finding": "A-OP23-EVIDENCE-01: missing frozen baseline comparator",
+  "missing_source_sha256": "8d05c0c5856896bfab648052e3c658a2f568f603187a44806b8dab2e4d30f89e",
+  "missing_source_bytes": 5421,
+  "main_checks": [
+    "original completed terminal",
+    "exact review hash",
+    "frozen comparator identity",
+    "absent hash in six indexes",
+    "actual wrapper import",
+    "saved fixed-head HTTP404",
+    "three audit exits0"
+  ],
+  "preserved": "21 artifacts and 7910 member integrity verified by reviewer; no demonstrated RTL/parser failure",
+  "required_next": "B publishes exact original comparator bytes with new request/manifest/head; no old tests or vendor rerun",
+  "new_test_runs": 0,
+  "R03": "not_run",
+  "all29": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}
