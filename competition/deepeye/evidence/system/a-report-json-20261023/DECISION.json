@@ -1,0 +1,24 @@
+{
+  "decision": "ACCEPT_NEW_REPORT_HELPER",
+  "review_manifest_sha256": "0e75712ee7a3f5ac06fe5057bf6f9493a277574d7264a1dcf08bb102786e4522",
+  "source_hashes": {
+    ".local/deepeye-implementation-a/competition/deepeye/tools/evidence_json.py": {
+      "bytes": 1246,
+      "sha256": "a0aabdbf259f7232bf3e1e77a81d130a8f676ad0b87eba39fae99d118f858554"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/tests/test_evidence_json.py": {
+      "bytes": 3212,
+      "sha256": "551eb2cf9fa2d313a6780f57cb934089986d76d5108150c366fb8f389153c5c2"
+    }
+  },
+  "new_tests": 4,
+  "old_tests_replayed": 0,
+  "independent_review": "no_blocking_findings",
+  "evidence_limit": "source hashes are post-run recorded; processes did not emit execution-time source attestations",
+  "io_limit": "serialization-before-exclusive-create; real disk-write failure may leave a new partial file",
+  "original_failures_preserved": true,
+  "H01_H15": "preserved",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}
