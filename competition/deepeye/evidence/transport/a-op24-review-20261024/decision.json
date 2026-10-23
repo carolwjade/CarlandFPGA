@@ -1,0 +1,27 @@
+{
+  "utc": "2026-10-23T16:44:07.439224+00:00",
+  "tested_commit": "b90fcbc58cdd7f3bf53fb6931dbdd47cd55afc8a",
+  "operation_id": "B-DEEPEYE-UART-TX-20261023-24",
+  "request_hash": "a111985fd1d0002c4a05da1b1c1e101d3e576b4898e565f5869cf0397f75d0e8",
+  "manifest_sha256": "a63e0a95373a814393e6b074f07ac400c8cf7342af49ca88c529cb4649af93f3",
+  "root_file_git_blob_checks": 12,
+  "report_sha256": "b8bfcc4d2ae81feb4ffc3ddb6ed90dbc453d178bd149d5aa6ffefcb217cb84e7",
+  "fresh_independent_simulation_logs_checked": {
+    "a-v2-fractional-101-7-3-vsim.stdout.txt": "abe289784d5706d0a5f0ae3954a5647404e5dce9f137779078ad8d08da74a74a",
+    "a-v2-near-limit-17-8-2-vsim.stdout.txt": "e832fe5d9f30959ae3f124936c72ae5f7c5c0ae74054b6ee34706bf97f75903e",
+    "a-v2-integer-max-vsim.stdout.txt": "4970526b4cbdbdba5c3714886394591191955a8a17b303d6bd1fe75d9f147ce1",
+    "a-v2-clock-priority-vsim.stdout.txt": "cb066624654f5423f6a12dbf447ec984f931895b5b172be25d3f7bdb4df3a526",
+    "a-v2-baud-priority-vsim.stdout.txt": "7432cd8efb595bb1d8b593f0d07d707326ca4496be786a8d67a4aa4a0df1542a",
+    "a-v2-stat-guard-vsim.stdout.txt": "e7f23f68f87b167e9a54fdf8ccfa8ae9a15af9cf8f243881e4abb49b580f08e3"
+  },
+  "normal_clock_edges": 72235,
+  "normal_public_checks": 650106,
+  "root_disposition": "ACCEPT_STANDALONE_TX_SIMULATION_ONLY",
+  "product_instantiated": false,
+  "formal_acceptance_changed": false,
+  "H01_H15_preserved": true,
+  "result_sha256": "efe8b0f42485a9baa5cb4c35123bdf6f8ff460d652baa67b1bb2f74bf1504e3c",
+  "native_terminal_verified": true,
+  "preterminal_snapshot_preserved": "preterminal-b-op24-archive",
+  "root_recheck": "final report/result and persisted result match; fresh child_wait terminal readback; prior exact file/blob and new simulation checks retained"
+}
