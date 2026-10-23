@@ -49,6 +49,12 @@ class TransferBounds:
 
 
 @dataclass(frozen=True)
+class PcDirectWindowV2:
+    """Trusted activation policy, not a measured scheduler or motion deadline."""
+    consume_window_ns: int
+
+
+@dataclass(frozen=True)
 class Completion:
     generation: int
     source: object
@@ -81,6 +87,12 @@ class Selection:
     candidate_id: int
     invocation_id: int
     candidate_raw: bytes
+
+
+@dataclass(frozen=True)
+class PcDirectWindowSelection(Selection):
+    consumed_at_ns: int
+    window_close_ns: int
 
 
 @dataclass(frozen=True)
@@ -121,6 +133,7 @@ class LatestCompletedMailbox:
         self._last_observed = None
         self._pending = self._completed = None
         self._last_slot = -1
+        self._pc_direct_window_v2 = None
 
     def _halt(self, reason):
         self._stopped, self._reason = True, reason
@@ -140,7 +153,7 @@ class LatestCompletedMailbox:
 
     @_entry
     def activate(self, context_raw, *, generation, slot_origin_ns, source,
-                 clock_domain, bounds, now_ns):
+                 clock_domain, bounds, now_ns, pc_direct_window_v2=None):
         self._halt('activation_replaced')
         now = self._time(now_ns)
         generation = _integer(generation, 'generation', 1)
@@ -159,6 +172,20 @@ class LatestCompletedMailbox:
                 raise ValueError('explicit bounds record required')
             _integer(bounds.usb_upper_ns, 'usb_upper_ns')
             _integer(bounds.packing_upper_ns, 'packing_upper_ns')
+        profile = 'fast_9600' if context['transport_profile_id'] == 1 else 'stress_300'
+        if pc_direct_window_v2 is not None:
+            if type(pc_direct_window_v2) is not PcDirectWindowV2 or context['topology_id'] != 2:
+                raise ValueError('explicit PC_DIRECT v2 activation policy required')
+            width = _integer(pc_direct_window_v2.consume_window_ns, 'consume_window_ns', 1)
+            first = _integer(boot.slot_start_ms(self._document, profile, 'control_primary') * NS_PER_MS,
+                             'first slot offset')
+            period = _integer(self._document['profiles'][profile]['window_ms'] * NS_PER_MS,
+                              'window period', 1)
+            if width >= period:
+                raise ValueError('consume window must be shorter than fixed period')
+            _integer(origin + first + width, 'first window close')
+            self._window_first, self._window_period = first, period
+        self._pc_direct_window_v2 = pc_direct_window_v2
         self._sessions.add(context['session'])
         self._generation, self._origin, self._started = generation, origin, now
         self._context_raw, self._context = bytes(context_raw), context
@@ -300,14 +327,56 @@ class LatestCompletedMailbox:
 
     @_entry
     def plan(self, now_ns, *, grant=None):
+        if self._pc_direct_window_v2 is not None:
+            raise ValueError('legacy plan cannot use a PC_DIRECT v2 activation')
         return self._plan(self._time(now_ns), grant)
 
     @_entry
     def consume(self, now_ns, *, grant=None):
+        if self._pc_direct_window_v2 is not None:
+            raise ValueError('legacy consume cannot use a PC_DIRECT v2 activation')
         selected = self._plan(self._time(now_ns), grant)
         if selected is None or now_ns != selected.slot_start_ns:
             return None
         self._last_slot = selected.window_index
+        self._pending = None
+        self._reason = 'completion_consumed'
+        return selected
+
+    @_entry
+    def consume_pc_direct_v2(self, now_ns, *, grant=None):
+        now = self._time(now_ns)
+        if self._pc_direct_window_v2 is None:
+            raise ValueError('PC_DIRECT v2 consume requires its activation policy')
+        if self._stopped or self._pending is None or grant is None:
+            return None
+        if type(grant) is not SlotGrant:
+            raise ValueError('activation/window grant association required')
+        generation = _integer(grant.generation, 'grant generation', 1)
+        window = _integer(grant.window_index, 'grant window')
+        if (generation != self._generation or self._source is None
+                or self._clock_domain is None or self._bounds is None or window <= self._last_slot):
+            return None
+        # Only the original grant index locates the window. now/ready never
+        # choose another slot, move origin, or renew any original deadline.
+        offset = _integer(window * self._window_period, 'window offset')
+        start = _integer(self._origin + self._window_first + offset, 'window start')
+        close = _integer(start + self._pc_direct_window_v2.consume_window_ns, 'window close')
+        entry = self._pending
+        observation = self._observations.get(entry.observed_seq)
+        if observation is None or observation.sample_lower_ns is None:
+            return None
+        record = entry.record
+        sample_deadline = _integer(observation.sample_lower_ns + self._age_cap, 'sample deadline')
+        deadline = min(record.deadline_ns, sample_deadline)
+        ready = _integer(record.completion_upper_ns + self._bounds.usb_upper_ns
+                         + self._bounds.packing_upper_ns, 'ready time')
+        if ready > start or not start <= now < min(close, deadline):
+            return None
+        selected = PcDirectWindowSelection(self._generation, self._context_raw, self._mode,
+            window, start, deadline, ready, observation.sample_lower_ns, entry.candidate_id,
+            record.invocation_id, record.candidate_raw, now, close)
+        self._last_slot = window
         self._pending = None
         self._reason = 'completion_consumed'
         return selected

@@ -1,0 +1,5 @@
+Root accepts only explicit PC_DIRECT v2 stateful software controls: author25 methods/32 subcontrols and independent9 frozen groups passed. Exact7 source files preserve legacy/HIL, original deadlines and the closed production gate. The only actual monotonic attempt reported7ms before the nominal slot and did not consume; 10ms real availability remains unproven. Current Python clock resolution/epoch limits are retained. No real upstream provenance, inference, PL, ADC, board, deadline-stop or formal acceptance follows. H01-H15 unchanged; G03/R03/all29=not_run.
+
+See decision.json, exact archive hashes in manifest.json and original failures in review-evidence.zip.
+
+After review, Git precommit whitespace checking found one extra LF at the end of the new composition test. Only that LF was removed; Python AST is identical and six other reviewed files are byte-identical. Original reviewed bytes/logs remain in the immutable ZIP; FORMAT_CORRECTION.json binds final bytes. No behavior test was replayed.

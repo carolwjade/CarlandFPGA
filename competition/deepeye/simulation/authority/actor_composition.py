@@ -15,6 +15,7 @@ from .candidate_owner import _CandidateOwner, _CompletedInference, _InputTransac
 from .pc_direct_runtime import (AiLease, AuthorityDependencies, BootBinding, PcDirectRuntime,
                                 VerifiedEnvelope, VerifiedObservation)
 from ...integration import host_envelope
+from ...integration.candidate_mailbox import PcDirectWindowV2
 
 
 class ActivationUnavailable(ValueError):
@@ -37,6 +38,7 @@ class AuthorityConfig:
     max_slices: int
     progress_max_age_ns: int
     ai_model_sha256: str
+    pc_direct_window_v2: PcDirectWindowV2 | None = None
 
 
 @dataclass(frozen=True)
@@ -443,7 +445,8 @@ class ActorComposition:
         self._checkpoint(epoch)
         self._candidates = _CandidateOwner(proposed, self._channels, self._clock,
             self._config.ai_model_sha256, self._config.progress_max_age_ns,
-            self._progress.started, activation, now)
+            self._progress.started, activation, now,
+            pc_direct_window_v2=self._config.pc_direct_window_v2)
         self._progress_time()
         self._checkpoint(epoch)
         self._actor.poll()
@@ -554,6 +557,11 @@ def create_authority(config):
     if type(config) is not AuthorityConfig or type(config.actor_policy) is not ActorPolicy:
         raise CompositionRejected('explicit trusted authority configuration required')
     _bounded(config.progress_max_age_ns, 1)
+    policy = config.pc_direct_window_v2
+    if policy is not None:
+        if type(policy) is not PcDirectWindowV2:
+            raise CompositionRejected('explicit PC_DIRECT v2 policy required')
+        _bounded(policy.consume_window_ns, 1)
     digest = config.ai_model_sha256
     if (type(digest) is not str or len(digest) != 64 or
             any(character not in '0123456789abcdef' for character in digest)):

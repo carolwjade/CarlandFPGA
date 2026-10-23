@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:47:38.089430+00:00",
+  "owner": "A/root 01a16988-bdcb-70e1-ae10-1304b5cf7875/generation3",
+  "disposition": "ACCEPT_PC_DIRECT_V2_STATEFUL_SOFTWARE_CONTROLS_ONLY",
+  "base": "88f7214eeb4770106933b9062445152a520ce4fc",
+  "source_files": {
+    "competition/deepeye/docs/actor_composition.md": {
+      "base_sha256": "4b10270fcbfd48607094742ed09d1c404283fd82dcfd796d00f85848aa1d0ede",
+      "bytes": 17250,
+      "same_as_base": false,
+      "sha256": "c9fb8c1a70c0f296c11867ae3d62cca532a7c2138c666273f98f332f8a99aa69"
+    },
+    "competition/deepeye/docs/pc_direct_window_v2.md": {
+      "base_sha256": null,
+      "bytes": 4421,
+      "same_as_base": false,
+      "sha256": "0d9565e116669b2f9c54515a5ab72bf912e44606a18ce9897b1076253372ac9e"
+    },
+    "competition/deepeye/integration/candidate_mailbox.py": {
+      "base_sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+      "bytes": 18394,
+      "same_as_base": false,
+      "sha256": "ab43c3cdb5dac00256a5436d31acbd3e2a729c3ead1a6d647e9e493464d4cf59"
+    },
+    "competition/deepeye/integration/test_pc_direct_window_v2.py": {
+      "base_sha256": null,
+      "bytes": 7804,
+      "same_as_base": false,
+      "sha256": "59faae2809bf4c9598cacf074a07e65384dcffe680e4d43caf16b1286f8a51c9"
+    },
+    "competition/deepeye/simulation/authority/actor_composition.py": {
+      "base_sha256": "06ad811d1395b5a24c3b5886e17e35e74ec57397278e60edc70d3d36278381ec",
+      "bytes": 25470,
+      "same_as_base": false,
+      "sha256": "c13452d1e2bf4b60eb5e89cd09c93abe70a0b3396371cf87aa7f12b42d0e4868"
+    },
+    "competition/deepeye/simulation/authority/candidate_owner.py": {
+      "base_sha256": "07f68aacc3a4fd5738cd557402cb6990771b483183889c7da7470125d3fea59d",
+      "bytes": 7620,
+      "same_as_base": false,
+      "sha256": "64d6a1e7cf68650e9e603da51816bce9dd84921efd0ece62ceb53bfcceb2eec5"
+    },
+    "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py": {
+      "base_sha256": null,
+      "bytes": 10512,
+      "same_as_base": false,
+      "sha256": "9a4b97b105ad9c675235cfd405584bbf16452744a7bc197fa13a640417685ed7"
+    }
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "author_new_methods": 25,
+  "author_new_subcontrols": 32,
+  "independent_frozen_new_groups": 9,
+  "independent_runs": 1,
+  "author_manifest_members": 29,
+  "review_manifest_members": 45,
+  "original_deadlines_legacy_HIL_and_closed_production_gate_preserved": true,
+  "unchanged_dependency_files": 15,
+  "protected_files_unchanged": 4,
+  "actual_monotonic_attempts": 1,
+  "reported_monotonic_lateness_ns": -7000000,
+  "actual_window_consumed": false,
+  "actual_10ms_availability": "not_established",
+  "policy_ns": 10000000,
+  "policy_is_measurement": false,
+  "source_provenance_established": false,
+  "upstream_native_clock_model_board": "synthetic except one pure-policy local clock observation",
+  "real_board_run": false,
+  "formal_acceptance": false,
+  "original_failures_preserved": true,
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "next": "single-domain high-resolution clock design and original B/C packages; no timestamp epoch mixing, fabricated uncertainty or gate relaxation",
+  "reviewed_source_files": {
+    "competition/deepeye/docs/actor_composition.md": {
+      "base_sha256": "4b10270fcbfd48607094742ed09d1c404283fd82dcfd796d00f85848aa1d0ede",
+      "bytes": 17250,
+      "same_as_base": false,
+      "sha256": "c9fb8c1a70c0f296c11867ae3d62cca532a7c2138c666273f98f332f8a99aa69"
+    },
+    "competition/deepeye/docs/pc_direct_window_v2.md": {
+      "base_sha256": null,
+      "bytes": 4421,
+      "same_as_base": false,
+      "sha256": "0d9565e116669b2f9c54515a5ab72bf912e44606a18ce9897b1076253372ac9e"
+    },
+    "competition/deepeye/integration/candidate_mailbox.py": {
+      "base_sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5",
+      "bytes": 18394,
+      "same_as_base": false,
+      "sha256": "ab43c3cdb5dac00256a5436d31acbd3e2a729c3ead1a6d647e9e493464d4cf59"
+    },
+    "competition/deepeye/integration/test_pc_direct_window_v2.py": {
+      "base_sha256": null,
+      "bytes": 7804,
+      "same_as_base": false,
+      "sha256": "59faae2809bf4c9598cacf074a07e65384dcffe680e4d43caf16b1286f8a51c9"
+    },
+    "competition/deepeye/simulation/authority/actor_composition.py": {
+      "base_sha256": "06ad811d1395b5a24c3b5886e17e35e74ec57397278e60edc70d3d36278381ec",
+      "bytes": 25470,
+      "same_as_base": false,
+      "sha256": "c13452d1e2bf4b60eb5e89cd09c93abe70a0b3396371cf87aa7f12b42d0e4868"
+    },
+    "competition/deepeye/simulation/authority/candidate_owner.py": {
+      "base_sha256": "07f68aacc3a4fd5738cd557402cb6990771b483183889c7da7470125d3fea59d",
+      "bytes": 7620,
+      "same_as_base": false,
+      "sha256": "64d6a1e7cf68650e9e603da51816bce9dd84921efd0ece62ceb53bfcceb2eec5"
+    },
+    "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py": {
+      "base_sha256": null,
+      "bytes": 10513,
+      "same_as_base": false,
+      "sha256": "bc360a4225070addfb676a0a1f5349612bf7ea5e661b802af5f756536b71c7fa"
+    }
+  },
+  "post_review_format_correction": {
+    "schema": 1,
+    "utc": "2026-10-23T17:50:27.679829+00:00",
+    "kind": "post_review_single_LF_EOF_correction",
+    "file": "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py",
+    "reviewed_sha256": "bc360a4225070addfb676a0a1f5349612bf7ea5e661b802af5f756536b71c7fa",
+    "published_sha256": "9a4b97b105ad9c675235cfd405584bbf16452744a7bc197fa13a640417685ed7",
+    "reviewed_bytes": 10513,
+    "published_bytes": 10512,
+    "removed_bytes_hex": "0a",
+    "only_change": "remove one empty final line",
+    "python_AST_identical": true,
+    "all_six_other_reviewed_source_files_unchanged": true,
+    "behavior_tests_rerun": false,
+    "original_review_source_and_logs_preserved": "review-evidence.zip",
+    "commit_had_not_started": true,
+    "precommit_gate_exit": 2,
+    "precommit_gate_stdout": "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py:205: new blank line at EOF.\n",
+    "protected_files_unchanged": true
+  }
+}

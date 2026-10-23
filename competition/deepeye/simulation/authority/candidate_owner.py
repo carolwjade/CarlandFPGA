@@ -65,7 +65,7 @@ class _InputTransaction:
 class _CandidateOwner:
     """One pending original proof, one committed association; no reset/recovery."""
     def __init__(self, boot, source, clock_domain, model_hash, max_age, started,
-                 activation, now):
+                 activation, now, *, pc_direct_window_v2=None):
         self._boot, self._source, self._clock = boot, source, clock_domain
         self._model, self._age, self._started = model_hash, _bounded(max_age,1), _bounded(started)
         self._pending = self._current = None
@@ -82,7 +82,9 @@ class _CandidateOwner:
         document = boot_profile.load_document(Path(__file__).resolve().parents[2] / 'docs/boot_profiles.json')
         self._mailbox = mailbox.LatestCompletedMailbox(document)
         self._mailbox.activate(boot.context_json,generation=boot.generation,slot_origin_ns=origin,
-            source=source,clock_domain=clock_domain,bounds=bounds,now_ns=_bounded(now))
+            source=source,clock_domain=clock_domain,bounds=bounds,now_ns=_bounded(now),
+            pc_direct_window_v2=pc_direct_window_v2)
+        self._pc_direct_window_v2 = pc_direct_window_v2
 
     def _active(self):
         if self._retired:
@@ -136,9 +138,11 @@ class _CandidateOwner:
                 or grant.source is not self._source or grant.clock_domain is not self._clock):
             raise ValueError('original current-slot/source/clock evidence required')
         window = _bounded(grant.window_index)
-        selected = self._mailbox.consume(now,grant=mailbox.SlotGrant(self._boot.generation,window))
+        consume = (self._mailbox.consume if self._pc_direct_window_v2 is None
+                   else self._mailbox.consume_pc_direct_v2)
+        selected = consume(now,grant=mailbox.SlotGrant(self._boot.generation,window))
         if selected is None:
-            raise ValueError('no proposal at the exact current legal slot')
+            raise ValueError('no proposal at the configured current legal slot/window')
         proof,self._pending = self._pending,None  # Consumption is irreversible.
         if (proof is None or selected.mode != 'PC_DIRECT'
                 or selected.generation != self._boot.generation

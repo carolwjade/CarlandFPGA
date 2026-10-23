@@ -125,11 +125,22 @@ callback and rechecks the same veto epoch. The mailbox deadline is checked
 the initial/current progress deadline.
 
 For a new non-STOP `accept_command(event, slot_event=...)`, the existing broker
-verifier runs first, then the original slot verifier. Selection consumes only
+verifier runs first, then the original slot verifier. Default legacy selection consumes only
 at the refreshed actual clock's exact legal slot instant. A verifier returning
 one nanosecond late refuses. No scheduled timestamp, equality relaxation or
 fictional jitter allowance is substituted. These rules do not establish that
 any real scheduler can hit that instant.
+
+Trusted-main config may explicitly opt into PC_DIRECT fixed-anchor consumption
+window v2 with `pc_direct_window_v2=PcDirectWindowV2(10_000_000)`. This root-selected
+10 ms policy is not a measured scheduling bound. The original grant k fixes
+`S=origin+first+k*period`, `E=S+W`; original ready must be at or before S, and the
+refreshed actual time must satisfy `S<=now<min(E,original_deadline)`. Strict bounded
+integer arithmetic and `0<W<period` apply. HIL and default exact-slot behavior
+remain unchanged; policy/entry mixing refuses. The original proof, irreversible
+consume, ProgressGate and final fence/CAS remain in place. E limits consumption
+only and does not renew motion or progress deadlines. Production activation is
+still unconditionally unavailable. See [v2 contract](pc_direct_window_v2.md).
 
 The exact retained original completion object passes through selection to the
 unchanged progress gate. The adapter keeps only one pending proof, one committed
