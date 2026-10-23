@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:55:34.249952+00:00",
+  "owner": "A/root 01a16988-bdcb-70e1-ae10-1304b5cf7875/generation3",
+  "disposition": "ACCEPT_NEW_DIRECTED_SERIALIZER_PARSER_SYNTAX_SIMULATION_ONLY_WITH_OPEN_F01",
+  "tested_commit": "0e3ffa8c19eec5361d4ed7912bf9204037f2ddf3",
+  "source_commit": "82d376dc3df9bf384407f733b9d8b8f2e3a848c2",
+  "bindings": [
+    {
+      "operation_id": "B-DEEPEYE-WIRE-SERIALIZER-20261024-28",
+      "request_hash": "6bba890baddd643e483789ce31f424b9889e4ec5fa44d78c27f37425560e38ad",
+      "manifest_sha256": "efc554f023e1669a2d1239d4b08e83824452d17be5c5d8a607e2605b312e53a6",
+      "saved_raw_members": 587
+    },
+    {
+      "operation_id": "B-DEEPEYE-WIRE-PARSER-20261024-29",
+      "request_hash": "3bb7f34ff2af44a03648ef6107b0b587cac28a77bc6b6131d5810ef86bc68612",
+      "manifest_sha256": "4c9bea692eee47e43a044360b9183dc5b6b230676a7089336ae5fa81602d8a26",
+      "saved_raw_members": 1238
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "root_selected_blobs_verified": 32,
+  "root_review_artifacts_verified": 2173,
+  "canonical_artifact_and_promised_raw_integrity": "verified",
+  "new_directed_configs": 2,
+  "new_clocks": 1168,
+  "new_checks": 1479,
+  "new_DUT_findings": [],
+  "own_log_qualification_probes": 20,
+  "open_findings": [
+    {
+      "id": "F01",
+      "status": "unresolved_for_root_disposition",
+      "topic": "Producer 155-reference audit cannot be wholly independently closed from published archive",
+      "missing": [
+        {
+          "reference": "competition/deepeye/evidence/transport/wire-parser-20261024-29/author/runner-repair2/inputs/__pycache__/original_runner_a3ba.cpython-312.pyc",
+          "sha256": "254b5638f75b28f05d51c03465b5011a0394d195965c3bfb4ca93a33c6e61b24",
+          "mode": "not present in published archive; not independently hash verified",
+          "canonical_handoff_artifact": false,
+          "promised_RAW_INDEX_member": false,
+          "same_hash_archived_copy_found": false
+        },
+        {
+          "reference": "competition/deepeye/evidence/transport/wire-parser-20261024-29/author/runner-repair2/inputs/__pycache__/pre_fix_runner_5d09.cpython-312.pyc",
+          "sha256": "8d208266a1dad83a03eba4fbf7631596e8d273f8bfee7c2adbeefa8de20285c2",
+          "mode": "not present in published archive; not independently hash verified",
+          "canonical_handoff_artifact": false,
+          "promised_RAW_INDEX_member": false,
+          "same_hash_archived_copy_found": false
+        }
+      ],
+      "verified_counts": {
+        "path_mapped": 148,
+        "same_hash_archived_copies": 5,
+        "missing": 2
+      },
+      "actual_dependency_evidence": {
+        "qualifier": "raw-29/author/runner-repair2/qualify_runner.py",
+        "loader_lines": [
+          82,
+          87
+        ],
+        "prefixed_source_load_lines": [
+          240,
+          241
+        ],
+        "postfix_source_load_line": 319,
+        "old_py_sources_present_and_hash_verified": true,
+        "cache_consumption_at_original_execution": "not established by saved evidence",
+        "final_published_runner_source_present_and_hash_verified": true
+      },
+      "effect": "Canonical artifacts and all1238 promised raw members are complete. Missing cache bytes limit the historical pre-fix runner execution-origin/155-byte-audit claim. They do not alter the new exact-DUT public-port results. No reconstructed pyc is accepted as original evidence.",
+      "disposition_owner": "A Gen3/root; no external feedback or producer repair performed"
+    }
+  ],
+  "producer_history_claim": "155-reference and historical pre-fix runner execution-origin audit NOT wholly closed; F01 remains unresolved",
+  "producer_full_qualification_accepted": false,
+  "producer_old_groups_rerun": false,
+  "full_top_checkout": false,
+  "A_semantic_ABI_control_build_board_system_accepted": false,
+  "B04": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}
