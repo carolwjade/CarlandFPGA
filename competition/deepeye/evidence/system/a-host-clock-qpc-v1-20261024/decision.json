@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T18:29:31.387608+00:00",
+  "owner": "A/root 01a16988-bdcb-70e1-ae10-1304b5cf7875/generation3",
+  "disposition": "ACCEPT_RAW_QPC_BINDING_AND_BOUNDED_IO_FAILURE_PRESERVATION_SOFTWARE_INCREMENT_ONLY",
+  "source_base": "17fe7a63652dac6003f3ff6c71abe90eb10c8c87",
+  "final_source_pins": {
+    "competition/deepeye/docs/actor_composition.md": "7cf201a1d333bffa81bd87a72376919e8739a07edb06941e07b2879e9cc5494b",
+    "competition/deepeye/docs/host_clock_qpc_v1.md": "bda8e5cbb09f84a4e9c2156ad98fdabfcea9ddd39df36efbf3c9b9c4a887a629",
+    "competition/deepeye/integration/boot_transcript.py": "01673cb2caf6700e3a15ac38de622cbf5fa927f7dcc85e8666d41ce96e9f6342",
+    "competition/deepeye/integration/host_clock.py": "091accae52c376d259d0057f7b93b23dc5f4143508025beec88394c4b657e376",
+    "competition/deepeye/integration/live_board_receipts.py": "b427bb730e741bcaf35134a7be0473aa2ec0e3ea262ae81448d8a9872d0dad91",
+    "competition/deepeye/integration/test_host_clock_qpc_v1.py": "c9a514089c8b6c3a140c03dd60a1fcbe942d55b44ffc2e5e3e1d73a9eb799687",
+    "competition/deepeye/simulation/authority/actor_composition.py": "d02e81b48a10e7d6e128a58bfed35e43a274568cdb602d7024012eeb15d19227",
+    "competition/deepeye/simulation/isolation/actor_owner.py": "cb3f8319627fbbf94ce3d250173d97f7e6f1ea09b5bf5fd530c741d4e5f857b9",
+    "competition/deepeye/tests/simulation/test_host_clock_qpc_v1.py": "7ed076416b83a6f4cba50e045354605a9ffb531bffb935e8c02ad56cd9f58631"
+  },
+  "root_read_interrupt_correction": {
+    "schema": 1,
+    "utc": "2026-10-23T18:25:50.364169+00:00",
+    "reason": "OS read may consume bytes and then be interrupted before a return value reaches the ledger; old candidate allowed another entry",
+    "author_original_manifest_unchanged": true,
+    "source_file_changes_after_author_freeze": 1,
+    "original_sha256": "45879bc7fbe95705b4836d5cadfabc996a80c819e52a50299c2573b7e9b85446",
+    "final_sha256": "b427bb730e741bcaf35134a7be0473aa2ec0e3ea262ae81448d8a9872d0dad91",
+    "final_owned_source_pins": {
+      "competition/deepeye/integration/host_clock.py": "091accae52c376d259d0057f7b93b23dc5f4143508025beec88394c4b657e376",
+      "competition/deepeye/integration/live_board_receipts.py": "b427bb730e741bcaf35134a7be0473aa2ec0e3ea262ae81448d8a9872d0dad91",
+      "competition/deepeye/integration/boot_transcript.py": "01673cb2caf6700e3a15ac38de622cbf5fa927f7dcc85e8666d41ce96e9f6342",
+      "competition/deepeye/simulation/isolation/actor_owner.py": "cb3f8319627fbbf94ce3d250173d97f7e6f1ea09b5bf5fd530c741d4e5f857b9",
+      "competition/deepeye/simulation/authority/actor_composition.py": "d02e81b48a10e7d6e128a58bfed35e43a274568cdb602d7024012eeb15d19227",
+      "competition/deepeye/integration/test_host_clock_qpc_v1.py": "c9a514089c8b6c3a140c03dd60a1fcbe942d55b44ffc2e5e3e1d73a9eb799687",
+      "competition/deepeye/tests/simulation/test_host_clock_qpc_v1.py": "7ed076416b83a6f4cba50e045354605a9ffb531bffb935e8c02ad56cd9f58631",
+      "competition/deepeye/docs/host_clock_qpc_v1.md": "bda8e5cbb09f84a4e9c2156ad98fdabfcea9ddd39df36efbf3c9b9c4a887a629",
+      "competition/deepeye/docs/actor_composition.md": "7cf201a1d333bffa81bd87a72376919e8739a07edb06941e07b2879e9cc5494b"
+    },
+    "correction": "Reserve an unknown read attempt and latch failed before OS read; save any returned raw bytes/count before stamping; only a completely recorded read and scan clear the latch",
+    "unknown_semantics": "started_unknown/raw_hex=null/returned_bytes=null; bytes_read counts only bytes returned to the ledger and is not a claim that the OS consumed zero bytes",
+    "counterexample": "A local pipe wrapper consumed five original bytes once then raised KeyboardInterrupt. A second boundary spy intercepted before any second kernel read. This is explicit fault injection, not board I/O or actual QPC timing.",
+    "actual_commands": [
+      {
+        "argv": [
+          ".local/venv/Scripts/python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          ".planning/deepeye-resume-20261018/qpc-root-interrupt-probe-20261024/probe.py",
+          ".planning/deepeye-resume-20261018/qpc-root-interrupt-probe-20261024/attempt1-red"
+        ],
+        "observed_exit_code": 1
+      },
+      {
+        "argv": [
+          ".local/venv/Scripts/python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          ".planning/deepeye-resume-20261018/qpc-root-interrupt-probe-20261024/probe.py",
+          ".planning/deepeye-resume-20261018/qpc-root-interrupt-probe-20261024/attempt2-green"
+        ],
+        "observed_exit_code": 0
+      }
+    ],
+    "results": {
+      "red_boundary_entries": 2,
+      "green_boundary_entries": 1,
+      "green_permanent_failure": true
+    },
+    "old_tests_or_clock_observations_replayed": false,
+    "physical_acceptance": false
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "author_original_candidate_methods": 21,
+  "final_independent_groups": 8,
+  "final_independent_interrupt_methods": 3,
+  "author_original_manifest_members": 51,
+  "independent_manifest_members": 139,
+  "unchanged_dependencies": 16,
+  "unchanged_gate_AST_objects": 15,
+  "author_21_methods_scope": "original nine-file candidate; not rerun on the final one-file root correction",
+  "original_reviewer_Q03_failure_and_limited_oracle_delta_preserved": true,
+  "root_original_interrupt_RED_and_GREEN_preserved": true,
+  "actual_QPC_observation": {
+    "G03": "not_run",
+    "R03": "not_run",
+    "actual_now_ns": 131587293900700,
+    "all29": "not_run",
+    "attempts": 1,
+    "before_wait_ns": 131587086191000,
+    "clock_metadata": {
+      "adjustable": false,
+      "authenticated": false,
+      "domain_id": "bd44c4fbdcf8421290fcf7c6a9e19f38",
+      "implementation": "QueryPerformanceCounter()",
+      "kind": "qpc_raw_v1",
+      "measured_timing": false,
+      "monotonic": true,
+      "resolution_seconds": 1e-07,
+      "timestamp_uncertainty_ns": null
+    },
+    "consumed": true,
+    "consumed_at_ns": 131587293900700,
+    "measured_scheduler_or_timestamp_uncertainty": false,
+    "native_model_board": false,
+    "nominal_slot_ns": 131587293635100,
+    "operation_id": "A-HOST-CLOCK-QPC-V1-OBSERVE-20261024-01",
+    "origin_ns": 131587083635100,
+    "original_deadline_ns": 131588584134200,
+    "policy_width_ns": 10000000,
+    "raw_current_is_not_measured_interval": true,
+    "ready_ns": 131587100223600,
+    "requested_wait_seconds": 0.2074441,
+    "run_id": "qpc-new-run-94d1da993a114d678f9c7e9c7dbd7914",
+    "schema": 1,
+    "snapshot": {
+      "candidate_high_water": 1,
+      "generation": 1,
+      "host_time_high_water_ns": 131587293900700,
+      "last_consumed_window": 0,
+      "observation_count": 1,
+      "observation_sequences": [
+        9
+      ],
+      "pending_candidate_id": null,
+      "reason": "completion_consumed",
+      "retired_session_count": 1,
+      "stopped": false
+    },
+    "timestamp_interval_ns": null,
+    "upstream": "synthetic source/completion/transfer/slot",
+    "wake_lateness_ns": 265600,
+    "window_close_ns": 131587303635100
+  },
+  "observation_scope": "one author raw-QPC pure-policy attempt with synthetic upstream, before root receipt-only fix; not a scheduling bound, measured interval, physical or model acceptance",
+  "timestamp_uncertainty_ns": null,
+  "measured_read_write_intervals_ns": null,
+  "cross_process_QPC_correspondence_established": false,
+  "directional_interval_adaptation": "next work",
+  "original_window_W_ns": 10000000,
+  "original_deadlines_or_CAS_relaxed": false,
+  "production_gate": "unchanged unconditional refusal before registry acquisition",
+  "protected_C_files_unchanged": true,
+  "old_monotonic_or_old_suites_rerun": false,
+  "PL_ADC_model_motion_build_board_system_or_formal_acceptance": false,
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

@@ -11,9 +11,9 @@ from pathlib import Path
 import re
 import stat
 import threading
-from time import monotonic_ns
 
 from . import boot_profile as boot
+from . import host_clock as clocks
 from .live_board_receipts import CaptureIdentity, ReceiptLedger
 
 
@@ -45,6 +45,10 @@ class BootTranscript:
         if type(identity) is not CaptureIdentity or type(ledger) is not ReceiptLedger:
             raise ValueError('exact capture identity and original receipt ledger required')
         ledger._owner()
+        if ledger.clock_domain is not ledger._bound_domain or ledger._clock is not ledger._bound_clock:
+            raise ValueError('original unchanged ledger clock binding required')
+        self._clock_domain = clocks._require_binding(ledger.clock_domain)
+        self._clock = ledger._clock
         if type(ledger.identity) is not CaptureIdentity or ledger.identity != identity:
             raise ValueError('send and receive correlation identities differ')
         for name, value in [('profile_sha256', profile_sha256),
@@ -76,7 +80,7 @@ class BootTranscript:
         self._request, self._profile = request, frozen
         self._max_ack_checks = max_ack_checks
         self._attempt, self._checks, self._seen = None, [], set()
-        self._closed = self._journal_failed = False
+        self._closed = self._journal_failed = self._clock_failed = False
         self._fd = os.dup(fd)
         try:
             os.set_inheritable(self._fd, False)
@@ -93,6 +97,7 @@ class BootTranscript:
                     hwh_sha256=hwh_sha256, request=boot.parse_boot_frame(request),
                     raw_hex=request.hex(), raw_sha256=hashlib.sha256(request).hexdigest(),
                     max_ack_checks=max_ack_checks,
+                    host_clock=clocks._description(self._clock_domain),
                     provenance='main-supplied correlation only; no peer/build/BOOT authentication',
                     authenticated=False, motion_authorized=False)
                 self._append(self._prepared)
@@ -109,8 +114,15 @@ class BootTranscript:
 
     def _active(self):
         self._owner()
-        if self._closed or self._journal_failed:
+        if (self._ledger.clock_domain is not self._clock_domain
+                or self._ledger._clock is not self._clock):
+            self._clock_failed = True
+        if self._closed or self._journal_failed or self._clock_failed:
             raise ValueError('BOOT transcript is closed or journal failed')
+
+    @property
+    def clock_domain(self):
+        return self._clock_domain
 
     def _append(self, value):
         raw = (json.dumps(value, ensure_ascii=False, separators=(',', ':'),
@@ -141,14 +153,29 @@ class BootTranscript:
         self._attempt = dict(kind='write_started', outcome='started_unknown',
             raw_hex=self._request.hex(), raw_sha256=hashlib.sha256(self._request).hexdigest(),
             requested_bytes=len(self._request), bytes_written=None,
-            write_call_interval_ns=None, started_marker_ns=monotonic_ns(),
+            write_call_interval_ns=None, raw_write_call_bracket_ns=None, started_marker_ns=None,
             receive_stream_start=self._receive_start)
+        # Reserve before any stamp; failure cannot re-enter a new write attempt.
+        try:
+            self._attempt['started_marker_ns'] = self._clock()
+        except BaseException as exc:
+            self._clock_failed = True
+            self._attempt.update(outcome='clock_error_no_write',clock_error_type=type(exc).__name__)
+            self._append(self._attempt)
+            raise
         try:
             self._append(self._attempt)
         except BaseException:
             self._attempt['outcome'] = 'journal_error_no_write'
             raise
-        begin = monotonic_ns()
+        try:
+            begin = self._clock()
+        except BaseException as exc:
+            self._clock_failed = True
+            self._attempt.update(outcome='clock_error_no_write',clock_error_type=type(exc).__name__)
+            self._append(self._attempt)
+            raise
+        self._attempt['raw_write_call_bracket_ns'] = [begin,None]
         self._attempt['kind'] = 'write_result'
         error = None
         try:
@@ -159,8 +186,16 @@ class BootTranscript:
             error = exc
             self._attempt.update(outcome='write_error_unknown', error_type=type(exc).__name__,
                 errno=getattr(exc, 'errno', None))
-        finally:
-            self._attempt['write_call_interval_ns'] = [begin, monotonic_ns()]
+        try:
+            end = self._clock()
+            self._attempt['raw_write_call_bracket_ns'][1] = end
+            if self._clock_domain is None:
+                self._attempt['write_call_interval_ns'] = [begin,end]
+        except BaseException as exc:
+            self._clock_failed = True
+            self._attempt.update(outcome='clock_error_after_write_unknown',
+                                 clock_error_type=type(exc).__name__)
+            if error is None: error = exc
         try:
             self._append(self._attempt)
         except BaseException:
@@ -190,15 +225,16 @@ class BootTranscript:
             raise ValueError('original receive ledger failed or identity changed')
         row = receive['frames'][event.receipt_index]
         spans = row['spans']
-        intervals = [receive['reads'][s['read_index']]['read_call_interval_ns'] for s in spans]
+        intervals = [receive['reads'][s['read_index']]['raw_read_call_bracket_ns'] for s in spans]
         if (event.stream_start < self._receive_start or
-                any(pair[0] < self._attempt['write_call_interval_ns'][1] for pair in intervals)):
+                any(pair[0] < self._attempt['raw_write_call_bracket_ns'][1] for pair in intervals)):
             raise ValueError('ACK includes bytes read before the original write returned')
         self._seen.add(event.receipt_index)
         result = dict(kind='ack_check', receipt_index=event.receipt_index,
             raw_hex=event.raw.hex(), raw_sha256=hashlib.sha256(event.raw).hexdigest(),
             stream_start=event.stream_start, stream_end=event.stream_end, spans=spans,
-            read_call_intervals_ns=intervals,
+            read_call_intervals_ns=intervals if self._clock_domain is None else None,
+            raw_read_call_brackets_ns=intervals,
             availability_interval_ns=event.availability_interval_ns,
             availability_scope='descriptor queue only; no UART arrival or sample time',
             sample_interval_ns=None, physical_capture_record_sha256=None,
@@ -214,6 +250,7 @@ class BootTranscript:
         return _detached(dict(schema=1, identity=asdict(self._identity),
             profile=self._profile, prepared=self._prepared, attempt=self._attempt,
             ack_checks=self._checks, closed=self._closed, journal_failed=self._journal_failed,
+            clock_failed=self._clock_failed,host_clock=clocks._description(self._clock_domain),
             authenticated=False, motion_authorized=False))
 
     def close(self):

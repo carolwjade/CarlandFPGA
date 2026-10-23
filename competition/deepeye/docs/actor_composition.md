@@ -142,6 +142,15 @@ consume, ProgressGate and final fence/CAS remain in place. E limits consumption
 only and does not renew motion or progress deadlines. Production activation is
 still unconditionally unavailable. See [v2 contract](pc_direct_window_v2.md).
 
+For a fresh run, trusted main may pass one exact fixed `QpcHostClock` through
+`create_authority(config, host_clock=binding)`. The same callable/domain object
+reaches ActorRegistry (including original HANDLE sampling), runtime, progress and
+candidate ownership. Ledger/BOOT use that same run binding; None retains legacy
+defaults. This is raw clock routing, not a provider or measured timing authority:
+unknown timestamp uncertainty remains unknown and production still rejects before
+registry acquisition. No v2 width, original deadline or final fence/CAS changes.
+See [raw QPC clock contract](host_clock_qpc_v1.md).
+
 The exact retained original completion object passes through selection to the
 unchanged progress gate. The adapter keeps only one pending proof, one committed
 command/proof association and one synchronous input transaction. The current

@@ -15,7 +15,7 @@ import stat
 import threading
 from time import monotonic_ns
 
-from . import wire
+from . import wire, host_clock as clocks
 
 
 def _integer(value, name, low, high):
@@ -62,7 +62,11 @@ class ReceiptLedger:
     adoption. A duplicate protects the caller's descriptor lifetime; it does not
     establish sole-reader ownership or peer identity.
     """
-    def __init__(self, fd, identity, *, max_bytes, max_reads, read_size=wire.MAX_FEED):
+    def __init__(self, fd, identity, *, max_bytes, max_reads, read_size=wire.MAX_FEED,
+                 host_clock=None):
+        self._clock_domain = clocks._require_binding(host_clock)
+        self._clock = monotonic_ns if host_clock is None else host_clock
+        self._bound_domain, self._bound_clock = self._clock_domain, self._clock
         _integer(fd, 'fd', 0, (1 << 31)-1)
         if type(identity) is not CaptureIdentity:
             raise ValueError('explicit capture identity required')
@@ -97,8 +101,14 @@ class ReceiptLedger:
         if threading.get_ident() != self._thread:
             raise ValueError('original receiving owner thread required')
 
+    @property
+    def clock_domain(self):
+        return self._clock_domain
+
     def _active(self):
         self._owner()
+        if self._clock_domain is not self._bound_domain or self._clock is not self._bound_clock:
+            self._failed = True
         if self._closed or self._failed:
             raise ValueError('capture is closed or failed')
 
@@ -107,35 +117,56 @@ class ReceiptLedger:
         self._active()
         if self._eof or self._bytes >= self._max_bytes or len(self._reads) >= self._max_reads:
             raise ValueError('EOF or original capture budget reached; no extra read')
-        begin = monotonic_ns()
         try:
-            raw = os.read(self._fd, min(self._read_size, self._max_bytes-self._bytes))
-        except BlockingIOError:
-            end = monotonic_ns()
-            self._reads.append({'kind': 'empty', 'raw_hex': '',
-                'read_call_interval_ns': [begin, end], 'stream_start': self._bytes})
-            self._empty_lower = begin
-            return ()
-        except OSError as error:
-            self._reads.append({'kind': 'error', 'raw_hex': '', 'errno': error.errno,
-                'read_call_interval_ns': [begin, monotonic_ns()], 'stream_start': self._bytes})
+            begin = self._clock()
+        except BaseException:
             self._failed = True
             raise
-        end = monotonic_ns()
         index = len(self._reads)
         start = self._bytes
-        self._reads.append({'kind': 'data' if raw else 'eof', 'raw_hex': raw.hex(),
-            'read_call_interval_ns': [begin, end], 'stream_start': start,
-            'preceding_empty_lower_ns': self._empty_lower})
-        self._bytes += len(raw)  # The entire OS read already happened, even if parsing fails.
-        if not raw:
-            self._eof = True
-            return ()
+        # Reserve the attempt and close reentry before the side-effect boundary.
+        # An interrupted read may have consumed bytes without returning them.
+        self._failed = True
+        row = dict(kind='started_unknown', raw_hex=None, returned_bytes=None, stream_start=start,
+            raw_read_call_bracket_ns=[begin,None], read_call_interval_ns=None,
+            preceding_empty_lower_ns=self._empty_lower)
+        self._reads.append(row)
         try:
-            return self._scan(raw, index, start)
-        except BaseException:
-            self._failed = True  # Preserve raw bytes and refuse every further read/claim.
+            error = None
+            try:
+                raw = os.read(self._fd, min(self._read_size, self._max_bytes-self._bytes))
+            except BlockingIOError:
+                raw, kind = b'', 'empty'
+            except OSError as exc:
+                raw, kind, error = b'', 'error', exc
+            else:
+                kind = 'data' if raw else 'eof'
+            row.update(kind=kind, raw_hex=raw.hex(), returned_bytes=len(raw))
+            if error is not None: row['errno'] = error.errno
+            self._bytes += len(raw)  # Persist returned bytes before post-read stamping.
+            if kind == 'eof':
+                self._eof = True
+            try:
+                end = self._clock()
+            except BaseException as exc:
+                row['clock_error_type'] = type(exc).__name__
+                raise
+            row['raw_read_call_bracket_ns'][1] = end
+            if self._clock_domain is None:
+                row['read_call_interval_ns'] = [begin,end]  # Legacy diagnostic semantics only.
+            if error is not None:
+                raise error
+            if kind == 'empty':
+                self._empty_lower = begin if self._clock_domain is None else None
+                events = ()
+            else:
+                events = self._scan(raw, index, start) if raw else ()
+        except BaseException as exc:
+            self._empty_lower = None
+            row['failure_type'] = type(exc).__name__
             raise
+        self._failed = False  # Only a completely recorded read can reopen the next entry.
+        return events
 
     def _locate(self, frame):
         """Locate the earliest original recovered packet after the prior receipt.
@@ -167,7 +198,7 @@ class ReceiptLedger:
                 # Delayed recovery cannot borrow a later read's empty-queue anchor.
                 last_read = self._reads[original[-1][2]]
                 lower = last_read['preceding_empty_lower_ns']
-                interval = (None if lower is None else
+                interval = (None if lower is None or last_read['read_call_interval_ns'] is None else
                             (lower, last_read['read_call_interval_ns'][1]))
                 event = FrameReceipt(len(self._frames), packet, original[0][1],
                                      original[-1][1]+1, interval)
@@ -212,7 +243,7 @@ class ReceiptLedger:
             physical_capture_record_sha256=None)
         raw = json.dumps(document, ensure_ascii=False, separators=(',', ':')).encode('utf-8')
         host_envelope.validate_message(raw, producer='hardware_bridge',
-            consumer='world_authority', context=context, now_ns=monotonic_ns())
+            consumer='world_authority', context=context, now_ns=self._clock())
         return raw
 
     def snapshot(self):
@@ -226,6 +257,9 @@ class ReceiptLedger:
                 sample_interval_ns=None, physical_capture_record_sha256=None,
                 claimed=event.receipt_index in self._claimed, spans=spans))
         value = dict(schema=1, identity=asdict(self.identity), transport='os_descriptor',
+            host_clock=clocks._description(self._bound_domain),
+            clock_binding_continuity=(self._clock_domain is self._bound_domain
+                                      and self._clock is self._bound_clock),
             provenance='main-supplied correlation labels; peer and BOOT not authenticated here',
             availability_scope='descriptor queue only; not UART/USB arrival or FPGA sample time',
             closed=self._closed, eof=self._eof, failed=self._failed,

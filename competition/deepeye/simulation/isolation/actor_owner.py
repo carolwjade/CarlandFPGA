@@ -3,7 +3,8 @@
 Only the trusted composition root may construct a registry or supply policy and
 verified BOOT. Python privacy/types are not an OS security boundary. Test seams
 are module-internal; production always selects the existing native backend and
-host monotonic clock. A record, PID or serialized receipt cannot adopt a process.
+legacy clock or exact fresh-run QPC binding. A record, PID or serialized receipt
+cannot adopt a process.
 """
 from dataclasses import asdict, dataclass
 from functools import wraps
@@ -19,6 +20,7 @@ from .owned_resources import OwnedResources, error_info
 from .policy import create_run_directory, minimal_environment
 from .resource_cleanup import Provenance
 from .windows_cleanup import WindowsCleanupBackend
+from ...integration import host_clock as clocks
 
 CONTRACT = 'c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
 _FACTORY = object()
@@ -166,8 +168,9 @@ def _entry(method):
 
 class ActorRegistry:
     """Trusted same-thread composition root; retains live and quarantine owners."""
-    def __init__(self):
-        self._api, self._clock = _native_api(), monotonic_ns
+    def __init__(self, *, host_clock=None):
+        binding = clocks._require_binding(host_clock)
+        self._api, self._clock = _native_api(), monotonic_ns if binding is None else binding
         self._thread = threading.get_ident()
         self._owners, self._used_sessions, self._generations = [], set(), {}
         self._namespace = uuid.uuid4().hex

@@ -16,6 +16,7 @@ from .pc_direct_runtime import (AiLease, AuthorityDependencies, BootBinding, PcD
                                 VerifiedEnvelope, VerifiedObservation)
 from ...integration import host_envelope
 from ...integration.candidate_mailbox import PcDirectWindowV2
+from ...integration import host_clock as clocks
 
 
 class ActivationUnavailable(ValueError):
@@ -161,7 +162,7 @@ class _ProgressGate:
         return self.bound.deadline_ns
 
 
-def _production_channels(config):
+def _production_channels(config, *, host_clock=None):
     # No callable/provider supplied by a caller can bypass this gate.
     raise ActivationUnavailable('original authenticated AI/channel/package unavailable')
 
@@ -324,11 +325,12 @@ class ActorComposition:
     Only create_authority constructs this library owner. These Python objects
     must remain authority-private; naming/frozen dataclasses are not isolation.
     """
-    def __init__(self, key, config, channels):
+    def __init__(self, key, config, channels, *, host_clock=None):
         if key is not _FACTORY: raise CompositionRejected('trusted factory required')
         self._thread = threading.get_ident()
         self._config, self._channels = config, channels
-        self._clock = monotonic_ns
+        self._host_clock = clocks._require_binding(host_clock)
+        self._clock = monotonic_ns if self._host_clock is None else self._host_clock
         self._foreign = threading.Event()
         self._state, self._busy, self._retired = 'STARTING', False, False
         self._veto, self._revoking, self._cleanup_attempted = 0, False, False
@@ -400,7 +402,7 @@ class ActorComposition:
     @_entry
     def _start(self):
         config = self._config
-        self._registry = ActorRegistry()
+        self._registry = ActorRegistry(host_clock=self._host_clock)
         self._checkpoint()
         self._executor = OwnedMotionExecutor(initial_state=config.initial_state, scene=config.scene,
             model=config.model, budget=config.budget, max_slices=config.max_slices)
@@ -548,12 +550,13 @@ class ActorComposition:
         return CompositionStatus(self._state)
 
 
-def create_authority(config):
+def create_authority(config, *, host_clock=None):
     """Production factory: unavailable authentication rejects before acquisition.
 
     No public dependency/verifier/provider/adoption options. Tests patch only
     module-private factories and the existing fake native boundary.
     """
+    binding = clocks._require_binding(host_clock)
     if type(config) is not AuthorityConfig or type(config.actor_policy) is not ActorPolicy:
         raise CompositionRejected('explicit trusted authority configuration required')
     _bounded(config.progress_max_age_ns, 1)
@@ -566,8 +569,8 @@ def create_authority(config):
     if (type(digest) is not str or len(digest) != 64 or
             any(character not in '0123456789abcdef' for character in digest)):
         raise CompositionRejected('explicit approved inference model hash required')
-    channels = _production_channels(config)  # Must precede ActorRegistry construction.
-    owner = ActorComposition(_FACTORY, config, channels)
+    channels = _production_channels(config,host_clock=binding)  # Must precede registry construction.
+    owner = ActorComposition(_FACTORY, config, channels,host_clock=binding)
     _RETAINED.append(owner)
     owner._start()
     return owner
