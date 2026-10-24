@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-op16-independent-20261020\extract_saved.py", line 15, in <module>
+    b=get(H,path);p=D/'snapshot'/pathlib.PurePosixPath(path).name;p.write_bytes(b)
+      ^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-op16-independent-20261020\extract_saved.py", line 5, in get
+    cmd=[G,'-C',str(ROOT),'cat-file','blob',ref+':'+path];start=datetime.datetime.now(datetime.timezone.utc).isoformat();p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,creationflags=subprocess.CREATE_NO_WINDOW|subprocess.BELOW_NORMAL_PRIORITY_CLASS);out,err=p.communicate(timeout=10);assert p.returncode==0,(path,err);assert len(out)<=16777216
+                                                                                                                                                                                                                                                                                                                         ^^^^^^^^^^^^^^^
+AssertionError: ('competition/deepeye/tests/rtl/control3d/tb_invalid_applied_capture.sv', b"fatal: path 'competition/deepeye/tests/rtl/control3d/tb_invalid_applied_capture.sv' does not exist in 'f7736ac737d1c7b256974beb1574b94096819270'\n")

@@ -1,0 +1,62 @@
+{
+  "exit_code": 1,
+  "result": {
+    "checks": [
+      {
+        "cards_total": 29,
+        "check": "plan_loaded",
+        "ok": true
+      },
+      {
+        "check": "ledger",
+        "exists": false,
+        "ok": true
+      }
+    ],
+    "command": "verify",
+    "contract": {
+      "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+      "requirement_ids": [
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05",
+        "H06",
+        "H07",
+        "H08",
+        "H09",
+        "H10",
+        "H11",
+        "H12",
+        "H13",
+        "H14",
+        "H15"
+      ],
+      "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+      "revision": 1,
+      "scope_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+      "task_id": "COMP-20261013-DEEPEYE"
+    },
+    "design_task_version": 5,
+    "route_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "route_task_version": 1,
+    "selftest": {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py",
+        "-v"
+      ],
+      "ok": false,
+      "returncode": 1,
+      "stderr_tail": "",
+      "stdout_tail": "test_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... ok\ntest_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok\ntest_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... skipped 'nested verify --selftest run'\n\n======================================================================\nFAIL: test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py\", line 528, in test_accept_requires_artifact_and_commit_provenance\n    clone = make_clone_fixture(self.tmp)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py\", line 153, in make_clone_fixture\n    raise AssertionError(\"fixture checkout failed: %r\" % proc.stderr)\nAssertionError: fixture checkout failed: \"error: unable to create file competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/derived/isolation_main_fix_history.json: Filename too long\\nerror: unable to create file competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/configs/project-default.godot: Filename too long\\nwarning: unable to access 'competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/default-editor/.gitattributes': Filename too long\\nfatal: cannot create directory at 'competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/default-independent': Filename too long\\n\"\n\n======================================================================\nFAIL: test_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py\", line 929, in test_evidence_paths_must_stay_inside_the_worktree_root\n    clone = make_clone_fixture(self.tmp)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\test_pipeline.py\", line 153, in make_clone_fixture\n    raise AssertionError(\"fixture checkout failed: %r\" % proc.stderr)\nAssertionError: fixture checkout failed: \"error: unable to create file competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/derived/isolation_main_fix_history.json: Filename too long\\nerror: unable to create file competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/configs/project-default.godot: Filename too long\\nwarning: unable to access 'competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/default-editor/.gitattributes': Filename too long\\nfatal: cannot create directory at 'competition/deepeye/evidence/system/isolation-and-collision-probes-20261016/raw/godot/default-independent': Filename too long\\n\"\n\n----------------------------------------------------------------------\nRan 24 tests in 9.598s\n\nFAILED (failures=2, skipped=1)",
+      "tests_ran": 24
+    }
+  },
+  "original_source_unchanged": true,
+  "explicit_review_ledger_exists": false
+}

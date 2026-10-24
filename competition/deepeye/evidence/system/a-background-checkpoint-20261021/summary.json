@@ -1,0 +1,367 @@
+{
+  "utc": "2026-10-21T07:07:42.903708+00:00",
+  "tested_product_head": "b074eaa10012fc5b89f818926195fd24f0bef1bd",
+  "R03_software": {
+    "checked_groups": 13,
+    "checks": [
+      {
+        "command": [
+          "integration/test_wire.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "61b6bdb314b9e85b3f7cd242b7832e4b39ed05924a7b4426d715b44b02febc48"
+      },
+      {
+        "command": [
+          "integration/test_motion.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "cfcf66b0a94234d46b52cc47bd1e3eb91528f1a1f03fa5ccb8f0c124c5baef11"
+      },
+      {
+        "command": [
+          "integration/test_sensor_source.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "43d5bda3b75fef1564e334a783049b96ca08b82218c0109f2c5db30a33a539ea"
+      },
+      {
+        "command": [
+          "integration/test_trace_payload.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "cef8f9b90ba297a0c0d46ac7e60dd33789d9f1a034a7eed729a85dcac6b3e73a"
+      },
+      {
+        "command": [
+          "integration/test_clock_bounds.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "36a87d5e90c043bf525cbbc88020d7a6df4502097203dc57fc164b83dfa83087"
+      },
+      {
+        "command": [
+          "integration/test_boot_binding.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "f65a76c5d19e55a92fdd78f02e2d25e28019b7cf70d5ce84302f7efbf2570dbd"
+      },
+      {
+        "command": [
+          "integration/test_contract_vectors.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "41e6ab9078ba7aff324838af7874b68bdc5f3e187f616cb40e0a1110220d5afa"
+      },
+      {
+        "command": [
+          "tests/test_boot_profile.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-current-validation-20261021/checker-result.json",
+        "output_sha256": "97eb10bc8267b8046081f9dc7a847bd528dafbcb0827ed77185346f8dfb4bf70"
+      },
+      {
+        "command": [
+          "integration/test_host_schema.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-environment-recheck-20261021/01-result.json",
+        "output_sha256": "b7070c5368c1cc0df74c3e9a7b675cfe59247441fa78861a373aee7db43b04ee"
+      },
+      {
+        "command": [
+          "integration/test_host_envelope.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-environment-recheck-20261021/02-result.json",
+        "output_sha256": "6f381b49cf754ce7f507f2a9fdd28d6687626f638500f0252fe3a78aa84649b6"
+      },
+      {
+        "command": [
+          "integration/test_pc_direct_heartbeat.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-environment-recheck-20261021/03-result.json",
+        "output_sha256": "c040585f8f0a9d76658b070d1b20c2b91c30a6cf32b829783c85750de8557638"
+      },
+      {
+        "command": [
+          "integration/test_pc_direct_watchdog.py"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-environment-recheck-20261021/04-result.json",
+        "output_sha256": "50deb9c8c5bc4aa01a3fbf32adf33afd7efcf49614857f9bc04fffbe82645143"
+      },
+      {
+        "command": [
+          "tools/pipeline.py",
+          "verify",
+          "--selftest"
+        ],
+        "exit_code": 0,
+        "evidence": "r03-pipeline-fixture-recheck-20261021/pipeline-result.json",
+        "tests_ran": 25,
+        "passed": 24,
+        "skipped": 1
+      }
+    ],
+    "scope": "composed exact-source evidence across original and targeted corrected-environment runs; not a new full-checker invocation",
+    "prior_failures_preserved": true,
+    "remaining_formal_gates": [
+      "TRACE payload/codec finalization and independent vectors",
+      "register bitfields, reset semantics and matched HWH integration",
+      "stateful observation history/latest-completed mailbox/request replay and seq/epoch rollover integration",
+      "B/C independent byte interoperability on the published exact candidate",
+      "host process ACL isolation and mode-specific end-to-end runtime",
+      "measured USB/clock/holdover/channel calibration and actual IO capture before ENABLE"
+    ]
+  },
+  "board_baseline": {
+    "utc": "2026-10-21T06:53:24.496447+00:00",
+    "operation_id": "DEEPEYE-A-BOARD-BASELINE-20261021-v1",
+    "request_hash": "34745b6bc8cc6d1c50a8cc58604122c827977778b8c3280ceda8f4743858f620",
+    "code_commit": "9b618204473c8fda1bffbaf436080d77a34db5fc",
+    "tested_commit": "692f58bce38ff81d03204e46faf3c3792c5ff8f2",
+    "script_sha256": "b0b6eef6064812deb34639306143972e740ed1e4dc38bfeb979ff31cdfd90eda",
+    "status": "passed",
+    "actual_loads": 1,
+    "comparisons": 384,
+    "restored_words": 16,
+    "reset_and_export_restored": true,
+    "post_manager": "operating",
+    "original_configuration_restored": false,
+    "scope": "matched PYNQ base Overlay and 64-byte BRAM window only; current physical readiness evidence",
+    "R03": "not_run",
+    "full_H12": "not_run",
+    "all29": "not_run"
+  },
+  "R02_downloads": {
+    "utc": "2026-10-21T07:02:04.719511+00:00",
+    "files": [
+      {
+        "name": "filelock",
+        "version": "4.2.4",
+        "bytes": 162475,
+        "sha256": "301241438c57936ef93f4243a94f2559022268bfcf9b375a9a72eb0f8db8358e",
+        "members": 28,
+        "record_hash_count": 27,
+        "network_seconds": 2.915046,
+        "published_full_hash_equal": true,
+        "metadata_equal": true
+      },
+      {
+        "name": "fsspec",
+        "version": "2026.9.0",
+        "bytes": 221738,
+        "sha256": "8dd6e646e99ea382bd85f97a45e6b526a442d79423a7dc673f1e2756d05fcb5f",
+        "members": 62,
+        "record_hash_count": 61,
+        "network_seconds": 1.765069,
+        "published_full_hash_equal": true,
+        "metadata_equal": true
+      },
+      {
+        "name": "jinja2",
+        "version": "3.1.6",
+        "bytes": 134899,
+        "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+        "members": 31,
+        "record_hash_count": 30,
+        "network_seconds": 1.725675,
+        "published_full_hash_equal": true,
+        "metadata_equal": true
+      },
+      {
+        "name": "mpmath",
+        "version": "1.3.0",
+        "bytes": 536198,
+        "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+        "members": 92,
+        "record_hash_count": 91,
+        "network_seconds": 2.156782,
+        "published_full_hash_equal": true,
+        "metadata_equal": true
+      },
+      {
+        "name": "networkx",
+        "version": "3.7",
+        "bytes": 2142205,
+        "sha256": "e3fd2c13a7814cee3746340d8d7f8598a67f16a58bf47fb7f8793fab6efca1b0",
+        "members": 604,
+        "record_hash_count": 603,
+        "network_seconds": 3.066666,
+        "published_full_hash_equal": true,
+        "metadata_equal": true
+      }
+    ],
+    "new_complete_wheels": 5,
+    "compressed_bytes": 3197515,
+    "original_held_processes_signaled": 25,
+    "failed_earlier_attempts_preserved": true,
+    "no_install_or_vendor_execution": true,
+    "AMD_six_remaining_bytes": 1338113780,
+    "R02": "not_run",
+    "C03": "not_run",
+    "all29": "not_run"
+  },
+  "G03_review": {
+    "utc": "2026-10-21T06:59:15.181047+00:00",
+    "review_public_files": 37,
+    "rehashed_external_pins": 4165,
+    "review_processes_signaled": 6,
+    "result": "saved full48 numerical consistency and provenance review adopted by main",
+    "max_difference_V_per_m": 3.470108633346818e-18,
+    "unchanged_gate_V_per_m": 1.967577343353139e-12,
+    "worst_global_edge": 29,
+    "independent_review_scope": "source/data work completed and saved before model usage-limit termination; manifest/completion not finished by original worker; root rehashed and adopted retained evidence without replay",
+    "new_scientific_execution": false,
+    "next_dependency": "finite disk W_B and conditional fixed-model T preparation per retained design; no absolute receiver/source equivalence claim",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run",
+    "receiver_voltage_gate": "unqualified",
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run",
+  "private_environment_exclusions": [
+    {
+      "original": "r03-current-validation-20261021/check-interface-v1/started.json",
+      "sha256": "a21eb6dfa63c555c2aeaf5266c2eac62bd5e9d45a395adfa0359b547941bd32d",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-environment-recheck-20261021/01-test_host_schema/started.json",
+      "sha256": "5b4b92cf5cdb163e51bc05f2228e77c2a7f4009ec2b531e4c79f6ade2689e347",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-environment-recheck-20261021/02-test_host_envelope/started.json",
+      "sha256": "190b85b13eb8c55b91f16d0ffd783c20302be0f49346a809232adaea34845ea9",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-environment-recheck-20261021/03-test_pc_direct_heartbeat/started.json",
+      "sha256": "f913ef5c7e518f502b803cda4bcfe2d16d0946f0c1db06bc25992ad8f40797b1",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-environment-recheck-20261021/04-test_pc_direct_watchdog/started.json",
+      "sha256": "d3e7723430fe44b6b9e47f1e1d5099367c17183a82fcf963971a90ddf93f79bd",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-environment-recheck-20261021/05-pipeline/started.json",
+      "sha256": "f6daceaca778e3bf76264810a688a1b5d10ed81735a665588bc032dc820a82af",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-pipeline-longpath-recheck-20261021/01-pipeline/started.json",
+      "sha256": "7eeefed91bf765136717d4cdc0416adc7a04f197a6ea1ee476fe163e63ed2086",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r03-pipeline-fixture-recheck-20261021/runs/pipeline-v1/started.json",
+      "sha256": "6db0ee080adfdbb66e267d28f2f97706c265940dc5c163db13efeb515d7a70f0",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "g03-full48-postrun-review-20261021/closeout-check-v1/started.json",
+      "sha256": "72c018d2952c3960a3f58a76c5bfa0e5136024306a3e4f2a051754916873ba91",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "g03-full48-postrun-review-20261021/data-audit-v1/started.json",
+      "sha256": "7135cc4b50747f5e3fb44a5bbb531d367a5c9446364f0803003654f339776178",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-image-20261021/runs/001-filelock-curl/started.json",
+      "sha256": "7c7f58b664491e4e2bbaa7985df0d6035aab080a1a4dcfeb8c14e860db52f448",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/001-filelock-curl/started.json",
+      "sha256": "0dbc1691b03fdfdddf2f6b4d434710e3f5ca164616f7242a8094f2d7eeca4d39",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/001-filelock-verify/started.json",
+      "sha256": "3b3f4bf97e38123472e29531167778ddb7aa6fb334bc444ccf4a1779a4d239cd",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/002-fsspec-curl/started.json",
+      "sha256": "34c6a9ca04a3fb91359ccfd6f1b23fc454cc23d96d7fe402df1efde49ecece9b",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/002-fsspec-verify/started.json",
+      "sha256": "6a657b6659467c55ba33e145558f654983e36a0ea3d07371c14029d301f6de4b",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/003-jinja2-curl/started.json",
+      "sha256": "ee49146e9c8eb00d5d2a1040cc93d89541b2ec854cefeebefc66243a8d71d443",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/003-jinja2-verify/started.json",
+      "sha256": "92863f6b841372079e56864cd0de6567ea00329868c0f860bc068fea75411ad9",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/004-mpmath-curl/started.json",
+      "sha256": "3463a43b70226e0504130c4feae3e3e2eb8f256554aa572fb17f200ce5dac1cd",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/004-mpmath-verify/started.json",
+      "sha256": "848f9738d38cbf0ffe6341712ad21d0856f235887b8debbf9dbb57fd47d13fec",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/005-networkx-curl/started.json",
+      "sha256": "29840d81ec3551701705341057a95a7019db5ccf2ce483339a6d54760a592b11",
+      "reason": "original inherited environment retained locally, not published"
+    },
+    {
+      "original": "r02-python-wheel-owned-tree-20261021/runs/005-networkx-verify/started.json",
+      "sha256": "25bcae76c3057b36f09c50b6d0679845e39bf1b4a52482ce26a0924fba326d4b",
+      "reason": "original inherited environment retained locally, not published"
+    }
+  ],
+  "derived_process_start_files": [
+    "r03-current-validation-20261021/check-interface-v1/process-start-public.json",
+    "r03-environment-recheck-20261021/01-test_host_schema/process-start-public.json",
+    "r03-environment-recheck-20261021/02-test_host_envelope/process-start-public.json",
+    "r03-environment-recheck-20261021/03-test_pc_direct_heartbeat/process-start-public.json",
+    "r03-environment-recheck-20261021/04-test_pc_direct_watchdog/process-start-public.json",
+    "r03-environment-recheck-20261021/05-pipeline/process-start-public.json",
+    "r03-pipeline-longpath-recheck-20261021/01-pipeline/process-start-public.json",
+    "r03-pipeline-fixture-recheck-20261021/runs/pipeline-v1/process-start-public.json",
+    "g03-full48-postrun-review-20261021/closeout-check-v1/process-start-public.json",
+    "g03-full48-postrun-review-20261021/data-audit-v1/process-start-public.json",
+    "r02-python-wheel-owned-image-20261021/runs/001-filelock-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/001-filelock-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/001-filelock-verify/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/002-fsspec-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/002-fsspec-verify/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/003-jinja2-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/003-jinja2-verify/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/004-mpmath-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/004-mpmath-verify/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/005-networkx-curl/process-start-public.json",
+    "r02-python-wheel-owned-tree-20261021/runs/005-networkx-verify/process-start-public.json"
+  ]
+}

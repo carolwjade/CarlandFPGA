@@ -1,0 +1,254 @@
+{
+  "schema": 1,
+  "implementation_task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "implementation_task_version": 1,
+  "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+  "immutable_scope_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "immutable_scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "human_track": "AMD Ryzen AI PC + any AMD FPGA; autonomous application; no additional subgroup decision",
+  "source": {
+    "filename": "amd_guide_20260831.pdf",
+    "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc",
+    "pdf_pages": 28,
+    "page_numbering": "1-based PDF file page; printed page is file page minus 3 for section 3.2",
+    "official_url": "https://fpgaceshi.oss-cn-shanghai.aliyuncs.com/profoss/upload/2026/08/31/8c7a809f-f0b8-42e4-996a-3a5f2f132288.pdf",
+    "local_bytes_verified": true,
+    "latest_online_refresh": "official_catalogue_object_bytes_match_frozen_source_20261020",
+    "online_refresh_evidence": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/result.json",
+    "online_refresh_scope": "point-in-time download-catalogue object identity; not full R01 acceptance or proof of no later/other update"
+  },
+  "registration": {
+    "status": "human_confirmed_in_frozen_handoff",
+    "independent_receipt_verified": false,
+    "action": "archive existing registration only; no re-registration"
+  },
+  "gates": {
+    "rules_trace": "mapped_from_verified_local_pdf",
+    "rocm_project_C03": "not_run",
+    "physical_gain_rules_recognition": "not_run",
+    "physical_gain_engineering_A05": "not_run",
+    "R01": "not_run"
+  },
+  "physical_task_analysis": {
+    "proposal": "AI selects finite analog front-end gain; PL controls PGA; independent before/after ADC measures real analog response",
+    "basis_pdf_page": 13,
+    "status": "engineering interpretation requiring evidence, not an organizer-specific approval",
+    "virtual_drill_or_GPIO_capture_alone_sufficient": false
+  },
+  "requirements": [
+    {
+      "id": "official_3_2_platform",
+      "pdf_pages": [
+        13,
+        14,
+        15
+      ],
+      "requirement": "AMD Ryzen AI PC plus any AMD FPGA/Zynq; disclose actual hardware and software",
+      "owner_cards": [
+        "R01",
+        "R02"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_3_2_real_task",
+      "pdf_pages": [
+        13
+      ],
+      "requirement": "Complete AI decision to real physical execution; mechanical structure may be simple",
+      "owner_cards": [
+        "R01",
+        "R04",
+        "A05"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_3_2_logic",
+      "pdf_pages": [
+        13,
+        14,
+        16
+      ],
+      "requirement": "FPGA must implement substantive logic; an ordinary adapter is insufficient",
+      "owner_cards": [
+        "B01",
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_3_2_rocm",
+      "pdf_pages": [
+        15
+      ],
+      "requirement": "Actual AI PC software stack ROCm 7.14.0 or later",
+      "owner_cards": [
+        "R02",
+        "C03"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_3_2_ai",
+      "pdf_pages": [
+        14,
+        20
+      ],
+      "requirement": "Local AI with demonstrated role and task benefit",
+      "owner_cards": [
+        "C02",
+        "C03",
+        "C04",
+        "G04"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_3_2_cooperation",
+      "pdf_pages": [
+        14,
+        16,
+        20
+      ],
+      "requirement": "Communication, dataflow, time synchronization and fault behavior",
+      "owner_cards": [
+        "R03",
+        "B04",
+        "C05",
+        "G05",
+        "G06"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_core_success",
+      "pdf_pages": [
+        16
+      ],
+      "requirement": "Task success fraction with declared denominator and intervention rules",
+      "owner_cards": [
+        "A02",
+        "A05",
+        "G07"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_core_latency",
+      "pdf_pages": [
+        16,
+        17
+      ],
+      "requirement": "Sensor acquisition to actual physical response; P50 P95 P99 max",
+      "owner_cards": [
+        "A05",
+        "G05",
+        "G07"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_core_ai",
+      "pdf_pages": [
+        17
+      ],
+      "requirement": "AI task effect and batch1 segmented latency",
+      "owner_cards": [
+        "C02",
+        "C03"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_core_fpga",
+      "pdf_pages": [
+        17
+      ],
+      "requirement": "Measured FPGA function contribution under comparable conditions",
+      "owner_cards": [
+        "B06",
+        "A03"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_core_link",
+      "pdf_pages": [
+        17
+      ],
+      "requirement": "Measured link timing/throughput/errors; synchronization basis",
+      "owner_cards": [
+        "B04",
+        "G05"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_special_resources",
+      "pdf_pages": [
+        17
+      ],
+      "requirement": "Resources and timing margin with design rationale",
+      "owner_cards": [
+        "B06"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_special_reliability",
+      "pdf_pages": [
+        17
+      ],
+      "requirement": "Continuous stability, faults, interventions and recovery",
+      "owner_cards": [
+        "A03",
+        "G07"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_evidence",
+      "pdf_pages": [
+        17,
+        18
+      ],
+      "requirement": "Raw logs, scripts, actual models/precision/input/versions/clocks and test counts",
+      "owner_cards": [
+        "A04",
+        "G08"
+      ],
+      "product_status": "not_run"
+    },
+    {
+      "id": "official_deliverable",
+      "pdf_pages": [
+        17,
+        18,
+        19
+      ],
+      "requirement": "English portable filenames; reproducible project, report and metrics; directory mapping",
+      "owner_cards": [
+        "A04",
+        "G08"
+      ],
+      "product_status": "not_run"
+    }
+  ],
+  "core_metrics_count": 5,
+  "selected_special_metrics": [
+    "FPGA resources/timing",
+    "system reliability"
+  ],
+  "assessment_weights": {
+    "system_completeness": 20,
+    "pc_ai": 20,
+    "fpga_quality": 25,
+    "cooperation": 20,
+    "engineering_innovation": 15
+  }
+}

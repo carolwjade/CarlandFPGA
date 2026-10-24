@@ -1,0 +1,94 @@
+{
+  "utc": "2026-10-21T13:49:49.663855+00:00",
+  "status": "source_bound_design_candidate",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "candidate_commit": "127d156731a1802fc0a9a57da1df0b0e742b7d6c",
+  "document_revision": "taskbook_completeness_17_items_two_RS485_and_explicit_manual_source_selection",
+  "inputs": {
+    ".local/deepeye-implementation-a/competition/deepeye/evidence/system/a-r02-io-map-20261021/candidate-pinmap.json": {
+      "bytes": 13244,
+      "sha256": "4d1887278b2f84475997a323f1601258fddd4b0e5a1483de398f900847371093"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/evidence/system/a-r02-io-map-20261021/design.md": {
+      "bytes": 10288,
+      "sha256": "5d3b014ce77da629a498e1b89182e33daaeac5299813e4e2ce6ba3318a817acf"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/evidence/system/a-r02-io-map-20261021/sources.json": {
+      "bytes": 2758,
+      "sha256": "57896860ff89e2410e68b6c1aee9c4daa71c1908e6eeb900c8c533e8aed44d90"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/hardware/environment.json": {
+      "bytes": 1691,
+      "sha256": "00b85e70e25d0080f27b9158ca891556010be6a22b01697ad5f87f0fdcc64656"
+    },
+    ".local/deepeye-implementation-a/docs/competition/deepeye-2026/taskbook_final.md": {
+      "bytes": 109430,
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+    },
+    ".planning/deepeye-resume-20261018/board-baseline-20261021/board-report.json": {
+      "bytes": 115790,
+      "sha256": "4a081370307cc063ce6e6a39a878204f036083f0446d3f5d60c590472f3f3fbf"
+    },
+    ".planning/deepeye-resume-20261018/board-baseline-20261021/main-verification.json": {
+      "bytes": 777,
+      "sha256": "612022f8bbdfe2e8fc874fad3c90dd1a9666b102c573cf815c1738f5839a42a5"
+    }
+  },
+  "official_sources": {
+    "tul_manual": {
+      "url": "https://dpoauwgwqsy2x.cloudfront.net/Download/PYNQ_Z2_User_Manual_v1.1.pdf",
+      "revision": "TUL PYNQ-Z2 Reference Manual v1.1, 28 Oct 2019",
+      "evidence": "PDF pp. 6, 19, 20-25; Tables 13-20, Figure 1; Table 16 says J3 pin 9 SDA, pin 10 SCL",
+      "bytes": 1380146,
+      "sha256": "af38e175e8197b4e28edcd14c43a136ef85cd860ef71143d3edd73853e62a62c"
+    },
+    "tul_schematic": {
+      "url": "https://dpoauwgwqsy2x.cloudfront.net/Download/TUL_PYNQ_Schematic_R12.pdf",
+      "revision": "TUL download named R12; title block internally says PYNQ-Z2 R10, Jan 9 2018",
+      "evidence": "PDF sheets 3, 4, 11; Arduino A0-A5 divider R66-R71 2.32k, R100-R105 1k, 140/845-ohm XADC leg; sheet 4 draws J3 pin 10 SDA, pin 9 SCL, R49/R50 each 2.2k to VCC3V3, and A0 R71/R105/R72/R73/C3",
+      "bytes": 285903,
+      "sha256": "2a5c8bd73291901b80bed0d5b178def40e0ac7ca6ca0ea56f7acad1dd4f3c7c9"
+    },
+    "pynq_base_xdc": {
+      "url": "https://raw.githubusercontent.com/Xilinx/PYNQ/3.1.1/boards/Pynq-Z2/base/vivado/constraints/base.xdc",
+      "revision": "Xilinx/PYNQ release tag 3.1.1",
+      "evidence": "lines 56-68, 70-116; lines 93-94 bind package P15=SCL and P16=SDA independent of J3 physical position",
+      "bytes": 14586,
+      "sha256": "05d99c9032ceb21b2f6850955dd897a14a30d77ebda21d57867daa65caef2d3b"
+    },
+    "tul_board_xml": {
+      "url": "https://raw.githubusercontent.com/Xilinx/XilinxBoardStore/master/boards/TUL/pynq-z2/A.0/board.xml",
+      "revision": "XilinxBoardStore TUL pynq-z2 A.0 retrieved 2026-10-21; branch mutable, retained bytes pinned",
+      "evidence": "part identity only; not used as pin authority",
+      "bytes": 52161,
+      "sha256": "e278fdecde228d413fa07352c1b6286641bb63b6aebefaf0dc72c417eb83eaf7"
+    },
+    "mcp6s21": {
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21117B.pdf",
+      "revision": "Microchip DS21117B, 2012",
+      "evidence": "PDF pp. 1, 18-20: 8-pin pinout, SPI, gain register",
+      "bytes": 741754,
+      "sha256": "012e5e55acf350c43fb74cb29239503b223ac4c27f9ff7ef25c2e51b88b93692"
+    },
+    "mcp4728": {
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf",
+      "revision": "Microchip DS22187E, 2010",
+      "evidence": "PDF pp. 1, 20-21, 50-51: supply, I2C pins/address and external pullups; section 7.1 printed p. 51/PDF p. 51 (zero-based index 50) pull-up sizing",
+      "bytes": 3007694,
+      "sha256": "7e6515c45a02ffe4ad7506f3347cce7714cdd56659ff2fb22b858fc0472f381e"
+    },
+    "thvd1450": {
+      "url": "https://www.ti.com/lit/ds/symlink/thvd1450.pdf",
+      "revision": "TI SLLSEY3E Rev E, May 2019",
+      "evidence": "PDF pp. 1, 3-4, 21-22: 3-5.5V, R/D/DE/RE, half-duplex bus",
+      "bytes": 2012884,
+      "sha256": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897"
+    }
+  },
+  "physical_J3_position": "unresolved",
+  "new_board_tests": 0,
+  "new_measurements": 0,
+  "R02": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

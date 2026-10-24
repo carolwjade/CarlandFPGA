@@ -1,0 +1,11 @@
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+SCRIPT ERROR: Invalid call to function 'create_obstacle (via call)' in base 'GDScript'. Expected 2 argument(s).
+   at: DeepEyeAssetPresenter._create (res://viewer/asset_presenter.gd:61)
+   GDScript backtrace (most recent call first):
+       [0] _create (res://viewer/asset_presenter.gd:61)
+       [1] sync_obstacles (res://viewer/asset_presenter.gd:137)
+       [2] _sync_obstacles (res://viewer/main.gd:618)
+       [3] add_obstacle (res://editor/scene_document.gd:193)
+       [4] _run (res://tests/test_failure_review.gd:15)

@@ -1,0 +1,11 @@
+test_corrupt_old_and_magic_rich_trace_remain_bounded (__main__.TraceQuarantineTests.test_corrupt_old_and_magic_rich_trace_remain_bounded) ... ok
+test_crc_valid_trace_is_rejected_at_every_in_budget_length (__main__.TraceQuarantineTests.test_crc_valid_trace_is_rejected_at_every_in_budget_length) ... ok
+test_encoder_rejects_all_in_budget_trace_lengths (__main__.TraceQuarantineTests.test_encoder_rejects_all_in_budget_trace_lengths) ... ok
+test_repeated_trace_cannot_grow_storage_or_create_observations (__main__.TraceQuarantineTests.test_repeated_trace_cannot_grow_storage_or_create_observations) ... ok
+test_stream_recovers_at_every_split_without_delivering_trace (__main__.TraceQuarantineTests.test_stream_recovers_at_every_split_without_delivering_trace) ... ok
+test_trace_declared_length_does_not_block_a_following_hello (__main__.TraceQuarantineTests.test_trace_declared_length_does_not_block_a_following_hello) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.014s
+
+OK

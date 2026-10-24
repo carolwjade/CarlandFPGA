@@ -1,0 +1,13 @@
+Command: ROOT/.local/venv/Scripts/python.exe -B -X utf8 EVIDENCE/finalize_evidence.py
+Exit status: 1
+Failure: AssertionError at initial line 15 comparing host-inventory.json bytes with live.stdout.txt bytes.
+Cause established from retained files: output file uses LF; Windows stdout uses CRLF.
+No live collection was repeated. No product source was changed after live collection.
+The follow-up final-audit.json records both semantic equality and raw-byte inequality.
+
+Second audit command: same helper after recording JSON semantic equality separately.
+Exit status: 1
+Failure: AssertionError at line 29 expecting Git status ' M' for every protected dirty file.
+Actual retained line: ?? competition/deepeye/ai_pc/host_timing/reference.py
+Correction: ownership promises dirty-byte preservation and no staging, not tracked status.
+The final audit permits either an unstaged tracked change (' M') or an untracked file ('??').

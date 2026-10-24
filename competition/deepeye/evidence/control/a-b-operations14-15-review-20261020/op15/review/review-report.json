@@ -1,0 +1,31 @@
+{
+  "job_id": "child-9892f349e0d047688cebdc5a85ceb8fa",
+  "agent": "/root/b_op15_review_20261020",
+  "status": "bounded independent review complete; two residual runner parser findings reported; quality main retains acceptance",
+  "head": "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b",
+  "source": "52dc249c529b92a7b6be06550db5e7203c5c5a42",
+  "operation": "B-DEEPEYE-PWM-APPLIED-CAPTURE-20261020-15",
+  "source_unchanged": true,
+  "fresh_edges": 4472,
+  "fresh_handshakes": 173,
+  "fresh_check_errors": 0,
+  "fresh_guards": 9,
+  "fresh_mutant_copies": 4,
+  "open_findings": [
+    "R15-PARSER-SUBSTRING: completed exit0 plus NOT_TB_PASS_MARKER and zero stats is accepted",
+    "R15-PARSER-MULTISTATS: completed exit0 plus PASS and conflicting zero/nonzero stats rows is accepted"
+  ],
+  "observed_actual_run_not_exploiting_synthetic_findings": true,
+  "all29_formal": "not_run",
+  "evidence_hashes": {
+    "final-audit.json": "143d8619603300ed4a9c31158250299f64a4d2129698e73baa75febb2126bf41",
+    "findings.md": "0cfacbb415f5388a88ce734b769c5dae0e7f06f8df6e0162d53bb994269bb9e4",
+    "cleanup-current.json": "69c94e378706500bb8ddc97a12ae9225a8af2015e07f6ab09cdea165e9b1a24b",
+    "qualification-summary.json": "3f888075167fbfdcaaa48ff2f694d4adef829fe3585d36bdfa90d44d6eb43757",
+    "command-ledger-recheck.json": "53c8041b7acb850b39bef70e3f317bf8f1a1266c746899662be1876d91d5da15",
+    "attempt03/receipt.json": "e97602a57adec5e4713e427b7b06f67e497105f18d412195aa0b9f244d90e622",
+    "mutant-runs/receipt.json": "b8ccf2d28ecbba47ec56649b0ce6c560be9169d601aae9345d2d83468a5005e9",
+    "same-tag-probe/receipt.json": "c0292833a0dec36af334f45e5cfc61e47a7f4af3fa5929e7fe4b9e51df8780ef",
+    "preparation-failures.json": "0df302ed550533ce851f38a92c201bce9dde4927c7d2f94a8646914f83d18593"
+  }
+}

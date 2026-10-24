@@ -1,0 +1,30 @@
+{
+  "red": {
+    "exit_code": 1,
+    "tests": 17,
+    "final_status": "FAILED (failures=10, errors=1)",
+    "stderr_sha256": "cda67cb672759cf96ea18dda58b66697d815cf252261e27de541f685040ee9c5",
+    "jsonschema_setup_error": true
+  },
+  "red-corrected": {
+    "exit_code": 1,
+    "tests": 43,
+    "final_status": "FAILED (failures=12, errors=5)",
+    "stderr_sha256": "35fd129086920f7dbb94e5cacf90302090df8959012e63568fff5c4f5522a15f",
+    "jsonschema_setup_error": false
+  },
+  "red-duration": {
+    "exit_code": 1,
+    "tests": 45,
+    "final_status": "FAILED (failures=1)",
+    "stderr_sha256": "22361c834e76db1f5e04d95202859114371cc64d93b6c36eb610272e3667305d",
+    "jsonschema_setup_error": false
+  },
+  "green-release": {
+    "exit_code": 0,
+    "tests": 253,
+    "final_status": "OK",
+    "stderr_sha256": "8b5a7837c81e7f1af441daf720ce24e3bc1167c787685bc1c2d311e3f9b03e3e",
+    "jsonschema_setup_error": false
+  }
+}

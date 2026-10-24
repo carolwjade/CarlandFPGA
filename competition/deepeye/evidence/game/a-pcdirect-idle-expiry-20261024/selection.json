@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "utc": "2026-10-24T00:25:27.736137+00:00",
+  "work_id": "A-PCDIRECT-IDLE-EXPIRY-20261024-v1",
+  "director": "01a16988-bdcb-70e1-ae10-1304b5cf7875",
+  "generation": 3,
+  "baseline_head": "5f147d5003dc0b2f4eb88d4cb3d9e79afb5a55d8",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "author_manifest": {
+    "sha256": "4dc0f59aad6c424aa2f746082c48942f11bf83c09d735c6f2034c320ef3d8d9b",
+    "bytes": 4074
+  },
+  "review_manifest": {
+    "sha256": "722accefcc8b26272ac51d1a7d7f7cc8a48164fa294424e336b49332dbbaf9b8",
+    "bytes": 863
+  },
+  "author_and_review_terminal": "Both actual final messages confirm writes stopped; recorded Desktop/native route, no mesh lease required",
+  "root_source_review": "Reviewed complete selected diff, new explicit suite, raw GREEN03 and independent report; no blocking issue",
+  "root_data_verification": {
+    "author_members": 21,
+    "review_members": 3,
+    "product_inputs": 140,
+    "C4_unchanged": true,
+    "index_status_unchanged": true,
+    "cache_files_unchanged": 6
+  },
+  "selected_files": {
+    "competition/deepeye/docs/pc_direct_idle_expiry.md": {
+      "sha256": "fd33946fd3109bda28656488459bb05affa629a24e372411cb3fef80f48f990c",
+      "bytes": 3504
+    },
+    "competition/deepeye/simulation/authority/actor_composition.py": {
+      "sha256": "dd940de436f441acfd1dcfe5cfeaa0a2a86aac05c513893e1dc19d95410a3a8d",
+      "bytes": 26158
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "1be7129834ea6f4892a1f527b173373e36325f88adabd44f443d95ad3ac1e461",
+      "bytes": 24936
+    },
+    "competition/deepeye/tests/simulation/test_pc_direct_idle_expiry.py": {
+      "sha256": "1cb389d977321d7fd94b80d68c7daedc387b80244f3f2a95f30a3b115e9763bd",
+      "bytes": 12889
+    }
+  },
+  "actual_saved_tests": {
+    "red01": "import failure before test methods; retained",
+    "red02": "2 new behavioral failures; original poll remained ACTIVE",
+    "green03": "14 new methods pass; original PID35284 wait completed exit0;0.604s",
+    "budget": "3 of4 attempts used; no root/reviewer rerun"
+  },
+  "limits": "Offline software with synthetic upstream boundaries; no real provider, native actor, Godot or board. No owner-death/kernel scheduling guarantee. Production channel refusal stays closed.",
+  "acceptance": {
+    "H01_H15": "unchanged",
+    "full_H12": "open",
+    "G02": "open",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run"
+  },
+  "old_384_software_failed_solver_capture_replayed": false
+}

@@ -1,0 +1,551 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-20T04:48:41.919456+00:00",
+  "work_id": "A-R01-SOURCE-REFRESH-INDEPENDENT-20261020-v1",
+  "agent_id": "/root/r01_source_refresh_independent_20261020",
+  "job_id": "child-6ff6b0ece2704e3e9726e816b0c07d9d",
+  "scope": "bounded independent artifact/metadata/source-receipt review; no new retrieval or formal acceptance",
+  "all_checks_passed": true,
+  "checks": [
+    {
+      "check": "root_immutable_hash",
+      "passed": true
+    },
+    {
+      "check": "root_H01_H15",
+      "passed": true
+    },
+    {
+      "check": "product_immutable_hash",
+      "passed": true
+    },
+    {
+      "check": "product_H01_H15",
+      "passed": true
+    },
+    {
+      "check": "active_director",
+      "passed": true
+    },
+    {
+      "check": "product_head",
+      "passed": true,
+      "detail": "c0745419d7a317011d747f124544c98a900b1863"
+    },
+    {
+      "check": "exact_ten_file_set",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/docs/rules.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/README.md",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/catalogue-zh-sanitized.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.pdf",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-list.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-signed-list-zh.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/official-download.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/pinned-pdf.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "manifest:competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/result.json",
+      "passed": true
+    },
+    {
+      "check": "original_rules_pin",
+      "passed": true
+    },
+    {
+      "check": "original_rules_equal_commit",
+      "passed": true
+    },
+    {
+      "check": "exact_allowed_json_changes",
+      "passed": true,
+      "detail": [
+        "source.latest_online_refresh",
+        "source.online_refresh_evidence",
+        "source.online_refresh_scope"
+      ]
+    },
+    {
+      "check": "minimal_rules_text_change",
+      "passed": true
+    },
+    {
+      "check": "exact_frozen_pdf",
+      "passed": true
+    },
+    {
+      "check": "candidate_pdf_equal_original_retrieval",
+      "passed": true
+    },
+    {
+      "check": "exact_sanitized_projection",
+      "passed": true
+    },
+    {
+      "check": "all_23_records",
+      "passed": true
+    },
+    {
+      "check": "earlier_and_zh_object_paths_equal",
+      "passed": true
+    },
+    {
+      "check": "unique_2026_AMD_id25",
+      "passed": true
+    },
+    {
+      "check": "unchanged_receipt:current-amd-guide.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_script:current-amd-guide.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_body:current-amd-guide.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged_receipt:fpga-public-list.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_script:fpga-public-list.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_body:fpga-public-list.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged_receipt:fpga-public-signed-list-zh.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_script:fpga-public-signed-list-zh.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_body:fpga-public-signed-list-zh.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged_receipt:pinned-pdf.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_script:pinned-pdf.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_body:pinned-pdf.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged_receipt:official-download.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "receipt_script:official-download.retrieval.json",
+      "passed": true
+    },
+    {
+      "check": "https_pdf_receipt",
+      "passed": true
+    },
+    {
+      "check": "pdf_links_earlier_catalogue",
+      "passed": true
+    },
+    {
+      "check": "earlier_catalogue_receipt",
+      "passed": true
+    },
+    {
+      "check": "api401_invalid_timestamp",
+      "passed": true
+    },
+    {
+      "check": "unsigned_object403_preserved",
+      "passed": true
+    },
+    {
+      "check": "original_https_catalogue_failure_preserved",
+      "passed": true
+    },
+    {
+      "check": "frontend_hash_bound",
+      "passed": true
+    },
+    {
+      "check": "anonymous_schema_static_correspondence",
+      "passed": true
+    },
+    {
+      "check": "http_transport_qualified",
+      "passed": true
+    },
+    {
+      "check": "no_temporary_authorization_or_client_signing_values",
+      "passed": true,
+      "detail": {
+        "matching_files": []
+      }
+    },
+    {
+      "check": "only_allowed_fixed_pagination_queries",
+      "passed": true,
+      "detail": [
+        {
+          "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-list.retrieval.json",
+          "field": "requested_url",
+          "query_keys": [
+            "pageNum",
+            "pageSize"
+          ]
+        },
+        {
+          "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-list.retrieval.json",
+          "field": "final_url",
+          "query_keys": [
+            "pageNum",
+            "pageSize"
+          ]
+        }
+      ]
+    },
+    {
+      "check": "raw_catalogues_not_packaged",
+      "passed": true
+    },
+    {
+      "check": "result_matches_evidence",
+      "passed": true
+    },
+    {
+      "check": "limits_and_prior_diagnostic_disclosed",
+      "passed": true
+    },
+    {
+      "check": "no_acceptance_promotion",
+      "passed": true
+    },
+    {
+      "check": "all29_actual_formal_cards_not_run",
+      "passed": true
+    },
+    {
+      "check": "pure_validate_metadata",
+      "passed": true,
+      "detail": {
+        "human_requirements": 15,
+        "official_requirements": 15,
+        "core_metrics": 5,
+        "special_metrics": 2,
+        "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+      }
+    },
+    {
+      "check": "trace_all30_not_run",
+      "passed": true
+    },
+    {
+      "check": "original_evidence_and_candidate_unchanged_during_review",
+      "passed": true
+    },
+    {
+      "check": "all_read_inputs_unchanged_during_review",
+      "passed": true
+    }
+  ],
+  "product_git": {
+    "available": true,
+    "head": "c0745419d7a317011d747f124544c98a900b1863",
+    "head_matches": true
+  },
+  "candidate_manifest_sha256": "85903a54312424fef5b5f6976730121a5ad4844f1ea1f15f777a7c8fa343ddf6",
+  "candidate_files": [
+    {
+      "path": "competition/deepeye/docs/rules.json",
+      "bytes": 6721,
+      "sha256": "50e19ea0513e4f7a66c5f5793223d190838afaf5a012c659ee7183068efcd4d9"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/README.md",
+      "bytes": 1108,
+      "sha256": "99baacdf7c21ad0dfeb8a2f0a6597aed8cdcbc60fcb4c7898e1de6d0cabf68b8"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/catalogue-zh-sanitized.json",
+      "bytes": 8971,
+      "sha256": "e15493af4e135a4dd374dc77c41106cbcc9c821ff0b2dadffe18e42f057211cb"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.pdf",
+      "bytes": 950952,
+      "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.retrieval.json",
+      "bytes": 1226,
+      "sha256": "4294e466cf403ed35b6b979a721b91bbac90c37d0941e10810887786915dfeb9"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-list.retrieval.json",
+      "bytes": 899,
+      "sha256": "094855b961c242b54f2959fea943515d19fd216c65b882ba75ed552dd1e08c94"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-signed-list-zh.retrieval.json",
+      "bytes": 1167,
+      "sha256": "9e233f99daa03101732e411de33863360d84836ea2e642cd96a4b7a1fc8c3372"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/official-download.retrieval.json",
+      "bytes": 596,
+      "sha256": "e9906f439e65a4e3eafe8ae0283c0a2183814343ba5455b03300a1a61c480a35"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/pinned-pdf.retrieval.json",
+      "bytes": 976,
+      "sha256": "e6f825aaf6aff4eff850f81dbe86267ff2c135db5a77e4ebcda83f708d48ce4f"
+    },
+    {
+      "path": "competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/result.json",
+      "bytes": 2897,
+      "sha256": "e4adbb0f9bcee1bfdadde9ca26f93bd67d71b9d1ae317e085ee4f6f9f56bf063"
+    }
+  ],
+  "changed_json_paths": [
+    "source.latest_online_refresh",
+    "source.online_refresh_evidence",
+    "source.online_refresh_scope"
+  ],
+  "source_sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc",
+  "source_bytes": 950952,
+  "raw_catalogue_hashes": {
+    "earlier": "277c50128b3037b929c9ecab393fd6d60d4f4a095e1b5c9f996e66740dd7382b",
+    "zh": "0a39cd6f266a09e053bb825085d48293fccf3f0112a7cd6e8e98a7673f24da3a"
+  },
+  "formal_cards": {
+    "R01": "not_run",
+    "R02": "not_run",
+    "R03": "not_run",
+    "R04": "not_run",
+    "B01": "not_run",
+    "C01": "not_run",
+    "A01": "not_run",
+    "B02": "not_run",
+    "B03": "not_run",
+    "B04": "not_run",
+    "B05": "not_run",
+    "B06": "not_run",
+    "C02": "not_run",
+    "C03": "not_run",
+    "C04": "not_run",
+    "C05": "not_run",
+    "A02": "not_run",
+    "A05": "not_run",
+    "A03": "not_run",
+    "A04": "not_run",
+    "G01": "not_run",
+    "G02": "not_run",
+    "G03": "not_run",
+    "G04": "not_run",
+    "G05": "not_run",
+    "G09": "not_run",
+    "G06": "not_run",
+    "G07": "not_run",
+    "G08": "not_run"
+  },
+  "formal_acceptance": false,
+  "hardware_enable_eligible": false,
+  "remaining_gates": [
+    "independent registration/qualification evidence",
+    "organizer recognition of the proposed physical task",
+    "actual ROCm project and physical engineering evidence",
+    "separately reviewed formal acceptance integration"
+  ],
+  "clarification": "Main allows fixed pageNum/pageSize in original safe receipts; all temporary object authorization queries and client signing values are excluded.",
+  "evidence_limitations": [
+    "HTTP catalogue transport authenticity is not established.",
+    "Earlier and zh catalogue responses are distinct; PDF receipt binds the earlier response and their full object-path maps agree.",
+    "Local receipt/script/byte correspondence does not constitute a new network observation.",
+    "The prior diagnostic disclosure is acknowledged by assignment and candidate; original conversation output was not replayed.",
+    "No source semantics changed and no runtime, board, registration or product acceptance follows."
+  ],
+  "input_hashes": {
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    ".local/deepeye-implementation-a/docs/competition/deepeye-2026/immutable_scope.json": {
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    ".planning/deepeye-desktop-handoff-20261015/transfer.json": {
+      "bytes": 6075,
+      "sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate-manifest.json": {
+      "bytes": 2438,
+      "sha256": "85903a54312424fef5b5f6976730121a5ad4844f1ea1f15f777a7c8fa343ddf6"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/docs/rules.json": {
+      "bytes": 6721,
+      "sha256": "50e19ea0513e4f7a66c5f5793223d190838afaf5a012c659ee7183068efcd4d9"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/README.md": {
+      "bytes": 1108,
+      "sha256": "99baacdf7c21ad0dfeb8a2f0a6597aed8cdcbc60fcb4c7898e1de6d0cabf68b8"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/catalogue-zh-sanitized.json": {
+      "bytes": 8971,
+      "sha256": "e15493af4e135a4dd374dc77c41106cbcc9c821ff0b2dadffe18e42f057211cb"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.pdf": {
+      "bytes": 950952,
+      "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/current-amd-guide.retrieval.json": {
+      "bytes": 1226,
+      "sha256": "4294e466cf403ed35b6b979a721b91bbac90c37d0941e10810887786915dfeb9"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-list.retrieval.json": {
+      "bytes": 899,
+      "sha256": "094855b961c242b54f2959fea943515d19fd216c65b882ba75ed552dd1e08c94"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/fpga-public-signed-list-zh.retrieval.json": {
+      "bytes": 1167,
+      "sha256": "9e233f99daa03101732e411de33863360d84836ea2e642cd96a4b7a1fc8c3372"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/official-download.retrieval.json": {
+      "bytes": 596,
+      "sha256": "e9906f439e65a4e3eafe8ae0283c0a2183814343ba5455b03300a1a61c480a35"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/pinned-pdf.retrieval.json": {
+      "bytes": 976,
+      "sha256": "e6f825aaf6aff4eff850f81dbe86267ff2c135db5a77e4ebcda83f708d48ce4f"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/candidate/competition/deepeye/evidence/system/a-r01-official-source-refresh-20261020/result.json": {
+      "bytes": 2897,
+      "sha256": "e4adbb0f9bcee1bfdadde9ca26f93bd67d71b9d1ae317e085ee4f6f9f56bf063"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/docs/rules.json": {
+      "bytes": 6447,
+      "sha256": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1"
+    },
+    "docs/competition/deepeye-2026/sources/amd_guide_20260831.pdf": {
+      "bytes": 950952,
+      "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/current-amd-guide.pdf": {
+      "bytes": 950952,
+      "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-signed-list.body": {
+      "bytes": 7685,
+      "sha256": "277c50128b3037b929c9ecab393fd6d60d4f4a095e1b5c9f996e66740dd7382b"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-signed-list-zh.body": {
+      "bytes": 9891,
+      "sha256": "0a39cd6f266a09e053bb825085d48293fccf3f0112a7cd6e8e98a7673f24da3a"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/current-amd-guide.retrieval.json": {
+      "bytes": 1226,
+      "sha256": "4294e466cf403ed35b6b979a721b91bbac90c37d0941e10810887786915dfeb9"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fetch-current-amd-guide.py": {
+      "bytes": 2493,
+      "sha256": "ba46618db9b691291ad953b6ac9308b07ba427d2b3555c0ef7ae7d26fca1d010"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-list.retrieval.json": {
+      "bytes": 899,
+      "sha256": "094855b961c242b54f2959fea943515d19fd216c65b882ba75ed552dd1e08c94"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fetch-index.py": {
+      "bytes": 2582,
+      "sha256": "27630e493a16c616ff51fb6dacfa936fae105b39f1b12a74c8f4b062aeea0397"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-list.body": {
+      "bytes": 83,
+      "sha256": "c344446854d4dadbb9405f3c5a1abd6161d88aefcd17e04f506a603fb274ab8b"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-signed-list-zh.retrieval.json": {
+      "bytes": 1167,
+      "sha256": "9e233f99daa03101732e411de33863360d84836ea2e642cd96a4b7a1fc8c3372"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fetch-public-signed-list-zh.py": {
+      "bytes": 3246,
+      "sha256": "14299f0a6ae241b2693c0fb9affb0bd1506aaf20d6ebed1036bd8e0488a059ed"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/pinned-pdf.retrieval.json": {
+      "bytes": 976,
+      "sha256": "e6f825aaf6aff4eff850f81dbe86267ff2c135db5a77e4ebcda83f708d48ce4f"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fetch.py": {
+      "bytes": 2484,
+      "sha256": "bb917de66c99ab099aac9e3bcc8bceb4d2c294435e3d28ac2120025a7fd297b5"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/pinned-pdf.body": {
+      "bytes": 384,
+      "sha256": "9465d1f7e1616586bffc179f358d13882cd2547dca114de474b4a497a07df10c"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/official-download.retrieval.json": {
+      "bytes": 596,
+      "sha256": "e9906f439e65a4e3eafe8ae0283c0a2183814343ba5455b03300a1a61c480a35"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-public-signed-list.retrieval.json": {
+      "bytes": 1167,
+      "sha256": "3613fb4b83784f79d738b9d90f93e48740806e900758b8ccf5e5835b3a79bf58"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fetch-public-signed-list.py": {
+      "bytes": 3181,
+      "sha256": "c4289155ba56b0698ad156ee1d30ee08577a1c59c4efb941f43ec66207fab18b"
+    },
+    ".planning/deepeye-resume-20261018/r01-official-source-refresh-20261020/fpga-http-utils.body": {
+      "bytes": 33151,
+      "sha256": "4aa35f5d4457de570f8ba022bba42aff466e22ccaa9ec1dbb1c143c6f8c7ee96"
+    },
+    ".local/deepeye-implementation-a/docs/competition/deepeye-2026/execution_plan_final.json": {
+      "bytes": 11924,
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/tools/check_rules.py": {
+      "bytes": 12131,
+      "sha256": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e"
+    },
+    ".local/deepeye-implementation-a/competition/deepeye/docs/requirements_trace.csv": {
+      "bytes": 2050,
+      "sha256": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08"
+    }
+  }
+}

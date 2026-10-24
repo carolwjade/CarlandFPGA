@@ -1,0 +1,71 @@
+[
+  {
+    "name": "codec_unit",
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "competition/deepeye/tests/codec",
+      "-v"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+    "exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "9457ad3aa224ea90b4557b6892920ae1ac325bf24f13bfcc5bf5bcb617df96d3",
+    "tail": " ok\r\ntest_tc02_main_underflow_frame_rejected (test_trace_corrections.ShortAgeUnderflowTests.test_tc02_main_underflow_frame_rejected) ... ok\r\ntest_tick_zero_age_one_rejected (test_trace_corrections.ShortAgeUnderflowTests.test_tick_zero_age_one_rejected) ... ok\r\ntest_underflow_payload_rejected (test_trace_corrections.ShortAgeUnderflowTests.test_underflow_payload_rejected) ... ok\r\ntest_family_equal_padded_bytes_distinct_bits (test_trace_corrections.TwoStageSelectionTests.test_family_equal_padded_bytes_distinct_bits) ... ok\r\ntest_inner_codec_k_agrees_when_rice_is_kept (test_trace_corrections.TwoStageSelectionTests.test_inner_codec_k_agrees_when_rice_is_kept) ... ok\r\ntest_tc01_main_hand_derived_frame (test_trace_corrections.TwoStageSelectionTests.test_tc01_main_hand_derived_frame) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 149 tests in 1.015s\r\n\r\nOK\r\n"
+  },
+  {
+    "name": "control_unit",
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "competition/deepeye/tests/control",
+      "-p",
+      "test_capture_snapshot.py",
+      "-v"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+    "exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "16499a94478c9b86ff6dfda2732a0e7a102eac1aec7c84171826a1438ce03316",
+    "tail": "s (test_capture_snapshot.VectorDocumentTests.test_inventory_reserved_no_access) ... ok\r\ntest_inventory_source_hashes_match_pinned_inputs (test_capture_snapshot.VectorDocumentTests.test_inventory_source_hashes_match_pinned_inputs) ... ok\r\ntest_inventory_unknown_fields_null_with_reason (test_capture_snapshot.VectorDocumentTests.test_inventory_unknown_fields_null_with_reason) ... ok\r\ntest_pwm_vectors_match_bruteforce_oracle_and_module (test_capture_snapshot.VectorDocumentTests.test_pwm_vectors_match_bruteforce_oracle_and_module) ... ok\r\ntest_scenario_vectors_with_independent_executor (test_capture_snapshot.VectorDocumentTests.test_scenario_vectors_with_independent_executor) ... ok\r\ntest_vectors_document_flags (test_capture_snapshot.VectorDocumentTests.test_vectors_document_flags) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 80 tests in 0.229s\r\n\r\nOK\r\n"
+  },
+  {
+    "name": "register_descriptor",
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "competition/deepeye/evidence/control/register-proposal-20261017-07/review_descriptor.py",
+      "--descriptor",
+      "competition/deepeye/golden/control/register_semantics_candidate.json",
+      "--examples",
+      "competition/deepeye/golden/control/register_semantics_examples.json",
+      "--register-source",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\registers.csv",
+      "--interface",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\interface.json",
+      "--enums",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\enums.json",
+      "--output",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-contract-review\\descriptor_review.json"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+    "exit_code": 0,
+    "stdout_sha256": "ad5ad16cc2df1bbe270349e81a01a5ecd367caa1a5fa97900591c1f1824a903c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "{\"status\": \"PASS_STATIC_DESCRIPTOR_REVIEW\", \"register_rows\": 29, \"fields\": 51, \"hand_derived_examples\": 35, \"arithmetic_examples_checked\": 19, \"rejected_field_encodings\": 4, \"runtime\": false}\r\n"
+  }
+]

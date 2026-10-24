@@ -1,0 +1,17 @@
+--- exact-original
++++ rearm-stale-slot
+@@ -103,10 +103,10 @@
+             prev_q          <= sample_level;
+             age_q           <= '0;
+             high_q          <= '0;
+-            slot_valid_q    <= 1'b0;
+-            slot_period_q   <= '0;
+-            slot_high_q     <= '0;
+-            slot_tag_q      <= TAG_ZERO;
++            slot_valid_q    <= slot_valid_q;
++            slot_period_q   <= slot_period_q;
++            slot_high_q     <= slot_high_q;
++            slot_tag_q      <= slot_tag_q;
+             win_tag_q       <= window_tag;
+             overflow_seen_q <= 1'b0;
+             overrun_seen_q  <= 1'b0;

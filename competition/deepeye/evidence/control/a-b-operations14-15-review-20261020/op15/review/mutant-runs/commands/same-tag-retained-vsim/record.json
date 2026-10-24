@@ -1,0 +1,29 @@
+{
+  "label": "same-tag-retained-vsim",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "same-tag-retained.independent_tb",
+    "-gCOUNT_W=4",
+    "-gWITNESS_W=8",
+    "-gTAG_W=8",
+    "+VEC=R:/test.vec",
+    "+LOG=R:/same-tag-retained.trace",
+    "-l",
+    "R:/same-tag-retained.transcript",
+    "-wlf",
+    "R:/same-tag-retained.wlf",
+    "-do",
+    "run.do"
+  ],
+  "cwd": "R:/build",
+  "pid": 32336,
+  "start": "2026-10-20T01:11:07.916818+00:00",
+  "end": "2026-10-20T01:11:10.002374+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "b663226dede392fdd87c00bc1e6d47275fae6cf50b93c77dc9483b25b17fac43",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

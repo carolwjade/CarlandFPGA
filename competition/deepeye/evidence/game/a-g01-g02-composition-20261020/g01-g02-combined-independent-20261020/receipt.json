@@ -1,0 +1,308 @@
+{
+  "schema": 1,
+  "job_id": "child-5c32d7c217d34ebd9c4ff58c4449fa0f",
+  "agent_id": "/root/g01_g02_combined_independent_20261020",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "candidate_manifest_sha256": "9e58a498769321c91c3a198e9e6d5c242e96cb09aada1704cc74b512298e9aee",
+  "source_before_sha256": "29af01d7b7945aeb0b6b8ea78a9748585ed2d1b9cd8942a006d6d61f67377da8",
+  "source_after_sha256": "368e99bcb12c2e74909dcea16b54a35afe7604ff6569fd4c4619a13667c7aa17",
+  "fresh_runs": [
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--editor",
+        "--import"
+      ],
+      "pid": 44476,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 2.60999999998603,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "8a80b6dd944cf22f6437119969a149fbcfa0279ad9cadc6ca2f32e1b6d8359be",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_editor_document.gd"
+      ],
+      "pid": 28168,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.8280000000086147,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "8098e93db54f0602c1bdf6d24b85f9d5c79cdc7c49e1635bf5373da440e11c04",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_layout_persistence.gd"
+      ],
+      "pid": 53596,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 1.1089999999967404,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "224eb95a591e24f3d31122c277726ef750ea0d4547d2e155ff50e509fe226200",
+      "stderr_sha256": "4889a0249eac8c329b82b5ef8a4ee7cb9c7f1a0328cd6dc966fc62633c316337"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_g02_ui_fit.gd"
+      ],
+      "pid": 28456,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 4.25,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "46508db0969c05cae7ea29d774be2de03d5b6ed6d303090752ef7f891652b015",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_viewer_asset_integration.gd"
+      ],
+      "pid": 11412,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 2.312000000005355,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "b861bb9f3b3993945c9ebeee767a0e6b479de421c460ca4dd239648dfb119d4d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_layout_unicode_path.gd"
+      ],
+      "pid": 44548,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.1720000000204891,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "76d51d19a9d5024071a18e68fbbde3ba60831c2a98903d1a636ea46088042dc9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_gate_numeric.gd"
+      ],
+      "pid": 34904,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 4.344000000011874,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "ed90c4d3f595d7e9921b8ceecb58d0709f78c6bfe072b53d0c7b517d43134257",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\old-store-stage",
+        "--script",
+        "res://tests/test_layout_unicode_path.gd"
+      ],
+      "pid": 19248,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 1,
+      "elapsed_seconds": 0.17199999999138527,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "d487a0e178a4d2ea519f6f6693e6f03538fce0e67697510633a88c88cad2cce4",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage",
+        "--script",
+        "res://tests/test_gate_reader.gd"
+      ],
+      "pid": 15908,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.7339999999967404,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "1a234f3bb441ffd373ea2a11bbdff7b2665877916c5a50c1682b06515dd4c415",
+      "stderr_sha256": "2e008ccc2b1a4ddf293e726745e9d747137de8155f53806f1226d67e6920e6cf"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\fixture-bad-license",
+        "--script",
+        "res://tests/test_failure_review.gd"
+      ],
+      "pid": 16776,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.45300000000861473,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "c17e2deefcbf669c737a40fc043281612d9622bc624442773eb0093a745168d0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\fixture-signature",
+        "--script",
+        "res://tests/test_failure_review.gd"
+      ],
+      "pid": 31620,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4539999999979045,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "35eb07c7a8c8bd57e29467b54fdbfa83bb1c0b8e84d8f8a4f622761cf06bf907",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\fixture-empty-visual",
+        "--script",
+        "res://tests/test_failure_review.gd"
+      ],
+      "pid": 47496,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4370000000053551,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "5372016f6661e78f5318c2eaec7cbb5522c31a8e4a812399bf4b831669c5ec41",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\fixture-null",
+        "--script",
+        "res://tests/test_failure_review.gd"
+      ],
+      "pid": 44128,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.4529999999795109,
+      "executable_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+      "stdout_sha256": "f96365f33a3a57ec44aaa74d21c3c61449a160c05c3a317557cf8cb0a553388e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\review.py",
+        "analyze"
+      ],
+      "pid": 23560,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.15700000000651926,
+      "executable_sha256": "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2",
+      "stdout_sha256": "552ed3837c1088ba545517b8677cd78b92844118f4ca83a39488ffa9fcc2cd45",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\review.py",
+        "reuse"
+      ],
+      "pid": 3696,
+      "terminal": true,
+      "timed_out": false,
+      "exit_code": 0,
+      "elapsed_seconds": 0.10999999998603016,
+      "executable_sha256": "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2",
+      "stdout_sha256": "1fd3a48277797cdbd2569a09f32fc4bc45945208b27850e99bbf27cd7b9727c3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "exact_reuse_sha256": "f1841b3955412a753ee77468df78621d1b895d2253f2214df1fdf48a6fd406e7",
+  "numeric_oracle_sha256": "a016bcb615bd4f4ffa91fb27f8bc28a65f89d25aa7b43735fba3984613f470d4",
+  "publication_inputs_sha256": "dba45602304c48c14bfb77b0fdc54178792a490ae14618402481f07bb5bcdf2a",
+  "candidate_exact": true,
+  "protected_sources_unchanged": true,
+  "new_actionable_findings": [],
+  "unicode_red_green": "same unchanged six real file-I/O assertions: old-store 6/3 exit1, candidate6/0 exit0",
+  "embedded_nul_string_tested": false,
+  "ordinary_import_and_tests_nul_diagnostics": 0,
+  "processes_remaining": 0,
+  "display": "strictly headless CREATE_NO_WINDOW; no GUI/input/capture/display changes",
+  "formal_cards": "all29 not_run",
+  "native_ui": "not_run",
+  "GPU": "not_run",
+  "board": "not_run",
+  "PC_AI": "not_run",
+  "control_chains": "not_run",
+  "adoption_owner": "sole A main",
+  "native_completion_pending": false,
+  "native_status": "completed",
+  "native_terminal": true,
+  "exact_persisted_result": true,
+  "native_completion_sha256": "6bef4d094b0216cee6b2cde83d6f9cba773f4ccfdd8bc97e952d2b3d4b6d1776",
+  "result_sha256": "b210a67cb94cb884feb7f7af5cc5441b55d02d785bce3bcd7f2cb75aa5b7a488",
+  "findings_sha256": "7c28e3c4b76e5c8609fbf2a1df908b1387c89b2ffcbbaf3f879a3388aaa1fd34"
+}

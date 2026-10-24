@@ -1,0 +1,541 @@
+{
+  "utc": "2026-10-21T10:36:45.565197+00:00",
+  "reviews": {
+    "g03-l4-main-review-20261021": {
+      "utc": "2026-10-21T10:01:27.084441+00:00",
+      "status": "ACCEPT_NEW_GEOMETRY_CONTROLS_AND_FAILED_SOLVE_EVIDENCE_ONLY",
+      "source_manifest_sha256": "9dc6f4a99db8b8a85651b8756d026f074b1860bdbf900db38766e74bf5ef9797",
+      "verified_file_count": 56,
+      "source_review": "L3-to-L4 source diff inspected: all-axis geometry/dimensions/comparisons; physics, disk source and receiver functional unchanged. Failed first launch snapshot and atomic grant publication preserved.",
+      "native_job": {
+        "job_id": "child-4e3d57263d4849fea72d38cb7b98e075",
+        "status": "failed",
+        "terminal": true,
+        "stale": false,
+        "error": "L4 actual scientific solve failed: SuperLU splu(AII) MemoryError at jcol 41307; no factorization, RHS solve, or L4 voltage."
+      },
+      "terminals": {
+        "controls-01": {
+          "status": "success",
+          "exit_code": 0,
+          "seconds": 2.5309999999881256,
+          "peak_job_memory_bytes": 124559360,
+          "all_processes_terminated": true,
+          "active_processes_final": 0,
+          "held_members": [
+            {
+              "pid": 3420,
+              "creation_filetime": 134370497614300407,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 0
+            },
+            {
+              "pid": 33240,
+              "creation_filetime": 134370497614432626,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 0
+            },
+            {
+              "pid": 41216,
+              "creation_filetime": 134370497614612812,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 0
+            }
+          ]
+        },
+        "run-01": {
+          "status": "failed",
+          "exit_code": 1,
+          "seconds": 0.1870000000053551,
+          "peak_job_memory_bytes": 11436032,
+          "all_processes_terminated": true,
+          "active_processes_final": 0,
+          "held_members": [
+            {
+              "pid": 51036,
+              "creation_filetime": 134370497853981865,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 1
+            },
+            {
+              "pid": 23820,
+              "creation_filetime": 134370497854098870,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 0
+            },
+            {
+              "pid": 24692,
+              "creation_filetime": 134370497854282712,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 1
+            }
+          ]
+        },
+        "run-02": {
+          "status": "failed",
+          "exit_code": 1,
+          "seconds": 26.719000000011874,
+          "peak_job_memory_bytes": 1980768256,
+          "all_processes_terminated": true,
+          "active_processes_final": 0,
+          "held_members": [
+            {
+              "pid": 38756,
+              "creation_filetime": 134370498795983326,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 1
+            },
+            {
+              "pid": 52452,
+              "creation_filetime": 134370498796107515,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 0
+            },
+            {
+              "pid": 34164,
+              "creation_filetime": 134370498796273916,
+              "wait_result": 0,
+              "signaled": true,
+              "exit_code": 1
+            }
+          ]
+        }
+      },
+      "controls": {
+        "status": "controls_pass",
+        "shape_cells": [
+          24,
+          24,
+          28
+        ],
+        "n_edges": 52300,
+        "n_faces": 50304,
+        "boundary_edges": 7680,
+        "interior_edges": 44620,
+        "plane_basis": [
+          [
+            [
+              8,
+              1.0
+            ]
+          ],
+          [
+            [
+              17,
+              5.551115123125783e-16
+            ],
+            [
+              18,
+              0.9999999999999994
+            ]
+          ],
+          [
+            [
+              24,
+              1.0
+            ]
+          ]
+        ],
+        "source_positive_face_count": 224,
+        "xy_disk_area_aggregation_max_difference_m2": [
+          5.827586677109586e-19,
+          4.87890977618477e-19,
+          4.87890977618477e-19
+        ],
+        "source_area_m2": 0.007853981633974483,
+        "receiver_area_m2": [
+          0.0012566370614359175,
+          0.0012566370614359172
+        ],
+        "source_interior_nonzero_count": 176,
+        "source_boundary_exact_zero": true,
+        "line_oracle_max_difference_Am": 6.245004513516506e-17,
+        "divergence_max_A": 1.1102230246251565e-16,
+        "rotational_moment_Am2": 0.007853981633974483,
+        "boundary_pair_max_difference_Vpm": 9.728672722095586e-17,
+        "boundary_pair_gate_Vpm": 1.967577343353139e-12,
+        "boundary_high_max_Vpm": 0.027654181661890473,
+        "qualification": "observed quadrature consistency, not rigorous receiver error certification",
+        "G03": "not_run",
+        "all29": "not_run"
+      },
+      "actual_counts": {
+        "C_constructions": 1,
+        "A_assemblies": 1
+      },
+      "actual_failure": {
+        "type": "MemoryError",
+        "message": ""
+      },
+      "failed_solve_reproduced": false,
+      "old_tests_repeated": false,
+      "L4_voltage": "not_run",
+      "physical_accuracy": "unqualified",
+      "G03": "not_run",
+      "R03_formal": "not_run",
+      "all29_formal": "not_run"
+    },
+    "g03-l4-ordering-main-review-20261021": {
+      "status": "ACCEPT_SAVED_ASSEMBLY_AND_SECOND_MEMORY_FAILURE_ONLY",
+      "utc": "2026-10-21T10:08:15.724391+00:00",
+      "verified_files": 29,
+      "manifest_sha256": "b8c8dbe680f852c3c7270dbd19c866a43f0737fe80c31cff2a66f33ad43b56a7",
+      "native_terminal": {
+        "job_id": "child-9c2d118597eb44d7b41b60b51e571cf2",
+        "instance_id": "",
+        "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+        "task_version": 1,
+        "route": "gpt_native",
+        "work_id": "A-G03-L4-ORDERING-REPAIR-20261021-v1",
+        "ownership": [
+          ".planning/deepeye-resume-20261018/g03-l4-ordering-repair-20261021"
+        ],
+        "native_agent_id": "/root/g03_grid_continuation_20261021",
+        "status": "failed",
+        "terminal": true,
+        "stale": false,
+        "result": null,
+        "error": "Selected MMD_AT_PLUS_A SuperLU factorization failed with MemoryError at jcol 24089; no RHS solve or L4 voltage.",
+        "created_at": "2026-10-21T10:01:35.716377Z",
+        "updated_at": "2026-10-21T10:07:13.053060Z",
+        "duplicate": false
+      },
+      "assembly": {
+        "status": "exact_assembly_persisted_before_factorization",
+        "C_shape": [
+          50304,
+          52300
+        ],
+        "C_nnz": 201216,
+        "A_shape": [
+          52300,
+          52300
+        ],
+        "A_nnz": 655948,
+        "AII_shape": [
+          44620,
+          44620
+        ],
+        "AII_nnz": 558516,
+        "AII_transpose_symmetry_inf": 2.3283064365386963e-10,
+        "C_transpose_source_max_difference_Am": 1.734723475976807e-18,
+        "files": {
+          "source_actual_CtW_Am.npy": {
+            "bytes": 418528,
+            "sha256": "0eaec98bcb25c4e08bb4a6df58c614fd895a42e97a55c03b9f8b212d472b189f"
+          },
+          "raw_rhs.npy": {
+            "bytes": 836928,
+            "sha256": "b215b55feb2641a18bbc922fd9491b5992688e92433c6b5fe9915abb3b5f853d"
+          },
+          "A_II_rhs.npy": {
+            "bytes": 714048,
+            "sha256": "344a81e7b0b73ba6e23841e89e360337c53373e60e9853464c5fd5a477630311"
+          },
+          "C-csr.npz": {
+            "bytes": 2616822,
+            "sha256": "9f152c0599fe911865f16cfc6ae6270c2f3a39fe6f6fa680b565d3b35f898c7b"
+          },
+          "A-csr.npz": {
+            "bytes": 13329174,
+            "sha256": "b7a332dc653a149e1e87feb99844b9d4928ec39144e2d62b96bb2d2a1508578a"
+          },
+          "AII-csc.npz": {
+            "bytes": 11349814,
+            "sha256": "946272ac229f30e7e366db89235a50750a7605d6285bdf9629b6305a08a84eab"
+          }
+        },
+        "factorization_ordering_selected": "MMD_AT_PLUS_A",
+        "factorization_started": false
+      },
+      "terminal": {
+        "status": "failed",
+        "exit_code": 1,
+        "stop_reason": null,
+        "seconds": 67.57799999997951,
+        "launcher_pid": 51176,
+        "observed_job_pids": [
+          16960,
+          51176,
+          53220
+        ],
+        "all_processes_terminated": true,
+        "active_processes_final": 0,
+        "total_job_processes": 3,
+        "peak_job_memory_bytes": 2117287936,
+        "peak_tree_bytes_observed": 29480939,
+        "outputs": {
+          "stdout": {
+            "received_bytes": 0,
+            "persisted_bytes": 0
+          },
+          "stderr": {
+            "received_bytes": 2183,
+            "persisted_bytes": 2183
+          }
+        },
+        "faults": [],
+        "held_members": [
+          {
+            "pid": 51176,
+            "creation_filetime": 134370506673327892,
+            "wait_result": 0,
+            "signaled": true,
+            "exit_code": 1
+          },
+          {
+            "pid": 53220,
+            "creation_filetime": 134370506673459113,
+            "wait_result": 0,
+            "signaled": true,
+            "exit_code": 0
+          },
+          {
+            "pid": 16960,
+            "creation_filetime": 134370506673632899,
+            "wait_result": 0,
+            "signaled": true,
+            "exit_code": 1
+          }
+        ],
+        "absent_before_handle_open": [],
+        "empty_job_with_pending_handles": [],
+        "logs": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "78191de13236ec63859b9ccde04566091770fdca40a91fb9f0a1574734f641a5",
+            "bytes": 2183
+          }
+        }
+      },
+      "counts": {
+        "C_constructions": 1,
+        "A_assemblies": 1
+      },
+      "model_unchanged": true,
+      "source_inspection": "Grid model identical, frozen controls reused, exact C/A/AII/RHS persisted before selected MMD factorization. No solved voltage exists.",
+      "physical_acceptance": "unqualified",
+      "old_tests_repeated": false
+    },
+    "g03-l4-saved-main-review-20261021": {
+      "status": "ACCEPT_NEW_L4_SAVED_OPERATOR_NUMERICAL_RESULT_ONLY",
+      "independent_residual_eta": 7.097523937546803e-17,
+      "fixed_gate": 2.842170943040401e-14,
+      "residual_traversal_max_difference": 0.0,
+      "independent_transposed_functional_V": [
+        [
+          -3.9185684013635874e-07,
+          -0.0010089363656603256
+        ],
+        [
+          -2.5015194360331156e-07,
+          -0.00021836612005138957
+        ]
+      ],
+      "transposed_vs_reported_absolute_V": [
+        2.168404344971009e-19,
+        5.42101344736632e-20
+      ],
+      "fixed_roundoff_voltage_bounds": [
+        2.8675698381342874e-17,
+        6.206342485872287e-18
+      ],
+      "relative_reference_errors": [
+        0.14962135884679556,
+        0.11474472402851378
+      ],
+      "factorizations": 0,
+      "matrix_assemblies": 0,
+      "reference_evaluations": 0,
+      "old_tests_repeated": false,
+      "physical_accuracy": "unqualified",
+      "G03": "not_run",
+      "all29_formal": "not_run"
+    },
+    "r02-live-runtime-main-review-20261021": {
+      "status": "ACCEPT_ONE_LIVE_HIP_IDENTITY_OBSERVATION",
+      "manifest": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r02-live-runtime-identity-20261021\\manifest.json",
+        "sha256": "4b8fa5d189bd219b79226283e64701095e83496455523384ed2fdf396a44fe1e",
+        "verified_files": 22
+      },
+      "native": {
+        "job_id": "child-febba1e2180146a7a386821adc0847fa",
+        "status": "completed",
+        "terminal": true,
+        "stale": false
+      },
+      "module": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-rocm-7.14.1-cp312-gfx1103\\Lib\\site-packages\\_rocm_sdk_core\\bin\\amdhip64_7.dll",
+        "bytes": 22097408,
+        "sha256": "1c7bad4e8ddefc456e5c073d89b59ee0bcfbcda461a5ada145370fe9941df033",
+        "file_version": [
+          10,
+          0,
+          3581,
+          0
+        ],
+        "product_version": [
+          10,
+          0,
+          3581,
+          0
+        ]
+      },
+      "HIP_version_APIs": {
+        "hipRuntimeGetVersion": {
+          "status": 0,
+          "raw_value": 71460850,
+          "return_type": "hipError_t / 32-bit C int",
+          "argument_type": "int* / 32-bit C int pointer",
+          "calling_convention": "C ABI (CFUNCTYPE), Windows AMD64",
+          "provider_handle": 140720049881088,
+          "function_address": 140720054444576
+        },
+        "hipDriverGetVersion": {
+          "status": 0,
+          "raw_value": 71460850,
+          "return_type": "hipError_t / 32-bit C int",
+          "argument_type": "int* / 32-bit C int pointer",
+          "calling_convention": "C ABI (CFUNCTYPE), Windows AMD64",
+          "provider_handle": 140720049881088,
+          "function_address": 140720054405008
+        }
+      },
+      "record_file": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-rocm-7.14.1-cp312-gfx1103\\Lib\\site-packages\\rocm_sdk_core-7.14.1.dist-info\\RECORD",
+        "bytes": 75947,
+        "sha256": "f9fee300e5ec243d04f2c351a91583c78aeb25a4203cd925031675559817c500"
+      },
+      "source_review": "Typed Windows module APIs, image-bounded GetProcAddress and C int(int*) signatures; only fixed System32 API providers loaded by collector; source has no tensor/kernel call. Single selected torch import retained.",
+      "raw_record_schema_qualification": "Raw installed_RECORD.bytes is member size, not RECORD file size; identity-summary installed_RECORD_binding correctly separates them. Future collector reuse should split these keys; no actual probe replay needed.",
+      "probe_repeated": false,
+      "old_tests_repeated": false,
+      "R02": "not_run",
+      "C03": "not_run",
+      "official_SKU_support": "not_established"
+    },
+    "r03-ipc-framing-main-review-20261021": {
+      "status": "ACCEPT_INACTIVE_BOUNDED_FRAMING_LEAF",
+      "manifest": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-ipc-framing-independent-20261021\\review-manifest.json",
+        "sha256": "7366a6d8e519380b4cf2fa9b7341e60cf768d1837825f321cdbfe67e63980c94",
+        "verified_files": 12
+      },
+      "native": {
+        "job_id": "child-962e5b785992435eb7c0f6720624ef40",
+        "status": "completed",
+        "terminal": true,
+        "stale": false
+      },
+      "product_pins": {
+        "competition/deepeye/simulation/isolation/ipc_framing.py": {
+          "bytes": 3145,
+          "sha256": "a134af7e8ade69a4624abf780575785dff76612454cf83f0ec92ff8b1da0ee09"
+        },
+        "competition/deepeye/tests/simulation/test_ipc_framing.py": {
+          "bytes": 5212,
+          "sha256": "4f65a3a21d3cc7cb309efe2aac01bd1ab919626853402ead41a9bdd86230fa57"
+        },
+        "competition/deepeye/docs/actor_ipc_framing.md": {
+          "bytes": 2800,
+          "sha256": "02c115882bac7dfbe2a42553a33a2b4896b439e72217a41ca5a0b08d795c3922"
+        }
+      },
+      "author_new_tests": 9,
+      "independent_new_tests": 4,
+      "old_tests_repeated": false,
+      "production_channels_activated": false,
+      "formal_R03": "not_run",
+      "H12": "not_run"
+    }
+  },
+  "framing_product_pins": {
+    "competition/deepeye/simulation/isolation/ipc_framing.py": {
+      "bytes": 3145,
+      "sha256": "a134af7e8ade69a4624abf780575785dff76612454cf83f0ec92ff8b1da0ee09"
+    },
+    "competition/deepeye/tests/simulation/test_ipc_framing.py": {
+      "bytes": 5212,
+      "sha256": "4f65a3a21d3cc7cb309efe2aac01bd1ab919626853402ead41a9bdd86230fa57"
+    },
+    "competition/deepeye/docs/actor_ipc_framing.md": {
+      "bytes": 2800,
+      "sha256": "02c115882bac7dfbe2a42553a33a2b4896b439e72217a41ca5a0b08d795c3922"
+    }
+  },
+  "public_derivatives": [
+    {
+      "published_path": "g03-l4-global-refinement-20261021/controls-01/started-public.json",
+      "original_sha256": "137a573a9ef1a7fe162d0f7d326fe603517996fa02590849f6c2578fedd7fbaa"
+    },
+    {
+      "published_path": "g03-l4-global-refinement-20261021/run-01/started-public.json",
+      "original_sha256": "69768fb5aa112bd55e1e7175c161a49ea1ac66cf657d9ec1faddd92c4d23afae"
+    },
+    {
+      "published_path": "g03-l4-global-refinement-20261021/run-02/started-public.json",
+      "original_sha256": "c719926d08d4ec6e05206a6edb53af222b6b4d92df1bffd6f5ae7d6c8a5bde4a"
+    },
+    {
+      "published_path": "g03-l4-ordering-repair-20261021/run-01/started-public.json",
+      "original_sha256": "1de94b209f1a6595066e6ec422370a66d48b6c9a47d94943ab609672f8cc1eef"
+    },
+    {
+      "published_path": "g03-l4-saved-operator-solve-20261021/run-01/started-public.json",
+      "original_sha256": "b9513fd5c62bb166cd02b1e3f46df1748fee91ce56c78ba9c35c26c09cecf925"
+    },
+    {
+      "published_path": "r02-live-runtime-identity-20261021/command-public.json",
+      "original_sha256": "a9d4d3ee2876d053e185c3dcf2aa121b9945926db9ef5b66aeb92a08fbe4aab3"
+    },
+    {
+      "published_path": "r02-live-runtime-identity-20261021/runs/actual/started-public.json",
+      "original_sha256": "30cabee374692352e9f87cf63cdd58aa0b681f058cbce69634db4327c2899a71"
+    },
+    {
+      "published_path": "r03-ipc-framing-implementation-20261021/green-01/started-public.json",
+      "original_sha256": "d323666647bae45f14bb97258c092d3dd31a8e024071247dc7479cfffc8b1712"
+    },
+    {
+      "published_path": "r03-ipc-framing-implementation-20261021/red-01/started-public.json",
+      "original_sha256": "4cf2eaeadfccf20e8a0cb2195e6a3d05432837326d3c8e2bef7db8da51ffe19e"
+    },
+    {
+      "published_path": "r03-ipc-framing-implementation-20261021/green-01/process/started-public.json",
+      "original_sha256": "6e69681d7dd47d05d23ba15055479220c17fe5660239f988e567048ae8e68d1f"
+    },
+    {
+      "published_path": "r03-ipc-framing-implementation-20261021/red-01/process/started-public.json",
+      "original_sha256": "adde482ceae5eb70cfeea2216b4d5057c574e39e6638b58baeee42f5b0a623e4"
+    },
+    {
+      "published_path": "r03-ipc-framing-independent-20261021/edge-01/started-public.json",
+      "original_sha256": "ec9ac7d1e575a21389b04f32e33f1ae4a3de92f55fbcbbe2cd1a9ad6c10d8632"
+    },
+    {
+      "published_path": "r03-ipc-framing-independent-20261021/edge-01/process/started-public.json",
+      "original_sha256": "cfbc9492d54d9ad9b7b8e1cbd8f301df72a694ce98966afb646c8761b35f0801"
+    },
+    {
+      "published_path": "g03-l4-saved-main-review-20261021/run-01/started-public.json",
+      "original_sha256": "87b64f7a8633fb993d5d05bfb3b1b8daf79852eda01f8d0ac353ede068c4269e"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_tests_repeated": false,
+  "formal_R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run"
+}

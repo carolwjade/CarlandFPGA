@@ -1,0 +1,20 @@
+{
+  "job_id": "child-37334357eaea4e4a91639bad35a47e67",
+  "agent_id": "/root/worker_results_review_20261018",
+  "outcome": "design_frozen_pending_main_selection",
+  "design_sha256": "6ab5929285a4a5ef1fa55ff2f47bd8230c8f318a93a08d31b437903fec3617dd",
+  "source_manifest_sha256": "590e88da9a868ff0a8542596402e7f74dd398cf80246048763a3c6b5f6b65b9a",
+  "input_manifest_sha256": "7ff15e329b7cc9fd25ba8f0b8185a60efd5b539c1b7e9f9586bbe8fc139e2218",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "inputs_verified_unchanged": 47,
+  "recommended_next_slice": [
+    "simulation/authority/actor_composition.py",
+    "tests/simulation/test_actor_composition.py",
+    "docs/actor_composition.md"
+  ],
+  "real_producer_gap": "No enabled production authority composition or actual model entry in inspected checkout; production channel gate must reject before launch until real verifier exists.",
+  "real_AI_H12_Run_game_board": "not_run",
+  "all29": "not_run",
+  "product_writes": false,
+  "native_or_network_execution": false
+}

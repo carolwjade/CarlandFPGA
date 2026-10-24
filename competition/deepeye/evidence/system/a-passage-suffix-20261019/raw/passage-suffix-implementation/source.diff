@@ -1,0 +1,363 @@
+--- before/competition/deepeye/simulation/authority/motion/passage_phase.py
++++ after/competition/deepeye/simulation/authority/motion/passage_phase.py
+@@ -148,7 +148,7 @@
+     if any(getattr(actual,name)<getattr(required,name) for name in ('position_error_m','angle_error_rad','additional_margin_m')):
+         return Preview('UNKNOWN',state,(),'inherited pose/numeric/speed carry budget reset')
+     if len(plan.slices)>max_slices:return Preview('UNKNOWN',state,(),'slice work budget exhausted before any advance')
+-    phase=state.phase;entered=state.entered;history=list(state.history);proofs=[]
++    phase=state.phase;entered=state.entered;history=list(state.history);proofs=[];strict_suffix=False
+     def event(kind,index,proof):
+         record=plan.slices[index]
+         history.append(Event(kind,start_monotonic_ns+record.start.elapsed_ns,
+@@ -158,6 +158,16 @@
+         proof=w.check_slice(prepared,index,role);proofs.append(proof)
+         if proof.status!='SAFE':
+             return Preview(proof.status,state,tuple(proofs),proof.reason,proof.status=='VIOLATION_PROVED')
++        if phase=='ARRIVED':
++            # This preview's earlier slice proved full-body red exit. Every
++            # remaining ORIGINAL slice still needs its complete exit-role proof:
++            # red strictly outside throughout, other five strictly inside.
++            if (len(proof.faces)!=len(w.FACES) or {face.face for face in proof.faces}!=set(w.FACES)
++                    or proof.role!='exit' or any(face.method!=('STRICT_OUTSIDE_ACTIVE'
++                    if face.face==context.layout.red.face else 'STRICT_INSIDE') for face in proof.faces)):
++                return Preview('UNKNOWN',state,tuple(proofs),'strict red-outside suffix certificate missing')
++            strict_suffix=True
++            continue  # Retain ARRIVED, without another ARRIVED/EXIT_WINDOW event.
+         active=context.layout.blue if role=='entry' else context.layout.red
+         side=next(s for s in proof.end_sides if s.face==active.face)
+         if role=='entry':
+@@ -174,9 +184,10 @@
+                 if phase=='INSIDE':event('EXIT_WINDOW',index,proof)
+                 event('ARRIVED',index,proof);phase='ARRIVED'
+         # At most one role completion in this slice; role switches next slice.
+-        if phase=='ARRIVED' and index+1<len(plan.slices):
+-            return Preview('UNKNOWN',state,tuple(proofs),'arrival within multi-slice plan needs event-window refinement')
+-    trace=w.digest((state.trace_hash,prepared.binding,tuple(proofs),tuple(history)))
++    if strict_suffix and plan.covered_ns!=path.provenance.requested_dt_ns:
++        return Preview('UNKNOWN',state,tuple(proofs),'strict suffix requires the complete original duration')
++    trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
++    trace=w.digest(('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
+     end=plan.end
+     next_state=_state(context=context,pose=end.state,errors=end.errors,
+         speed_error_upper=state.speed_error_upper+Fraction(end.speed_export_error_m_s),
+--- before/competition/deepeye/tests/simulation/test_passage_phase.py
++++ after/competition/deepeye/tests/simulation/test_passage_phase.py
+@@ -2,6 +2,8 @@
+ import importlib
+ import unittest
+ from dataclasses import replace
++from fractions import Fraction
++import math
+ 
+ from competition.deepeye.simulation.authority.motion import certified_path as cp
+ from competition.deepeye.simulation.authority.motion import gate_geometry as g
+@@ -38,6 +40,143 @@
+         return p.preview(state,path,context or self.context,expected_pose_revision=state.pose_revision,
+              start_monotonic_ns=state.monotonic_ns,deadline_monotonic_ns=deadline if deadline is not None else state.monotonic_ns+10_000_001,
+              hard_stop=stop,max_slices=budget)
++
++    def numerical_seed(self,phase,position,q=(0,1,0,0),context=None):
++        # Internal numerical phase fixture, not evidence of a preceding route.
++        kinds=['INITIAL_OUTSIDE','ENTRY_WINDOW']
++        if phase!='ENTRY_CROSSING':kinds+=['ENTERED']
++        if phase=='EXIT_CROSSING':kinds+=['EXIT_WINDOW']
++        history=tuple(p.Event(kind,i,i,i,'explicit numerical seed only') for i,kind in enumerate(kinds))
++        return p._state(context=context or self.context,pose=RigidState(position,q,.25),errors=self.errors,
++            speed_error_upper=Fraction(0),error_budget_reference='numerical phase seed only',pose_revision=5,
++            monotonic_ns=10,phase=phase,entered=phase!='ENTRY_CROSSING',history=history,trace_hash='numerical seed')
++
++    def test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival(self):
++        for z in (-15.519,-15.5199):
++            with self.subTest(z=z):
++                state=self.numerical_seed('EXIT_CROSSING',(0,0,z));path=self.path(state,yaw=7000)
++                plan=path.plan(start_monotonic_ns=10,deadline_monotonic_ns=10+10_000_001,hard_stop=False)
++                result=self.step(state,path=path)
++                self.assertEqual('SAFE',result.status)
++                self.assertEqual(2,len(result.proofs))
++                self.assertEqual([(0,7_142_857),(7_142_857,10_000_000)],
++                    [(record.start.elapsed_ns,record.end.elapsed_ns) for record in plan.slices])
++                self.assertEqual(plan.end.state,result.candidate.pose)
++                self.assertEqual(plan.end.errors,result.candidate.errors)
++                self.assertEqual((6,10_000_010),(result.candidate.pose_revision,result.candidate.monotonic_ns))
++                self.assertEqual(state.history,result.candidate.history[:len(state.history)])
++                arrivals=[event for event in result.candidate.history if event.kind=='ARRIVED']
++                self.assertEqual(1,len(arrivals))
++                self.assertEqual((10,7_142_867),(arrivals[0].start_ns,arrivals[0].end_ns))
++                self.assertEqual(result.proofs[0].binding,arrivals[0].proof_binding)
++                suffix=result.proofs[1]
++                self.assertEqual('exit',suffix.role)
++                self.assertEqual(set(w.FACES),{face.face for face in suffix.faces})
++                self.assertEqual(6,len(suffix.faces))
++                self.assertTrue(all(face.method==('STRICT_OUTSIDE_ACTIVE' if face.face=='back' else 'STRICT_INSIDE') for face in suffix.faces))
++                self.assertGreaterEqual(suffix.rho_m,.0005)
++                self.assertFalse(result.motion_grant);self.assertFalse(result.atomic_cas_completed)
++
++    def test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state(self):
++        state=self.numerical_seed('EXIT_CROSSING',(0,0,-15.5184))
++        result=self.step(state,path=self.path(state,yaw=7000))
++        self.assertEqual('UNKNOWN',result.status);self.assertIs(result.candidate,state)
++        self.assertEqual(2,len(result.proofs))
++        self.assertEqual('SAFE',result.proofs[1].status)
++        self.assertEqual('APERTURE',next(face.method for face in result.proofs[1].faces if face.face=='back'))
++        self.assertFalse(result.failure_candidate)
++
++    def test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals(self):
++        a=math.sqrt(.5)
++        poses={'front':((0,0,15.519),(0,0,0,1),'back'),
++               'back':((0,0,-15.519),(0,1,0,0),'front'),
++               'left':((-15.519,0,0),(0,-a,0,a),'right'),
++               'right':((15.519,0,0),(0,a,0,a),'left'),
++               'top':((0,15.519,0),(-a,0,0,a),'bottom'),
++               'bottom':((0,-15.519,0),(a,0,0,a),'top')}
++        for face,(position,q,blue) in poses.items():
++            with self.subTest(face=face):
++                context=replace(self.context,layout=w.Layout(g.Gate(blue,0,0),g.Gate(face,0,0)))
++                state=self.numerical_seed('EXIT_CROSSING',position,q,context)
++                result=self.step(state,path=self.path(state,yaw=7000),context=context)
++                self.assertEqual('SAFE',result.status)
++                self.assertEqual('ARRIVED',result.candidate.phase)
++                self.assertEqual('STRICT_OUTSIDE_ACTIVE',next(f.method for f in result.proofs[-1].faces if f.face==face))
++
++    def test_same_face_red_gate_does_not_accept_blue_aperture_as_exit(self):
++        context=replace(self.context,layout=w.Layout(g.Gate('front',-.15,0),g.Gate('front',.15,0)))
++        for x,status in ((.15,'SAFE'),(-.15,'UNKNOWN')):
++            with self.subTest(x=x):
++                state=self.numerical_seed('EXIT_CROSSING',(x,0,15.519),(0,0,0,1),context)
++                result=self.step(state,path=self.path(state,yaw=7000),context=context)
++                self.assertEqual(status,result.status)
++                if status=='SAFE':self.assertEqual('ARRIVED',result.candidate.phase)
++                else:self.assertIs(result.candidate,state)
++
++    def test_existing_entry_and_single_slice_exit_keep_their_behavior(self):
++        state=self.numerical_seed('EXIT_CROSSING',(0,0,-15.519))
++        result=self.step(state,path=self.path(state,yaw=0))
++        self.assertEqual(('SAFE','ARRIVED',1),(result.status,result.candidate.phase,len(result.proofs)))
++        self.assertEqual('HELD',self.step(result.candidate).status)
++        for z,status in ((14.481,'SAFE'),(14.4815,'UNKNOWN')):
++            state=self.numerical_seed('ENTRY_CROSSING',(0,0,z))
++            result=self.step(state,path=self.path(state,yaw=7000))
++            self.assertEqual(status,result.status)
++            if status=='SAFE':self.assertEqual('INSIDE',result.candidate.phase)
++            else:self.assertIs(result.candidate,state)
++
++    def test_tip_or_center_beyond_red_is_not_full_body_arrival(self):
++        for z in (-15.,-15.3):
++            state=self.numerical_seed('EXIT_CROSSING',(0,0,z))
++            result=self.step(state,path=self.path(state,yaw=7000))
++            self.assertEqual('SAFE',result.status)
++            self.assertEqual('EXIT_CROSSING',result.candidate.phase)
++            self.assertFalse(any(event.kind=='ARRIVED' for event in result.candidate.history))
++
++    def test_suffix_cannot_bypass_direction_rim_rotation_or_nonactive_face_failure(self):
++        cases=[((0,0,-15.519),(0,0,0,1),7000),
++               ((15.6,0,-15.519),(0,1,0,0),7000),
++               ((.03,0,-15.),(0,1,0,0),0),
++               ((.0295,0,-15.),(0,1,0,0),7000)]
++        for position,q,yaw in cases:
++            with self.subTest(position=position,q=q,yaw=yaw):
++                state=self.numerical_seed('EXIT_CROSSING',position,q)
++                result=self.step(state,path=self.path(state,yaw=yaw))
++                self.assertNotEqual('SAFE',result.status);self.assertIs(result.candidate,state)
++        exact=replace(self.context,envelope=replace(self.body,exact_fixture=True))
++        state=self.numerical_seed('EXIT_CROSSING',(.03,0,-15.),context=exact)
++        result=self.step(state,path=self.path(state,yaw=0),context=exact)
++        self.assertEqual('VIOLATION_PROVED',result.status);self.assertTrue(result.failure_candidate)
++
++    def test_suffix_budget_or_stop_never_returns_a_partial_arrival(self):
++        state=self.numerical_seed('EXIT_CROSSING',(0,0,-15.519));path=self.path(state,yaw=7000)
++        for budget in (0,1):
++            result=self.step(state,path=path,budget=budget)
++            self.assertEqual('UNKNOWN',result.status);self.assertIs(result.candidate,state)
++            self.assertEqual((),result.proofs)
++        result=self.step(state,path=path,stop=True)
++        self.assertEqual('HELD',result.status);self.assertIs(result.candidate,state)
++
++    def test_arrived_prefix_cannot_hide_rotated_suffix_other_face_uncertainty(self):
++        context=replace(self.context,layout=w.Layout(g.Gate('front',14.85,0),g.Gate('back',14.85,0)))
++        state=self.numerical_seed('EXIT_CROSSING',(14.8794,0,-15.519),context=context)
++        result=self.step(state,path=self.path(state,yaw=7000),context=context)
++        self.assertEqual('UNKNOWN',result.status);self.assertIs(result.candidate,state)
++        self.assertEqual(2,len(result.proofs))
++        self.assertEqual('SAFE',result.proofs[0].status)
++        self.assertTrue(next(side.outside for side in result.proofs[0].end_sides if side.face=='back'))
++        self.assertEqual('UNKNOWN',result.proofs[1].status)
++        self.assertEqual('ENVELOPE_NOT_CLEAR',next(face.method for face in result.proofs[1].faces if face.face=='right'))
++        self.assertFalse(result.failure_candidate)
++
++    def test_strict_suffix_cannot_turn_a_deadline_clipped_plan_into_full_dt_success(self):
++        state=self.numerical_seed('EXIT_CROSSING',(0,0,-15.519));path=self.path(state,yaw=7000)
++        deadline=state.monotonic_ns+10_000_000
++        plan=path.plan(start_monotonic_ns=state.monotonic_ns,deadline_monotonic_ns=deadline,hard_stop=False)
++        self.assertEqual(9_999_999,plan.covered_ns)
++        result=self.step(state,path=path,deadline=deadline)
++        self.assertEqual('UNKNOWN',result.status);self.assertIs(result.candidate,state)
++        self.assertEqual(2,len(result.proofs))
+ 
+     def test_initial_whole_body_outside_and_correct_orientation_are_required(self):
+         self.assertEqual('SAFE',self.initial().status)
+--- before/competition/deepeye/tests/simulation/test_motion_executor.py
++++ after/competition/deepeye/tests/simulation/test_motion_executor.py
+@@ -208,7 +208,9 @@
+         self.assertEqual(0,ex.renderer_view().pose_revision)
+ 
+     def test_T12_unresolved_multislice_arrival_and_drilling_never_grant(self):
+-        ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.519)))
++        # The original T12 seed -15.519 now has a strict outside suffix;
++        # this nearby seed's suffix still needs APERTURE and must stay UNKNOWN.
++        ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.5184)))
+         ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
+         with self.assertRaises(m.PreparationRejected) as error:self.prepare(ex)
+         self.assertEqual('UNKNOWN',error.exception.status)
+@@ -217,6 +219,78 @@
+         ex=self.make(scene=scene)
+         with self.assertRaises(m.PreparationRejected) as error:self.prepare(ex)
+         self.assertEqual('DRILLING_REQUIRED',error.exception.status);self.assertEqual(0,ex.renderer_view().pose_revision)
++
++    def test_strict_red_suffix_commits_full_original_step_once_and_then_freezes(self):
++        for z in (-15.519,-15.5199):
++            with self.subTest(z=z):
++                state=self.seeded('EXIT_CROSSING',(0,0,z));ex=self.make(state=state)
++                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
++                before=ex.authority_snapshot();handle=self.prepare(ex);audit=ex.prepared_audit(handle)
++                self.assertIs(before,ex.authority_snapshot())
++                self.assertEqual(2,len(audit.relative.preview.proofs))
++                self.assertEqual(2,len(audit.solids))
++                self.assertTrue(all(result.status=='CLEAR' for result in audit.solids))
++                plan=audit.path.plan(start_monotonic_ns=state.monotonic_ns,
++                    deadline_monotonic_ns=state.monotonic_ns+DT+1,hard_stop=False)
++                calls=[]
++                def final():
++                    self.assertIs(before,ex.authority_snapshot());calls.append(1)
++                    return replace(self.fence(start=1_000_123_456),command_seq=4)
++                receipt=ex.commit_step(handle,final);after=ex.passage_state()
++                self.assertEqual([1],calls)
++                self.assertEqual(before.revision+1,ex.authority_snapshot().revision)
++                self.assertEqual((6,1_000_123_456,1_010_123_456),(receipt.pose_revision,receipt.start_ns,receipt.end_ns))
++                self.assertEqual(plan.end.state,after.pose);self.assertEqual(plan.end.errors,after.errors)
++                self.assertEqual('ARRIVED',after.phase)
++                self.assertEqual(state.history,after.history[:len(state.history)])
++                arrivals=[event for event in after.history if event.kind=='ARRIVED']
++                self.assertEqual(1,len(arrivals))
++                self.assertEqual((receipt.start_ns,receipt.start_ns+7_142_857),(arrivals[0].start_ns,arrivals[0].end_ns))
++                view=ex.renderer_view()
++                with self.assertRaises(m.PreparationRejected) as frozen:self.prepare(ex)
++                self.assertEqual('HELD',frozen.exception.status);self.assertEqual(view,ex.renderer_view())
++
++    def test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix(self):
++        for material in ('water','hard_rock'):
++            with self.subTest(material=material):
++                state=self.seeded('EXIT_CROSSING',(0,0,-15.519))
++                part=s.Solid('suffix-piece','v1','box',(0,0,-16.0414),(.01,.01,.00001),(0,0,0,1))
++                scene=s.Scene('suffix-scene','v1',(('suffix-object',('suffix-piece',)),),
++                    (s.SceneObject('suffix-object',material,(part,)),))
++                ex=self.make(state=state,scene=scene)
++                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
++                path=cp.CanonicalPath(state.pose,'fast_9600',20,7000,0,DT,
++                    inherited_errors=p.required_inherited_errors(state,DT),error_budget_reference=state.error_budget_reference)
++                plan=path.plan(start_monotonic_ns=10,deadline_monotonic_ns=10+DT+1,hard_stop=False)
++                self.assertEqual(2,len(plan.slices))
++                self.assertEqual('CLEAR',s.certify_scene(ex._sweep(plan.slices[0]),scene).status)
++                self.assertNotEqual('CLEAR',s.certify_scene(ex._sweep(plan.slices[1]),scene).status)
++                # The final nominal cap sphere actually contains this box's
++                # centre; this is more than an outer-envelope near miss.
++                end=path.sample(DT)
++                cap=tuple(end.state.position_m[i]+.4*end.axis[i] for i in range(3))
++                self.assertLess(sum((float(part.centre[i])-cap[i])**2 for i in range(3)),.12**2)
++                before=ex.renderer_view();calls=[]
++                with self.assertRaises(m.PreparationRejected) as blocked:
++                    handle=self.prepare(ex)
++                    ex.commit_step(handle,lambda:(calls.append(1),replace(self.fence(),command_seq=4))[1])
++                self.assertEqual(2,blocked.exception.checked_slices)
++                self.assertEqual('UNKNOWN' if material=='water' else 'DRILLING_REQUIRED',blocked.exception.status)
++                self.assertEqual([],calls);self.assertEqual(before,ex.renderer_view())
++
++    def test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto(self):
++        for failure in ('STOP','deadline','world'):
++            with self.subTest(failure=failure):
++                ex=self.make(state=self.seeded('EXIT_CROSSING',(0,0,-15.519)))
++                ex.admit_command(self.f.binding,self.raw(speed_code=20,yaw_q=7000))
++                handle=self.prepare(ex);before=ex.renderer_view();calls=[]
++                def final():
++                    calls.append(1)
++                    if failure=='STOP':ex.revoke('STOP after suffix prepare')
++                    if failure=='world':ex.invalidate_world('world edited after suffix prepare')
++                    return replace(self.fence(deadline=1_010_000_000 if failure=='deadline' else 1_400_000_000),command_seq=4)
++                with self.assertRaises(ValueError):ex.commit_step(handle,final)
++                self.assertEqual([1],calls);self.assertEqual(before,ex.renderer_view())
+ 
+     def test_T13_new_boot_does_not_clear_trial_failure_or_old_history(self):
+         ex=self.make();old=ex.passage_state();ex.revoke('proved fixture contact',trial_failed=True)
+--- before/competition/deepeye/docs/workspace_passage.md
++++ after/competition/deepeye/docs/workspace_passage.md
+@@ -65,8 +65,43 @@
+ for the next canonical step. Resetting accumulated errors is rejected.
+ `atomic_cas_completed` remains false: a real authority must recheck STOP/deadline,
+ context and pose revision immediately before committing pose and phase together.
+-Persistent failure latching, original clock ownership and executed-trace storage
+-belong to that future executor.
++The existing owned numerical motion executor supplies the final callback/CAS,
++failure latching and actual-time trace mapping. These preview certificates do
++not replace its original clock, source-health or command-deadline checks.
++
++## Complete-step strictly outside red suffix
++
++After a slice first proves whole-body red exit, the preview now continues over
++every remaining slice of the **same original canonical plan**. Each suffix slice
++must return `SAFE` from the unchanged exit-role six-face checker, with exactly
++the six distinct faces, red `STRICT_OUTSIDE_ACTIVE` and the other five
++`STRICT_INSIDE`. Thus its full inflated swept body remains outside red and cannot
++leave through another face. All existing rho terms, guards and method identities
++remain unchanged; this is a finite conjunction of existing interval proofs.
++
++Suffix certificates are retained in order. Only the first arrival window appends
++`ARRIVED`; suffix checks append no duplicate arrival or exit-window events. The
++candidate uses the original `plan.end`, full covered duration, one revision and
++the same end errors/speed-error carry. A private `strict-red-outside-suffix-v1`
++trace tag distinguishes the newly accepted proof composition without changing
++the workspace VERSION, shared wire or host schemas.
++
++A suffix that is `SAFE` only through `APERTURE` remains `UNKNOWN`. Missing or
++non-strict face evidence also remains `UNKNOWN`. An actual suffix `UNKNOWN` or
++`VIOLATION_PROVED` retains that distinction. Every rejected suffix returns the
++original input state/history, with the checked certificates for audit: no safe
++prefix is committed. The original whole-plan slice budget is checked first.
++Single-slice arrival, entry roles and the later `ARRIVED_FROZEN` hold are unchanged.
++The new strict-suffix composition also refuses a deadline-clipped plan: every
++nanosecond of the original requested duration must be covered. A 9,999,999ns
++clipped plan cannot satisfy a 10,000,000ns suffix request.
++
++This means the full original dt is certified and committed together; it does not
++claim the exact time of red-plane crossing or truncate at the first arrival
++window. The existing executor still checks initial/full solid clearance for
++**every** original slice before preparing a handle, then performs the unchanged
++final fence and one publication. A forbidden or drilling-required final-slice
++solid blocks the whole step. No work is moved after the fence.
+ 
+ ## Verified boundary and remaining work
+ 
+@@ -78,8 +113,23 @@
+ also reproduced a role-string alias defect, corrected by the exact-string guard
+ and a behavioral regression. None of these checks is a runtime or board trial.
+ 
+-The implementation conservatively returns `UNKNOWN` when arrival occurs before
+-the last slice of a multi-slice plan; event-window refinement remains incomplete.
++The new numerical regression seeds `EXIT_CROSSING` at z=-15.519/-15.5199 with
++yaw7000 produce two slices, 0/7,142,857/10,000,000ns. They now certify the complete
++original 10ms and retain only one arrival window. These are explicit internal
++phase fixtures, not evidence of the preceding physical/committed route. Six red
++face orientations and correct-role same-face apertures are checked likewise.
++At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The entry
++seed z14.4815 still has a blue-to-exit-role envelope gap and remains `UNKNOWN`.
++General APERTURE tails, entry role-switch refinement and exact crossing-time
++refinement are not solved by the strict suffix rule.
++
++The actual numerical executor regression uses a thin box at z=-16.0414: the
++first sweep is `CLEAR`, the final nominal cap contains the box centre, and the
++real second-slice solid check blocks the full step (water `UNKNOWN`, hard rock
++`DRILLING_REQUIRED`). This does not relabel conservative contact as a proved
++collision of an unverified asset. The positive path commits one callback/CAS,
++maps only new events to actual fence time, and freezes on a later arrived step;
++STOP, deadline equality, world invalidation and TM-R1 regressions remain active.
+ All36 complete directed face pairs, same-face full U-routes, both real control
+ topologies, the full fault campaign, actual B collision-body containment,
+ forbidden-solid/drilling-law integration and real authority/renderer connection

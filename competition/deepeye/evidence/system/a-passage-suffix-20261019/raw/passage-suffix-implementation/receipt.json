@@ -1,0 +1,86 @@
+{
+  "job_id": "child-c3c3785d01fc40dea9cde699a48641cd",
+  "work_id": "A-passage-suffix-implementation-20261019-v1",
+  "agent_id": "/root/worker_results_review_20261018",
+  "report": {
+    "size": 8925,
+    "sha256": "7330dd0852611d02997eb3c0318afa3336889d579ce1e411716212e1a4028fb7"
+  },
+  "source_manifest": {
+    "size": 681,
+    "sha256": "c4b5b656e78a084e36e8bfcedfdb2f65144226d8af7b336f4588cc4352df6657"
+  },
+  "sources": {
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "size": 13132,
+      "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "size": 15200,
+      "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "size": 28506,
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4"
+    },
+    "competition/deepeye/docs/workspace_passage.md": {
+      "size": 8836,
+      "sha256": "d898770ab6acef8bdd3c8e1bd6e3ba3e7bc55a4a42fde052ec9296867e7db816"
+    }
+  },
+  "evidence_manifest": {
+    "size": 7032,
+    "sha256": "5fb91ef272e340c4fca37a9142a5edcf5633896938fc16a50ef3487cff1e1dda"
+  },
+  "final_test": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "-v",
+      "competition.deepeye.tests.simulation.test_passage_phase",
+      "competition.deepeye.tests.simulation.test_motion_executor",
+      "competition.deepeye.tests.simulation.test_workspace_boundaries",
+      "competition.deepeye.tests.simulation.test_solid_clearance",
+      "competition.deepeye.tests.simulation.test_pc_direct_runtime",
+      "competition.deepeye.tests.simulation.test_certified_path",
+      "competition.deepeye.tests.simulation.test_gate_clearance",
+      "competition.deepeye.tests.simulation.test_gate_geometry",
+      "competition.deepeye.tests.simulation.test_kinematics"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+    "exit_code": 0,
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\passage-suffix-implementation\\temp",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\passage-suffix-implementation\\temp",
+    "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+    "sources": {
+      "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+        "size": 13132,
+        "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+      },
+      "competition/deepeye/tests/simulation/test_passage_phase.py": {
+        "size": 15200,
+        "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+      },
+      "competition/deepeye/tests/simulation/test_motion_executor.py": {
+        "size": 28506,
+        "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4"
+      },
+      "competition/deepeye/docs/workspace_passage.md": {
+        "size": 8836,
+        "sha256": "d898770ab6acef8bdd3c8e1bd6e3ba3e7bc55a4a42fde052ec9296867e7db816"
+      }
+    }
+  },
+  "tests_passed": 253,
+  "tests_skipped": 0,
+  "raw_equals_git_clean": true,
+  "utf8_lf": true,
+  "dependencies_unchanged": 41,
+  "old_design_files_unchanged": 16,
+  "formal_acceptance": "not_run",
+  "result": "four_file_candidate_frozen_for_independent_review"
+}

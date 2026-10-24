@@ -1,0 +1,21 @@
+{
+  "work_id": "A-C-PR25-ADAPTER-REVIEW-20261018-v1",
+  "native_job": "child-fec559bc6fb640cda201ae773618fd87",
+  "status": "review_complete_with_open_callback_findings",
+  "PR25_HEAD": "31267d6c4ae284b8788ebb457f49c4ae5a49c60c",
+  "source_commit": "c00f932568aece85e9a2febe47e63528a977ea0f",
+  "report_sha256": "5d0fa98859b60181f28c90c1ce5ea887e9b63c487a0441c9e3aa261bc02bb409",
+  "report_md_sha256": "f89fa624caceaebdd9ef5c35bce1e6ec448a34c004b1e247767a8f896f87eab0",
+  "evidence_manifest_sha256": "2945da663f01c0d6c21eb1073cbfca33a2b7bd0c04880c51e2a92cff5d532d4f",
+  "verified_manifest_files": 135,
+  "checkout_CRLF_differences": 12,
+  "fresh_positive_tests": 5,
+  "expected_safe_tests": {
+    "tests": 2,
+    "failures": 2,
+    "exit_code": 1
+  },
+  "runtime_adoption": "blocked_until_F02_fixed_or_enforced_generation_guard",
+  "product_acceptance": false,
+  "source_writes": false
+}

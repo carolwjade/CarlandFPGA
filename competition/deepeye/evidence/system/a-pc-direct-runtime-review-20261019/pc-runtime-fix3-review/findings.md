@@ -1,0 +1,13 @@
+# Final narrow PCR-R4 independent review
+
+Task DEEPEYE-IMPLEMENTATION-20261014/v1, work A-PC-RUNTIME-BOOT-VETO-FIX3-REVIEW-20261019-v1, agent /root/r03_review_20261018. New lease validated. Sole A Desktop generation2 and host role verified. H01-H15 canonical requirements SHA256 remains c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+
+Bounded approval: PCR-R4 is independently verified repaired, with no unresolved finding within this final narrow scope. Runtime implementation differs from the preserved pre-fix source by exactly `def call(self, /, *args, **kwargs)` replacing the prior receiver declaration. The positional-only receiver accepts an explicit self= keyword into kwargs, so the protected method invocation records its binding failure and latches STOP. No other implementation behavior changed. The added product regression covers all six public entry points; the concise documentation matches this behavior and retains real-provider/runtime activation gaps.
+
+The exact original new_probes.py was copied byte-for-byte into this new report directory and executed once. All3 existing methods passed, including all6 explicit self= subcases, all6 ordinary duplicate-argument subcases, and guard-construction failure/retired-proposal/fresh-handshake recovery. Every self= subcase now catches ValueError, rejects the in-flight BOOT and records no fixture commit. Exact command, raw stdout/stderr and results are preserved. Earlier RED probe/result bytes remain unchanged.
+
+All3 final source/test/doc raw SHA256 values match the main's frozen FIX3 receipt. All12 direct dependencies also match and are unchanged around the run. All3 raw byte streams are LF-only and raw Git blob OIDs equal read-only clean-filter OIDs. Index state is recorded separately; no source, index, Git object or configuration write occurred. The hash-object commands use no -w. This is a prospective clean-blob byte gate, not a claim that untracked files were already committed.
+
+The main's64-test GREEN and unchanged original8+supplemental4 and79 dependency evidence are reused within their existing scope; they were not redundantly rerun. No new reflection, wrapped-method bypass, malicious-trusted-code threat model or unrelated tests were added.
+
+No service, board, hardware, OS/ACL actor, credential, external send, new agent, default ledger or acceptance status was changed. All29 formal cards remain not_run. Offline fixture adapter verification is not actual authenticated source, AI process, physics executor or viewer/board activation. Main retains publication and acceptance decisions. Review commands finished and no product write is pending.

@@ -1,0 +1,104 @@
+{
+  "at_utc": "2026-10-20T06:38:08.172435+00:00",
+  "scope": "saved receipts and focused synthetic checks only; no full-suite or CIM execution",
+  "candidate": {
+    "competition/deepeye/tools/preflight.py": {
+      "sha256": "5052890bc30b9b7a3170a771b1f2e247210d81c11c98c221e07d011db870037d",
+      "bytes": 13813,
+      "diff_matches": true
+    },
+    "competition/deepeye/tools/preflight_windows.ps1": {
+      "sha256": "75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2",
+      "bytes": 3412,
+      "diff_matches": true
+    },
+    "competition/deepeye/tests/test_preflight.py": {
+      "sha256": "b554eb98c5fe587f6f91fc9fab6b82e0a6155243aafe0ef882c948b0b78b1ebc",
+      "bytes": 11794,
+      "diff_matches": true
+    },
+    "competition/deepeye/hardware/preflight.md": {
+      "sha256": "16503a3383843dbdc1554d17ad760bfe92eb831ccc89b04f95560aea7e2beab3",
+      "bytes": 3637,
+      "diff_matches": true
+    }
+  },
+  "receipts": {
+    "green-final": {
+      "receipt_sha256": "c48b34b28bf712cbd804d94669db289e45fbf2ccfa95e008edd2d751832322c8",
+      "exit_code": 0,
+      "timed_out": false,
+      "logs": {
+        "stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "stderr": {
+          "sha256": "4b0e5e97530154dc1b1e05078a63f6a5fd03c5b7da7f447b4c1b5a6acae781ca",
+          "bytes": 2048
+        }
+      },
+      "candidate_before_after_match": true
+    },
+    "live": {
+      "receipt_sha256": "35d3ff1f7a09656ac980821ba57f6dd2e9c694dbf9238f6ffd492e097fc069d2",
+      "exit_code": 2,
+      "timed_out": false,
+      "logs": {
+        "stdout": {
+          "sha256": "8c7d0ae31fd0f8c3e7e27130af418406456da52fb75590bf355410538d7e1722",
+          "bytes": 2852
+        },
+        "stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      },
+      "candidate_before_after_match": true
+    }
+  },
+  "contracts": {
+    "root": {
+      "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+      "exact_H01_H15": true
+    },
+    "product": {
+      "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+      "exact_H01_H15": true
+    }
+  },
+  "live": {
+    "stdout_file_json_equal": true,
+    "stdout_file_bytes_equal": false,
+    "stdout_crlf_count": 79,
+    "file_crlf_count": 0,
+    "file_sha256": "3677c06cacbb6d7890ddd006e1212f33a952e651fd7aecda17a7ec8d8ecc918a",
+    "no_inventory_obtained": true,
+    "launch_error": "collector_exit/UnauthorizedAccess",
+    "diagnostic_replacement_characters": 9
+  },
+  "director": {
+    "thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+    "active": true,
+    "generation": 2
+  },
+  "protected_saved_hashes_match_current": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013",
+    "docs/competition/deepeye-2026/immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+  },
+  "base": {
+    "expected": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "saved_author_head": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "fresh_git_not_executed": true
+  },
+  "synthetic": {
+    "unknown_DEV_17F0_is_candidate": true,
+    "Input_false_positive_rejected": true,
+    "non_utf8_diagnostic_raw_bytes_discarded": true,
+    "one_fake_launch_only": true,
+    "current_launch_mode": "-File"
+  }
+}

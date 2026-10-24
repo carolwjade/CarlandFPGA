@@ -1,0 +1,44 @@
+{
+  "label": "main-verifier-run-01",
+  "argv": [
+    ".local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    ".\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+    "--rtl",
+    ".\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+    "--tb",
+    ".\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+    "--tool",
+    "C:\\modeltech64_2020.4\\win64",
+    "--out",
+    ".\\work\\main-run-01",
+    "--owned-root",
+    ".",
+    "--long"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+  "started_utc": "2026-10-19T17:55:22.750092+00:00",
+  "finished_utc": "2026-10-19T17:55:22.816035+00:00",
+  "duration_s": 0.063,
+  "timed_out": false,
+  "exit_code": 2,
+  "stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "bytes": 359,
+    "sha256": "8cc447794263b16462b3f0e38aaf9f3b23f29ac9aa4589c076dbd72e2f16ade8"
+  },
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONPYCACHEPREFIX": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\main-verifier-run-01\\pycache",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\main-verifier-run-01",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\temp\\main-verifier-run-01"
+  },
+  "removed_pythonpath": null
+}

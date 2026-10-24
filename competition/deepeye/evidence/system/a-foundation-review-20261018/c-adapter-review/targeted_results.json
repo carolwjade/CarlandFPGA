@@ -1,0 +1,108 @@
+{
+  "run_utc": "2026-10-18T15:13:45.606651+00:00",
+  "commands": {
+    "interpreter": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "script": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-adapter-review\\review_run.py",
+    "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+    "no_motion_or_IO": true
+  },
+  "suites": {
+    "positive": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "exit_code": 0,
+      "log_sha256": "ed76f6b8712eb015aa82ec755b260cd310a8fad7aa1246a6cb3ce3097c487f97"
+    },
+    "expected_safety_red": {
+      "tests": 2,
+      "failures": 2,
+      "errors": 0,
+      "exit_code": 1,
+      "log_sha256": "b31c3294ed4af5c6b89b157857fb4a27aa9a926761e22b08bcabbf550172c46c"
+    }
+  },
+  "details": {
+    "current_A_motion_ROM_entries": 42,
+    "context_fields_rejected": 7,
+    "fresh_TTL_vectors": 9,
+    "F01": {
+      "before_deadline_ns": 2020000000,
+      "after_deadline_ns": 1001020000000,
+      "request_bytes_unchanged": true,
+      "requires_trusted_callback_object_setattr": true,
+      "OS_or_authority_bypass": false
+    },
+    "F02": {
+      "stop": {
+        "candidate_id": 11,
+        "command_seq": 0,
+        "context": {
+          "acquisition_profile_id": 3,
+          "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "config_epoch": 255,
+          "session": 700,
+          "source_id": 4,
+          "topology_id": 2,
+          "transport_profile_id": 1
+        },
+        "host_issue_monotonic_ns": 1020000000,
+        "kind": "motion_request",
+        "observation": null,
+        "schema_version": 1,
+        "target": {
+          "action": 0,
+          "duration_ms": 0,
+          "pitch_q": 0,
+          "speed_code": 0,
+          "yaw_q": 0
+        }
+      },
+      "later_outer_motion": {
+        "candidate_id": 10,
+        "command_seq": 1,
+        "context": {
+          "acquisition_profile_id": 3,
+          "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "config_epoch": 255,
+          "session": 700,
+          "source_id": 4,
+          "topology_id": 2,
+          "transport_profile_id": 1
+        },
+        "host_issue_monotonic_ns": 1020000000,
+        "kind": "motion_request",
+        "observation": {
+          "context": {
+            "acquisition_profile_id": 3,
+            "boot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "config_epoch": 255,
+            "session": 700,
+            "source_id": 4,
+            "topology_id": 2,
+            "transport_profile_id": 1
+          },
+          "observed_seq": 10
+        },
+        "schema_version": 1,
+        "target": {
+          "action": 1,
+          "duration_ms": 1000,
+          "pitch_q": 0,
+          "speed_code": 20,
+          "yaw_q": 0
+        }
+      },
+      "both_A_static_valid": true,
+      "movement_authorized": false
+    }
+  },
+  "adapter_exact_sha256": "29bf83a68929a882671bbed1a14b5a717e2e0bfa53cdb812512400a0aa621e7f",
+  "A_dependencies": {
+    "docs/host_contract.json": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+    "integration/host_envelope.py": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+    "integration/motion.py": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+    "integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+  },
+  "prior_public65536_sequence_allocations_reused": true
+}

@@ -1,0 +1,71 @@
+MANIFEST_KEYS ['artifacts', 'files', 'request', 'request_hash', 'schema_version', 'stages']
+MANIFEST_METADATA {
+  "request": {
+    "code_commit": "45fe6cd9c19d6056bf1867cc4255ac6a47ddddd5",
+    "expected_result": "Bounded Python runner qualification only. Exact A original negative fixtures rejected;23unit/23portable methods pass;94saved streams rehashed and33saved scenarios agree. No new simulation/synthesis/implementation/CDC/RDC/board/system acceptance or ABI/freshness/BOOT/motion authority. All29 formal cards remainnot_run; physicalboardAonly.",
+    "operation_id": "B-DEEPEYE-PWM-RUNNER-QUALIFICATION-20261020-16",
+    "requester": "node-b",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "test_steps": [
+      "Verify original A negatives from commit0fa0fee1eadeea2e3ddfbab0a8688e4bc2905365, archive manifest bda421ebc3320450263c16fa9c3a40dca1524905d0c048f397647b305fed13d7. Read competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/RED.json and check-02/A_ORIGINAL_RECLASSIFIED.json: same bytes accepted by83f192c7 before repair and rejected by final runner.",
+      "Run python -B competition/deepeye/tests/control/test_pwm_applied_capture_runner.py. Expected23 methods pass. Optionally repeat with only runner/test files in the same relative minimal layout. No ModelSim required.",
+      "Review whole-line LF/CRLF framing, known optional prefix, unique complete stats/outcome, group/loopback binding, mismatch count/label consistency, expected mutant fatal and completed exit checks. Include trailing errors, duplicates/conflicts and oversized/nonASCII fields.",
+      "Audit competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/check-02/SAVED_RUN_RECLASSIFIED.json against unchanged op15 RUN_SUMMARY:47 saved commands/94 streams,33 scenarios retain expected classification; this is not a new RTL execution.",
+      "Read README, ACCEPTANCE and A_FEEDBACK_CONSUMED. Preserve original B13/16 qualification failures and A two negatives; original bare synthetic PASS is underspecified and rejected. Correct op12 author counts to40verified+45unavailable. No RTL change or historical result rewrite.",
+      "Verify H01-H15 DEEPEYE-HUMAN-LOCK-20261014/revision1 at f5989cd5defce561f9ba98e6b18fc2682945f0a2; requirementsSHA256c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804, design1011259415a0916054eb580687612580bc1e5f09."
+    ]
+  },
+  "request_hash": "427a2e0ab4117bbafac87ea7156175e9df8714801ed9d2249ecd636bf5950d8d",
+  "schema_version": 1,
+  "stages": {
+    "B06": {
+      "status": "not_run"
+    },
+    "CDC_RDC": {
+      "status": "not_run"
+    },
+    "G05": {
+      "status": "not_run"
+    },
+    "R03": {
+      "status": "not_run"
+    },
+    "board": {
+      "status": "not_run"
+    },
+    "formal_cards": {
+      "status": "not_run"
+    },
+    "implementation": {
+      "status": "not_run"
+    },
+    "original_negative_fixtures": {
+      "log": "competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/check-02/A_ORIGINAL_RECLASSIFIED.json",
+      "status": "passed"
+    },
+    "runner_portability": {
+      "log": "competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/check-02/portable.stderr.txt",
+      "status": "passed"
+    },
+    "runner_unit_tests": {
+      "log": "competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/check-02/unit.stderr.txt",
+      "status": "passed"
+    },
+    "saved_evidence_reclassification": {
+      "log": "competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/check-02/SAVED_RUN_RECLASSIFIED.json",
+      "status": "passed"
+    },
+    "simulation": {
+      "status": "not_run"
+    },
+    "synthesis": {
+      "status": "not_run"
+    },
+    "system": {
+      "status": "not_run"
+    }
+  }
+}
+FILES_SHAPE ('competition/deepeye/evidence/control3d/pwm-runner-qualification-20261020-16/ACCEPTANCE.json', {'sha256': 'fe115a8fb15a14910f1487a587308fe2f6587a7a53e491cbb72494a5f549fad1', 'size': 2042})
+ARTIFACT_COUNT 211

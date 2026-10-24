@@ -1,0 +1,35 @@
+{
+  "started_utc": "2026-10-20T04:38:50.511979+00:00",
+  "endpoint": "http://www.fpgachina.cn/rest/pc/cms/file/list",
+  "public_parameters": {
+    "pageNum": 1,
+    "pageSize": 100
+  },
+  "method": "GET",
+  "account_credentials": "none",
+  "cookies": "none",
+  "public_frontend_request_schema": "millisecond timestamp, 16 alphanumeric nonce, sorted MD5 envelope",
+  "public_frontend_sha256": "4aa35f5d4457de570f8ba022bba42aff466e22ccaa9ec1dbb1c143c6f8c7ee96",
+  "transport": "HTTP as linked by FPGA frontend; no transport authenticity claim",
+  "timeout_seconds": 20,
+  "max_bytes": 2097152,
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json",
+    "Content-Length": null,
+    "Date": "Tue, 20 Oct 2026 04:38:48 GMT"
+  },
+  "body_bytes": 9891,
+  "body_sha256": "0a39cd6f266a09e053bb825085d48293fccf3f0112a7cd6e8e98a7673f24da3a",
+  "api_code": 200,
+  "api_success": null,
+  "api_message": null,
+  "top_level_keys": [
+    "total",
+    "rows",
+    "code",
+    "msg"
+  ],
+  "ended_utc": "2026-10-20T04:38:52.333957+00:00",
+  "fetch_script_sha256": "14299f0a6ae241b2693c0fb9affb0bd1506aaf20d6ebed1036bd8e0488a059ed"
+}

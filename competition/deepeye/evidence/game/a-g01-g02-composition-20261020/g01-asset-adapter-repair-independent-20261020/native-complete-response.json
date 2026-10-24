@@ -1,0 +1,23 @@
+{
+  "job_id": "child-754808b3064e4a158cfff208a1baaaf3",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-G01-ASSET-ADAPTER-REPAIR-INDEPENDENT-20261020-v1",
+  "ownership": [
+    ".planning/deepeye-resume-20261018/g01-asset-adapter-repair-independent-20261020"
+  ],
+  "native_agent_id": "/root/g01_asset_adapter_repair_independent_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "Independent G01 F1-F4 repair review: no new actionable findings in the assigned scope.\n\nFresh unchanged failure oracles passed 14/10/14/16 checks; the corrected independent harness passed 54 checks. All processes terminated with exit 0. Exact dependency/log/terminal verification supports reuse of 136/696/628/266/622-check evidence. Product bytes and all 885 sealed repair artifacts remain unchanged.\n\nEvidence: .planning/deepeye-resume-20261018/g01-asset-adapter-repair-independent-20261020/findings.md and independent-review-receipt.json. Original RED and intermediate diagnostic evidence are retained. Inherited Unicode NUL diagnostics remain; engine-clean is unsatisfied. Work stayed headless and did not use the display.\n\nH01-H15 and requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 are preserved. All 29 formal cards remain not_run; adoption belongs to the sole A main.\n\n<oai-mem-citation>\n<citation_entries>\nMEMORY.md:244-247|note=[exact source and evidence reuse boundary]\n</citation_entries>\n<rollout_ids>\n01a1403d-2555-7361-9d8f-4062538f9185\n</rollout_ids>\n</oai-mem-citation>\n",
+    "native_agent_id": "/root/g01_asset_adapter_repair_independent_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T02:11:52.651860Z",
+  "updated_at": "2026-10-20T02:17:25.146331Z",
+  "duplicate": false
+}

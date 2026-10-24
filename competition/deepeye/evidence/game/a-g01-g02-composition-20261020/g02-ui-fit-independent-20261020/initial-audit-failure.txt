@@ -1,0 +1,4 @@
+Command: .local/venv/Scripts/python.exe -X utf8 .planning/deepeye-resume-20261018/g02-ui-fit-independent-20261020/review.py audit
+Actual exit: 1
+Initial audit expected manifest['artifacts']; actual manifest uses another schema key.
+Trace: review.py line 25, KeyError: 'artifacts'. No product writes or stage creation occurred.

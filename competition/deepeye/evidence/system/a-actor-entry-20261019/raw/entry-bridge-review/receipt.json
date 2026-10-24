@@ -1,0 +1,46 @@
+{
+  "work_id": "A-entry-bridge-independent-review-20261019-v1",
+  "job_id": "child-f337f8c19052446ab2e5fbec9f7cd26b",
+  "status": "review_completed_no_new_blocking_finding",
+  "candidate_manifest_sha256": "cb904c57a2f985ff02ddb67e5b426968ecf4a22a1b03ecca2d382f99901ece19",
+  "findings_sha256": "96ed72cb92a80cb28a940566ed7bbed6039d89f1831f63ad145bd708e78bb12b",
+  "after_sha256": "e19f9198e18c68896cfe6fa5116dd5f2ceb2d46d056f5ae909f2571bd26bd656",
+  "independent_source_sha256": "769ac40347cfe0f307bd396dcca523b1da4953b6e32389cca40bdb4b9a80ce99",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "regression": {
+    "unique_methods": 265,
+    "runs": [
+      {
+        "label": "regression265",
+        "actual_methods": 239,
+        "exit_code": 0
+      },
+      {
+        "label": "missing26",
+        "actual_methods": 26,
+        "exit_code": 0
+      }
+    ],
+    "skipped": 0,
+    "module_union_verified": true
+  },
+  "independent": {
+    "unique_methods_with_success": 5,
+    "initial_methods": 5,
+    "initial_pass": 4,
+    "initial_error": 1,
+    "corrected_method_run": 1,
+    "corrected_exit_code": 0,
+    "unchanged_four_pass_methods_AST_verified": true,
+    "error_cause": "reviewer requested zero-speed with invalid yaw7000; fixed review request to yaw0, no candidate change"
+  },
+  "numerical_witnesses": [
+    "six-normal-enclosures.json",
+    "uniform-error-negatives.json",
+    "late-real-face-failure.json",
+    "ramp-bounded-calls.json"
+  ],
+  "scope_acceptance": "main decides exact numerical candidate only",
+  "source_files_unchanged": 23,
+  "product_native_AI_H12_Run_board_G06_G07_all29": "not_run"
+}

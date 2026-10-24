@@ -1,0 +1,661 @@
+{
+  "job_id": "child-9b77838d22574ae49550293f0b1d61c3",
+  "agent_id": "/root/worker_results_review_20261018",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "inputs": {
+    "root/AGENTS.md": {
+      "sha256": "61033c090de13da7dbbcba9e689abdff31426b8de7c36b6138755c51b1149611",
+      "bytes": 5203
+    },
+    "root/.agents/skills/fpga-multi-node/SKILL.md": {
+      "sha256": "57077272cd366f9edf1b82a4e1c59d6558dd76d10f2df6f83f55754098436ccd",
+      "bytes": 3418
+    },
+    "root/.agents/skills/fpga-multi-node/skill-role.json": {
+      "sha256": "7e8934fd3ea51eb6ad6e78395a195073c214c3d17336bb6613226dd92e87f4b6",
+      "bytes": 146
+    },
+    "root/.agents/skills/fpga-multi-node/references/protocol.md": {
+      "sha256": "dff3f00071c50083775aae40254fc6f5aa9264afc141e6f0362bde0d0820a8e2",
+      "bytes": 10099
+    },
+    "root/.planning/deepeye-desktop-handoff-20261015/transfer.json": {
+      "sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165",
+      "bytes": 6075
+    },
+    "root/docs/competition/deepeye-2026/immutable_scope.md": {
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "bytes": 6139
+    },
+    "root/docs/competition/deepeye-2026/immutable_scope.json": {
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "bytes": 6684
+    },
+    "root/docs/competition/deepeye-2026/taskbook_final.md": {
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+      "bytes": 109430
+    },
+    "root/docs/competition/deepeye-2026/execution_plan_final.json": {
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be",
+      "bytes": 11924
+    },
+    "root/.planning/deepeye-resume-20261018/actor-progress-design-assignment.md": {
+      "sha256": "0241c6b7be21e5034adf6c1eab5c2ccaf7e1980d47e7aa02f68436490577acd5",
+      "bytes": 2356
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-main-selection.json": {
+      "sha256": "68d826276c8eb4ebdb8ddcb61f8158619b5aa179c57fe904119807e110ade67f",
+      "bytes": 1907
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/findings.md": {
+      "sha256": "10f9c9096446d6e428c1480cee9fba2cc3f9f6f713c9f46024014f0a6e04eff9",
+      "bytes": 8660
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/progress-final-fence-gap.json": {
+      "sha256": "b062a9b5f318389739d041291b6d1c3ba137f8b6384bbab666a8bf06939250b7",
+      "bytes": 210
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/composition_counterexamples.py": {
+      "sha256": "0bbdda02b8765826242656dd758516ac454f0ccdfb58130d7dae3122c4a19c72",
+      "bytes": 7132
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/progress-gap.result.json": {
+      "sha256": "6b0e41a7de537ae3422225b9fee9bb163ea4d92a7d6fbf836e3efb09adea6013",
+      "bytes": 11191
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/progress-gap.stderr.log": {
+      "sha256": "34f7c10802546acfd762598846937635d559ebaa2f6d4aa878b4435556230537",
+      "bytes": 315
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/manifest.json": {
+      "sha256": "7bc0e27d805df7f35ad28110b06d651fda7cb98b99ac3361fcc3fa1ff02b6494",
+      "bytes": 5299
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/receipt.json": {
+      "sha256": "df3621179ea1c43036449c12b769cc4787c14dc821e5e73d684f57646dce2f54",
+      "bytes": 1564
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-review/native_complete.json": {
+      "sha256": "6f4061705e9f9ea330f87463ae0c8521b13449fbf46d83c0a3a39753ec3ee181",
+      "bytes": 2486
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-design/design.md": {
+      "sha256": "6ab5929285a4a5ef1fa55ff2f47bd8230c8f318a93a08d31b437903fec3617dd",
+      "bytes": 21827
+    },
+    "root/.planning/deepeye-resume-20261018/actor-composition-implementation/source-manifest.json": {
+      "sha256": "11663f50a276bee91cb77e27693d33e101d72a47c64cba23e269d10589ea034e",
+      "bytes": 1997
+    },
+    "root/.planning/deepeye-resume-20261018/c-adapter-review/report.md": {
+      "sha256": "f89fa624caceaebdd9ef5c35bce1e6ec448a34c004b1e247767a8f896f87eab0",
+      "bytes": 3166
+    },
+    "product/competition/deepeye/simulation/authority/actor_composition.py": {
+      "sha256": "856f015e15d729d91f2f046c54cccc4bc8dba8e0c2d559f4c2c38824bf6bafa5",
+      "bytes": 14480
+    },
+    "product/competition/deepeye/tests/simulation/test_actor_composition.py": {
+      "sha256": "5672fdfb2071a89300a4fa321bdc64c661654ee5d28008d95f0448ccb6094282",
+      "bytes": 14779
+    },
+    "product/competition/deepeye/docs/actor_composition.md": {
+      "sha256": "4a18f8ad9ce83eca86fde98384536f056368690f4961f28a664d3868eb0317ac",
+      "bytes": 7876
+    },
+    "product/competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb",
+      "bytes": 23468
+    },
+    "product/competition/deepeye/simulation/authority/motion_executor.py": {
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62",
+      "bytes": 17156
+    },
+    "product/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "sha256": "810a51ac68c9c456f956d7f6a2c9239f3e73032db00e0e0846536e28a7b6de7e",
+      "bytes": 22622
+    },
+    "product/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0",
+      "bytes": 2609
+    },
+    "product/competition/deepeye/integration/host_envelope.py": {
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "bytes": 26184
+    },
+    "product/competition/deepeye/integration/pc_direct_watchdog.py": {
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1",
+      "bytes": 12255
+    },
+    "product/competition/deepeye/integration/clock_bounds.py": {
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "bytes": 10136
+    },
+    "product/competition/deepeye/integration/sensor_source.py": {
+      "sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57",
+      "bytes": 11285
+    },
+    "product/competition/deepeye/docs/host_contract.json": {
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "bytes": 19892
+    },
+    "product/competition/deepeye/docs/host_timing_contract.md": {
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "bytes": 8180
+    },
+    "product/competition/deepeye/docs/enums.json": {
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "bytes": 3255
+    },
+    "product/competition/deepeye/docs/interface.json": {
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "bytes": 23031
+    },
+    "product/competition/deepeye/ai_pc/host_timing/reference.py": {
+      "sha256": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+      "bytes": 10137
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/motion_request.py": {
+      "sha256": "5bc0938f819bacc4834ed6a59e2dc1f48a0015f64c024faa94876e3d00ae1109",
+      "bytes": 22001
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/mailbox.py": {
+      "sha256": "705b565d6047ae34a676566c2df42ef7596707656fc52e298380f1d3ffbb9f61",
+      "bytes": 22532
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/deadlines.py": {
+      "sha256": "9439b4bc2bc2fef5bea2fb829694c8c8e41c5102067775dde5e8d42721aa7bfc",
+      "bytes": 16985
+    },
+    "C-local-reference/competition/deepeye/ai_pc/model/causal_input.py": {
+      "sha256": "d06a2416f89fe1314bfd3d0ff03baf221f811584574ff4d7aa7ce826cb6d9919",
+      "bytes": 36437
+    },
+    "C-local-reference/competition/deepeye/ai_pc/model/curve_input.py": {
+      "sha256": "c017729a2d5717ff2bbf5a6c591320519c415ac10068b4cee19b3136913d848c",
+      "bytes": 39152
+    },
+    "C-local-reference/competition/deepeye/ai_pc/planning/candidate_graph.py": {
+      "sha256": "7c88e6e5a64badfedbf1dbd72327aa2ee9985d5b760bae8351d45d5f5aa437af",
+      "bytes": 18479
+    }
+  },
+  "source_anchors": {
+    "product/competition/deepeye/simulation/authority/actor_composition.py": {
+      "ActivationUnavailable": 19,
+      "CompositionRejected": 23,
+      "AuthorityConfig": 28,
+      "CompositionStatus": 40,
+      "StepOutcome": 45,
+      "_production_channels": 55,
+      "_entry": 60,
+      "_Dependencies": 110,
+      "ActorComposition": 166,
+      "create_authority": 344,
+      "call": 62,
+      "__init__": 172,
+      "verify_boot": 114,
+      "_verify": 122,
+      "verify_board": 133,
+      "verify_observation": 136,
+      "verify_command": 139,
+      "ai_lease": 144,
+      "prepare_step": 153,
+      "commit_step": 160,
+      "_remember": 185,
+      "_checkpoint": 188,
+      "_active": 192,
+      "_dispatch_stop": 196,
+      "_retire": 217,
+      "_cleanup": 223,
+      "_start": 238,
+      "accept_boot": 253,
+      "_channel_health": 279,
+      "_runtime_active": 284,
+      "accept_board": 288,
+      "accept_observation": 294,
+      "accept_command": 300,
+      "step": 315,
+      "poll": 325,
+      "stop": 330,
+      "close": 335,
+      "status": 340
+    },
+    "product/competition/deepeye/tests/simulation/test_actor_composition.py": {
+      "FakeChannels": 19,
+      "ActorCompositionTests": 45,
+      "__init__": 21,
+      "checkpoint": 24,
+      "verify_boot": 28,
+      "event": 33,
+      "_verify": 35,
+      "verify_board": 40,
+      "verify_observation": 41,
+      "verify_command": 42,
+      "setUp": 46,
+      "close_fixture": 63,
+      "create": 66,
+      "activate": 71,
+      "arm": 81,
+      "step": 84,
+      "assert_no_pose": 86,
+      "test_missing_production_verifier_rejects_before_registry_construction": 91,
+      "test_public_factory_has_no_provider_actor_or_lease_injection": 98,
+      "test_registry_is_retained_before_construction_and_failed_launch": 103,
+      "test_exact_original_actor_and_real_numeric_executor_commit": 117,
+      "test_static_channel_provider_cannot_mask_original_death": 126,
+      "test_death_during_prepare_and_inside_final_fence_never_commits": 131,
+      "test_final_fence_detects_death_after_preparation_checks": 140,
+      "test_plain_records_and_fixture_ready_text_never_authenticate": 149,
+      "test_plain_verified_command_record_cannot_bypass_channel": 155,
+      "test_partial_activation_failures_revoke_originals_and_cleanup_once": 161,
+      "test_runtime_activation_error_after_assignment_is_revoked": 175,
+      "test_binding_error_after_binding_is_revoked": 182,
+      "test_each_revocation_dispatch_rechecks_successor_identity": 189,
+      "test_external_stop_and_broker_stop_never_become_motion": 202,
+      "test_caught_reentry_from_channel_latches_outer_activation": 207,
+      "test_caught_malformed_reentry_from_clock_vetoes_outer_step": 216,
+      "test_foreign_thread_veto_has_no_foreign_native_effect_and_owner_drains": 224,
+      "test_missing_progress_cannot_be_replaced_by_nonsignaled_process": 233,
+      "test_noncommitted_idle_is_conservatively_retired": 238,
+      "test_cleanup_failure_preserves_primary_and_strong_registry": 241,
+      "test_unknown_call_shape_retires_even_when_already_active": 251,
+      "test_same_value_different_boot_object_cannot_pass_private_verifier": 256,
+      "test_foreign_veto_during_original_wait_is_seen_before_pose_commit": 262,
+      "test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission": 273,
+      "construct": 106,
+      "prepare": 134,
+      "commit": 143,
+      "fail": 184,
+      "stop": 193,
+      "reenter": 218,
+      "foreign": 278,
+      "during_wait": 267,
+      "after_commit": 275
+    },
+    "product/competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "_integer": 29,
+      "_runtime_entry": 35,
+      "_NoActiveCommand": 52,
+      "BootBinding": 57,
+      "VerifiedEnvelope": 65,
+      "VerifiedObservation": 71,
+      "AiLease": 78,
+      "StepFence": 85,
+      "CommitReceipt": 95,
+      "StepResult": 105,
+      "AuthorityDependencies": 111,
+      "_Observation": 155,
+      "_Command": 161,
+      "PcDirectRuntime": 168,
+      "call": 43,
+      "verify_boot": 132,
+      "verify_board": 135,
+      "verify_observation": 138,
+      "verify_command": 141,
+      "ai_lease": 144,
+      "prepare_step": 147,
+      "commit_step": 151,
+      "__init__": 176,
+      "_trip": 202,
+      "_advance": 212,
+      "_active": 228,
+      "_event": 232,
+      "_record": 250,
+      "_same_boot": 255,
+      "boot": 261,
+      "board": 302,
+      "observe": 329,
+      "_age_cap": 360,
+      "_ai": 363,
+      "command": 374,
+      "stop": 407,
+      "_ready": 411,
+      "step": 442,
+      "activate": 265,
+      "receive": 303,
+      "admit": 375,
+      "before_commit": 466
+    },
+    "product/competition/deepeye/simulation/authority/motion_executor.py": {
+      "GeometryBudget": 25,
+      "RendererView": 40,
+      "ControllerView": 46,
+      "_Command": 52,
+      "_CommitFrame": 65,
+      "_Root": 75,
+      "_Prepared": 91,
+      "PreparationRejected": 101,
+      "_entry": 109,
+      "_revoking_entry": 125,
+      "_integer": 137,
+      "OwnedMotionExecutor": 142,
+      "__post_init__": 31,
+      "__init__": 149,
+      "call": 128,
+      "_owner_check": 168,
+      "authority_snapshot": 171,
+      "renderer_view": 174,
+      "controller_view": 178,
+      "admitted_raw": 183,
+      "passage_state": 188,
+      "prepared_audit": 204,
+      "_revoke": 209,
+      "revoke": 220,
+      "invalidate_world": 224,
+      "activate_boot": 234,
+      "admit_command": 251,
+      "_sweep": 276,
+      "prepare_step": 290,
+      "commit_step": 326
+    },
+    "product/competition/deepeye/simulation/isolation/actor_owner.py": {
+      "_native_api": 27,
+      "_integer": 32,
+      "_relative": 38,
+      "_no_alias": 52,
+      "ActorPolicy": 59,
+      "_persist": 113,
+      "_entry": 137,
+      "ActorRegistry": 167,
+      "ActorOwner": 199,
+      "_validate": 76,
+      "call": 139,
+      "__init__": 205,
+      "_contains": 176,
+      "launch": 178,
+      "instance_id": 229,
+      "state": 232,
+      "_checkpoint": 234,
+      "_time": 239,
+      "_report": 247,
+      "_revoke": 253,
+      "_stage_files": 278,
+      "_launch": 297,
+      "bind_verified_boot": 362,
+      "ai_lease": 393,
+      "poll": 398,
+      "_close_internal": 402,
+      "close": 429,
+      "diagnostics": 434
+    },
+    "product/competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "_reference": 9,
+      "_sample": 23,
+      "_observe": 49
+    },
+    "product/competition/deepeye/integration/host_envelope.py": {
+      "ValidatedMessage": 71,
+      "_load_sibling": 80,
+      "_strict_enum": 92,
+      "_strict_const": 99,
+      "_iter_refs": 112,
+      "_sealed_schema": 123,
+      "_validators": 135,
+      "_subtree": 143,
+      "_closest_error": 153,
+      "_describe": 161,
+      "_reject_constant": 170,
+      "_parse_float": 174,
+      "_strict_object": 181,
+      "_check_nesting": 190,
+      "_reject_nonfinite": 212,
+      "_reject_denied_keys": 223,
+      "_parse_message": 237,
+      "_check_producer_argument": 260,
+      "_check_consumer_argument": 265,
+      "_check_now_argument": 275,
+      "_check_context_argument": 280,
+      "_check_message_context": 288,
+      "_check_nested_contexts": 293,
+      "_check_intervals": 307,
+      "_check_pose": 323,
+      "_check_gate": 335,
+      "_profile_name": 350,
+      "_check_target": 354,
+      "_require_observation": 375,
+      "_decode_frame": 380,
+      "_check_telem": 394,
+      "_check_event": 417,
+      "_check_candidate": 431,
+      "_check_request": 438,
+      "_check_grant": 445,
+      "_check_odometry": 461,
+      "_check_geometry": 465,
+      "_kind_validator": 475,
+      "_check_request_type": 484,
+      "_check_config_ack": 492,
+      "_check_gain_ack": 501,
+      "_check_boot_ack": 508,
+      "_check_ack3d": 517,
+      "_check_state": 528,
+      "_check_state3d": 545,
+      "_check_board_response": 561,
+      "validate_message": 589
+    },
+    "product/competition/deepeye/integration/pc_direct_watchdog.py": {
+      "_load_sibling": 20,
+      "_integer": 35,
+      "_context_copy": 41,
+      "StopGateDecision": 50,
+      "PcDirectWatchdog": 63,
+      "__init__": 72,
+      "context": 80,
+      "heartbeat_timeout_ns": 84,
+      "_clear_session": 87,
+      "_trip": 103,
+      "_advance": 110,
+      "_decision": 129,
+      "check": 139,
+      "ingest_heartbeat": 144,
+      "track_authority_command": 205,
+      "cancel": 236,
+      "reset": 244
+    },
+    "product/competition/deepeye/integration/clock_bounds.py": {
+      "_strict_int": 38,
+      "_require_uint32": 48,
+      "_require_full_boot_sha256": 52,
+      "Interval": 61,
+      "ClockBounds": 75,
+      "Anchor": 106,
+      "make_anchor": 144,
+      "map_tick": 156,
+      "adc_window_nominal_span_ns": 201,
+      "adc_first_sample_interval": 210,
+      "__post_init__": 122
+    },
+    "product/competition/deepeye/integration/sensor_source.py": {
+      "_integer": 35,
+      "_tick": 41,
+      "SourceRecord": 49,
+      "validate_record": 61,
+      "_decode": 122,
+      "validate_json": 144,
+      "LedgerSnapshot": 150,
+      "Admission": 161,
+      "SourceLedger": 167,
+      "pairs": 126,
+      "constant": 134,
+      "__init__": 175,
+      "snapshot": 182,
+      "clock_high_water_ns": 186,
+      "_observe_time": 190,
+      "_time_ns": 199,
+      "accept_json": 202,
+      "accept": 206,
+      "healthy": 255
+    },
+    "product/competition/deepeye/ai_pc/host_timing/reference.py": {
+      "_strict_int": 38,
+      "_require_uint32": 48,
+      "_require_full_boot_sha256": 52,
+      "Interval": 61,
+      "ClockBounds": 75,
+      "Anchor": 106,
+      "make_anchor": 144,
+      "map_tick": 156,
+      "adc_window_nominal_span_ns": 201,
+      "adc_first_sample_interval": 210,
+      "__post_init__": 122
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/motion_request.py": {
+      "MotionRequestError": 70,
+      "RuntimeBlocked": 74,
+      "_integer": 78,
+      "_object": 84,
+      "_hex": 90,
+      "HostContext": 97,
+      "SentObservation": 125,
+      "_observation_copy": 172,
+      "OriginalTiming": 182,
+      "RuntimeCheck": 191,
+      "RuntimeVerifier": 202,
+      "RequestDecision": 209,
+      "_pairs": 223,
+      "_forbidden_number": 232,
+      "_parse": 236,
+      "_target": 266,
+      "MotionRequestAdapter": 290,
+      "__post_init__": 142,
+      "from_mapping": 116,
+      "as_dict": 119,
+      "wire_tick_ms": 160,
+      "wire_observed_seq": 164,
+      "key": 167,
+      "verify_motion": 203,
+      "movement_authorized": 219,
+      "__init__": 297,
+      "context": 313,
+      "retained_observations": 318,
+      "_validate_context": 322,
+      "register_observation": 327,
+      "_clock": 352,
+      "_blocked": 358,
+      "_emit": 361,
+      "submit": 379,
+      "safe_stop": 457
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/mailbox.py": {
+      "BrokerBinding": 119,
+      "ObservationRef": 146,
+      "Candidate": 175,
+      "Consumption": 217,
+      "ControlMailbox": 233,
+      "validate": 190,
+      "payload_digest": 211,
+      "__init__": 251,
+      "binding": 267,
+      "pending": 272,
+      "observation_ids": 277,
+      "observation_ordinals": 284,
+      "high_water_key": 291,
+      "high_water_digest": 296,
+      "high_water_completed_at_ns": 301,
+      "last_consumed_now_ns": 306,
+      "register_sent_observation": 310,
+      "offer": 369,
+      "consume": 421,
+      "_drop_pending": 501
+    },
+    "C-local-reference/competition/deepeye/ai_pc/control_broker/deadlines.py": {
+      "BrokerError": 83,
+      "ProfileLimits": 88,
+      "profile_limits": 109,
+      "require_nonneg_int": 116,
+      "require_uint64": 123,
+      "LeaseDeadline": 136,
+      "hil_deadline": 237,
+      "pc_direct_deadline": 360,
+      "__post_init__": 160,
+      "validate": 163,
+      "expired_at": 228
+    },
+    "C-local-reference/competition/deepeye/ai_pc/model/causal_input.py": {
+      "CausalInputError": 157,
+      "_forbidden_field": 161,
+      "_finite_number": 166,
+      "_normalized_feature": 178,
+      "_non_negative_int": 187,
+      "_positive_scale": 193,
+      "_quality_flags": 200,
+      "_channel_state": 212,
+      "_sensor_content": 221,
+      "_merge_acquisition_ticks": 232,
+      "TelemetrySchema": 289,
+      "SummaryBinding": 369,
+      "SummaryColumn": 388,
+      "SummaryWindowMetadata": 425,
+      "SummaryWindow": 461,
+      "build_summary_window": 476,
+      "field_names": 315,
+      "allowed": 349,
+      "validate": 377,
+      "to_model_input": 468
+    },
+    "C-local-reference/competition/deepeye/ai_pc/model/curve_input.py": {
+      "CurveInputError": 141,
+      "_forbidden_field": 145,
+      "_sha256_hex": 150,
+      "_finite_number": 158,
+      "_exact_bool": 178,
+      "_four_number_sequence": 184,
+      "_four_bool_sequence": 195,
+      "CurveSchema": 207,
+      "CurveBinding": 309,
+      "CurveObservation": 338,
+      "observation_from_mapping": 374,
+      "_channel_statistics": 417,
+      "CurveChannelStatistics": 460,
+      "_parse_preprocessing_document": 517,
+      "CurveScaler": 580,
+      "CurveWindowMetadata": 649,
+      "CurveWindow": 690,
+      "CurveWindowBuilder": 719,
+      "__post_init__": 703,
+      "field_names": 274,
+      "allowed": 292,
+      "validate": 295,
+      "from_mapping": 369,
+      "__init__": 729,
+      "from_document_bytes": 606,
+      "normalize": 610,
+      "to_model_input": 713,
+      "binding": 753,
+      "scaler": 757,
+      "latest_sequence": 761,
+      "observe": 764,
+      "snapshot": 817
+    },
+    "C-local-reference/competition/deepeye/ai_pc/planning/candidate_graph.py": {
+      "CandidateGraphError": 84,
+      "_require_identifier": 88,
+      "_exact_nonnegative_fraction": 96,
+      "_copy_sequence": 123,
+      "NormalizedCost": 131,
+      "Edge": 172,
+      "SearchResult": 194,
+      "CandidateGraph": 254,
+      "search_minimum_cost_path": 448,
+      "_node_chain": 458,
+      "__init__": 272,
+      "components": 156,
+      "weighted_total": 162,
+      "__post_init__": 184,
+      "node_ids": 323,
+      "edges": 329,
+      "node_count": 335,
+      "edge_count": 339,
+      "search": 341
+    }
+  },
+  "observed_heads": {
+    "product": "2f5fb02d1679168d71ef9b0a02ceaa540708cc7b",
+    "C-local-reference": "942fa309ffc8f1d32c816cfa643b009b031d7d0a"
+  },
+  "source_identity": "raw checkout bytes; C local head is a schema/reference read, not fresh remote readback or adoption",
+  "product_ai_pc_files": [
+    "competition/deepeye/ai_pc/host_timing/reference.py"
+  ],
+  "actions": "read-only source/evidence/hash inspection; no product imports, tests, IPC, native, network or interpreter operations"
+}

@@ -1,0 +1,27 @@
+{
+  "job_id": "child-c3a414e0abeb435298e1e5041e671956",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-R02-READONLY-PREFLIGHT-20261020-v1",
+  "ownership": [
+    ".local/deepeye-implementation-a/.superpowers/sdd/2026-10-20-r02-readonly-preflight/task-1-report.md",
+    ".local/deepeye-implementation-a/competition/deepeye/hardware/preflight.md",
+    ".local/deepeye-implementation-a/competition/deepeye/tests/test_preflight.py",
+    ".local/deepeye-implementation-a/competition/deepeye/tools/preflight.py",
+    ".local/deepeye-implementation-a/competition/deepeye/tools/preflight_windows.ps1",
+    ".planning/deepeye-resume-20261018/r02-preflight-implementation-20261020"
+  ],
+  "native_agent_id": "/root/r02_preflight_implementation_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "Work A-R02-READONLY-PREFLIGHT-20261020-v1: four assigned product files implemented and frozen for main review. Base f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe unchanged; all four protected C dirty files are byte-identical and unstaged. No Git mutation or publication.\n\nTests: expected missing-command red retained; 1e400 nonfinite regression red retained and fixed; final targeted unittest run passes 14 tests with exit 0. Exact-source receipts and raw output are in .planning/deepeye-resume-20261018/r02-preflight-implementation-20261020/.\n\nSingle live --inventory-only attempt: exit 2, collector_exit/UnauthorizedAccess because Windows PowerShell policy refused .ps1 loading; no CIM inventory was obtained. Contract and collector hash validated; current-interpreter metadata collection completed. No policy change, repeat live collection, target backend import, board/network/service/display/input action occurred.\n\nConcerns: -File launch is blocked on actual host; stdout CRLF and optional-file LF produce identical JSON but different bytes, so documentation's byte-identical wording is too strong. Main directed freeze and will independently review a separately authorized correction. R02 remains not_run and formal_acceptance=false; no formal card closure.\n\nExact file SHA-256:\ncompetition/deepeye/tools/preflight.py 5052890bc30b9b7a3170a771b1f2e247210d81c11c98c221e07d011db870037d\ncompetition/deepeye/tools/preflight_windows.ps1 75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2\ncompetition/deepeye/tests/test_preflight.py b554eb98c5fe587f6f91fc9fab6b82e0a6155243aafe0ef882c948b0b78b1ebc\ncompetition/deepeye/hardware/preflight.md 16503a3383843dbdc1554d17ad760bfe92eb831ccc89b04f95560aea7e2beab3\n\nReport: .local/deepeye-implementation-a/.superpowers/sdd/2026-10-20-r02-readonly-preflight/task-1-report.md\nContract DEEPEYE-HUMAN-LOCK-20261014/revision1; actual requirements SHA-256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804. All H01-H15 preserved. Worker has finished scoped edits and makes no further product writes; main retains acceptance.\n",
+    "native_agent_id": "/root/r02_preflight_implementation_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T06:12:38.287056Z",
+  "updated_at": "2026-10-20T06:20:05.522739Z"
+}

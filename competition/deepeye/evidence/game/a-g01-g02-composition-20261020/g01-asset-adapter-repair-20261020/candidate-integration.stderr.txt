@@ -1,0 +1,11 @@
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+WARNING: Vector3 cannot be normalized, the elements must be finite. Making (0, 0, 0) as a fallback.
+   at: normalize (./core/math/vector3.h:551)
+   GDScript backtrace (most recent call first):
+       [0] _validate_visual (res://viewer/asset_presenter.gd:163)
+       [1] _validate_asset (res://viewer/asset_presenter.gd:128)
+       [2] _test_validation_failures (res://tests/test_viewer_asset_integration.gd:377)
+       [3] _run (res://tests/test_viewer_asset_integration.gd:70)
+       [4] _test_focus (res://tests/test_viewer_asset_integration.gd:276)

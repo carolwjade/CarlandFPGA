@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "members": {
+    "artifact-manifest.json": {
+      "bytes": 14948,
+      "sha256": "5649d7fef953bcf19a30ad5d5f847ab9bf532530dc6a247e0ad7063036756b1e"
+    },
+    "evidence/attempt1-execution.json": {
+      "bytes": 2658,
+      "sha256": "6b5c882489c7094e9a190b6bb3c3f19491afdc1fef5584ae8cdc3fb42bb4ca88"
+    },
+    "evidence/attempt1-godot.log": {
+      "bytes": 5303,
+      "sha256": "52c90b559bec0de4e2e57acc111a50aee6a02050190fc25c1353a3c66395ca92"
+    },
+    "evidence/attempt1-result.json": {
+      "bytes": 42677,
+      "sha256": "5e8683391c719d3dd1b6cbd270bc9895015f1749f5dd6cc85ef438a29557b06e"
+    },
+    "evidence/attempt1-saved-layout.json": {
+      "bytes": 2340,
+      "sha256": "9f20ed7df772206e7f17d3f71eaf49e284861653678595a13937d8a7adc8c288"
+    },
+    "evidence/attempt1-started.json": {
+      "bytes": 2111,
+      "sha256": "0c5afcc6452f76138f8e680c8c5e57bc4ea8bcaa80686c4b06052f927ce65467"
+    },
+    "evidence/attempt1-stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "evidence/attempt1-stdout.bin": {
+      "bytes": 5418,
+      "sha256": "2da8d6fd32e576da3dcd1166664d9df2d88b9766b376f3769e68ed74bc321f36"
+    },
+    "evidence/finalize_evidence.py": {
+      "bytes": 12644,
+      "sha256": "c36f651b9dee6d29e04812c3476f5489e5b059d869edd6cd133d84ea46a132ff"
+    },
+    "evidence/freeze_oracle.py": {
+      "bytes": 5610,
+      "sha256": "3014af92f7a1e00c986a7e933c691d40bcc8e1d60677c5517fc9f62b21e52978"
+    },
+    "evidence/integrity-after.json": {
+      "bytes": 2359,
+      "sha256": "3f4754950b4e1ff57ad7adb7be707727871dc0d7ffda7882f6ba646528658ca1"
+    },
+    "evidence/integrity-before.json": {
+      "bytes": 2359,
+      "sha256": "3f4754950b4e1ff57ad7adb7be707727871dc0d7ffda7882f6ba646528658ca1"
+    },
+    "evidence/launch_control.py": {
+      "bytes": 3209,
+      "sha256": "e87f8ea7d830502d11faee860d29866dbddd643bd4d43d5cf325354f407d44e6"
+    },
+    "evidence/native-validate-response.json": {
+      "bytes": 404,
+      "sha256": "f4dca54ad03648bca26b0be84f31c577fa1020813e1ab4ddd21698078eb49405"
+    },
+    "evidence/oracle-authorized-delta.json": {
+      "bytes": 738,
+      "sha256": "b318c31a78c783d8fd03913a27aefc975ceb202f4bcf119fdfca9df3d682c579"
+    },
+    "evidence/oracle-executable.json": {
+      "bytes": 5752,
+      "sha256": "8e6927035bee23414a2df2e9f4a6fb95b2e2d66e1535333f704edf80ffe7c830"
+    },
+    "evidence/oracle-freeze.json": {
+      "bytes": 238,
+      "sha256": "0b817a3f48e9b0377ef2f5ecbfc67fa892118ccf792bc1d42cf9981c6b1cdf54"
+    },
+    "evidence/oracle-plan.json": {
+      "bytes": 5831,
+      "sha256": "5f129076a7b02b54b85c5c34de64cdb9c1277446518a115a995412ee47946aee"
+    },
+    "evidence/post-readback-verification.json": {
+      "bytes": 899,
+      "sha256": "43fdc9e3267bd40aa8cbda4153bde510c8379bc71d2ff5ef66f1d617cb17ac32"
+    },
+    "evidence/prepare_snapshot.py": {
+      "bytes": 4970,
+      "sha256": "c644a84c3fed927a419f64e7afdf2a5817f42132c0c665eb977adb1f54eab061"
+    },
+    "evidence/report.md": {
+      "bytes": 5631,
+      "sha256": "05fd009efc5e5ca8547d9536cd8f42eaf8ebfc3716c6a615c5bf585e099277e9"
+    },
+    "evidence/result.json": {
+      "bytes": 1743,
+      "sha256": "dd131adf46515564abe6f82be1141f81d2a6fffd825b0d88c31688a875b77064"
+    },
+    "evidence/roundtrip_control.gd": {
+      "bytes": 9444,
+      "sha256": "1940f7ed7237529d33b779e392758bf657259c568f8d939733836e95ffa10cea"
+    },
+    "evidence/source-pins.json": {
+      "bytes": 12025,
+      "sha256": "ae6dc1dce4397be928eec5d4730d287c70837c9d0ff6a3fb77d333f514ba726a"
+    },
+    "evidence/startup-static-audit.json": {
+      "bytes": 1419,
+      "sha256": "1b9908c58284258691a10eab865289a7f43dec2065252d25bdf02e6e6450e7b5"
+    },
+    "root/game-api-and-PL-readiness-root-decision.json": {
+      "bytes": 1538,
+      "sha256": "52b5a65167d3f24f6480fac5f77c9f137d56b7e48577e3267afdd572ee3e97ba"
+    },
+    "root/goal-and-terminal-readback-after-game-API.json": {
+      "bytes": 10361,
+      "sha256": "c4051c4b77153d4923662b9cc6e7b2268be98749b96db626413514c77d638941"
+    },
+    "root/verify_game_api_and_pl_readiness.py": {
+      "bytes": 4818,
+      "sha256": "4d0926e182f2fadacb1143ee230360ff06a6b0c9b49e8cd3b61757a5374401af"
+    },
+    "work/appdata/Godot/app_userdata/矿脉·深瞳/independent-result.json": {
+      "bytes": 42677,
+      "sha256": "5e8683391c719d3dd1b6cbd270bc9895015f1749f5dd6cc85ef438a29557b06e"
+    },
+    "work/appdata/Godot/app_userdata/矿脉·深瞳/roundtrip-layout.json": {
+      "bytes": 2340,
+      "sha256": "9f20ed7df772206e7f17d3f71eaf49e284861653678595a13937d8a7adc8c288"
+    },
+    "work/snapshot/competition/deepeye/docs/interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "work/snapshot/competition/deepeye/docs/resource_contract.json": {
+      "bytes": 2655,
+      "sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4"
+    },
+    "work/snapshot/competition/deepeye/simulator/.gitattributes": {
+      "bytes": 174,
+      "sha256": "3fc63f004bd3b90e254ad9c3f415859a4a3b0197202cb4e16e0d52504e3ac318"
+    },
+    "work/snapshot/competition/deepeye/simulator/assets/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "work/snapshot/competition/deepeye/simulator/assets/LICENSES.md": {
+      "bytes": 3722,
+      "sha256": "f0b9ffe3daa2a168eaa510efa8c92d698e39260833aafa8161231f6168ba9959"
+    },
+    "work/snapshot/competition/deepeye/simulator/assets/scene_catalog.json": {
+      "bytes": 19040,
+      "sha256": "d75c0369c48a629aec5ab693d321f59db42078955c9878e2a0a9d13cd7b35795"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/gate_json_numbers.gd": {
+      "bytes": 4504,
+      "sha256": "8554c99c1d8b70c9ef7471b3eb06ee994aef6f33397a2612f09d5c55aa73a3fa"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/gate_numeric.gd": {
+      "bytes": 8708,
+      "sha256": "9356b645b4ce947c9825b3766a6f6e2f690ceca08bdb888ce2faf884f84cd461"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/layout_codec.gd": {
+      "bytes": 15440,
+      "sha256": "adb5c7f1c24390ba6aa8456e40e713ac55a1dd80c2a866b9802e3775ee4826ef"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/layout_store.gd": {
+      "bytes": 5757,
+      "sha256": "752b023361b3ae935214dcef8beedc22e3722c66f0bdf1cef5b20939a91696a5"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/scene_document.gd": {
+      "bytes": 31324,
+      "sha256": "2bcc0c620333582361706f0b23b7e4bcc54b31a4e2a0cc6618935dcd296bdd6f"
+    },
+    "work/snapshot/competition/deepeye/simulator/editor/scene_document.gd.uid": {
+      "bytes": 19,
+      "sha256": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783"
+    },
+    "work/snapshot/competition/deepeye/simulator/export_presets.cfg": {
+      "bytes": 593,
+      "sha256": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34"
+    },
+    "work/snapshot/competition/deepeye/simulator/grammar-fixtures/leading-zero.json": {
+      "bytes": 520,
+      "sha256": "c2c5786f62c893cb3f9774610097cf21fbbaac3b35fb197b39e5c248dcd5a453"
+    },
+    "work/snapshot/competition/deepeye/simulator/grammar-fixtures/missing-fraction-with-exponent.json": {
+      "bytes": 522,
+      "sha256": "f1d8c719e1e09b36814c9d614bf530bdbc2cb5dd86aa95639b58703d23ad8ed0"
+    },
+    "work/snapshot/competition/deepeye/simulator/grammar-fixtures/missing-fraction.json": {
+      "bytes": 520,
+      "sha256": "044500804dcff5f673b864582e3462bd277ecc9cde248250181bc3e603724436"
+    },
+    "work/snapshot/competition/deepeye/simulator/grammar-fixtures/valid-exponent.json": {
+      "bytes": 522,
+      "sha256": "e79b2909decaadda22851f211a65c0095eac65167b645c7c774059722213a7fb"
+    },
+    "work/snapshot/competition/deepeye/simulator/independent-oracle.json": {
+      "bytes": 5752,
+      "sha256": "8e6927035bee23414a2df2e9f4a6fb95b2e2d66e1535333f704edf80ffe7c830"
+    },
+    "work/snapshot/competition/deepeye/simulator/independent-roundtrip-control.gd": {
+      "bytes": 9444,
+      "sha256": "1940f7ed7237529d33b779e392758bf657259c568f8d939733836e95ffa10cea"
+    },
+    "work/snapshot/competition/deepeye/simulator/physics/motion_cast.gd": {
+      "bytes": 6112,
+      "sha256": "c71d8123bb8b48e16692faa45623d9075f4ebd00efd86d6bb199ca94bfd3d1b3"
+    },
+    "work/snapshot/competition/deepeye/simulator/project.godot": {
+      "bytes": 629,
+      "sha256": "f713d8279b16a9710cc9a2a892a54c620a64dbeb36179fa4ac4cd3c7651d26f2"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/grammar_cases.json": {
+      "bytes": 17647,
+      "sha256": "237910ec610d70831c917c6dcff7b811ce6732478e62aabd33ba280af1401117"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/grammar_probe.gd": {
+      "bytes": 3441,
+      "sha256": "5685853d7421d79a46ade8f7e142b9e76b428294a828a2a4fd290d1afd67ca22"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/numeric_cases.json": {
+      "bytes": 761225,
+      "sha256": "e98ed17cc2cf4926c51397d4c60fdd5e397f1849c71291843924c26a5540ceae"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/reader_cases.json": {
+      "bytes": 41832,
+      "sha256": "e0cf9367c4ddda8456e2948c8db96c6e3a701d2b1af391771116a57615e2eec8"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_asset_contract.gd": {
+      "bytes": 43605,
+      "sha256": "0a7479ffe3a8f12f55f673dfcfec38329e45193fe91c54331fe81c50461c596e"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_asset_contract.gd.uid": {
+      "bytes": 20,
+      "sha256": "14efc743fd8a5a90c19e0596c8065a1cd789335b3c37bb5d6a329f73da6cbf50"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_editor_document.gd": {
+      "bytes": 27144,
+      "sha256": "0daec4d5460f61d2435f4cc9add2908ddb84b09fbac5aa88ab893f378d519443"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_editor_document.gd.uid": {
+      "bytes": 19,
+      "sha256": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_g02_ui_fit.gd": {
+      "bytes": 27784,
+      "sha256": "2c95090dceb98518c331dbb803f1bd1bb4e9d438439b58173e2bee78aa857db4"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_gate_numeric.gd": {
+      "bytes": 4483,
+      "sha256": "07b73b6355818b76584b09d35348a2f4ee34dc1c8ce3a56f1a2389eb9d47beb1"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_gate_reader.gd": {
+      "bytes": 3617,
+      "sha256": "e578b3df2f5f48697f64786472aeed8f76bab838138cb2802ed3339652bea279"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_layout_persistence.gd": {
+      "bytes": 38067,
+      "sha256": "3440d748c350ec93f01a82b59e604a14b44af6bd5c8d936bdfe4dd187cb01e5e"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_layout_unicode_path.gd": {
+      "bytes": 1283,
+      "sha256": "ab8a810b83ebfd145ca865a29be271cf4c257c57731b710c09b38770e576820c"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_motion_cast.gd": {
+      "bytes": 13722,
+      "sha256": "6980f82bfbf8faf8217d0b24a8337a54b473eb1ce6286b337ab872b55ed9b057"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_viewer_asset_integration.gd": {
+      "bytes": 22447,
+      "sha256": "36c332f58e78f1d8ca0a39acf6bf442b4b6fc48038eeefd5624f90e2c47b6bcb"
+    },
+    "work/snapshot/competition/deepeye/simulator/tests/test_viewer_asset_integration.gd.uid": {
+      "bytes": 20,
+      "sha256": "fe0e097ae3d00c88cbd604b0a9f0117ef842765e87211252914b16f43b025193"
+    },
+    "work/snapshot/competition/deepeye/simulator/ui/shell.gd": {
+      "bytes": 39961,
+      "sha256": "7b5c62197d41045e44f3d76b00816edfce50824dbc1e220a717fe647f89eae48"
+    },
+    "work/snapshot/competition/deepeye/simulator/ui/shell.gd.uid": {
+      "bytes": 19,
+      "sha256": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823"
+    },
+    "work/snapshot/competition/deepeye/simulator/viewer/asset_presenter.gd": {
+      "bytes": 13061,
+      "sha256": "b9b9f5560300abcd05f0871f60fac6bc8c60e8e9f9c40f3be7c244e83c7675db"
+    },
+    "work/snapshot/competition/deepeye/simulator/viewer/asset_presenter.gd.uid": {
+      "bytes": 20,
+      "sha256": "4c74f56234202b65ca721ce76d01bb983df1cdf288709d1e29ac7d01e9016b2d"
+    },
+    "work/snapshot/competition/deepeye/simulator/viewer/main.gd": {
+      "bytes": 26870,
+      "sha256": "6b51496e1224660a1935df533c6bfa835933b0767cab9d5479998653191abba2"
+    },
+    "work/snapshot/competition/deepeye/simulator/viewer/main.gd.uid": {
+      "bytes": 20,
+      "sha256": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce"
+    },
+    "work/snapshot/competition/deepeye/simulator/viewer/main.tscn": {
+      "bytes": 1285,
+      "sha256": "9efcba61efd00a7f357fc57ddb27130a5a4eb34def23ab3f2894725a350e7c62"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/.gitattributes": {
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/asset_library.gd": {
+      "bytes": 5762,
+      "sha256": "9eb1f49fe6cfdf28e2a4e4cfc1783be6d4266ba5c86c7f346ca4182f765e2cce"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/asset_library.gd.uid": {
+      "bytes": 20,
+      "sha256": "0bb3d1ed877ef62e32c1bad57ad01d9a90772a4a22073aff030bd9db3d6eef4d"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/drill_geometry.gd": {
+      "bytes": 9409,
+      "sha256": "e31473155bde0457a3481cc78b9c2947bbbc26228dfb4bd4e4e7190c136c8acc"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/drill_geometry.gd.uid": {
+      "bytes": 20,
+      "sha256": "7cf1f58d56903dee992e7880c2e4243285b4a6b451004e9cd83626a6f61099a1"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/frame_geometry.gd": {
+      "bytes": 3516,
+      "sha256": "acb273369cc82b6c0186c8372fccd869083c64676d3b9c6d1d30b739c74d84c5"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/frame_geometry.gd.uid": {
+      "bytes": 20,
+      "sha256": "6058ac651912e1387ab7a319c70627fddfb0d571be5d089e2a0f057ba6f7d0f4"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/obstacle_geometry.gd": {
+      "bytes": 11921,
+      "sha256": "1bac63c23fd991667748fa3554d31a34a9e90946b67bef635a187967955c00ce"
+    },
+    "work/snapshot/competition/deepeye/simulator/world/obstacle_geometry.gd.uid": {
+      "bytes": 20,
+      "sha256": "359ae06087402995ff8b26c942555a6762b0df3d2970939adb349e3a13919512"
+    }
+  },
+  "archive_sha256": "252a100afca9960f04b8b0f9ed69816af895fce60a7991f14fd0023dfc8227bd",
+  "member_count": 84
+}

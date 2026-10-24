@@ -1,0 +1,262 @@
+{
+  "utc": "2026-10-21T12:06:05.286755+00:00",
+  "review": {
+    "status": "ACCEPT_NEW_S1_EVIDENCE_ONLY",
+    "utc": "2026-10-21T12:04:08.612562+00:00",
+    "sealed": [
+      {
+        "folder": "g03-s1-off-axis-contrast-20261021",
+        "manifest_name": "manifest.json",
+        "manifest_sha256": "4b9ab624c474af62025d6770c550b98849161968e61265e933798a6ea39b8606",
+        "manifest_files": 29,
+        "native_status": "failed",
+        "native_job_id": "child-584c780568294d39974150f2613846f2",
+        "native_error": "S1 pre-control harness import failure: Geoana imports Matplotlib but bounded TEMP/cache paths are outside permitted stage writes. No numerical controls/oracle/RHS/solve executed; original failed terminal preserved, no retry.",
+        "held_processes_signaled": 6,
+        "local_final_sha256": "cd33449a30b4eb2b167bd89aa4addaa595ecd2fa1a4c4e08071f9f2c9ba9f905"
+      },
+      {
+        "folder": "g03-s1-cache-path-continuation-20261021",
+        "manifest_name": "manifest.json",
+        "manifest_sha256": "32a48180c41027fdbd10fdaa419dc118c480f153d7cff472e48f41d1699cbe06",
+        "manifest_files": 94,
+        "native_status": "failed",
+        "native_job_id": "child-e1db1beebb4e49eaa2c0c8a97919acdc",
+        "native_error": "Selected one S1 nonzero derivative solve completed but fixed 1% independent-oracle comparison failed: Rx relative discrepancies 0.12370017394714687 and 0.22262060945800732. Controls/oracle and algebraic residual passed. Original exit2, all 9 held handles terminated; no retry.",
+        "held_processes_signaled": 9,
+        "local_final_sha256": "6977d15516cdf8ca36fa7a47073d874ac73851a5fa8924078534712c0d9f616e"
+      }
+    ],
+    "array_review_sha256": "0424140573f885782d985faa86e862d7e1a37e085de879052307e6426cfb8da6",
+    "independent_review_seconds": 0.5469999999622814,
+    "independent_review_peak_memory_bytes": 72232960,
+    "all_review_processes_terminated": true,
+    "new_control_and_oracle_pass": true,
+    "new_derivative_accuracy_screen_pass": false,
+    "relative_errors": [
+      0.12370017394687549,
+      0.22262060945906542
+    ],
+    "physical_accuracy": "unqualified",
+    "finite_tau": "not_run",
+    "all29": "not_run",
+    "old_tests_repeated": false,
+    "review_harness_repairs": [
+      "Attempt1 lacked .npy suffix for the stored receiver trace. Original source/stderr/terminal retained.",
+      "Attempt2 bounded change in a relative error without propagating cancellation-sensitive E dl summation. Final comparison uses the checked absolute voltage roundoff divided by the reference magnitude plus relative arithmetic roundoff; fixed physics 1% gate unchanged. All attempts only read saved arrays, never reran Green/assembly/LU."
+    ]
+  },
+  "array_review": {
+    "status": "ACCEPT_NEW_S1_EVIDENCE_ONLY",
+    "new_screens_pass": false,
+    "independent_residual_eta": 2.228706729227798e-18,
+    "eta_gate": 2.842170943040401e-14,
+    "independent_trace_V": [
+      [
+        3.195326659537851e-11,
+        1.4198336219656898e-10
+      ],
+      [
+        -1.1292620076291968e-12,
+        -5.017193934591291e-12
+      ]
+    ],
+    "independent_Born_flux_reduction": [
+      {
+        "level": "low",
+        "receiver": 1,
+        "field": "born",
+        "independent_fsum_V": [
+          3.6463405904728656e-11,
+          1.6203190665693328e-10
+        ],
+        "absolute_difference_V": 2.66449456017129e-26,
+        "roundoff_bound_V": 1.0179876443118581e-23,
+        "sum_absolute_terms_V": 3.581725605930198e-10,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "low",
+        "receiver": 1,
+        "field": "primary",
+        "independent_fsum_V": [
+          -3.1659089435938165e-07,
+          -0.0006128305246633465
+        ],
+        "absolute_difference_V": 1.0842021724855044e-19,
+        "roundoff_bound_V": 2.1865629824499877e-17,
+        "sum_absolute_terms_V": 0.000769328455701866,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "low",
+        "receiver": 2,
+        "field": "born",
+        "independent_fsum_V": [
+          -1.4542433251713029e-12,
+          -6.4536241272236296e-12
+        ],
+        "absolute_difference_V": 8.077935669463161e-28,
+        "roundoff_bound_V": 1.0696812117172476e-24,
+        "sum_absolute_terms_V": 3.763606176949232e-11,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "low",
+        "receiver": 2,
+        "field": "primary",
+        "independent_fsum_V": [
+          -2.1428692197290143e-07,
+          -0.000147792404460621
+        ],
+        "absolute_difference_V": 0.0,
+        "roundoff_bound_V": 4.5673740832427455e-18,
+        "sum_absolute_terms_V": 0.0001607001892137007,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "high",
+        "receiver": 1,
+        "field": "born",
+        "independent_fsum_V": [
+          3.64621611052852e-11,
+          1.6202638781380794e-10
+        ],
+        "absolute_difference_V": 6.462348535570529e-27,
+        "roundoff_bound_V": 1.0179342457098604e-23,
+        "sum_absolute_terms_V": 3.581537726302027e-10,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "high",
+        "receiver": 1,
+        "field": "primary",
+        "independent_fsum_V": [
+          -3.1659089435938154e-07,
+          -0.0006128305246633464
+        ],
+        "absolute_difference_V": 0.0,
+        "roundoff_bound_V": 2.1865629824499874e-17,
+        "sum_absolute_terms_V": 0.0007693284557018659,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "high",
+        "receiver": 2,
+        "field": "born",
+        "independent_fsum_V": [
+          -1.4542434056597337e-12,
+          -6.4536244832770134e-12
+        ],
+        "absolute_difference_V": 2.0194839173657902e-28,
+        "roundoff_bound_V": 1.0696812096661442e-24,
+        "sum_absolute_terms_V": 3.7636061697325534e-11,
+        "roundoff_near_cancellation": false
+      },
+      {
+        "level": "high",
+        "receiver": 2,
+        "field": "primary",
+        "independent_fsum_V": [
+          -2.142869219729014e-07,
+          -0.00014779240446062097
+        ],
+        "absolute_difference_V": 2.6469779601696886e-23,
+        "roundoff_bound_V": 4.5673380799643874e-18,
+        "sum_absolute_terms_V": 0.00016069892246095853,
+        "roundoff_near_cancellation": false
+      }
+    ],
+    "oracle_relative_screens": {
+      "primary_line_pair": [
+        2.4911168781105364e-15,
+        1.0561670079357276e-15
+      ],
+      "primary_flux_pair": [
+        3.5383425381825697e-16,
+        1.8339966535363552e-16
+      ],
+      "primary_line_vs_H_flux": [
+        1.0804812818034906e-15,
+        5.900340892350435e-15
+      ],
+      "Born_quadrature_pair": [
+        3.406515338653763e-05,
+        5.5179600890589744e-08
+      ]
+    },
+    "relative_derivative_errors": [
+      0.12370017394687549,
+      0.22262060945906542
+    ],
+    "absolute_derivative_errors_V": [
+      2.054392867965531e-11,
+      1.472734066375681e-12
+    ],
+    "derivative_relative_gate": 0.01,
+    "trace_fsum_vs_stored_absolute_V": [
+      4.6245151304354336e-23,
+      7.178055138679923e-24
+    ],
+    "factorizations": 0,
+    "matrix_assemblies": 0,
+    "Green_evaluations": 0,
+    "old_tests_repeated": false,
+    "near_cancellation": "not observed at the component reduction roundoff bound; no artificial denominator floor",
+    "physical_accuracy": "unqualified",
+    "finite_tau": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run",
+    "relative_metric_roundoff_bound": [
+      5.248976485150701e-09,
+      2.3720282178011886e-09
+    ],
+    "relative_metric_observed_difference": [
+      2.713801405818117e-13,
+      1.0580980536190054e-12
+    ]
+  },
+  "public_derivatives": [
+    {
+      "published_path": "g03-s1-off-axis-contrast-20261021/author-red-01/started-public.json",
+      "original_local_sha256": "678abfcbb9cce8fa0d45768caf95b4f7ef25ed1b1a612ff2dfbf5d5cff5b4b1e"
+    },
+    {
+      "published_path": "g03-s1-off-axis-contrast-20261021/controls-01/started-public.json",
+      "original_local_sha256": "41e628cfe54344e82cdf9c1615ed273a474853159835bbe1a138458c8c8fab0a"
+    },
+    {
+      "published_path": "g03-s1-cache-path-continuation-20261021/controls-01/started-public.json",
+      "original_local_sha256": "e6df1ee701354eeb335c4cd858e63c5d9ee21a63c836e3a5b5a5a40feb8eae84"
+    },
+    {
+      "published_path": "g03-s1-cache-path-continuation-20261021/oracle-01/started-public.json",
+      "original_local_sha256": "39573f216560e8c48b2fe38f48aba65bfae80c7d908e17357a152c5cb9a57ae2"
+    },
+    {
+      "published_path": "g03-s1-cache-path-continuation-20261021/run-01/started-public.json",
+      "original_local_sha256": "f192b570ff79561c6f4ece32890e0836ca22b54996d632fbe0b95eaa8dae770d"
+    },
+    {
+      "published_path": "g03-s1-main-review-20261021/run-01/started-public.json",
+      "original_local_sha256": "f1618e0c69a8e543a81cc4d793b24f80224952293e2066649d12788792f8f20e"
+    },
+    {
+      "published_path": "g03-s1-main-review-20261021/run-02/started-public.json",
+      "original_local_sha256": "6d8572a001a3834111e2f5f89f7ea2b547d006c55d6b0ddfcd63ec6b8e6b8c2c"
+    },
+    {
+      "published_path": "g03-s1-main-review-20261021/run-03/started-public.json",
+      "original_local_sha256": "f9248bbdcb8da9daf7d8406d4e26b2f5e8d4348222981ca5f2a1e64b84896d8b"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_tests_repeated": false,
+  "factorizations_in_main_review": 0,
+  "physical_accuracy": "unqualified",
+  "finite_tau": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

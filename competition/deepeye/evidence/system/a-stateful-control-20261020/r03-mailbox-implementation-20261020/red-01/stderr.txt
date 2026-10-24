@@ -1,0 +1,239 @@
+test_age_cannot_be_renewed_by_late_completion (__main__.MailboxTests.test_age_cannot_be_renewed_by_late_completion) ... FAIL
+test_boot_digest_and_context_are_bound (__main__.MailboxTests.test_boot_digest_and_context_are_bound) ... FAIL
+test_bounded_session_retirement_and_observation_storage (__main__.MailboxTests.test_bounded_session_retirement_and_observation_storage) ... FAIL
+test_changed_epoch_mode_profile_same_session_never_reactivates (__main__.MailboxTests.test_changed_epoch_mode_profile_same_session_never_reactivates) ... FAIL
+test_clock_regression_and_bad_time_stop (__main__.MailboxTests.test_clock_regression_and_bad_time_stop) ... FAIL
+test_conflicting_duplicate_cannot_extend_deadline (__main__.MailboxTests.test_conflicting_duplicate_cannot_extend_deadline) ... FAIL
+test_defensive_context_profile_and_snapshot (__main__.MailboxTests.test_defensive_context_profile_and_snapshot) ... FAIL
+test_different_candidates_cannot_consume_same_slot (__main__.MailboxTests.test_different_candidates_cannot_consume_same_slot) ... FAIL
+test_duplicate_observation_preserves_original_age_and_conflict_stops (__main__.MailboxTests.test_duplicate_observation_preserves_original_age_and_conflict_stops) ... FAIL
+test_exact_duplicate_after_consume_cannot_rearm (__main__.MailboxTests.test_exact_duplicate_after_consume_cannot_rearm) ... FAIL
+test_late_consume_preserves_candidate_until_next_legal_slot (__main__.MailboxTests.test_late_consume_preserves_candidate_until_next_legal_slot) ... FAIL
+test_later_arrival_of_older_observation_never_overwrites (__main__.MailboxTests.test_later_arrival_of_older_observation_never_overwrites) ... FAIL
+test_literal_fast_stress_timelines_both_modes (__main__.MailboxTests.test_literal_fast_stress_timelines_both_modes) ... FAIL
+test_missing_wrong_generation_and_wrong_window_grants_preserve_pending (__main__.MailboxTests.test_missing_wrong_generation_and_wrong_window_grants_preserve_pending) ... FAIL
+test_new_session_retires_old_completion_context (__main__.MailboxTests.test_new_session_retires_old_completion_context) ... FAIL
+test_newer_observation_completion_replaces_pending (__main__.MailboxTests.test_newer_observation_completion_replaces_pending) ... FAIL
+test_observation_half_range_and_wrap_stop (__main__.MailboxTests.test_observation_half_range_and_wrap_stop) ... FAIL
+test_observation_mapping_must_remain_conservative (__main__.MailboxTests.test_observation_mapping_must_remain_conservative) ... FAIL
+test_older_valid_observation_among_four_is_usable_then_eviction_blocks (__main__.MailboxTests.test_older_valid_observation_among_four_is_usable_then_eviction_blocks) ... FAIL
+test_plan_does_not_consume_and_consume_requires_exact_slot (__main__.MailboxTests.test_plan_does_not_consume_and_consume_requires_exact_slot) ... FAIL
+test_retired_candidate_cannot_return_after_newer_consumption (__main__.MailboxTests.test_retired_candidate_cannot_return_after_newer_consumption) ... FAIL
+test_same_observation_higher_candidate_and_invocation_can_replace (__main__.MailboxTests.test_same_observation_higher_candidate_and_invocation_can_replace) ... FAIL
+test_selection_and_completion_are_immutable (__main__.MailboxTests.test_selection_and_completion_are_immutable) ... FAIL
+test_source_association_and_causal_completion_are_required (__main__.MailboxTests.test_source_association_and_causal_completion_are_required) ... FAIL
+test_stop_requires_fresh_activation_and_rejects_retired_session (__main__.MailboxTests.test_stop_requires_fresh_activation_and_rejects_retired_session) ... FAIL
+test_unknown_source_clock_bounds_or_sample_has_no_selection (__main__.MailboxTests.test_unknown_source_clock_bounds_or_sample_has_no_selection) ... FAIL
+
+======================================================================
+FAIL: test_age_cannot_be_renewed_by_late_completion (__main__.MailboxTests.test_age_cannot_be_renewed_by_late_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_boot_digest_and_context_are_bound (__main__.MailboxTests.test_boot_digest_and_context_are_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_bounded_session_retirement_and_observation_storage (__main__.MailboxTests.test_bounded_session_retirement_and_observation_storage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_changed_epoch_mode_profile_same_session_never_reactivates (__main__.MailboxTests.test_changed_epoch_mode_profile_same_session_never_reactivates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_clock_regression_and_bad_time_stop (__main__.MailboxTests.test_clock_regression_and_bad_time_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_conflicting_duplicate_cannot_extend_deadline (__main__.MailboxTests.test_conflicting_duplicate_cannot_extend_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_defensive_context_profile_and_snapshot (__main__.MailboxTests.test_defensive_context_profile_and_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_different_candidates_cannot_consume_same_slot (__main__.MailboxTests.test_different_candidates_cannot_consume_same_slot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_duplicate_observation_preserves_original_age_and_conflict_stops (__main__.MailboxTests.test_duplicate_observation_preserves_original_age_and_conflict_stops)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_exact_duplicate_after_consume_cannot_rearm (__main__.MailboxTests.test_exact_duplicate_after_consume_cannot_rearm)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_late_consume_preserves_candidate_until_next_legal_slot (__main__.MailboxTests.test_late_consume_preserves_candidate_until_next_legal_slot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_later_arrival_of_older_observation_never_overwrites (__main__.MailboxTests.test_later_arrival_of_older_observation_never_overwrites)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_literal_fast_stress_timelines_both_modes (__main__.MailboxTests.test_literal_fast_stress_timelines_both_modes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_missing_wrong_generation_and_wrong_window_grants_preserve_pending (__main__.MailboxTests.test_missing_wrong_generation_and_wrong_window_grants_preserve_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_new_session_retires_old_completion_context (__main__.MailboxTests.test_new_session_retires_old_completion_context)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_newer_observation_completion_replaces_pending (__main__.MailboxTests.test_newer_observation_completion_replaces_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_observation_half_range_and_wrap_stop (__main__.MailboxTests.test_observation_half_range_and_wrap_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_observation_mapping_must_remain_conservative (__main__.MailboxTests.test_observation_mapping_must_remain_conservative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_older_valid_observation_among_four_is_usable_then_eviction_blocks (__main__.MailboxTests.test_older_valid_observation_among_four_is_usable_then_eviction_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_plan_does_not_consume_and_consume_requires_exact_slot (__main__.MailboxTests.test_plan_does_not_consume_and_consume_requires_exact_slot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_retired_candidate_cannot_return_after_newer_consumption (__main__.MailboxTests.test_retired_candidate_cannot_return_after_newer_consumption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_same_observation_higher_candidate_and_invocation_can_replace (__main__.MailboxTests.test_same_observation_higher_candidate_and_invocation_can_replace)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_selection_and_completion_are_immutable (__main__.MailboxTests.test_selection_and_completion_are_immutable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_source_association_and_causal_completion_are_required (__main__.MailboxTests.test_source_association_and_causal_completion_are_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_stop_requires_fresh_activation_and_rejects_retired_session (__main__.MailboxTests.test_stop_requires_fresh_activation_and_rejects_retired_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+======================================================================
+FAIL: test_unknown_source_clock_bounds_or_sample_has_no_selection (__main__.MailboxTests.test_unknown_source_clock_bounds_or_sample_has_no_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_candidate_mailbox.py", line 22, in setUp
+    self.assertIsNotNone(mailbox, 'selected mailbox implementation is absent')
+AssertionError: unexpectedly None : selected mailbox implementation is absent
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.002s
+
+FAILED (failures=26)

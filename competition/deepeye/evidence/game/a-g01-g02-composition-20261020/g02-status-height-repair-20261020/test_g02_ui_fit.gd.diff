@@ -1,0 +1,100 @@
+--- baseline/tests/test_g02_ui_fit.gd
++++ candidate/tests/test_g02_ui_fit.gd
+@@ -53,6 +53,8 @@
+ 	await _test_layout(Vector2i(1280, 720), false)
+ 	await _test_scroll_reachability()
+ 	await _test_help_and_status()
++	await _test_action_status_height()
++	await _test_action_status_tooltip()
+ 	await _test_file_dialog()
+ 	await _test_open_dialog_geometry()
+ 	await _test_authority_and_input()
+@@ -259,6 +261,88 @@
+ 		_check(_rect_contains(bottom_panel.get_global_rect(), action.get_global_rect()),
+ 			"action status stays inside the bottom timeline panel")
+ 
++func _test_action_status_height() -> void:
++	# Removing the visible height bound must fail on the accepted maximum reason;
++	# dropping the tooltip must fail full diagnostic access, even if geometry fits.
++	var action: Label = _shell.get("_action_status_label")
++	var hint: Label = _shell.get("_hint_label")
++	var help_before := String(hint.text)
++	var hash_before: String = _scene.document.commitment_hash()
++	var reasons := ["文件不可读", "边".repeat(512), "多行原因\n".repeat(110).substr(0, 512)]
++	for size in [Vector2i(1920, 1080), Vector2i(2560, 1440), Vector2i(1280, 720)]:
++		await _set_logical_size(size)
++		_shell._set_hint("")
++		for i in range(8):
++			await process_frame
++		var bottom_before: float = _shell._bottom_band.size.y
++		for reason in reasons:
++			_shell._set_file_failure("ui_fit_status_height", reason)
++			for i in range(8):
++				await process_frame
++			var expected := "布局文件操作失败：" + String(reason)
++			_check(String(action.text) == expected, "accepted diagnostic remains intact at %s" % size)
++			_check(action.get_visible_line_count() == 1 and action.size.y >= float(action.get_line_height()),
++				"bounded status still displays one readable font-height line at %s" % size)
++			_check(String(action.get_tooltip()).replace("\n", "").c_unescape() == expected and action.mouse_filter != Control.MOUSE_FILTER_IGNORE,
++				"full diagnostic is available to pointer tooltip at %s" % size)
++			_check(String(_shell.last_file_result.reason) == String(reason), "accepted reason remains intact in file result at %s" % size)
++			_check(absf(_shell._bottom_band.size.y - bottom_before) <= TOL,
++				"normal/max/multiline status cannot grow bottom band at %s" % size)
++			_check(_rect_contains(_shell._bottom_panel.get_global_rect(), action.get_global_rect()),
++				"status remains contained in bottom panel at %s" % size)
++			_check(String(hint.text) == help_before, "long diagnostic preserves permanent help at %s" % size)
++			var central: Rect2 = _shell._central_viewport.get_global_rect()
++			var ratio: float = central.get_area() / _shell._root.get_global_rect().get_area() * 100.0
++			if size.y >= 1080:
++				_check(ratio >= 60.0, "maximum accepted status preserves 60 percent central area at %s" % size)
++			else:
++				_check(central.size.x > 0.0 and central.size.y > 0.0, "maximum accepted status keeps positive 720p central area")
++			print("UI_FIT_STATUS size=%s chars=%d lines=%d visible_lines=%d status=%s bottom=%.1f ratio=%.6f%%" % [
++				size, expected.length(), action.get_line_count(), action.get_visible_line_count(), action.get_global_rect(), _shell._bottom_band.size.y, ratio])
++		_shell._set_hint("")
++		for i in range(8):
++			await process_frame
++		_check(String(action.text).is_empty() and String(action.get_tooltip()).is_empty(),
++			"clearing status removes visible text and stale diagnostic tooltip at %s" % size)
++		_check(absf(_shell._bottom_band.size.y - bottom_before) <= TOL, "cleared status restores stable bottom height at %s" % size)
++	_check(_scene.document.commitment_hash() == hash_before, "status height probe leaves document geometry unchanged")
++	_check(_shell._run_button.disabled and _shell._pause_button.disabled and _shell._continue_button.disabled,
++		"status height probe preserves disconnected authority; no Run invoked")
++
++func _test_action_status_tooltip() -> void:
++	var action: Label = _shell._action_status_label
++	for size in [Vector2i(1920, 1080), Vector2i(2560, 1440), Vector2i(1280, 720)]:
++		await _set_logical_size(size)
++		_shell._set_file_failure("ui_fit_tooltip", "边".repeat(512))
++		var motion := InputEventMouseMotion.new()
++		motion.position = root.get_final_transform() * Vector2(1.0, 1.0)
++		root.push_input(motion)
++		await process_frame
++		motion.position = root.get_final_transform() * action.get_global_rect().get_center()
++		root.push_input(motion)
++		await create_timer(0.8).timeout
++		var popup = _find_visible_tooltip(root)
++		_check(popup != null, "synthetic hover opens full diagnostic tooltip at %s" % size)
++		if popup != null:
++			var rect := Rect2(Vector2(popup.position), Vector2(popup.size))
++			_check(_rect_contains(Rect2(Vector2.ZERO, Vector2(size)), rect),
++				"full maximum diagnostic tooltip stays within client at %s" % size)
++			print("UI_FIT_TOOLTIP size=%s rect=%s chars=%d" % [size, rect, action.get_tooltip().length()])
++	_shell._set_hint("")
++	var leave := InputEventMouseMotion.new()
++	leave.position = root.get_final_transform() * Vector2(1.0, 1.0)
++	root.push_input(leave)
++	await process_frame
++
++func _find_visible_tooltip(node: Node):
++	if node is PopupPanel and node.visible:
++		return node
++	for child in node.get_children(true):
++		var found = _find_visible_tooltip(child)
++		if found != null:
++			return found
++	return null
++
+ func _test_file_dialog() -> void:
+ 	await _set_logical_size(Vector2i(1920, 1080))
+ 	var dialog = _shell.get("_file_dialog")

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "work_id": "A-actor-owner-independent-review-20261019-v1",
+  "job_id": "child-ed80d3358dba43b4b83dafef40a52b9b",
+  "agent_id": "/root/pc_direct_review_20261018",
+  "result": "review_completed_with_findings",
+  "head": "3f702903f1e16fa72eae15f03ba431b78de24bd0",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "candidate_manifest_sha256": "2bace7921cd89ff2cf7e9d1dd8b87dbd1be6f4d34abd1ac3cc3d37026dc39630",
+  "findings_sha256": "85c01193a3878a41cbd69fd516e649efb67e7a82a1de45fac01534ab2a6bdeca",
+  "after_sha256": "b36cba76655de0992dce491e24158413276262d36efa79782172f9e10da2c3c2",
+  "author_tests": {
+    "methods": 116,
+    "exit_code": 0,
+    "skipped": 0
+  },
+  "independent_tests": {
+    "methods": 8,
+    "passing_methods": 5,
+    "failing_methods": 3,
+    "failed_assertions_or_subtests": 6,
+    "exit_code": 1,
+    "source_sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f",
+    "original_40_method_discovery_logs_retained": true,
+    "original_exact8_version_preserved": "independent_actor_tests.initial8.py.txt"
+  },
+  "findings": [
+    {
+      "id": "AOR-R1",
+      "class": "reachable old-binding public API revocation of new activation",
+      "public_actions": [
+        "close",
+        "poll",
+        "ai_lease",
+        "malformed_ai_lease"
+      ],
+      "priority_suggestion": "P2 availability"
+    },
+    {
+      "id": "AOR-R2",
+      "class": "injected dependency shape boundary; no real Win32 malformed return observed"
+    },
+    {
+      "id": "AOR-R3",
+      "class": "injected dependency shape boundary; no real Win32 malformed return observed"
+    }
+  ],
+  "known_provider_detached_witness": "documented trusted composition obligation, not safe-operation evidence",
+  "static_helper_call_signatures": 20,
+  "native_compatibility": "not_run",
+  "formal_cards": "29 not_run",
+  "actual_AI_full_H12_game_board_Run": "not_run",
+  "source_files_unchanged": 34,
+  "next_ownership_proposal": [
+    "competition/deepeye/simulation/isolation/actor_owner.py",
+    "competition/deepeye/tests/simulation/test_actor_lifetime.py",
+    "competition/deepeye/docs/actor_lifetime.md"
+  ],
+  "next_step": "Main assigns a new exclusive repair job: fence revocation callbacks to their original binding across every public error/retirement entry; preserve primary exceptions, partial-activation revocation, one cleanup, and quarantine. Shared windows_cleanup changes require separate explicit ownership.",
+  "acceptance_owner": "sole generation2 director; review completion is not candidate acceptance"
+}

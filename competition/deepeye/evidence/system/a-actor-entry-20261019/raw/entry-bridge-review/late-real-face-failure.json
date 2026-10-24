@@ -1,0 +1,46 @@
+{
+  "status": "UNKNOWN",
+  "reason": "insufficient envelope/aperture/budget evidence",
+  "bridges": 1,
+  "same_state": true,
+  "roles": [
+    "entry",
+    "exit",
+    "entry",
+    "exit"
+  ],
+  "methods": [
+    {
+      "top": "STRICT_INSIDE",
+      "bottom": "STRICT_INSIDE",
+      "front": "APERTURE",
+      "back": "STRICT_INSIDE",
+      "left": "STRICT_INSIDE",
+      "right": "STRICT_INSIDE"
+    },
+    {
+      "top": "STRICT_INSIDE",
+      "bottom": "STRICT_INSIDE",
+      "front": "ENVELOPE_NOT_CLEAR",
+      "back": "STRICT_INSIDE",
+      "left": "STRICT_INSIDE",
+      "right": "STRICT_INSIDE"
+    },
+    {
+      "top": "STRICT_INSIDE",
+      "bottom": "STRICT_INSIDE",
+      "front": "APERTURE",
+      "back": "STRICT_INSIDE",
+      "left": "STRICT_INSIDE",
+      "right": "STRICT_INSIDE"
+    },
+    {
+      "top": "STRICT_INSIDE",
+      "bottom": "STRICT_INSIDE",
+      "front": "STRICT_INSIDE",
+      "back": "STRICT_INSIDE",
+      "left": "STRICT_INSIDE",
+      "right": "ENVELOPE_NOT_CLEAR"
+    }
+  ]
+}

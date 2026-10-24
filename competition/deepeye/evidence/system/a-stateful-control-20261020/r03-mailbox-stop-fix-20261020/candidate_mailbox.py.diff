@@ -1,0 +1,10 @@
+--- original/candidate_mailbox.py
++++ proposed/candidate_mailbox.py
+@@ -312,6 +312,7 @@
+         self._reason = 'completion_consumed'
+         return selected
+ 
++    @_entry
+     def stop(self, reason='stop'):
+         self._halt(reason if type(reason) is str else 'stop')
+ 

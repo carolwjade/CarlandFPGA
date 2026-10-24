@@ -1,0 +1,143 @@
+{
+  "source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-operations14-15-20261020\\15\\source\\competition\\deepeye\\evidence\\control3d\\pwm-applied-capture-20261020-15\\main\\runner-repair\\original_runner.py",
+  "source_sha256": "331b3a4aa4cc9baa3b378e27dc1accd50f2e2bce60ad50348b57603ccd17d18e",
+  "synthetic_only": true,
+  "baseline_cases": [
+    {
+      "name": "terminal-0",
+      "exit": 0,
+      "expected": true,
+      "observed": true,
+      "matches": true
+    },
+    {
+      "name": "terminal-1",
+      "exit": 1,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "terminal-2",
+      "exit": 2,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "terminal-3",
+      "exit": "timeout",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "terminal-4",
+      "exit": "exception",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "error-after-pass",
+      "exit": 0,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-0-False",
+      "exit": 0,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-0-True",
+      "exit": 0,
+      "expected": true,
+      "observed": true,
+      "matches": true
+    },
+    {
+      "name": "guard-1-False",
+      "exit": 1,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-1-True",
+      "exit": 1,
+      "expected": true,
+      "observed": true,
+      "matches": true
+    },
+    {
+      "name": "guard-2-False",
+      "exit": 2,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-2-True",
+      "exit": 2,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-timeout-False",
+      "exit": "timeout",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-timeout-True",
+      "exit": "timeout",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-exception-False",
+      "exit": "exception",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "guard-exception-True",
+      "exit": "exception",
+      "expected": false,
+      "observed": true,
+      "matches": false
+    }
+  ],
+  "baseline_mismatches": 13,
+  "additional_cases": [
+    {
+      "name": "substring-pass",
+      "exit": 0,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "duplicate-stats",
+      "exit": 0,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    },
+    {
+      "name": "fatal-stderr",
+      "exit": 0,
+      "expected": false,
+      "observed": true,
+      "matches": false
+    }
+  ]
+}

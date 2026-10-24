@@ -1,0 +1,188 @@
+{
+  "at_utc": "2026-10-19T17:34:35.237178+00:00",
+  "work_id": "A-G02-NATIVE-UI-20261020-v1",
+  "exact_source_files_unchanged": 17,
+  "engine_sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU; not AMD target acceptance",
+  "window": {
+    "handle": 2821510,
+    "pid": 18736,
+    "parent_pid": 15184,
+    "width": 1306,
+    "height": 791,
+    "dpi": 192
+  },
+  "interaction_result": "save/cancel/reopen observed through real mouse input and original native window",
+  "saved_file": {
+    "path": "env-appdata\\Godot\\app_userdata\\矿脉·深瞳\\layouts\\layout-2026-10-20T01-18-37.json",
+    "bytes": 497,
+    "sha256": "35c135ee73aa587a60dfaf1832806e425ab4298af533c8d6a78686d295544453",
+    "layout_hash": "1c2549448d619e0c573c1e544d8102c74f6a619668c2f274fdb0735d0fa56c30",
+    "obstacles": 0
+  },
+  "evidence_limits": [
+    "This run used the initial empty-obstacle scene; it does not prove nonempty geometry restoration visually.",
+    "Open readback showed file origin, unknown seed, undo/redo 0/0 and disabled Run; no control or game Run occurred.",
+    "Screenshot reader reported crowded/clipped sidebar/status text at this actual window/DPI; layout polish remains open.",
+    "Original watchdog terminated wrapper after 900 seconds with exit 1; clean normal GUI shutdown was not proven.",
+    "Original wrapper PID15184 and GUI child PID18736 are now both absent; later CloseMainWindow attempt found no process and made no effect.",
+    "Three Unexpected NUL Unicode warnings remain in raw stderr; no silent removal.",
+    "Initial helper output was lost, not used. First array XY call failed binding. Second string XY call hit a CLI variable-name bug and was safely refused before input at the wrong point. Subsequent real mouse calls used the documented typed underlying helper with its unchanged safety checks.",
+    "No source, existing user document, service, driver, board, credential or run authorization changed."
+  ],
+  "source": "private staged copy, source pins checked again after GUI",
+  "formal_G02": "not_run",
+  "all29_formal_cards": "not_run",
+  "gui_exit": {
+    "at_utc": "2026-10-19T17:25:09.968425+00:00",
+    "pid": 15184,
+    "exit_code": 1,
+    "reason": "bounded review watchdog expired; original owned Popen terminated"
+  },
+  "original_gui_and_wrapper_absent": true,
+  "observations": {
+    "initial-current-look.txt": "3D: a pale-blue wireframe room/cube with cyan corner handles and tiny colored marks; no detailed solid objects visible. Run is greyed out/disabled.\nStatus: 编辑中 (editing); connections, AI and authority show 未连接; no serious warnings; initialization/collision awaits authority.\nNo Save As or Cancel visible. Save layout ≈(42,441); Open layout ≈(96,441). Camera: Top (21,683), Bottom (40,683), Front (66,683), Back (109,683), Left (21,704), Right (40,704), Isometric (66,704), Focus selected (112,704).\nThe viewport-percentage label crowds the right status heading; long sidebar text is clipped/wrapped, and tiny viewport text is unreadable.\n(full-resolution out-of-band read in 41.7s; image kept (-Keep); 0 picture bytes in this conversation)\n",
+    "save-dialog-native-look.txt": "File name field center: (552, 629); Save: (491, 662); Cancel: (808, 662).\nDirectory: C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/g02-native-ui-main/env-appdata/Godot/app_use… (end clipped).\nFilename: layout-2026-10-20T01-18-37.json\n(full-resolution out-of-band read in 22.4s; image kept (-Keep); 0 picture bytes in this conversation)\n",
+    "after-save-look.txt": "Save status: 已另存为新文件（仅几何，hash 1c2549448d61）.\nNo dialog visible. Run is greyed out/disabled.\n“打开布局...” button center: approximately (98, 441) pixels from the image’s top-left.\n(full-resolution out-of-band read in 27.6s; image kept (-Keep); 0 picture bytes in this conversation)\n",
+    "open-dialog-look.txt": "Saved layout JSON item center: (342, 252)\nOpen center: (493, 662); Cancel center: (809, 662)\nFilename: layout-2026-10-20T01-18-37.json\nDialog title: Open a File\n(full-resolution out-of-band read in 22.4s; image kept (-Keep); 0 picture bytes in this conversation)\n",
+    "after-cancel-look.txt": "Cancel result: “已取消布局文件操作；当前布局未改变” — canceled; current layout unchanged.\nStatus: “编辑中” (editing). The editor and wireframe cube are visible; the file dialog is closed.\nRun (“运行”) is greyed out; run controls show the bridge is disconnected and controls are disabled.\n(full-resolution out-of-band read in 27.4s; image kept (-Keep); 0 picture bytes in this conversation)\n",
+    "after-open-look.txt": "Status: “已打开布局文件；编辑历史已重置，种子未知”; overall status “编辑中”.\nLayout source: 文件布局. Seed: unknown. Undo/redo: 0/0.\nNo dialog is visible. Run is disabled (“桥未连接·禁用”).\n(full-resolution out-of-band read in 24.6s; image kept (-Keep); 0 picture bytes in this conversation)\n"
+  },
+  "artifacts": [
+    {
+      "path": "after-cancel-look.txt",
+      "bytes": 428,
+      "sha256": "886bd462d3d5516583417448efc5a351fda7cfd2e5a583652caac961f9660565"
+    },
+    {
+      "path": "after-cancel.png",
+      "bytes": 162663,
+      "sha256": "e10af22136cbb24ff9e90469e5a308164d1cf1136f15db198e72427024fcda63"
+    },
+    {
+      "path": "after-open-look.txt",
+      "bytes": 340,
+      "sha256": "2dcfe9ca1e80fdb4647400b98ad4e2fb9477c9b8f05fe91cc7002337fbb5817a"
+    },
+    {
+      "path": "after-open.png",
+      "bytes": 172068,
+      "sha256": "dc3f566cc04e249f60c93e38df6ddde3e5c6455b7ec991b102b50ca2837374dd"
+    },
+    {
+      "path": "after-save-files.json",
+      "bytes": 69,
+      "sha256": "6a773fb6b078a10d291ca59cf7320a2612bdb5fbdf82705d4d2c1b4e0efd7282"
+    },
+    {
+      "path": "after-save-look.txt",
+      "bytes": 319,
+      "sha256": "1279e66e3af1a024e436879f402370d7c699d64d291d46c98a2831637acebd8d"
+    },
+    {
+      "path": "after-save.png",
+      "bytes": 163623,
+      "sha256": "f3fd27221981cb38afb47f5c29aa0d04f2126b86663c79c978150b7c82bb899a"
+    },
+    {
+      "path": "gui-exit.json",
+      "bytes": 169,
+      "sha256": "a0231943a4e9e4009a94a399b980b5a1e472cb22d485c47f2fd82232f18f5449"
+    },
+    {
+      "path": "gui-process.json",
+      "bytes": 551,
+      "sha256": "13628838831b30429dc2b6215bfef60bf13090304c026b8224aeb2e2b144d86f"
+    },
+    {
+      "path": "gui-started.json",
+      "bytes": 607,
+      "sha256": "67a6fab2b6096b3e185ea49b156bd13cb9405bd7944e9ea0914e866e7e75f1dc"
+    },
+    {
+      "path": "gui.stderr.log",
+      "bytes": 294,
+      "sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8"
+    },
+    {
+      "path": "gui.stdout.log",
+      "bytes": 165,
+      "sha256": "a5c32e9e937015d3e69d54414f2165b953537c0ca66c0d9960b1eb6087ded117"
+    },
+    {
+      "path": "initial-current-look.txt",
+      "bytes": 758,
+      "sha256": "3faf5b3ac6118c794efe297c343997ef3a927b9ae0798c3427d7b75d9f138c24"
+    },
+    {
+      "path": "initial-current.png",
+      "bytes": 166035,
+      "sha256": "1819e807a57015415a0d67f3351cb7bdb2471bed20042a0bc432a9343bd3a55c"
+    },
+    {
+      "path": "initial.png",
+      "bytes": 166022,
+      "sha256": "0b95983b29241e3bdf6d52c31513c695404787ab4faf79497e7eb94df0e7c443"
+    },
+    {
+      "path": "open-dialog-look.txt",
+      "bytes": 265,
+      "sha256": "a4f28661eeb99849ddc13b9e8a5d231339533749dcaf6cb140046e55b51c9d0a"
+    },
+    {
+      "path": "open-dialog-second.png",
+      "bytes": 187281,
+      "sha256": "64d13d13b2c82c0b611847663d6c2d985e1bee8ef7f288d06ccd73c996affb1a"
+    },
+    {
+      "path": "open-dialog.png",
+      "bytes": 186877,
+      "sha256": "1c8b66318ae765aa9096c2b21180421537c59119578c5a40db87e9d1aba110ed"
+    },
+    {
+      "path": "preflight-result.json",
+      "bytes": 200,
+      "sha256": "bb56f2ff8d4b940f17c62a71ab18ca303725bb41b0397726eb3660c90121d1de"
+    },
+    {
+      "path": "preflight-started.json",
+      "bytes": 4170,
+      "sha256": "266a7e3ed07816e4518bb53a2a01fbc18ef0314253705a9aedb0e49b55c490ba"
+    },
+    {
+      "path": "preflight.stderr.log",
+      "bytes": 392,
+      "sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c"
+    },
+    {
+      "path": "preflight.stdout.log",
+      "bytes": 1791,
+      "sha256": "728cfad40f0007ebfbed6b39b8b37bfa160fa719092e3c1d556f71de1e7bd78c"
+    },
+    {
+      "path": "run_gui.py",
+      "bytes": 1808,
+      "sha256": "e6b52d10a630a9d7cec58d09a1c8bee5aaf730751dbde55fd7492ee78f14def1"
+    },
+    {
+      "path": "save-dialog-look.txt",
+      "bytes": 319,
+      "sha256": "be495f8dc3c0ea0570ed236246a306d988730231e12e69e35510d2639d62d262"
+    },
+    {
+      "path": "save-dialog-native-look.txt",
+      "bytes": 387,
+      "sha256": "b1e2dac2462e2f9b21a0a1fd50f38c90259354a36cfd3b482223dca5014606ae"
+    },
+    {
+      "path": "save-dialog-native.png",
+      "bytes": 185131,
+      "sha256": "f9f5e07baf7425cd4765eb059a590c4b547b2ede8ec34678b78a2f524524734f"
+    },
+    {
+      "path": "save-dialog.png",
+      "bytes": 166035,
+      "sha256": "1819e807a57015415a0d67f3351cb7bdb2471bed20042a0bc432a9343bd3a55c"
+    }
+  ]
+}

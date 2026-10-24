@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-19T17:16:00.421945+00:00",
+  "result": [
+    {
+      "job_id": "child-f64a187972674ab3855aa5f7516dc3e3",
+      "instance_id": "deepseek-a-30",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "route": "deepseek",
+      "work_id": "A-B-OPERATIONS10-11-REVIEW-20261020-v1",
+      "ownership": [
+        ".planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/review"
+      ],
+      "native_agent_id": null,
+      "status": "completed",
+      "terminal": true,
+      "stale": false,
+      "result": {
+        "thread_id": "01a1550a-4db4-76c1-81a4-cf25d3096142",
+        "turn": {
+          "id": "01a1550a-4ddc-7a83-a41f-200f9f52a90d",
+          "rootTurnId": "01a1550a-4ddc-7a83-a41f-200f9f52a90d",
+          "items": [
+            {
+              "type": "agentMessage",
+              "id": "0a24b4ea-48f3-43d2-9ac1-2f7f6b08581b",
+              "text": "**Result**\n- Operation 10 passes the bounded offline review: 70 formal tests, 12 main-bus tests, and 4 adversarial tests all pass with zero failures/errors.\n- Operation 11 passes descriptor arithmetic only: 51 words, 3 equal channels, 15 logical u64 values, 14 synthetic cases, and 10 invalid checks.\n- No blocking defect or counterexample was found. One non-blocking checker-coverage limitation is documented.\n- This grants no register/RTL/extension or PUBLIC ABI approval. All 29 cards, `B01`, `B05`, `R03`, RTL, CDC/RDC, board, runtime, and system remain `not_run`.\n\n**Evidence**\n- `findings.md`: `0d0cc04d1f713582db6c7fbc00ab226caf4c82b242657bfbdb575f53ec0ca4cf`\n- `inspection_manifest.json`: `783e6cba4d9661a75a3c20885e26952676642cedd639292169651abc4eefb7cb`\n- `receipt.json`: `808851620181df3bc1b8c6c9d194ff45585ee12b6b9327b135206a31bbdc1cba`\n- Verification: H01\u2013H15 hash matched, 99/99 archive entries and 75/75 plus 9/9 manifest entries matched, 18/18 pins unchanged, and no caches were created.\n- No PR comment, commit, board operation, deployment, or external message was performed.",
+              "phase": "final_answer",
+              "memoryCitation": null,
+              "delivery": null,
+              "questions": null
+            }
+          ],
+          "itemsView": "summary",
+          "status": "completed",
+          "error": null,
+          "startedAt": 1792428101,
+          "completedAt": 1792430160,
+          "durationMs": 2059249
+        },
+        "text": "**Result**\n- Operation 10 passes the bounded offline review: 70 formal tests, 12 main-bus tests, and 4 adversarial tests all pass with zero failures/errors.\n- Operation 11 passes descriptor arithmetic only: 51 words, 3 equal channels, 15 logical u64 values, 14 synthetic cases, and 10 invalid checks.\n- No blocking defect or counterexample was found. One non-blocking checker-coverage limitation is documented.\n- This grants no register/RTL/extension or PUBLIC ABI approval. All 29 cards, `B01`, `B05`, `R03`, RTL, CDC/RDC, board, runtime, and system remain `not_run`.\n\n**Evidence**\n- `findings.md`: `0d0cc04d1f713582db6c7fbc00ab226caf4c82b242657bfbdb575f53ec0ca4cf`\n- `inspection_manifest.json`: `783e6cba4d9661a75a3c20885e26952676642cedd639292169651abc4eefb7cb`\n- `receipt.json`: `808851620181df3bc1b8c6c9d194ff45585ee12b6b9327b135206a31bbdc1cba`\n- Verification: H01\u2013H15 hash matched, 99/99 archive entries and 75/75 plus 9/9 manifest entries matched, 18/18 pins unchanged, and no caches were created.\n- No PR comment, commit, board operation, deployment, or external message was performed.",
+        "reasoning_effort": "max",
+        "model": "deepseek-flash",
+        "provider": "deepseek"
+      },
+      "error": null,
+      "created_at": "2026-10-19T16:41:40.578465Z",
+      "updated_at": "2026-10-19T17:16:00.411430Z"
+    }
+  ]
+}

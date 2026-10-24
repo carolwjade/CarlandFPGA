@@ -1,0 +1,93 @@
+{
+  "summary": "RESULT checks=622 failures=0",
+  "eligible": true,
+  "receipt_sha256": "25930e9d12178b6481d1cb0bb14c4b6c121a620065da5227dbc3c2c3071bdb03",
+  "argv": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+    "--headless",
+    "--path",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-asset-adapter-implementation-20261020\\final-stage",
+    "--script",
+    "res://tests/test_asset_contract.gd"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g01-asset-adapter-implementation-20261020\\final-stage",
+  "terminal": true,
+  "exit_code": 0,
+  "timeout": false,
+  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "stdout_sha256": "db972c99d154d241a0d49dd1b586512866b16205b244cd54d48aa002a8a577cc",
+  "stderr_sha256": "f214b82fd6fa9f9b69d2a3b2cde48773590918c14e425fefef5d3219a43607bf",
+  "exact_dependency_pins": [
+    {
+      "path": "assets/.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "assets/LICENSES.md",
+      "bytes": 3722,
+      "sha256": "f0b9ffe3daa2a168eaa510efa8c92d698e39260833aafa8161231f6168ba9959"
+    },
+    {
+      "path": "assets/scene_catalog.json",
+      "bytes": 19040,
+      "sha256": "d75c0369c48a629aec5ab693d321f59db42078955c9878e2a0a9d13cd7b35795"
+    },
+    {
+      "path": "project.godot",
+      "bytes": 629,
+      "sha256": "f713d8279b16a9710cc9a2a892a54c620a64dbeb36179fa4ac4cd3c7651d26f2"
+    },
+    {
+      "path": "tests/test_asset_contract.gd",
+      "bytes": 43605,
+      "sha256": "0a7479ffe3a8f12f55f673dfcfec38329e45193fe91c54331fe81c50461c596e"
+    },
+    {
+      "path": "world/.gitattributes",
+      "bytes": 8,
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da"
+    },
+    {
+      "path": "world/asset_library.gd",
+      "bytes": 5762,
+      "sha256": "9eb1f49fe6cfdf28e2a4e4cfc1783be6d4266ba5c86c7f346ca4182f765e2cce"
+    },
+    {
+      "path": "world/asset_library.gd.uid",
+      "bytes": 20,
+      "sha256": "0bb3d1ed877ef62e32c1bad57ad01d9a90772a4a22073aff030bd9db3d6eef4d"
+    },
+    {
+      "path": "world/drill_geometry.gd",
+      "bytes": 9409,
+      "sha256": "e31473155bde0457a3481cc78b9c2947bbbc26228dfb4bd4e4e7190c136c8acc"
+    },
+    {
+      "path": "world/drill_geometry.gd.uid",
+      "bytes": 20,
+      "sha256": "7cf1f58d56903dee992e7880c2e4243285b4a6b451004e9cd83626a6f61099a1"
+    },
+    {
+      "path": "world/frame_geometry.gd",
+      "bytes": 3516,
+      "sha256": "acb273369cc82b6c0186c8372fccd869083c64676d3b9c6d1d30b739c74d84c5"
+    },
+    {
+      "path": "world/frame_geometry.gd.uid",
+      "bytes": 20,
+      "sha256": "6058ac651912e1387ab7a319c70627fddfb0d571be5d089e2a0f057ba6f7d0f4"
+    },
+    {
+      "path": "world/obstacle_geometry.gd",
+      "bytes": 11921,
+      "sha256": "1bac63c23fd991667748fa3554d31a34a9e90946b67bef635a187967955c00ce"
+    },
+    {
+      "path": "world/obstacle_geometry.gd.uid",
+      "bytes": 20,
+      "sha256": "359ae06087402995ff8b26c942555a6762b0df3d2970939adb349e3a13919512"
+    }
+  ],
+  "justification": "Executing harness only preloads world/asset_library.gd, which preloads the other three world geometry scripts. Harness, all world/assets inputs and project.godot match the executing receipt. A viewer/presenter and other tests are not loaded. Does not prove native UI or acceptance."
+}

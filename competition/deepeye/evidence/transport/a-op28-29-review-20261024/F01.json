@@ -1,0 +1,45 @@
+{
+  "id": "F01",
+  "status": "unresolved_for_root_disposition",
+  "topic": "Producer 155-reference audit cannot be wholly independently closed from published archive",
+  "missing": [
+    {
+      "reference": "competition/deepeye/evidence/transport/wire-parser-20261024-29/author/runner-repair2/inputs/__pycache__/original_runner_a3ba.cpython-312.pyc",
+      "sha256": "254b5638f75b28f05d51c03465b5011a0394d195965c3bfb4ca93a33c6e61b24",
+      "mode": "not present in published archive; not independently hash verified",
+      "canonical_handoff_artifact": false,
+      "promised_RAW_INDEX_member": false,
+      "same_hash_archived_copy_found": false
+    },
+    {
+      "reference": "competition/deepeye/evidence/transport/wire-parser-20261024-29/author/runner-repair2/inputs/__pycache__/pre_fix_runner_5d09.cpython-312.pyc",
+      "sha256": "8d208266a1dad83a03eba4fbf7631596e8d273f8bfee7c2adbeefa8de20285c2",
+      "mode": "not present in published archive; not independently hash verified",
+      "canonical_handoff_artifact": false,
+      "promised_RAW_INDEX_member": false,
+      "same_hash_archived_copy_found": false
+    }
+  ],
+  "verified_counts": {
+    "path_mapped": 148,
+    "same_hash_archived_copies": 5,
+    "missing": 2
+  },
+  "actual_dependency_evidence": {
+    "qualifier": "raw-29/author/runner-repair2/qualify_runner.py",
+    "loader_lines": [
+      82,
+      87
+    ],
+    "prefixed_source_load_lines": [
+      240,
+      241
+    ],
+    "postfix_source_load_line": 319,
+    "old_py_sources_present_and_hash_verified": true,
+    "cache_consumption_at_original_execution": "not established by saved evidence",
+    "final_published_runner_source_present_and_hash_verified": true
+  },
+  "effect": "Canonical artifacts and all1238 promised raw members are complete. Missing cache bytes limit the historical pre-fix runner execution-origin/155-byte-audit claim. They do not alter the new exact-DUT public-port results. No reconstructed pyc is accepted as original evidence.",
+  "disposition_owner": "A Gen3/root; no external feedback or producer repair performed"
+}

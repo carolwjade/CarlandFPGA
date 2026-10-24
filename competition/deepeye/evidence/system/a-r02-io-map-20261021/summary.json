@@ -1,0 +1,178 @@
+{
+  "utc": "2026-10-21T12:52:57.903660+00:00",
+  "review": {
+    "utc": "2026-10-21T12:50:33.050801+00:00",
+    "status": "ACCEPT_STATIC_PACKAGE_CANDIDATE_WITH_PHYSICAL_J3_HOLD",
+    "predecessor_manifest_sha256": "09dd6f3133b6e468ec9beb8dfc9533e2c3bad9c8b8a5d47cea6943bf43540c84",
+    "revision_manifest_sha256": "aa48584ea495f8307f98e93ec502714c534b06b1f921b043b163320cdeb026fa",
+    "original_files": 23,
+    "revised_files_verified": 12,
+    "native_completion_text_exact": true,
+    "original_job_terminal_readback": true,
+    "substantive_findings": "All three addressed; J3 contact conflict remains explicitly unresolved, onboard2.2k pullups accounted for, A0 designators corrected.",
+    "independent_primary_review": "Main directly inspected the pinned manual and sheet4 pixels, package XDC, and MCP4728 section7.1 text. No actual human review is claimed.",
+    "editorial_corrections": [
+      {
+        "path": "design.md",
+        "original_sha256": "884baa1d7fb4526b19170d74d230aa5bc2e8c6d39b3a12dc16a1697cd9cf4be2",
+        "accepted_sha256": "5d3b014ce77da629a498e1b89182e33daaeac5299813e4e2ce6ba3318a817acf"
+      },
+      {
+        "path": "source-pins.json",
+        "original_sha256": "4c2e37cabf99fe84f96c035d742adc14694351bed73914958085fb2200a36a0a",
+        "accepted_sha256": "09c6ba407baf515e6e1c89afc9ea98c8fa53e688b2d094b1c88683801c1f5cd7"
+      },
+      {
+        "path": "conflict-check.json",
+        "original_sha256": "f4e47e0612e1bd48aee13793db2d1a2c168c2f6cbf88f88924918d39ec1a9cb2",
+        "accepted_sha256": "8457edd793c7c14884eea3093773880b94fdcd2166ae8660f4a83b8357700a3d"
+      },
+      {
+        "path": "revision-delta.json",
+        "original_sha256": "9efb8ca604deff02b6781c60fa306991bf292046695b236b538efb07f7acf980",
+        "accepted_sha256": "5c9d1004c7cc264eec956719c331243b68aa9556fcf17cd12bdd9b91b86402bf"
+      }
+    ],
+    "editorial_reason": "The actual physical PDF page is51, index50. Author conflict-check wording incorrectly said human-reviewed; review was by agents. Corrected accepted derivatives retain original raw hashes.",
+    "digital_package_pins": 15,
+    "physical_J3_positions_unresolved": 2,
+    "new_author_conflict_checks": 13,
+    "old44_checks_repeated": false,
+    "board_effects": false,
+    "build_or_bitstream": "not_run",
+    "R02": "not_run",
+    "R03": "not_run",
+    "all29": "not_run",
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "accepted_source_paths": "Relative file paths rebased one level for accepted/ folder; each actual local source hash checked after rebasing. Public sources catalog will contain URLs/hashes instead of relocated local paths."
+  },
+  "original_vendor_files_retained_locally": {
+    "r02-io-map-design-20261021/sources/microchip_mcp4728_ds22187e.pdf": {
+      "path": "sources/microchip_mcp4728_ds22187e.pdf",
+      "bytes": 3007694,
+      "sha256": "7e6515c45a02ffe4ad7506f3347cce7714cdd56659ff2fb22b858fc0472f381e"
+    },
+    "r02-io-map-design-20261021/sources/microchip_mcp4728_ds22187e.txt": {
+      "path": "sources/microchip_mcp4728_ds22187e.txt",
+      "bytes": 126512,
+      "sha256": "4fb22380e782a7d02e26e958ca62f579b656415acbae1454928e8c1944cdf654"
+    },
+    "r02-io-map-design-20261021/sources/microchip_mcp6s21_ds21117b.pdf": {
+      "path": "sources/microchip_mcp6s21_ds21117b.pdf",
+      "bytes": 741754,
+      "sha256": "012e5e55acf350c43fb74cb29239503b223ac4c27f9ff7ef25c2e51b88b93692"
+    },
+    "r02-io-map-design-20261021/sources/microchip_mcp6s21_ds21117b.txt": {
+      "path": "sources/microchip_mcp6s21_ds21117b.txt",
+      "bytes": 79439,
+      "sha256": "3268fcae9416f784b9837ce508c1c959ad2467633ed5fcd11f6bccb9b254a2a1"
+    },
+    "r02-io-map-design-20261021/sources/pynq_z2_base_3_1_1.xdc": {
+      "path": "sources/pynq_z2_base_3_1_1.xdc",
+      "bytes": 14586,
+      "sha256": "05d99c9032ceb21b2f6850955dd897a14a30d77ebda21d57867daa65caef2d3b"
+    },
+    "r02-io-map-design-20261021/sources/ti_thvd1450.pdf": {
+      "path": "sources/ti_thvd1450.pdf",
+      "bytes": 2012884,
+      "sha256": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897"
+    },
+    "r02-io-map-design-20261021/sources/ti_thvd1450.txt": {
+      "path": "sources/ti_thvd1450.txt",
+      "bytes": 86213,
+      "sha256": "e3eebda7ace6eaaa4436be75df99348b6e6a7542564a1ebafa3f2f59bcccb5f2"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_board_a0.xml": {
+      "path": "sources/tul_pynq_z2_board_a0.xml",
+      "bytes": 52161,
+      "sha256": "e278fdecde228d413fa07352c1b6286641bb63b6aebefaf0dc72c417eb83eaf7"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_schematic_r12-page4.png": {
+      "path": "sources/tul_pynq_z2_schematic_r12-page4.png",
+      "bytes": 362372,
+      "sha256": "275ffff468b2b1b35fa4ffbb8e25f0a60377be34c3824cdbd8ca35d5ba102886"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_schematic_r12.pdf": {
+      "path": "sources/tul_pynq_z2_schematic_r12.pdf",
+      "bytes": 285903,
+      "sha256": "2a5c8bd73291901b80bed0d5b178def40e0ac7ca6ca0ea56f7acad1dd4f3c7c9"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_schematic_r12.txt": {
+      "path": "sources/tul_pynq_z2_schematic_r12.txt",
+      "bytes": 57371,
+      "sha256": "b6a02e918e1c1c460122486a5a1c4aa01f68094426f3dec015a337c9bf81d7ae"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_user_manual_v1_1-page28.png": {
+      "path": "sources/tul_pynq_z2_user_manual_v1_1-page28.png",
+      "bytes": 193877,
+      "sha256": "cd65fe9bba901411395f121d575ff5610201e3e0237ddd9109d3655b6361e1a5"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_user_manual_v1_1.pdf": {
+      "path": "sources/tul_pynq_z2_user_manual_v1_1.pdf",
+      "bytes": 1380146,
+      "sha256": "af38e175e8197b4e28edcd14c43a136ef85cd860ef71143d3edd73853e62a62c"
+    },
+    "r02-io-map-design-20261021/sources/tul_pynq_z2_user_manual_v1_1.txt": {
+      "path": "sources/tul_pynq_z2_user_manual_v1_1.txt",
+      "bytes": 26170,
+      "sha256": "54f783b57b6a805e70bb60821151647a846a2797bb6eaa82fe3ddb8376feb28d"
+    }
+  },
+  "source_catalog": {
+    "tul_manual": {
+      "url": "https://dpoauwgwqsy2x.cloudfront.net/Download/PYNQ_Z2_User_Manual_v1.1.pdf",
+      "revision": "TUL PYNQ-Z2 Reference Manual v1.1, 28 Oct 2019",
+      "evidence": "PDF pp. 6, 19, 20-25; Tables 13-20, Figure 1; Table 16 says J3 pin 9 SDA, pin 10 SCL",
+      "bytes": 1380146,
+      "sha256": "af38e175e8197b4e28edcd14c43a136ef85cd860ef71143d3edd73853e62a62c"
+    },
+    "tul_schematic": {
+      "url": "https://dpoauwgwqsy2x.cloudfront.net/Download/TUL_PYNQ_Schematic_R12.pdf",
+      "revision": "TUL download named R12; title block internally says PYNQ-Z2 R10, Jan 9 2018",
+      "evidence": "PDF sheets 3, 4, 11; Arduino A0-A5 divider R66-R71 2.32k, R100-R105 1k, 140/845-ohm XADC leg; sheet 4 draws J3 pin 10 SDA, pin 9 SCL, R49/R50 each 2.2k to VCC3V3, and A0 R71/R105/R72/R73/C3",
+      "bytes": 285903,
+      "sha256": "2a5c8bd73291901b80bed0d5b178def40e0ac7ca6ca0ea56f7acad1dd4f3c7c9"
+    },
+    "pynq_base_xdc": {
+      "url": "https://raw.githubusercontent.com/Xilinx/PYNQ/3.1.1/boards/Pynq-Z2/base/vivado/constraints/base.xdc",
+      "revision": "Xilinx/PYNQ release tag 3.1.1",
+      "evidence": "lines 56-68, 70-116; lines 93-94 bind package P15=SCL and P16=SDA independent of J3 physical position",
+      "bytes": 14586,
+      "sha256": "05d99c9032ceb21b2f6850955dd897a14a30d77ebda21d57867daa65caef2d3b"
+    },
+    "tul_board_xml": {
+      "url": "https://raw.githubusercontent.com/Xilinx/XilinxBoardStore/master/boards/TUL/pynq-z2/A.0/board.xml",
+      "revision": "XilinxBoardStore TUL pynq-z2 A.0 retrieved 2026-10-21; branch mutable, retained bytes pinned",
+      "evidence": "part identity only; not used as pin authority",
+      "bytes": 52161,
+      "sha256": "e278fdecde228d413fa07352c1b6286641bb63b6aebefaf0dc72c417eb83eaf7"
+    },
+    "mcp6s21": {
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21117B.pdf",
+      "revision": "Microchip DS21117B, 2012",
+      "evidence": "PDF pp. 1, 18-20: 8-pin pinout, SPI, gain register",
+      "bytes": 741754,
+      "sha256": "012e5e55acf350c43fb74cb29239503b223ac4c27f9ff7ef25c2e51b88b93692"
+    },
+    "mcp4728": {
+      "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/22187E.pdf",
+      "revision": "Microchip DS22187E, 2010",
+      "evidence": "PDF pp. 1, 20-21, 50-51: supply, I2C pins/address and external pullups; section 7.1 printed p. 51/PDF p. 51 (zero-based index 50) pull-up sizing",
+      "bytes": 3007694,
+      "sha256": "7e6515c45a02ffe4ad7506f3347cce7714cdd56659ff2fb22b858fc0472f381e"
+    },
+    "thvd1450": {
+      "url": "https://www.ti.com/lit/ds/symlink/thvd1450.pdf",
+      "revision": "TI SLLSEY3E Rev E, May 2019",
+      "evidence": "PDF pp. 1, 3-4, 21-22: 3-5.5V, R/D/DE/RE, half-duplex bus",
+      "bytes": 2012884,
+      "sha256": "58ecc4cc07dd1d3206c2e67ffa734ad21a6d3a9e3c8c307068e6385bd79ee897"
+    }
+  },
+  "old_tests_repeated": false,
+  "board_effects": false,
+  "physical_wiring": "not_verified",
+  "R02": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

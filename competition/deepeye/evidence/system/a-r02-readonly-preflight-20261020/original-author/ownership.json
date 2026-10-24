@@ -1,0 +1,25 @@
+{
+  "work_id": "A-R02-READONLY-PREFLIGHT-20261020-v1",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "Desktop native disjoint ownership; no mesh lease",
+  "agent_id": "/root/r02_preflight_implementation_20261020",
+  "base": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+  "product_files": [
+    "competition/deepeye/tools/preflight.py",
+    "competition/deepeye/tools/preflight_windows.ps1",
+    "competition/deepeye/tests/test_preflight.py",
+    "competition/deepeye/hardware/preflight.md"
+  ],
+  "preserved_dirty_sha256": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013"
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "preparation_failures_preserved": [
+    "Bash unavailable; equivalent plan-scoped directory and brief created with Python",
+    "Initial main canonical check incorrectly used ensure_ascii=True and failed before ownership/dispatch; corrected UTF-8 canonical check above. No source mutation or work replay."
+  ]
+}

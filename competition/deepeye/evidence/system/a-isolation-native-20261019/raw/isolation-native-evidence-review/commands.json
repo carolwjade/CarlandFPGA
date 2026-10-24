@@ -1,0 +1,18 @@
+[
+  {
+    "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", ".planning/deepeye-resume-20261018/isolation-native-evidence-review/verify_native_evidence.py"],
+    "cwd": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发",
+    "exit_code": 1,
+    "stdout": "verify-attempt-1.stdout.log",
+    "stderr": "verify-attempt-1.stderr.log",
+    "note": "Reviewer log-separator assertion did not normalize actual Windows CRLF; original evidence and gates unchanged."
+  },
+  {
+    "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", ".planning/deepeye-resume-20261018/isolation-native-evidence-review/verify_native_evidence.py"],
+    "cwd": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发",
+    "exit_code": 0,
+    "stdout": "verify.stdout.log",
+    "stderr": "verify.stderr.log",
+    "note": "Saved-artifact reconciliation only; no native or suite rerun, canary content read, source/old evidence edits."
+  }
+]

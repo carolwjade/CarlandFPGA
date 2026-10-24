@@ -1,0 +1,968 @@
+--- before/tests/test_editor_document.gd
++++ candidate/tests/test_editor_document.gd
+@@ -350,6 +350,12 @@
+ 	root.add_child(scene)
+ 	await process_frame
+ 	await process_frame
++	# Exercise the actual retained fallback, with all greybox geometry oracles
++	# unchanged. The B drill is tested independently by asset integration tests.
++	var integrated: Node3D = scene._drill_root
++	integrated.get_parent().remove_child(integrated)
++	integrated.free()
++	scene._build_drill_greybox()
+ 	var drill: Node3D = scene._drill_root
+ 	_check(drill.global_transform.basis == Basis.IDENTITY, "static greybox world basis has unit scale and no shear/reflection")
+ 	var meshes: Array = []
+--- before/tests/test_layout_persistence.gd
++++ candidate/tests/test_layout_persistence.gd
+@@ -658,9 +658,9 @@
+ 
+ func _viewer_state(scene) -> String:
+ 	var meshes: Array = []
+-	for child in scene._obstacle_root.get_children():
+-		if child is MeshInstance3D:
+-			meshes.append([child.position, child.rotation_degrees, child.mesh.size])
++	for obstacle in scene.document.obstacles:
++		var node: Node3D = scene._asset_presenter.obstacle_node(int(obstacle.object_id))
++		meshes.append([int(obstacle.object_id), node.get_meta("asset_id"), node.get_instance_id(), node.transform] if node != null else [int(obstacle.object_id),null])
+ 	var gates: Array = []
+ 	for child in scene._gate_root.get_children():
+ 		gates.append([child.name, child.position, child.quaternion])
+@@ -668,17 +668,32 @@
+ 	return var_to_str({"meshes": meshes, "gates": gates, "drill": drill, "camera": scene._camera.global_transform})
+ 
+ func _check_viewer_matches(document, scene, label: String) -> void:
+-	var meshes: Array = []
++	var presenter = scene._asset_presenter
++	var count := 0
+ 	for child in scene._obstacle_root.get_children():
+-		if child is MeshInstance3D:
+-			meshes.append(child)
+-	_check(meshes.size() == document.obstacle_count(), label + " rebuilds one mesh per obstacle")
+-	for index in mini(meshes.size(), document.obstacle_count()):
+-		var obstacle: Dictionary = document.obstacles[index]
+-		var mesh_node: MeshInstance3D = meshes[index]
+-		_check(mesh_node.position.is_equal_approx(obstacle.position), label + " mesh position matches object %d" % index)
+-		_check(mesh_node.rotation_degrees.is_equal_approx(obstacle.rotation_deg), label + " mesh rotation matches object %d" % index)
+-		_check((mesh_node.mesh as BoxMesh).size.is_equal_approx(obstacle.size), label + " mesh size matches object %d" % index)
++		if child.has_meta("asset_id"):
++			count += 1
++	_check(count == document.obstacle_count(), label + " rebuilds one presentation root per obstacle")
++	for obstacle in document.obstacles:
++		var id := int(obstacle.object_id)
++		var node: Node3D = presenter.obstacle_node(id)
++		_check(node != null, label + " has presentation for ID %d" % id)
++		if node == null:
++			continue
++		_check(node.get_meta("asset_id") == "obstacle_"+String(obstacle.kind)+"_v1", label + " correct asset kind for ID %d" % id)
++		_check(node.position.is_equal_approx(obstacle.position), label + " asset position matches ID %d" % id)
++		var envelope: Dictionary = node.get_meta("declared_envelope")
++		var scale: Vector3 = obstacle.size/(envelope.bounds_max-envelope.bounds_min)
++		var rotation := Basis.from_euler(obstacle.rotation_deg*(PI/180.0))
++		var basis := Basis(rotation.x*scale.x,rotation.y*scale.y,rotation.z*scale.z)
++		_check(node.basis.is_equal_approx(basis), label + " complete nominal-scale rotated basis matches ID %d" % id)
++		var bounds: AABB = presenter.world_visual_bounds(node)
++		var contains := true
++		for mesh in node.find_children("*","MeshInstance3D",true,false):
++			for vertex in mesh.mesh.get_faces():
++				if not bounds.grow(.00001).has_point(mesh.global_transform*vertex):
++					contains = false
++		_check(contains, label + " world bounds contain actual vertices at 1e-5m tolerance for ID %d" % id)
+ 	var entry_node: Node3D = scene._gate_root.get_node_or_null("Gate_entry") as Node3D
+ 	var exit_node: Node3D = scene._gate_root.get_node_or_null("Gate_exit") as Node3D
+ 	_check(entry_node != null and entry_node.position.is_equal_approx(document.gate_position("entry")), label + " rebuilds entry gate transform")
+--- before/tests/test_viewer_asset_integration.gd
++++ candidate/tests/test_viewer_asset_integration.gd
+@@ -0,0 +1,343 @@
++extends SceneTree
++## Presentation only. Geometry comparisons use 1e-5 m arithmetic tolerance;
++## this is not physical clearance, board, GPU timing or formal G01 acceptance.
++
++var checks := 0
++var failures := 0
++const KINDS := ["water", "hard_rock", "fault", "void", "casing"]
++const BASE := [Vector3(6,4,2), Vector3(3,3,3), Vector3(8,1,6), Vector3(4,3,3), Vector3(.8,.8,8)]
++const SIZES := [Vector3(7,3,3), Vector3(2,4,3), Vector3(9,1.5,4), Vector3(3,4,5), Vector3(1.2,.6,9)]
++
++func _initialize() -> void:
++	call_deferred("_run")
++
++func _check(ok: bool, message: String) -> void:
++	checks += 1
++	if not ok:
++		failures += 1
++		printerr("FAIL: " + message)
++
++func _run() -> void:
++	var scene = load("res://viewer/main.tscn").instantiate()
++	root.add_child(scene)
++	await process_frame
++	await process_frame
++	var presenter = scene.get("_asset_presenter")
++	_check(presenter != null, "actual viewer binds asset presenter")
++	if presenter == null:
++		scene.free()
++		_finish()
++		return
++	_check(scene.document.obstacle_count() == 0, "initial document remains empty")
++	_check(presenter.report().state == "ready", "pinned presentation has zero fallbacks")
++	var frames := _assets(scene._world, "frame_workspace_v1")
++	var drills := _assets(scene._drill_root, "drill_pdc_v1")
++	_check(frames.size() == 1, "exactly one B frame attached")
++	_check(drills.size() == 1, "actual static B drill attached")
++	var direct_boxes := 0
++	for child in scene._world.get_children():
++		if child is MeshInstance3D and child.mesh is BoxMesh:
++			direct_boxes += 1
++	_check(direct_boxes == 9, "only eight corners and selection box; no duplicate A edge bars")
++	if drills.size() == 1:
++		_test_drill(drills[0], presenter)
++	var doc = scene.document
++	for kind in KINDS:
++		_check(doc.add_obstacle(kind, Vector3(2,-3,4)).ok, "add real " + kind)
++	for i in KINDS.size():
++		var id := int(doc.obstacles[i].object_id)
++		_check(doc.update_obstacle(id, {"size":SIZES[i], "rotation_deg":Vector3(15,37,-20)}).ok, "legal rotated nonuniform " + KINDS[i])
++		var node = presenter.obstacle_node(id)
++		_check(node != null, "one B instance for " + KINDS[i])
++		if node == null:
++			continue
++		_check(node.get_meta("asset_id") == "obstacle_" + KINDS[i] + "_v1", "correct kind identity")
++		_check(node.get_node_or_null("Visual") != null and node.get_node_or_null("Collision") != null, "Visual and Collision preserved")
++		_check(_safe(node), "all collision objects/shape/scripts disabled")
++		var rotation := Basis.from_euler(Vector3(15,37,-20) * PI / 180.0)
++		var scale: Vector3 = SIZES[i] / BASE[i]
++		var wanted := Basis(rotation.x*scale.x, rotation.y*scale.y, rotation.z*scale.z)
++		_check(node.transform.basis.is_equal_approx(wanted) and node.position.is_equal_approx(Vector3(2,-3,4)), "rotation columns scale with original generator pivot")
++		_check(_bounds_contain_vertices(node, presenter.world_visual_bounds(node)), "world bounds contain actual transformed vertices " + KINDS[i])
++		var label: Label3D = scene._obstacle_labels[id]
++		var box: AABB = presenter.world_visual_bounds(node)
++		_check(absf(label.global_position.y - box.end.y - .7) < .00001, "label above actual rotated visual bounds")
++	_test_parent_bounds(scene, presenter)
++	_test_picking(presenter)
++	await _test_history_and_files(scene)
++	await _test_focus(scene, drills)
++	_test_budget(scene)
++	_check(not doc.control_bridge_connected and not doc.is_motion_active(), "presentation grants no control or motion")
++	_check(scene.shell._run_button.disabled and scene.shell._pause_button.disabled and scene.shell._continue_button.disabled, "all run controls disabled")
++	_check(presenter.report().state == "ready", "successful integration finishes without fallback")
++	scene.queue_free()
++	await process_frame
++	_finish()
++
++func _finish() -> void:
++	print("VIEWER_ASSET_INTEGRATION checks=%d failures=%d" % [checks,failures])
++	quit(1 if failures else 0)
++
++func _assets(node: Node, asset_id: String) -> Array:
++	var found: Array = []
++	if node.get_meta("asset_id", "") == asset_id:
++		found.append(node)
++	for child in node.get_children():
++		found.append_array(_assets(child, asset_id))
++	return found
++
++func _safe(node: Node) -> bool:
++	if node.get_script() != null:
++		return false
++	if node is CollisionObject3D and (node.collision_layer != 0 or node.collision_mask != 0):
++		return false
++	if node is CollisionShape3D and not node.disabled:
++		return false
++	for child in node.get_children():
++		if not _safe(child):
++			return false
++	return true
++
++func _bounds_contain_vertices(node: Node3D, bounds: AABB) -> bool:
++	for mesh in node.find_children("*", "MeshInstance3D", true, false):
++		for vertex in mesh.mesh.get_faces():
++			var point: Vector3 = mesh.global_transform * vertex
++			if not bounds.grow(.00001).has_point(point):
++				return false
++	return true
++
++func _test_drill(drill: Node3D, presenter) -> void:
++	var meshes := drill.find_children("*", "MeshInstance3D", true, false)
++	_check(meshes.size() == 28, "B drill has 28 actual mesh parts")
++	_check(drill.find_children("Blade*", "MeshInstance3D", true, false).size() == 6, "six drill blades")
++	_check(drill.find_children("CutterStud*", "MeshInstance3D", true, false).size() == 18, "eighteen cutter studs")
++	_check(drill.global_transform == Transform3D.IDENTITY, "actual drill preserves unit scale and +Z orientation at origin")
++	_check(_safe(drill), "drill collision presentation stays disabled")
++	var bounds: AABB = presenter.local_visual_bounds(drill)
++	_check(absf(bounds.size.z - .8) < .000002, "actual axial length .80m")
++	var positive_closed := true
++	var max_radial := 0.0
++	for mesh in meshes:
++		var volume := 0.0
++		var edges := {}
++		var faces: PackedVector3Array = mesh.mesh.get_faces()
++		var relative: Transform3D = drill.global_transform.affine_inverse()*mesh.global_transform
++		for index in range(0, faces.size(), 3):
++			var a: Vector3 = relative*faces[index]
++			var b: Vector3 = relative*faces[index+1]
++			var c: Vector3 = relative*faces[index+2]
++			if (b-a).cross(c-a).length_squared() < 1e-20:
++				continue
++			volume -= a.dot(b.cross(c))/6.0
++			for pair in [[a,b],[b,c],[c,a]]:
++				var first: Vector3i = Vector3i((pair[0]*1000000.0).round())
++				var second: Vector3i = Vector3i((pair[1]*1000000.0).round())
++				var forward := str(first) + ":" + str(second)
++				var backward := str(second) + ":" + str(first)
++				if edges.has(backward):
++					edges[backward] -= 1
++				else:
++					edges[forward] = int(edges.get(forward,0))+1
++		for count in edges.values():
++			if count != 0:
++				positive_closed = false
++		positive_closed = positive_closed and volume > 0.0
++		for vertex in faces:
++			var point: Vector3 = relative*vertex
++			max_radial = maxf(max_radial, Vector2(point.x,point.y).length())
++	_check(positive_closed, "each actual B component closed and positive clockwise volume with 1um seam weld")
++	_check(max_radial <= .120002, "actual drill vertices contained within nominal .24m diameter")
++
++func _test_parent_bounds(scene, presenter) -> void:
++	var water = presenter.obstacle_node(scene.document.obstacles[0].object_id)
++	var metadata = water.get_meta("geometry_bounds_m").duplicate(true)
++	var local_box: AABB = presenter.local_visual_bounds(water)
++	_check(local_box.get_center().length() > .00001, "water measured local centre is nonzero")
++	var mesh = water.find_children("*", "MeshInstance3D", true, false)[0]
++	var vertex: Vector3 = mesh.mesh.get_faces()[17]
++	var parent_transform := Transform3D(Basis.from_euler(Vector3(.2,-.3,.1)), Vector3(-2,1,3))
++	scene._world.transform = parent_transform
++	var asset_point: Vector3 = water.global_transform.affine_inverse()*mesh.global_transform*vertex
++	var r := Basis.from_euler(Vector3(15,37,-20)*PI/180.0)
++	var expected: Vector3 = parent_transform*(Vector3(2,-3,4) + r*((SIZES[0]/BASE[0])*asset_point))
++	_check((mesh.global_transform*vertex).distance_to(expected) < .00001, "parent * (position + rotation * nominal scale * vertex), no recenter")
++	_check(_bounds_contain_vertices(water,presenter.world_visual_bounds(water)), "world bounds include transformed parent")
++	_check(water.get_meta("geometry_bounds_m") == metadata, "asset-local metadata unchanged by placement")
++	scene._world.transform = Transform3D.IDENTITY
++
++func _test_picking(presenter) -> void:
++	var parent := Node3D.new()
++	root.add_child(parent)
++	var other = load("res://viewer/asset_presenter.gd").new()
++	# Distances from z=20 are 12.5 (scale .5) and 15.5 (scale 1.5).
++	# Normalizing local rays reverses the order: 25 versus 10.333...
++	var items := [{"object_id":101,"kind":"fault","position":Vector3(0,0,6),"rotation_deg":Vector3.ZERO,"size":Vector3(8,1,3)},
++		{"object_id":102,"kind":"fault","position":Vector3(0,0,0),"rotation_deg":Vector3.ZERO,"size":Vector3(8,1,9)}]
++	other.sync_obstacles(parent,items)
++	_check(other.pick_obstacle(Vector3(0,0,20),Vector3.FORWARD) == 101, "nearest pick preserves world ray t across different scales")
++	_check(other.pick_obstacle(Vector3(0,0,6),Vector3.RIGHT) == 101, "ray starting inside returns positive exit")
++	_check(other.pick_obstacle(Vector3(0,2,20),Vector3.FORWARD) == -1, "parallel-axis miss")
++	_check(other.pick_obstacle(Vector3(0,0,20),Vector3.BACK) == -1, "all behind ray miss")
++	items = [{"object_id":103,"kind":"water","position":Vector3.ZERO,"rotation_deg":Vector3.ZERO,"size":Vector3(6,4,2)}]
++	other.sync_obstacles(parent,items)
++	var box: AABB = other.local_visual_bounds(other.obstacle_node(103))
++	_check(other.pick_obstacle(box.get_center()+Vector3(0,0,10),Vector3.FORWARD) == 103, "ray through shifted water local centre")
++	other.obstacle_node(103).scale = Vector3.ZERO
++	_check(other.pick_obstacle(Vector3(0,0,10),Vector3.FORWARD) == -1, "singular transform rejected before inverse")
++	parent.free()
++
++func _test_history_and_files(scene) -> void:
++	var doc = scene.document
++	var presenter = scene._asset_presenter
++	var id := int(doc.obstacles[0].object_id)
++	var original = presenter.obstacle_node(id)
++	var old_position: Vector3 = original.position
++	doc.select_object(id)
++	doc.update_obstacle(id, {"position":Vector3(3,-3,4)})
++	_check(presenter.obstacle_node(id) == original and original.position.x == 3, "transform edit reuses original instance")
++	doc.undo()
++	_check(original.position.is_equal_approx(old_position), "undo restores visual placement")
++	doc.redo()
++	_check(original.position.x == 3, "redo restores visual placement")
++	var hash_before: String = doc.commitment_hash()
++	var path := ProjectSettings.globalize_path("res://integration-layout.json")
++	scene.shell._dialog_action = "save"
++	scene.shell._on_file_selected(path)
++	_check(scene.shell.last_file_result.get("ok",false), "nonempty save through shell")
++	var text := FileAccess.get_file_as_string(path)
++	for forbidden in ["res://","seed","material","collision","runtime"]:
++		_check(not forbidden in text, "layout excludes " + forbidden)
++	doc.reset_layout()
++	scene.shell._dialog_action = "open"
++	scene.shell._on_file_selected(path)
++	await process_frame
++	_check(scene.shell.last_file_result.get("ok",false) and doc.commitment_hash() == hash_before, "nonempty parameter round trip preserves commitment")
++	for i in KINDS.size():
++		var node = presenter.obstacle_node(doc.obstacles[i].object_id)
++		_check(node != null and node.get_meta("asset_id") == "obstacle_"+KINDS[i]+"_v1", "reopen rebuilds each kind and ID")
++	var previous = presenter.obstacle_node(doc.obstacles[0].object_id)
++	var before: Transform3D = previous.transform
++	var retained_meshes: Array = previous.find_children("*","MeshInstance3D",true,false)
++	var bad := FileAccess.open(ProjectSettings.globalize_path("res://invalid-layout.json"),FileAccess.WRITE)
++	bad.store_string("{broken")
++	bad.close()
++	scene.shell._dialog_action = "open"
++	scene.shell._on_file_selected(ProjectSettings.globalize_path("res://invalid-layout.json"))
++	scene.shell._on_file_dialog_canceled()
++	_check(doc.commitment_hash() == hash_before and presenter.obstacle_node(doc.obstacles[0].object_id) == previous and previous.transform == before, "invalid open and cancellation preserve exact visuals")
++	_check(previous.find_children("*","MeshInstance3D",true,false) == retained_meshes, "failed open preserves actual mesh instances")
++	# Same ID with changed kind must replace the node, never retain stale geometry.
++	var changed: Array = doc.obstacles.duplicate(true)
++	changed[0].kind = "hard_rock"
++	changed[0].size = Vector3(3,3,3)
++	var old_instance: int = previous.get_instance_id()
++	presenter.sync_obstacles(scene._obstacle_root,changed)
++	_check(presenter.obstacle_node(changed[0].object_id).get_instance_id() != old_instance, "reused ID changed kind replaces node")
++	scene._sync_obstacles()
++
++func _test_focus(scene, drills: Array) -> void:
++	if drills.is_empty():
++		return
++	var drill: Node3D = drills[0]
++	var transform_before: Transform3D = drill.global_transform
++	var gates_before: String = var_to_str(scene.document.gates)
++	var hash_before: String = scene.document.commitment_hash()
++	var found := false
++	for button in scene.shell._root.find_children("*","Button",true,false):
++		if button.text == "聚焦钻头":
++			found = true
++	_check(found, "drill-focus camera button exists in shell")
++	for rect in [Vector2i(1920,1080), Vector2i(1280,720)]:
++		root.content_scale_size = rect
++		root.size = rect
++		await process_frame
++		scene.shell._request_drill_focus()
++		var box: AABB = scene._asset_presenter.world_visual_bounds(drill)
++		var center := box.get_center()
++		var radius := box.size.length()*.5
++		var view_rect: Rect2 = scene._camera.get_viewport().get_visible_rect()
++		var fits := true
++		for offset in [scene._camera.global_basis.x*radius,-scene._camera.global_basis.x*radius,scene._camera.global_basis.y*radius,-scene._camera.global_basis.y*radius]:
++			var point: Vector2 = scene._camera.unproject_position(center+offset)
++			fits = fits and view_rect.grow(-10).has_point(point)
++		_check(fits, "actual-scale drill sphere projects inside active viewport with margin " + str(rect))
++	_check(absf(scene._camera.near-.02) < 1e-8 and scene._distance >= .5, "drill focus uses close-up near and finite minimum distance")
++	_check(drill.global_transform == transform_before and var_to_str(scene.document.gates) == gates_before and scene.document.commitment_hash() == hash_before, "camera focus changes no geometry/gates/document")
++	scene.document.select_object(-1)
++	scene.focus_selected()
++	_check(scene._distance == 52.0, "scene focus retains 52m reset")
++	var wheel := InputEventMouseButton.new()
++	wheel.button_index = MOUSE_BUTTON_WHEEL_UP
++	wheel.pressed = true
++	scene._distance = .501
++	scene._handle_mouse_button(wheel)
++	_check(scene._distance == .5,"wheel minimum permits actual-scale close-up at .5m")
++
++func _test_budget(scene) -> void:
++	var presenter = scene._asset_presenter
++	var doc = scene.document
++	doc.reset_layout()
++	var cold_start := Time.get_ticks_usec()
++	for i in 30:
++		doc.add_obstacle(KINDS[i%5],Vector3((i%5)-2,0,(i/5)-2))
++	var cold_us := Time.get_ticks_usec()-cold_start
++	_check(doc.obstacle_count() == 30, "30 real mixed-kind document objects")
++	var first = presenter.obstacle_node(doc.obstacles[0].object_id).find_children("*","MeshInstance3D",true,false)[0]
++	var second = presenter.obstacle_node(doc.obstacles[5].object_id).find_children("*","MeshInstance3D",true,false)[0]
++	_check(first.mesh != second.mesh and first.material_override != second.material_override, "independent same-kind objects own independent mesh/material resources")
++	var ids := []
++	var mesh_ids := []
++	var triangles := 0
++	var mesh_count := 0
++	for obstacle in doc.obstacles:
++		var node = presenter.obstacle_node(obstacle.object_id)
++		ids.append(node.get_instance_id())
++		for mesh in node.find_children("*","MeshInstance3D",true,false):
++			mesh_ids.append([mesh.mesh.get_instance_id(),mesh.material_override.get_instance_id()])
++			triangles += mesh.mesh.get_faces().size()/3
++			mesh_count += 1
++	var calls = presenter.report().factory_calls.duplicate(true)
++	var no_op: Array = []
++	var transform_only: Array = []
++	for i in 100:
++		var start := Time.get_ticks_usec()
++		scene._sync_obstacles()
++		no_op.append(Time.get_ticks_usec()-start)
++		start = Time.get_ticks_usec()
++		doc.update_obstacle(int(doc.obstacles[0].object_id), {"rotation_deg":Vector3(0,i,0)},false)
++		transform_only.append(Time.get_ticks_usec()-start)
++	_check(presenter.report().factory_calls == calls, "100 no-op and transform updates make zero new factory calls")
++	var after_mesh_ids := []
++	var after_ids := []
++	for obstacle in doc.obstacles:
++		var node = presenter.obstacle_node(obstacle.object_id)
++		after_ids.append(node.get_instance_id())
++		for mesh in node.find_children("*","MeshInstance3D",true,false):
++			after_mesh_ids.append([mesh.mesh.get_instance_id(),mesh.material_override.get_instance_id()])
++	_check(ids == after_ids and mesh_ids == after_mesh_ids, "transform-only updates preserve roots, meshes and materials")
++	var no_op_raw := no_op.duplicate()
++	var transform_raw := transform_only.duplicate()
++	no_op.sort()
++	transform_only.sort()
++	var gates := _mesh_cost(scene._gate_root)
++	var ticks := _mesh_cost(scene._ticks_root)
++	var world_meshes := 0
++	for child in scene._world.get_children():
++		if child is MeshInstance3D:
++			world_meshes += 1
++	print("CPU_PRESENTATION " + JSON.stringify({"cold_create_us":cold_us,"noop_samples_us":no_op_raw,"transform_samples_us":transform_raw,"noop_median_us":no_op[50],"noop_max_us":no_op[-1],"transform_median_us":transform_only[50],"transform_max_us":transform_only[-1],"obstacle_meshes":mesh_count,"obstacle_triangles":triangles,"A_gates":gates,"A_ticks":ticks,"A_corner_and_selection_meshes":world_meshes,"A_obstacle_labels":scene._obstacle_labels.size(),"A_all_3d_labels":scene._world.find_children("*","Label3D",true,false).size(),"factory_calls":calls}))
++	for cycle in 10:
++		doc.reset_layout()
++		_check(scene._obstacle_root.get_child_count() == 0, "clear leaves no accumulated roots/labels cycle %d"%cycle)
++		for i in 30:
++			doc.add_obstacle(KINDS[i%5],Vector3.ZERO)
++		_check(scene._obstacle_root.get_child_count() == 60, "one root and A label per ID cycle %d"%cycle)
++	doc.reset_layout()
++	_check(scene._obstacle_root.get_child_count() == 0, "final clear has no node growth")
++
++func _mesh_cost(parent: Node) -> Dictionary:
++	var meshes := parent.find_children("*","MeshInstance3D",true,false)
++	var triangles := 0
++	for mesh in meshes:
++		triangles += mesh.mesh.get_faces().size()/3
++	return {"mesh_count":meshes.size(),"triangles":triangles,"labels":parent.find_children("*","Label3D",true,false).size()}
+--- before/tests/test_viewer_asset_integration.gd.uid
++++ candidate/tests/test_viewer_asset_integration.gd.uid
+@@ -0,0 +1 @@
++uid://bkr333fw4lm6f
+--- before/ui/shell.gd
++++ candidate/ui/shell.gd
+@@ -73,6 +73,7 @@
+ var _gate_v: SpinBox
+ var _gate_status_label: Label
+ var _status_labels: Dictionary = {}
++var _presentation_label: Label
+ var _run_button: Button
+ var _pause_button: Button
+ var _continue_button: Button
+@@ -426,6 +427,7 @@
+ 		var cam_button := _button(view[0], func() -> void: _request_camera(view_name))
+ 		cam_grid.add_child(cam_button)
+ 	cam_grid.add_child(_button("聚焦选中", func() -> void: _request_focus()))
++	cam_grid.add_child(_button("聚焦钻头", func() -> void: _request_drill_focus()))
+ 	_ticks_check = CheckButton.new()
+ 	_ticks_check.text = "坐标刻度"
+ 	_ticks_check.button_pressed = true
+@@ -437,6 +439,10 @@
+ 	box.add_child(_hint_label)
+ 
+ func _build_right(box: VBoxContainer) -> void:
++	_presentation_label = Label.new()
++	_presentation_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
++	_presentation_label.text = "呈现资源: 加载中；权威未连接"
++	box.add_child(_presentation_label)
+ 	box.add_child(_title("链路与权威状态（未连接不伪造）"))
+ 	for row in [["工况来源", "source"], ["控制拓扑", "topology"], ["实际波特率", "baud"],
+ 			["数据年龄", "age"], ["AI 状态", "ai"], ["权威桥", "bridge"]]:
+@@ -1011,3 +1017,13 @@
+ func _request_focus() -> void:
+ 	if _main != null and _main.has_method("focus_selected"):
+ 		_main.focus_selected()
++
++func _request_drill_focus() -> void:
++	if _main != null and _main.has_method("focus_drill"):
++		_main.focus_drill()
++
++func set_presentation_report(report: Dictionary) -> void:
++	if _presentation_label == null:
++		return
++	_presentation_label.text = "呈现资源已加载；权威未连接" if report.state == "ready" else "资源加载失败·开发灰盒；权威未连接"
++	_presentation_label.tooltip_text = "\n".join(report.diagnostics)
+--- before/viewer/asset_presenter.gd
++++ candidate/viewer/asset_presenter.gd
+@@ -0,0 +1,224 @@
++class_name DeepEyeAssetPresenter
++extends RefCounted
++## Observer presentation only. Disabled B envelopes are never authority shapes.
++## Document parameters stay in SceneDocument; no resources/control truth exported.
++
++const FACTORY_PATH := "res://world/asset_library.gd"
++const REQUIRED_FILES := [FACTORY_PATH, "res://world/drill_geometry.gd", "res://world/obstacle_geometry.gd", "res://world/frame_geometry.gd"]
++const KINDS := ["water", "hard_rock", "fault", "void", "casing"]
++var _factory: Script
++var _load_attempted := false
++var _diagnostics: Array[String] = []
++var _nodes := {}
++var _kinds := {}
++var _failed_kinds := {}
++var _factory_calls := {"frame":0,"drill":0,"obstacle":0}
++var _frame: Node3D
++var _drill: Node3D
++
++func _diagnose(message: String) -> void:
++	if not _diagnostics.has(message):
++		_diagnostics.append(message)
++
++func _ensure_factory() -> bool:
++	if _load_attempted:
++		return _factory != null
++	_load_attempted = true
++	for path in REQUIRED_FILES:
++		if not FileAccess.file_exists(path):
++			_diagnose("资源加载失败·开发灰盒: 缺少固定资源 " + path)
++			return false
++	var resource = load(FACTORY_PATH)
++	if not resource is Script or not resource.can_instantiate():
++		_diagnose("资源加载失败·开发灰盒: 固定工厂脚本不可用")
++		return false
++	var methods := {}
++	for method in resource.get_script_method_list():
++		methods[String(method.name)] = int(method.flags)
++	for name in ["create_frame", "create_drill", "create_obstacle"]:
++		if not methods.has(name) or (methods[name] & METHOD_FLAG_STATIC) == 0:
++			_diagnose("资源加载失败·开发灰盒: 工厂缺少静态方法 " + name)
++			return false
++	_factory = resource
++	return true
++
++func create_frame() -> Node3D:
++	if is_instance_valid(_frame):
++		return _frame
++	_frame = _create("frame")
++	return _frame
++
++func create_drill() -> Node3D:
++	if is_instance_valid(_drill):
++		return _drill
++	_drill = _create("drill")
++	return _drill
++
++func _create(category: String, kind: String = "") -> Node3D:
++	if not _ensure_factory():
++		return null
++	_factory_calls[category] += 1
++	var result = _factory.call("create_obstacle", kind) if category == "obstacle" else _factory.call("create_" + category)
++	var error := "工厂没有返回 Node3D"
++	if result is Node3D:
++		error = _validate_asset(result)
++		var wanted := "obstacle_" + kind + "_v1" if category == "obstacle" else ("drill_pdc_v1" if category == "drill" else "frame_workspace_v1")
++		if error.is_empty() and result.get_meta("asset_id", "") != wanted:
++			error = "资源种类标识不匹配"
++	if not error.is_empty():
++		_diagnose("资源加载失败·开发灰盒: " + category + ("/"+kind if not kind.is_empty() else "") + ": " + error)
++		if result is Node and result.get_parent() == null:
++			result.free()
++		return null
++	return result as Node3D
++
++func _validate_asset(asset: Node3D) -> String:
++	if asset.get_parent() != null:
++		return "资源已附着到其它父节点"
++	if not asset.get_node_or_null("Visual") is Node3D or not asset.get_node_or_null("Collision") is Node3D:
++		return "缺少 Visual/Collision 子节点"
++	if asset.get_meta("asset_contract_version",0) != 1 or String(asset.get_meta("source_license", "")).is_empty():
++		return "版本或来源许可缺失"
++	var measured = asset.get_meta("geometry_bounds_m",null)
++	var declared = asset.get_meta("declared_envelope",null)
++	if not measured is Dictionary or not declared is Dictionary:
++		return "局部边界或名义包络缺失"
++	for bounds in [measured, {"min":declared.get("bounds_min"),"max":declared.get("bounds_max")}]:
++		if not bounds.get("min") is Vector3 or not bounds.get("max") is Vector3:
++			return "边界类型错误"
++		var low: Vector3 = bounds.min
++		var high: Vector3 = bounds.max
++		if not low.is_finite() or not high.is_finite() or not _positive(high-low):
++			return "边界非有限或没有正体积"
++	var radius = asset.get_meta("pivot_bound_radius_m",null)
++	if not (radius is float or radius is int) or not is_finite(float(radius)) or float(radius) <= 0.0:
++		return "枢轴半径无效"
++	return _validate_tree(asset)
++
++func _validate_tree(node: Node) -> String:
++	if node.get_script() != null:
++		return "资源节点附有脚本"
++	if node is Node3D and not node.transform.is_finite():
++		return "资源节点变换非有限"
++	if node is CollisionObject3D and (node.collision_layer != 0 or node.collision_mask != 0):
++		return "碰撞层或掩码已启用"
++	if node is CollisionShape3D and not node.disabled:
++		return "碰撞形状已启用"
++	if node is CollisionPolygon3D and not node.disabled:
++		return "碰撞多边形已启用"
++	for child in node.get_children():
++		var error := _validate_tree(child)
++		if not error.is_empty():
++			return error
++	return ""
++
++func _positive(size: Vector3) -> bool:
++	return size.is_finite() and size.x > 0.0 and size.y > 0.0 and size.z > 0.0
++
++func _obstacle_transform(obstacle: Dictionary, base_size: Vector3) -> Transform3D:
++	var scale: Vector3 = obstacle.size / base_size
++	var rotation := Basis.from_euler(obstacle.rotation_deg * (PI / 180.0))
++	return Transform3D(Basis(rotation.x*scale.x, rotation.y*scale.y, rotation.z*scale.z), obstacle.position)
++
++func sync_obstacles(parent: Node3D, obstacles: Array) -> Dictionary:
++	var live := {}
++	var failed: Array[int] = []
++	for obstacle in obstacles:
++		var id := int(obstacle.object_id)
++		var kind := String(obstacle.kind)
++		live[id] = true
++		if _nodes.has(id) and _kinds[id] != kind:
++			_remove(id)
++		if _failed_kinds.has(id) and _failed_kinds[id] != kind:
++			_failed_kinds.erase(id)
++		if not _nodes.has(id) and not _failed_kinds.has(id):
++			var node: Node3D
++			if KINDS.has(kind):
++				node = _create("obstacle",kind)
++			else:
++				_diagnose("资源加载失败·开发灰盒: 未知障碍种类 " + kind)
++			if node != null:
++				_nodes[id] = node
++				_kinds[id] = kind
++				parent.add_child(node)
++			else:
++				_failed_kinds[id] = kind
++		var asset: Node3D = obstacle_node(id)
++		if asset == null:
++			failed.append(id)
++			continue
++		var envelope: Dictionary = asset.get_meta("declared_envelope")
++		var base_size: Vector3 = envelope.bounds_max-envelope.bounds_min
++		if not _positive(obstacle.size) or not obstacle.position.is_finite() or not obstacle.rotation_deg.is_finite():
++			_diagnose("资源加载失败·开发灰盒: 障碍 #%d 参数无效" % id)
++			_remove(id)
++			_failed_kinds[id] = kind
++			failed.append(id)
++			continue
++		asset.transform = _obstacle_transform(obstacle,base_size)
++	for id in _nodes.keys():
++		if not live.has(id):
++			_remove(id)
++	for id in _failed_kinds.keys():
++		if not live.has(id):
++			_failed_kinds.erase(id)
++	return {"ok":failed.is_empty(),"failed_ids":failed,"diagnostics":_diagnostics.duplicate()}
++
++func _remove(id: int) -> void:
++	var node: Node3D = _nodes[id]
++	if is_instance_valid(node):
++		node.get_parent().remove_child(node)
++		node.free()
++	_nodes.erase(id)
++	_kinds.erase(id)
++
++func obstacle_node(object_id: int) -> Node3D:
++	return _nodes.get(object_id,null)
++
++func local_visual_bounds(asset: Node3D) -> AABB:
++	var measured: Dictionary = asset.get_meta("geometry_bounds_m")
++	return AABB(measured.min, measured.max-measured.min)
++
++func world_visual_bounds(asset: Node3D) -> AABB:
++	var local := local_visual_bounds(asset)
++	var world := AABB(asset.global_transform*local.get_endpoint(0),Vector3.ZERO)
++	for corner in range(1,8):
++		world = world.expand(asset.global_transform*local.get_endpoint(corner))
++	return world
++
++func obstacle_ray_t(object_id: int, ray_origin_world: Vector3, ray_direction_world: Vector3) -> float:
++	var node := obstacle_node(object_id)
++	if node == null or not node.global_transform.is_finite() or absf(node.global_basis.determinant()) < 1e-12:
++		return -1.0
++	var inverse := node.global_transform.affine_inverse()
++	# Keep local direction unnormalized: t remains world-ray distance.
++	return _ray_aabb_t(inverse*ray_origin_world, inverse.basis*ray_direction_world, local_visual_bounds(node))
++
++func pick_obstacle(ray_origin_world: Vector3, ray_direction_world: Vector3) -> int:
++	var nearest := -1
++	var nearest_t := INF
++	for id in _nodes:
++		var t := obstacle_ray_t(id,ray_origin_world,ray_direction_world)
++		if t >= 0.0 and t < nearest_t:
++			nearest = id
++			nearest_t = t
++	return nearest
++
++func _ray_aabb_t(origin: Vector3, direction: Vector3, box: AABB) -> float:
++	var low := -INF
++	var high := INF
++	for axis in 3:
++		if absf(direction[axis]) < 1e-12:
++			if origin[axis] < box.position[axis] or origin[axis] > box.end[axis]:
++				return -1.0
++		else:
++			var t1: float = (box.position[axis]-origin[axis])/direction[axis]
++			var t2: float = (box.end[axis]-origin[axis])/direction[axis]
++			low = maxf(low,minf(t1,t2))
++			high = minf(high,maxf(t1,t2))
++	if high < maxf(low,0.0):
++		return -1.0
++	return low if low > 0.0 else high
++
++func report() -> Dictionary:
++	return {"state":"ready" if _diagnostics.is_empty() and _factory != null else "degraded", "diagnostics":_diagnostics.duplicate(),"factory_calls":_factory_calls.duplicate()}
+--- before/viewer/asset_presenter.gd.uid
++++ candidate/viewer/asset_presenter.gd.uid
+@@ -0,0 +1 @@
++uid://cpg0bed8buco8
+--- before/viewer/main.gd
++++ candidate/viewer/main.gd
+@@ -8,10 +8,12 @@
+ ##    layout, six-face gate picking.
+ ##  - Camera: RMB orbit, MMB pan, wheel zoom, six views, isometric, focus. Mouse
+ ##    input over any UI panel never moves the camera (_unhandled_input + hover check).
+-##  - No physics bodies, no drill motion, no timeline, no fabricated link state.
++##  - B presentation collision bodies/shapes stay disabled; no authority physics,
++##    drill motion, timeline or fabricated link state.
+ ##    Run/continue remain disabled; Esc only emits stop_requested via the document.
+ 
+ const DocScript = preload("res://editor/scene_document.gd")
++const PresenterScript = preload("res://viewer/asset_presenter.gd")
+ 
+ var document
+ var shell
+@@ -24,6 +26,10 @@
+ var _drill_root: Node3D
+ var _selection_box: MeshInstance3D
+ var _material_cache: Dictionary = {}
++var _asset_presenter
++var _obstacle_labels: Dictionary = {}
++var _fallback_obstacles: Dictionary = {}
++var _reported_asset_diagnostics: Array[String] = []
+ 
+ var _focus_point := Vector3.ZERO
+ var _yaw_deg := 35.0
+@@ -47,9 +53,10 @@
+ 	_gate_root = Node3D.new()
+ 	_gate_root.name = "Gates"
+ 	_world.add_child(_gate_root)
++	_asset_presenter = PresenterScript.new()
+ 	_build_frame()
+ 	_build_ticks()
+-	_build_drill_greybox()
++	_build_drill()
+ 	_selection_box = MeshInstance3D.new()
+ 	_selection_box.name = "SelectionBox"
+ 	var selection_mesh := BoxMesh.new()
+@@ -72,7 +79,7 @@
+ 	_sync_obstacles()
+ 	_sync_gates()
+ 	apply_camera()
+-	document.log_event("系统", "World 视图就绪：12条边+角标+坐标刻度；障碍为开发灰盒；蓝/红圈0.30m；无物理、无运动（运行禁用）")
++	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.30m；权威未连接、无运动（运行禁用）")
+ 
+ # ---------------------------------------------------------------------------
+ # Input (camera + editing). Esc is global; everything else ignores UI hover.
+@@ -139,11 +146,11 @@
+ 			_panning = event.pressed
+ 		MOUSE_BUTTON_WHEEL_UP:
+ 			if event.pressed:
+-				_distance = clampf(_distance * 0.89, 1.5, 260.0)
++				_distance = clampf(_distance * 0.89, 0.5, 260.0)
+ 				apply_camera()
+ 		MOUSE_BUTTON_WHEEL_DOWN:
+ 			if event.pressed:
+-				_distance = clampf(_distance * 1.12, 1.5, 260.0)
++				_distance = clampf(_distance * 1.12, 0.5, 260.0)
+ 				apply_camera()
+ 
+ func _handle_mouse_motion(event: InputEventMouseMotion) -> void:
+@@ -292,6 +299,27 @@
+ 		_focus_point = hit
+ 		apply_camera()
+ 
++func focus_drill() -> void:
++	if _asset_presenter == null or _drill_root == null:
++		return
++	var drill := _drill_root.get_node_or_null("DrillPDC") as Node3D
++	var bounds := AABB(_drill_root.global_position-Vector3(.12,.12,.4),Vector3(.24,.24,.8))
++	if drill != null:
++		bounds = _asset_presenter.world_visual_bounds(drill)
++	_focus_point = bounds.get_center()
++	var rect := _camera.get_viewport().get_visible_rect().size
++	var aspect := rect.x/maxf(rect.y,1.0)
++	var fixed_half_fov := deg_to_rad(_camera.fov)*.5
++	var vertical := fixed_half_fov
++	var horizontal := atan(tan(vertical)*aspect)
++	if _camera.keep_aspect == Camera3D.KEEP_WIDTH:
++		horizontal = fixed_half_fov
++		vertical = atan(tan(horizontal)/aspect)
++	_distance = maxf(.5,1.25*bounds.size.length()*.5/sin(minf(vertical,horizontal)))
++	_camera.near = .02
++	apply_camera()
++	document.log_event("操作", "聚焦钻头（实际比例；仅相机，权威未连接）")
++
+ # ---------------------------------------------------------------------------
+ # Picking (pure math, no physics bodies)
+ # ---------------------------------------------------------------------------
+@@ -306,9 +334,11 @@
+ 	var ray := _ray(screen_pos)
+ 	var from: Vector3 = ray["from"]
+ 	var direction: Vector3 = ray["dir"]
+-	var best_id := -1
+-	var best_t := INF
++	var best_id: int = _asset_presenter.pick_obstacle(from,direction)
++	var best_t: float = _asset_presenter.obstacle_ray_t(best_id,from,direction) if best_id >= 0 else INF
+ 	for obstacle in document.obstacles:
++		if not _fallback_obstacles.has(int(obstacle.object_id)):
++			continue
+ 		var half: Vector3 = document.world_half_extent(obstacle.size, obstacle.rotation_deg)
+ 		var t := _ray_hits_aabb(from, direction, obstacle.position, half)
+ 		if t >= 0.0 and t < best_t:
+@@ -421,8 +451,18 @@
+ 	return material
+ 
+ func _build_frame() -> void:
++	var frame: Node3D = _asset_presenter.create_frame()
++	if frame != null:
++		_world.add_child(frame)
++	else:
++		_build_frame_greybox()
++		var label := _asset_label("资源加载失败·开发灰盒: 工作区边框")
++		label.position = Vector3(0,15.7,0)
++		_world.add_child(label)
++	_build_corners()
++
++func _build_frame_greybox() -> void:
+ 	var edge_material := _flat_material(Color(0.55, 0.62, 0.72), 0.05)
+-	var corner_material := _flat_material(Color(0.35, 0.85, 0.95), 0.4)
+ 	var half := DocScript.CUBE_HALF
+ 	var thickness := 0.07
+ 	for axis in 3:
+@@ -447,6 +487,10 @@
+ 				edge.material_override = edge_material
+ 				edge.position = offset
+ 				_world.add_child(edge)
++
++func _build_corners() -> void:
++	var corner_material := _flat_material(Color(0.35, 0.85, 0.95), 0.4)
++	var half := DocScript.CUBE_HALF
+ 	for sx in [-1.0, 1.0]:
+ 		for sy in [-1.0, 1.0]:
+ 			for sz in [-1.0, 1.0]:
+@@ -489,6 +533,19 @@
+ 	if _ticks_root != null:
+ 		_ticks_root.visible = visible_state
+ 		document.log_event("操作", "坐标刻度显示: %s" % ("开" if visible_state else "关"))
++
++func _build_drill() -> void:
++	var drill: Node3D = _asset_presenter.create_drill()
++	if drill == null:
++		_build_drill_greybox()
++		return
++	_drill_root = Node3D.new()
++	_drill_root.name = "DrillPresentation"
++	_world.add_child(_drill_root)
++	_drill_root.add_child(drill)
++	var label := _asset_label("实体钻头·静态观察（权威未连接）")
++	label.position = Vector3(0,.8,0)
++	_drill_root.add_child(label)
+ 
+ func _build_drill_greybox() -> void:
+ 	_drill_root = Node3D.new()
+@@ -520,7 +577,7 @@
+ 	tip.position = Vector3(0.0, 0.0, 0.29)
+ 	_drill_root.add_child(tip)
+ 	var label := Label3D.new()
+-	label.text = "开发灰盒·钻头（静态；无运动）"
++	label.text = "资源加载失败·开发灰盒·钻头（静态；无运动）"
+ 	label.font_size = 30
+ 	label.pixel_size = 0.009
+ 	label.modulate = Color(0.95, 0.9, 0.6)
+@@ -558,29 +615,70 @@
+ 	return material
+ 
+ func _sync_obstacles() -> void:
+-	for child in _obstacle_root.get_children():
+-		_obstacle_root.remove_child(child)
+-		child.free()
++	var result: Dictionary = _asset_presenter.sync_obstacles(_obstacle_root,document.obstacles)
++	var live := {}
+ 	for obstacle in document.obstacles:
+-		var box := MeshInstance3D.new()
+-		var mesh := BoxMesh.new()
+-		mesh.size = obstacle.size
+-		box.mesh = mesh
+-		box.material_override = _kind_material(String(obstacle.kind))
+-		box.position = obstacle.position
+-		box.rotation_degrees = obstacle.rotation_deg
+-		_obstacle_root.add_child(box)
+-		var label := Label3D.new()
+-		label.text = "开发灰盒·" + String(DocScript.KIND_LABELS[String(obstacle.kind)])
+-		label.font_size = 30
+-		label.pixel_size = 0.009
+-		label.modulate = Color(0.95, 0.9, 0.6)
+-		label.outline_size = 8
+-		label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+-		label.no_depth_test = true
+-		label.position = obstacle.position + Vector3(0.0, obstacle.size.y * 0.5 + 0.7, 0.0)
+-		_obstacle_root.add_child(label)
++		var id := int(obstacle.object_id)
++		live[id] = true
++		var asset: Node3D = _asset_presenter.obstacle_node(id)
++		var degraded: bool = result.failed_ids.has(id)
++		if not degraded and _fallback_obstacles.has(id):
++			_remove_presentation_node(_fallback_obstacles,id)
++		var bounds: AABB
++		if degraded:
++			if not _fallback_obstacles.has(id):
++				var box := MeshInstance3D.new()
++				box.mesh = BoxMesh.new()
++				_obstacle_root.add_child(box)
++				_fallback_obstacles[id] = box
++			var fallback: MeshInstance3D = _fallback_obstacles[id]
++			fallback.mesh.size = obstacle.size
++			fallback.material_override = _kind_material(String(obstacle.kind))
++			fallback.position = obstacle.position
++			fallback.rotation_degrees = obstacle.rotation_deg
++			var half: Vector3 = document.world_half_extent(obstacle.size,obstacle.rotation_deg)
++			bounds = AABB(obstacle.position-half,half*2.0)
++		else:
++			bounds = _asset_presenter.world_visual_bounds(asset)
++		if not _obstacle_labels.has(id):
++			var label := _asset_label("")
++			_obstacle_root.add_child(label)
++			_obstacle_labels[id] = label
++		var label: Label3D = _obstacle_labels[id]
++		label.text = ("资源加载失败·开发灰盒·" if degraded else "") + String(DocScript.KIND_LABELS[String(obstacle.kind)])
++		label.global_position = Vector3(bounds.get_center().x,bounds.end.y+.7,bounds.get_center().z)
++	for nodes in [_obstacle_labels,_fallback_obstacles]:
++		for id in nodes.keys():
++			if not live.has(id):
++				_remove_presentation_node(nodes,id)
++	_report_presentation()
+ 	_sync_selection_box()
++
++func _asset_label(text: String) -> Label3D:
++	var label := Label3D.new()
++	label.text = text
++	label.font_size = 30
++	label.pixel_size = .009
++	label.modulate = Color(.95,.9,.6)
++	label.outline_size = 8
++	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
++	label.no_depth_test = true
++	return label
++
++func _remove_presentation_node(nodes: Dictionary, id: int) -> void:
++	var node: Node = nodes[id]
++	node.get_parent().remove_child(node)
++	node.free()
++	nodes.erase(id)
++
++func _report_presentation() -> void:
++	var report: Dictionary = _asset_presenter.report()
++	for diagnostic in report.diagnostics:
++		if not _reported_asset_diagnostics.has(diagnostic):
++			_reported_asset_diagnostics.append(diagnostic)
++			document.log_event("资源",diagnostic)
++	if shell != null:
++		shell.set_presentation_report(report)
+ 
+ func _on_selection_changed(_object_id: int) -> void:
+ 	_sync_selection_box()
+--- before/viewer/main.tscn
++++ candidate/viewer/main.tscn
+@@ -21,6 +21,7 @@
+ [node name="Camera3D" type="Camera3D" parent="."]
+ position = Vector3(27.3, 21.1, 38.9)
+ current = true
++near = 0.02
+ far = 300.0
+ 
+ [node name="KeyLight" type="DirectionalLight3D" parent="."]
+@@ -38,4 +39,4 @@
+ light_color = Color(0.6, 0.9, 1, 1)
+ 
+ [node name="Shell" type="CanvasLayer" parent="."]
+-script = ExtResource("2_shell")+script = ExtResource("2_shell")

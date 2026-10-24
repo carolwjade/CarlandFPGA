@@ -1,0 +1,26 @@
+{
+  "job_id": "child-d9f9c52cb946453183722e1957978fe0",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-G01-ASSET-ADAPTER-REPAIR-20261020-v1",
+  "ownership": [
+    ".local/deepeye-implementation-a/competition/deepeye/simulator/tests/test_viewer_asset_integration.gd",
+    ".local/deepeye-implementation-a/competition/deepeye/simulator/viewer/asset_presenter.gd",
+    ".local/deepeye-implementation-a/competition/deepeye/simulator/viewer/main.gd",
+    ".planning/deepeye-resume-20261018/g01-asset-adapter-repair-20261020"
+  ],
+  "native_agent_id": "/root/g01_asset_adapter_repair_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "F1-F4 repaired and frozen in the exact three assigned product paths. Fresh frozen evidence: integration 136/0, unchanged independent harness 54/0, unchanged bad-license/signature/empty-Visual/null oracles 14/0, 10/0, 14/0, 16/0; persistence 628/0, editor 696/0, UI-fit 266/0. Exact final integration harness on original source is RED 136/11; all earlier RED/error evidence preserved. B622/0 reused only with exact executable/dependency/receipt/log pins. All unowned product bytes unchanged; zero matching test processes remain. Repair receipt SHA256 9056113536888d0e24ce92aa9015e0019cb7016cd00ef770bbae78a00b5155e2; source-after SHA256 dcbb63df5f52a62d953f2e7f63372c343796d661ac1dd626900b7fb1cc9ebee6. Evidence: .planning/deepeye-resume-20261018/g01-asset-adapter-repair-20261020/findings.md and repair-receipt.json. Engine-clean remains unsatisfied because inherited Unicode NUL diagnostics persist. No native GUI/GPU/board/system acceptance; all 29 cards remain not_run, H01-H15 unchanged. Main independent re-review/adoption pending.\n",
+    "native_agent_id": "/root/g01_asset_adapter_repair_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T01:39:01.313161Z",
+  "updated_at": "2026-10-20T02:09:22.028469Z",
+  "duplicate": false
+}

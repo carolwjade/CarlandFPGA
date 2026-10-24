@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "tested_commit": "ccf3698cce065e20dbfa24bb6d07a97be7e38de6",
+  "scope": "bounded Python guard/CODE7 qualification; no new RTL/board/system acceptance",
+  "artifacts": [
+    {
+      "source": "b-op17-review-main-20261021/findings.md",
+      "path": "raw/001-findings.md",
+      "bytes": 3712,
+      "sha256": "e543733c9e98db5f78bce21c6d8b45d4db0cb65a68e6f74809bbb26c1e9883b8"
+    },
+    {
+      "source": "b-op17-review-main-20261021/original-manifest.json",
+      "path": "raw/002-original-manifest.json",
+      "bytes": 59780,
+      "sha256": "8f0dd8188e640f3abbbc118cbf40bf6f559a8a2f06d950560924dec49b151a8d"
+    },
+    {
+      "source": "b-op17-review-main-20261021/source-verification.json",
+      "path": "raw/003-source-verification.json",
+      "bytes": 4662,
+      "sha256": "91eb1c07b8a6be04288a11c099885f79a5b3c65c7836ab31b955466456aa0ce3"
+    },
+    {
+      "source": "b-op17-review-main-20261021/fetch_exact.py",
+      "path": "raw/004-fetch_exact.py",
+      "bytes": 3148,
+      "sha256": "f978c34076e8853f3c539bed2d45babcefafa67602bde83cdf1b3982f1397bce"
+    },
+    {
+      "source": "b-op17-review-main-20261021/prepare_snapshot.py",
+      "path": "raw/005-prepare_snapshot.py",
+      "bytes": 4575,
+      "sha256": "1eff4f22879e28468532e5a76e56d34bdb717a7eb54d984d8878457fda794640"
+    },
+    {
+      "source": "b-op17-review-main-20261021/independent_checks.py",
+      "path": "raw/006-independent_checks.py",
+      "bytes": 8955,
+      "sha256": "9595fcb52605aef1f58607db0aff9e8353f274890f43da8516aa7f5bd094cdc3"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run_checks.py",
+      "path": "raw/007-run_checks.py",
+      "bytes": 1871,
+      "sha256": "6db887af06251842a6655787730c25416abfd723854ccab6767084e3465df5c9"
+    },
+    {
+      "source": "b-op17-review-main-20261021/checks-result.json",
+      "path": "raw/008-checks-result.json",
+      "bytes": 8691,
+      "sha256": "534ac845add12de880010a677d3bd712f1b690fd82654a163245476f906ba8d5"
+    },
+    {
+      "source": "b-op17-review-main-20261021/worker-input-pins.json",
+      "path": "raw/009-worker-input-pins.json",
+      "bytes": 358,
+      "sha256": "f62b8b44c106c961c1a9e3233df8f729ce614356ac11ec95f8aabd5bd4cf19fc"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run_pwm_applied_capture.py.diff.txt",
+      "path": "raw/010-run_pwm_applied_capture.py.diff.txt",
+      "bytes": 7424,
+      "sha256": "081fbe41905aac77950006e84bb424e392816981040d39cdd7d5827952108c07"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run-01/started.json",
+      "path": "raw/011-started.json",
+      "bytes": 1904,
+      "sha256": "fe699234aa623271c03c551de17159c9de2be3f6da0d706306f6339045cfa622"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run-01/terminal.json",
+      "path": "raw/012-terminal.json",
+      "bytes": 1435,
+      "sha256": "2fa7de3eadaa0af90f26f2cac3042955977d717b90319d39a43d010bbc5ffa21"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run-01/stdout.txt",
+      "path": "raw/013-stdout.txt",
+      "bytes": 146,
+      "sha256": "90eda7f9b6cd1ee814e9545e26b7b55665707870daff4f93b85cd8289eb45be9"
+    },
+    {
+      "source": "b-op17-review-main-20261021/run-01/stderr.txt",
+      "path": "raw/014-stderr.txt",
+      "bytes": 7817,
+      "sha256": "2325d9da27bd3d1f7a39dd274842807f6adb84131fe0cde16a1a30defae8d173"
+    },
+    {
+      "source": "b-op17-review-main-20261021/baseline/competition/deepeye/tools/control3d/run_pwm_applied_capture.py",
+      "path": "raw/015-run_pwm_applied_capture.py",
+      "bytes": 47136,
+      "sha256": "b4ac06464af965999d35444f607fa6c7db537b80c340d39cbcc233ee2dce37b0"
+    },
+    {
+      "source": "b-op17-review-main-20261021/baseline/competition/deepeye/tests/control/test_pwm_applied_capture_runner.py",
+      "path": "raw/016-test_pwm_applied_capture_runner.py",
+      "bytes": 11886,
+      "sha256": "1483b0ca72cf9d66f3c85eac17f3d81f6fccf51eab21deee0e3431b84620ecf8"
+    },
+    {
+      "source": "b-op17-review-main-20261021/snapshot/competition/deepeye/tools/control3d/run_pwm_applied_capture.py",
+      "path": "raw/017-run_pwm_applied_capture.py",
+      "bytes": 49998,
+      "sha256": "b6735257dbfc107a14791ec69cb7386f306d0408173acf9466a0f69c93c30b94"
+    },
+    {
+      "source": "b-op17-review-main-20261021/snapshot/competition/deepeye/tests/control/test_pwm_applied_capture_runner.py",
+      "path": "raw/018-test_pwm_applied_capture_runner.py",
+      "bytes": 25456,
+      "sha256": "f8d4d5633949f8583e2d25b2622b3a67b30a05880bd84c2788e327c440516a34"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples.json",
+      "path": "raw/019-counterexamples.json",
+      "bytes": 7724,
+      "sha256": "7321bd934e68a82d4388d7a159fe8eab25cc2534948c62522067234db0802683"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples/positive-control/case.stdout.txt",
+      "path": "raw/020-case.stdout.txt",
+      "bytes": 161,
+      "sha256": "2ab5ad49cfebe3c5af328fd6c569dba8ade002213ee8a0e94575d944756736f5"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples/code7-in-ordinary-group/case.stdout.txt",
+      "path": "raw/021-case.stdout.txt",
+      "bytes": 211,
+      "sha256": "4df540e0c3e98473be7761e913822d7549193300fcd60255db45641edd5801fd"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples/guard-control/invalid-count-zero.stdout.txt",
+      "path": "raw/022-invalid-count-zero.stdout.txt",
+      "bytes": 184,
+      "sha256": "208fca1fd3b587c0409950405d437b2213061042e8dfb50896bb3941d6a4d97b"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples/guard-extra-unrelated-fatal/invalid-count-zero.stdout.txt",
+      "path": "raw/023-invalid-count-zero.stdout.txt",
+      "bytes": 222,
+      "sha256": "43945861d9cc0029db7d9d2d130b22b97cce5d348d8d1ee9e21b90304bc1d29f"
+    },
+    {
+      "source": "b-op16-independent-20261020/counterexamples/guard-prefixed-records/invalid-count-zero.stdout.txt",
+      "path": "raw/024-invalid-count-zero.stdout.txt",
+      "bytes": 192,
+      "sha256": "8c0c9db3c279cd13ed88436b5acbbdde48371f79c07c926a3d72c73097fa0eca"
+    },
+    {
+      "source": "b-op16-independent-20261020/snapshot/saved/RUN_SUMMARY.json",
+      "path": "raw/025-RUN_SUMMARY.json",
+      "bytes": 178764,
+      "sha256": "1bc4a0db74686b8c6d5033052f4a626f9ba9d59cd5f954d43965a99754f4bf31"
+    },
+    {
+      "source": ".gitattributes",
+      "path": ".gitattributes",
+      "bytes": 42,
+      "sha256": "753f832da30bea9cd8caa2ac611ca0a763d9a6747d51b0e9928e1ed54eae7521"
+    },
+    {
+      "source": "README.md",
+      "path": "README.md",
+      "bytes": 3797,
+      "sha256": "137a01aa0be879f89ac824bc741cfa7aca90eecc2bd71d5619b1fc572b60f073"
+    },
+    {
+      "source": "main clarification",
+      "path": "CORRECTION.md",
+      "bytes": 641,
+      "sha256": "e2ba30e53c12d3442edcaab062b5c6c3c88256dddbe82ab46372eedf21ad4bba"
+    }
+  ],
+  "previous_archive_sha256": "0f4bebe2f3d55742444b0877ce7c913ee042f7d2ca0644fb205272d446eac111"
+}

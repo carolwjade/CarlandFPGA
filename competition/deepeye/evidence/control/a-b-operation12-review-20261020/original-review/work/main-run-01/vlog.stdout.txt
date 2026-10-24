@@ -1,0 +1,10 @@
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+Start time: 01:55:29 on Oct 20,2026
+vlog -sv -work work dut.sv tb.sv 
+init_dbinfo() DATABASE ERROR: (sqlite3_open C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-followup-20261020/review/work/main-run-01/work/_lib.qdb): unable to open database file
+init_dbinfo() DATABASE ERROR: (sqlite3_open C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-followup-20261020/review/work/main-run-01/work/_lib.qdb): unable to open database file
+mtilibWrite(): INTERNAL ERROR: Unexpected null object encountered
+** Fatal: (vlog-9) Problem while writing internal20180930A file "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-followup-20261020/review/work/main-run-01/work/_temp/vlogvsbqmr".
+dut.sv(17): Verilog Compiler exiting
+End time: 01:55:29 on Oct 20,2026, Elapsed time: 0:00:00
+Errors: 1, Warnings: 0

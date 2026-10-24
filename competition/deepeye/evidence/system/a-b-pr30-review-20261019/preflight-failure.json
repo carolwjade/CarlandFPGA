@@ -1,0 +1,6 @@
+{
+  "stage": "initial handoff byte preflight",
+  "error": "AssertionError: checkout operation08 manifest SHA differs from pinned manifest",
+  "diagnosis": "Windows autocrlf: worktree CRLF differs from exact current/old Git blob LF. Both Git blobs match original expected manifest SHA. No source or prior evidence is rewritten; next verification exports exact Git blob bytes into owned scratch.",
+  "see": "manifest-diagnosis.json"
+}

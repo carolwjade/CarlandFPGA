@@ -1,0 +1,44 @@
+test_causal_and_strict_numeric_rejections_stop (__main__.IndependentControls.test_causal_and_strict_numeric_rejections_stop) ... ok
+test_conflicting_completion_repeat_stops_without_deadline_extension (__main__.IndependentControls.test_conflicting_completion_repeat_stops_without_deadline_extension) ... ok
+test_contract_vectors_independent_integer_formula (__main__.IndependentControls.test_contract_vectors_independent_integer_formula) ... ok
+test_event_observation_uses_real_schema_and_original_lower (__main__.IndependentControls.test_event_observation_uses_real_schema_and_original_lower) ... ok
+test_finite_history_wrap_and_clock_fences (__main__.IndependentControls.test_finite_history_wrap_and_clock_fences) ... ok
+test_malformed_stop_call_must_latch_stop (__main__.IndependentControls.test_malformed_stop_call_must_latch_stop)
+Contract-level counterexample: argument binding must not bypass STOP. ... 
+  test_malformed_stop_call_must_latch_stop (__main__.IndependentControls.test_malformed_stop_call_must_latch_stop) (mode=1)
+Contract-level counterexample: argument binding must not bypass STOP. ... FAIL
+  test_malformed_stop_call_must_latch_stop (__main__.IndependentControls.test_malformed_stop_call_must_latch_stop) (mode=2)
+Contract-level counterexample: argument binding must not bypass STOP. ... FAIL
+test_malformed_time_taking_calls_latch_stop (__main__.IndependentControls.test_malformed_time_taking_calls_latch_stop) ... ok
+test_missing_provenance_or_grant_never_selects (__main__.IndependentControls.test_missing_provenance_or_grant_never_selects) ... ok
+test_ns_edges_fixed_origin_and_both_modes (__main__.IndependentControls.test_ns_edges_fixed_origin_and_both_modes) ... ok
+test_observation_crc_context_and_bad_mapping_rejections (__main__.IndependentControls.test_observation_crc_context_and_bad_mapping_rejections) ... ok
+test_original_age_and_duplicate_observation_never_renew (__main__.IndependentControls.test_original_age_and_duplicate_observation_never_renew) ... ok
+test_plan_exact_consume_and_grant_replay (__main__.IndependentControls.test_plan_exact_consume_and_grant_replay) ... ok
+test_reordered_completion_cannot_replace_newer_observation (__main__.IndependentControls.test_reordered_completion_cannot_replace_newer_observation) ... ok
+test_retained_deadline_negative_control_is_preserved (__main__.IndependentControls.test_retained_deadline_negative_control_is_preserved) ... ok
+test_retained_old_observation_and_eviction (__main__.IndependentControls.test_retained_old_observation_and_eviction) ... ok
+test_stop_and_new_activation_retire_old_identity (__main__.IndependentControls.test_stop_and_new_activation_retire_old_identity) ... ok
+
+======================================================================
+FAIL: test_malformed_stop_call_must_latch_stop (__main__.IndependentControls.test_malformed_stop_call_must_latch_stop) (mode=1)
+Contract-level counterexample: argument binding must not bypass STOP.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-independent-20261020\independent_controls.py", line 359, in test_malformed_stop_call_must_latch_stop
+    self.assertTrue(before_consume["stopped"], "Malformed STOP left the activation live")
+AssertionError: False is not true : Malformed STOP left the activation live
+
+======================================================================
+FAIL: test_malformed_stop_call_must_latch_stop (__main__.IndependentControls.test_malformed_stop_call_must_latch_stop) (mode=2)
+Contract-level counterexample: argument binding must not bypass STOP.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-mailbox-independent-20261020\independent_controls.py", line 359, in test_malformed_stop_call_must_latch_stop
+    self.assertTrue(before_consume["stopped"], "Malformed STOP left the activation live")
+AssertionError: False is not true : Malformed STOP left the activation live
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.331s
+
+FAILED (failures=2)

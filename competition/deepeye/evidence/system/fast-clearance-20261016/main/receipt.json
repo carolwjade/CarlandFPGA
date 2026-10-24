@@ -1,0 +1,105 @@
+{
+  "source_commit": "9f6eae2b363ecf0b616df991b7bcdc1147da6c50",
+  "checks": [
+    {
+      "name": "motion-and-clearance",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "competition.deepeye.integration.test_motion",
+        "competition.deepeye.tests.simulation.test_kinematics",
+        "competition.deepeye.tests.simulation.test_gate_geometry",
+        "competition.deepeye.tests.simulation.test_gate_clearance",
+        "-v"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "fb2c53faea35ed75afcec61fbeabc28d37e923d3bca5fd0673d55f3b735f1968"
+    },
+    {
+      "name": "full-r03",
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/check_interface.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye",
+      "exit_code": 2,
+      "expected_exit": 2,
+      "stdout_sha256": "8fc22f49c6bf36662f8e841676e0913bc1b77b35eed40f9d24a15861a61e2019",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "blocked",
+      "R03": "not_run",
+      "software_checks": "passed",
+      "hardware_enable_eligible": false,
+      "commands": 13,
+      "child_exits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "counts": [
+        [
+          "11"
+        ],
+        [
+          "9"
+        ],
+        [
+          "7"
+        ],
+        [
+          "34"
+        ],
+        [
+          "5"
+        ],
+        [
+          "40"
+        ],
+        [
+          "43"
+        ],
+        [
+          "6"
+        ],
+        [
+          "28"
+        ],
+        [
+          "5"
+        ],
+        [
+          "3"
+        ],
+        [
+          "30"
+        ],
+        [
+          "24"
+        ]
+      ]
+    }
+  ],
+  "motion_test_count": 90,
+  "all_product_acceptance_cards": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

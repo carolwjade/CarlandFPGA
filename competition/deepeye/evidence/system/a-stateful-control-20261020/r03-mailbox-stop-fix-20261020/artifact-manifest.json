@@ -1,0 +1,275 @@
+{
+  "work_id": "A-R03-MAILBOX-STOP-FIX-20261020-v1",
+  "job_id": "child-4126792ead044c7da100414b353266f8",
+  "agent_id": "/root/r02_static_dependency_review_20261020",
+  "created_utc": "2026-10-20T14:19:20.981496+00:00",
+  "files": {
+    "assignment.md": {
+      "bytes": 2437,
+      "sha256": "25268dbe1ee8bbca4ec15b8c50e901288b2cc3951b12ba98d5abde3d4bfebb1a"
+    },
+    "boundary.py": {
+      "bytes": 13074,
+      "sha256": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+    },
+    "candidate_mailbox.py.diff": {
+      "bytes": 285,
+      "sha256": "a8f5a6338a8178e4e2d7a7038bd199ccca66da9a8ac3046b696880ed9328878e"
+    },
+    "closeout.py": {
+      "bytes": 12821,
+      "sha256": "2c29e80191dae5ba5d3f71e57a6ff31f3761393319602f1b5e4d3b2857d45836"
+    },
+    "correct_test_fixture.py": {
+      "bytes": 3407,
+      "sha256": "47ead0130e6efd3b2b8080f9b1664db7acbca8c70660e5ad00f0a2b5a7d55eff"
+    },
+    "design-plan.md": {
+      "bytes": 2012,
+      "sha256": "4639c26cc174d7585dc70416fdb5128256b25715cf097d49ba27feb91acec451"
+    },
+    "final-result.txt": {
+      "bytes": 1194,
+      "sha256": "5bf46875756f0646677f69b80f7b79e89e50610d434534c52b9ea5e54c11f328"
+    },
+    "green-01/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "green-01/checks.json": {
+      "bytes": 44645,
+      "sha256": "a923bb88ec8dd92727dfa4e755893cefc9a70fde25d8106137705d394679d3cb"
+    },
+    "green-01/started.json": {
+      "bytes": 1910,
+      "sha256": "b7af9592cee66827db0ca7af00cc51f0b738a130f37fe536f79da651f9403089"
+    },
+    "green-01/stderr.txt": {
+      "bytes": 10430,
+      "sha256": "da9b98cfcae942c9968f296c8f32acf321b468085e4d466e127b96995f90cabe"
+    },
+    "green-01/stdout.txt": {
+      "bytes": 311,
+      "sha256": "93e19cb7f40c535367de4571d638d685360f7614cae454c4ac9d1283bf466e5b"
+    },
+    "green-01/terminal.json": {
+      "bytes": 1434,
+      "sha256": "ddd37da6d34fa0beb1e4e64f69fe191a88e997f7ff3335e2e064f00b578f8a0f"
+    },
+    "green-01/test_candidate_mailbox.py": {
+      "bytes": 18751,
+      "sha256": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+    },
+    "green-02/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "green-02/checks.json": {
+      "bytes": 39642,
+      "sha256": "5be00c068e257366c7d573a59e80dcbe7789a19e9ffc122035215655751b37a6"
+    },
+    "green-02/started.json": {
+      "bytes": 1910,
+      "sha256": "d6d2603b6776c054ec698f520352175afb74f01a189c147a4b462c604a84bf33"
+    },
+    "green-02/stderr.txt": {
+      "bytes": 4684,
+      "sha256": "bfec548c37ee6708ee1d68db516579a5183c71781fe81ac43e3d48c78da97fec"
+    },
+    "green-02/stdout.txt": {
+      "bytes": 311,
+      "sha256": "946242dbf7de0e2903b9f85afaca1d89fb51fd0340ffcc500ef719be6b237e4a"
+    },
+    "green-02/terminal.json": {
+      "bytes": 1432,
+      "sha256": "17730f962d9f562f51459e71b09d29cd3385d797ca66aa84d33532896810b2fb"
+    },
+    "green-02/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "initial-test-proposal.diff": {
+      "bytes": 4732,
+      "sha256": "35b0bb204387fea11c72b56623fa2b75d5ebb82545bcdda62dc9841e17b1ffba"
+    },
+    "initial-test-worker-byte-reconstruction.py": {
+      "bytes": 3317,
+      "sha256": "eeeb06223429c9520815bd0f44fdf7de4deb31aed3d6f68e19b6586d174f5a34"
+    },
+    "input-pins.json": {
+      "bytes": 4186,
+      "sha256": "d31391f09b88960b7907a7ac512857e29bac6d8f310beb78d6a9815780690f1c"
+    },
+    "mirror/docs/boot_profiles.json": {
+      "bytes": 20395,
+      "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74"
+    },
+    "mirror/docs/enums.json": {
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    "mirror/docs/host_contract.json": {
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    "mirror/docs/host_timing_contract.md": {
+      "bytes": 8180,
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff"
+    },
+    "mirror/docs/interface.json": {
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    "mirror/integration/boot_profile.py": {
+      "bytes": 81662,
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+    },
+    "mirror/integration/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "mirror/integration/host_envelope.py": {
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "mirror/integration/motion.py": {
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "mirror/integration/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "mirror/integration/test_host_envelope.py": {
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    "mirror/integration/wire.py": {
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "mirror/tests/vectors/r03_mailbox_lifecycle.json": {
+      "bytes": 2199,
+      "sha256": "9759681356a6068b370cda751c51cc5120cda6cfd5b9c901b9c0998c62eed63c"
+    },
+    "native-validate-response.json": {
+      "bytes": 332,
+      "sha256": "201a8ae55e63bd436b100dbda3a26374a48e3005f32c17a16d125c8176494676"
+    },
+    "new-test-methods.txt": {
+      "bytes": 4302,
+      "sha256": "46909adda954441b18608924420c50160dbea4fec0114ebcec4f5524408f8e21"
+    },
+    "prepare_green.py": {
+      "bytes": 2008,
+      "sha256": "9e32b20257f6ea7a5de4aaeda5fa3a98ff54ea59f41ecb2cf84f4fa631c11b70"
+    },
+    "prepare_red.py": {
+      "bytes": 3605,
+      "sha256": "f9f757cb2663e270124c1db08f5916115404ffe2dcc854bbd7fe6dda7998b0dc"
+    },
+    "proposed/candidate_mailbox.py": {
+      "bytes": 14593,
+      "sha256": "5ca4aafb97f88b3080cc918e38f6c27a462f4caa7af5fa436eeb663f91d3f1d5"
+    },
+    "proposed/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "red-01/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "red-01/checks.json": {
+      "bytes": 43765,
+      "sha256": "0e18c1972164289b5de20d9765265039cbe376aa6345c89b3cdef49806507b49"
+    },
+    "red-01/started.json": {
+      "bytes": 1908,
+      "sha256": "d7f0da7108603bfc1af473cc37f07786d10b06185dd14d0dac69c62d972ab8ad"
+    },
+    "red-01/stderr.txt": {
+      "bytes": 10373,
+      "sha256": "4028f5bb4ddec3430f42ac2764c7f7e4d8bfd7572adb548ee7cb1052a16b3e25"
+    },
+    "red-01/stdout.txt": {
+      "bytes": 311,
+      "sha256": "221f0c314cdb23ccba3203634a9692c7fde4d8d6a6aaa7f23e9ae5502d274d2d"
+    },
+    "red-01/terminal.json": {
+      "bytes": 1436,
+      "sha256": "a01c18efe443d1a4847621ae52677ac285863e82b96ffa8c2f071d596add1175"
+    },
+    "red-01/test_candidate_mailbox.py": {
+      "bytes": 18751,
+      "sha256": "ce474df2b056338dbf01fe99fba8956127ec22fed6c9439e8d97e2cbf70ab112"
+    },
+    "red-02/candidate_mailbox.py": {
+      "bytes": 14581,
+      "sha256": "c30a52d58a6dde7569ea7f55e751ba766d6887e5858e6b84a1229d8de5cbfca0"
+    },
+    "red-02/checks.json": {
+      "bytes": 43765,
+      "sha256": "2c88a40ffff8444c5467782a3704accc74c7724ad2ad664b715aa0d05a488915"
+    },
+    "red-02/started.json": {
+      "bytes": 1908,
+      "sha256": "e8a79ed414294bdc744f574a34c659b455a95051e255368bfeeb84dd19463af1"
+    },
+    "red-02/stderr.txt": {
+      "bytes": 10373,
+      "sha256": "2640bf424d445e2d351c89a337778f795986a361f8be4f951225ae789fa32a06"
+    },
+    "red-02/stdout.txt": {
+      "bytes": 311,
+      "sha256": "5c5d1244f27849ac065c5050f794b037a33136182672e738bcdb74cfa2f5c6b3"
+    },
+    "red-02/terminal.json": {
+      "bytes": 1423,
+      "sha256": "6eeff36c0b03a4d85fbdc777780330c24728c8137f20eb8f11ba4f77f52abeb1"
+    },
+    "red-02/test_candidate_mailbox.py": {
+      "bytes": 18771,
+      "sha256": "7ff79841abbd6aac12b017a486d296ce58335424471379cfb8af2b020aec9f82"
+    },
+    "report.md": {
+      "bytes": 4745,
+      "sha256": "81206ccce0f241701d6c463b1ac4e1289427ab9a9443a8a6640ee6a623f95c9d"
+    },
+    "result.json": {
+      "bytes": 3181,
+      "sha256": "e5ff7588730ac68c12923c9c9ebdbc6aa8283d2816736ef210ac172df868da1b"
+    },
+    "run_tests.py": {
+      "bytes": 1565,
+      "sha256": "5f4a6e7e568d96dc687a85ed3ae3a785461732404da932c9a8c7521b14404690"
+    },
+    "test-fixture-correction.json": {
+      "bytes": 459,
+      "sha256": "280fdf1b9a9c98667ea0437a9512f92435d6cefc53cb8d31cd9cdd129e472d58"
+    },
+    "test_candidate_mailbox.py.diff": {
+      "bytes": 4752,
+      "sha256": "67527a862734b65e3cc757fafa080059759fcb15fe551427e265c7a5f0887ad2"
+    },
+    "test_worker.py": {
+      "bytes": 3339,
+      "sha256": "e2a8030ff78ad44fd2d995cc08639d4cba178d553b7b4338510f687cc53f58b1"
+    },
+    "win_job.py": {
+      "bytes": 19842,
+      "sha256": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d"
+    }
+  },
+  "excluded": [
+    "artifact-manifest.json",
+    "lease.private.json",
+    "native-complete-response.json",
+    "reserve-request.json",
+    "seal-result.json"
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "product_modified": false,
+  "R03": "not_run",
+  "all29": "not_run"
+}

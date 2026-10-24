@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_editor_document (SceneDocument headless) ==
+PASS initial_state_and_guards
+PASS undo_redo_depth_ge_50
+PASS gate_editing_and_validation
+PASS forbidden_edits_running_paused_locked
+PASS random_layout_bounds_reproducible
+PASS run_bridge_disabled_and_esc_stop
+UI_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)] top=[P: (337.0, 0.0), S: (1314.2, 30.0)] bottom=[P: (337.0, 982.8), S: (1314.2, 97.20001)]
+UI_LAYOUT central_ratio=60.39%
+PASS viewer_initial_layout_and_ui_refresh
+PASS viewer_pointer_release_over_panel
+TESTS checks=672 failures=0
+RESULT PASS

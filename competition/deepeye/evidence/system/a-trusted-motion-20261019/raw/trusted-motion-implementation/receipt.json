@@ -1,0 +1,21 @@
+{
+  "work_id": "A-trusted-motion-executor-20261019-v1",
+  "job_id": "child-026f779d3a764a98aa2cf629e454d164",
+  "owner": "/root/r03_review_20261018",
+  "software_result": "135 tests passed (22 executor + 113 existing); independent review pending",
+  "formal_acceptance": "all 29 cards not_run",
+  "owned_files": {
+    "competition/deepeye/simulation/authority/motion_executor.py": "f38b28ead8b5f2564301b007bcd6b57df08bdd9d99a9859390669a41b065dabc",
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe",
+    "competition/deepeye/tests/simulation/test_motion_executor.py": "05f527da19263330e0f5855f94fdc584898d8021813966eb7ef992c5b6f070aa",
+    "competition/deepeye/docs/motion_executor.md": "6a75bd53e7059a18a2d3fe0760b4833891094d2f402f07c2693c6ec49007beb3"
+  },
+  "red_logs": [
+    "red-missing-executor",
+    "red-adversarial-entry"
+  ],
+  "green_log": "final-suite-frozen",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_frozen": true,
+  "services_hardware_os_probes_product_activation": false
+}

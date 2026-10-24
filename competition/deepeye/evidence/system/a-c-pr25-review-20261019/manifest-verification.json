@@ -1,0 +1,120 @@
+{
+  "head": "942fa309ffc8f1d32c816cfa643b009b031d7d0a",
+  "operations": {
+    "C-DEEPEYE-REVIEWFIXES-20261018-12": {
+      "artifacts": 202,
+      "request": {
+        "code_commit": "c770d8235b078fb351e8c4773dd3f7cf51c0768a",
+        "expected_result": "235 related worker tests pass (116motion/broker,62parsers,57verifier; zero skips in explicit-archive verifier run); independent4motion+2data methods and6CLI scenarios pass. Nested public safety STOP remains available and supersedes stale outer requests; callback audit objects cannot rewrite authoritative timing. Both LAS parsers reject conflicting/late VERS/WRAP/UWI/NULL. Hardlink test uses one temporary copied product tree. Current parser hashes and exact historical generator snapshots are separately pinned; six original JSON, split/statistics and original provenance unchanged. Historical code is never executed. Original RED evidence and explicitly corrected independent harness setup errors are preserved. Missing runtime evidence blocks movement; movement_authorized remainsFalse. No board or system acceptance; C01 full gates blocked, R03/C05/G06/TRACE integration still incomplete. Frozen design1011259415a0916054eb580687612580bc1e5f09, contractDEEPEYE-HUMAN-LOCK-20261014/revision1 sourcef5989cd5defce561f9ba98e6b18fc2682945f0a2 requirementsSHA256c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged.",
+        "operation_id": "C-DEEPEYE-REVIEWFIXES-20261018-12",
+        "requester": "node-c",
+        "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+        "task_version": 1,
+        "test_steps": [
+          "Python3.13.5/jsonschema4.26.0: run competition/deepeye/tests/ai/control_broker/test_motion_request.py (38), test_mailbox.py (44), test_deadlines.py (34).",
+          "Run competition/deepeye/tests/ai/data_model/test_force_inventory.py (26), test_force_preprocess.py (36). Synthetic fixtures only; no refit or model-quality claim.",
+          "Set test-only DEEPEYE_FORCE_ARCHIVE to the original pinned FORCE ZIP absolute path; run competition/deepeye/tests/ai/data_model/test_verify_data.py (57,0skips). Verifier reads raw ZIP bytes only; no LAS member parsing.",
+          "Run evidence/ai/motion_request/review_repair2/main_review/independent_motion_review.py --product-root competition/deepeye (4 methods); evidence/ai/data_boundary_repair/main_review/independent_headers.py --product-root competition/deepeye (2 methods,8negative parser variants).",
+          "Run evidence/ai/parser_provenance_migration/main_review/independent_provenance_review.py --product-root competition/deepeye --archive ABS_ZIP --out NEW_DIR: six actual CLI outcomes positive0/defaultfull2/missing snapshot2/corrupt snapshot1/corrupt current1/snapshot hardlink output1.",
+          "Check exact original RED sources/logs plus final GREEN/raw exits; both current and historical helper pins; six frozen JSON bytes unchanged; all manifest bytes and final Git blobs. Return same-PR operation_id/request_hash/tested_commit and actual evidence."
+        ]
+      },
+      "stages": {
+        "board": {
+          "status": "not_run"
+        },
+        "full_C01": {
+          "log": "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/default_full_blocked.stdout.txt",
+          "status": "blocked"
+        },
+        "implementation": {
+          "status": "not_run"
+        },
+        "las_parser_software": {
+          "log": "competition/deepeye/evidence/ai/data_boundary_repair/main_review/stderr.txt",
+          "status": "passed"
+        },
+        "motion_adapter_software": {
+          "log": "competition/deepeye/evidence/ai/motion_request/review_repair2/main_review/stderr.txt",
+          "status": "passed"
+        },
+        "offline_identity_consistency_only": {
+          "log": "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/positive.stdout.txt",
+          "status": "passed"
+        },
+        "simulation": {
+          "status": "not_run"
+        },
+        "synthesis": {
+          "status": "not_run"
+        },
+        "system": {
+          "status": "not_run"
+        }
+      }
+    },
+    "C-DEEPEYE-TRACE-CANDIDATE-DECODE-20261018-14": {
+      "artifacts": 70,
+      "request": {
+        "code_commit": "3c1e584942bab4207b694f27ed116efb84ceedd7",
+        "expected_result": "Independent offline C candidate decoder only, derived from five normative/rawinputs without opening/importing B encoder/decoder or using B roundtriporacle. B TRACEop05 requestabe52729c5bb46944ec8c55dd92481af9362b4d5a92b0bdefd13d1061038de4a, fixedinputhead781be78d9da77a75ea711cf690eeea6523733d3a.81casegroups pass:8manual+32synthetic streams,126frames/1046points,34pinnednegatives; strictCRC/RAW/Rice/canonicality and sparseindex/fulltick/sourceorigin/masks/Ebounds. IndependentQA5methods andmain4methods/portablecheckspass. Positivefixture costs1816selectedvalidRAWbytes->5346completeframebytes/53460linebits8N1 showframingexpansion, not realcompression/latency/slotproof. Originalharnessfailure retained. Productiontype7 remainsdisabled/reject, R03/publicABI/sourceclock/BOOT/units/grouping/schedule/runtime/board/system acceptance remainspending/not_run; A alone owns publicauthority/physicalboard. No production or oldsource/oldtest changed. Frozen design1011259415a0916054eb580687612580bc1e5f09, contractDEEPEYE-HUMAN-LOCK-20261014/revision1 sourcef5989cd5defce561f9ba98e6b18fc2682945f0a2 requirementsSHA256c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged.",
+        "operation_id": "C-DEEPEYE-TRACE-CANDIDATE-DECODE-20261018-14",
+        "requester": "node-c",
+        "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+        "task_version": 1,
+        "test_steps": [
+          "From any cwd run Python3.12 or3.13 with -B -X utf8 competition/deepeye/evidence/ai/trace_candidate_decode/provenance.py --check-only, then replay.py. These direct scripts need only their committed owned inputs, not private author deployment paths. Expected81casegroups/exit0.",
+          "Compare candidate_decode.py SHA256 b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c with independent_review/candidate_snapshot.py exactbytes; run independent_review/probe.py (5methods,300validgrid,154noncanonicalRAW+254wrong-k rejects,held/metadata/highwater cases).",
+          "Run main_review/main_probe.py --candidate competition/deepeye/evidence/ai/trace_candidate_decode/candidate_decode.py (4methods,296singlewirebitcorruptions/CRC/cache/retirement/input+returnalias).",
+          "Inspect portable-result.json/rawlogs: author copied allcandidatefiles to an unrelated temporarytree and ran provenance+replay from anothercwd underPython3.13.5, bothexit0; original43workerartifacts unchanged. Worker/QAusedPython3.12.14.",
+          "Verify pinned Bop05/request/inputhead, all70artifacthashes/Gitblobs, scopeidentity and original failedharnesslog; return samePRoperation/request_hash/tested_commit/rawresults. Do not enableproductiontype7 or infer source/clock/unit/scheduling/hardware acceptance."
+        ]
+      },
+      "stages": {
+        "R03_public_ABI": {
+          "log": "competition/deepeye/evidence/ai/trace_candidate_decode/report.md",
+          "status": "blocked"
+        },
+        "board": {
+          "status": "not_run"
+        },
+        "candidate_decode_software": {
+          "log": "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-final.stdout.txt",
+          "status": "passed"
+        },
+        "implementation": {
+          "status": "not_run"
+        },
+        "independent_candidate_review": {
+          "log": "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/stderr.txt",
+          "status": "passed"
+        },
+        "main_candidate_review": {
+          "log": "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/stderr.txt",
+          "status": "passed"
+        },
+        "production_type7": {
+          "status": "not_run"
+        },
+        "simulation": {
+          "status": "not_run"
+        },
+        "synthesis": {
+          "status": "not_run"
+        },
+        "system": {
+          "status": "not_run"
+        }
+      }
+    }
+  },
+  "unique_artifacts": 272,
+  "all_source_head_blobs_equal": true,
+  "checkout_differences": [
+    "competition/deepeye/ai_pc/control_broker/motion_request.py",
+    "competition/deepeye/data/force_inventory.py",
+    "competition/deepeye/data/grouping.py",
+    "competition/deepeye/tests/ai/control_broker/test_motion_request.py",
+    "competition/deepeye/tests/ai/data_model/test_force_inventory.py"
+  ]
+}

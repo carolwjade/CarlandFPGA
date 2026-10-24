@@ -1,0 +1,27 @@
+test_point_inside_does_not_replace_uniform_angle_error_or_large_pivot (independent_entry_tests.IndependentEntryTests.test_point_inside_does_not_replace_uniform_angle_error_or_large_pivot) ... ok
+test_real_ramp_bridge_cannot_hide_late_other_face_unknown (independent_entry_tests.IndependentEntryTests.test_real_ramp_bridge_cannot_hide_late_other_face_unknown) ... ok
+test_same_face_bridge_adds_no_exit_and_cannot_publish_clipped_prefix (independent_entry_tests.IndependentEntryTests.test_same_face_bridge_adds_no_exit_and_cannot_publish_clipped_prefix) ... ok
+test_six_inward_normals_have_real_uniform_curve_enclosures (independent_entry_tests.IndependentEntryTests.test_six_inward_normals_have_real_uniform_curve_enclosures) ... ok
+test_zero_speed_holds_and_full_step_speed_carry_is_not_reset (independent_entry_tests.IndependentEntryTests.test_zero_speed_holds_and_full_step_speed_carry_is_not_reset) ... ERROR
+
+======================================================================
+ERROR: test_zero_speed_holds_and_full_step_speed_carry_is_not_reset (independent_entry_tests.IndependentEntryTests.test_zero_speed_holds_and_full_step_speed_carry_is_not_reset)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\entry-bridge-review\independent_entry_tests.py", line 109, in test_zero_speed_holds_and_full_step_speed_carry_is_not_reset
+    held=self.preview(state,self.path(state,speed=0));self.assertEqual('SAFE',held.status);self.assertEqual(state.pose,held.candidate.pose);self.assertEqual((),held.bridges)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\entry-bridge-review\independent_entry_tests.py", line 25, in path
+    return cp.CanonicalPath(state.pose,'fast_9600',speed,yaw,pitch,10_000_000,inherited_errors=p.required_inherited_errors(state,10_000_000),error_budget_reference='carry all seeded bounds')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion\certified_path.py", line 203, in __init__
+    command = validate(profile, speed_code, yaw_q, pitch_q)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\motion.py", line 64, in validate
+    raise ValueError('quantized combined curvature exceeds 0.5 per metre')
+ValueError: quantized combined curvature exceeds 0.5 per metre
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.303s
+
+FAILED (errors=1)

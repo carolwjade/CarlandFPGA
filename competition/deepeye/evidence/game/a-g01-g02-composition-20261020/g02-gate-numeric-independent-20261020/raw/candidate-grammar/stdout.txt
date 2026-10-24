@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+GRAMMAR token=01 accepted=true expected_strict_json=false
+GRAMMAR token=1. accepted=true expected_strict_json=false
+GRAMMAR token=1.e0 accepted=true expected_strict_json=false
+GRAMMAR token=1e+0 accepted=true expected_strict_json=true
+STRICT_JSON failures=3

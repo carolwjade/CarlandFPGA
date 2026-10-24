@@ -1,0 +1,43 @@
+{
+  "argv": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\review_controls.py"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020",
+  "environment": {
+    "SYSTEMROOT": "C:\\WINDOWS",
+    "WINDIR": "C:\\WINDOWS",
+    "PATH": "",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\execution",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\execution"
+  },
+  "budget": {
+    "seconds": 40,
+    "job_memory_bytes": 536870912,
+    "process_memory_bytes": 268435456,
+    "active_processes": 4,
+    "stdout_bytes": 2097152,
+    "stderr_bytes": 2097152,
+    "tree_bytes": 16777216,
+    "tree_entries": 500,
+    "free_reserve_bytes": 10737418240
+  },
+  "runner_pins": {
+    "win_job.py": "127daf70b2aa6cf3e7a299978596766fc310d191d13f6a2165626f719889052d",
+    "boundary.py": "dc27aea6104424fbb2ee9109bb5e2adaf90684161e9d43bd2636b5ea4d6f2908"
+  },
+  "source_pins": {
+    "run_review.py": "710b16fb9c67c352410f3d0cfa17542f4b1fac7fb0a83b6d7233a1c813818b74",
+    "review_controls.py": "8444d775e5040924198b576162ad13b4c30e7e35949c5d7ca038686313dff824",
+    "verify_inputs.py": "703e06f4a525ad6ff5f2da280bcb56c01d5a6bf061a1845c613239826bedfad7"
+  },
+  "started_utc": "2026-10-20T13:55:06.772876+00:00",
+  "scope": "independent synthetic HIL association controls; no authority/capture authentication"
+}

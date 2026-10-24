@@ -1,0 +1,168 @@
+test_close_unknown_is_still_owned_and_not_retried (test_owned_resources.OwnedTests.test_close_unknown_is_still_owned_and_not_retried) ... ok
+test_foreign_reference_cannot_close_owned_numeric_handle (test_owned_resources.OwnedTests.test_foreign_reference_cannot_close_owned_numeric_handle) ... ok
+test_new_acquisition_after_unknown_numeric_release_is_retained_as_ambiguous (test_owned_resources.OwnedTests.test_new_acquisition_after_unknown_numeric_release_is_retained_as_ambiguous) ... ok
+test_numeric_reuse_requires_confirmed_previous_close_and_new_instance (test_owned_resources.OwnedTests.test_numeric_reuse_requires_confirmed_previous_close_and_new_instance) ... ok
+test_process_pair_retains_first_second_and_both_ambiguous_members (test_owned_resources.OwnedTests.test_process_pair_retains_first_second_and_both_ambiguous_members) ... 
+  test_process_pair_retains_first_second_and_both_ambiguous_members (test_owned_resources.OwnedTests.test_process_pair_retains_first_second_and_both_ambiguous_members) (conflicts=(91,)) ... FAIL
+  test_process_pair_retains_first_second_and_both_ambiguous_members (test_owned_resources.OwnedTests.test_process_pair_retains_first_second_and_both_ambiguous_members) (conflicts=(91, 92)) ... FAIL
+test_profile_and_process_pair_are_immediately_in_owned_plan (test_owned_resources.OwnedTests.test_profile_and_process_pair_are_immediately_in_owned_plan) ... ok
+test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises (test_owned_resources.OwnedTests.test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises) ... FAIL
+test_release_exception_retains_exact_error_and_original_reference (test_owned_resources.OwnedTests.test_release_exception_retains_exact_error_and_original_reference) ... ok
+test_already_terminal_never_receives_a_termination_request (test_windows_cleanup.BackendTests.test_already_terminal_never_receives_a_termination_request) ... ok
+test_both_process_handles_are_owned_before_attribute_release_failure (test_windows_cleanup.BackendTests.test_both_process_handles_are_owned_before_attribute_release_failure) ... ok
+test_helper_close_failure_never_replaces_its_primary_error (test_windows_cleanup.BackendTests.test_helper_close_failure_never_replaces_its_primary_error) ... ok
+test_job_is_owned_before_setup_failure (test_windows_cleanup.BackendTests.test_job_is_owned_before_setup_failure) ... ok
+test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error (test_windows_cleanup.BackendTests.test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error) ... 
+  test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error (test_windows_cleanup.BackendTests.test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error) (conflicts=(51,)) ... FAIL
+  test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error (test_windows_cleanup.BackendTests.test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error) (conflicts=(51, 52)) ... FAIL
+test_mocked_createprofile_records_sid_before_profile_registration_ambiguity (test_windows_cleanup.BackendTests.test_mocked_createprofile_records_sid_before_profile_registration_ambiguity) ... FAIL
+test_pipe_pair_retains_every_member_and_only_closes_safe_companion (test_windows_cleanup.BackendTests.test_pipe_pair_retains_every_member_and_only_closes_safe_companion) ... 
+  test_pipe_pair_retains_every_member_and_only_closes_safe_companion (test_windows_cleanup.BackendTests.test_pipe_pair_retains_every_member_and_only_closes_safe_companion) (conflicts=(81,)) ... FAIL
+  test_pipe_pair_retains_every_member_and_only_closes_safe_companion (test_windows_cleanup.BackendTests.test_pipe_pair_retains_every_member_and_only_closes_safe_companion) (conflicts=(81, 82)) ... FAIL
+test_process_thread_and_job_survive_unconfirmed_terminal (test_windows_cleanup.BackendTests.test_process_thread_and_job_survive_unconfirmed_terminal) ... ok
+test_profile_cannot_be_released_directly_with_live_dependents (test_windows_cleanup.BackendTests.test_profile_cannot_be_released_directly_with_live_dependents) ... ok
+test_profile_requires_successful_delete_and_explicit_absence (test_windows_cleanup.BackendTests.test_profile_requires_successful_delete_and_explicit_absence) ... ok
+test_profile_sid_is_owned_before_text_conversion_failure (test_windows_cleanup.BackendTests.test_profile_sid_is_owned_before_text_conversion_failure) ... ok
+test_sid_allocation_survives_unresolved_attribute_storage (test_windows_cleanup.BackendTests.test_sid_allocation_survives_unresolved_attribute_storage) ... ok
+test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process (test_windows_cleanup.BackendTests.test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process) ... FAIL
+test_unknown_early_close_is_not_replayed_by_coordinator (test_windows_cleanup.BackendTests.test_unknown_early_close_is_not_replayed_by_coordinator) ... ok
+test_unknown_profile_path_never_counts_as_absence_or_deletes (test_windows_cleanup.BackendTests.test_unknown_profile_path_never_counts_as_absence_or_deletes) ... ok
+test_wait_failure_is_unknown_and_independent_handle_still_closes (test_windows_cleanup.BackendTests.test_wait_failure_is_unknown_and_independent_handle_still_closes) ... ok
+
+======================================================================
+FAIL: test_process_pair_retains_first_second_and_both_ambiguous_members (test_owned_resources.OwnedTests.test_process_pair_retains_first_second_and_both_ambiguous_members) (conflicts=(91,))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_owned_resources.py", line 86, in test_process_pair_retains_first_second_and_both_ambiguous_members
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('old_91', 91), ('process', 91)] != [('process', 91), ('primary_thread', 92)]
+
+First differing element 0:
+('old_91', 91)
+('process', 91)
+
+- [('old_91', 91), ('process', 91)]
++ [('process', 91), ('primary_thread', 92)]
+
+======================================================================
+FAIL: test_process_pair_retains_first_second_and_both_ambiguous_members (test_owned_resources.OwnedTests.test_process_pair_retains_first_second_and_both_ambiguous_members) (conflicts=(91, 92))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_owned_resources.py", line 86, in test_process_pair_retains_first_second_and_both_ambiguous_members
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('old_92', 92), ('process', 91)] != [('process', 91), ('primary_thread', 92)]
+
+First differing element 0:
+('old_92', 92)
+('process', 91)
+
+- [('old_92', 92), ('process', 91)]
++ [('process', 91), ('primary_thread', 92)]
+
+======================================================================
+FAIL: test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises (test_owned_resources.OwnedTests.test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_owned_resources.py", line 101, in test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references],
+AssertionError: Lists differ: [('old_profile', 'fresh'), ('profile', 'fresh')] != [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)]
+
+Second list contains 1 additional elements.
+First extra element 2:
+('profile_sid', 1000)
+
+- [('old_profile', 'fresh'), ('profile', 'fresh')]
++ [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)]
+?                                                +++++++++++++++++++++++
+
+
+======================================================================
+FAIL: test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error (test_windows_cleanup.BackendTests.test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error) (conflicts=(51,))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 220, in test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('attributes', 1787887203888), ('process', 51)] != [('process', 51), ('primary_thread', 52)]
+
+First differing element 0:
+('attributes', 1787887203888)
+('process', 51)
+
+- [('attributes', 1787887203888), ('process', 51)]
++ [('process', 51), ('primary_thread', 52)]
+
+======================================================================
+FAIL: test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error (test_windows_cleanup.BackendTests.test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error) (conflicts=(51, 52))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 220, in test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('attributes', 1787887203120), ('process', 51)] != [('process', 51), ('primary_thread', 52)]
+
+First differing element 0:
+('attributes', 1787887203120)
+('process', 51)
+
+- [('attributes', 1787887203120), ('process', 51)]
++ [('process', 51), ('primary_thread', 52)]
+
+======================================================================
+FAIL: test_mocked_createprofile_records_sid_before_profile_registration_ambiguity (test_windows_cleanup.BackendTests.test_mocked_createprofile_records_sid_before_profile_registration_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 248, in test_mocked_createprofile_records_sid_before_profile_registration_ambiguity
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references],
+AssertionError: Lists differ: [('old_profile', 'fresh'), ('profile', 'fresh')] != [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)]
+
+Second list contains 1 additional elements.
+First extra element 2:
+('profile_sid', 1000)
+
+- [('old_profile', 'fresh'), ('profile', 'fresh')]
++ [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)]
+?                                                +++++++++++++++++++++++
+
+
+======================================================================
+FAIL: test_pipe_pair_retains_every_member_and_only_closes_safe_companion (test_windows_cleanup.BackendTests.test_pipe_pair_retains_every_member_and_only_closes_safe_companion) (conflicts=(81,))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 191, in test_pipe_pair_retains_every_member_and_only_closes_safe_companion
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('old_81', 81), ('new_read', 81)] != [('new_read', 81), ('new_write', 82)]
+
+First differing element 0:
+('old_81', 81)
+('new_read', 81)
+
+- [('old_81', 81), ('new_read', 81)]
++ [('new_read', 81), ('new_write', 82)]
+
+======================================================================
+FAIL: test_pipe_pair_retains_every_member_and_only_closes_safe_companion (test_windows_cleanup.BackendTests.test_pipe_pair_retains_every_member_and_only_closes_safe_companion) (conflicts=(81, 82))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 191, in test_pipe_pair_retains_every_member_and_only_closes_safe_companion
+    self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
+AssertionError: Lists differ: [('old_82', 82), ('new_read', 81)] != [('new_read', 81), ('new_write', 82)]
+
+First differing element 0:
+('old_82', 82)
+('new_read', 81)
+
+- [('old_82', 82), ('new_read', 81)]
++ [('new_read', 81), ('new_write', 82)]
+
+======================================================================
+FAIL: test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process (test_windows_cleanup.BackendTests.test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\isolation\test_windows_cleanup.py", line 233, in test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process
+    self.assertEqual({ref.label for ref in self.owner.unresolved}, {'old', 'process', 'primary_thread'})
+AssertionError: Items in the second set but not the first:
+'primary_thread'
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.007s
+
+FAILED (failures=9)

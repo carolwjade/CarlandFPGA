@@ -1,0 +1,29 @@
+test_accept_cli_requires_pair_flags_and_rejects_bad_commit (__main__.PipelineTestCase.test_accept_cli_requires_pair_flags_and_rejects_bad_commit) ... ok
+test_accept_requires_artifact_and_commit_provenance (__main__.PipelineTestCase.test_accept_requires_artifact_and_commit_provenance) ... ok
+test_accept_requires_source_command_and_successful_exit_provenance (__main__.PipelineTestCase.test_accept_requires_source_command_and_successful_exit_provenance) ... ok
+test_evidence_paths_must_stay_inside_the_worktree_root (__main__.PipelineTestCase.test_evidence_paths_must_stay_inside_the_worktree_root) ... ok
+test_failed_result_retained_and_never_replayed (__main__.PipelineTestCase.test_failed_result_retained_and_never_replayed) ... ok
+test_malformed_release_cannot_free_ownership (__main__.PipelineTestCase.test_malformed_release_cannot_free_ownership) ... ok
+test_ownership_path_normalization_denies_escapes_and_aliases (__main__.PipelineTestCase.test_ownership_path_normalization_denies_escapes_and_aliases) ... ok
+test_parallel_overlapping_reservations_exactly_one_wins (__main__.PipelineTestCase.test_parallel_overlapping_reservations_exactly_one_wins) ... ok
+test_passed_requires_explicit_main_acceptance (__main__.PipelineTestCase.test_passed_requires_explicit_main_acceptance) ... ok
+test_plan_status_resume_are_strictly_read_only (__main__.PipelineTestCase.test_plan_status_resume_are_strictly_read_only) ... ok
+test_release_cli_and_inert_runners (__main__.PipelineTestCase.test_release_cli_and_inert_runners) ... ok
+test_release_rejects_unknown_status_and_unverified_terminal (__main__.PipelineTestCase.test_release_rejects_unknown_status_and_unverified_terminal) ... ok
+test_release_requires_explicit_stop_confirmation_and_evidence (__main__.PipelineTestCase.test_release_requires_explicit_stop_confirmation_and_evidence) ... ok
+test_released_duplicate_reserve_reuses_identity_and_never_reexecutes (__main__.PipelineTestCase.test_released_duplicate_reserve_reuses_identity_and_never_reexecutes) ... ok
+test_reservation_duplicate_reuse_and_conflicts (__main__.PipelineTestCase.test_reservation_duplicate_reuse_and_conflicts) ... ok
+test_run_records_blocked_when_implementation_missing (__main__.PipelineTestCase.test_run_records_blocked_when_implementation_missing) ... ok
+test_run_rejects_unknown_cards_and_bad_versions_without_side_effects (__main__.PipelineTestCase.test_run_rejects_unknown_cards_and_bad_versions_without_side_effects) ... ok
+test_scope_contract_hash_verified_on_every_run_and_verify (__main__.PipelineTestCase.test_scope_contract_hash_verified_on_every_run_and_verify) ... ok
+test_unknown_status_resume_is_read_only_without_side_effects (__main__.PipelineTestCase.test_unknown_status_resume_is_read_only_without_side_effects) ... ok
+test_valid_terminal_releases_still_free_ownership (__main__.PipelineTestCase.test_valid_terminal_releases_still_free_ownership) ... ok
+test_verify_ignores_released_claims_and_rejects_invalid_release (__main__.PipelineTestCase.test_verify_ignores_released_claims_and_rejects_invalid_release) ... ok
+test_verify_rejects_accepted_records_without_source_command_exit (__main__.PipelineTestCase.test_verify_rejects_accepted_records_without_source_command_exit) ... ok
+test_verify_rejects_stale_or_missing_accepted_provenance (__main__.PipelineTestCase.test_verify_rejects_stale_or_missing_accepted_provenance) ... ok
+test_verify_selftest_runs_real_tests (__main__.PipelineTestCase.test_verify_selftest_runs_real_tests) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 30.845s
+
+OK

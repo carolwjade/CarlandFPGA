@@ -1,0 +1,52 @@
+{
+  "work_id": "A-R02-CALIBRATION-MAIN-20261022-v1",
+  "accepted_at_utc": "2026-10-22T14:31:24.494944+00:00",
+  "disposition": "ACCEPT_OFFLINE_CALIBRATION_COMMAND_ONLY",
+  "base_commit": "1be741a896e28eb38d42bbea80dce125755dba02",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_files": {
+    "integration/input_calibrate.py": {
+      "sha256": "250da3f358d833f21a0c4fdbdebeef124f943de30bfb6118d5c31217e7949cc0",
+      "bytes": 13396
+    },
+    "tests/test_input_calibrate.py": {
+      "sha256": "aa5234c44361db64007348370a480a750633b100e37991bb5fa0ad16faf85700",
+      "bytes": 9955
+    },
+    "hardware/calibration_format.md": {
+      "sha256": "d0d1b081af713db0c0efa4a7408e19579c5ee4487f922d0d5dd182ce47dece61",
+      "bytes": 6416
+    }
+  },
+  "final_new_tests": 11,
+  "exit_code": 0,
+  "new_failures_preserved": [
+    "initial missing-command RED",
+    "two CLI provenance RED counterexamples"
+  ],
+  "independent_native_jobs": [
+    "child-fe8a23067c3d458a886e72932c59c46e",
+    "child-af405319e41e4d66ac4b44f7ba4b48df"
+  ],
+  "independent_native_status": "both completed, terminal, nonstale from original controller",
+  "old_native_worker": {
+    "job_id": "child-9f906003a37a43ada25f3e411958353c",
+    "status": "cancelled",
+    "error": "native stop unconfirmed",
+    "directory_preserved": true,
+    "not_reassigned": true
+  },
+  "physical_verification": "not_run",
+  "R02": "not_run",
+  "R03": "not_run",
+  "ENOB": "not_run",
+  "all29": "not_run",
+  "hardware_calibration_json_created": false,
+  "protected_files": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013"
+  },
+  "review_metadata_note": "Generated cache not adopted; Markdown cache digest typo noted. Three source hashes exact."
+}

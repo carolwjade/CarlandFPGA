@@ -1,0 +1,14 @@
+--- reviewed/hil_request_tracker.py
++++ clarified/hil_request_tracker.py
+@@ -161,7 +161,10 @@
+ 
+     Providers must be synchronous and must not hide verification failure or
+     fabricate evidence. Global/restart BOOT uniqueness remains their obligation.
+-    Foreign-thread input requests a pending STOP; owner drains before publishing.
++    Foreign-thread input queues STOP for the next owner entry/fence.
++    A successful response diagnostic linearizes at the final fence's last
++    pending-STOP observation. Later overlapping STOP is drained on the next
++    owner entry; an immutable diagnostic is never a continuing authorization.
+     """
+     def __init__(self, *, run_id, dependencies=None):
+         if type(run_id) is not str or not 0 < len(run_id) <= 256:

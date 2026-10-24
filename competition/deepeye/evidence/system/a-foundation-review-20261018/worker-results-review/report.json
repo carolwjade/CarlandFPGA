@@ -1,0 +1,512 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-18T12:15:52.480072+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-THREE-WORKER-RECONCILIATION-20261018-v1",
+  "agent_id": "/root/worker_results_review_20261018",
+  "native_job_id": "child-e07887a7efa3419fa32ef66fa8b6c121",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "status": "bounded_reconciliation_complete_for_main_review",
+  "product_head": "b3db473370c6ee4fed476db6fc89f8fdb8c945bd",
+  "human_contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "scope_verification": "root/product/pinned1011259 canonical requirements all match H01-H15",
+  "API21001": "explicitly separate from product work; no API/service probe or recovery attempted",
+  "findings": [
+    {
+      "worker": "ui",
+      "id": "UI01",
+      "original_finding": "Initial FULL_RECT layout absent; toolbar minimum width ignored",
+      "current_status": "fixed_live",
+      "evidence": "shell.gd startup _relayout and minimum-size code unchanged from cb0efe8; fresh isolated ui_probe exit0, centre60.4% at1920x1080",
+      "remaining": ""
+    },
+    {
+      "worker": "ui",
+      "id": "UI02",
+      "original_finding": "Edit history/undo-redo/overlap display stale",
+      "current_status": "fixed_live",
+      "evidence": "shell.gd _on_document_changed->_refresh_all unchanged; isolated probe adds overlapping water/hard_rock and observes enabled undo/warning",
+      "remaining": ""
+    },
+    {
+      "worker": "ui",
+      "id": "UI03",
+      "original_finding": "Mouse release over panel left orbit/object drag active",
+      "current_status": "fixed_live_bounded",
+      "evidence": "main.gd input functions and test_editor_document.gd identical to reviewed cb0efe8; original push_input LMB/RMB checks672 and later exact-commit UI log hash verified; fresh shadow RMB input-pipeline case passed",
+      "remaining": "Native per-control pointer-release evidence remains inconclusive in original report; no new native OS test"
+    },
+    {
+      "worker": "ui",
+      "id": "UI04",
+      "original_finding": "Free camera and six-face gate edits",
+      "current_status": "software_reference_live",
+      "evidence": "Original camera/gate189 checks over36 directed face pairs; all corresponding functions unchanged; fresh isolated running/paused camera transforms change without commitment change",
+      "remaining": "Test state hooks do not establish live run/pause integration or full crossing"
+    },
+    {
+      "worker": "ui",
+      "id": "UI05",
+      "original_finding": "Original native hard-rock/random/overlap coordinate attempts inconclusive",
+      "current_status": "open_evidence",
+      "evidence": "checkpoint_result.json native_visual.limited_ui_attempts retained",
+      "remaining": "Obtain native per-control evidence when actual runtime/UI acceptance is in scope; do not label old attempts PASS"
+    },
+    {
+      "worker": "ui",
+      "id": "UI06",
+      "original_finding": "Final B assets absent; greybox only",
+      "current_status": "open_integration",
+      "evidence": "Current main.gd builds static greybox and shell displays development notice; a7c2daf later corrects envelope geometry",
+      "remaining": "Integrate independently accepted final asset bytes; this audit does not claim B current remote status"
+    },
+    {
+      "worker": "ui",
+      "id": "UI07",
+      "original_finding": "Full-volume collision/initialization clearance/full crossing pending",
+      "current_status": "partially_advanced_still_open",
+      "evidence": "Later commits f9407b6,9f6eae2,04d5f53,b3db473 add bounded authority foundations; current viewer still static and unconnected",
+      "remaining": "Do not redo those numeric foundations; live authority/UI collision, workspace passage and crossing acceptance remain not_run; inherited untracked motion sources are other owners"
+    },
+    {
+      "worker": "ui",
+      "id": "UI08",
+      "original_finding": "Run/pause/continue bridge, meaningful PC AI and both control chains pending",
+      "current_status": "open_integration",
+      "evidence": "Current shell permanently initializes run/pause/continue disabled; document.control_bridge_connected=false; no production SourceLedger call sites located",
+      "remaining": "Per-mode live controller/authority integration and actual board-observation chains required by H10-H12"
+    },
+    {
+      "worker": "ui",
+      "id": "UI09",
+      "original_finding": "Follow camera/full presets/200-action replay/save-reopen/1080p1440p DPI matrix pending",
+      "current_status": "open_acceptance",
+      "evidence": "Current viewer has named views and focus, no follow-camera mode; original pending list not closed by later reviewed files",
+      "remaining": "Complete actual taskbook G02 matrix; existing camera presets are implemented but full preset acceptance is unproven"
+    },
+    {
+      "worker": "ui",
+      "id": "UI10",
+      "original_finding": "Native job closure unconfirmed",
+      "current_status": "historical_administrative_unconfirmed",
+      "evidence": "child-7751af98bf0a4cdaa2efd1619eb2b367; original report and later director checkpoint retain missing-controller closure boundary",
+      "remaining": "Completed/notLoaded App turn (parent supplied) is distinct from native_complete; no replay or retroactive closure by this review"
+    },
+    {
+      "worker": "sensing",
+      "id": "S01",
+      "original_finding": "Callback exception can retain old valid held EM with source_fault=false",
+      "current_status": "fixed_live",
+      "evidence": "cb0efe8 sets _em_attempt_ok=False and acquisition tick before callback/noise; current hash6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9; later director33-test exact logs; fresh callback and noise-exception counterexamples exit0",
+      "remaining": "Do not reopen original stale-EM repair"
+    },
+    {
+      "worker": "sensing",
+      "id": "S02",
+      "original_finding": "Original32-test evidence only",
+      "current_status": "superseded_by33_exact_source_checks",
+      "evidence": "Original completion_report uses source12b91f... and test2d1f65...; cb0efe8 source and testc5056e... have33-test director logs; evidence/simulation/forward_profile_tests.txt preserves original32 checkpoint bytes",
+      "remaining": "Do not relabel the original32-test file as a rerun on current source"
+    },
+    {
+      "worker": "sensing",
+      "id": "S03",
+      "original_finding": "Authority-to-bridge raw sample contract missing",
+      "current_status": "software_boundary_added_runtime_open",
+      "evidence": "811a337 adopts sensor_source.py hashdd817b... and sensor_source_contract.json; later43 tests plus main independent6 scenarios on identical dependencies",
+      "remaining": "No production SourceLedger integration was located; source transport authentication and live authority clock/scheduler remain required"
+    },
+    {
+      "worker": "sensing",
+      "id": "S04",
+      "original_finding": "Source-health/clock high-water defect in first boundary candidate",
+      "current_status": "fixed_live",
+      "evidence": "app-sensor-boundary receipt revision2 records red8 assertions, green43 and12 caught mutants; main-review hashes all exact; fresh health100/110 then backward90/rejected120 probe passed",
+      "remaining": "Caller trusted clock and external authority authenticity remain assumptions"
+    },
+    {
+      "worker": "sensing",
+      "id": "S05",
+      "original_finding": "Vendor facts versus8m/20Hz/cone/noise/project assumptions",
+      "current_status": "candidate_only_preserved",
+      "evidence": "Current module explicitly separates vendor maximum marketed capabilities from candidate empirical kernel; no external source refresh was needed for this code reconciliation",
+      "remaining": "No physical detection-range claim; independent3D FDEM, omitted-field/noise bound, mesh convergence and calibration remain not_run"
+    },
+    {
+      "worker": "sensing",
+      "id": "S06",
+      "original_finding": "Physical DAC/XADC/PL/RS485, isolation and online detection not accepted",
+      "current_status": "open_product_gates",
+      "evidence": "Original G03/G09 not_run; boundary receipt explicitly software-only; later isolation reference/probe commits do not imply live product route",
+      "remaining": "Maintain G03/G09, board and system acceptance as not_run until actual taskbook evidence"
+    },
+    {
+      "worker": "sensing",
+      "id": "S07",
+      "original_finding": "Native completion request not transmitted",
+      "current_status": "historical_administrative_unconfirmed",
+      "evidence": "child-e48da0cc4c7c453c920ad82ba73e9544; original report plus director checkpoint",
+      "remaining": "No attempt made to complete this historical job"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P01",
+      "original_finding": "First repair accepted empty source manifest and absent/nonzero command evidence",
+      "current_status": "fixed_live",
+      "evidence": "Current pipeline.py398fc971... and test_pipeline.py13eb71dd... match final worker hashes and cb0efe8; later director independently ran final24 and nested verify23+skip",
+      "remaining": "Original failing reproductions retained; not a current open source defect"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P02",
+      "original_finding": "Malformed/incomplete active release allowed overlap",
+      "current_status": "fixed_live",
+      "evidence": "Same final hashes; final tests require terminal verification/by/at/stop confirmation/evidence and malformed release fails verify/retains ownership",
+      "remaining": "No current ledger mutation or ownership release performed"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P03",
+      "original_finding": "Commit/source/artifact/path provenance and escape hardening",
+      "current_status": "fixed_live_bounded",
+      "evidence": "Original final source semantics,24-test source report, later director pipeline_green/selftest raw hash matches; exact committed source remains current",
+      "remaining": "Tests exercise disposable ledgers; product acceptance runners remain absent"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P04",
+      "original_finding": "Final24 independent rerun blocked by missing original controller",
+      "current_status": "later_software_verification_completed",
+      "evidence": "Director pipeline_green.txt direct24 exit0; pipeline_selftest.txt24 discovered23 executed+intentional nested skip; raw hashes reverified",
+      "remaining": "This supersedes the old required-next-action to rerun same unchanged source merely for software verification; old native closure remains separate"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P05",
+      "original_finding": "All product runners absent/default product ledger absent",
+      "current_status": "still_open_by_design",
+      "evidence": "Current RUNNERS={} at tools/pipeline.py90; frozen29 cards not_run in latest main numeric acceptance receipt",
+      "remaining": "No blanket acceptance from selftest, no default ledger created by this review"
+    },
+    {
+      "worker": "pipeline",
+      "id": "P06",
+      "original_finding": "Native complete blocked before send",
+      "current_status": "historical_administrative_unconfirmed",
+      "evidence": "child-b45ec25f77db4a939400150d9df538b0; original report plus later director checkpoint",
+      "remaining": "No replacement controller, reserve, replay or historical job completion attempted"
+    },
+    {
+      "worker": "later_trace",
+      "id": "T01",
+      "original_finding": "TRACE payload/register ABI unfrozen",
+      "current_status": "still_open",
+      "evidence": "TRACE review exact output hashes match current docs/test_trace_payload; wire.py unchanged and rejects type7; interface.json still forbids TRACE activation until B codec accepted",
+      "remaining": "B exact codec layout/vectors and C byte interoperability; register bitfields/access/reset/CDC and matched RTL/bit/HWH remain dependencies"
+    },
+    {
+      "worker": "later_watchdog",
+      "id": "W01",
+      "original_finding": "PC_DIRECT heartbeat/watchdog adoption",
+      "current_status": "software_reference_live_runtime_open",
+      "evidence": "811a337; main-review watchdog40 plus sensor43/reviewer6 on exact current implementation/dependency bytes; no full rerun",
+      "remaining": "Per-physics-step veto, authenticated BOOT/observations, command authorization and real time-domain integration remain open"
+    },
+    {
+      "worker": "later_r03",
+      "id": "R0301",
+      "original_finding": "Stored r03_validation.json243/242+skip versus later245/244+skip",
+      "current_status": "reconciled_historical_records",
+      "evidence": "Stored artifact is based811a337; current motion.py and test_motion.py differ; clean-r03 receipt at66aa291 has motion9 rather than7 and totals245/244+skip",
+      "remaining": "Do not rewrite old JSON or label it fresh current-HEAD validation; full R03 remains not_run"
+    }
+  ],
+  "urgent_current_source_defects_established": [],
+  "legacy_source_comparison": {
+    "competition/deepeye/simulator/viewer/main.gd": {
+      "worker_sha256": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+      "current_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "unchanged": false
+    },
+    "competition/deepeye/simulator/ui/shell.gd": {
+      "worker_sha256": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+      "current_sha256": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+      "unchanged": true
+    },
+    "competition/deepeye/simulator/tests/test_editor_document.gd": {
+      "worker_sha256": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+      "current_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "unchanged": false
+    },
+    "competition/deepeye/evidence/game/editor_foundation.txt": {
+      "worker_sha256": "90520e5a227f831abad69656e0243e7345067e3d2cc14a27abaa299583dbb6c9",
+      "current_sha256": "90520e5a227f831abad69656e0243e7345067e3d2cc14a27abaa299583dbb6c9",
+      "unchanged": true
+    },
+    "competition/deepeye/simulation/sensors/forward_profile.py": {
+      "worker_sha256": "12b91f46b12ef108cdaa2529821ffe24e7da439eda72728171ea51eddbd935ff",
+      "current_sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9",
+      "unchanged": false
+    },
+    "competition/deepeye/tests/simulation/test_forward_profile.py": {
+      "worker_sha256": "2d1f658d6d570a2baa0538728d1d8583fc053ecb3d4d9178fc853fe04730137a",
+      "current_sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373",
+      "unchanged": false
+    },
+    "competition/deepeye/evidence/simulation/forward_profile_tests.txt": {
+      "worker_sha256": "7faf30a10f2cca5e931acf8eb372ded13596608af87b8cd8f441a3720f12ffc3",
+      "current_sha256": "7faf30a10f2cca5e931acf8eb372ded13596608af87b8cd8f441a3720f12ffc3",
+      "unchanged": true
+    },
+    "competition/deepeye/tools/pipeline.py": {
+      "worker_sha256": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+      "current_sha256": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+      "unchanged": true
+    },
+    "competition/deepeye/tests/test_pipeline.py": {
+      "worker_sha256": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+      "current_sha256": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+      "unchanged": true
+    },
+    "competition/deepeye/evidence/system/pipeline_selftest.txt": {
+      "worker_sha256": "130d0a6c918d5fa6d30025fb3f734bc0beff9bdf635dcc3ade4f918d19b81a4f",
+      "current_sha256": "130d0a6c918d5fa6d30025fb3f734bc0beff9bdf635dcc3ade4f918d19b81a4f",
+      "unchanged": true
+    }
+  },
+  "later_clean_r03_source_reuse_checks": {
+    "docs/boot_profiles.json": {
+      "later_clean_sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+      "current_sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+      "matches": true
+    },
+    "docs/enums.json": {
+      "later_clean_sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "current_sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "matches": true
+    },
+    "docs/host_contract.json": {
+      "later_clean_sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "current_sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "matches": true
+    },
+    "docs/host_timing_contract.md": {
+      "later_clean_sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "current_sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "matches": true
+    },
+    "docs/interface.json": {
+      "later_clean_sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "current_sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "matches": true
+    },
+    "docs/pc_direct_watchdog.md": {
+      "later_clean_sha256": "f18333dad1fb16e6d50d6db5c3d2822414db2516d44e1224dd4d87bc155a7ebb",
+      "current_sha256": "f18333dad1fb16e6d50d6db5c3d2822414db2516d44e1224dd4d87bc155a7ebb",
+      "matches": true
+    },
+    "docs/reference_checkpoint.md": {
+      "later_clean_sha256": "e8d91f4cc305a065c9245276dd3e585975c9d19c87484b465b19d665e5980806",
+      "current_sha256": "e8d91f4cc305a065c9245276dd3e585975c9d19c87484b465b19d665e5980806",
+      "matches": true
+    },
+    "docs/registers.csv": {
+      "later_clean_sha256": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+      "current_sha256": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+      "matches": true
+    },
+    "docs/requirements_trace.csv": {
+      "later_clean_sha256": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+      "current_sha256": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+      "matches": true
+    },
+    "docs/resource_contract.json": {
+      "later_clean_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "current_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "matches": true
+    },
+    "docs/rules.json": {
+      "later_clean_sha256": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+      "current_sha256": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+      "matches": true
+    },
+    "docs/sensor_source_boundary.md": {
+      "later_clean_sha256": "901c06ddc1ba981dbec740819a77ca858c15ddff7a95cfaef19d1411ac39804b",
+      "current_sha256": "901c06ddc1ba981dbec740819a77ca858c15ddff7a95cfaef19d1411ac39804b",
+      "matches": true
+    },
+    "docs/sensor_source_contract.json": {
+      "later_clean_sha256": "a382894a5c3117b7f2c4c473af7f2ebc8cda446fbb0ec79a666bcec41e56d434",
+      "current_sha256": "a382894a5c3117b7f2c4c473af7f2ebc8cda446fbb0ec79a666bcec41e56d434",
+      "matches": true
+    },
+    "docs/trace_contract_review.md": {
+      "later_clean_sha256": "0b96fd5845c49d10e38658f6fbbe9e87a0e9a0a5ef91a523028b0d2afbd7dd88",
+      "current_sha256": "0b96fd5845c49d10e38658f6fbbe9e87a0e9a0a5ef91a523028b0d2afbd7dd88",
+      "matches": true
+    },
+    "integration/boot_profile.py": {
+      "later_clean_sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+      "current_sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+      "matches": true
+    },
+    "integration/clock_bounds.py": {
+      "later_clean_sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "current_sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "matches": true
+    },
+    "integration/host_envelope.py": {
+      "later_clean_sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "current_sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "matches": true
+    },
+    "integration/motion.py": {
+      "later_clean_sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+      "current_sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+      "matches": true
+    },
+    "integration/pc_direct_watchdog.py": {
+      "later_clean_sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1",
+      "current_sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1",
+      "matches": true
+    },
+    "integration/sensor_source.py": {
+      "later_clean_sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57",
+      "current_sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57",
+      "matches": true
+    },
+    "integration/test_boot_binding.py": {
+      "later_clean_sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b",
+      "current_sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b",
+      "matches": true
+    },
+    "integration/test_clock_bounds.py": {
+      "later_clean_sha256": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03",
+      "current_sha256": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03",
+      "matches": true
+    },
+    "integration/test_contract_vectors.py": {
+      "later_clean_sha256": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7",
+      "current_sha256": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7",
+      "matches": true
+    },
+    "integration/test_host_envelope.py": {
+      "later_clean_sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1",
+      "current_sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1",
+      "matches": true
+    },
+    "integration/test_host_schema.py": {
+      "later_clean_sha256": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb",
+      "current_sha256": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb",
+      "matches": true
+    },
+    "integration/test_motion.py": {
+      "later_clean_sha256": "a4c5445af5feea6566e92781c188466e41b386155aaf6c771154e1f9050ce1af",
+      "current_sha256": "a4c5445af5feea6566e92781c188466e41b386155aaf6c771154e1f9050ce1af",
+      "matches": true
+    },
+    "integration/test_pc_direct_heartbeat.py": {
+      "later_clean_sha256": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d",
+      "current_sha256": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d",
+      "matches": true
+    },
+    "integration/test_pc_direct_watchdog.py": {
+      "later_clean_sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea",
+      "current_sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea",
+      "matches": true
+    },
+    "integration/test_sensor_source.py": {
+      "later_clean_sha256": "d331a51b1a0e00a0c6b3b37ebd2a09e6ca4ebf9551c774106486bfdafdf12d13",
+      "current_sha256": "d331a51b1a0e00a0c6b3b37ebd2a09e6ca4ebf9551c774106486bfdafdf12d13",
+      "matches": true
+    },
+    "integration/test_trace_payload.py": {
+      "later_clean_sha256": "f130591cdb0f665d81206801a6c82d08d2c47489876e1f05114d4e1130b8a4f2",
+      "current_sha256": "f130591cdb0f665d81206801a6c82d08d2c47489876e1f05114d4e1130b8a4f2",
+      "matches": true
+    },
+    "integration/test_wire.py": {
+      "later_clean_sha256": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9",
+      "current_sha256": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9",
+      "matches": true
+    },
+    "integration/wire.py": {
+      "later_clean_sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "current_sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "matches": true
+    },
+    "tools/check_interface.py": {
+      "later_clean_sha256": "fa8212193b2e01ae77185a18461df21e7a1f902c8ec61a3a5bf320f83b84a6ea",
+      "current_sha256": "fa8212193b2e01ae77185a18461df21e7a1f902c8ec61a3a5bf320f83b84a6ea",
+      "matches": true
+    },
+    "tools/generate_vectors.py": {
+      "later_clean_sha256": "9bc06cf79c5cb0c8a9f6ced01a86fb42af4615f7f8e9b102ddd1ee26cfa0e02e",
+      "current_sha256": "9bc06cf79c5cb0c8a9f6ced01a86fb42af4615f7f8e9b102ddd1ee26cfa0e02e",
+      "matches": true
+    },
+    "tools/pipeline.py": {
+      "later_clean_sha256": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+      "current_sha256": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+      "matches": true
+    },
+    "tests/simulation/test_forward_profile.py": {
+      "later_clean_sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373",
+      "current_sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373",
+      "matches": true
+    },
+    "tests/test_boot_profile.py": {
+      "later_clean_sha256": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db",
+      "current_sha256": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db",
+      "matches": true
+    },
+    "tests/test_pipeline.py": {
+      "later_clean_sha256": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+      "current_sha256": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+      "matches": true
+    },
+    "tests/vectors/abi3_reference.json": {
+      "later_clean_sha256": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7",
+      "current_sha256": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7",
+      "matches": true
+    }
+  },
+  "evidence_manifest": "source_snapshot.json",
+  "evidence_manifest_sha256": "26a26d8f21c342f8ec612c3ff240d4a99f8b86f4d1039ef2bc2c7b0581810746",
+  "current_verification": {
+    "source_readonly_stable": true,
+    "git_status_unchanged": true,
+    "head_unchanged": true,
+    "bounded_sensor_counterexamples": {
+      "tests": 3,
+      "exit_code": 0,
+      "stderr_sha256": "a6d04cbf172390c29c272e68952c57077ab853fa74ccd129baa2e080eed1c3a2"
+    },
+    "isolated_ui_probe": {
+      "assertions": 7,
+      "exit_code": 0,
+      "native_OS_probe": false,
+      "DPI_acceptance": false,
+      "stdout_sha256": "e9089cdc12c55a64843458a36c402a0a832e7f1596bcf0bc8d26d75ed4ad9f2d"
+    },
+    "large_unchanged_suites_rerun": false
+  },
+  "remaining_A_owned_next_dependency": {
+    "proposed_to_main": "Define and implement an owned per-run authority/sensor-source/runtime-bridge adapter using existing reviewed SourceLedger and PC_DIRECT watchdog, trusted monotonic origin, actual20Hz/100Hz scheduler and fail-closed per-physics-step checks. Preserve independent BOARD_LOCAL and PC_AI_TO_FPGA branches as well as PC_DIRECT.",
+    "concrete_input": "Current SourceLedger/forward profile/watchdog exact hashes in source_snapshot; fixed H01-H15 and existing host schema; no live call sites currently found.",
+    "required_output": "A concrete runtime contract/adapter and trace showing callback failure/stale or malformed samples cannot cause motion, and real recovered acquisition is required before healthy observations; actual board and both AI control chains remain separate acceptance gates.",
+    "authorization_boundary": "Recommendation only; sole director chooses ownership/acceptance; no source file assigned or changed by this review. Inherited untracked motion/AI source owners preserved.",
+    "independent_from": "Feishu API21001 recovery; no credential, service or provider prerequisite inferred"
+  },
+  "all_29_product_cards": "not_run",
+  "formal_R03": "not_run",
+  "G02": "not_run",
+  "G03": "not_run",
+  "G09": "not_run",
+  "formal_product_acceptance": false,
+  "historical_worker_native_leases": "unconfirmed terminal registration; current App completed/notLoaded supplied by parent is not historical native closure",
+  "review_job_completion": "Complete this current original child job only after saving and sealing report; no historical job replay",
+  "memory_usage": "MEMORY.md64-135 and sensing rollout summary used as historical pointers only; task-specific facts refreshed from actual reports/current hashes/Git history"
+}

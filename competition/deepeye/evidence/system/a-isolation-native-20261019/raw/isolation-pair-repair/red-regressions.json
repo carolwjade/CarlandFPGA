@@ -1,0 +1,37 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "-v",
+    "test_owned_resources",
+    "test_windows_cleanup"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye",
+  "exit_code": 1,
+  "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-pair-repair\\temp",
+  "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-pair-repair\\temp",
+  "native_opt_in": "unset",
+  "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\tests\\isolation",
+  "source_hashes": {
+    "competition/deepeye/simulation/isolation/owned_resources.py": {
+      "size": 7148,
+      "sha256": "17b50e8641e20b6a2ddbc1a74c2b8452c1d1da7b37ad8ca9fc46a1178233a4ba"
+    },
+    "competition/deepeye/simulation/isolation/win32.py": {
+      "size": 17791,
+      "sha256": "2673d482aad87ac2af8cf83a032772f194be389521f222c84373245c387d115f"
+    },
+    "competition/deepeye/tests/isolation/test_owned_resources.py": {
+      "size": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    "competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "size": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    }
+  }
+}

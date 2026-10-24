@@ -1,0 +1,130 @@
+{
+  "worker_pid": 52200,
+  "worker_parent_pid": 33928,
+  "executable": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+  "argv": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\review_controls.py"
+  ],
+  "tests_run": 26,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 0.20300000000861473,
+  "rows": [
+    {
+      "test": "__main__.Controls.test_boot_callback_veto_retires_proposal",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_callback_stop_reentry_bad_shape_exception_veto",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_capture_phase_quality_codes_and_remaining_ttl",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_clock_and_public_call_shape_rejections",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_current_fault_stop_and_reject_latch",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_delay_exhaustion_and_original_send_cap",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_event_observation_and_no_receipt_backfill",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_evicted_active_command_cannot_be_replayed",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_exact_duplicate_does_not_renew_and_changed_identity_stops",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_foreign_thread_after_final_fence_cannot_publish_qualified",
+      "status": "failed",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\review_controls.py\", line 558, in test_foreign_thread_after_final_fence_cannot_publish_qualified\n    self.assertFalse(result.qualified, \"foreign STOP occurred before result publication\")\nAssertionError: True is not false : foreign STOP occurred before result publication\n"
+    },
+    {
+      "test": "__main__.Controls.test_foreign_thread_inside_verifier_is_fenced",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_malformed_crc_ttl_curvature_and_epoch",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_missing_and_invalid_verifier_results",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_no_default_or_unknown_source_and_no_pc_direct_capture",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_nonmotion_health_response_is_not_a_new_association",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_original_ttl_and_late_eight_second_ack",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_packet_oracle_known_crc_and_literal_layout",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_receipt_lower_previous_deadline_and_exact_equality",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_request_and_response_sequence_exhaustion",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_retry_identity_and_nonmotion_type_keys",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_same_key_changed_payload_latches_stop",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_session_retirement_and_limit",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_slow_verifier_supplied_time_boundary_is_not_authorization",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_stop_request_and_explicit_stop_cannot_be_undone",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_superseded_and_expired_requests_never_resurrect",
+      "status": "passed"
+    },
+    {
+      "test": "__main__.Controls.test_unknown_and_evicted_original_observation",
+      "status": "passed"
+    }
+  ],
+  "subtest_failures": [
+    {
+      "test": "test_foreign_thread_after_final_fence_cannot_publish_qualified (__main__.Controls.test_foreign_thread_after_final_fence_cannot_publish_qualified)",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r03-hil-request-independent-20261020\\review_controls.py\", line 558, in test_foreign_thread_after_final_fence_cannot_publish_qualified\n    self.assertFalse(result.qualified, \"foreign STOP occurred before result publication\")\nAssertionError: True is not false : foreign STOP occurred before result publication\n"
+    }
+  ],
+  "all_inputs_unchanged": true,
+  "prohibited_attempts": [],
+  "synthetic_only": true,
+  "formal_all29_R03_full_H12": "not_run"
+}

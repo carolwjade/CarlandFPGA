@@ -1,0 +1,72 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-R02-PREFLIGHT-INDEPENDENT-20261020-v1",
+  "job_id": "child-46e36fbd55aa432fb4cb499f314750c8",
+  "agent_id": "/root/r02_preflight_independent_20261020",
+  "at_utc": "2026-10-20T06:39:56.431658+00:00",
+  "spec_verdict": "CHANGES_REQUIRED",
+  "quality_verdict": "CHANGES_REQUIRED",
+  "main_retains_acceptance": true,
+  "required_findings": [
+    {
+      "id": "F1",
+      "priority": "P1",
+      "file": "competition/deepeye/tools/preflight.py",
+      "line": 177,
+      "summary": "Actual -File invocation denied; no host inventory"
+    },
+    {
+      "id": "F2",
+      "priority": "P2",
+      "file": "competition/deepeye/tools/preflight.py",
+      "line": 250,
+      "summary": "LF output file differs from CRLF stdout despite byte promise; StringIO test masks it"
+    },
+    {
+      "id": "F3",
+      "priority": "P2",
+      "file": "competition/deepeye/tools/preflight.py",
+      "line": 98,
+      "summary": "DEV_17F0 candidate rule has no supplied provenance; source or remove"
+    }
+  ],
+  "nonblocking_observation": "UTF-8 replacement decode discards raw collector diagnostic bytes",
+  "proposal": {
+    "fixed_text_Command": "acceptable_in_principle_for_separate_minimal_review",
+    "executed": false,
+    "policy_change_allowed": false,
+    "retry_allowed": false,
+    "live_success_unverified": true
+  },
+  "candidate_hashes": {
+    "competition/deepeye/tools/preflight.py": "5052890bc30b9b7a3170a771b1f2e247210d81c11c98c221e07d011db870037d",
+    "competition/deepeye/tools/preflight_windows.ps1": "75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2",
+    "competition/deepeye/tests/test_preflight.py": "b554eb98c5fe587f6f91fc9fab6b82e0a6155243aafe0ef882c948b0b78b1ebc",
+    "competition/deepeye/hardware/preflight.md": "16503a3383843dbdc1554d17ad760bfe92eb831ccc89b04f95560aea7e2beab3"
+  },
+  "base": {
+    "expected": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "saved_author_head": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+    "fresh_git_not_executed": true
+  },
+  "evidence": {
+    "findings_sha256": "bed2b07038e32dafed6c1e9d5967c93fb68be37c33fc87040ba100afc2803224",
+    "verification_sha256": "94bdd310907ec2c4f8d6cba69fe2f50823ede4875db34f5b9696569f5a7c22e4",
+    "verification_receipt_sha256": "0934d1244951fb3cbd56468cff1cc599b6261998db4a5e2fe6f439ce7b8e944c"
+  },
+  "verification": {
+    "fresh_audit_exit_code": 0,
+    "full_author_suite_rerun": false,
+    "real_CIM_rerun": false,
+    "source_diff_matches": true,
+    "saved_green_tests": 14,
+    "saved_live_exit_code": 2,
+    "source_bytes_unchanged": true
+  },
+  "formal_acceptance": false,
+  "R02": "not_run",
+  "all_29_cards": "not_run",
+  "H01_H15_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "ownership_released_after_original_native_terminal": true
+}

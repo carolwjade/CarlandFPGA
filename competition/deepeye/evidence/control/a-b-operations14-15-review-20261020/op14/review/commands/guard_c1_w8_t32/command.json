@@ -1,0 +1,31 @@
+{
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "work.guard_tb",
+    "-gCOUNT_W=1",
+    "-gWITNESS_W=8",
+    "-gTAG_W=32",
+    "+VECTORS=c3_w6_t64.vectors.txt",
+    "+TRACE=guard_c1_w8_t32.ports.txt",
+    "-do",
+    "run.do"
+  ],
+  "cwd": "Q:\\run",
+  "pid": 42036,
+  "started_utc": "2026-10-20T00:47:54.722943+00:00",
+  "finished_utc": "2026-10-20T00:47:56.215919+00:00",
+  "duration_s": 1.5,
+  "exit_code": 0,
+  "timed_out": false,
+  "actual_process_exited": true,
+  "stdout_sha256": "4d9242cb1c7bafa0fce14c5131e07d732eefff3e3f1e432051accbc1490317e3",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "environment_overrides": {
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op14-independent-20261020\\temp",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op14-independent-20261020\\temp",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONNOUSERSITE": "1"
+  }
+}

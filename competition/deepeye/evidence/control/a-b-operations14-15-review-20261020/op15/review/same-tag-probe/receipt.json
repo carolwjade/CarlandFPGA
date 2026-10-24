@@ -1,0 +1,543 @@
+{
+  "commands": [
+    {
+      "label": "subst-before",
+      "argv": [
+        "subst"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\same-tag-probe",
+      "pid": 38644,
+      "start": "2026-10-20T01:13:32.868350+00:00",
+      "end": "2026-10-20T01:13:32.886682+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-create",
+      "argv": [
+        "subst",
+        "R:",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\same-tag-probe"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\same-tag-probe",
+      "pid": 49576,
+      "start": "2026-10-20T01:13:32.896807+00:00",
+      "end": "2026-10-20T01:13:32.918520+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlib",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+        "lib"
+      ],
+      "cwd": "R:/build",
+      "pid": 39572,
+      "start": "2026-10-20T01:13:32.926355+00:00",
+      "end": "2026-10-20T01:13:32.981347+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vlog",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-sv",
+        "-work",
+        "lib",
+        "R:/snapshot/deepeye_atomic_pwm.sv",
+        "R:/snapshot/deepeye_pwm_coherent_capture.sv",
+        "R:/snapshot/same-tag-cache.sv",
+        "R:/snapshot/independent_tb.sv"
+      ],
+      "cwd": "R:/build",
+      "pid": 50700,
+      "start": "2026-10-20T01:13:32.988582+00:00",
+      "end": "2026-10-20T01:13:33.116611+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "55ae5a72a03110d87f09a7f0dd9e26b8df1c369635a09cec9e7f0e766c7e0d28",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "vsim",
+      "argv": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-batch",
+        "-syncio",
+        "lib.independent_tb",
+        "-gCOUNT_W=4",
+        "-gWITNESS_W=8",
+        "-gTAG_W=8",
+        "+VEC=R:/test.vec",
+        "+LOG=R:/same-tag.trace",
+        "-l",
+        "R:/same-tag.transcript",
+        "-wlf",
+        "R:/same-tag.wlf",
+        "-do",
+        "run.do"
+      ],
+      "cwd": "R:/build",
+      "pid": 52996,
+      "start": "2026-10-20T01:13:33.124258+00:00",
+      "end": "2026-10-20T01:13:35.106415+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "44dccec59c2e0619445d31bc7e8dde5653c7f85a770f0bc16980406bfe24ad41",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-remove",
+      "argv": [
+        "subst",
+        "R:",
+        "/d"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\same-tag-probe",
+      "pid": 28156,
+      "start": "2026-10-20T01:13:35.173529+00:00",
+      "end": "2026-10-20T01:13:35.191653+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "subst-after",
+      "argv": [
+        "subst"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op15-independent-20261020\\same-tag-probe",
+      "pid": 18196,
+      "start": "2026-10-20T01:13:35.199255+00:00",
+      "end": "2026-10-20T01:13:35.221178+00:00",
+      "exit": 0,
+      "timeout": false,
+      "process_exited": true,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "behaviorally_rejected": true,
+  "errors": [
+    {
+      "edge": 140,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 140,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 141,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 141,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 142,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 142,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 179,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 179,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 180,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 180,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 181,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 181,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 218,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 218,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 219,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 219,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 220,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 220,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 221,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 221,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 258,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 258,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 298,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 298,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 338,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 338,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 379,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 379,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 420,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 420,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 461,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 461,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 503,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 503,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 545,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 545,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 587,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 587,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 630,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 630,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 630,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 630,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 631,
+      "label": "preedge_control_suppresses_old_handshake"
+    },
+    {
+      "edge": 631,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 631,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 631,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 631,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 632,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 632,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 633,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 633,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 673,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 673,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 673,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 673,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 674,
+      "label": "preedge_control_suppresses_old_handshake"
+    },
+    {
+      "edge": 674,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 674,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 674,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 674,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 675,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 675,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 676,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 676,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 716,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 716,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 716,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 716,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 717,
+      "label": "valid_requires_live_application"
+    },
+    {
+      "edge": 717,
+      "label": "measured_tuple_tag_matches_applied_context"
+    },
+    {
+      "edge": 717,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 717,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 718,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 718,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 719,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 719,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 826,
+      "label": "preedge_control_suppresses_old_handshake"
+    },
+    {
+      "edge": 826,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 826,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 827,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 827,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 859,
+      "label": "preedge_control_suppresses_old_handshake"
+    },
+    {
+      "edge": 859,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 859,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 860,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 860,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 890,
+      "label": "start_only_observed_actual_applied"
+    },
+    {
+      "edge": 890,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 890,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 892,
+      "label": "start_only_observed_actual_applied"
+    },
+    {
+      "edge": 892,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 892,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 894,
+      "label": "start_only_observed_actual_applied"
+    },
+    {
+      "edge": 894,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 894,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 896,
+      "label": "start_only_observed_actual_applied"
+    },
+    {
+      "edge": 896,
+      "label": "registered_binding_state"
+    },
+    {
+      "edge": 896,
+      "label": "comparison_context_latched_actual_not_requested"
+    },
+    {
+      "edge": 898,
+      "label": "start_only_observed_actual_applied"
+    },
+    {
+      "edge": 898,
+      "label": "registered_binding_state"
+    }
+  ],
+  "error_count": 184,
+  "compiled": true,
+  "simulator_completed": true,
+  "exit": 0,
+  "mapping_removed": true
+}

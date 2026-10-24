@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-10-20T00:48:46.464157+00:00",
+  "tested_commit": "732a58ba60c7cce0027d683e912d986453755843",
+  "source_commit": "923e19dedf53b0b38134e4a7da3cc121d8c0e505",
+  "operation_id": "B-DEEPEYE-PWM-EDGE-MEASURE-20261020-13",
+  "request_hash": "1a3bf5940f10ae3d0076ecb192490dfcd8e672efc9ab507194e8031b3ae5fd33",
+  "source_manifest_sha256": "47382b6eeb6a9fd24b60f6c0d209328c141a4e3f513a55c472e7313b50121230",
+  "artifacts": {
+    "findings.md": "853d74e26e157dc8fb0ec043fac74919c35dc23a3c56ee4909330e605079871c",
+    "receipt.json": "af7f6ccce07da5fb93f4e5b8e7461968f2dd81611de4c3c5791aea3c4de0526a",
+    "audit-result.json": "e6004f047259800143df68a54e81a345e08435016e37ac3d868738e4dbd40abb",
+    "evidence-manifest.json": "46cf20447c64e9ddb551a6ec14be0b1563f131f5d3f5cee33874e411c4ab571e"
+  },
+  "verified_artifacts": 204,
+  "source_files": 373,
+  "commands": 25,
+  "sampled_edges": 1253606,
+  "rle_rows": 79247,
+  "small_pairs": 129,
+  "exact_guards": 7,
+  "actual_mutants": 2,
+  "accepted_scope": "bounded synchronous raw single-channel edge measurement only",
+  "later_heads_not_approved": true,
+  "formal_cards": "29 not_run",
+  "lease_handling": "Token initially exposed in reviewer tool output, never in authored artifacts; terminal validation now refuses completed lease; no credential changes.",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

@@ -1,0 +1,20 @@
+Evidence scope: independent static structure checks only; no full R03 or runtime pass.
+Implementation task: DEEPEYE-IMPLEMENTATION-20261014 version 1
+Design input: 1011259415a0916054eb580687612580bc1e5f09
+Requirements SHA256: c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+
+Executed with existing Python 3.12 environment on A.
+Independent struct.calcsize('<2sBBBBHI') = 12 header bytes.
+For each named frame in the frozen taskbook, field struct widths compared with
+independently supplied frame sizes:
+TELEM 32; EVENT 20; CONTROL 28; ACK 32; CONFIG 24; HELLO 18;
+STATE 32; CONFIG_ACK 32; GAIN 24; GAIN_ACK 32; BOOT 41; BOOT_ACK 41;
+CONTROL3D 30; ACK3D 34; STATE3D 34.
+All 15 comparisons passed.
+Independent bitwise CRC16 poly 0x1021/init 0xffff on ASCII 123456789 = 0x29b1.
+Resource JSON parsed, five geology IDs checked, gate diameter exceeds drill diameter.
+Command exit code: 0.
+
+This does not exercise a packet parser, trace codec, timing scheduler, runtime
+Godot application, physical IO, ROCm model, collision implementation or controller.
+All 29 product card acceptance statuses remain not_run.

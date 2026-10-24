@@ -1,0 +1,22 @@
+{
+  "label": "delayed-transfer-vlog",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+    "-sv",
+    "-work",
+    "delayed-transfer",
+    "R:/snapshot/deepeye_atomic_pwm.sv",
+    "R:/snapshot/deepeye_pwm_coherent_capture.sv",
+    "R:/snapshot/delayed-transfer.sv",
+    "R:/snapshot/independent_tb.sv"
+  ],
+  "cwd": "R:/build",
+  "pid": 18424,
+  "start": "2026-10-20T01:11:05.542772+00:00",
+  "end": "2026-10-20T01:11:05.647998+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "e241f6954e06ddc4182dc593c2eb6d3ec99d105ceb7de6a86189c3e99fb82fb4",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

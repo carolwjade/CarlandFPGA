@@ -1,0 +1,51 @@
+{
+  "observed_at_utc": "2026-10-19T15:30:37.808016+00:00",
+  "result": [
+    {
+      "job_id": "child-b46bbb395d26401a900990f5e65f0fe3",
+      "instance_id": "deepseek-a-29",
+      "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+      "task_version": 1,
+      "route": "deepseek",
+      "work_id": "A-ACTOR-PROGRESS-REVIEW-20261019-v1",
+      "ownership": [
+        ".planning/deepeye-resume-20261018/actor-progress-review"
+      ],
+      "native_agent_id": null,
+      "status": "completed",
+      "terminal": true,
+      "stale": false,
+      "result": {
+        "thread_id": "01a15497-e00f-7a42-82b5-1bf97c3f9c5d",
+        "turn": {
+          "id": "01a15497-e02d-71f3-9e2a-01db1de9a3c4",
+          "rootTurnId": "01a15497-e02d-71f3-9e2a-01db1de9a3c4",
+          "items": [
+            {
+              "type": "agentMessage",
+              "id": "66fe722b-012a-447f-8714-c4a53c22afe8",
+              "text": "**Verdict: PASS** for the bounded offline software scope. One nonblocking Low finding: the author\u2019s \u201cunrelated completion\u201d test is inert and only exercises expiry.\n\n- Exact affected suite independently passed: 193/193, with 0 failures/errors/skips and 35 verified import origins.\n- Eight additional adversarial cases passed, covering candidate/request mismatch, changed timing/invocation, byte identity, and monotonic IDs.\n- All 58 candidate hashes, 18 evidence pins, and requirements SHA256 `c229834b...` remain verified. No PRODUCT writes, native runs, board operations, or acceptance claims.\n\nArtifacts:\n- `findings.md` \u2014 SHA256 `fe57474e36bfb1fa377e31891357febff7cb357d8ae283e80a3ad4248fb29519`\n- `inspection_manifest.json` \u2014 SHA256 `24d348685e2623a603df39d7b3a65e43e6c0657bd231576a1463026b9502518a`\n- `receipt.json` \u2014 SHA256 `9addc552c19e5bfdef7a4c09ec12badff25275236845e74ece2f00c0a8e68383`\n\nMain owns final acceptance; H01-H15 and all29 remain `not_run`.",
+              "phase": "final_answer",
+              "memoryCitation": null,
+              "delivery": null,
+              "questions": null
+            }
+          ],
+          "itemsView": "summary",
+          "status": "completed",
+          "error": null,
+          "startedAt": 1792420601,
+          "completedAt": 1792423837,
+          "durationMs": 3235871
+        },
+        "text": "**Verdict: PASS** for the bounded offline software scope. One nonblocking Low finding: the author\u2019s \u201cunrelated completion\u201d test is inert and only exercises expiry.\n\n- Exact affected suite independently passed: 193/193, with 0 failures/errors/skips and 35 verified import origins.\n- Eight additional adversarial cases passed, covering candidate/request mismatch, changed timing/invocation, byte identity, and monotonic IDs.\n- All 58 candidate hashes, 18 evidence pins, and requirements SHA256 `c229834b...` remain verified. No PRODUCT writes, native runs, board operations, or acceptance claims.\n\nArtifacts:\n- `findings.md` \u2014 SHA256 `fe57474e36bfb1fa377e31891357febff7cb357d8ae283e80a3ad4248fb29519`\n- `inspection_manifest.json` \u2014 SHA256 `24d348685e2623a603df39d7b3a65e43e6c0657bd231576a1463026b9502518a`\n- `receipt.json` \u2014 SHA256 `9addc552c19e5bfdef7a4c09ec12badff25275236845e74ece2f00c0a8e68383`\n\nMain owns final acceptance; H01-H15 and all29 remain `not_run`.",
+        "reasoning_effort": "max",
+        "model": "deepseek-flash",
+        "provider": "deepseek"
+      },
+      "error": null,
+      "created_at": "2026-10-19T14:36:41.494150Z",
+      "updated_at": "2026-10-19T15:30:37.800470Z"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "decision": "ACCEPT_OP22_TOOLING_INCREMENT_ONLY",
+  "reviewed_operation": "B-DEEPEYE-SAMPLE-SCAN-TOOLCHECK-20261022-22",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "tested_commit": "94571d2cd9a68bd030c878c406f19a1be6ec53d7",
+  "source_commit": "a489b3dbe1b5d77196a6fc5b7da418f359020818",
+  "request_hash": "b86a1d71eb1b13159c1576828d8050670850f2737e5f71325779dbb0d7e9e99f",
+  "manifest_sha256": "48fa2b564f85a5db2678918f1ef930559d840e980c2a7452ef6a8a5185d97843",
+  "review_sha256": "536ddea3748301cf2ff7c48f024b79662ecb83da5bd2b7cf31729762be8bb442",
+  "checker_sha256": "7b796dff3986accfd81343e6c401f31dafaa0c3e041a1041818c9c292af5d143",
+  "checker_exit_code": 0,
+  "main_read": [
+    "exact runner diff",
+    "independent verifier source",
+    "review and saved process/stdout/stderr hashes",
+    "original native terminal and exact completion text"
+  ],
+  "independent_scope": "byte/static/saved-execution-evidence audit; zero test or vendor-command reruns",
+  "verified_artifacts": 88,
+  "verified_archive_members": 12688,
+  "op21_disposition": "REVISE unchanged",
+  "physical_R02_R03_all29": "not_run",
+  "B_readback": "pending",
+  "limitations": [
+    "Exact GitHub API snapshots, not a successful local Git checkout; original full-fetch failure retained.",
+    "Saved B execution evidence checked, not independently rerun.",
+    "Reviewer initial audit-assertion mistake is reported in review.md; separate raw first-audit log is not included in this publication.",
+    "Historical B temporary-file confinement not proven."
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "accepted_at_utc": "2026-10-22T14:55:29.712056+00:00",
+  "protected_files": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013"
+  }
+}

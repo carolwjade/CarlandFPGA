@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/isolation",
+    "-p",
+    "test_resource_cleanup.py",
+    "-v"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye",
+  "exit_code": 1,
+  "tested_files": {
+    "competition/deepeye/tests/isolation/test_resource_cleanup.py": {
+      "size": 14186,
+      "sha256": "d02434ffa3ca0c64c0cca521e403ef34d7f6743e883bf85410d625ee4c4437d3"
+    }
+  }
+}

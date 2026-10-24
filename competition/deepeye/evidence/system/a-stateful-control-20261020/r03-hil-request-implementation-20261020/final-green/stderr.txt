@@ -1,0 +1,42 @@
+test_accepted_applied_and_incomplete_quality_are_not_capture (__main__.HilTrackerTests.test_accepted_applied_and_incomplete_quality_are_not_capture) ... ok
+test_ack_state3d_current_codes_and_deadlines (__main__.HilTrackerTests.test_ack_state3d_current_codes_and_deadlines) ... ok
+test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers (__main__.HilTrackerTests.test_boot_veto_retires_verified_proposal_and_fresh_boot_recovers) ... ok
+test_bounded_history_eviction_and_no_replay (__main__.HilTrackerTests.test_bounded_history_eviction_and_no_replay) ... ok
+test_callback_stop_failure_and_caught_reentry_cannot_publish (__main__.HilTrackerTests.test_callback_stop_failure_and_caught_reentry_cannot_publish) ... ok
+test_capture_sequence_wrap_refuses (__main__.HilTrackerTests.test_capture_sequence_wrap_refuses) ... ok
+test_changed_duplicate_and_out_of_order_response_stop (__main__.HilTrackerTests.test_changed_duplicate_and_out_of_order_response_stop) ... ok
+test_changed_payload_same_key_rejects_and_stops (__main__.HilTrackerTests.test_changed_payload_same_key_rejects_and_stops) ... ok
+test_clock_regression_first_send_and_future_receipt_refuse (__main__.HilTrackerTests.test_clock_regression_first_send_and_future_receipt_refuse) ... ok
+test_duplicate_response_receipt_does_not_renew (__main__.HilTrackerTests.test_duplicate_response_receipt_does_not_renew) ... ok
+test_expired_request_not_revived_by_new_observation (__main__.HilTrackerTests.test_expired_request_not_revived_by_new_observation) ... ok
+test_fault_rejected_stopped_revoke_current (__main__.HilTrackerTests.test_fault_rejected_stopped_revoke_current) ... ok
+test_first_lost_ack_late_retry_cannot_restart_twelve_seconds (__main__.HilTrackerTests.test_first_lost_ack_late_retry_cannot_restart_twelve_seconds) ... ok
+test_foreign_thread_callback_requests_stop_before_publication (__main__.HilTrackerTests.test_foreign_thread_callback_requests_stop_before_publication) ... ok
+test_invalid_ttl_curvature_and_bad_crc (__main__.HilTrackerTests.test_invalid_ttl_curvature_and_bad_crc) ... ok
+test_literal_hand_derived_deadlines (__main__.HilTrackerTests.test_literal_hand_derived_deadlines) ... ok
+test_missing_timing_capture_and_nonnull_hashes_are_not_verification (__main__.HilTrackerTests.test_missing_timing_capture_and_nonnull_hashes_are_not_verification) ... ok
+test_new_boot_cannot_reuse_retired_session_and_old_capture (__main__.HilTrackerTests.test_new_boot_cannot_reuse_retired_session_and_old_capture) ... ok
+test_no_default_verifier_or_pc_direct_capture (__main__.HilTrackerTests.test_no_default_verifier_or_pc_direct_capture) ... ok
+test_observation_eviction_invalidates_original_association (__main__.HilTrackerTests.test_observation_eviction_invalidates_original_association) ... ok
+test_public_call_shape_errors_latch_even_when_caught (__main__.HilTrackerTests.test_public_call_shape_errors_latch_even_when_caught) ... ok
+test_records_and_snapshots_are_defensive (__main__.HilTrackerTests.test_records_and_snapshots_are_defensive) ... ok
+test_request_sequence_half_range_wrap_and_epoch_change_stop (__main__.HilTrackerTests.test_request_sequence_half_range_wrap_and_epoch_change_stop) ... ok
+test_response_target_and_capture_epoch_mismatch_refuse (__main__.HilTrackerTests.test_response_target_and_capture_epoch_mismatch_refuse) ... ok
+test_retry_changes_tick_crc_but_not_original_payload_time (__main__.HilTrackerTests.test_retry_changes_tick_crc_but_not_original_payload_time) ... ok
+test_same_sequence_different_type_is_separate_non_motion_key (__main__.HilTrackerTests.test_same_sequence_different_type_is_separate_non_motion_key) ... ok
+test_state8_and_non_motion_responses_never_qualify (__main__.HilTrackerTests.test_state8_and_non_motion_responses_never_qualify) ... ok
+test_stop_request_needs_no_observation_and_cannot_restart (__main__.HilTrackerTests.test_stop_request_needs_no_observation_and_cannot_restart) ... ok
+test_stop_zero_field_rule_and_command_id_match (__main__.HilTrackerTests.test_stop_zero_field_rule_and_command_id_match) ... ok
+test_superseded_request_cannot_qualify_late_ack (__main__.HilTrackerTests.test_superseded_request_cannot_qualify_late_ack) ... ok
+test_unknown_original_observation_is_never_backfilled (__main__.HilTrackerTests.test_unknown_original_observation_is_never_backfilled) ... ok
+test_unknown_source_or_observation_verifier_does_not_qualify (__main__.HilTrackerTests.test_unknown_source_or_observation_verifier_does_not_qualify) ... ok
+test_unsupported_request_type_refuses (__main__.HilTrackerTests.test_unsupported_request_type_refuses) ... ok
+test_used_session_history_exhausts_without_reuse_or_growth (__main__.HilTrackerTests.test_used_session_history_exhausts_without_reuse_or_growth) ... ok
+test_verifier_fields_are_strict_original_immutable_bytes_and_run (__main__.HilTrackerTests.test_verifier_fields_are_strict_original_immutable_bytes_and_run) ... ok
+test_wrong_boot_request_raw_batch_and_capture_codes_refuse (__main__.HilTrackerTests.test_wrong_boot_request_raw_batch_and_capture_codes_refuse) ... ok
+test_wrong_request_type_cannot_match_motion_seq (__main__.HilTrackerTests.test_wrong_request_type_cannot_match_motion_seq) ... ok
+
+----------------------------------------------------------------------
+Ran 37 tests in 0.162s
+
+OK

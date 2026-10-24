@@ -1,0 +1,206 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "godot_default_cast_command",
+      "sha256": "2bb565642f9ca5f5eca5c509c8fdeea4900bea62b5f976706df66d79d23b0aea",
+      "size": 919
+    },
+    {
+      "alias": "godot_godot_cast_command",
+      "sha256": "834e7c8857eee614501b4b83394083237938ee61f0795def594f7cf7299dc894",
+      "size": 915
+    },
+    {
+      "alias": "godot_jolt_cast_command",
+      "sha256": "1892b97a0e8bf6967f85de441e5e314ae745fba6708a2bed2a898454b94fcf0d",
+      "size": 913
+    },
+    {
+      "alias": "godot_default_independent_command",
+      "sha256": "d05b0b5928124651d39452cd42b39c6941dd21eac52823c19142400dd6adb60b",
+      "size": 934
+    },
+    {
+      "alias": "godot_godot_independent_command",
+      "sha256": "46b4db69a421469a0696c0bc90d44a438e311cb45046191c8aee399da449b512",
+      "size": 929
+    },
+    {
+      "alias": "godot_jolt_independent_command",
+      "sha256": "72c2aef3a685eb03281e23f13dac09102d9608fda561cb8d6441e8e0d5556906",
+      "size": 927
+    },
+    {
+      "alias": "godot_default_editor_command",
+      "sha256": "de55230b4c4fcfb5508c081a9c0ac8c6a6c0d691fb74a4e0fa361844c48011ba",
+      "size": 937
+    },
+    {
+      "alias": "godot_author_red_phase",
+      "sha256": "eb490abc28e622d2c866e313e2e7f370af63fa084144b7f99898ffb2a7752f10",
+      "size": 11421
+    }
+  ],
+  "omitted_fields": [
+    "command[0] absolute executable path",
+    "absolute project/log argv values",
+    "raw cwd/local process identities"
+  ],
+  "existing_runs": [
+    {
+      "run_alias": "default-cast",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://tests/test_motion_cast.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 1.125,
+      "stdout_sha256": "7695da804d4a8839ea5164a28feb238204d4a4cba9b59ce2bd605ac4cd6065f3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "2bb565642f9ca5f5eca5c509c8fdeea4900bea62b5f976706df66d79d23b0aea",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "godot-cast",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://tests/test_motion_cast.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 1.125,
+      "stdout_sha256": "d3921fa9d0a5a7e8931509b14dfd11610771fb2ed8113891d1f6bedc5dc66443",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "834e7c8857eee614501b4b83394083237938ee61f0795def594f7cf7299dc894",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "jolt-cast",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://tests/test_motion_cast.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 1.125,
+      "stdout_sha256": "11ef6977cd3ec7856603e7dd765265c86eba1420f9d923c1bea063c2defaf3c0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "1892b97a0e8bf6967f85de441e5e314ae745fba6708a2bed2a898454b94fcf0d",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "default-independent",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://independent_probe.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 6.2189999999973224,
+      "stdout_sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "d05b0b5928124651d39452cd42b39c6941dd21eac52823c19142400dd6adb60b",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "godot-independent",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://independent_probe.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 6.030999999995402,
+      "stdout_sha256": "d7e76b333dcc7a240158dbf6de07fc5cf47146fef24aa779925e43f746f19ae9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "46b4db69a421469a0696c0bc90d44a438e311cb45046191c8aee399da449b512",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "jolt-independent",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://independent_probe.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 6.389999999999418,
+      "stdout_sha256": "bb85d35bffc3baada2723f5f9074690e30f98792c9bdc405c3adfe5dd5ad377e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "72c2aef3a685eb03281e23f13dac09102d9608fda561cb8d6441e8e0d5556906",
+      "timing_is_not_a_100Hz_performance_claim": true
+    },
+    {
+      "run_alias": "default-editor",
+      "argv_redacted": [
+        "[GODOT_EXECUTABLE_BOUND_BY_SHA256]",
+        "--headless",
+        "--path",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]",
+        "--script",
+        "res://tests/test_editor_document.gd",
+        "--log-file",
+        "[PRIVATE_PROJECT_OR_LOG_PATH]"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds_recorded": 1.062000000005355,
+      "stdout_sha256": "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "private_command_record_sha256": "de55230b4c4fcfb5508c081a9c0ac8c6a6c0d691fb74a4e0fa361844c48011ba",
+      "timing_is_not_a_100Hz_performance_claim": true
+    }
+  ],
+  "historical_author_red": {
+    "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+    "recorded_source_hashes": {
+      "scene_document.gd": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+      "scene_document.gd.uid": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+      "export_presets.cfg": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+      "project.godot": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "test_editor_document.gd": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "test_editor_document.gd.uid": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+      "test_motion_cast.gd": "82bc4cb3bd7ecec0c2417d5db44067d86bcc24d206af1a805339886a1e2c6108",
+      "shell.gd": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+      "shell.gd.uid": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+      "main.gd": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "main.gd.uid": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+      "main.tscn": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db"
+    },
+    "stage": "pre-fix author contract RED; source distinct from accepted archive bytes"
+  },
+  "backend_configs": "../raw/godot/configs/",
+  "physics_ticks_per_second_setting_is_not_measured_runtime_acceptance": true
+}

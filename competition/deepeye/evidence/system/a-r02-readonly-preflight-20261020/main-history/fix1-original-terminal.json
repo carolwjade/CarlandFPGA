@@ -1,0 +1,27 @@
+{
+  "job_id": "child-931a1703eb474f2bbefe1f2156a85985",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-R02-PREFLIGHT-FIX1-20261020-v1",
+  "ownership": [
+    ".local/deepeye-implementation-a/.superpowers/sdd/2026-10-20-r02-readonly-preflight/task-1-fix1-report.md",
+    ".local/deepeye-implementation-a/competition/deepeye/hardware/preflight.md",
+    ".local/deepeye-implementation-a/competition/deepeye/tests/test_preflight.py",
+    ".local/deepeye-implementation-a/competition/deepeye/tools/preflight.py",
+    ".local/deepeye-implementation-a/competition/deepeye/tools/preflight_windows.ps1",
+    ".planning/deepeye-resume-20261018/r02-preflight-fix1-20261020"
+  ],
+  "native_agent_id": "/root/r02_preflight_implementation_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "Work A-R02-PREFLIGHT-FIX1-20261020-v1: F1-F3 corrected and the same four owned product files frozen for main re-review. Fixed collector bytes are read once, bounded and strictly UTF-8 decoded; identical bytes supply the source SHA-256 and exact final -Command text. No policy option/change, path dot-sourcing, fallback/retry or extra process. JSON-equivalence semantics documented/tested; unsupported DEV_17F0 ID-only rule removed; replacement-decoded diagnostic limits documented.\n\nPre-correction red retained (16 tests, exit 1); one post-correction targeted run passed 16 tests in 0.050 s, exit 0. Exactly one authorized new hidden background --inventory-only collection completed exit 0/no timeout: CPU 1, OS 1, GPUs 2, NPU candidates 1, corresponding drivers 3, fixed disks 2; all groups ok and errors empty. Observation UTC 2026-10-20T06:45:31.2976419Z. NPU DEV_1502 is a candidate observation, never runtime/support acceptance. Current-interpreter metadata only, no target imports.\n\nLive stdout and optional-file JSON objects are equal; raw hashes separately retained: stdout 502c79858308e3f339fcbddac03f6b93fa1f332ecb4e5b98973ef72e99552341; file 1b9cb19a30e09cb5c9beb7ffab15afeea1672ee10cef8fe8ecc853b7ff03c8f6. CLI stderr empty. Exact-source test/live/final hashes match. Original evidence, UnauthorizedAccess failure, brief/report, historical environment and four protected C dirty bytes remain unchanged and unstaged; HEAD remains f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe.\n\nFrozen product SHA-256:\ncompetition/deepeye/tools/preflight.py 94d574a5e6c742fb4948df65e3e9fdfb1137f950ab1b8798317aed1423a7786b\ncompetition/deepeye/tools/preflight_windows.ps1 f1af74889d292b1bacfdc1542e81a14fd0b9cfc01bfb8d02d890d3f75a5599ca\ncompetition/deepeye/tests/test_preflight.py a0b4e8b02452647d474e135773cd60b2220e963517dc2f43deb20521347bffc2\ncompetition/deepeye/hardware/preflight.md 766283e8bcf090c010c80323526ed3a27a91e7b35fa5114469fa56981db5925f\n\nReport: .local/deepeye-implementation-a/.superpowers/sdd/2026-10-20-r02-readonly-preflight/task-1-fix1-report.md\nEvidence: .planning/deepeye-resume-20261018/r02-preflight-fix1-20261020/\nContract DEEPEYE-HUMAN-LOCK-20261014/revision1; root/product actual requirements SHA-256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804. All H01-H15 preserved. R02 remains not_run/formal_acceptance=false; all 29 formal cards stay not_run. No Git mutation, publication, policy/service/driver change, backend/model, board, network, display/input or further agents. Worker finished scoped edits; main retains acceptance/publication.\n",
+    "native_agent_id": "/root/r02_preflight_implementation_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T06:43:01.821652Z",
+  "updated_at": "2026-10-20T06:47:23.060370Z"
+}

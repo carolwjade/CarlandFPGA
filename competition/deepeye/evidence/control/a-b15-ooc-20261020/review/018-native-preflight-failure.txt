@@ -1,0 +1,4 @@
+Actual command: existing ROOT/.local/venv/Scripts/python.exe -B -X utf8 this-folder/run_native_readback.py
+Tool chunk 201ca4; exit 1; elapsed 0.2784563 s. No native process was created, no native-readback-started.json existed, and no DCP was opened.
+AssertionError: pinned existing Vivado launcher
+Cause: reviewer interpreted inputs.json launcher_sha256 as vivado.bat hash. Actual frozen prepare.py:71 hashes LaunchVivadoLicensed.vbs text. Corrected preflight checks that exact encoding/hash and separately pins actual batch bytes before native execution. Original harness source preserved as run_native_readback_preflight_v1.py. No credentials/license content copied or changed; same sole authorized readback remains unexecuted at this failure.

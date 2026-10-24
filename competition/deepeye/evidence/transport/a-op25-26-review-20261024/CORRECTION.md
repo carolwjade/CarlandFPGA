@@ -1,0 +1,1 @@
+The child report says four head-only handoff metadata files. The saved exact-head commit API and identity-result list six: README/input/manifest for each operation. Root verified six and preserves the original report. This correction changes no RTL or simulation result. Complete checkout remains unavailable; no whole-tree integration claim is made.

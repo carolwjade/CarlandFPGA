@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "checked_utc": "2026-10-20T04:41:13.786177+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "status": "official_catalogue_object_bytes_match_frozen_source",
+  "source_sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc",
+  "source_bytes": 950952,
+  "catalogue_url": "http://www.fpgachina.cn/download-content.html",
+  "catalogue_endpoint": "http://www.fpgachina.cn/rest/pc/cms/file/list",
+  "catalogue_requested_page": 1,
+  "catalogue_page_size": 100,
+  "catalogue_reported_total": 23,
+  "catalogue_returned_count": 23,
+  "catalogue_item": {
+    "id": 25,
+    "title": "全国大学生嵌入式芯片与系统设计竞赛'2026FPGA赛道选题指南-AMD",
+    "createTime": "2026-08-31 22:26:33",
+    "updateTime": "2026-08-31 22:26:58",
+    "isEmphasis": "1",
+    "isTop": 1,
+    "object_url": "https://fpgaceshi.oss-cn-shanghai.aliyuncs.com/profoss/upload/2026/08/31/8c7a809f-f0b8-42e4-996a-3a5f2f132288.pdf"
+  },
+  "catalogue_titles_with_2026_and_AMD": [
+    25
+  ],
+  "retrieval_evidence": "current-amd-guide.retrieval.json",
+  "source_file": "current-amd-guide.pdf",
+  "meaning": "The AMD item in the returned complete download-catalogue page serves bytes identical to the frozen source at this retrieval time.",
+  "limits": [
+    "This is a point-in-time download-catalogue observation, not proof of absence of updates elsewhere or later.",
+    "Catalogue frontend and API use HTTP as served by the site; transport authenticity is not claimed. The actual PDF fetch used ordinary HTTPS certificate verification and matches the pre-existing pinned hash.",
+    "No semantic source revision, changed human scope, organizer task recognition, registration receipt, ROCm execution, board result or formal card acceptance follows.",
+    "The first unsigned API request returned HTTP401 with application code1001 invalid timestamp. The published anonymous client timestamp/nonce/sign schema resolved it; no account credentials were used.",
+    "The first signed catalogue used an unsupported language value and omitted titles. A separate zh request, matching the public frontend, supplied titles.",
+    "Old unsigned PDF URL returned403; a catalogue-issued temporary URL used unchanged returned200. This does not establish that the unsigned URL recovered.",
+    "Raw catalogue responses contain temporary object authorization URLs and stay in the original local evidence directory; sanitized copies remove every query. A preliminary diagnostic accidentally printed raw file fields; no such URLs are included in this proposed publication."
+  ],
+  "registration": "human_confirmed_in_frozen_handoff; independent_receipt_verified=false",
+  "R01": "not_run",
+  "formal_cards": "all29 not_run",
+  "formal_acceptance": false,
+  "hardware_enable_eligible": false
+}

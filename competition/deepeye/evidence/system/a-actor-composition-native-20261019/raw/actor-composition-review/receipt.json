@@ -1,0 +1,29 @@
+{
+  "work_id": "A-actor-composition-independent-review-20261019-v1",
+  "job_id": "child-f77104b71ea14097ba5a69ae79badaca",
+  "status": "review_completed_no_new_blocking_software_finding",
+  "candidate_manifest_sha256": "11663f50a276bee91cb77e27693d33e101d72a47c64cba23e269d10589ea034e",
+  "findings_sha256": "10f9c9096446d6e428c1480cee9fba2cc3f9f6f713c9f46024014f0a6e04eff9",
+  "after_sha256": "c3471a47483082715c783d92b2716d5a49bbaa5c06cfa1278479ceada88ed96d",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "regression": {
+    "tests": 172,
+    "pass": 172,
+    "skip": 0,
+    "exit_code": 0,
+    "split": "24new+21actor_owner+36actor_lifetime+64runtime+27executor; different from earlier main148"
+  },
+  "additional": {
+    "protective_methods_pass": 5,
+    "documented_negative_integration_method_pass": 1,
+    "negative_method_fact": "progress lost after preparation can still commit revision1 before next poll",
+    "skip": 0
+  },
+  "source_unchanged": 58,
+  "production_verifier": "unavailable before registry; no public fallback",
+  "final_progress_deadline_integration": "missing documented producer/fence dependency; cannot enable by accepting verifier alone",
+  "post_CAS_late_veto_cleanup": "commit1 fact preserved plus QUARANTINED strong unresolved context",
+  "native_harness_and_main_interpreter": "not imported/touched",
+  "real_AI_BOOT_H12_Run_game_board_formal29": "not_run",
+  "acceptance_owner": "sole generation2 main; bounded unavailable-production library only"
+}

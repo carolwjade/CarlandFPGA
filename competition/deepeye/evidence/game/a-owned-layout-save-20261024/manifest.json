@@ -1,0 +1,1624 @@
+{
+  "schema": 1,
+  "source_parent": "5398cd76e5b5e277ad14053e1786ea014b90260e",
+  "archive": {
+    "path": "evidence.zip",
+    "bytes": 851293,
+    "sha256": "d3b28c6427b41e55a47c5e23996c9d00f14ad9fcfe6bc10de8878c5f1159c0d7",
+    "members": 393
+  },
+  "members": {
+    "godot/author/assemble.py": {
+      "bytes": 1955,
+      "sha256": "bd2d2253f8a4c74d9b9111aef3c3b8e8b33ece130bf0265bd5320d7cf1ee8185"
+    },
+    "godot/author/baseline.json": {
+      "bytes": 8925,
+      "sha256": "ef61846d8b9c7c982b6301aef6435d17a2dad195456b7b5d6c4f66bcf26cd755"
+    },
+    "godot/author/candidate-product-manifest-v2.json": {
+      "bytes": 3141,
+      "sha256": "228fcc3797959b06fee9d4d53fca1eadfb883b4c019ec2f57a0e6b80163a6fdf"
+    },
+    "godot/author/candidate-product-manifest.json": {
+      "bytes": 3255,
+      "sha256": "775c49375dcfd7776aaa92d01852b58622a85ed1a534f9b262487d1ebee64bf3"
+    },
+    "godot/author/candidate-v1-pinmapping.json": {
+      "bytes": 2353,
+      "sha256": "c366e6267e7f986f149990ac950613e01ecc11443e2bd96c937db797baffc288"
+    },
+    "godot/author/candidate-v1/docs/layout_persistence.md": {
+      "bytes": 5849,
+      "sha256": "cd18e70e58da5c13c4b5c3d730dfa20310c8ed34ef197474200e571b98d30fe9"
+    },
+    "godot/author/candidate-v1/simulator/editor/layout_commit_bridge.gd": {
+      "bytes": 22672,
+      "sha256": "41dba5ffb10aa26b55cf03aa15ab4c3ebb461ff7a63f50c5b318aa951ec86560"
+    },
+    "godot/author/candidate-v1/simulator/editor/layout_store.gd": {
+      "bytes": 4075,
+      "sha256": "284c77086997df7688142af7bf7eb5317520f40ac98d5af1eb5b8c2e4ebf72ba"
+    },
+    "godot/author/candidate-v1/simulator/native/README.md": {
+      "bytes": 5608,
+      "sha256": "76d9e6900436e496b729bcf2cfbc11273f7ecbe0f610e8a0e0a4abb6cb83b2f5"
+    },
+    "godot/author/candidate-v1/simulator/native/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "9e9c766ec7ad0268810c0b22ad26144fd481ef6984a6295e68608ec30c04f9de"
+    },
+    "godot/author/candidate-v1/simulator/native/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/author/candidate-v1/simulator/native/layout_runtime.json": {
+      "bytes": 1637,
+      "sha256": "2572eb57f5771bdb1ea4343e48591ca61650ef5dd828193d08c05d259a17d784"
+    },
+    "godot/author/candidate-v1/simulator/native/run_viewer.py": {
+      "bytes": 4602,
+      "sha256": "837e4a164fc38929407714723c42f53b9047fa1cc8df6fcd9636639c15c6bf14"
+    },
+    "godot/author/candidate-v1/simulator/ui/shell.gd": {
+      "bytes": 41441,
+      "sha256": "a53e2341803d834eaae6c144be71c477ccc55821386c22fee0454372cc083313"
+    },
+    "godot/author/candidate/docs/layout_persistence.md": {
+      "bytes": 5849,
+      "sha256": "cd18e70e58da5c13c4b5c3d730dfa20310c8ed34ef197474200e571b98d30fe9"
+    },
+    "godot/author/candidate/simulator/editor/layout_commit_bridge.gd": {
+      "bytes": 23045,
+      "sha256": "280707117068fe19007f314c6127d592bdf69a51bff5b854afc0446f416d6e84"
+    },
+    "godot/author/candidate/simulator/editor/layout_store.gd": {
+      "bytes": 4075,
+      "sha256": "284c77086997df7688142af7bf7eb5317520f40ac98d5af1eb5b8c2e4ebf72ba"
+    },
+    "godot/author/candidate/simulator/native/README.md": {
+      "bytes": 5608,
+      "sha256": "76d9e6900436e496b729bcf2cfbc11273f7ecbe0f610e8a0e0a4abb6cb83b2f5"
+    },
+    "godot/author/candidate/simulator/native/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "9e9c766ec7ad0268810c0b22ad26144fd481ef6984a6295e68608ec30c04f9de"
+    },
+    "godot/author/candidate/simulator/native/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/author/candidate/simulator/native/layout_runtime.json": {
+      "bytes": 1637,
+      "sha256": "2572eb57f5771bdb1ea4343e48591ca61650ef5dd828193d08c05d259a17d784"
+    },
+    "godot/author/candidate/simulator/native/run_viewer.py": {
+      "bytes": 4602,
+      "sha256": "837e4a164fc38929407714723c42f53b9047fa1cc8df6fcd9636639c15c6bf14"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/before/bridge.gd": {
+      "bytes": 277,
+      "sha256": "52a3c2c01af141f51910d8f28ebe7e37568e459f7b7e54ed51db10e27c3406bb"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/before/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "473a7a912a67706d7443cb22e53823b5959d8f2c3a856a4131aebce8073cb6e8"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/before/layout_commit_cli.py": {
+      "bytes": 985,
+      "sha256": "5a30b8070e0c67515b34009062b724b06597a23827129df30ead7424d6681226"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/before/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/delay/bridge.gd": {
+      "bytes": 276,
+      "sha256": "ccd22705ec5ad1effa15877ffec76d5ffd74de0ea220ead29fbf8e0083587ce8"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/delay/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "62f2c7be36ed01dd0fcd5f200c74108cc66bf5e82d60754b87591aa7438e45c8"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/delay/layout_commit_cli.py": {
+      "bytes": 1346,
+      "sha256": "7537e5648a550d999d8a49e11634feb04a8e4541074cfb582fb4cba9121d4117"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/delay/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/loss/bridge.gd": {
+      "bytes": 275,
+      "sha256": "11807b52ab0e5295c7bc43dfcb1116cbf58c5ec778be44a3241308d3b3b4b20e"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/loss/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "cb4c32fc617868a564c22eaa92b947f20ca5d4a70526fe3f385a2ef0c6107ba6"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/loss/layout_commit_cli.py": {
+      "bytes": 1091,
+      "sha256": "2bf441c2f7b9ad70edd3d8d7d00133aefc4ec05bc4cf772654c9b65aa489f99f"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/loss/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/split/bridge.gd": {
+      "bytes": 276,
+      "sha256": "8b8d2c1f2e1bae608d0108a5bf49de056208562fa3b8e646d6317a3a0c42967a"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/split/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "5b0b1b74147636143a5369241b11b12d3f64f6d01230df531176ec3de7f09210"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/split/layout_commit_cli.py": {
+      "bytes": 1420,
+      "sha256": "4004f85216cd35dc99c3b07a21a1ea356b38c7fbf8b0697ee53d36e97d03a281"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/split/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/trailing/bridge.gd": {
+      "bytes": 279,
+      "sha256": "af4361f3174c2f2a0fe1ed8c72841553d15d2d35450baf5575663cef5838d006"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/trailing/layout_commit_bundle.json": {
+      "bytes": 303,
+      "sha256": "185aee00fef2b0d6bbb3d3568fb19a9fd3563c98dcaf2858a464474a6ee9eac2"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/trailing/layout_commit_cli.py": {
+      "bytes": 1337,
+      "sha256": "01ad043c394f45dc2c3a95012b979f40e4a059f607b569530daf1beea3a8d112"
+    },
+    "godot/author/candidate/simulator/tests/fixtures/trailing/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/author/candidate/simulator/tests/review_save_regressions.gd": {
+      "bytes": 8233,
+      "sha256": "ec5e2d1bd612c4fb8a2dc24ef1a70b19cb7d47cf7a110c21ea0cfdc306ac72ec"
+    },
+    "godot/author/candidate/simulator/tests/review_save_regressions.tscn": {
+      "bytes": 189,
+      "sha256": "d7215213a976fbe158fe0ed5d15564be98d6a8aee85d30a6ad0856ee3d86812f"
+    },
+    "godot/author/candidate/simulator/tests/test_layout_commit_bridge.gd": {
+      "bytes": 13948,
+      "sha256": "7daee56b0235eee4b5e942560f5df1ee3f7a1a0ef4a202dc4a468440386980a4"
+    },
+    "godot/author/candidate/simulator/ui/shell.gd": {
+      "bytes": 41481,
+      "sha256": "1acf407c0b42687c54efca32ef081d85c2c2bba9db63ff490bb004cb6f9a8fa1"
+    },
+    "godot/author/cli-assembly.json": {
+      "bytes": 485,
+      "sha256": "7080ba98d79f629f4b1cc191e5d90f74eda8f2d092e40fe3b82e16ed5bcb5655"
+    },
+    "godot/author/evidence-references/bootstrap.py": {
+      "bytes": 2043,
+      "sha256": "0b2ef958006c47b1b74ff303bf36996769bad3a8616d8a15df6d8e514f606d14"
+    },
+    "godot/author/evidence-references/cli-manifest.json": {
+      "bytes": 24917,
+      "sha256": "5703d9c2258b15efe8a4087ad7c1655c2cee66083812872f81e1936b98ad5564"
+    },
+    "godot/author/evidence-references/cli-native-complete-receipt.json": {
+      "bytes": 2030,
+      "sha256": "57bdcad16251467616a417e7728e0fd1db29a39da72fd540416737cf6be04fcf"
+    },
+    "godot/author/evidence-references/cli-report.md": {
+      "bytes": 4147,
+      "sha256": "37421e0fe38fb818532bc0ac2fdd48e9466b1458a5a317677c2b0c37b6bf4c12"
+    },
+    "godot/author/evidence-references/launch_owned.py": {
+      "bytes": 17258,
+      "sha256": "b1945ae48cf6f16c11ac80992ae7feec58cd3c927cffdc0ebe1797cd8df1c58e"
+    },
+    "godot/author/evidence-references/reference-index.json": {
+      "bytes": 2458,
+      "sha256": "66541bfbd89e6d73efd18078ea0363e574c29acdb7fefd233732b34148859efb"
+    },
+    "godot/author/evidence-references/root-launcher08-containment.json": {
+      "bytes": 1001,
+      "sha256": "f223dae9aeb5c5c0eb1f463e83eb5c96ac8aa075af154fe3621dde29856e0265"
+    },
+    "godot/author/evidence-references/root-supervisor-review.json": {
+      "bytes": 1429,
+      "sha256": "79f36312748d289d896f554787bfea93736fe69022d4ce2a5be17f679a92ba51"
+    },
+    "godot/author/evidence-references/supervisor-manifest.json": {
+      "bytes": 3264,
+      "sha256": "791477ffb1b887582d59fd5c7edeac137ff7b5a6368427b73746d386a06fe797"
+    },
+    "godot/author/final_source_pins.py": {
+      "bytes": 1523,
+      "sha256": "446b669c41e0139d74c27452a1738a38f35e361c0eae2a2b94acf8cbe3b0a494"
+    },
+    "godot/author/launcher-08-base-python-readonly-empty.txt": {
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "godot/author/launcher-08-readonly-identity.json": {
+      "bytes": 644,
+      "sha256": "9623d735d4283636ce716b39e56cf12702feb2a6b78d6e1ee179197214c91bdb"
+    },
+    "godot/author/launcher-green.log": {
+      "bytes": 103,
+      "sha256": "e1e66e29993c907beaaba713d7b2d0960b586bc35c2deb7dd2177b1b7dcc0e7b"
+    },
+    "godot/author/launcher-headless-green.log": {
+      "bytes": 105,
+      "sha256": "1fa3cf840597564e70fdfdd555d673dc6e062af29a1b3d64d1ca159465154fdb"
+    },
+    "godot/author/launcher-headless-red.log": {
+      "bytes": 733,
+      "sha256": "8e04e735a61a0edfd946c23efc1775bf26d518deb7c66d7ea7a04febfc3e2c10"
+    },
+    "godot/author/launcher-red.log": {
+      "bytes": 854,
+      "sha256": "745940a03000890723f38eb9daf8a29601bbe6056940da47db829b2e20983c1c"
+    },
+    "godot/author/launcher-validation-first-failure.json": {
+      "bytes": 352,
+      "sha256": "d08e154df8d4c62d38d79d434df57504a796e088f7ae2894827e575f75d7d88a"
+    },
+    "godot/author/launcher-validation.json": {
+      "bytes": 2118,
+      "sha256": "da9d7a562f98e468b98ab46fa769db4a1fdf83d5bbf1c450e4596dda9f3791bf"
+    },
+    "godot/author/make_fixtures.py": {
+      "bytes": 3766,
+      "sha256": "0fe471f0531f50d94d4c929f46803477fc540f831694c47a837f95d950692dd8"
+    },
+    "godot/author/make_runtime.py": {
+      "bytes": 1316,
+      "sha256": "9097a00833f2068815b52730dbaaff11e49f0c04b7966b9e1b48707089df1539"
+    },
+    "godot/author/manifest.json": {
+      "bytes": 26471,
+      "sha256": "bbd3b99bba7156ebde3f78cc5196189170e777efe1f84ff89e83a75ee118f8e3"
+    },
+    "godot/author/report.md": {
+      "bytes": 9451,
+      "sha256": "1ddbbb2002d4be10d18bda4e6ccfdbb9d35638b249ddaf8231f4728d760d90fa"
+    },
+    "godot/author/retained-target-pins.json": {
+      "bytes": 2163,
+      "sha256": "6fa8b1e0d6a8cdaa73bdfd921c37e1503888f2c2d7d66bcc54331e2299dfaa7e"
+    },
+    "godot/author/revision-budget.json": {
+      "bytes": 1245,
+      "sha256": "f0c08d4d1b75d2d4f6c8f6273b72137c06736ada7db72c9d8ba0398ece155caa"
+    },
+    "godot/author/revision-v2.diff": {
+      "bytes": 4811,
+      "sha256": "0fe0a25c14d361d8799c2d0667ddf4f14bfec272798badc50dc721fff390182f"
+    },
+    "godot/author/root-native-validate-response.json": {
+      "bytes": 390,
+      "sha256": "e3eb980fd7abd3cc3b9dc4798641f46b0fc5017d2f4cc0b45aa59812fe59b2be"
+    },
+    "godot/author/run-source-pins.json": {
+      "bytes": 65895,
+      "sha256": "ac7e1859cff4db62875087afa9c3fd78357e70287c89632bbd84e06fc75f939c"
+    },
+    "godot/author/run_launcher_test.py": {
+      "bytes": 2588,
+      "sha256": "15257d05d8d847726942f30395f89c6deedaa13c11220faa14d11f646df5e59b"
+    },
+    "godot/author/run_supervised_revision.py": {
+      "bytes": 4845,
+      "sha256": "f6f34ce451e51ccd4b1bdc50f323bbfe0d2cec0c1468d6ab8ffe724cb9e393f6"
+    },
+    "godot/author/run_test.py": {
+      "bytes": 1975,
+      "sha256": "5da77ebe3ca78dc169af88b0c48adc865f2e9ff3d3b1e878d44ae03adf2b9282"
+    },
+    "godot/author/runs/caller-02/command.json": {
+      "bytes": 1255,
+      "sha256": "af410f9d57d49f0f8f3e9ef3d73b086702e98d72dcbfcec6acac54ecc0d3bab7"
+    },
+    "godot/author/runs/caller-02/simulator/editor/layout_commit_bridge.gd": {
+      "bytes": 17750,
+      "sha256": "c37a748367e632173fbe68fe4aa1cd31ae5821194733181f9472e1338a3dc8c0"
+    },
+    "godot/author/runs/caller-02/simulator/tests/test_layout_commit_bridge.gd": {
+      "bytes": 10412,
+      "sha256": "683d17656e164f339c5bea43fd9e8e5e7d641c4f380ac22412cf823f7a7fc1ed"
+    },
+    "godot/author/runs/caller-02/stderr.log": {
+      "bytes": 9724,
+      "sha256": "4ed35d306534064a87d515a5a0a58a878dd4344820fe70489971a8cf6bdd0eba"
+    },
+    "godot/author/runs/caller-02/stdout.log": {
+      "bytes": 75,
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+    },
+    "godot/author/runs/caller-03/command.json": {
+      "bytes": 1229,
+      "sha256": "86cf32de8617d3a594ad6ad220c62de861e00620dbd6143e7a14bb3b5898d998"
+    },
+    "godot/author/runs/caller-03/stderr.log": {
+      "bytes": 6864,
+      "sha256": "bf3aae7ba9a5386d23c90ade98e94d0b9d2f6bc15853df08b0e3e7487ba05591"
+    },
+    "godot/author/runs/caller-03/stdout.log": {
+      "bytes": 104,
+      "sha256": "422b5d7d9194d270a1231d0650b78a37e6b22cf58b122890d39987ec72081d74"
+    },
+    "godot/author/runs/caller-03/targets/bridge-evidence.json": {
+      "bytes": 16679,
+      "sha256": "08da9fbdf7c86c25d3942169e2c6179ef219ca9c9c07c516c339641d21a9a17a"
+    },
+    "godot/author/runs/caller-04/command.json": {
+      "bytes": 1300,
+      "sha256": "5fdcf239b48865640d6f293b06f4980d4bb6a987ff01e855f45881909687dae1"
+    },
+    "godot/author/runs/caller-04/stderr.log": {
+      "bytes": 8008,
+      "sha256": "d49cfdea9cd23e66b8292b2223e04f08ee352f519190dd82f24049ba0c0ad13f"
+    },
+    "godot/author/runs/caller-04/stdout.log": {
+      "bytes": 104,
+      "sha256": "d40caec75a2d4ea497c09a50c19c4a27382cae9d37f3d3da5747328be5160cd2"
+    },
+    "godot/author/runs/caller-04/targets/bridge-evidence.json": {
+      "bytes": 18258,
+      "sha256": "6877392775af57cf1c1ec4ea9f344823a437fe8fd1be688c8d35fcb5c952c6e4"
+    },
+    "godot/author/runs/caller-05/command.json": {
+      "bytes": 1301,
+      "sha256": "2ba1913b784d5542193acb84ad2afd3bdfe324e1a1335c0d726b5bd70593bd09"
+    },
+    "godot/author/runs/caller-05/simulator/tests/test_layout_commit_bridge.gd": {
+      "bytes": 12429,
+      "sha256": "a8d19d57e9bb644f22fc95f3758789421165d06cf5c8fd3c12d0aad77276b3eb"
+    },
+    "godot/author/runs/caller-05/simulator/ui/shell.gd": {
+      "bytes": 41341,
+      "sha256": "93afe338b8f390103a2911c451bc57f1efb4ff1563f33c9c079bab3da416a7e5"
+    },
+    "godot/author/runs/caller-05/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/caller-05/stdout.log": {
+      "bytes": 104,
+      "sha256": "610e112dd2aae89bcf3da735811b613dced1ba3bb7e8d7d27f91d3f4e815e90b"
+    },
+    "godot/author/runs/caller-05/targets/bridge-evidence.json": {
+      "bytes": 21073,
+      "sha256": "cca7b08cb79d921ddc60e5aa0da33c2f693e5700f59730eb209e0f58b82fce48"
+    },
+    "godot/author/runs/late-cancel-green-07/command.json": {
+      "bytes": 1348,
+      "sha256": "141763c371f064c4e62788ffae25c6501a5f7d88bbce487f1d07c8ba29193876"
+    },
+    "godot/author/runs/late-cancel-green-07/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/late-cancel-green-07/stdout.log": {
+      "bytes": 108,
+      "sha256": "b63d3640d265e25926262dd9f90a7096e2f8759ce52a7b596aad48897d5906eb"
+    },
+    "godot/author/runs/late-cancel-green-07/targets/bridge-evidence.json": {
+      "bytes": 2121,
+      "sha256": "df0192bfd3f42f7a4e088b8a6164db5145164103087a70ce7844803792df016b"
+    },
+    "godot/author/runs/late-cancel-red-06/command.json": {
+      "bytes": 1343,
+      "sha256": "75a9ae9483fa7fc91ccc3c5f3c68723019d5e37e4fb26e2c5195a0317c66f036"
+    },
+    "godot/author/runs/late-cancel-red-06/stderr.log": {
+      "bytes": 59,
+      "sha256": "1e2577aead88d9bf7182dc71016147ba0704e3acc3a735c657fbf58c8f4ba40a"
+    },
+    "godot/author/runs/late-cancel-red-06/stdout.log": {
+      "bytes": 108,
+      "sha256": "d76c4c1c28094a9569d8252592b3b1523610e81a6953a2a2eeffb621fa113476"
+    },
+    "godot/author/runs/late-cancel-red-06/targets/bridge-evidence.json": {
+      "bytes": 2172,
+      "sha256": "452b92f0aaed8e63e9d2aa6406022ef8c2bed74bd778079f5c27a1e3a26da906"
+    },
+    "godot/author/runs/launcher-08/command.json": {
+      "bytes": 1367,
+      "sha256": "07bae2fc62959ae13eb7fb8d8449591d5105d9df164e923a12af0dc95287bb7e"
+    },
+    "godot/author/runs/launcher-08/observation-gap.json": {
+      "bytes": 660,
+      "sha256": "e137042a09baa82fd62f96ab927a2fc9c8a5c5fa3149301e0a916fb79b1ecb17"
+    },
+    "godot/author/runs/launcher-08/simulator/project.godot": {
+      "bytes": 667,
+      "sha256": "1bdcb2c006b3370cb7b4ffaa0bdd2fc3b40523c0ce89d8ba01d070627ab3b011"
+    },
+    "godot/author/runs/launcher-08/simulator/tests/smoke_layout_launcher.gd": {
+      "bytes": 1830,
+      "sha256": "cb84d0a3c6899489f59a8de9a2807fc7a2d53a35af4d132800533a4b774daeaf"
+    },
+    "godot/author/runs/launcher-08/simulator/tests/smoke_layout_launcher.tscn": {
+      "bytes": 181,
+      "sha256": "dc1fc298121fee41817b75746c3f1b816b2c0ff8e1d1cc6b29e8204d3dfe9d63"
+    },
+    "godot/author/runs/launcher-08/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/launcher-08/stdout.log": {
+      "bytes": 31,
+      "sha256": "34757cbb4f30d2cc7a9c5a377902f5526c2c6edf6e33189c1289f8cf786f9d17"
+    },
+    "godot/author/runs/launcher-08/viewer-env/appdata/Godot/app_userdata/\u77ff\u8109\u00b7\u6df1\u77b3/logs/godot.log": {
+      "bytes": 405,
+      "sha256": "deaf08beabcf266baf6c0eed73185659cfd537de5087f132e3ca6cda90b4b3f3"
+    },
+    "godot/author/runs/red-01/command.json": {
+      "bytes": 1194,
+      "sha256": "500dcabd0d759a987a0a6886ff828594ae9293ef4b3d548aa4d38295cce0de8a"
+    },
+    "godot/author/runs/red-01/simulator/tests/test_layout_commit_bridge.gd": {
+      "bytes": 319,
+      "sha256": "802a031286a9258945b0d3d1b4e1ac5871657679a0a42ebb7db1ae5fbc647df8"
+    },
+    "godot/author/runs/red-01/stderr.log": {
+      "bytes": 46,
+      "sha256": "8739bc9a9c404d1d623fa0b4d02f4387f0b2e8a8494e5999e674efbbe3c7e54d"
+    },
+    "godot/author/runs/red-01/stdout.log": {
+      "bytes": 75,
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c"
+    },
+    "godot/author/runs/review-green-10/command.json": {
+      "bytes": 2788,
+      "sha256": "2f6c7169bed13e656158e32af76b50db1a95c398d40553293fc1576d142ae15a"
+    },
+    "godot/author/runs/review-green-10/supervisor-config.json": {
+      "bytes": 3800,
+      "sha256": "2e8b3371c70264b18cfa2de8b35045322b5ddd051dc7d6f4a45c2e766e98485c"
+    },
+    "godot/author/runs/review-green-10/supervisor-stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/review-green-10/supervisor-stdout.log": {
+      "bytes": 307,
+      "sha256": "953b4e8b98b746e4390b6996e4454c905baac8123de31686fefb4d7c105d0d3c"
+    },
+    "godot/author/runs/review-green-10/supervisor/command.json": {
+      "bytes": 133965,
+      "sha256": "a258109b7b10b93dc117ef4df003e6b49a230cda7b0033af361383c9436e5ae6"
+    },
+    "godot/author/runs/review-green-10/supervisor/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/review-green-10/supervisor/stdout.bin": {
+      "bytes": 60,
+      "sha256": "a5414c0ae771db5ae97796d6db861fcf6ca41f6a48ecbd771f9f1198150375fe"
+    },
+    "godot/author/runs/review-green-10/viewer-env/appdata/Godot/app_userdata/\u77ff\u8109\u00b7\u6df1\u77b3/review-evidence.json": {
+      "bytes": 15866,
+      "sha256": "5031cbea18ec4ef522a1f9be810774f3d46ddf0581b98cecd64f9b189285e5c3"
+    },
+    "godot/author/runs/review-red-09/command.json": {
+      "bytes": 3390,
+      "sha256": "ba4722ba361baef2736e61df54f775141bfc66ef076c328d46b39537ba99add6"
+    },
+    "godot/author/runs/review-red-09/supervisor-config.json": {
+      "bytes": 3772,
+      "sha256": "bfae4ccf38afcd9719ecd89ad561433419fb67b2264e2ff41aeb084025e9e66a"
+    },
+    "godot/author/runs/review-red-09/supervisor-stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/review-red-09/supervisor-stdout.log": {
+      "bytes": 306,
+      "sha256": "e93a42bee022e7a6bd4e32622b7c0ff8ff9b8afedda259299bfc366983164136"
+    },
+    "godot/author/runs/review-red-09/supervisor/command.json": {
+      "bytes": 135640,
+      "sha256": "5e9ba9f47c1be3d837d64e09373ea9535bf0655814ea7ea2394eaa884f6d3ad8"
+    },
+    "godot/author/runs/review-red-09/supervisor/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/author/runs/review-red-09/supervisor/stdout.bin": {
+      "bytes": 61,
+      "sha256": "f39f28a758b3c57ef9361fba9a9e617d00cfb8beb6f2863f7cbd53160bbc1b7c"
+    },
+    "godot/author/runs/review-red-09/viewer-env/appdata/Godot/app_userdata/\u77ff\u8109\u00b7\u6df1\u77b3/review-evidence.json": {
+      "bytes": 15034,
+      "sha256": "870ace8d7ee05470c8dbb0b785e194596ec073719492111d718a7752e1428427"
+    },
+    "godot/author/runtime-observation.json": {
+      "bytes": 528,
+      "sha256": "9e48ca2adf95d418b57b38a3f25b6ce7cc38d84e6ceaa2c2bcea108cc735957b"
+    },
+    "godot/author/selection-mapping.json": {
+      "bytes": 10300,
+      "sha256": "c5928aa7a315c7860665d8be44de4c0b2699c21966d53cea6b88f3de0316c204"
+    },
+    "godot/author/setup-first-failure.json": {
+      "bytes": 415,
+      "sha256": "fbbc313c7c6039b4c6e9b046caf998835bb9bc90e71c2142c2157cf526378188"
+    },
+    "godot/author/setup.py": {
+      "bytes": 3600,
+      "sha256": "1ec154d87406fa9c6d8546eaa556f8eaa3b995c7ee9ad6e40c072aebc92ee06e"
+    },
+    "godot/author/source-bindings-v2.json": {
+      "bytes": 5938,
+      "sha256": "b44c50150ec23c71ab8ca3f1effe7b095489ff9cbcb88050e7315e54a95e2832"
+    },
+    "godot/author/source-bindings.json": {
+      "bytes": 2857,
+      "sha256": "c7da18dd950c9a39f8fd30605401448240110d0a89a2c296f0363721d4d3a690"
+    },
+    "godot/author/test-fixture-pins.json": {
+      "bytes": 2527,
+      "sha256": "02adb564378d021095276027c90ac475a858ffbc064e137bd7f8f4133861c758"
+    },
+    "godot/author/test_launcher.py": {
+      "bytes": 1824,
+      "sha256": "02fa0d33f14c2e1a5dc3133127cf090e3a2cf30aa7b0dde760669f161152783a"
+    },
+    "godot/author/verification-final.json": {
+      "bytes": 2579,
+      "sha256": "9a76af0d72e698b491370b3028429cd1784e482641e12df5fa0d6fa23c8d2499"
+    },
+    "godot/author/verification.json": {
+      "bytes": 1588,
+      "sha256": "1097e1df31a8710e53817b2b411f548024030edd48f3f31949d64c8eb18031f7"
+    },
+    "godot/author/verify_v2.py": {
+      "bytes": 6551,
+      "sha256": "c98f0c0376d08bba9f7fcab47e9c2fcbb149fd33d2afc14bcdcc883c96008894"
+    },
+    "godot/cli-author/bootstrap.py": {
+      "bytes": 2043,
+      "sha256": "0b2ef958006c47b1b74ff303bf36996769bad3a8616d8a15df6d8e514f606d14"
+    },
+    "godot/cli-author/candidate/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/fixtures/watchdog_after_publish.py": {
+      "bytes": 1043,
+      "sha256": "9890d82e0a7c6b00e1b384e5b68c66f8ccd9940cc6a1df2c8d0981e9a4cfce60"
+    },
+    "godot/cli-author/fixtures/watchdog_leaf_loading.py": {
+      "bytes": 790,
+      "sha256": "3f0acf23f5698dea29de8a13abfce64d694c539ad6937b2a2d63c749af7cec8f"
+    },
+    "godot/cli-author/freeze.py": {
+      "bytes": 3165,
+      "sha256": "03604c634e7cb06c4d9d7890a437bda52fa41c86c485793ca011ce816a14a0eb"
+    },
+    "godot/cli-author/green1-command.json": {
+      "bytes": 1823,
+      "sha256": "597788a53ed2ea1988a2863b9bb188c4d101576c5b6f3f27fb62e262af3171dc"
+    },
+    "godot/cli-author/green2-command.json": {
+      "bytes": 1626,
+      "sha256": "c12bfaf05badedda1ab72aeb7e51fba3c209df1602dfa298fc713621bfccd529"
+    },
+    "godot/cli-author/green3-command.json": {
+      "bytes": 688,
+      "sha256": "ae7936964312ddf0a7e76cbe3914e50953127df8b2c6d2cd105265e1f17fd6c4"
+    },
+    "godot/cli-author/interface.md": {
+      "bytes": 3990,
+      "sha256": "9616abffdb3f51b5fa249a31bb3d250934c9c7988182a5fb6b273a7cda3da2ca"
+    },
+    "godot/cli-author/manifest.json": {
+      "bytes": 24917,
+      "sha256": "5703d9c2258b15efe8a4087ad7c1655c2cee66083812872f81e1936b98ad5564"
+    },
+    "godot/cli-author/red-command.json": {
+      "bytes": 2048,
+      "sha256": "4966c7a8f21e1539e3eb6421d266594f3a6be76ca0b768e81fcc966272e00d4d"
+    },
+    "godot/cli-author/report.md": {
+      "bytes": 4147,
+      "sha256": "37421e0fe38fb818532bc0ac2fdd48e9466b1458a5a317677c2b0c37b6bf4c12"
+    },
+    "godot/cli-author/runs/green1/results.json": {
+      "bytes": 7901,
+      "sha256": "d83efd51985a970559b2ab053ff83802c476f251184a59a0d266099839d09488"
+    },
+    "godot/cli-author/runs/green1/test_bad_or_incomplete_framing_rejected/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_bad_or_incomplete_framing_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_bad_or_incomplete_framing_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_bad_or_incomplete_framing_rejected/stderr.bin": {
+      "bytes": 52,
+      "sha256": "c41669e2898cd379e6a3cc8ea838ee05d6c93a983ef38022b7e237f10b25e47b"
+    },
+    "godot/cli-author/runs/green1/test_bad_or_incomplete_framing_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/layout.json": {
+      "bytes": 9,
+      "sha256": "333c04dd151a2a6831c039cb9a651df29198be8a04e16ce861d4b6a34a11c954"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_checked_bootstrap_real_commit/stdout.bin": {
+      "bytes": 779,
+      "sha256": "a33bed61db8d6cbb3c51c429b64527ca9a9d2d3ed8b5475ab8cac16b961eae5e"
+    },
+    "godot/cli-author/runs/green1/test_digest_mismatch_rejected/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_digest_mismatch_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_digest_mismatch_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_digest_mismatch_rejected/stderr.bin": {
+      "bytes": 53,
+      "sha256": "ee5a96814cf6ae58365bb370104579991730542f63ae9e08b1c7bc75030d3961"
+    },
+    "godot/cli-author/runs/green1/test_digest_mismatch_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/0.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/1048576.json": {
+      "bytes": 1048576,
+      "sha256": "f954ac8b009f965c052519c4e1e395a9f15328596a2b1eaf373d74fe7e169a5f"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_empty_and_one_mib_exact/stdout.bin": {
+      "bytes": 779,
+      "sha256": "80493d9fa3312eb592e5d39214316f6c3f61aba286935f2960ac2bb3fad7f025"
+    },
+    "godot/cli-author/runs/green1/test_exact_metadata_fields_duplicate_and_number_types/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_exact_metadata_fields_duplicate_and_number_types/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_exact_metadata_fields_duplicate_and_number_types/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_exact_metadata_fields_duplicate_and_number_types/stderr.bin": {
+      "bytes": 53,
+      "sha256": "3163270acce665c4a5b8bf2585d1466e51a25f4cd69557e28ecf4610a3be0648"
+    },
+    "godot/cli-author/runs/green1/test_exact_metadata_fields_duplicate_and_number_types/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/layout.json/sentinel.bin": {
+      "bytes": 18,
+      "sha256": "1cac7b2ee895a18bb929c81895da11fc175392bc45847aff760b5dd4dc06efa3"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_existing_directory_sentinel/stdout.bin": {
+      "bytes": 801,
+      "sha256": "3c190b183fbfffc4a21f47a43d5410bc872c9e9e286329482874cdbab52e7b5f"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/layout.json": {
+      "bytes": 23,
+      "sha256": "7d4076c6316aa3f39240b4a076d7152d8085ce9144c8af82a441a959804e478c"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_existing_file_sentinel/stdout.bin": {
+      "bytes": 796,
+      "sha256": "d50494893d9cf4424c20f92fc275c64fe9b284308682ee9047f12720d56c11db"
+    },
+    "godot/cli-author/runs/green1/test_helper_leaf_and_bundle_pins_rejected/layout_commit_bundle.json": {
+      "bytes": 251,
+      "sha256": "d8fb38e32a7641bc83b7bcad8d25150ffba3b97c49543ec58034cee25a0bde47"
+    },
+    "godot/cli-author/runs/green1/test_helper_leaf_and_bundle_pins_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_helper_leaf_and_bundle_pins_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_helper_leaf_and_bundle_pins_rejected/stderr.bin": {
+      "bytes": 51,
+      "sha256": "64d1a6334c752562543198e63fd238c548e614550c499c3606e68a868eda105e"
+    },
+    "godot/cli-author/runs/green1/test_helper_leaf_and_bundle_pins_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_invalid_utf8_payload_rejected/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_invalid_utf8_payload_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_invalid_utf8_payload_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_invalid_utf8_payload_rejected/stderr.bin": {
+      "bytes": 63,
+      "sha256": "4fef2352dbaf0b804af7970ca90d2a09d134fe3489342a622be8fbbb51ba3be7"
+    },
+    "godot/cli-author/runs/green1/test_invalid_utf8_payload_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_oversize_declared_rejected/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_oversize_declared_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_oversize_declared_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_oversize_declared_rejected/stderr.bin": {
+      "bytes": 51,
+      "sha256": "0efa5c39cd5df21f1bb731b0180df240cec96590625909a6b61a05545c707fef"
+    },
+    "godot/cli-author/runs/green1/test_oversize_declared_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_path_bounds_and_normalization_rejected/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_path_bounds_and_normalization_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_path_bounds_and_normalization_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_path_bounds_and_normalization_rejected/stderr.bin": {
+      "bytes": 53,
+      "sha256": "5232d29d4cef55db1ba6f4433b8d230650cc59d2f436376006a6fdaa03f308db"
+    },
+    "godot/cli-author/runs/green1/test_path_bounds_and_normalization_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/stdout.bin": {
+      "bytes": 768,
+      "sha256": "ef4f487d6f50d3d73485dd8922568d3eca5864aa7492acb3852db6bd0f74bf75"
+    },
+    "godot/cli-author/runs/green1/test_real_unicode_save/\u6c34\u5c42\ud83d\ude00.json": {
+      "bytes": 46,
+      "sha256": "4bdbc7029ecb35d129a538009c7bd125c2543471f0d6fdc6e29250f70f288668"
+    },
+    "godot/cli-author/runs/green1/test_watchdog_before_blocked_stdin/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green1/test_watchdog_before_blocked_stdin/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green1/test_watchdog_before_blocked_stdin/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green2/results.json": {
+      "bytes": 2136,
+      "sha256": "d1d7b56d45345864b81f845fbb9c562a3bc7ded80a1883d70fc39a6f477d9f0a"
+    },
+    "godot/cli-author/runs/green2/test_bootstrap_rejects_changed_code_without_execution/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green2/test_bootstrap_rejects_changed_code_without_execution/layout_commit_cli.py": {
+      "bytes": 261,
+      "sha256": "4c7e643ebd69c7fd185ffcf46f65867e2b54e16994b930d16563ff5c0860da91"
+    },
+    "godot/cli-author/runs/green2/test_bootstrap_rejects_changed_code_without_execution/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green2/test_bootstrap_rejects_changed_code_without_execution/stderr.bin": {
+      "bytes": 56,
+      "sha256": "ad86300e274a4e420a1fa499d08c852f9378c76df173e52ba0cbd5c7772694b9"
+    },
+    "godot/cli-author/runs/green2/test_bootstrap_rejects_changed_code_without_execution/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_bundle_hash_version_and_duplicate_rejected/layout_commit_bundle.json": {
+      "bytes": 259,
+      "sha256": "87d8c0a25a3f9fccfbdfeba24e1504841e674faae0eb3f32d7cac9b84b325d91"
+    },
+    "godot/cli-author/runs/green2/test_bundle_hash_version_and_duplicate_rejected/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green2/test_bundle_hash_version_and_duplicate_rejected/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green2/test_bundle_hash_version_and_duplicate_rejected/stderr.bin": {
+      "bytes": 52,
+      "sha256": "78bd2adcc0d983d13bc38dbaff638b143d83eedc3ebc14a83aa1991ac1164be0"
+    },
+    "godot/cli-author/runs/green2/test_bundle_hash_version_and_duplicate_rejected/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_leaf_raw_pin_checked_before_execution/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green2/test_leaf_raw_pin_checked_before_execution/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green2/test_leaf_raw_pin_checked_before_execution/layout_commit_windows.py": {
+      "bytes": 18253,
+      "sha256": "8359667b3752360ecfbfa86ac777b79aa7148f8872169a1ec3be856ad5c61b39"
+    },
+    "godot/cli-author/runs/green2/test_leaf_raw_pin_checked_before_execution/stderr.bin": {
+      "bytes": 47,
+      "sha256": "683a215ad6983b349ab323badc2e71ac54cd3b493038000e22c96f744fdf6f84"
+    },
+    "godot/cli-author/runs/green2/test_leaf_raw_pin_checked_before_execution/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/after-publication.json": {
+      "bytes": 623,
+      "sha256": "e7093b970047989987c88369f435db4b424ea343c44cc0a5b436e1245957dfdc"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/layout.json": {
+      "bytes": 14,
+      "sha256": "38e2cc2f3e8d827c84a7a934334df02375656c02c5981f47a30d44db7d7cd429"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_after_real_publication_is_unknown/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/leaf-loading.marker": {
+      "bytes": 7,
+      "sha256": "e9b72a02344d78edf0dde7d94ebb8e07ddd699d602634019e0e842289c921a1e"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green2/test_watchdog_before_stalled_leaf_loading/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green3/results.json": {
+      "bytes": 302,
+      "sha256": "aed204241e80aea0e36c07f629eda69d5ce46a179a799ede5c72aab9a7318404"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/layout.json": {
+      "bytes": 5,
+      "sha256": "a7937b64b8caa58f03721bb6bacf5c78cb235febe0e70b1b84cd99541461a08e"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "cd544f3fef655267bf6fb5f992fdd4ace68c264912e8d50cad61b4b08154e818"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/layout_commit_cli.py": {
+      "bytes": 7320,
+      "sha256": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/runs/green3/test_one_request_without_eof_or_second_command/stdout.bin": {
+      "bytes": 791,
+      "sha256": "e2dd67938defa395b0eab8edfebf99ea070f4e5e5a9beb18294473da0afb11e4"
+    },
+    "godot/cli-author/runs/red1/results.json": {
+      "bytes": 667,
+      "sha256": "75aa0826b4093dff0c4b41aed7a0a38e23a40b1492fd72cbdbed83e52b7723bf"
+    },
+    "godot/cli-author/runs/red1/test_real_unicode_save/layout_commit_bundle.json": {
+      "bytes": 248,
+      "sha256": "ac6b99995b6047935350a89ffdaa4eed3ed44562fb349c8bddf6fe182db5cec9"
+    },
+    "godot/cli-author/runs/red1/test_real_unicode_save/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "godot/cli-author/runs/red1/test_real_unicode_save/stderr.bin": {
+      "bytes": 345,
+      "sha256": "aefb07c45ae4f2bc596adbdac942ccfc39185eefebb7ac491ae1baf53f21bd82"
+    },
+    "godot/cli-author/runs/red1/test_real_unicode_save/stdout.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/cli-author/test_layout_commit_cli.py": {
+      "bytes": 15065,
+      "sha256": "75a84e9a2a40867fd6dc5276f1bf9e72bfbd3fc2f05c6679e1a3d02fa2ab137d"
+    },
+    "godot/job-supervisor/README.md": {
+      "bytes": 5999,
+      "sha256": "92d1c7396e0769ef852d257ad981e1e9a64e0330096fabdf58d42ab7b59d194c"
+    },
+    "godot/job-supervisor/freeze.py": {
+      "bytes": 2566,
+      "sha256": "2ebdfc7a3f65f8feda7444cf29946041370ac70ada65f6b1cd90f369146ce8bf"
+    },
+    "godot/job-supervisor/green01.log": {
+      "bytes": 401,
+      "sha256": "ce6842092cd6e5b97e8a00d56671eddc031c397727aa3152677872dc1e046325"
+    },
+    "godot/job-supervisor/launch_owned.py": {
+      "bytes": 17258,
+      "sha256": "b1945ae48cf6f16c11ac80992ae7feec58cd3c927cffdc0ebe1797cd8df1c58e"
+    },
+    "godot/job-supervisor/manifest.json": {
+      "bytes": 3264,
+      "sha256": "791477ffb1b887582d59fd5c7edeac137ff7b5a6368427b73746d386a06fe797"
+    },
+    "godot/job-supervisor/red01.log": {
+      "bytes": 2756,
+      "sha256": "46cbc1b3de80179726db2629221deeab150eb892873a357feab0117c20aada20"
+    },
+    "godot/job-supervisor/result.json": {
+      "bytes": 2610,
+      "sha256": "6478056c95029a85d90918ff80ee3b52e550e0812534c2433b2e9dcfc100b745"
+    },
+    "godot/job-supervisor/runs/green01/success/child.py": {
+      "bytes": 137,
+      "sha256": "daf0189b3f8c0f1bb6e939305c87e49657f50df6ea036b86b8ac45165096cf86"
+    },
+    "godot/job-supervisor/runs/green01/success/config.json": {
+      "bytes": 1279,
+      "sha256": "afdf18ab9c53b42a854f672da317b3bfe6f1cddcb1dfc85a226bc95138822327"
+    },
+    "godot/job-supervisor/runs/green01/success/result/command.json": {
+      "bytes": 6272,
+      "sha256": "912a106eba14037b547775d17a8525f0e1cc632996d202a990d66acfd0821c93"
+    },
+    "godot/job-supervisor/runs/green01/success/result/stderr.bin": {
+      "bytes": 11,
+      "sha256": "d77a6802e3429a15cd9c7990f423b9d65045851e724472a3874887e6298af38c"
+    },
+    "godot/job-supervisor/runs/green01/success/result/stdout.bin": {
+      "bytes": 24,
+      "sha256": "b3ffdff29a2bef1fd335a4ce5c1077537434ecc315633c88d9bb577e3f87c2b3"
+    },
+    "godot/job-supervisor/runs/green01/success/supervisor-stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/job-supervisor/runs/green01/success/supervisor-stdout.bin": {
+      "bytes": 313,
+      "sha256": "f7ae87439e2b8ce1cd86078e0128a2a075dc0e1e23a3eedd4359262940605ee6"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/child.py": {
+      "bytes": 297,
+      "sha256": "440c51eec335c9c5f7314d73de8fc5ae2d12095fd067cea3fa76e1cb46e96b14"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/config.json": {
+      "bytes": 1309,
+      "sha256": "354aea5a6cfd539afe3714071d701febfc16ab456c9a6567d542dc958b79250e"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/result/command.json": {
+      "bytes": 39819,
+      "sha256": "0c222d3a50dfe69ba8c719d8d375935c611c518e9481c17b1e3fc1089d3e5649"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/result/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/result/stdout.bin": {
+      "bytes": 65,
+      "sha256": "635ddfd43113eab5fc72888866f09f2771ceca295971cecfd380f135eb32193e"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/supervisor-stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "godot/job-supervisor/runs/green01/timeout-chain/supervisor-stdout.bin": {
+      "bytes": 320,
+      "sha256": "28cb388aa90192190bcbe035595f1775cbe5d0742463299b9bd9d3bb2653f6f3"
+    },
+    "godot/job-supervisor/test_launch_owned.py": {
+      "bytes": 4328,
+      "sha256": "a0fef6a4c8a90f8efcb3ad8ce3bf7bbffe83b4a4f228dd428dcbd70faee4438c"
+    },
+    "godot/preflight/manifest.json": {
+      "bytes": 1125,
+      "sha256": "33187a9a432bef7d7d4553ee4afcc9c3b60808d6631bc6566774b86a2b391a94"
+    },
+    "godot/preflight/report.md": {
+      "bytes": 7438,
+      "sha256": "7a9262e9152aa0d0a0afa7235eb38e2db0b086120c4c875a8a10ebe10f942bc5"
+    },
+    "godot/preflight/result.json": {
+      "bytes": 1436,
+      "sha256": "8248348b4e9de8b0b540b095e2539bad05ff071b9ff8f5ae635bfa412b41d4ff"
+    },
+    "godot/preflight/source-pins.json": {
+      "bytes": 4948,
+      "sha256": "393f1bfc0b8340f5ed23f1b2d3819bd674caa487e4f82a9bd418d1261abb336c"
+    },
+    "godot/preflight/sources/os_windows.h": {
+      "bytes": 11202,
+      "sha256": "54a90fb73025fe45c680f13f1f26f84002cd594b19b67c3736c73955b5ad70bd"
+    },
+    "godot/preflight/validation.json": {
+      "bytes": 406,
+      "sha256": "77f1c3c0cfeb23a33de1e8fcb2e82dc7f3b7efbc4f95ca14da9d4ceb13a51804"
+    },
+    "godot/preflight/verification.json": {
+      "bytes": 451,
+      "sha256": "e99168ae60b1bbe31926a8663e5688444fef0acf85e40a7faabf48e61bd1f39d"
+    },
+    "godot/review/audit_final.py": {
+      "bytes": 7943,
+      "sha256": "f5d2cb0e2eb564afcb8fd513aae461d48601c7609b34efb7626770a97b8b96ca"
+    },
+    "godot/review/audit_initial.py": {
+      "bytes": 6255,
+      "sha256": "7748f597cc6fbe3c351cef6499a9e64048ab711be8329a0c6ae588d3a0c5eebb"
+    },
+    "godot/review/freeze_review.py": {
+      "bytes": 3240,
+      "sha256": "ec391b8fc4b6fbf31b117db340cf37388141da5e56d56f41ba3435e655249638"
+    },
+    "godot/review/initial-review.md": {
+      "bytes": 9802,
+      "sha256": "9f4da7e9d0eb477ebaaa04674a8230424b2ac561f7f92708db50b36d4a10382e"
+    },
+    "godot/review/input-audit-final.json": {
+      "bytes": 32828,
+      "sha256": "e9fa219e87f128aeff5313fb0aa57cc4c2e91033457067a12235bb1e68106b49"
+    },
+    "godot/review/input-audit-initial.json": {
+      "bytes": 15038,
+      "sha256": "4d353343eb98fcbc87810a25354b00ff4f044071e45bc1a5b24b6dafc26b1ccd"
+    },
+    "godot/review/manifest.json": {
+      "bytes": 1720,
+      "sha256": "1682ee15cbd2e9a80a25984c2af9bdbc0fc2f1900bc0b23d818595af1b64b155"
+    },
+    "godot/review/path-example-correction.md": {
+      "bytes": 2507,
+      "sha256": "2e9e14680f30f2a52b0c96e68794200d15efb4ff8593c51ac0ccb705ce1872d9"
+    },
+    "godot/review/report.md": {
+      "bytes": 8927,
+      "sha256": "107533e4b0f0f664685097f8d2ab41d5281cebe6c3750452c4bc46fbd44c1da3"
+    },
+    "godot/review/result.json": {
+      "bytes": 1650,
+      "sha256": "bcb1f7e2b34c7673203bd43c256c01ba819cf56beef2d9d8084e8ea993ef6ff8"
+    },
+    "godot/review/sources/ustring.cpp": {
+      "bytes": 140220,
+      "sha256": "fc403ff50652c5258bcf28d4b5ab5ac377301b656763c7ad87d9cf748bbbb903"
+    },
+    "godot/root/plan.md": {
+      "bytes": 15577,
+      "sha256": "e396ce243f6108d9e3f16346a173656a1e525bf89dcf3b7900afb863aeb1326e"
+    },
+    "godot/root/root-author-terminal-readback.json": {
+      "bytes": 3081,
+      "sha256": "1d6bdd94f0407229b973ad2c4ddf5634fcf150f180c5fb81ac09709e69d50d39"
+    },
+    "godot/root/root-cli-terminal-readback.json": {
+      "bytes": 2076,
+      "sha256": "9fce6edc2eb901fd206279ca920b0842d0094462e5087bbc89c0877482e4d9b4"
+    },
+    "godot/root/root-contain-launcher08.py": {
+      "bytes": 3712,
+      "sha256": "cb7fffbdc74e632d64b93bfad82617ac913669420575ecf1035b792f2bcc9373"
+    },
+    "godot/root/root-git-byte-policy-review.json": {
+      "bytes": 845,
+      "sha256": "b439d8cfb6bcad7dc445af044be99e234f5fdb1e61cf65e88148f0b94c8eabd5"
+    },
+    "godot/root/root-git-byte-policy.json": {
+      "bytes": 749,
+      "sha256": "dd4f8de0d0903b183264c729e1cef97e79f5a141ab04d2e304eccf741b9af309"
+    },
+    "godot/root/root-integration-decision.json": {
+      "bytes": 3905,
+      "sha256": "4c7c770b599ed6621ba4d700ff1f4a4215527226606e068057f1222b0b2e0948"
+    },
+    "godot/root/root-launcher08-containment.json": {
+      "bytes": 1001,
+      "sha256": "f223dae9aeb5c5c0eb1f463e83eb5c96ac8aa075af154fe3621dde29856e0265"
+    },
+    "godot/root/root-preselection-input-audit.json": {
+      "bytes": 487,
+      "sha256": "434a9d595e940218f18b4c2b8e62acdedab46459dd5f75f3fa6e21b1f294b3a7"
+    },
+    "godot/root/root-supervisor-review.json": {
+      "bytes": 1429,
+      "sha256": "79f36312748d289d896f554787bfea93736fe69022d4ce2a5be17f679a92ba51"
+    },
+    "owned-leaf/author/candidate/layout_commit_windows.py": {
+      "bytes": 18001,
+      "sha256": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f"
+    },
+    "owned-leaf/author/candidate/test_layout_commit_windows.py": {
+      "bytes": 26948,
+      "sha256": "1fbdc9a5f1d323eb7e86cf1edd91dddcf047a962aca77b88f399bce193dcb0d7"
+    },
+    "owned-leaf/author/manifest.json": {
+      "bytes": 5931,
+      "sha256": "16a7d2cede5060d73c630073e20038409e8b7a3bbdadd2206699d75a119bae95"
+    },
+    "owned-leaf/author/orphan-inventory.json": {
+      "bytes": 7481,
+      "sha256": "3700f4d7c222d45426676cd1ecb34fe5bc4aecbc2f5420de22261e9aa877ec23"
+    },
+    "owned-leaf/author/report.md": {
+      "bytes": 8851,
+      "sha256": "73fbfc10c1016199c65776aeac6755493b1c38bbdac2dfcf62294d9625356b41"
+    },
+    "owned-leaf/author/result.json": {
+      "bytes": 1526,
+      "sha256": "8f7df7df368a0790a3c30e284c3942e10f8fb03b64799db688a7af3fcaed7d00"
+    },
+    "owned-leaf/author/runs/attempt-001-sources/layout_commit_windows.py": {
+      "bytes": 15642,
+      "sha256": "3b4522fc6e2c107f0bdaa601d5fc159a931af0b9da491ce3c65f61ac5ffe0cf9"
+    },
+    "owned-leaf/author/runs/attempt-001-sources/test_layout_commit_windows.py": {
+      "bytes": 18676,
+      "sha256": "d8f01660679e450a9ee3cd891a8d1d4e153eac87ecb977f3f55baeb04398d610"
+    },
+    "owned-leaf/author/runs/diag-n_b86alr/diagnostic.json": {
+      "bytes": 3672,
+      "sha256": "0a3a1d39dd5c15f1d29d4f4dc69a7eab299257faba1910ada9de5ab0bf82c4cf"
+    },
+    "owned-leaf/author/runs/green-003.txt": {
+      "bytes": 3221,
+      "sha256": "30cfda9759acb6ad1290690628a6479e8481e0dcdc4f8ae3106e3a1d340c056f"
+    },
+    "owned-leaf/author/runs/green-attempt-001.txt": {
+      "bytes": 12628,
+      "sha256": "6d16adeba4cc6f1534e5fb58049bc9cc81eeef8980242735f5ce46c4556b2a62"
+    },
+    "owned-leaf/author/runs/green-attempt-002.txt": {
+      "bytes": 4043,
+      "sha256": "2472d0d883241559451ac8ad2d7412233e192d6e9ed7179e9ccae48864585b28"
+    },
+    "owned-leaf/author/runs/handover-cjestuto/diagnostic.json": {
+      "bytes": 9419,
+      "sha256": "bae5e4546ae491c2f28c5dd4e22e6541314d0a69b6898cbc2df10856176b232b"
+    },
+    "owned-leaf/author/runs/handover-diagnostic-001.py": {
+      "bytes": 4653,
+      "sha256": "9cbd4679a4ff46dfd99e40ae0a813951c7223c6f1899d1591d94558b8c8b0571"
+    },
+    "owned-leaf/author/runs/handover-diagnostic-001.txt": {
+      "bytes": 9434,
+      "sha256": "b4792b493bad9e98ad12bfb53f9cfb819a17ae3e007e5ae46f3e00ed1feb1c74"
+    },
+    "owned-leaf/author/runs/independent-branches-001.txt": {
+      "bytes": 742,
+      "sha256": "2f07c0cb77126d803a3e25fe536ec58dc31a7381b7d24550665a46f6dae693bf"
+    },
+    "owned-leaf/author/runs/metadata-001.json": {
+      "bytes": 962,
+      "sha256": "8d673ee17efb810d4b757a864e910af91a134a1b1c9c45a78189f299b026c58b"
+    },
+    "owned-leaf/author/runs/red-001.txt": {
+      "bytes": 1054,
+      "sha256": "da9195c86e0f9d5f52a6184b3e353b813f5921e28bfd4c98b9d71490d7246823"
+    },
+    "owned-leaf/author/runs/red-002.txt": {
+      "bytes": 1061,
+      "sha256": "9bc13295618ac25af0ff137dbab2f08a0b7579ae1d26ff12186b7a282c8d3e57"
+    },
+    "owned-leaf/author/runs/red-003-full.txt": {
+      "bytes": 23292,
+      "sha256": "e5299ad05da932c7cea009a2c929d7f35022f0fdc291a64c91187d19bf6af546"
+    },
+    "owned-leaf/author/runs/red-004-handover.txt": {
+      "bytes": 1588,
+      "sha256": "c8b84b677465b9af402412008f7779a977a74239b2232b1fd4acbed5b818b605"
+    },
+    "owned-leaf/author/runs/rename-diagnostic-001.py": {
+      "bytes": 2628,
+      "sha256": "254a05171688afd3b6003663f6b06101e8121d506e683fd55decfafc2e92192e"
+    },
+    "owned-leaf/author/runs/rename-diagnostic-001.txt": {
+      "bytes": 3687,
+      "sha256": "29ea780ba7878b2e983fb7163a71d3de36cf1d9b60ff84ceed5797032ae4d179"
+    },
+    "owned-leaf/author/runs/t-0bw8zazl/evidence.json": {
+      "bytes": 1290,
+      "sha256": "a54fe3284d6478ef6bdd8302830168f7f63dbfc07d79741d151b310fbed8ae8d"
+    },
+    "owned-leaf/author/runs/t-3k5m2l8n/evidence.json": {
+      "bytes": 1664,
+      "sha256": "8d4413857ce266365d899f94e6e5f979717ddbb8cd5eda21bcf5974f5d01517c"
+    },
+    "owned-leaf/author/runs/t-4198jrvh/evidence.json": {
+      "bytes": 866,
+      "sha256": "9129eaa4d7c96cd0f17394328ad4f500ca730dee7c8e1dffcb40dd0dbf35516a"
+    },
+    "owned-leaf/author/runs/t-akcrvbz4/evidence.json": {
+      "bytes": 1497,
+      "sha256": "c3cdf08c1ade4c2808a7f25765e1499b4578fa4df66c8d67ebc24149b42fae21"
+    },
+    "owned-leaf/author/runs/t-dyl_usr9/evidence.json": {
+      "bytes": 2143,
+      "sha256": "32a517f842f3f52b54dca1795db7c3d38deed9c17c50816465054091ff703429"
+    },
+    "owned-leaf/author/runs/t-f7fes7ok/evidence.json": {
+      "bytes": 808,
+      "sha256": "edd9331ad308df8595575e3ec7853f536c6c96519f0535fb127e6e19894a9b4e"
+    },
+    "owned-leaf/author/runs/t-tqfs23en/evidence.json": {
+      "bytes": 800,
+      "sha256": "e7320ec067a17f71bd2c4e0c59f73c7a6d236506d614b53d443d2aff0e9d1dfa"
+    },
+    "owned-leaf/author/runs/t-tx7ss6_x/evidence.json": {
+      "bytes": 882,
+      "sha256": "0875bda2139c4469a900d405587750018c838375a6fd435ff4eac6a768762bd8"
+    },
+    "owned-leaf/author/runs/t-u81ssrvg/evidence.json": {
+      "bytes": 1355,
+      "sha256": "4fb1660217bff551425daf61dab98b8c73b1dffbed1f08df416d1726431e1ccf"
+    },
+    "owned-leaf/author/runs/t-vh37o4x1/evidence.json": {
+      "bytes": 1013,
+      "sha256": "07e7495c49c489971fb4c770209b0ca33ce8fe83b9a4e4b25ee917b5b724ae9b"
+    },
+    "owned-leaf/author/runs/t-xppd50n7/evidence.json": {
+      "bytes": 1074,
+      "sha256": "6ad79f79e518246abfe7f6ed33ee56860b38ded47f7c2558c81e28a95cad833c"
+    },
+    "owned-leaf/bridge-design/manifest.json": {
+      "bytes": 1993,
+      "sha256": "ba41681c6d82ecba9d82458c3add9f942bd9bdb773f3e00eb88276266253b104"
+    },
+    "owned-leaf/bridge-design/protocol.md": {
+      "bytes": 4492,
+      "sha256": "e4de4be21994751af34e88a5e5beba98d268f4d8b59febcd8bbe0e341611d5f9"
+    },
+    "owned-leaf/bridge-design/report.md": {
+      "bytes": 11310,
+      "sha256": "a88ed5d3e0d6c5457cda918aa710c49df3a99db104d92bf9f774271f816d4f92"
+    },
+    "owned-leaf/bridge-design/result.json": {
+      "bytes": 1845,
+      "sha256": "86b99e4ff294754f2de0e70f8212ddd99f49e88d672c8cdbf6a7fd188197f771"
+    },
+    "owned-leaf/bridge-design/source-pins.json": {
+      "bytes": 7780,
+      "sha256": "64dc4ff8d31500fd94af34f6f558b541ff7594533a846a83c77e606a25be209f"
+    },
+    "owned-leaf/bridge-design/sources/OS.xml": {
+      "bytes": 64881,
+      "sha256": "0f14568d93eabd8a6965e3f127914c16fc19276b94b5b8e254268a94bb3f4ecd"
+    },
+    "owned-leaf/bridge-design/sources/core_bind.cpp": {
+      "bytes": 93506,
+      "sha256": "e90ccae66bffe1e4aee4e319e7cf731df1202b2b262eacbded9b99b79d359e50"
+    },
+    "owned-leaf/bridge-design/sources/file_access_windows_pipe.cpp": {
+      "bytes": 5519,
+      "sha256": "49bd149c795528e301834622e208cc714e634a11807d6c076917636160030e51"
+    },
+    "owned-leaf/bridge-design/sources/file_access_windows_pipe.h": {
+      "bytes": 4732,
+      "sha256": "bcd31eeeca4445ac9e7147c97fb1439927c04470e14c97fe1d53d80727321c7e"
+    },
+    "owned-leaf/bridge-design/sources/os_windows.cpp": {
+      "bytes": 94874,
+      "sha256": "cc6cdd8db3232ceee474ad3bc55fedb207d55be8e6d350fdbf04101101d11dd7"
+    },
+    "owned-leaf/bridge-design/sources/version.py": {
+      "bytes": 159,
+      "sha256": "fec90e72622f0025e13b5a14a82d76387833bcdac44c62162bda826742815ef1"
+    },
+    "owned-leaf/bridge-design/validation.json": {
+      "bytes": 399,
+      "sha256": "1540168fd9519c47f8a312e0ec8566fc6c089fc34ef0510dda9be020119abc7f"
+    },
+    "owned-leaf/preflight/capture_sources.ps1": {
+      "bytes": 4679,
+      "sha256": "fe8cb74721513a8a2d0f6fd295e688a13d342285239e07546a71efb47d49644f"
+    },
+    "owned-leaf/preflight/inputs/completed-design-report.md": {
+      "bytes": 6892,
+      "sha256": "9ae535ac8ea1773658e75a80e712644fb344b03c3274d42a8b7852b3c0e6e9af"
+    },
+    "owned-leaf/preflight/inputs/immutable_scope.json": {
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    "owned-leaf/preflight/inputs/immutable_scope.md": {
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    "owned-leaf/preflight/inputs/root-plan.md": {
+      "bytes": 7407,
+      "sha256": "be29a20ce167e74dce226aacd8b91c9e215d3cef54eaf30e699328118ff0786b"
+    },
+    "owned-leaf/preflight/inputs/transfer.json": {
+      "bytes": 2866,
+      "sha256": "1a6dbd4c6c831c30d2450c31edeab453eba1a3d6c46c7cec7b452b502e65b9cd"
+    },
+    "owned-leaf/preflight/manifest.json": {
+      "bytes": 3569,
+      "sha256": "ae5bd4f25cdfe6320bd4834db069031c40932936b2a940338b17482afb9ce934"
+    },
+    "owned-leaf/preflight/primary-excerpts.md": {
+      "bytes": 3894,
+      "sha256": "97e012c6aa4480b1f869b345607ad6787d096ecc1cdc50ad490bbba0b1c92dd9"
+    },
+    "owned-leaf/preflight/report.md": {
+      "bytes": 7029,
+      "sha256": "a0233f705f745acb1ba133dcba448c4f9c5f0e4d0f004ddacabccebc84c15d61"
+    },
+    "owned-leaf/preflight/result.json": {
+      "bytes": 3575,
+      "sha256": "26c542ff2ba27724c4d005d741509b05d27fdc6d7feebf5f1a9e077233e15265"
+    },
+    "owned-leaf/preflight/source-pins.json": {
+      "bytes": 6046,
+      "sha256": "25a6b1a08cc77d108ccd440e27eaf96a109ff9b8ba1a8dad447c1beb7b6650c8"
+    },
+    "owned-leaf/preflight/sources/WinBase.h": {
+      "bytes": 262806,
+      "sha256": "c0ac06ea6b2335bd085af0e3071f9dd099bf9bd4c2f79ba2034b4813636cd7c1"
+    },
+    "owned-leaf/preflight/sources/attribute_tag.md": {
+      "bytes": 2668,
+      "sha256": "09046e190e74093f0c599ee8732211a5bf7e8d7f5d946440b92faf37cfa08aaf"
+    },
+    "owned-leaf/preflight/sources/createfilew.md": {
+      "bytes": 64528,
+      "sha256": "f3e2604b109bc721d4bb6674ce0e10dd883c3d820c48156ca527690b5d19e437"
+    },
+    "owned-leaf/preflight/sources/disposition_info.md": {
+      "bytes": 2591,
+      "sha256": "3efc7d2ac08b55bb031239493a432c96659e07f736176de0caba7829df03a09e"
+    },
+    "owned-leaf/preflight/sources/drive_type.md": {
+      "bytes": 5367,
+      "sha256": "17da0a984f0754bd447f89698bc395cd04c6a802b0f43384dd3f69270101d5fb"
+    },
+    "owned-leaf/preflight/sources/naming.html": {
+      "bytes": 68283,
+      "sha256": "4e84d9be07fb5716989a7800f1122a5fca188a4dbe19a10a269474ccb8efee61"
+    },
+    "owned-leaf/preflight/sources/rename_driver.html": {
+      "bytes": 60879,
+      "sha256": "965307d1a5f730e6f07b56aeb9352f999d610f456f08b4c5f514959c7c8f9bda"
+    },
+    "owned-leaf/preflight/sources/rename_info.md": {
+      "bytes": 3350,
+      "sha256": "14ab160d2f24a8e49ca364c2572944a45196a00673c66178922ef3925719647d"
+    },
+    "owned-leaf/preflight/sources/reparse_set.html": {
+      "bytes": 52813,
+      "sha256": "91d2a061631763f2e705fcc23563cc056ed06d062582bf41b8c691d7247d9f43"
+    },
+    "owned-leaf/preflight/sources/set_information.md": {
+      "bytes": 9669,
+      "sha256": "3954ae6cc59d816e499aedeeb330db9d7d99ec56baf01542a531eab3f9d16c75"
+    },
+    "owned-leaf/preflight/sources/volume_information.md": {
+      "bytes": 13703,
+      "sha256": "57ed346ffbc33d4b8f18c93b41c62e371c1cae58525b90c7c927acddd7e77d49"
+    },
+    "owned-leaf/review/manifest.json": {
+      "bytes": 703,
+      "sha256": "23524596b6fc21f6d835d7bf4f01e878f46c31e46688a32d4ba82d77da15b9fb"
+    },
+    "owned-leaf/review/report.md": {
+      "bytes": 9638,
+      "sha256": "d683612f801b3155416e4b545cf2d1bc48ede5c684a797907e379cf2995c6b9d"
+    },
+    "owned-leaf/review/result.json": {
+      "bytes": 2271,
+      "sha256": "79fcfb393df70c28b7cac34bf221f018ab58a5c61b9eaad94f943d165e50d076"
+    },
+    "owned-leaf/review/verification.json": {
+      "bytes": 12627,
+      "sha256": "8df3588a1ed48d57bab58a11d0ff478600cc6c78e5eee98a8cd3d8292a70eaf1"
+    },
+    "owned-leaf/root/plan.md": {
+      "bytes": 9387,
+      "sha256": "076ace63a2c92c89c19bd6bccf1a05292988bb1473ed92d6a8d90b464d2a51ca"
+    },
+    "owned-leaf/root/root-author-preflight-terminal.json": {
+      "bytes": 4462,
+      "sha256": "7ee2a1e37ba590d6e124214aaed624886881f712fe461c2c5ba64d70feb36292"
+    },
+    "owned-leaf/root/root-frozen-leaf-audit-v2.json": {
+      "bytes": 1174,
+      "sha256": "0b0f78d18f9b771f11567c5965ab40c920ab732eaec7821009c0279f86c06a29"
+    },
+    "owned-leaf/root/root-selection-result.json": {
+      "bytes": 788,
+      "sha256": "a6a331ef475d6b8c1e40f1ea7ac67f7818712ed8685762ba8cfdf6d9018c1824"
+    }
+  },
+  "selected_files": {
+    "competition/deepeye/docs/layout_persistence.md": "cd18e70e58da5c13c4b5c3d730dfa20310c8ed34ef197474200e571b98d30fe9",
+    "competition/deepeye/simulator/editor/layout_commit_bridge.gd": "280707117068fe19007f314c6127d592bdf69a51bff5b854afc0446f416d6e84",
+    "competition/deepeye/simulator/editor/layout_store.gd": "284c77086997df7688142af7bf7eb5317520f40ac98d5af1eb5b8c2e4ebf72ba",
+    "competition/deepeye/simulator/native/layout_commit_bundle.json": "9e9c766ec7ad0268810c0b22ad26144fd481ef6984a6295e68608ec30c04f9de",
+    "competition/deepeye/simulator/native/layout_commit_cli.py": "8b0512457b2ef5c176b957a46b3172fb15e4cb053b42514d8affd537aa3eb344",
+    "competition/deepeye/simulator/native/layout_runtime.json": "2572eb57f5771bdb1ea4343e48591ca61650ef5dd828193d08c05d259a17d784",
+    "competition/deepeye/simulator/native/README.md": "76d9e6900436e496b729bcf2cfbc11273f7ecbe0f610e8a0e0a4abb6cb83b2f5",
+    "competition/deepeye/simulator/native/run_viewer.py": "837e4a164fc38929407714723c42f53b9047fa1cc8df6fcd9636639c15c6bf14",
+    "competition/deepeye/simulator/ui/shell.gd": "1acf407c0b42687c54efca32ef081d85c2c2bba9db63ff490bb004cb6f9a8fa1",
+    "competition/deepeye/simulator/tests/fixtures/before/bridge.gd": "52a3c2c01af141f51910d8f28ebe7e37568e459f7b7e54ed51db10e27c3406bb",
+    "competition/deepeye/simulator/tests/fixtures/before/layout_commit_bundle.json": "473a7a912a67706d7443cb22e53823b5959d8f2c3a856a4131aebce8073cb6e8",
+    "competition/deepeye/simulator/tests/fixtures/before/layout_commit_cli.py": "5a30b8070e0c67515b34009062b724b06597a23827129df30ead7424d6681226",
+    "competition/deepeye/simulator/tests/fixtures/before/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/tests/fixtures/delay/bridge.gd": "ccd22705ec5ad1effa15877ffec76d5ffd74de0ea220ead29fbf8e0083587ce8",
+    "competition/deepeye/simulator/tests/fixtures/delay/layout_commit_bundle.json": "62f2c7be36ed01dd0fcd5f200c74108cc66bf5e82d60754b87591aa7438e45c8",
+    "competition/deepeye/simulator/tests/fixtures/delay/layout_commit_cli.py": "7537e5648a550d999d8a49e11634feb04a8e4541074cfb582fb4cba9121d4117",
+    "competition/deepeye/simulator/tests/fixtures/delay/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/tests/fixtures/loss/bridge.gd": "11807b52ab0e5295c7bc43dfcb1116cbf58c5ec778be44a3241308d3b3b4b20e",
+    "competition/deepeye/simulator/tests/fixtures/loss/layout_commit_bundle.json": "cb4c32fc617868a564c22eaa92b947f20ca5d4a70526fe3f385a2ef0c6107ba6",
+    "competition/deepeye/simulator/tests/fixtures/loss/layout_commit_cli.py": "2bf441c2f7b9ad70edd3d8d7d00133aefc4ec05bc4cf772654c9b65aa489f99f",
+    "competition/deepeye/simulator/tests/fixtures/loss/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/tests/fixtures/split/bridge.gd": "8b8d2c1f2e1bae608d0108a5bf49de056208562fa3b8e646d6317a3a0c42967a",
+    "competition/deepeye/simulator/tests/fixtures/split/layout_commit_bundle.json": "5b0b1b74147636143a5369241b11b12d3f64f6d01230df531176ec3de7f09210",
+    "competition/deepeye/simulator/tests/fixtures/split/layout_commit_cli.py": "4004f85216cd35dc99c3b07a21a1ea356b38c7fbf8b0697ee53d36e97d03a281",
+    "competition/deepeye/simulator/tests/fixtures/split/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/tests/fixtures/trailing/bridge.gd": "af4361f3174c2f2a0fe1ed8c72841553d15d2d35450baf5575663cef5838d006",
+    "competition/deepeye/simulator/tests/fixtures/trailing/layout_commit_bundle.json": "185aee00fef2b0d6bbb3d3568fb19a9fd3563c98dcaf2858a464474a6ee9eac2",
+    "competition/deepeye/simulator/tests/fixtures/trailing/layout_commit_cli.py": "01ad043c394f45dc2c3a95012b979f40e4a059f607b569530daf1beea3a8d112",
+    "competition/deepeye/simulator/tests/fixtures/trailing/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/tests/review_save_regressions.gd": "ec5e2d1bd612c4fb8a2dc24ef1a70b19cb7d47cf7a110c21ea0cfdc306ac72ec",
+    "competition/deepeye/simulator/tests/review_save_regressions.tscn": "d7215213a976fbe158fe0ed5d15564be98d6a8aee85d30a6ad0856ee3d86812f",
+    "competition/deepeye/simulator/tests/test_layout_commit_bridge.gd": "7daee56b0235eee4b5e942560f5df1ee3f7a1a0ef4a202dc4a468440386980a4",
+    "competition/deepeye/simulator/native/layout_commit_windows.py": "521cfcea011d462b4b69641f33fbb6f3f7baca16eac7bb4e0b9ee8f1d932ed1f",
+    "competition/deepeye/simulator/native/verify_layout_commit_windows.py": "1fbdc9a5f1d323eb7e86cf1edd91dddcf047a962aca77b88f399bce193dcb0d7",
+    "competition/deepeye/simulator/.gitattributes": "5525ce02d64c9a7d42724015e4c133438e286830e751ff234b193f2c974dabee",
+    "competition/deepeye/simulator/native/.gitattributes": "37141fe957e3fc4d5460496fe1e44c3bb54696fd9759c1358fd20661e3a38562"
+  },
+  "excluded": "Private leases/tokens/DB/binaries/caches; no role distribution bundle",
+  "private_token_scan": "Actual private token values checked; none included"
+}

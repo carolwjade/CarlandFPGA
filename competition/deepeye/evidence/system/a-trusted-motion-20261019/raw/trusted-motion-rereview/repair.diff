@@ -1,0 +1,84 @@
+--- before/competition/deepeye/docs/motion_executor.md
++++ repaired/competition/deepeye/docs/motion_executor.md
+@@ -109,6 +109,13 @@
+ and reconcile; do not replay an unknown step. The consumed handle cannot repeat
+ the movement.
+ 
++If later authority materialization fails or is cancelled, the executor retains
++the already committed pose, frame and history, retires pending handles and stops
++before propagating the original exception. The same BOOT/command cannot continue
++movement without recovery admission. A caught failure inside a final callback
++still changes the root and vetoes its publication. An unknown history error does
++not establish a collision or newly set the permanent trial-failure flag.
++
+ ## Read surfaces and remaining gates
+ 
+ `renderer_view` is a frozen pose/revision view, not an engine write capability.
+--- before/competition/deepeye/simulation/authority/motion_executor.py
++++ repaired/competition/deepeye/simulation/authority/motion_executor.py
+@@ -190,8 +190,16 @@
+         if root.frame is None:return root.phase
+         frame=root.frame;fence=frame.fence
+         # Hashing and event materialization deliberately occur outside commit.
+-        return p.materialize_committed_transition(frame.relative,start_ns=fence.checked_ns,
+-            end_ns=fence.step_end_ns,binding=frame.proof_binding)
++        try:
++            return p.materialize_committed_transition(frame.relative,start_ns=fence.checked_ns,
++                end_ns=fence.step_end_ns,binding=frame.proof_binding)
++        except BaseException:
++            # This read can occur outside _entry or inside its final callback.
++            # Keep the committed frame/pose, but revoke all future movement
++            # before propagating an unknown history failure or cancellation.
++            # Unknown is not a proved collision and does not set trial_failed.
++            self._revoke('passage materialization failed')
++            raise
+ 
+     def prepared_audit(self,handle):
+         self._owner_check()
+--- before/competition/deepeye/tests/simulation/test_motion_executor.py
++++ repaired/competition/deepeye/tests/simulation/test_motion_executor.py
+@@ -315,5 +315,44 @@
+         with self.assertRaises(ValueError):ex.commit_step(self.prepare(ex),None)
+         self.assertEqual(0,ex.renderer_view().pose_revision)
+ 
++    def test_later_materialization_failure_retires_pending_without_losing_committed_history(self):
++        for error_type in (MemoryError, ValueError, KeyboardInterrupt):
++            with self.subTest(error_type=error_type.__name__):
++                ex=self.make((0,0,15.522))
++                ex.commit_step(self.prepare(ex),lambda:self.fence())
++                committed=ex.authority_snapshot();phase=ex.passage_state();view=ex.renderer_view()
++                pending=self.prepare(ex);fault=error_type('controlled later materialization failure')
++                with patch.object(p,'materialize_committed_transition',side_effect=fault):
++                    with self.assertRaises(error_type) as caught:ex.passage_state()
++                self.assertIs(caught.exception,fault)
++                self.assertTrue(ex.controller_view().stopped)
++                self.assertFalse(ex.controller_view().trial_failed)
++                self.assertEqual(ex.renderer_view(),view)
++                self.assertIs(ex.authority_snapshot().frame,committed.frame)
++                self.assertEqual(ex.passage_state(),phase)
++                calls=[]
++                with self.assertRaises(ValueError):
++                    ex.commit_step(pending,lambda:(calls.append(1),self.fence(start=1_010_000_000))[1])
++                self.assertFalse(calls)
++                with self.assertRaises(ValueError):
++                    ex.prepare_step(self.f.binding,self.event.raw,view.pose_revision,DT)
++                self.assertEqual(ex.renderer_view(),view)
++
++    def test_caught_materialization_failure_in_final_callback_vetoes_publication(self):
++        ex=self.make();ex.commit_step(self.prepare(ex),lambda:self.fence())
++        pending=self.prepare(ex);view=ex.renderer_view();calls=[]
++        def final():
++            calls.append(1)
++            try:ex.passage_state()
++            except MemoryError:pass
++            return self.fence(start=1_010_000_000)
++        with patch.object(p,'materialize_committed_transition',side_effect=MemoryError('controlled callback fault')):
++            with self.assertRaises(ValueError):ex.commit_step(pending,final)
++        self.assertEqual(calls,[1]);self.assertEqual(ex.renderer_view(),view)
++        self.assertTrue(ex.controller_view().stopped)
++        self.assertFalse(ex.controller_view().trial_failed)
++        with self.assertRaises(ValueError):ex.commit_step(pending,final)
++        self.assertEqual(calls,[1])
++
+ 
+ if __name__=='__main__':unittest.main()

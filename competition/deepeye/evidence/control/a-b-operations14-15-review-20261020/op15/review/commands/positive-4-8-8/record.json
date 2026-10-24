@@ -1,0 +1,30 @@
+{
+  "label": "positive-4-8-8",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-c",
+    "-work",
+    "lib",
+    "-l",
+    "R:/positive-4-8-8.transcript",
+    "-wlf",
+    "R:/positive-4-8-8.wlf",
+    "-do",
+    "run -all; quit -f",
+    "-gCOUNT_W=4",
+    "-gWITNESS_W=8",
+    "-gTAG_W=8",
+    "independent_tb",
+    "+VEC=R:/positive-4-8-8.vec",
+    "+LOG=R:/positive-4-8-8.trace"
+  ],
+  "cwd": "R:/build",
+  "pid": 46976,
+  "start": "2026-10-20T01:09:01.581402+00:00",
+  "end": "2026-10-20T01:09:04.290497+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "3073381c2301833e2b35b9b72b643eddff17ff2e44ca298d692435305597c70e",
+  "stderr_sha256": "16c0b42bc087e0dc98fe45fa085d32060994423969c7f28674e1163ac58634ff"
+}

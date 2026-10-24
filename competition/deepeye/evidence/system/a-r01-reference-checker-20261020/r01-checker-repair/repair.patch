@@ -1,0 +1,77 @@
+--- before/competition/deepeye/tools/check_rules.py
++++ after/competition/deepeye/tools/check_rules.py
+@@ -42,6 +42,13 @@
+     'official_deliverable': ([17, 18, 19], ['A04', 'G08']),
+ }
+ SPECIALS = {'FPGA resources/timing', 'system reliability'}
++ASSESSMENT_WEIGHTS = {
++    'system_completeness': 20,
++    'pc_ai': 20,
++    'fpga_quality': 25,
++    'cooperation': 20,
++    'engineering_innovation': 15,
++}
+ 
+ 
+ def require(condition, message):
+@@ -120,6 +127,12 @@
+     require(type(source['pdf_pages']) is int and source['pdf_pages'] == 28, 'wrong original page count')
+     require(source['page_numbering'] == '1-based PDF file page; printed page is file page minus 3 for section 3.2',
+             'source page numbering differs from the reviewed mapping')
++    weights = rules.get('assessment_weights')
++    require(type(weights) is dict and set(weights) == set(ASSESSMENT_WEIGHTS),
++            'assessment weights must contain exactly the reviewed section 3.2 categories')
++    require(all(type(value) is int for value in weights.values()) and
++            weights == ASSESSMENT_WEIGHTS and sum(weights.values()) == 100,
++            'assessment weights differ from the reviewed section 3.2 distribution')
+     require(type(rules['requirements']) is list and len(rules['requirements']) == len(POLICY), 'incomplete official coverage')
+     official = {}
+     for row in rules['requirements']:
+--- before/competition/deepeye/tests/test_check_rules.py
++++ after/competition/deepeye/tests/test_check_rules.py
+@@ -80,6 +80,29 @@
+                 self.rules['selected_special_metrics'] = value
+                 with self.assertRaises(ValueError): self.validate()
+ 
++    def test_assessment_weights_cannot_be_omitted_or_incomplete(self):
++        for weights in (None, {}, {'system_completeness': 20}):
++            with self.subTest(weights=weights):
++                rules = copy.deepcopy(self.rules)
++                if weights is None: rules.pop('assessment_weights')
++                else: rules['assessment_weights'] = weights
++                with self.assertRaises(ValueError): checker.validate_metadata(rules, self.rows, self.scope)
++
++    def test_changed_assessment_weights_are_rejected_even_when_total_is_100(self):
++        self.rules['assessment_weights'].update(fpga_quality=30, engineering_innovation=10)
++        self.assertEqual(sum(self.rules['assessment_weights'].values()), 100)
++        with self.assertRaises(ValueError): self.validate()
++
++    def test_assessment_weight_types_and_categories_cannot_substitute(self):
++        for value in (True, 20.0, '20', None):
++            with self.subTest(value=value):
++                rules = copy.deepcopy(self.rules); rules['assessment_weights']['pc_ai'] = value
++                with self.assertRaises(ValueError): checker.validate_metadata(rules, self.rows, self.scope)
++        for key in ('additional_category', 'section_3_3'):
++            with self.subTest(extra=key):
++                rules = copy.deepcopy(self.rules); rules['assessment_weights'][key] = 0
++                with self.assertRaises(ValueError): checker.validate_metadata(rules, self.rows, self.scope)
++
+     def test_strict_integer_and_gate_types(self):
+         for field in ('schema', 'implementation_task_version', 'core_metrics_count'):
+             with self.subTest(field=field):
+--- before/competition/deepeye/docs/rules_verification.md
++++ after/competition/deepeye/docs/rules_verification.md
+@@ -30,6 +30,13 @@
+ a new review. These checks do not reread the PDF's semantics or establish the
+ current organizer's interpretation.
+ 
++The five section 3.2 weights are fixed separately: system completeness 20,
++PC AI 20, FPGA quality 25, cooperation 20 and engineering innovation 15.
++Their total must be 100, with exactly these categories and integer values.
++Another 100-point distribution, missing weights, extra categories or floating
++point/string/boolean replacements fail the reference check. A metadata claim or
++weights copied from another section cannot substitute for this pinned mapping.
++
+ Input reads are bounded to 1 MiB per metadata file and 32 MiB for the PDF.
+ Duplicate JSON keys, nonfinite numbers (including exponent overflow), malformed
+ CSV, missing or duplicate requirement coverage, changed owners/pages, invalid

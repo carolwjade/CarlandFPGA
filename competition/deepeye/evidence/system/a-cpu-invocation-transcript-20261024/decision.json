@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T19:17:13.260825+00:00",
+  "owner": "A/root 01a16988-bdcb-70e1-ae10-1304b5cf7875/generation3",
+  "disposition": "ACCEPT_BOUNDED_RAW_SINGLE_INVOCATION_OS_TRANSCRIPT_SOFTWARE_INCREMENT_ONLY",
+  "source_base": "360b102b299849a24a0b8cb2b6592f64f475e611",
+  "final_source_pins": {
+    "competition/deepeye/integration/cpu_invocation_transcript.py": "444f68e94a9adaaab0406b7402fb8029319bc192052b861f520b8982f89a4266",
+    "competition/deepeye/integration/test_cpu_invocation_transcript.py": "ffe5f7e7158671889d6fd395382c10e78266adaa48a53acfe6a21646a1cb2ee9",
+    "competition/deepeye/docs/cpu_invocation_transcript.md": "42fca58970a140c4b59423387231a7001837cf1236597df7413a0edde6478cfb"
+  },
+  "root_constructor_correction": {
+    "schema": 1,
+    "utc": "2026-10-23T19:01:45.815957+00:00",
+    "original_sha256": "369ec6aee4a86f42c2932aebb7c859fd11befe2a7b748b6c495886402357a53d",
+    "final_sha256": "444f68e94a9adaaab0406b7402fb8029319bc192052b861f520b8982f89a4266",
+    "final_owned_source_pins": {
+      "competition/deepeye/integration/cpu_invocation_transcript.py": "444f68e94a9adaaab0406b7402fb8029319bc192052b861f520b8982f89a4266",
+      "competition/deepeye/integration/test_cpu_invocation_transcript.py": "ffe5f7e7158671889d6fd395382c10e78266adaa48a53acfe6a21646a1cb2ee9",
+      "competition/deepeye/docs/cpu_invocation_transcript.md": "42fca58970a140c4b59423387231a7001837cf1236597df7413a0edde6478cfb"
+    },
+    "changed_product_files_after_author_freeze": 1,
+    "unchanged_other_files": 2,
+    "issue": "prepared journal append/fsync failure followed by journal.close failure replaced the raised primary error; original survived only as exception context",
+    "correction": "Catch journal close failure as a secondary note, re-raise original prepared failure; preserve outer once-per-duplicate cleanup unchanged",
+    "scope": "actual local pipe descriptors and prepared journal; injected fsync and close errors; no product clock or request/output IO",
+    "original_author_14_method_evidence": "still binds original369ec candidate; not rerun or relabeled as final444f evidence",
+    "intermediate_author_13_method_limit": "prior complete sourcepins JSON was overwritten, so full intermediate source binding is not asserted or reconstructed",
+    "original_author_manifest_unchanged": true,
+    "commands": [
+      {
+        "argv": [
+          ".local/venv/Scripts/python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          ".planning/deepeye-resume-20261018/cpu-transcript-root-constructor-probe-20261024/probe.py",
+          ".planning/deepeye-resume-20261018/cpu-transcript-root-constructor-probe-20261024/attempt1-red"
+        ],
+        "observed_exit_code": 1
+      },
+      {
+        "argv": [
+          ".local/venv/Scripts/python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          ".planning/deepeye-resume-20261018/cpu-transcript-root-constructor-probe-20261024/probe.py",
+          ".planning/deepeye-resume-20261018/cpu-transcript-root-constructor-probe-20261024/attempt2-green"
+        ],
+        "observed_exit_code": 0
+      }
+    ]
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "author_original_final_methods": 14,
+  "author_original_final_subtests": 9,
+  "author_14_scope": "original369ec module plus original test/doc, not root444f",
+  "intermediate_author_13_exact_full_source_binding": "not established; old complete sourcepins overwritten, no reconstruction",
+  "independent_final_frozen_methods": 9,
+  "independent_final_constructor_methods": 1,
+  "frozen_oracle_changed": false,
+  "author_manifest_members": 126,
+  "independent_manifest_members": 110,
+  "unchanged_dependencies": 16,
+  "protected_C_files_unchanged": true,
+  "original_RED_and_old_module_snapshots_preserved": true,
+  "input_output_scope": "actual bounded local OS pipes/journals with scripted private clocks/fault seams",
+  "component_scope": "one exact opaque request, durable-start once-write, original raw output/offsets/budgets, unknown side-effects retained, permanent veto",
+  "adopted_inference_format": false,
+  "actual_model_actor_or_original_completion_source_established": false,
+  "timestamp_uncertainty_ns": null,
+  "availability_sample_completion_intervals_ns": null,
+  "production_gate": "unchanged unconditional refusal; new transcript not installed as a provider",
+  "old_clock_or_component_suites_rerun": false,
+  "PL_ADC_model_motion_build_board_system_or_formal_acceptance": false,
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run"
+}

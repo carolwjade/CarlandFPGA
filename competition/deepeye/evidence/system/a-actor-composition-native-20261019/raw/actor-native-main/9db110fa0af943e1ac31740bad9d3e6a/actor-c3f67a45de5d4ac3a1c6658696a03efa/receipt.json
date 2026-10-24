@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "instance_id": "b9b9619d7a394457bf4ac1cb97de1695:1",
+  "state": "ALLOCATING",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "resources": [
+    {
+      "resource_id": "self_token:1",
+      "label": "self_token",
+      "release": "kernel",
+      "native": 960,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "sid_string:2",
+      "label": "sid_string",
+      "release": "local",
+      "native": 1923402175184,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    },
+    {
+      "resource_id": "security_descriptor:3",
+      "label": "security_descriptor",
+      "release": "local",
+      "native": 1923441108112,
+      "attempted": true,
+      "outcome": "confirmed",
+      "terminal_confirmed": false,
+      "ambiguous": false
+    }
+  ],
+  "provenance": {
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+    "work_id": "b9b9619d7a394457bf4ac1cb97de1695:1",
+    "owner_id": "b9b9619d7a394457bf4ac1cb97de1695:1",
+    "source_hashes": [
+      [
+        "requirements",
+        "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+      ],
+      [
+        "stage:DLLs/_ctypes.pyd",
+        "0fba5ed70ca7addf63f638dbd61911d3796e3aa2924373f09d1a44f262890129"
+      ],
+      [
+        "stage:DLLs/libffi-8.dll",
+        "24fe590249f5a98730281edf1bcc23f62ef2ace6d563526a3b3ec34aaa146634"
+      ],
+      [
+        "stage:fixture.py",
+        "47946ba137eb61aa9d4d2357487c28210314bd4642ad7b1b4d781d052abab3b6"
+      ],
+      [
+        "stage:python.exe",
+        "abc1aa0b5a63f745804e88789b2dfe6857582ec19ed36b3b5f9dc6b340212344"
+      ],
+      [
+        "stage:python3.dll",
+        "c4027ef4bf9926f984e8cf9d566d5aa980e9509c77c8fd338adb0d9bdf467009"
+      ],
+      [
+        "stage:python312._pth",
+        "b46d6b929fb40dabcf77086e15764ac1e66ae2fb9c8160974e8aa7896aa215bb"
+      ],
+      [
+        "stage:python312.dll",
+        "f0226ab5626a5fac95326adf53b1c8a2bef843bae11dcac0868e968baa966718"
+      ],
+      [
+        "stage:python312.zip",
+        "661fd94d7fe922d1837b99fd8213037f54674e4f29099090f62d646faac206b9"
+      ],
+      [
+        "stage:vcruntime140.dll",
+        "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066"
+      ],
+      [
+        "stage:vcruntime140_1.dll",
+        "1f2d41c4aa5db0bc33ebf7b66d72943a817d7ce6cbe880502a9403823633093f"
+      ]
+    ]
+  },
+  "primary_error": null,
+  "callback_errors": [],
+  "evidence_errors": [],
+  "owner_errors": [],
+  "cleanup": null,
+  "evidence_complete": true,
+  "cleanup_attempted": false
+}

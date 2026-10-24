@@ -1,0 +1,71 @@
+{
+  "cases": 144,
+  "maxima": {
+    "position_m": 1.771306270934503e-15,
+    "rotation_matrix": 2.886803361553668e-16,
+    "distance_m": 1.9595642886116587e-19,
+    "speed_m_s": 1.3766765505351941e-17,
+    "inverse_time_ns": 3.4831464290618896e-07,
+    "inverse_speed_m_s": 8.690176874002857e-17,
+    "convergence_position_m": 9.954161217301589e-33,
+    "convergence_rotation_matrix": 4.9204375820153206e-33
+  },
+  "edge_probes": [
+    {
+      "name": "mutable_input_aliases",
+      "outcome": "rejected_aliasing"
+    },
+    {
+      "name": "nonunit_and_roundoff_quaternions",
+      "outcome": "expected_rejection_and_normalization"
+    },
+    {
+      "name": "positive_subnormal_distance_from_rest",
+      "results": [
+        {
+          "distance_m": 5e-324,
+          "outcome": "returned",
+          "elapsed_ns": 6.286911138810515e-153,
+          "expected_elapsed_ns": 6.286911138810515e-153
+        },
+        {
+          "distance_m": 1e-323,
+          "outcome": "returned",
+          "elapsed_ns": 8.891034997940308e-153,
+          "expected_elapsed_ns": 8.89103499794031e-153
+        },
+        {
+          "distance_m": 1e-320,
+          "outcome": "returned",
+          "elapsed_ns": 2.828411380521133e-151,
+          "expected_elapsed_ns": 2.8284113805211335e-151
+        },
+        {
+          "distance_m": 1e-310,
+          "outcome": "returned",
+          "elapsed_ns": 2.828427124746185e-146,
+          "expected_elapsed_ns": 2.828427124746186e-146
+        },
+        {
+          "distance_m": 1e-300,
+          "outcome": "returned",
+          "elapsed_ns": 2.82842712474619e-141,
+          "expected_elapsed_ns": 2.8284271247461904e-141
+        },
+        {
+          "distance_m": 1e-200,
+          "outcome": "returned",
+          "elapsed_ns": 2.8284271247461893e-91,
+          "expected_elapsed_ns": 2.82842712474619e-91
+        },
+        {
+          "distance_m": 1e-100,
+          "outcome": "returned",
+          "elapsed_ns": 2.8284271247461895e-41,
+          "expected_elapsed_ns": 2.82842712474619e-41
+        }
+      ]
+    }
+  ],
+  "ordinary_domain_status": "all oracle checks passed"
+}

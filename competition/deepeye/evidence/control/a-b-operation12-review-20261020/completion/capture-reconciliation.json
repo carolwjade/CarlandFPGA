@@ -1,0 +1,730 @@
+[
+  {
+    "label": "main-verifier-run-01",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--rtl",
+      ".\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+      "--tb",
+      ".\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      ".\\work\\main-run-01",
+      "--owned-root",
+      ".",
+      "--long"
+    ],
+    "exit_code": 2,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:55:22.750092+00:00",
+    "finished_utc": "2026-10-19T17:55:22.816035+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 359,
+      "sha256": "8cc447794263b16462b3f0e38aaf9f3b23f29ac9aa4589c076dbd72e2f16ade8"
+    }
+  },
+  {
+    "label": "main-verifier-run-02",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--rtl",
+      "..\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+      "--tb",
+      "..\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      ".\\work\\main-run-01",
+      "--owned-root",
+      ".",
+      "--long"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:55:28.639632+00:00",
+    "finished_utc": "2026-10-19T17:55:29.472903+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 740,
+      "sha256": "244cf47dfe9c14565b1f448fe5de199c8ae3cbb3e0afe03c50ff12cd8cfbbe55"
+    }
+  },
+  {
+    "label": "main-verifier-run-03",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--rtl",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+      "--tb",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      "R:\\main-run-02",
+      "--owned-root",
+      "R:\\",
+      "--long"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:56:15.396127+00:00",
+    "finished_utc": "2026-10-19T17:56:16.175516+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 740,
+      "sha256": "244cf47dfe9c14565b1f448fe5de199c8ae3cbb3e0afe03c50ff12cd8cfbbe55"
+    }
+  },
+  {
+    "label": "main-verifier-run-04",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".\\run_pinned_verifier_preserve_drive.py",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--",
+      "--rtl",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+      "--tb",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      "R:\\main-run-03",
+      "--owned-root",
+      "R:\\",
+      "--long"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:00:22.461086+00:00",
+    "finished_utc": "2026-10-19T18:00:30.064305+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 998,
+      "sha256": "09a7a12e063fe481831c5e7c0ea1a2664224186d2cab3dbc140d7044607a33e0"
+    }
+  },
+  {
+    "label": "main-verifier-run-05",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".\\run_pinned_verifier_modelsim2020_4.py",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--",
+      "--rtl",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+      "--tb",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      "R:\\main-run-04",
+      "--owned-root",
+      "R:\\",
+      "--long"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:02:52.530785+00:00",
+    "finished_utc": "2026-10-19T18:03:19.474795+00:00",
+    "stdout": {
+      "bytes": 6932,
+      "sha256": "feaea5cb6169c21b7c895ca2859d3172fefb2bbb43d3d93c0765cfd7d7c31140"
+    },
+    "stderr": {
+      "bytes": 1730,
+      "sha256": "d4fa0de41c80a5914e448929b89ddd13aeacf145be8f9a73919a3c2e29ecf573"
+    }
+  },
+  {
+    "label": "modelsim-vlog-version",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+      "-version"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:53:29.476172+00:00",
+    "finished_utc": "2026-10-19T17:53:29.787436+00:00",
+    "stdout": {
+      "bytes": 74,
+      "sha256": "9949950d6f825cd33090c7c244a9bfc5b0bfdcf492ad0f1979aca71861a775cc"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "modelsim-vsim-version",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-version"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:53:30.197394+00:00",
+    "finished_utc": "2026-10-19T17:53:30.409890+00:00",
+    "stdout": {
+      "bytes": 77,
+      "sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "mutation-pitch-from-yaw-01",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".\\run_pinned_verifier_modelsim2020_4.py",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--",
+      "--rtl",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\mutations\\pitch_from_yaw\\dut.sv",
+      "--tb",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      "R:\\mutation-pitch_from_yaw-01",
+      "--owned-root",
+      "R:\\",
+      "--cases",
+      "2:1",
+      "--negative"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:04:31.155489+00:00",
+    "finished_utc": "2026-10-19T18:04:35.543856+00:00",
+    "stdout": {
+      "bytes": 2738,
+      "sha256": "53144bb9cd339e49a1ced3aedeb5d9b8d9a71d1b40c10e7f2d838e2ca3566fc8"
+    },
+    "stderr": {
+      "bytes": 298,
+      "sha256": "db505c37bbb6f80877a35794699b4e77ba8b6d744b584bee41b33b573d0ecfe6"
+    }
+  },
+  {
+    "label": "mutation-stop-ignored-01",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".\\run_pinned_verifier_modelsim2020_4.py",
+      "..\\source\\competition\\deepeye\\tools\\control3d\\main_verify_atomic_pwm.py",
+      "--",
+      "--rtl",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\mutations\\stop_ignored\\dut.sv",
+      "--tb",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\tests\\rtl\\control3d\\main_tb_atomic_pwm.sv",
+      "--tool",
+      "C:\\modeltech64_2020.4\\win64",
+      "--out",
+      "R:\\mutation-stop_ignored-01",
+      "--owned-root",
+      "R:\\",
+      "--cases",
+      "2:1",
+      "--negative"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:04:22.073229+00:00",
+    "finished_utc": "2026-10-19T18:04:26.479075+00:00",
+    "stdout": {
+      "bytes": 2726,
+      "sha256": "23e0a750c2a43a25823ab9f2be8e2935098f7d6361b76e389f04b714285c8fd7"
+    },
+    "stderr": {
+      "bytes": 298,
+      "sha256": "db505c37bbb6f80877a35794699b4e77ba8b6d744b584bee41b33b573d0ecfe6"
+    }
+  },
+  {
+    "label": "preflight",
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".agents\\skills\\pynq-z2-single-node\\scripts\\preflight.py",
+      "--modelsim-home",
+      "C:\\modeltech64_2020.4"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:51:02.847095+00:00",
+    "finished_utc": "2026-10-19T17:51:03.212570+00:00",
+    "stdout": {
+      "bytes": 200,
+      "sha256": "33b54001e18d8f9b3f9215ab55c5fec81643425f88947f4aacba55449e21b437"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "result-audit-01",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:11:12.394969+00:00",
+    "finished_utc": "2026-10-19T18:11:12.861504+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 1205,
+      "sha256": "327ca211eec62ec650276905a24468342287700eaa07450cf7230624fac5ce5e"
+    }
+  },
+  {
+    "label": "result-audit-02",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:11:37.592025+00:00",
+    "finished_utc": "2026-10-19T18:11:38.534398+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 1260,
+      "sha256": "c793c4c009ab3f2607bf621f5d543d2bee90a5e892b3f748dfdc7854ff6cd800"
+    }
+  },
+  {
+    "label": "result-audit-03",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:12:01.220695+00:00",
+    "finished_utc": "2026-10-19T18:12:02.006926+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 1260,
+      "sha256": "7207e5b44846ca425abcd90d22851d6678977b33f01828d40c6ed3fa07e32e43"
+    }
+  },
+  {
+    "label": "result-audit-04",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:12:41.926321+00:00",
+    "finished_utc": "2026-10-19T18:12:42.704487+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 1239,
+      "sha256": "379e16280c806d337983b52c1917e8524914f1b92e3f1f21246d4f4b522bb4cd"
+    }
+  },
+  {
+    "label": "result-audit-05",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:13:22.558350+00:00",
+    "finished_utc": "2026-10-19T18:13:23.387559+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 782,
+      "sha256": "6914643c3a57fc048d021471b16d08d3eba676b0dbe800bdcec1f0c28c457ff4"
+    }
+  },
+  {
+    "label": "result-audit-06",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:13:48.055561+00:00",
+    "finished_utc": "2026-10-19T18:13:49.011642+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 754,
+      "sha256": "6705558d3c09de8cefc97c0f97cb2f8487c998d0ad09083b8a1b362b7cad73c0"
+    }
+  },
+  {
+    "label": "result-audit-07",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_results.py",
+      "--review",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review",
+      "--source-before",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json",
+      "--source-after",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\result-audit.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:14:08.612929+00:00",
+    "finished_utc": "2026-10-19T18:14:09.523220+00:00",
+    "stdout": {
+      "bytes": 5914,
+      "sha256": "522188965bd8e817c7fc304b2c5edcf3c25b5cc00105080d5fc6453848ec3a96"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "source-audit-after",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_source.py",
+      "--repo-root",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-after.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:06:03.418188+00:00",
+    "finished_utc": "2026-10-19T18:06:03.936391+00:00",
+    "stdout": {
+      "bytes": 2783,
+      "sha256": "108e0dbf9cea13eb2b44e53afc35309d34e1f0ae60a2c0013dee3a9d7692a581"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "source-audit-before",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_source.py",
+      "--repo-root",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json"
+    ],
+    "exit_code": 1,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:54:35.108624+00:00",
+    "finished_utc": "2026-10-19T17:54:38.161904+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 94,
+      "sha256": "239e17aa8ebef0129eb3e2a4020f475803535290b98b4c379b5fda21132bb71e"
+    }
+  },
+  {
+    "label": "source-audit-before-02",
+    "argv": [
+      ".local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\audit_source.py",
+      "--repo-root",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+      "--output",
+      ".planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\source-inventory-before.json"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:54:59.304734+00:00",
+    "finished_utc": "2026-10-19T17:54:59.903924+00:00",
+    "stdout": {
+      "bytes": 2783,
+      "sha256": "108e0dbf9cea13eb2b44e53afc35309d34e1f0ae60a2c0013dee3a9d7692a581"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "subst-create-R",
+    "argv": [
+      "C:\\Windows\\System32\\subst.exe",
+      "R:",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:56:09.328883+00:00",
+    "finished_utc": "2026-10-19T17:56:09.345825+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "subst-remove-R",
+    "argv": [
+      "C:\\Windows\\System32\\subst.exe",
+      "R:",
+      "/D"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:05:03.357127+00:00",
+    "finished_utc": "2026-10-19T18:05:03.369854+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "vlog-probe-compile",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+      "-sv",
+      "-work",
+      "work",
+      "dut.sv",
+      "tb.sv"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:57:29.734429+00:00",
+    "finished_utc": "2026-10-19T17:57:30.059344+00:00",
+    "stdout": {
+      "bytes": 422,
+      "sha256": "26c153fc5d32e9b83b3df97ce1efa6e58e3a13cf4890bd69484a6f3027a37d3e"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "vlog-probe-vlib",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+      "work"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T17:57:20.857095+00:00",
+    "finished_utc": "2026-10-19T17:57:20.937041+00:00",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "vsim-probe-w2-batch-syncio",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-batch",
+      "-syncio",
+      "work.main_tb_atomic_pwm",
+      "-gCOUNT_W=2",
+      "-gTAG_W=1",
+      "+VECTORS=R:\\main-run-03\\w2_t1.vectors.txt",
+      "+TRACE=probe-batch.ports.txt",
+      "-do",
+      "run -all; quit -code 0"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:02:23.802072+00:00",
+    "finished_utc": "2026-10-19T18:02:26.671582+00:00",
+    "stdout": {
+      "bytes": 1165,
+      "sha256": "d97df42a048720c3b13f245cfa3ac304826e8110a040986777a8b2d8fc482632"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  {
+    "label": "vsim-probe-w2-no-onfinish",
+    "argv": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-c",
+      "work.main_tb_atomic_pwm",
+      "-gCOUNT_W=2",
+      "-gTAG_W=1",
+      "+VECTORS=R:\\main-run-03\\w2_t1.vectors.txt",
+      "+TRACE=probe.ports.txt",
+      "-do",
+      "run -all; quit -code 0"
+    ],
+    "exit_code": 0,
+    "timed_out": false,
+    "started_utc": "2026-10-19T18:01:09.057739+00:00",
+    "finished_utc": "2026-10-19T18:01:12.240038+00:00",
+    "stdout": {
+      "bytes": 632,
+      "sha256": "3073381c2301833e2b35b9b72b643eddff17ff2e44ca298d692435305597c70e"
+    },
+    "stderr": {
+      "bytes": 67,
+      "sha256": "16c0b42bc087e0dc98fe45fa085d32060994423969c7f28674e1163ac58634ff"
+    }
+  }
+]

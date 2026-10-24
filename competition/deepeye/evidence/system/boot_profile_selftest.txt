@@ -1,0 +1,294 @@
+DeepEye R03 BOOT/profile canonical reference -- self-test evidence
+====================================================================
+Generated: 2026-10-15 (Asia/Shanghai) by the A bounded R03 implementation child.
+Contract: DEEPEYE-HUMAN-LOCK-20261014/revision1 (human-pinned requirements SHA256
+c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804, re-verified below).
+Design: 1011259415a0916054eb580687612580bc1e5f09, taskbook v5 technical revision1.
+
+SCOPE (read first)
+- Bounded software reference only: canonical profile digest, BOOT/BOOT_ACK 27 B
+  payload / 41 B frame round-trip through the existing frozen ABI3 wire encoder,
+  deterministic FAST_9600 / STRESS_300 slot, retry, response-deadline and budget
+  arithmetic, grant-mask decisions, late-candidate defer/stop, runtime digest capture.
+- No board, serial port, network, service, model runtime, no FPGA programming, no
+  external message, no commit/push. Nothing here establishes hardware timing,
+  measured USB/clock/holdover bounds, channel calibration, cross-node bytes or
+  end-to-end performance. hardware_enable_eligible stays false; a profile/mode
+  switch still requires stop, a new session, a new complete canonical BOOT hash and
+  a matching BOOT_ACK before ENABLE (policy, never claimed as enabled here).
+- ALL 29 product gates remain not_run. This is not product acceptance and not a
+  quality decision.
+
+TOOLCHAIN
+- python: C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe
+- invocation: <python> -X utf8 -B
+- cwd for product commands: .local/deepeye-implementation-a/competition/deepeye
+
+OWNED FILES (this assignment, exactly four)
+- docs/boot_profiles.json      profile document (canonical UTF-8 JSON, ensure_ascii=False,
+                               sort_keys=True, separators=(',',':'), no trailing newline)
+- integration/boot_profile.py  canonical/digest, strict validation, BOOT frames, slots
+- tests/test_boot_profile.py   30 bounded software tests (written first; RED below)
+- evidence/system/boot_profile_selftest.txt  this file
+
+[1] RED -- before integration/boot_profile.py existed
+Reproduced on an identical TemporaryDirectory copy of tests/ + integration/wire.py +
+docs/ with the module absent (temporary copy removed by TemporaryDirectory cleanup).
+COMMAND: python -X utf8 -B tests/test_boot_profile.py -v
+temp tree (integration/boot_profile.py deliberately absent): C:\Users\CarlJade\AppData\Local\Temp\deepeye_r03_red_2wlg3k72\competition\deepeye
+COMMAND: python -X utf8 -B tests/test_boot_profile.py -v
+EXITCODE: 1
+--- stdout ---
+
+--- stderr ---
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\AppData\Local\Temp\deepeye_r03_red_2wlg3k72\competition\deepeye\tests\test_boot_profile.py", line 22, in <module>
+    import boot_profile  # noqa: E402  (RED until the module lands)
+    ^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'boot_profile'
+[2] GREEN -- after integration/boot_profile.py landed (real product tree)
+COMMAND: python -X utf8 -B tests/test_boot_profile.py -v
+C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe : 
+test_exact_equality_ack_accepts_and_rejects_differences 
+(__main__.BootFrameTests.test_exact_equality_ack_accepts_and_rejects_differences) ... ok
+At line:2 char:106
++ ... n/deepeye'; C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-run ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_exact_equa...erences) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_malformed_frames_rejected (__main__.BootFrameTests.test_malformed_frames_rejected) ... ok
+test_roundtrip_via_existing_wire (__main__.BootFrameTests.test_roundtrip_via_existing_wire) ... ok
+test_compose_and_parse_roundtrip (__main__.BootModeTests.test_compose_and_parse_roundtrip) ... ok
+test_rejects_zero_reserved_and_unknown (__main__.BootModeTests.test_rejects_zero_reserved_and_unknown) ... ok
+test_canonical_rejects_nonfinite (__main__.CanonicalTests.test_canonical_rejects_nonfinite) ... ok
+test_canonical_sorted_compact_utf8 (__main__.CanonicalTests.test_canonical_sorted_compact_utf8) ... ok
+test_load_rejects_duplicate_keys (__main__.CanonicalTests.test_load_rejects_duplicate_keys) ... ok
+test_load_rejects_nonfinite_tokens (__main__.CanonicalTests.test_load_rejects_nonfinite_tokens) ... ok
+test_validate_rejects_float_boolean_and_unknown 
+(__main__.CanonicalTests.test_validate_rejects_float_boolean_and_unknown) ... ok
+test_validate_rejects_missing_required_key (__main__.CanonicalTests.test_validate_rejects_missing_required_key) ... ok
+test_digest_lengths_and_sha128_prefix (__main__.DigestTests.test_digest_lengths_and_sha128_prefix) ... ok
+test_every_covered_group_changes_digest (__main__.DigestTests.test_every_covered_group_changes_digest) ... ok
+test_original_profile_hash_mutations_rejected (__main__.DigestTests.test_original_profile_hash_mutations_rejected) ... 
+ok
+test_real_document_valid (__main__.DigestTests.test_real_document_valid) ... ok
+test_runtime_digests_runtime_loaded_unverified 
+(__main__.RuntimeDigestTests.test_runtime_digests_runtime_loaded_unverified) ... ok
+test_unmeasured_values_must_stay_null (__main__.RuntimeDigestTests.test_unmeasured_values_must_stay_null) ... ok
+test_branches_disjoint_ordered_within_window_with_guard 
+(__main__.SlotReferenceTests.test_branches_disjoint_ordered_within_window_with_guard) ... ok
+test_budget_variants_match_frozen_anchors (__main__.SlotReferenceTests.test_budget_variants_match_frozen_anchors) ... 
+ok
+test_ceil_bounds (__main__.SlotReferenceTests.test_ceil_bounds) ... ok
+test_fast_branch_anchors_exact (__main__.SlotReferenceTests.test_fast_branch_anchors_exact) ... ok
+test_grant_masks_legal_and_invalid (__main__.SlotReferenceTests.test_grant_masks_legal_and_invalid) ... ok
+test_lost_grant_and_lost_ack_keep_slots_unshifted 
+(__main__.SlotReferenceTests.test_lost_grant_and_lost_ack_keep_slots_unshifted) ... ok
+test_no_grant_no_send_and_suppress_after_success 
+(__main__.SlotReferenceTests.test_no_grant_no_send_and_suppress_after_success) ... ok
+test_primary_response_anchored_to_slot_not_receipt 
+(__main__.SlotReferenceTests.test_primary_response_anchored_to_slot_not_receipt) ... ok
+test_retry_offset_fixed_and_absolute_shift (__main__.SlotReferenceTests.test_retry_offset_fixed_and_absolute_shift) 
+... ok
+test_rolling_window_occupancy_across_three_periods 
+(__main__.SlotReferenceTests.test_rolling_window_occupancy_across_three_periods) ... ok
+test_speed_mapping_not_mixed (__main__.SlotReferenceTests.test_speed_mapping_not_mixed) ... ok
+test_stress_branch_anchors_exact (__main__.SlotReferenceTests.test_stress_branch_anchors_exact) ... ok
+test_validate_flags_overlapping_slot_and_guard_break 
+(__main__.SlotReferenceTests.test_validate_flags_overlapping_slot_and_guard_break) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.054s
+
+OK
+[3] Deeper bounded probes (real tree; transient %TEMP% probe script, output captured)
+COMMAND: <python> -X utf8 -B %TEMP%/deep_r03_probe.py
+profile_name: em_surrogate_v2
+hardware_enable_eligible: False
+validate_document(doc, enums) ok: True
+canonical_sha256: 1d71555b6226017a8fb5b8d3c91ab705bdcb673bc0e7a1fbb093bd3a4faeb792
+slot_profile_sha128: 1d71555b6226017a8fb5b8d3c91ab705
+verify_profile_digest(original): True
+
+[slot branch geometry: ordered/disjoint, end<=window, window-end>=guard]
+fast_9600 normal errors=[] last_end=4085/12 margin=1915/12 guard=40
+fast_9600 config errors=[] last_end=1315/3 margin=185/3 guard=40
+fast_9600 retry  errors=[] last_end=5345/12 margin=655/12 guard=40
+stress_300 normal errors=[] last_end=16300/3 margin=7700/3 guard=200
+stress_300 config errors=[] last_end=22850/3 margin=1150/3 guard=200
+stress_300 retry  errors=[] last_end=23050/3 margin=950/3 guard=200
+
+[rolling window occupancy, all boundary candidates, 3 periods]
+fast_9600 normal rolling3=150 B frozen_total=150 B
+fast_9600 config rolling3=206 B frozen_total=206 B
+fast_9600 retry  rolling3=214 B frozen_total=214 B
+stress_300 normal rolling3=150 B frozen_total=150 B
+stress_300 config rolling3=206 B frozen_total=206 B
+stress_300 retry  rolling3=214 B frozen_total=214 B
+periods=2 rejected: rolling window occupancy must be checked across at least 3 periods
+
+[window budgets: bytes + cumulative guard, seconds, fraction of window]
+fast_9600 normal           150B 157/800s fraction=157/400
+fast_9600 config           206B 611/2400s fraction=611/1200
+fast_9600 control_retry    214B 631/2400s fraction=631/1200
+fast_9600 event_retry      170B 521/2400s fraction=521/1200
+fast_9600 gain_normal      140B 223/1200s fraction=223/600
+fast_9600 pc_direct_normal  84B 51/400s fraction=51/200
+stress_300 normal           150B 26/5s fraction=13/20
+stress_300 config           206B 106/15s fraction=53/60
+stress_300 control_retry    214B 22/3s fraction=11/12
+stress_300 event_retry      170B 88/15s fraction=11/15
+stress_300 gain_normal      140B 73/15s fraction=73/120
+stress_300 pc_direct_normal  84B 3s fraction=3/8
+
+[response deadlines anchored to window/slot, not ACK receipt]
+fast_9600: {'retry_decision_ms': Fraction(365, 1), 'primary_ack_latest_ms': Fraction(3485, 12), 'retry_ack_latest_ms': Fraction(5345, 12), 'config_ack_latest_ms': Fraction(1315, 3)}
+stress_300: {'retry_decision_ms': Fraction(5500, 1), 'primary_ack_latest_ms': Fraction(12700, 3), 'retry_ack_latest_ms': Fraction(23050, 3), 'config_ack_latest_ms': Fraction(22850, 3)}
+ceil_ms(125/6)=21 ceil_ms(100/3)=34 ceil_ms(35)=35
+
+[profile hash mutations rejected; any covered semantic changes digest]
+window 500->501: digest=8cbda9136b3413924029151b1f3bcfefbe85682fda26eb87b2372d067eb93e55 verify=False
+guard 40->41: verify=False
+slot 210->211: verify=False
+retry_offset 155->156: verify=False
+stress per_code 1/10000->1/10001: verify=False
+filled unverified USB identity: verify=False validate=['time_measurement_identities.usb_processing_upper_ns.value must stay null: unverified_not_measured; only an independently verified measurement record bound to operation_id, request_hash and tested_commit may fill it']
+
+[BOOT / BOOT_ACK roundtrip via existing wire.py, exact equality]
+mode fast_9600/sensor_live/hil_pc_fpga = 37
+BOOT frame bytes=41 payload=27 sha128=1d71555b6226017a8fb5b8d3c91ab705
+BOOT_ACK bytes=41
+verify exact echo: {'ok': True, 'mismatches': []}
+source difference: {'ok': False, 'mismatches': ['mode']}
+profile difference: {'ok': False, 'mismatches': ['mode', 'guard_total_ms', 'primary_slot_ms', 'config_slot_ms']}
+session difference: {'ok': False, 'mismatches': ['session']}
+epoch difference: {'ok': False, 'mismatches': ['config_epoch']}
+sha128 difference: {'ok': False, 'mismatches': ['slot_profile_sha128']}
+guard/primary/config override rejections: ['guard_total_ms'] ['primary_slot_ms'] ['config_slot_ms']
+
+[malformed BOOT rejections]
+mode byte 0 rejected: boot mode transport profile field is zero; zero fields are rejected
+mode byte 200 (reserved bit7) rejected: boot mode sets reserved zero bit 7
+truncated prefix rejected: truncated packet or trailing bytes
+CRC corruption rejected: CRC mismatch
+BOOT_ACK feed into BOOT parser rejected: frame type 13 is not BOOT (12)
+
+[grant masks: bit15 main, bit14 config, bit13 retry pre-grant]
+legal   0x0000 -> []
+legal   0x8000 -> []
+legal   0x4000 -> []
+legal   0xc000 -> []
+legal   0xa000 -> []
+invalid 0x2000 -> ['retry pre-grant bit13 requires main grant bit15 (no grant means no send)']
+invalid 0x6000 -> ['retry pre-grant bit13 requires main grant bit15 (no grant means no send)', 'bit13 and bit14 must not be set together (config and retry are mutually exclusive inside one window)']
+invalid 0xe000 -> ['bit13 and bit14 must not be set together (config and retry are mutually exclusive inside one window)']
+invalid 0x10000 -> ['grant mask 65536 is outside the 16-bit quality word']
+invalid -1 -> ['grant mask -1 is outside the 16-bit quality word']
+
+[one-window plans]
+no grant: {'transmits': ['event', 'telem', 'state'], 'retry_used': False, 'retry_suppressed': False, 'advisories': ['no_grant_no_send'], 'branch': 'normal'}
+main+retry, first ACK lost: {'transmits': ['event', 'telem', 'control_primary', 'ack_primary', 'state', 'retry_control', 'retry_ack'], 'retry_used': True, 'retry_suppressed': False, 'advisories': [], 'branch': 'retry'}
+main+retry, first ACK ok (retry suppressed): {'transmits': ['event', 'telem', 'control_primary', 'ack_primary', 'state'], 'retry_used': False, 'retry_suppressed': True, 'advisories': ['first_ack_success_suppresses_retry'], 'branch': 'normal'}
+main only, ACK lost (defer, no bit13): {'transmits': ['event', 'telem', 'control_primary', 'ack_primary', 'state'], 'retry_used': False, 'retry_suppressed': False, 'advisories': ['defer_next_window'], 'branch': 'normal'}
+config only: {'transmits': ['event', 'telem', 'state', 'config', 'config_ack'], 'retry_used': False, 'retry_suppressed': False, 'advisories': ['config_branch_selected'], 'branch': 'config'}
+config+retry mask rejected: retry pre-grant bit13 requires main grant bit15 (no grant means no send); bit13 and bit14 must not be set together (config and retry are mutually exclusive inside one window)
+
+[late candidates defer or stop without shifting slots]
+ready 210 deadline 1500: {'slot': 'control_primary', 'ready_ms': Fraction(210, 1), 'deadline_ms': Fraction(1500, 1), 'action': 'send', 'start_ms': Fraction(210, 1)}
+ready 211 deadline 1500: {'slot': 'control_primary', 'ready_ms': Fraction(211, 1), 'deadline_ms': Fraction(1500, 1), 'action': 'defer', 'deferred_start_ms': Fraction(710, 1), 'reason': 'ready after the allocated slot; defer to the next full window without shifting slots'}
+ready 1500 deadline 1500: {'slot': 'control_primary', 'ready_ms': Fraction(1500, 1), 'deadline_ms': Fraction(1500, 1), 'action': 'stop', 'reason': 'deadline reached; the candidate stops and slots are never shifted'}
+
+[speed mappings never mixed]
+fast code5 = 1/16 m/s; fast code20 = 1/4 m/s; stress code20 = 1/500 m/s
+code 21 rejected: speed_code 21 is outside 0..20 for fast_9600
+
+[canonical load rejections]
+dup.json rejected: duplicate key 'a' in JSON object; duplicate keys are rejected
+nan.json rejected: non-finite JSON token 'NaN' is rejected; the canonical profile contains finite integers and rational strings only
+
+[runtime digests of the concurrent parent drafts: runtime_loaded_unverified]
+{
+ "abi_interface_json": {
+  "path": "docs/interface.json",
+  "sha256": "708f8d38cc080ae10fdb66e33b2972b9a507e5b52f521d48194dd86a28ce7df6",
+  "mode": "runtime_loaded_unverified"
+ },
+ "host_contract_json": {
+  "path": "docs/host_contract.json",
+  "sha256": "40975b0970b5a227839b75f2ce78e7df6dca7f9936c496aebd57b44b3355bfa5",
+  "mode": "runtime_loaded_unverified"
+ },
+ "host_enums_json": {
+  "path": "docs/enums.json",
+  "sha256": "474e7ef8fb85ea1be8b34c4df2eb523144158cdf7b01e4d4646a6f37c6af7178",
+  "mode": "runtime_loaded_unverified"
+ },
+ "frame_layouts": {
+  "mode": "computed_at_runtime_unverified",
+  "sha256": null,
+  "source": "docs/interface.json frames plus integration/wire.py PAYLOAD_LENGTHS"
+ }
+}
+[4] Adjacent regression, unmodified suite: integration/test_wire.py
+COMMAND: python -X utf8 -B integration/test_wire.py
+C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe : test_all_fixed_lengths 
+(__main__.WireTests.test_all_fixed_lengths) ... ok
+At line:2 char:106
++ ... n/deepeye'; C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-run ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_all_fixed_...lengths) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_bounded_resynchronization_and_embedded_magic 
+(__main__.WireTests.test_bounded_resynchronization_and_embedded_magic) ... ok
+test_crc_independent_vectors (__main__.WireTests.test_crc_independent_vectors) ... ok
+test_crc_version_magic_size_and_unknown_rejected (__main__.WireTests.test_crc_version_magic_size_and_unknown_rejected) 
+... ok
+test_every_chunk_boundary (__main__.WireTests.test_every_chunk_boundary) ... ok
+test_exact_hello_frame (__main__.WireTests.test_exact_hello_frame) ... ok
+test_input_cap_preserves_partial_state (__main__.WireTests.test_input_cap_preserves_partial_state) ... ok
+test_integer_overflow_does_not_wrap (__main__.WireTests.test_integer_overflow_does_not_wrap) ... ok
+test_legacy_is_explicit_diagnostic_only (__main__.WireTests.test_legacy_is_explicit_diagnostic_only) ... ok
+test_motion_signed_payload_is_preserved (__main__.WireTests.test_motion_signed_payload_is_preserved) ... ok
+test_unfrozen_trace_rejected (__main__.WireTests.test_unfrozen_trace_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.006s
+
+OK
+[5] Human contract identity re-check (read-only; never rewrites the scope documents)
+COMMAND: python -X utf8 -B docs/competition/deepeye-2026/verify_immutable_scope.py --expected-sha c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804
+{"status": "passed", "scope": "human requirement identity and trace coverage only", "contract": "DEEPEYE-HUMAN-LOCK-20261014", "requirements": 15, "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804", "runtime_acceptance": "not_run"}
+note: the requirements subtree canonical hash equals the human-pinned SHA256;
+      runtime_acceptance is reported as not_run by the verifier itself.
+
+[6] File SHA256 (computed after all runs above; this evidence file is not self-hashed)
+sha256 1fb88725525462f63fd33f3a5d9cb81f3f22ecca26afa8a4edb167947f54417e  docs/boot_profiles.json  (17140 bytes)
+sha256 4a2fe4d5a96c31810769e037564e38e319fe2b6b4c3d717b7b52e8e2e03f1d29  integration/boot_profile.py  (73904 bytes)
+sha256 d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db  tests/test_boot_profile.py  (22524 bytes)
+
+[7] Limitations and open gates
+- Software schedule only: the FAST_9600 500 ms and STRESS_300 8000 ms windows are the
+  bounded software candidate schedule; there is no end-to-end performance claim and
+  no N500/8000 measurement. Asynchronous EVENT latency is explicitly not accepted;
+  an event occurs only at its allocated slot.
+- All timing is exact rational millisecond arithmetic (Fraction) with ceil upper
+  bounds; byte time is 10 line-bits/byte (8N1) at 9600 / 300 baud from the frozen
+  document, not a measurement.
+- Unmeasured values stay null / unverified: USB processing, frame serialization,
+  clock error, rate bound, tick quantization, dispatch delay bounds and holdover cap
+  remain value=null status=unverified_not_measured. Channel quantity/unit/conversion/
+  calibration references stay null. Host schema/enum and frame-layout digests stay
+  runtime_loaded_unverified / computed_at_runtime_unverified because those parent
+  drafts are concurrent; the hashes printed above are runtime captures, not frozen
+  claims.
+- FORCE and real PGA acquisition mappings remain explicit_separate_uncalibrated with
+  shared_scaling_with=null; no fake common scaling was introduced.
+- Profile/mode switch is policy only: stop + new session + new canonical BOOT hash +
+  matching BOOT_ACK before ENABLE; this file never claims ENABLE.
+- Not demonstrated here (still not_run): physical PWM/PIO capture validation,
+  cross-node byte interoperability, measured USB/oscillator/holdover bounds, channel
+  scaling/calibration, real FPGA/board behaviour, product gameplay/performance.
+- No commit, push, network, board or service activity; the RED temp copy and the
+  probe script were transient and were removed.

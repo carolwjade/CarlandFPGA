@@ -1,0 +1,149 @@
+test_T01_prepare_never_publishes_pose_or_phase (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T01_prepare_never_publishes_pose_or_phase) ... FAIL
+test_T02_actual_final_interval_maps_only_new_events_and_one_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T02_actual_final_interval_maps_only_new_events_and_one_publication) ... FAIL
+test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence) ... FAIL
+test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle) ... FAIL
+test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion) ... FAIL
+test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai) ... FAIL
+test_T07_deadline_equality_and_overlapping_actual_intervals_reject (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T07_deadline_equality_and_overlapping_actual_intervals_reject) ... FAIL
+test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix) ... FAIL
+test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored) ... FAIL
+test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive) ... FAIL
+test_T11_whole_tail_and_correct_role_required_for_entry_and_exit (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T11_whole_tail_and_correct_role_required_for_entry_and_exit) ... FAIL
+test_T12_unresolved_multislice_arrival_and_drilling_never_grant (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T12_unresolved_multislice_arrival_and_drilling_never_grant) ... FAIL
+test_T13_new_boot_does_not_clear_trial_failure_or_old_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T13_new_boot_does_not_clear_trial_failure_or_old_history) ... FAIL
+test_T14_waiting_changes_actual_mapping_but_never_integrates_pause (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T14_waiting_changes_actual_mapping_but_never_integrates_pause) ... FAIL
+test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay) ... FAIL
+test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle) ... FAIL
+
+======================================================================
+FAIL: test_T01_prepare_never_publishes_pose_or_phase (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T01_prepare_never_publishes_pose_or_phase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T02_actual_final_interval_maps_only_new_events_and_one_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T02_actual_final_interval_maps_only_new_events_and_one_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T07_deadline_equality_and_overlapping_actual_intervals_reject (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T07_deadline_equality_and_overlapping_actual_intervals_reject)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T11_whole_tail_and_correct_role_required_for_entry_and_exit (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T11_whole_tail_and_correct_role_required_for_entry_and_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T12_unresolved_multislice_arrival_and_drilling_never_grant (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T12_unresolved_multislice_arrival_and_drilling_never_grant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T13_new_boot_does_not_clear_trial_failure_or_old_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T13_new_boot_does_not_clear_trial_failure_or_old_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T14_waiting_changes_actual_mapping_but_never_integrates_pause (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T14_waiting_changes_actual_mapping_but_never_integrates_pause)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+======================================================================
+FAIL: test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 27, in setUp
+    self.assertIsNotNone(m,'owned motion executor not implemented')
+AssertionError: unexpectedly None : owned motion executor not implemented
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.002s
+
+FAILED (failures=16)

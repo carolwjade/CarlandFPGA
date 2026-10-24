@@ -1,0 +1,31 @@
+DERIVED LOG — source SHA256 dd84c5582527b66eb350ab1334b055d1f4394d3e0df2ebbd4e2c52fa4d7c769c
+Removed exactly one JSON member unknown_crash_receipt containing an internal run receipt path. Other original byte lines are retained. Not raw; no tests rerun.
+
+test_acl_directory_must_be_empty_before_inheritable_acl (test_policy.PolicyTests.test_acl_directory_must_be_empty_before_inheritable_acl) ... ok
+test_acl_helper_rejects_dotdot_escape_before_modifying_objects (test_policy.PolicyTests.test_acl_helper_rejects_dotdot_escape_before_modifying_objects) ... ok
+test_complete_frame_cannot_replace_prior_failed_or_missing_evidence (test_policy.PolicyTests.test_complete_frame_cannot_replace_prior_failed_or_missing_evidence) ... ok
+test_environment_is_built_without_inheriting_credentials (test_policy.PolicyTests.test_environment_is_built_without_inheriting_credentials) ... ok
+test_fixture_rejects_nonobjects_duplicates_and_nonfinite_values (test_policy.PolicyTests.test_fixture_rejects_nonobjects_duplicates_and_nonfinite_values) ... ok
+test_missing_canary_is_not_access_denied (test_policy.PolicyTests.test_missing_canary_is_not_access_denied) ... ok
+test_missing_evidence_fails_closed_and_complete_evidence_passes (test_policy.PolicyTests.test_missing_evidence_fails_closed_and_complete_evidence_passes) ... ok
+test_only_ordered_last_canary_attempt_can_explain_fatal_invalid_handle (test_policy.PolicyTests.test_only_ordered_last_canary_attempt_can_explain_fatal_invalid_handle) ... ok
+test_parser_rejects_unbounded_and_incomplete_protocol (test_policy.PolicyTests.test_parser_rejects_unbounded_and_incomplete_protocol) ... ok
+test_refuses_existing_run_without_touching_it (test_policy.PolicyTests.test_refuses_existing_run_without_touching_it) ... ok
+test_rejects_escape_and_reserved_names (test_policy.PolicyTests.test_rejects_escape_and_reserved_names) ... ok
+test_successful_dangerous_process_open_fails_verdict (test_policy.PolicyTests.test_successful_dangerous_process_open_fails_verdict) ... ok
+test_verdict_requires_all_positive_controls (test_policy.PolicyTests.test_verdict_requires_all_positive_controls) ... ok
+test_real_boundary_and_profile_cleanup (test_windows_live.WindowsLiveTests.test_real_boundary_and_profile_cleanup) ... ok
+test_timeout_is_failed_and_own_process_profile_are_cleaned (test_windows_live.WindowsLiveTests.test_timeout_is_failed_and_own_process_profile_are_cleaned) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 4.594s
+
+OK
+{
+  "existing_tests_passed": 15,
+  "profile_process_boundaries_observed": 6,
+  "unknown_crash_receipt_sha256": "1b089c54935a75f92cfc034691b4d7646aacb6ff3ee46ada1732844509cde243",
+  "unknown_crash_failed_verdict": true,
+  "unknown_crash_exit_code": 1,
+  "G03_formal_acceptance": "not_run"
+}

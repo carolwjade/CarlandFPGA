@@ -1,0 +1,9 @@
+# Main-selected bounded layout path correction
+
+Existing human authorization permits autonomous repair without per-step approval; the latest display instruction requires every action here to remain headless. H01-H15 remain unchanged.
+
+Observed root cause: the actual existing `layout_store.gd` has a GDScript `"\u0000"` literal in `_absolute_path`. On the pinned Windows Godot4.7.2, the literal is decoded to U+FFFD and emits Unicode diagnostics. The old guard therefore rejects the valid U+FFFD character, as shown by actual6checks/3failures/exit1: path validation, `save_new`, and `read_text` all fail. Four isolated font-control probes emitted zero NUL diagnostics, rejecting the earlier font hypothesis. Runtime `String.chr(0)` in the diagnostic is also converted to U+FFFD; an actual embedded-zero String cannot be claimed from that fixture.
+
+Options: remove the guard entirely; use zero-codepoint comparison on encoded bytes; construct another zero-character String. Choose the byte check: it avoids invalid source literals and retains an explicit zero-byte rejection without relying on this engine's zero-character construction. No new dependency, schema, file publication behavior, or authority changes.
+
+Plan: keep the original exact six-assertion probe and RED bytes; copy the one source file into a new private candidate, replace only `path.find("\u0000") != -1` with `path.to_utf8_buffer().has(0)`, and run the unchanged probe. Its deliberate zero-construction diagnostic remains expected and explicitly separated. Include an ordinary startup/persistence regression in the later combined headless candidate to demonstrate the inherited startup diagnostics are absent there. Ask an independent review worker to examine this new diff and the current G01/numeric composition before main adoption. No native visual, board, general engine-clean, or formal task-card acceptance follows automatically.

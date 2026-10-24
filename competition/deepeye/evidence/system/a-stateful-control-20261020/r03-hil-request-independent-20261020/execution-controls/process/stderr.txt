@@ -1,0 +1,41 @@
+test_boot_callback_veto_retires_proposal (__main__.Controls.test_boot_callback_veto_retires_proposal) ... ok
+test_callback_stop_reentry_bad_shape_exception_veto (__main__.Controls.test_callback_stop_reentry_bad_shape_exception_veto) ... ok
+test_capture_phase_quality_codes_and_remaining_ttl (__main__.Controls.test_capture_phase_quality_codes_and_remaining_ttl) ... ok
+test_clock_and_public_call_shape_rejections (__main__.Controls.test_clock_and_public_call_shape_rejections) ... ok
+test_current_fault_stop_and_reject_latch (__main__.Controls.test_current_fault_stop_and_reject_latch) ... ok
+test_delay_exhaustion_and_original_send_cap (__main__.Controls.test_delay_exhaustion_and_original_send_cap) ... ok
+test_event_observation_and_no_receipt_backfill (__main__.Controls.test_event_observation_and_no_receipt_backfill) ... ok
+test_evicted_active_command_cannot_be_replayed (__main__.Controls.test_evicted_active_command_cannot_be_replayed) ... ok
+test_exact_duplicate_does_not_renew_and_changed_identity_stops (__main__.Controls.test_exact_duplicate_does_not_renew_and_changed_identity_stops) ... ok
+test_foreign_thread_after_final_fence_cannot_publish_qualified (__main__.Controls.test_foreign_thread_after_final_fence_cannot_publish_qualified)
+Deterministic scheduling at a real code line, no source/state patch. ... FAIL
+test_foreign_thread_inside_verifier_is_fenced (__main__.Controls.test_foreign_thread_inside_verifier_is_fenced) ... ok
+test_malformed_crc_ttl_curvature_and_epoch (__main__.Controls.test_malformed_crc_ttl_curvature_and_epoch) ... ok
+test_missing_and_invalid_verifier_results (__main__.Controls.test_missing_and_invalid_verifier_results) ... ok
+test_no_default_or_unknown_source_and_no_pc_direct_capture (__main__.Controls.test_no_default_or_unknown_source_and_no_pc_direct_capture) ... ok
+test_nonmotion_health_response_is_not_a_new_association (__main__.Controls.test_nonmotion_health_response_is_not_a_new_association) ... ok
+test_original_ttl_and_late_eight_second_ack (__main__.Controls.test_original_ttl_and_late_eight_second_ack) ... ok
+test_packet_oracle_known_crc_and_literal_layout (__main__.Controls.test_packet_oracle_known_crc_and_literal_layout) ... ok
+test_receipt_lower_previous_deadline_and_exact_equality (__main__.Controls.test_receipt_lower_previous_deadline_and_exact_equality) ... ok
+test_request_and_response_sequence_exhaustion (__main__.Controls.test_request_and_response_sequence_exhaustion) ... ok
+test_retry_identity_and_nonmotion_type_keys (__main__.Controls.test_retry_identity_and_nonmotion_type_keys) ... ok
+test_same_key_changed_payload_latches_stop (__main__.Controls.test_same_key_changed_payload_latches_stop) ... ok
+test_session_retirement_and_limit (__main__.Controls.test_session_retirement_and_limit) ... ok
+test_slow_verifier_supplied_time_boundary_is_not_authorization (__main__.Controls.test_slow_verifier_supplied_time_boundary_is_not_authorization) ... ok
+test_stop_request_and_explicit_stop_cannot_be_undone (__main__.Controls.test_stop_request_and_explicit_stop_cannot_be_undone) ... ok
+test_superseded_and_expired_requests_never_resurrect (__main__.Controls.test_superseded_and_expired_requests_never_resurrect) ... ok
+test_unknown_and_evicted_original_observation (__main__.Controls.test_unknown_and_evicted_original_observation) ... ok
+
+======================================================================
+FAIL: test_foreign_thread_after_final_fence_cannot_publish_qualified (__main__.Controls.test_foreign_thread_after_final_fence_cannot_publish_qualified)
+Deterministic scheduling at a real code line, no source/state patch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\r03-hil-request-independent-20261020\review_controls.py", line 558, in test_foreign_thread_after_final_fence_cannot_publish_qualified
+    self.assertFalse(result.qualified, "foreign STOP occurred before result publication")
+AssertionError: True is not false : foreign STOP occurred before result publication
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.179s
+
+FAILED (failures=1)

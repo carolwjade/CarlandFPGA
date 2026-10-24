@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "evidence_scope": "Independent literal software timelines; no measured bounds, live producer or motion authority",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "origin_ms": 0,
+  "usb_upper_ms": 10,
+  "packing_upper_ms": 5,
+  "timelines": [
+    {"name":"FAST150","profile":1,"sample_ms":0,"completed_ms":150,"now_ms":150,"deadline_ms":2000,"grant_window":0,"expected_slot_ms":210},
+    {"name":"FAST250","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":2000,"grant_window":1,"expected_slot_ms":710},
+    {"name":"STRESS150","profile":2,"sample_ms":0,"completed_ms":150,"now_ms":150,"deadline_ms":15000,"grant_window":0,"expected_slot_ms":2050},
+    {"name":"STRESS250","profile":2,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":15000,"grant_window":0,"expected_slot_ms":2050},
+    {"name":"FAST_multiple_missed_slots","profile":1,"sample_ms":1000,"completed_ms":1150,"now_ms":1211,"deadline_ms":2400,"grant_window":3,"expected_slot_ms":1710},
+    {"name":"STRESS_multiple_missed_slots","profile":2,"sample_ms":17000,"completed_ms":17150,"now_ms":18051,"deadline_ms":29000,"grant_window":3,"expected_slot_ms":26050},
+    {"name":"FAST_ready_early_deadline_before_slot","profile":1,"sample_ms":0,"completed_ms":20,"now_ms":20,"deadline_ms":100,"grant_window":0,"expected_slot_ms":null},
+    {"name":"FAST_deadline_equals_slot","profile":1,"sample_ms":0,"completed_ms":20,"now_ms":20,"deadline_ms":210,"grant_window":0,"expected_slot_ms":null},
+    {"name":"FAST_sample_age_excludes_next_slot","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":1211,"deadline_ms":3000,"grant_window":3,"expected_slot_ms":null},
+    {"name":"FAST_age_exactly_equals_slot","profile":1,"sample_ms":210,"completed_ms":250,"now_ms":1211,"deadline_ms":3000,"grant_window":3,"expected_slot_ms":null},
+    {"name":"FAST_packing_misses_primary","profile":1,"sample_ms":0,"completed_ms":200,"now_ms":200,"deadline_ms":1500,"grant_window":1,"expected_slot_ms":710},
+    {"name":"FAST_wrong_grant","profile":1,"sample_ms":0,"completed_ms":250,"now_ms":250,"deadline_ms":1500,"grant_window":0,"expected_slot_ms":null}
+  ]
+}

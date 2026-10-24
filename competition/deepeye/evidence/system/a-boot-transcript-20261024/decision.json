@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:19:20.113519+00:00",
+  "main": "01a16988-bdcb-70e1-ae10-1304b5cf7875",
+  "generation": 3,
+  "disposition": "ACCEPT_DIAGNOSTIC_SINGLE_ATTEMPT_BOOT_TRANSCRIPT_ONLY",
+  "product_base": "353aa3a540576e92e023eaa62c68487a8a1d00d6",
+  "source_pins": {
+    "owned": [
+      {
+        "path": "competition/deepeye/integration/boot_transcript.py",
+        "bytes": 11160,
+        "sha256": "42c9ab081d9266a6a5297cd65e41afd89090608932fb3b432ce1bbaa504f5ebe"
+      },
+      {
+        "path": "competition/deepeye/integration/test_boot_transcript.py",
+        "bytes": 14876,
+        "sha256": "51e1f9be61ba90884eb6a0d4c849a3a059bab21692b38c3878e1ea707ddc5401"
+      },
+      {
+        "path": "competition/deepeye/docs/boot_transcript.md",
+        "bytes": 7293,
+        "sha256": "adbd1c75d839b6d925da4decd15c7a20b4a938cb8af5ca2a6c451d49708f23bb"
+      }
+    ],
+    "readonly_inputs": [
+      {
+        "path": "competition/deepeye/integration/live_board_receipts.py",
+        "bytes": 11483,
+        "sha256": "ebd24a6a53710a1e2d8c24d13bd64fafed8b03ff27f8382935dc2ea0c75cfe4e"
+      },
+      {
+        "path": "competition/deepeye/docs/live_board_receipts.md",
+        "bytes": 4602,
+        "sha256": "29103e9dfdd56c18b16a82559d63fad9f85cac5e5b563493aac44dea2d3db304"
+      },
+      {
+        "path": "competition/deepeye/integration/boot_profile.py",
+        "bytes": 81662,
+        "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+      },
+      {
+        "path": "competition/deepeye/integration/test_boot_binding.py",
+        "bytes": 4051,
+        "sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b"
+      },
+      {
+        "path": "competition/deepeye/integration/wire.py",
+        "bytes": 5459,
+        "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+      },
+      {
+        "path": "competition/deepeye/docs/boot_profiles.json",
+        "bytes": 20395,
+        "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74"
+      }
+    ]
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "author_new_controls": 16,
+  "independent_new_control_groups": 4,
+  "root_saved_ledgers_reconstructed": 20,
+  "root_original_frames_reconstructed": 19,
+  "root_os_write_call_sites": 1,
+  "actual_terminated_local_process": {
+    "command": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\boot-transcript-independent-20261024\\review_controls.py",
+      "--blocking-child"
+    ],
+    "pid": 37880,
+    "exit_code": 1,
+    "termination_requested": true,
+    "alive_after_write_boundary_150ms": true,
+    "journal_kinds": [
+      "prepared",
+      "write_started"
+    ],
+    "limits": "write-entry is an observation wrapper; child had no reader draining the full OS pipe; no BOOT delivery, hardware, durability-after-power-loss or global deduplication claim"
+  },
+  "original_failures_preserved": true,
+  "production_gate_changed": false,
+  "board_run": false,
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "limits": [
+    "OS writes and local original ACK correlation only; no authentication, freshness, actual bit/HWH load, build membership or motion authority",
+    "main retains global operation/session uniqueness and bounded transport supervision",
+    "unknown writes never automatically replayed; journal path exclusivity is not global deduplication",
+    "read/write brackets are not source sample or UART completion times"
+  ]
+}

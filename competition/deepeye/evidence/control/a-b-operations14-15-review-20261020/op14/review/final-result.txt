@@ -1,0 +1,18 @@
+Bounded independent A review complete for B op14; evidence for the quality main, no formal acceptance decision.
+Job child-9f94617fff6047d9b56574520f9b431c; agent /root/b_op14_review_20261020.
+Task DEEPEYE-IMPLEMENTATION-20261014/v1. Active sole A director 01a13d7e-dcf1-7272-a738-a637dd62ff9d generation 2.
+Contract DEEPEYE-HUMAN-LOCK-20261014/revision1 H01-H15; requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 verified.
+B head 7dd2c4108ee49cc6e0feb7c715d786f8b11a99c2; source commit 21ae4c6bc9d03aea8a79bf784d9873ebdaf1c903.
+Operation B-DEEPEYE-PWM-COHERENT-CAPTURE-20261020-14; request 1d23fc80980b0269bece376230d3722892355b725e217f7644e5b519b8230970; handoff manifest f93e490bb0da5fb7e676538ec29e73aa56aacd388b574351de008b1d61ea8602.
+All 293 handoff entries and 309 selected files independently match exact-head tree/blob/size/SHA256. Sources unchanged before/after and in post-run audit.
+Real ModelSim SE-64 2020.4 compiled exact DUT and reused public-port replay TB. A event-ledger oracle imported no B model or runner; expected every expanded sample from timestamped observed transitions, absolute deadlines and separate mailbox. Stimulus/TB reused and oracle written after source/reference inspection, freeze before A compile only.
+Six positive configurations: 800870 edges / 65156 RLE rows, all 450 legal small-width triples plus nine repeated, 16-bit period 65535 and overflow 65536 observed; all trace bytes equal B. All positives Errors 0 / Warnings 0 / actual exit 0.
+Eleven actual DUT parameter guards at 0 ps scope guard_tb.dut dut.sv:136; exact value display precedes exact named fatal, Errors 1 / Warnings 0. Each actual outer exit 0, so named diagnostics establish rejection. B preserved guard width warnings and initial parser failure audited, not erased.
+Two compiled private faulty copies rejected on public ports: relaxed_common_R1 row5363 sample7362 out_valid 1 expected0; stale_rearm_slot row6876 sample9242 period5 expected0. Each actual exit0 with PUBLIC_PORT_MISMATCH fatal, Errors1 / Warnings0 and no PASS. No original-DUT discrepancy found within this bounded scope.
+Thirty raw tool/simulator/mapping command records, actual exits and hashes retained; outer launcher exit0. Verified-unused Q mapping created/removed, no timeouts, all recorded processes exited, no owned review.py process or Q mapping in cleanup snapshot.
+Only owned evidence directory written. No product/board/native GUI/Run/service/config/driver/install/Git mutation/external message/child. No private lease printed. No op15 result included.
+All29 formal cards and G05/B06/R03 remain not_run. No max32/max64 traversal, synthesis, implementation, physical timing, CDC/RDC, asynchronous capture, ABI/TTL/BOOT, liveness/freshness/motion grant or full product control-chain claim. out_valid is queued transport only.
+Evidence directory: C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-op14-independent-20261020
+receipt.json SHA256 152577a1dd3c80e886631c31190dc92be1e0e0e4e1ed2c7c1cbb891370996d61
+findings.md SHA256 137efe9cb41db7c77fd4675d81bcf021f729cbc28709ba8f8a2263efdf8b81d8
+audit-result.json SHA256 e587f5fd5b91fa425b4abc1e1aaede7989becede87987663bae26d67505f494a

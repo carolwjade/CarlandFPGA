@@ -1,0 +1,270 @@
+{
+  "source_commit": "4523157db12203d127ceb6ae25f2d187e85c9cc9",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "checkout": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-r03-current\\FPGA多机协作开发",
+  "exit_code": 2,
+  "status": "blocked",
+  "R03": "not_run",
+  "software_checks": "passed",
+  "hardware_enable_eligible": false,
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_wire.py"
+      ],
+      "exit_code": 0,
+      "discovered": 11,
+      "skipped": 0,
+      "raw_log": "check_00.raw.log",
+      "raw_log_sha256": "d413ca6ff385c7e1ac3b19c9f99b7ee0bc4ad1cab3b1c81c81186c8dd8b1038f"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_motion.py"
+      ],
+      "exit_code": 0,
+      "discovered": 9,
+      "skipped": 0,
+      "raw_log": "check_01.raw.log",
+      "raw_log_sha256": "0fe436fe3e72c3abea082a4224cb58e475e6a8f574367f25dafbccfb86ea7642"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_host_schema.py"
+      ],
+      "exit_code": 0,
+      "discovered": 7,
+      "skipped": 0,
+      "raw_log": "check_02.raw.log",
+      "raw_log_sha256": "44af8eae60137edc7c84e2bdc0c1a733656dd59fe23e7e3a020c37c665f9fd06"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_host_envelope.py"
+      ],
+      "exit_code": 0,
+      "discovered": 34,
+      "skipped": 0,
+      "raw_log": "check_03.raw.log",
+      "raw_log_sha256": "ed5fe24132d2b0f32148ee8751b464e2e93691ec14a5f0df345d7390db473b74"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_pc_direct_heartbeat.py"
+      ],
+      "exit_code": 0,
+      "discovered": 5,
+      "skipped": 0,
+      "raw_log": "check_04.raw.log",
+      "raw_log_sha256": "759edc70b8e2d22491be466194d8ac9dc269d78f184acbba9ad624b2fced177e"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_pc_direct_watchdog.py"
+      ],
+      "exit_code": 0,
+      "discovered": 40,
+      "skipped": 0,
+      "raw_log": "check_05.raw.log",
+      "raw_log_sha256": "35b57a135ca44ccf0861990b4550e3ff338a2437d9fa188a45e41a0a2750dbc2"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_sensor_source.py"
+      ],
+      "exit_code": 0,
+      "discovered": 43,
+      "skipped": 0,
+      "raw_log": "check_06.raw.log",
+      "raw_log_sha256": "554145fd3dca5dda51b1d2b47a8520d19c88759741eb4d618d749132054f7aaf"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_trace_payload.py"
+      ],
+      "exit_code": 0,
+      "discovered": 6,
+      "skipped": 0,
+      "raw_log": "check_07.raw.log",
+      "raw_log_sha256": "60633c1c8442ac78c869eebc02bbc84dac7d5d5ec48b9b909287acdb4c4cb0a2"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_clock_bounds.py"
+      ],
+      "exit_code": 0,
+      "discovered": 28,
+      "skipped": 0,
+      "raw_log": "check_08.raw.log",
+      "raw_log_sha256": "36a87d5e90c043bf525cbbc88020d7a6df4502097203dc57fc164b83dfa83087"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_boot_binding.py"
+      ],
+      "exit_code": 0,
+      "discovered": 5,
+      "skipped": 0,
+      "raw_log": "check_09.raw.log",
+      "raw_log_sha256": "77d30f0f254c8740047a91ff49a36e22292bb44089a4a0f4cc89051940795e23"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "integration/test_contract_vectors.py"
+      ],
+      "exit_code": 0,
+      "discovered": 3,
+      "skipped": 0,
+      "raw_log": "check_10.raw.log",
+      "raw_log_sha256": "7d4980533fb9ded4fe611c54f097468c3583a27125b4c3362d7bfb3a3b399d3c"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tests/test_boot_profile.py"
+      ],
+      "exit_code": 0,
+      "discovered": 30,
+      "skipped": 0,
+      "raw_log": "check_11.raw.log",
+      "raw_log_sha256": "07a5ed227d1e0353ec3e390eeea7c8bf8f3a47c7803289041fb1f06ca62e5d15"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "tools/pipeline.py",
+        "verify",
+        "--selftest"
+      ],
+      "exit_code": 0,
+      "discovered": 25,
+      "skipped": 1,
+      "raw_log": "check_12.raw.log",
+      "raw_log_sha256": "9fa558a18f98bfa7a9f1050ad2144892d685936201b492a276254fa931bb789b"
+    }
+  ],
+  "discovered": 246,
+  "skipped": 1,
+  "checkout_unchanged": true,
+  "original_source_unchanged": true,
+  "artifact_hashes_match": true,
+  "remaining_gates": [
+    "TRACE payload/codec finalization and independent vectors",
+    "register bitfields, reset semantics and matched HWH integration",
+    "stateful observation history/latest-completed mailbox/request replay and seq/epoch rollover integration",
+    "B/C independent byte interoperability on the published exact candidate",
+    "host process ACL isolation and mode-specific end-to-end runtime",
+    "measured USB/clock/holdover/channel calibration and actual IO capture before ENABLE"
+  ],
+  "default_ledger_created": false,
+  "actual_hardware_tests": false,
+  "actual_OS_ACL_or_isolation_probes": false,
+  "stdout_sha256": "6f731adf49f2ff3fc15a47e2b8218db0faecb93ba56be603e19ece14a435e79f",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "passed": 245,
+  "sealed_utc": "2026-10-18T15:43:05.078690+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-R03-PUBLISHED-CHECK-20261018-v1",
+  "native_job": "child-e252337b0be94b7a978dd11455bac543",
+  "agent": "/root/worker_results_review_20261018",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "director_generation": 2,
+  "published_PR24_HEAD": "4523157db12203d127ceb6ae25f2d187e85c9cc9",
+  "implementation_source_commit": "e7c00d4d7592b2d949a889d0b7ed87b3f649f177",
+  "child_raw_hashes_verified": true,
+  "unchanged_snapshot_files": 411,
+  "artifact_count": 61,
+  "all29_formal_cards": {
+    "R01": "not_run",
+    "R02": "not_run",
+    "R03": "not_run",
+    "R04": "not_run",
+    "B01": "not_run",
+    "C01": "not_run",
+    "A01": "not_run",
+    "B02": "not_run",
+    "B03": "not_run",
+    "B04": "not_run",
+    "B05": "not_run",
+    "B06": "not_run",
+    "C02": "not_run",
+    "C03": "not_run",
+    "C04": "not_run",
+    "C05": "not_run",
+    "A02": "not_run",
+    "A05": "not_run",
+    "A03": "not_run",
+    "A04": "not_run",
+    "G01": "not_run",
+    "G02": "not_run",
+    "G03": "not_run",
+    "G04": "not_run",
+    "G05": "not_run",
+    "G09": "not_run",
+    "G06": "not_run",
+    "G07": "not_run",
+    "G08": "not_run"
+  },
+  "product_acceptance": false,
+  "reference_validation_complete": true,
+  "nested_skip_reason": "Recursive pipeline verify --selftest test is intentionally suppressed inside its own nested invocation; one skip is reported, never counted as a passed test.",
+  "tests_not_run": [
+    "geometry/UI/large older baseline suites",
+    "uncommitted PC runtime adapter from original product",
+    "actual board/OS ACL/process-isolation actors"
+  ],
+  "source_modified": false,
+  "old_evidence_modified": false,
+  "preparation_failure_preserved": "preparation_failure.txt; shell preparation failed before entrypoint start; no product tests failed there.",
+  "counts_change_from_prior245": "Pipeline suite now discovers25 instead of24 because the published ownership-path regression was added. Full reference count246/245+1skip is tied to4523157, not relabeled old evidence."
+}

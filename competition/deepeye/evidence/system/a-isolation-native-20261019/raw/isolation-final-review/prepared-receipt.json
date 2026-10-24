@@ -1,0 +1,18 @@
+{
+  "work_id": "A-isolation-final-review-20261019-v1",
+  "job_id": "child-5877d2f4017b47a6ba9738620be73eb3",
+  "owner": "/root/r03_review_20261018",
+  "status": "prepared_checkpoint_pending_author_repair_handoff",
+  "native_complete_called": false,
+  "harness_before_sha256": "d3990462ec2acf77b4b06212cad39eece16e3cb36efc82ea7ce6dcfa15cc8060",
+  "harness_repaired_sha256": "2db0dda152a2fdbfd8aff7dcbef6de3d144a920d08532f8ba4900b0fbc8ed613",
+  "IL-H1": "2 original RED -> 2 independent GREEN",
+  "observer_checks": "5 passed on original; observer and observed_run AST unchanged in repair",
+  "product_IL-R1": "pending frozen new candidate and actual author terminal, not reviewed yet",
+  "old_candidate_files": 12,
+  "old_manifest_sha256": "0bdabec4a3c465e269c090bffd8fb690b2797750f47c4e4c7165e8e4d6a51376",
+  "native_gate_present": false,
+  "real_native_execution": false,
+  "formal_acceptance": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

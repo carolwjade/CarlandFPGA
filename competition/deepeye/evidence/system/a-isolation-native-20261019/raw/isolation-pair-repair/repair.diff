@@ -1,0 +1,214 @@
+--- before/competition/deepeye/simulation/isolation/owned_resources.py
++++ after/competition/deepeye/simulation/isolation/owned_resources.py
+@@ -67,6 +67,14 @@
+ 
+     def own_handle(self, label, value, *, release='kernel', kind='handle', recovery=False,
+                    profile_dependent=True, keepalive=None):
++        ref, error = self._record_handle(label, value, release=release, kind=kind, recovery=recovery,
++                                         profile_dependent=profile_dependent, keepalive=keepalive)
++        if error is not None:
++            raise error
++        return ref
++
++    def _record_handle(self, label, value, *, release='kernel', kind='handle', recovery=False,
++                       profile_dependent=True, keepalive=None):
+         if self._sealed:
+             raise RuntimeError('acquisition after cleanup was sealed')
+         value = getattr(value, 'value', value)
+@@ -91,14 +99,50 @@
+             ref.attempted, ref.outcome = True, Outcome.UNKNOWN
+             self.errors.append(ErrorInfo('acquisition', ref.resource_id, 'AmbiguousReuse',
+                                          'native value reused after unconfirmed release'))
+-            raise ValueError('new acquisition retained with ambiguous native reuse')
+-        return ref
++            return ref, ValueError('new acquisition retained with ambiguous native reuse')
++        return ref, None
++
++    def _record_pair(self, first, second):
++        """Record both results of one successful acquisition before raising.
++
++        Each item is (label, native value, registration options). No OS action,
++        reporting callback or release is performed. In-memory allocation failure
++        itself retains the existing Python-level limitation.
++        """
++        refs, errors, unexpected = [], [], []
++        for label, value, options in (first, second):
++            try:
++                ref, error = self._record_handle(label, value, **options)
++            except BaseException as error:
++                refs.append(None)
++                errors.append(error)
++                unexpected.append(error)
++            else:
++                refs.append(ref)
++                if error is not None:
++                    errors.append(error)
++        # Formatting a secondary diagnostic must also wait until both records
++        # have been attempted. Ambiguities already carry their ledger errors.
++        self.errors.extend(error_info('paired_registration', error) for error in unexpected)
++        return tuple(refs), errors
++
++    def own_pair(self, first, second):
++        refs, errors = self._record_pair(first, second)
++        if errors:
++            raise errors[0]
++        return refs
+ 
+     def own_profile(self, name, sid):
+         if self.profile is not None:
+             raise ValueError('one newly created profile per owner')
+-        self.profile = self.own_handle('profile', name, release='profile', kind='profile', profile_dependent=False)
+-        self.own_handle('profile_sid', sid, release='sid')
++        refs, errors = self._record_pair(
++            ('profile', name, {'release': 'profile', 'kind': 'profile', 'profile_dependent': False}),
++            ('profile_sid', sid, {'release': 'sid', 'profile_dependent': False}))
++        self.profile = refs[0]
++        if self.profile is not None and refs[1] is not None:
++            refs[1].profile_id = self.profile.resource_id
++        if errors:
++            raise errors[0]
+         return self.profile
+ 
+     def set_profile_path(self, path):
+@@ -110,9 +154,8 @@
+         # No inspection, formatting or reporting between successful CreateProcess
+         # and registering BOTH returned handles. Memory allocation failure itself
+         # remains outside this Python-level atomicity guarantee.
+-        process = self.own_handle('process', pi.hProcess, kind='process')
+-        thread = self.own_handle('primary_thread', pi.hThread, recovery=True)
+-        return process, thread
++        return self.own_pair(('process', pi.hProcess, {'kind': 'process'}),
++                             ('primary_thread', pi.hThread, {'recovery': True}))
+ 
+     def find(self, label):
+         return next(ref for ref in reversed(self._references) if ref.label == label)
+--- before/competition/deepeye/simulation/isolation/win32.py
++++ after/competition/deepeye/simulation/isolation/win32.py
+@@ -269,8 +269,7 @@
+     r, w = W.HANDLE(), W.HANDLE()
+     sa = SA(C.sizeof(SA), None, True)
+     check(CreatePipe(C.byref(r), C.byref(w), C.byref(sa), 16384), 'CreatePipe')
+-    owner.own_handle(read_label, r)
+-    owner.own_handle(write_label, w)
++    owner.own_pair((read_label, r, {}), (write_label, w, {}))
+     return r.value, w.value
+ 
+ 
+--- before/competition/deepeye/tests/isolation/test_owned_resources.py
++++ after/competition/deepeye/tests/isolation/test_owned_resources.py
+@@ -72,3 +72,33 @@
+             self.owner.own_handle('new_acquisition', 12)
+         self.assertEqual({ref.label for ref in self.owner.unresolved}, {'old', 'new_acquisition'})
+         self.assertTrue(all(ref.ambiguous for ref in self.owner.unresolved))
++
++    def test_process_pair_retains_first_second_and_both_ambiguous_members(self):
++        for conflicts in ((91,), (92,), (91, 92)):
++            with self.subTest(conflicts=conflicts):
++                self.setUp()
++                releases = []
++                self.owner.bind_releaser(lambda ref: releases.append(ref) or Outcome.UNKNOWN)
++                for value in conflicts:
++                    self.owner.release_once(self.owner.own_handle('old_' + str(value), value))
++                with self.assertRaisesRegex(ValueError, 'ambiguous native reuse'):
++                    self.owner.own_process(SimpleNamespace(hProcess=91, hThread=92, dwProcessId=99))
++                self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
++                                 [('process', 91), ('primary_thread', 92)])
++                self.assertEqual(len(releases), len(conflicts), 'registration retried an uncertain close')
++                process, thread = self.owner.find('process'), self.owner.find('primary_thread')
++                self.assertEqual(process.ambiguous, 91 in conflicts)
++                self.assertEqual(thread.ambiguous, 92 in conflicts)
++                self.assertTrue(thread.recovery)
++                self.assertEqual(len([error for error in self.owner.errors if error.type_name == 'AmbiguousReuse']), len(conflicts))
++
++    def test_profile_sid_pair_is_retained_and_bound_before_first_ambiguity_raises(self):
++        self.owner.bind_releaser(lambda ref: Outcome.UNKNOWN)
++        previous = self.owner.own_handle('old_profile', 'fresh', release='profile', kind='profile', profile_dependent=False)
++        self.owner.release_once(previous)
++        with self.assertRaisesRegex(ValueError, 'ambiguous native reuse'):
++            self.owner.own_profile('fresh', 1000)
++        self.assertEqual([(ref.label, ref.native) for ref in self.owner.references],
++                         [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)])
++        self.assertIs(self.owner.profile, self.owner.find('profile'))
++        self.assertEqual(self.owner.find('profile_sid').profile_id, self.owner.profile.resource_id)
+--- before/competition/deepeye/tests/isolation/test_windows_cleanup.py
++++ after/competition/deepeye/tests/isolation/test_windows_cleanup.py
+@@ -171,3 +171,79 @@
+         self.assertFalse(result.resources_complete)
+         self.assertIn(('close', 31), self.api.calls)
+         self.assertNotIn(('close', 21), self.api.calls)
++
++    def test_pipe_pair_retains_every_member_and_only_closes_safe_companion(self):
++        for conflicts in ((81,), (82,), (81, 82)):
++            with self.subTest(conflicts=conflicts):
++                self.setUp()
++                self.api.close_ok = False
++                for value in conflicts:
++                    self.owner.release_once(self.owner.own_handle('old_' + str(value), value))
++                self.api.close_ok = True
++                self.api.calls.clear()
++                def create(read, write, attributes, size):
++                    read._obj.value, write._obj.value = 81, 82
++                    return True
++                with patch.object(w, 'CreatePipe', side_effect=create) as created:
++                    with self.assertRaisesRegex(ValueError, 'ambiguous native reuse') as raised:
++                        w.pipe(owner=self.owner, read_label='new_read', write_label='new_write')
++                created.assert_called_once()
++                self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
++                                 [('new_read', 81), ('new_write', 82)])
++                result = self.owner.cleanup(self.backend, lambda event: None, raised.exception)
++                self.assertFalse(result.resources_complete)
++                self.assertEqual(result.primary_error.message, str(raised.exception))
++                for value in (81, 82):
++                    self.assertEqual(self.api.calls.count(('close', value)), 0 if value in conflicts else 1)
++
++    def test_mocked_createprocess_records_pair_before_ambiguity_and_secondary_free_error(self):
++        for conflicts in ((51,), (52,), (51, 52)):
++            with self.subTest(conflicts=conflicts):
++                self.setUp()
++                self.api.close_ok = False
++                for value in conflicts:
++                    self.owner.release_once(self.owner.own_handle('old_' + str(value), value))
++                self.backend.api = w
++                def initialize(buffer, count, flags, size):
++                    size._obj.value = 256
++                    return True
++                def create(*args):
++                    pair = args[-1]._obj
++                    pair.hProcess, pair.hThread, pair.dwProcessId = 51, 52, 99
++                    return True
++                with patch.object(w, 'InitAttributes', side_effect=initialize), patch.object(w, 'UpdateAttribute', return_value=True), \
++                     patch.object(w, 'CreateProcess', side_effect=create) as created, \
++                     patch.object(w, 'DeleteAttributes', side_effect=OSError('secondary attribute release failed')):
++                    with self.assertRaisesRegex(ValueError, 'ambiguous native reuse'):
++                        w.create_suspended('fake.exe', [], 'C:/fake', {}, w.P(1000), 1, 2, owner=self.owner)
++                created.assert_called_once()
++                self.assertEqual([(ref.label, ref.native) for ref in self.owner.references][-2:],
++                                 [('process', 51), ('primary_thread', 52)])
++                self.assertTrue(any(error.message == 'secondary attribute release failed' for error in self.owner.errors))
++
++    def test_unambiguous_primary_thread_remains_recovery_control_for_ambiguous_process(self):
++        self.api.close_ok = False
++        self.owner.release_once(self.owner.own_handle('old', 51))
++        self.api.close_ok = True
++        self.api.calls.clear()
++        with self.assertRaisesRegex(ValueError, 'ambiguous native reuse'):
++            self.owner.own_process(SimpleNamespace(hProcess=51, hThread=52, dwProcessId=99))
++        result = self.owner.cleanup(self.backend, lambda event: None)
++        self.assertFalse(result.resources_complete)
++        self.assertEqual({ref.label for ref in self.owner.unresolved}, {'old', 'process', 'primary_thread'})
++        self.assertNotIn(('close', 51), self.api.calls)
++        self.assertNotIn(('close', 52), self.api.calls)
++
++    def test_mocked_createprofile_records_sid_before_profile_registration_ambiguity(self):
++        self.owner._releaser = lambda ref: Outcome.UNKNOWN
++        prior = self.owner.own_handle('old_profile', 'fresh', release='profile', kind='profile', profile_dependent=False)
++        self.owner.release_once(prior)
++        def create(*args):
++            args[-1]._obj.value = 1000
++            return 0
++        with patch.object(w, 'CreateProfile', side_effect=create) as created:
++            with self.assertRaisesRegex(ValueError, 'ambiguous native reuse'):
++                w.create_profile('fresh', owner=self.owner)
++        created.assert_called_once()
++        self.assertEqual([(ref.label, ref.native) for ref in self.owner.references],
++                         [('old_profile', 'fresh'), ('profile', 'fresh'), ('profile_sid', 1000)])

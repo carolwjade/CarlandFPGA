@@ -1,0 +1,19 @@
+{
+  "changes": [
+    [
+      "rst || stop || transfer_now || g_pending || !g_running",
+      "rst || stop || (transfer_now && (cfg_tag != expected_tag_q)) || !g_running"
+    ],
+    [
+      "end else if (transfer_now || g_pending || !g_running) begin",
+      "end else if ((transfer_now && (cfg_tag != expected_tag_q)) || !g_running) begin"
+    ],
+    [
+      "assign capture_rearm = capture_arm;",
+      "assign capture_rearm = capture_arm && (g_active_tag != expected_tag_q);"
+    ]
+  ],
+  "purpose": "deliberately preserve binding/capture across same-tag T and application; expose pre-boundary interval",
+  "mutant_sha256": "8f573be18ac379f0c7a94a90d3c391a968abd07206db0c5c7ce57a91d2766bbe",
+  "checker_sha256": "3c0b17dcb51adb7e2b5f8ba4520d3c16b9cd2bf9adb18006e66e0d894d9b473f"
+}

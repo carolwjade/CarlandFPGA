@@ -1,0 +1,9 @@
+{
+  "kind": "runner_label_dispatch_error_before_child_launch",
+  "requested_label": "analyze-state-final",
+  "exit_code_observed_by_exec_command": 1,
+  "error": "IndexError: list index out of range at run_bounded.py argv sys.argv[2]",
+  "child_launched": false,
+  "child_pid": null,
+  "note": "Caller selected a new Python-analysis label before runner supported analyze prefixes. Original failure retained. Fixed label dispatch; rerun uses distinct analyze-final directory."
+}

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T16:46:06.416632+00:00",
+  "work_id": "A-LIVE-RECEIPTS-IMPLEMENTATION-20261024-v1",
+  "director": "01a16988-bdcb-70e1-ae10-1304b5cf7875",
+  "generation": 3,
+  "disposition": "ACCEPT_BOUNDED_OS_RECEIPT_SOFTWARE_ONLY",
+  "final_source_pins": {
+    "competition/deepeye/integration/live_board_receipts.py": {
+      "sha256": "ebd24a6a53710a1e2d8c24d13bd64fafed8b03ff27f8382935dc2ea0c75cfe4e",
+      "bytes": 11483
+    },
+    "competition/deepeye/integration/test_live_board_receipts.py": {
+      "sha256": "96b1bfea33bfdbddfa9a7d53ee84aaf000f92fc54a4f7df759a40fa6e5fbeef3",
+      "bytes": 8013
+    },
+    "competition/deepeye/docs/live_board_receipts.md": {
+      "sha256": "29103e9dfdd56c18b16a82559d63fad9f85cac5e5b563493aac44dea2d3db304",
+      "bytes": 4602
+    },
+    "competition/deepeye/integration/wire.py": {
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "bytes": 5459
+    },
+    "competition/deepeye/integration/host_envelope.py": {
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "bytes": 26184
+    }
+  },
+  "author_new_tests": 11,
+  "author_new_exit_code": 0,
+  "independent_original": {
+    "tests": 7,
+    "passed": 6,
+    "errors": 1,
+    "exit_code": 1
+  },
+  "independent_followup_original_exit_code": 1,
+  "independent_repair_delta": {
+    "tests": 4,
+    "passed": 4,
+    "exit_code": 0
+  },
+  "initial_findings_preserved": true,
+  "no_old_groups_replayed": true,
+  "no_authentication_observation_or_production_grant": true,
+  "separate_pending": [
+    "authenticated original board channel and BOOT",
+    "measured source/transport clocks",
+    "actual CPU/candidate/broker/process providers",
+    "headless world/expiry orchestration",
+    "exact slot feasibility under a new independently justified design",
+    "same-build PL observation package"
+  ],
+  "H01_H15_preserved": true,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "board_actions": false
+}

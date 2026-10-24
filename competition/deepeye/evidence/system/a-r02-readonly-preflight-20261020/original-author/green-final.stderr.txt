@@ -1,0 +1,19 @@
+test_command_is_required (test_preflight.PreflightTests.test_command_is_required) ... ok
+test_default_command_cannot_exit_success (test_preflight.PreflightTests.test_default_command_cannot_exit_success) ... ok
+test_exclusive_output_is_identical_and_refuses_before_query (test_preflight.PreflightTests.test_exclusive_output_is_identical_and_refuses_before_query) ... ok
+test_forged_contract_never_invokes_collector (test_preflight.PreflightTests.test_forged_contract_never_invokes_collector) ... ok
+test_inventory_complete_does_not_close_r02 (test_preflight.PreflightTests.test_inventory_complete_does_not_close_r02) ... ok
+test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8 (test_preflight.PreflightTests.test_json_rejects_duplicates_nonfinite_oversize_and_bad_utf8) ... ok
+test_metadata_error_prevents_success (test_preflight.PreflightTests.test_metadata_error_prevents_success) ... ok
+test_metadata_is_current_interpreter_only_and_does_not_import_packages (test_preflight.PreflightTests.test_metadata_is_current_interpreter_only_and_does_not_import_packages) ... ok
+test_nonzero_exit_is_not_a_successful_inventory (test_preflight.PreflightTests.test_nonzero_exit_is_not_a_successful_inventory) ... ok
+test_npu_candidates_are_not_input_devices_or_tested_accelerators (test_preflight.PreflightTests.test_npu_candidates_are_not_input_devices_or_tested_accelerators) ... ok
+test_partial_query_preserves_actual_error (test_preflight.PreflightTests.test_partial_query_preserves_actual_error) ... ok
+test_required_groups_fields_and_integer_types (test_preflight.PreflightTests.test_required_groups_fields_and_integer_types) ... ok
+test_timeout_kills_waits_owned_process_once_and_retains_diagnostics (test_preflight.PreflightTests.test_timeout_kills_waits_owned_process_once_and_retains_diagnostics) ... ok
+test_unsupported_platform_never_queries (test_preflight.PreflightTests.test_unsupported_platform_never_queries) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.055s
+
+OK

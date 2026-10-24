@@ -1,0 +1,21 @@
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+Unicode parsing error, some characters were replaced with � (U+FFFD): Unexpected NUL character
+SCRIPT ERROR: Parse Error: Unexpected identifier "this" in class body.
+   at: GDScript::reload (res://world/asset_library.gd:2)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_factory (res://viewer/asset_presenter.gd:31)
+       [1] _create (res://viewer/asset_presenter.gd:58)
+       [2] create_frame (res://viewer/asset_presenter.gd:48)
+       [3] _build_frame (res://viewer/main.gd:454)
+       [4] _ready (res://viewer/main.gd:57)
+       [5] _run (res://tests/test_failure_review.gd:12)
+ERROR: Failed to load script "res://world/asset_library.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript_resource_format.cpp:46)
+   GDScript backtrace (most recent call first):
+       [0] _ensure_factory (res://viewer/asset_presenter.gd:31)
+       [1] _create (res://viewer/asset_presenter.gd:58)
+       [2] create_frame (res://viewer/asset_presenter.gd:48)
+       [3] _build_frame (res://viewer/main.gd:454)
+       [4] _ready (res://viewer/main.gd:57)
+       [5] _run (res://tests/test_failure_review.gd:12)

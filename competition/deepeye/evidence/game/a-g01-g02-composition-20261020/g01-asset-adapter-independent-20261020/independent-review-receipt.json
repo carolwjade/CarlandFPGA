@@ -1,0 +1,401 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-20T01:35:40.356172+00:00",
+  "agent": "/root/g01_asset_adapter_independent_20261020",
+  "job_id": "child-52e445a08a2e44c4b584fcedeee59530",
+  "work_id": "A-G01-ASSET-ADAPTER-INDEPENDENT-20261020-v1",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "author_terminal_verified": true,
+  "candidate_manifest_sha256": "4e174b26b9c52ccd76458dab1910cd59b8a17092a400a441a3b74377b29c4dc2",
+  "candidate_diff_sha256": "44f2e8a9c39c9fa20db2c2ae8f112eb76ef3343e331e8f4879e243dfd0a6d51e",
+  "candidate_source_pins": [
+    {
+      "path": "tests/test_editor_document.gd",
+      "sha256": "0daec4d5460f61d2435f4cc9add2908ddb84b09fbac5aa88ab893f378d519443",
+      "expected": "0daec4d5460f61d2435f4cc9add2908ddb84b09fbac5aa88ab893f378d519443",
+      "matches": true
+    },
+    {
+      "path": "tests/test_layout_persistence.gd",
+      "sha256": "3440d748c350ec93f01a82b59e604a14b44af6bd5c8d936bdfe4dd187cb01e5e",
+      "expected": "3440d748c350ec93f01a82b59e604a14b44af6bd5c8d936bdfe4dd187cb01e5e",
+      "matches": true
+    },
+    {
+      "path": "tests/test_viewer_asset_integration.gd",
+      "sha256": "85ca5023ee360c028eeae7bb67f0105cb21c7e31cb3669045e9fbb2bbf01a7d9",
+      "expected": "85ca5023ee360c028eeae7bb67f0105cb21c7e31cb3669045e9fbb2bbf01a7d9",
+      "matches": true
+    },
+    {
+      "path": "tests/test_viewer_asset_integration.gd.uid",
+      "sha256": "fe0e097ae3d00c88cbd604b0a9f0117ef842765e87211252914b16f43b025193",
+      "expected": "fe0e097ae3d00c88cbd604b0a9f0117ef842765e87211252914b16f43b025193",
+      "matches": true
+    },
+    {
+      "path": "ui/shell.gd",
+      "sha256": "7b5c62197d41045e44f3d76b00816edfce50824dbc1e220a717fe647f89eae48",
+      "expected": "7b5c62197d41045e44f3d76b00816edfce50824dbc1e220a717fe647f89eae48",
+      "matches": true
+    },
+    {
+      "path": "viewer/asset_presenter.gd",
+      "sha256": "3006112ff2d66deb0e05cc21290f9d713da2aed13e154f3b7b95cd503431f056",
+      "expected": "3006112ff2d66deb0e05cc21290f9d713da2aed13e154f3b7b95cd503431f056",
+      "matches": true
+    },
+    {
+      "path": "viewer/asset_presenter.gd.uid",
+      "sha256": "4c74f56234202b65ca721ce76d01bb983df1cdf288709d1e29ac7d01e9016b2d",
+      "expected": "4c74f56234202b65ca721ce76d01bb983df1cdf288709d1e29ac7d01e9016b2d",
+      "matches": true
+    },
+    {
+      "path": "viewer/main.gd",
+      "sha256": "fcf830e8d8aaa98303fe32008a94b7a35af7789132e4da17b0927edd3911cacb",
+      "expected": "fcf830e8d8aaa98303fe32008a94b7a35af7789132e4da17b0927edd3911cacb",
+      "matches": true
+    },
+    {
+      "path": "viewer/main.tscn",
+      "sha256": "9efcba61efd00a7f357fc57ddb27130a5a4eb34def23ab3f2894725a350e7c62",
+      "expected": "9efcba61efd00a7f357fc57ddb27130a5a4eb34def23ab3f2894725a350e7c62",
+      "matches": true
+    }
+  ],
+  "B_source_pins": [
+    {
+      "path": "competition/deepeye/simulator/assets/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "expected": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/assets/LICENSES.md",
+      "sha256": "f0b9ffe3daa2a168eaa510efa8c92d698e39260833aafa8161231f6168ba9959",
+      "expected": "f0b9ffe3daa2a168eaa510efa8c92d698e39260833aafa8161231f6168ba9959",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/assets/scene_catalog.json",
+      "sha256": "d75c0369c48a629aec5ab693d321f59db42078955c9878e2a0a9d13cd7b35795",
+      "expected": "d75c0369c48a629aec5ab693d321f59db42078955c9878e2a0a9d13cd7b35795",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "expected": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_asset_contract.gd",
+      "sha256": "0a7479ffe3a8f12f55f673dfcfec38329e45193fe91c54331fe81c50461c596e",
+      "expected": "0a7479ffe3a8f12f55f673dfcfec38329e45193fe91c54331fe81c50461c596e",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_asset_contract.gd.uid",
+      "sha256": "14efc743fd8a5a90c19e0596c8065a1cd789335b3c37bb5d6a329f73da6cbf50",
+      "expected": "14efc743fd8a5a90c19e0596c8065a1cd789335b3c37bb5d6a329f73da6cbf50",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/.gitattributes",
+      "sha256": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "expected": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/asset_library.gd",
+      "sha256": "9eb1f49fe6cfdf28e2a4e4cfc1783be6d4266ba5c86c7f346ca4182f765e2cce",
+      "expected": "9eb1f49fe6cfdf28e2a4e4cfc1783be6d4266ba5c86c7f346ca4182f765e2cce",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/asset_library.gd.uid",
+      "sha256": "0bb3d1ed877ef62e32c1bad57ad01d9a90772a4a22073aff030bd9db3d6eef4d",
+      "expected": "0bb3d1ed877ef62e32c1bad57ad01d9a90772a4a22073aff030bd9db3d6eef4d",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/drill_geometry.gd",
+      "sha256": "e31473155bde0457a3481cc78b9c2947bbbc26228dfb4bd4e4e7190c136c8acc",
+      "expected": "e31473155bde0457a3481cc78b9c2947bbbc26228dfb4bd4e4e7190c136c8acc",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/drill_geometry.gd.uid",
+      "sha256": "7cf1f58d56903dee992e7880c2e4243285b4a6b451004e9cd83626a6f61099a1",
+      "expected": "7cf1f58d56903dee992e7880c2e4243285b4a6b451004e9cd83626a6f61099a1",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/frame_geometry.gd",
+      "sha256": "acb273369cc82b6c0186c8372fccd869083c64676d3b9c6d1d30b739c74d84c5",
+      "expected": "acb273369cc82b6c0186c8372fccd869083c64676d3b9c6d1d30b739c74d84c5",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/frame_geometry.gd.uid",
+      "sha256": "6058ac651912e1387ab7a319c70627fddfb0d571be5d089e2a0f057ba6f7d0f4",
+      "expected": "6058ac651912e1387ab7a319c70627fddfb0d571be5d089e2a0f057ba6f7d0f4",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/obstacle_geometry.gd",
+      "sha256": "1bac63c23fd991667748fa3554d31a34a9e90946b67bef635a187967955c00ce",
+      "expected": "1bac63c23fd991667748fa3554d31a34a9e90946b67bef635a187967955c00ce",
+      "matches": true
+    },
+    {
+      "path": "competition/deepeye/simulator/world/obstacle_geometry.gd.uid",
+      "sha256": "359ae06087402995ff8b26c942555a6762b0df3d2970939adb349e3a13919512",
+      "expected": "359ae06087402995ff8b26c942555a6762b0df3d2970939adb349e3a13919512",
+      "matches": true
+    }
+  ],
+  "full_product_manifest_unchanged": true,
+  "product_writes": 0,
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P2",
+      "path": "viewer/asset_presenter.gd",
+      "lines": [
+        80,
+        64,
+        73
+      ],
+      "issue": "wrong license metadata type fails open and adopts invalid asset with ready report",
+      "reproducer": "negative-bad-license"
+    },
+    {
+      "id": "F2",
+      "severity": "P2",
+      "path": "viewer/asset_presenter.gd",
+      "lines": [
+        35,
+        42,
+        61,
+        224
+      ],
+      "issue": "wrong static factory arity escapes diagnostic; greybox with ready report",
+      "reproducer": "negative-signature"
+    },
+    {
+      "id": "F3",
+      "severity": "P2",
+      "path": "viewer/asset_presenter.gd",
+      "lines": [
+        78,
+        96
+      ],
+      "issue": "empty Visual with stale metadata silently accepted as ready",
+      "reproducer": "negative-empty-visual"
+    },
+    {
+      "id": "F4",
+      "severity": "P2",
+      "path": "viewer/main.gd",
+      "lines": [
+        339,
+        343,
+        639,
+        649
+      ],
+      "issue": "fallback label and world-ray picking ignore parent transform; identity scene unaffected",
+      "reproducer": "negative-null"
+    }
+  ],
+  "fresh_runs": [
+    {
+      "label": "fresh-import",
+      "pid": 22140,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "9f16b5b977d0f24dafb47503065c13da54c6c727c504bcdc2641d6d6b51a2c89",
+      "stdout_sha256": "c7d7bfcfe5c4ce89d7fbb4e44e28f7c99cf33e1af8a2614ff37f9f483b2843b9",
+      "stderr_sha256": "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c",
+      "summaries": [],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 4,
+      "eligible_as_clean_assertion_run": true
+    },
+    {
+      "label": "fresh-integration",
+      "pid": 36216,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "550fbc16674283c1c3d5f61ac371f830f26acd54e8658cb206837b48ff3d1dbe",
+      "stdout_sha256": "c10c8eef58992f85c49b6f5a9e1546d9a0782ad3f20550f4c30776e54ace7728",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "VIEWER_ASSET_INTEGRATION checks=122 failures=0"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": true
+    },
+    {
+      "label": "independent-adversarial",
+      "pid": 45284,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "023f09b3b6e1e93d02b6aa85cbe11549bf2ed02010777953a780fb1eabbf15e0",
+      "stdout_sha256": "60448a0f3664fde00238ba000722e703e24dda7beba1626a7ec0fa8b333ebfbd",
+      "stderr_sha256": "80a80a745cc2e921a1f729753ef1062ad433832d17121a6be4c45349b59c1522",
+      "summaries": [
+        "INDEPENDENT checks=49 failures=0"
+      ],
+      "script_errors": 1,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    },
+    {
+      "label": "independent-adversarial-corrected",
+      "pid": 45468,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "4a54b00da3c52cd9a56ce79ec425d7e3ff12105508e383a1b9d64993794a6cac",
+      "stdout_sha256": "813b377270cbe3bdbe5c49a84f053bcf0edc2f42815eaa0fc37468dea87930ce",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "INDEPENDENT checks=54 failures=0"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": true
+    },
+    {
+      "label": "negative-missing",
+      "pid": 28048,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "b9aefc6c83cd5cda90193c20dc5d0dfd88fa8ea81bcced8f9e804152fe3adfed",
+      "stdout_sha256": "1b9aeeba83e4350ee8db001e6360d935bc72813011fe3876482888f0ad9f625b",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "FAILURE_REVIEW mode=missing checks=10 failures=0 report={\"diagnostics\":[\"资源加载失败·开发灰盒: 缺少固定资源 res://world/drill_geometry.gd\"],\"factory_calls\":{\"drill\":0,\"frame\":0,\"obstacle\":0},\"state\":\"degraded\"}"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": true
+    },
+    {
+      "label": "negative-parser",
+      "pid": 37936,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "ca33b6eea3a18bc68b9854747f6e9b00fa47c2a5871b49a404ea22e3291ac804",
+      "stdout_sha256": "34d7a30bedc9c30a50ddce05dfb872f95f65f898e8449ecfd2502bb5d773bee0",
+      "stderr_sha256": "466d35d89eb975c10a20efa19ccd41408450c56140e44557e475a82245512167",
+      "summaries": [
+        "FAILURE_REVIEW mode=parser checks=10 failures=0 report={\"diagnostics\":[\"资源加载失败·开发灰盒: 固定工厂脚本不可用\"],\"factory_calls\":{\"drill\":0,\"frame\":0,\"obstacle\":0},\"state\":\"degraded\"}"
+      ],
+      "script_errors": 1,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    },
+    {
+      "label": "negative-null",
+      "pid": 44440,
+      "exit_code": 1,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "039143c79749efca5f2a8d548fb60a23a050a8c73dcc217e8177561d1807da91",
+      "stdout_sha256": "9369efe024e44afde0cd6f74609a6b992328a34434c0161c287bdbee9856f3bc",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "FAILURE_REVIEW mode=null checks=16 failures=2 report={\"diagnostics\":[\"资源加载失败·开发灰盒: obstacle/water: 工厂没有返回 Node3D\"],\"factory_calls\":{\"drill\":1,\"frame\":1,\"obstacle\":3},\"state\":\"degraded\"}"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    },
+    {
+      "label": "negative-collider",
+      "pid": 38272,
+      "exit_code": 0,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "02caab672670a4bd0b04415df740878918692beedc3173b92bcaab63cef5c343",
+      "stdout_sha256": "fc2e6ca84b4da07b18bedaa593e7817f13a329f94b25d705561007a8aa31e1b0",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "FAILURE_REVIEW mode=collider checks=14 failures=0 report={\"diagnostics\":[\"资源加载失败·开发灰盒: obstacle/water: 碰撞形状已启用\"],\"factory_calls\":{\"drill\":1,\"frame\":1,\"obstacle\":2},\"state\":\"degraded\"}"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": true
+    },
+    {
+      "label": "negative-empty-visual",
+      "pid": 32600,
+      "exit_code": 1,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "cf6d180a43a7d9fac0b721476a7d73aef517806400e5ade3bd899cea3d045134",
+      "stdout_sha256": "47ed8cc029a3830aa4e22188ef626ba4795ea00827a9ad48a0a7b390a018a7cc",
+      "stderr_sha256": "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+      "summaries": [
+        "FAILURE_REVIEW mode=empty-visual checks=14 failures=7 report={\"diagnostics\":[],\"factory_calls\":{\"drill\":1,\"frame\":1,\"obstacle\":2},\"state\":\"ready\"}"
+      ],
+      "script_errors": 0,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    },
+    {
+      "label": "negative-bad-license",
+      "pid": 41916,
+      "exit_code": 1,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "733982611873e2f93f6be4ac4a5795cc06f7db87b84ef3ea4aee1102ea23d516",
+      "stdout_sha256": "86a081b714d5086be43568ff325261ecf8c4715ac649394103c7c37dcb57c572",
+      "stderr_sha256": "918d147b5a7b83645189a2f382911753974c8a73c7f6e761e99c7393b9bbfed2",
+      "summaries": [
+        "FAILURE_REVIEW mode=bad-license checks=14 failures=7 report={\"diagnostics\":[],\"factory_calls\":{\"drill\":1,\"frame\":1,\"obstacle\":2},\"state\":\"ready\"}"
+      ],
+      "script_errors": 1,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    },
+    {
+      "label": "negative-signature",
+      "pid": 46588,
+      "exit_code": 1,
+      "terminal": true,
+      "timeout": false,
+      "receipt_sha256": "14d1bd971d071ea2fe5a92ad40a48c90e048763aa734fb84a756701639344acd",
+      "stdout_sha256": "203fc4e73c198874b4c12879498c41f865109d6f2812ba361cc1abc758a32fdd",
+      "stderr_sha256": "6ec46c548e077e7285de5639b6873b27b8cb70e449158caa88d329498bff4d89",
+      "summaries": [
+        "FAILURE_REVIEW mode=signature checks=10 failures=3 report={\"diagnostics\":[],\"factory_calls\":{\"drill\":1,\"frame\":1,\"obstacle\":1},\"state\":\"ready\"}"
+      ],
+      "script_errors": 1,
+      "unicode_nul_diagnostics": 3,
+      "eligible_as_clean_assertion_run": false
+    }
+  ],
+  "reused_evidence": "exact-evidence-reuse.json",
+  "preserved_invalid_own_attempt": "independent-adversarial emitted runtime error after 49/0; corrected harness 54/0 is the eligible run",
+  "processes_remaining": 0,
+  "native_ui": "not_run",
+  "GPU_FPS": "not_run",
+  "engine_clean": "not_satisfied_inherited_Unicode_NUL",
+  "formal_cards": {
+    "count": 29,
+    "state": "not_run"
+  },
+  "acceptance_owner": "sole A main; review evidence only"
+}

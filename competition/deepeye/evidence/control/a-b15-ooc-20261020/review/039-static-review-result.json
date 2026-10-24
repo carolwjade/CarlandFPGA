@@ -1,0 +1,196 @@
+{
+  "status": "static_synthesis_evidence_verified",
+  "started_utc": "2026-10-20T10:28:34.269571+00:00",
+  "finished_utc": "2026-10-20T10:28:34.505807+00:00",
+  "pinned_artifacts": 47,
+  "git_commands": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b:competition/deepeye/fpga/control3d/deepeye_atomic_pwm.sv"
+      ],
+      "started_utc": "2026-10-20T10:28:34.277250+00:00",
+      "finished_utc": "2026-10-20T10:28:34.338088+00:00",
+      "exit_code": 0,
+      "stdout_bytes": 7983,
+      "stdout_sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+      "stderr": "",
+      "git_blob": "65d2f3137f3136c918657a19957e4c54d8220f33"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b:competition/deepeye/fpga/control3d/deepeye_pwm_coherent_capture.sv"
+      ],
+      "started_utc": "2026-10-20T10:28:34.338088+00:00",
+      "finished_utc": "2026-10-20T10:28:34.396567+00:00",
+      "exit_code": 0,
+      "stdout_bytes": 17155,
+      "stdout_sha256": "4baddfc31248c49000c00ac74bc2319cef6c9016c7df3f1822030c69cd82f456",
+      "stderr": "",
+      "git_blob": "7b3444f889371b7fb7c71eee2aace402ee83690f"
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1",
+        "cat-file",
+        "blob",
+        "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b:competition/deepeye/fpga/control3d/deepeye_pwm_applied_capture.sv"
+      ],
+      "started_utc": "2026-10-20T10:28:34.396567+00:00",
+      "finished_utc": "2026-10-20T10:28:34.455906+00:00",
+      "exit_code": 0,
+      "stdout_bytes": 15841,
+      "stdout_sha256": "d8c33ebad98acca113e18dbc5831643646663b946714af139d8b1637047356f3",
+      "stderr": "",
+      "git_blob": "45b020f24dff3d36a702dabbc3064b213959aa28"
+    }
+  ],
+  "source_commit": "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b",
+  "runs": [
+    {
+      "run": "a-b15-ooc-synthesis-20261020",
+      "batch_exit": 1,
+      "python_runner_exit_is_not_batch_acceptance": true,
+      "synthesis_completed": true,
+      "exact_pass_marker": false,
+      "duration_seconds": 65.625,
+      "peak_job_committed_memory_bytes": 2261078016,
+      "warning_lines": [
+        "WARNING: [Synth 8-6014] Unused sequential element witness_now_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:230]",
+        "WARNING: [Synth 8-6014] Unused sequential element rise_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:233]",
+        "WARNING: [Synth 8-6014] Unused sequential element fall_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:234]",
+        "WARNING: [Synth 8-6014] Unused sequential element elapsed_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:272]",
+        "WARNING: [Synth 8-6014] Unused sequential element coherent_candidate_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:300]"
+      ]
+    },
+    {
+      "run": "a-b15-ooc-synthesis-fix1-20261020",
+      "batch_exit": 1,
+      "python_runner_exit_is_not_batch_acceptance": true,
+      "synthesis_completed": true,
+      "exact_pass_marker": false,
+      "duration_seconds": 50.01600000000326,
+      "peak_job_committed_memory_bytes": 2249359360,
+      "warning_lines": [
+        "WARNING: [Synth 8-6014] Unused sequential element witness_now_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:230]",
+        "WARNING: [Synth 8-6014] Unused sequential element rise_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:233]",
+        "WARNING: [Synth 8-6014] Unused sequential element fall_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:234]",
+        "WARNING: [Synth 8-6014] Unused sequential element elapsed_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:272]",
+        "WARNING: [Synth 8-6014] Unused sequential element coherent_candidate_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:300]",
+        "WARNING: [DRC 23-814] Not all possible (connectivity based) DRCs may have been run because this design is seen as Out of Context."
+      ]
+    },
+    {
+      "run": "a-b15-ooc-synthesis-fix2-20261020",
+      "batch_exit": 0,
+      "python_runner_exit_is_not_batch_acceptance": true,
+      "synthesis_completed": true,
+      "exact_pass_marker": true,
+      "duration_seconds": 47.937000000005355,
+      "peak_job_committed_memory_bytes": 2250014720,
+      "warning_lines": [
+        "WARNING: [Synth 8-6014] Unused sequential element witness_now_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix2/sources/deepeye_pwm_coherent_capture.sv:230]",
+        "WARNING: [Synth 8-6014] Unused sequential element rise_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix2/sources/deepeye_pwm_coherent_capture.sv:233]",
+        "WARNING: [Synth 8-6014] Unused sequential element fall_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix2/sources/deepeye_pwm_coherent_capture.sv:234]",
+        "WARNING: [Synth 8-6014] Unused sequential element elapsed_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix2/sources/deepeye_pwm_coherent_capture.sv:272]",
+        "WARNING: [Synth 8-6014] Unused sequential element coherent_candidate_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix2/sources/deepeye_pwm_coherent_capture.sv:300]",
+        "WARNING: [DRC 23-814] Not all possible (connectivity based) DRCs may have been run because this design is seen as Out of Context."
+      ]
+    }
+  ],
+  "logical_ports": 43,
+  "bit_ports": 798,
+  "DCP": {
+    "entries": 11,
+    "members": [
+      {
+        "name": "dcp.xml",
+        "compressed_bytes": 469,
+        "bytes": 1434,
+        "crc32": 3906103637
+      },
+      {
+        "name": "deepeye_pwm_applied_capture.edf",
+        "compressed_bytes": 80710,
+        "bytes": 80710,
+        "crc32": 1707301528
+      },
+      {
+        "name": "deepeye_pwm_applied_capture.incr",
+        "compressed_bytes": 83,
+        "bytes": 142,
+        "crc32": 2738210641
+      },
+      {
+        "name": "deepeye_pwm_applied_capture.rda",
+        "compressed_bytes": 1354,
+        "bytes": 1354,
+        "crc32": 2998823193
+      },
+      {
+        "name": "deepeye_pwm_applied_capture.shape",
+        "compressed_bytes": 27510,
+        "bytes": 103574,
+        "crc32": 4176521697
+      },
+      {
+        "name": "deepeye_pwm_applied_capture.xn",
+        "compressed_bytes": 120848,
+        "bytes": 120808,
+        "crc32": 1331600930
+      },
+      {
+        "name": "deepeye_pwm_applied_capture_in_context.xdc",
+        "compressed_bytes": 86,
+        "bytes": 97,
+        "crc32": 2079641856
+      },
+      {
+        "name": "deepeye_pwm_applied_capture_param.xml",
+        "compressed_bytes": 285,
+        "bytes": 280,
+        "crc32": 1826982990
+      },
+      {
+        "name": "deepeye_pwm_applied_capture_rda.json",
+        "compressed_bytes": 307,
+        "bytes": 504,
+        "crc32": 224268755
+      },
+      {
+        "name": "deepeye_pwm_applied_capture_stub.v",
+        "compressed_bytes": 742,
+        "bytes": 2201,
+        "crc32": 2771042951
+      },
+      {
+        "name": "deepeye_pwm_applied_capture_stub.vhdl",
+        "compressed_bytes": 674,
+        "bytes": 3233,
+        "crc32": 287589067
+      }
+    ],
+    "sha256": "fc229c2619fdb20cda751e56e8bfeae200b00dd4deebc2748cfc4c4e369e2f68"
+  },
+  "utilization": {
+    "LUT": 842,
+    "FF": 1117,
+    "RAMB36": 0,
+    "RAMB18": 0,
+    "DSP": 0
+  },
+  "warning_qualification": "five removed procedural temporaries; OOC incomplete DRC connectivity; ZPS7-1 missing PS7; clocks=0/timing not validated",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "all29": "not_run"
+}

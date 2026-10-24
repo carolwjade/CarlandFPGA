@@ -1,0 +1,34 @@
+{
+  "label": "case-weights-missing",
+  "at_utc": "2026-10-19T16:42:54.398956+00:00",
+  "elapsed_seconds": 0.14,
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "competition/deepeye/tools/check_rules.py",
+    "--reference-only",
+    "--source-pdf",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-missing",
+  "returncode": 0,
+  "python_executable": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-host-deps",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\temp\\case-weights-missing",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\temp\\case-weights-missing"
+  },
+  "stdout": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\runs\\case-weights-missing.stdout",
+    "bytes": 2635,
+    "sha256": "74cf9e74f2f629b58b31475c54c08de3b122ef89c534dec98ac70e4d53e28a05"
+  },
+  "stderr": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\runs\\case-weights-missing.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

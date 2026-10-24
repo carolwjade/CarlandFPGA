@@ -1,0 +1,57 @@
+{
+  "source_commit": "df82af1bc91d01aeb9adee19f48c0890dfc1ac5b",
+  "tool": "Vivado 2026.1",
+  "part": "xc7z020clg400-1",
+  "top": "deepeye_pwm_applied_capture",
+  "widths": {
+    "COUNT": 32,
+    "WITNESS": 64,
+    "TAG": 32
+  },
+  "scope": "out_of_context synthesis and exact checkpoint/export report review only",
+  "original_runs": [
+    {
+      "run": "initial",
+      "actual_exit": 1,
+      "elapsed_seconds": 65.625
+    },
+    {
+      "run": "fix1",
+      "actual_exit": 1,
+      "elapsed_seconds": 50.016
+    },
+    {
+      "run": "fix2",
+      "actual_exit": 0,
+      "elapsed_seconds": 47.937
+    }
+  ],
+  "successful_source_export": true,
+  "independent_source_report_review": "pass_with_limits",
+  "independent_native_read": {
+    "actual_exit": 1,
+    "elapsed_seconds": 25.344,
+    "checkpoint_opened_and_reports_match": true,
+    "harness_failure": "fileset TOP empty after standalone DCP open",
+    "native_end_to_end_harness_pass": false
+  },
+  "resources": {
+    "LUTs": 842,
+    "FFs": 1117,
+    "BRAM": 0,
+    "DSP": 0,
+    "logical_ports": 43,
+    "bit_ports": 798,
+    "blackboxes": 0,
+    "latches": 0,
+    "clocks": 0
+  },
+  "retained_warnings": [
+    "5 Synth 8-6014 procedural temporaries removed",
+    "DRC 23-814 OOC connectivity checks incomplete",
+    "ZPS7-1 PS7 block required"
+  ],
+  "timing_CDC_RDC_implementation_board_system_G05_B06_R03_all29": "not_run",
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

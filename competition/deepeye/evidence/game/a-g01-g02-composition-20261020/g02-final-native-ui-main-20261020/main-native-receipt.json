@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "source_files_reverified": 18,
+  "scope": "Earlier actual pre-G01 native editor interaction; isolated frozen source, actual GPU/render path, not final G01/numeric combination.",
+  "process": {
+    "pid": 50848,
+    "exit_code": 0,
+    "terminal": true,
+    "timeout": false,
+    "closed_normally": true
+  },
+  "engine_sha256": "ab1824f85bfd8e0e4128182c000c4003a3e042245b2967848d089b2a04b22424",
+  "display": {
+    "client": [
+      1920,
+      1080
+    ],
+    "window_dpi": 192,
+    "scale_percent": 200
+  },
+  "verified": [
+    "real add two water objects",
+    "real nonempty save",
+    "real clear then zero-object readback",
+    "actual Enter-triggered reopen restores two objects and displays hash prefix3290cf6397e4",
+    "real RMB orbit",
+    "real scrollbar drag exposes lower controls"
+  ],
+  "saved_json_sha256": "b438e8886cba4107b36111291cf5a42f64940e40a9f17a89d15a6db18d869f48",
+  "layout_hash": "3290cf6397e4e221a01cf7f4987992a3d60647949a260ddfedee0adbfdaa5db7",
+  "interpretation_corrections": [
+    "Both objects are water; attempted selection did not establish hardrock.",
+    "07-reopened.png still shows the open dialog, not a successful import; actual success is08-open-enter.png.",
+    "No full bitwise UI roundtrip claim: no post-open second save.",
+    "10-ui-scroll.png and11-scrollbar-wheel.png do not prove panel wheel isolation: CLI typed parameter XY and local xy collide in case-insensitive PowerShell; split coerces back to String and indexing casts characters to ASCII coordinates.",
+    "No confirmed right-panel clipping defect from available readback."
+  ],
+  "pending": [
+    "correctly targeted native wheel isolation",
+    "125/150percent scaling",
+    "36native face pairs",
+    "200action formal UI exercise",
+    "current G01 assets/native quality"
+  ],
+  "engine_clean": false,
+  "diagnostics": "Original WASAPI initialization errors/dummy-audio fallback and3Unicode NUL diagnostics retained.",
+  "formal_cards": "all29 not_run"
+}

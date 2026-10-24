@@ -1,0 +1,49 @@
+{
+  "work_id": "A-passage-suffix-independent-review-20261019-v1",
+  "job_id": "child-b64d7ef1c5ec4940bef803aceb15f586",
+  "reviewer": "/root/r03_review_20261018",
+  "result": "no blocking finding in exact frozen numerical candidate; main acceptance retained",
+  "head_before": "b19a528344d8675fedb41f37e7de23f1112f1871",
+  "head_after": "b19a528344d8675fedb41f37e7de23f1112f1871",
+  "candidate_manifest_sha256": "c4b5b656e78a084e36e8bfcedfdb2f65144226d8af7b336f4588cc4352df6657",
+  "sources": {
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "size": 13132,
+      "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "size": 15200,
+      "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "size": 28506,
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4"
+    },
+    "competition/deepeye/docs/workspace_passage.md": {
+      "size": 8836,
+      "sha256": "d898770ab6acef8bdd3c8e1bd6e3ba3e7bc55a4a42fde052ec9296867e7db816"
+    }
+  },
+  "dependencies_unchanged": 41,
+  "design_evidence_unchanged": 16,
+  "author_evidence_files_unchanged": 55,
+  "regressions": {
+    "tests": 253,
+    "exit_code": 0,
+    "skips": 0
+  },
+  "independent": {
+    "methods": 7,
+    "exit_code": 0,
+    "three_slice_ramp": true,
+    "certificate_corruption_explicitly_labeled": true,
+    "real_compound_cylinder_tail_rejection": true,
+    "actual_runtime_final_fence_and_single_publication": true
+  },
+  "base_before_raw_equal": true,
+  "owned_utf8_lf_raw_equals_git_clean": true,
+  "source_read_only": true,
+  "formal_acceptance": "all29 cards and both actual H12 chains not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "design_sha256": "2e0b5eaa18f6e1197befc5fd1e76513f3e54b0199823827e2fb6994777800596"
+}

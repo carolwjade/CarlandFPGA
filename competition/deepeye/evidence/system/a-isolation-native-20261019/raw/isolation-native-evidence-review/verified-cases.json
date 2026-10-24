@@ -1,0 +1,80 @@
+[
+  {
+    "test": "test_real_boundary_and_profile_cleanup",
+    "run_id": "r-b28da98e58a4",
+    "pid": 24092,
+    "process_handle": 580,
+    "terminal_before_close": {
+      "action": "independent_terminal_before_close",
+      "resource_id": "process:21",
+      "handle": 580,
+      "wait_result": 0,
+      "exit_code": 3221225480,
+      "error": null
+    },
+    "close_event_index": 15,
+    "resource_count": 24,
+    "all_resources_confirmed": true,
+    "profile_absence_observed": true,
+    "product_passed": true,
+    "fixture_test_passed": true,
+    "error_type": null,
+    "exit_code": 3221225480,
+    "evidence_complete": true,
+    "stale_receipt": false,
+    "observation_sha256": "6530763dab170638c88f3b59204aed860ef1e5dd685cf5d3e6c25f3b9958bdbb",
+    "memory_sha256": "b1e53425f432682e47e3e863e0a5a7b5053987f2b2b42372d9093376e853bd8a"
+  },
+  {
+    "test": "test_timeout_is_failed_and_own_process_profile_are_cleaned",
+    "run_id": "r-907c4422cd96",
+    "pid": 6860,
+    "process_handle": 896,
+    "terminal_before_close": {
+      "action": "independent_terminal_before_close",
+      "resource_id": "process:21",
+      "handle": 896,
+      "wait_result": 0,
+      "exit_code": 57005,
+      "error": null
+    },
+    "close_event_index": 16,
+    "resource_count": 24,
+    "all_resources_confirmed": true,
+    "profile_absence_observed": true,
+    "product_passed": false,
+    "fixture_test_passed": true,
+    "error_type": "TimeoutError",
+    "exit_code": 57005,
+    "evidence_complete": true,
+    "stale_receipt": false,
+    "observation_sha256": "8d8d51e53b90f92b15a98c9f824b6ad216bf9e21f2e0ef3b5dbaeaec2fb5323f",
+    "memory_sha256": "1514007de859eee33fb4f99a4731801cfddb28173a80f20d50c6e443166d7749"
+  },
+  {
+    "test": "test_persistence_failure_after_process_creation_still_cleans_owned_objects",
+    "run_id": "r-ffb7afd7d63a",
+    "pid": 10244,
+    "process_handle": 880,
+    "terminal_before_close": {
+      "action": "independent_terminal_before_close",
+      "resource_id": "process:21",
+      "handle": 880,
+      "wait_result": 0,
+      "exit_code": 57005,
+      "error": null
+    },
+    "close_event_index": 11,
+    "resource_count": 22,
+    "all_resources_confirmed": true,
+    "profile_absence_observed": true,
+    "product_passed": false,
+    "fixture_test_passed": true,
+    "error_type": "OSError",
+    "exit_code": 57005,
+    "evidence_complete": false,
+    "stale_receipt": true,
+    "observation_sha256": "66f4ad2200be1ad44c059709759fa9ae2458f962aefabf187ae4a18de4ed185a",
+    "memory_sha256": "6601b0083c8d72cf4b7011f646203b77f9d944781fc0e4914968087644464f00"
+  }
+]

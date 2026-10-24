@@ -1,0 +1,762 @@
+{
+  "schema": 1,
+  "document": "deepeye_boot_profiles",
+  "profile_name": "em_surrogate_v2",
+  "status": "software_candidate_runtime_not_run",
+  "owner": "A",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "design_commit": "1011259415a0916054eb580687612580bc1e5f09",
+  "immutable_scope_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "immutable_scope_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "hash_rule": "sha256 over UTF-8 canonical JSON (ensure_ascii=False, sort_keys=True, separators=(',',':'), no trailing newline); full 32 bytes kept as host evidence; first 16 bytes travel in BOOT/BOOT_ACK slot_profile_sha128",
+  "boot_frames": {
+    "BOOT": {
+      "type": 12,
+      "payload_bytes": 27,
+      "frame_bytes": 41
+    },
+    "BOOT_ACK": {
+      "type": 13,
+      "payload_bytes": 27,
+      "frame_bytes": 41
+    }
+  },
+  "abi": {
+    "version": 3,
+    "magic_hex": "a55a",
+    "byte_order": "little",
+    "header_bytes": 12,
+    "crc_bytes": 2,
+    "max_payload_bytes": 32,
+    "max_frame_bytes": 46,
+    "line_bits_per_byte": 10,
+    "crc": {
+      "name": "CRC16/CCITT-FALSE",
+      "polynomial": 4129,
+      "initial": 65535,
+      "reflect_input": false,
+      "reflect_output": false,
+      "xorout": 0,
+      "check_ascii_123456789": 10673,
+      "wire_byte_order": "little"
+    },
+    "frame_layouts_digest": {
+      "mode": "runtime_loaded_unverified",
+      "value": null,
+      "source": "docs/interface.json frames + integration/wire.py PAYLOAD_LENGTHS"
+    }
+  },
+  "digests": {
+    "abi_interface_json": {
+      "path": "docs/interface.json",
+      "mode": "runtime_loaded_unverified",
+      "value": null
+    },
+    "host_contract_json": {
+      "path": "docs/host_contract.json",
+      "mode": "runtime_loaded_unverified",
+      "value": null
+    },
+    "host_enums_json": {
+      "path": "docs/enums.json",
+      "mode": "runtime_loaded_unverified",
+      "value": null
+    },
+    "host_timing_contract": {
+      "path": "docs/host_timing_contract.md",
+      "mode": "runtime_loaded_unverified",
+      "value": null
+    }
+  },
+  "topology_source_acquisition": {
+    "transport_profile_id": {
+      "fast_9600": 1,
+      "stress_300": 2
+    },
+    "source_id": {
+      "sensor_live": 1,
+      "geo_replay": 2,
+      "twin_fixture": 3,
+      "software_fixture": 4
+    },
+    "topology_id": {
+      "hil_pc_fpga": 1,
+      "pc_direct": 2,
+      "fpga_local": 3
+    },
+    "acquisition_profile_id": {
+      "em_surrogate_v2": 1,
+      "force_lithology_v1": 2,
+      "pga_voltage_v1": 3
+    },
+    "boot_mode_formula": "transport_profile_id | (source_id << 2) | (topology_id << 5)",
+    "reserved_zero_bits": [
+      7
+    ],
+    "zero_or_unknown": "reject"
+  },
+  "transport_profiles": {
+    "fast_9600": {
+      "baud": 9600,
+      "framing": "8N1",
+      "line_bits_per_byte": 10
+    },
+    "stress_300": {
+      "baud": 300,
+      "framing": "8N1",
+      "line_bits_per_byte": 10
+    }
+  },
+  "profiles": {
+    "fast_9600": {
+      "window_ms": 500,
+      "guard_total_ms": 40,
+      "primary_slot_ms": 210,
+      "config_slot_ms": 365,
+      "retry_offset_ms": 155,
+      "slots": {
+        "event": {
+          "start_ms": 0,
+          "max_bytes": 20,
+          "direction": "uplink"
+        },
+        "telem": {
+          "start_ms": 35,
+          "max_bytes": 32,
+          "direction": "uplink"
+        },
+        "control_primary": {
+          "start_ms": 210,
+          "max_bytes": 30,
+          "direction": "downlink"
+        },
+        "ack_primary": {
+          "start_ms": 255,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "state": {
+          "start_ms": 305,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "retry_control": {
+          "start_ms": 365,
+          "max_bytes": 30,
+          "direction": "downlink"
+        },
+        "retry_ack": {
+          "start_ms": 410,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "config": {
+          "start_ms": 365,
+          "max_bytes": 24,
+          "direction": "downlink"
+        },
+        "config_ack": {
+          "start_ms": 405,
+          "max_bytes": 32,
+          "direction": "uplink"
+        }
+      },
+      "branches": {
+        "normal": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state"
+        ],
+        "config": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state",
+          "config",
+          "config_ack"
+        ],
+        "retry": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state",
+          "retry_control",
+          "retry_ack"
+        ]
+      },
+      "mutual_exclusions": [
+        [
+          "config",
+          "retry"
+        ]
+      ],
+      "response_deadlines_ms": {
+        "retry_decision_ms": "365",
+        "primary_ack_latest_ms": "3485/12",
+        "retry_ack_latest_ms": "5345/12",
+        "config_ack_latest_ms": "1315/3"
+      },
+      "ai_wait": {
+        "after_slot": "telem",
+        "start_ms": "205/3",
+        "before_slot": "control_primary",
+        "end_ms": 210
+      },
+      "budget_variants": {
+        "normal": 150,
+        "config": 206,
+        "control_retry": 214,
+        "event_retry": 170,
+        "gain_normal": 140,
+        "pc_direct_normal": 84
+      },
+      "event_retry": {
+        "slot": 365,
+        "bytes": 20,
+        "status": "software_slot_selected_measurement_not_run",
+        "rule": "normal windows only; never additive with config or control retry"
+      },
+      "grants": {
+        "main_bit": 15,
+        "config_bit": 14,
+        "retry_pre_grant_bit": 13,
+        "retry_rule": "bit15 and bit13 set and bit14 clear",
+        "config_rule": "bit14 set; bit13 clear",
+        "no_grant_no_send": true,
+        "first_ack_success_suppresses_retry": true,
+        "primary_response_anchor": "window/slot offsets, never ACK receipt time"
+      },
+      "bounded_targets": {
+        "p99_s": "3/2",
+        "max_s": 2,
+        "status": "unmeasured_target_only"
+      }
+    },
+    "stress_300": {
+      "window_ms": 8000,
+      "guard_total_ms": 200,
+      "primary_slot_ms": 2050,
+      "config_slot_ms": 5500,
+      "retry_offset_ms": 3450,
+      "slots": {
+        "event": {
+          "start_ms": 0,
+          "max_bytes": 20,
+          "direction": "uplink"
+        },
+        "telem": {
+          "start_ms": 700,
+          "max_bytes": 32,
+          "direction": "uplink"
+        },
+        "control_primary": {
+          "start_ms": 2050,
+          "max_bytes": 30,
+          "direction": "downlink"
+        },
+        "ack_primary": {
+          "start_ms": 3100,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "state": {
+          "start_ms": 4300,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "retry_control": {
+          "start_ms": 5500,
+          "max_bytes": 30,
+          "direction": "downlink"
+        },
+        "retry_ack": {
+          "start_ms": 6550,
+          "max_bytes": 34,
+          "direction": "uplink"
+        },
+        "config": {
+          "start_ms": 5500,
+          "max_bytes": 24,
+          "direction": "downlink"
+        },
+        "config_ack": {
+          "start_ms": 6550,
+          "max_bytes": 32,
+          "direction": "uplink"
+        }
+      },
+      "branches": {
+        "normal": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state"
+        ],
+        "config": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state",
+          "config",
+          "config_ack"
+        ],
+        "retry": [
+          "event",
+          "telem",
+          "control_primary",
+          "ack_primary",
+          "state",
+          "retry_control",
+          "retry_ack"
+        ]
+      },
+      "mutual_exclusions": [
+        [
+          "config",
+          "retry"
+        ]
+      ],
+      "response_deadlines_ms": {
+        "retry_decision_ms": "5500",
+        "primary_ack_latest_ms": "12700/3",
+        "retry_ack_latest_ms": "23050/3",
+        "config_ack_latest_ms": "22850/3"
+      },
+      "ai_wait": {
+        "after_slot": "telem",
+        "start_ms": "5300/3",
+        "before_slot": "control_primary",
+        "end_ms": 2050
+      },
+      "budget_variants": {
+        "normal": 150,
+        "config": 206,
+        "control_retry": 214,
+        "event_retry": 170,
+        "gain_normal": 140,
+        "pc_direct_normal": 84
+      },
+      "event_retry": {
+        "slot": 5500,
+        "bytes": 20,
+        "status": "software_slot_selected_measurement_not_run",
+        "rule": "normal windows only; never additive with config or control retry"
+      },
+      "grants": {
+        "main_bit": 15,
+        "config_bit": 14,
+        "retry_pre_grant_bit": 13,
+        "retry_rule": "bit15 and bit13 set and bit14 clear",
+        "config_rule": "bit14 set; bit13 clear",
+        "no_grant_no_send": true,
+        "first_ack_success_suppresses_retry": true,
+        "primary_response_anchor": "window/slot offsets, never ACK receipt time"
+      },
+      "bounded_targets": {
+        "p99_s": 12,
+        "max_s": 16,
+        "event_p99_s": 3,
+        "event_single_retry_s": 6,
+        "status": "unmeasured_target_only"
+      }
+    }
+  },
+  "speed_mappings": {
+    "maps_never_mixed": true,
+    "fast_9600": {
+      "per_code_m_s": "1/80",
+      "max_m_s": "1/4",
+      "ttl_max_ms": 3000
+    },
+    "stress_300": {
+      "per_code_m_s": "1/10000",
+      "max_m_s": "1/500",
+      "ttl_max_ms": 12000
+    }
+  },
+  "ttl_and_age": {
+    "hil_observation_age_limit_ms": {
+      "fast_9600": 1500,
+      "stress_300": 12000
+    },
+    "pc_direct_observation_age_limit_ms": {
+      "fast_9600": 1500,
+      "stress_300": 12000
+    },
+    "sensor_heartbeat_timeout_ms": 100,
+    "summary_samples": {
+      "fast_9600": 50,
+      "stress_300": 800
+    },
+    "fpga_observation_history": 4,
+    "deadline_rule": "min(first_send+originalTTL, current_remainingTTL conservative limit, referenced_sample_tick+observation_age_limit)",
+    "heartbeat_extends_deadline": false
+  },
+  "motion_kinematics": {
+    "angular_rate_quantum_deg_s": "1/1000",
+    "q_min": -15000,
+    "q_max": 15000,
+    "curvature_limit_per_m": "1/2",
+    "rom_check": "qyaw^2+qpitch^2<=floor((v_target*180000/(2*pi))^2) with 64-bit intermediates; reject not clip",
+    "zero_speed_requires_zero_q": true,
+    "intermediate_bits": 64,
+    "min_demo_turn_radius_m": 2,
+    "max_accel_m_s2": "1/4",
+    "status_note": "turn radius and acceleration are interactive-simulation assumptions, not authorization"
+  },
+  "pwm_capture": {
+    "period_ms": 20,
+    "period_ticks": 2000000,
+    "clock_hz": 100000000,
+    "angle_high_ticks": "10000+16*(q+15000)",
+    "angle_high_ms_range": [
+      "1/10",
+      "49/10"
+    ],
+    "speed_high_ticks": "50000+1000*speed_code",
+    "speed_high_ms_range": [
+      "1/2",
+      "7/10"
+    ],
+    "capture_tolerance_ticks": "<=2 ticks, < half-code 8 ticks; actual HIL validation required",
+    "status": "encoding_candidate_unmeasured"
+  },
+  "channels": [
+    {
+      "id": 1,
+      "name": "log10_rho_apparent",
+      "quantity": null,
+      "unit": null,
+      "source": "simulation_contract_final.json:sensor.channels",
+      "conversion": null,
+      "calibration_reference": null,
+      "status": "unverified_pending_calibration"
+    },
+    {
+      "id": 2,
+      "name": "azimuth_log10_rho_difference",
+      "quantity": null,
+      "unit": null,
+      "source": "simulation_contract_final.json:sensor.channels",
+      "conversion": null,
+      "calibration_reference": null,
+      "status": "unverified_pending_calibration"
+    },
+    {
+      "id": 3,
+      "name": "elevation_log10_rho_difference",
+      "quantity": null,
+      "unit": null,
+      "source": "simulation_contract_final.json:sensor.channels",
+      "conversion": null,
+      "calibration_reference": null,
+      "status": "unverified_pending_calibration"
+    },
+    {
+      "id": 4,
+      "name": "near_bit_vibration_rms_g",
+      "quantity": null,
+      "unit": null,
+      "source": "simulation_contract_final.json:sensor.channels",
+      "conversion": null,
+      "calibration_reference": null,
+      "status": "unverified_pending_calibration"
+    }
+  ],
+  "acquisition_profiles": {
+    "em_surrogate_v2": {
+      "enum_id": 1,
+      "source_mode": "twin_fixture",
+      "channels": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "calibration": null,
+      "shared_scaling_with": null,
+      "status": "unverified_uncalibrated"
+    },
+    "force_lithology_v1": {
+      "enum_id": 2,
+      "mapping": "explicit_separate_uncalibrated",
+      "calibration": null,
+      "shared_scaling_with": null,
+      "status": "unverified_uncalibrated"
+    },
+    "pga_voltage_v1": {
+      "enum_id": 3,
+      "mapping": "explicit_separate_uncalibrated",
+      "calibration": null,
+      "shared_scaling_with": null,
+      "status": "unverified_uncalibrated"
+    }
+  },
+  "time_measurement_identities": {
+    "usb_processing_upper_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "frame_serial_upper_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "clock_error_upper_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "rate_bound_ppm": {
+      "value": null,
+      "unit": "ppm",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "tick_quantization_hi_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "dispatch_delay_lo_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "dispatch_delay_hi_ns": {
+      "value": null,
+      "unit": "ns",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    },
+    "anchor_holdover_cap_ms": {
+      "value": null,
+      "unit": "ms",
+      "status": "unverified_not_measured",
+      "required_evidence": "independently verified measurement record bound to operation_id, request_hash, tested_commit, profile and tool/board evidence"
+    }
+  },
+  "policy": {
+    "profile_or_mode_switch": "stop, new session, new complete canonical BOOT hash and matching BOOT_ACK before ENABLE; mode alone is insufficient",
+    "enable_claim": "never claimed by this document",
+    "event_scheduling": "event occurs only at the allocated slot of this bounded software schedule; asynchronous EVENT latency is not accepted",
+    "no_fabricated_measurements": true,
+    "first_ack_success_suppresses_retry": true,
+    "retry_pair_grants": "bit15 AND bit13 set AND bit14 clear",
+    "config_grant": "bit14 set; bit13 must be clear",
+    "no_grant_no_send": true,
+    "ack_miss_retry": "fixed retry_offset_ms from the window/slot table",
+    "late_candidate": "defer to the next full window slot or STOP; slots are never shifted"
+  },
+  "hardware_enable_eligible": false,
+  "remaining_gates": [
+    "complete BOOT timing/profile canonical hash",
+    "channel scaling and calibration",
+    "measured USB/clock/holdover bounds",
+    "physical capture validation",
+    "cross-node byte interoperability"
+  ],
+  "sources": {
+    "taskbook": "docs/competition/deepeye-2026/taskbook_final.md section 7 and R03 card",
+    "interface": "docs/interface.json",
+    "enums": "docs/enums.json",
+    "host_contract": "docs/host_contract.json",
+    "host_timing_contract": "docs/host_timing_contract.md",
+    "simulation_contract": "docs/competition/deepeye-2026/simulation_contract_final.json",
+    "wire": "integration/wire.py",
+    "checks": "docs/competition/deepeye-2026/checks_final.json (fast_slot_end_ms and wire_budget_recomputed anchors)"
+  },
+  "scope_note": "software candidate profile and tests only; all 29 product cards remain not_run; no hardware ENABLE eligibility; unmeasured identities stay null",
+  "mode_variants": {
+    "normal": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "control_primary",
+        "frame": "CONTROL3D",
+        "bytes": 30
+      },
+      {
+        "slot": "ack_primary",
+        "frame": "ACK3D",
+        "bytes": 34
+      },
+      {
+        "slot": "state",
+        "frame": "STATE3D",
+        "bytes": 34
+      }
+    ],
+    "config": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "control_primary",
+        "frame": "CONTROL3D",
+        "bytes": 30
+      },
+      {
+        "slot": "ack_primary",
+        "frame": "ACK3D",
+        "bytes": 34
+      },
+      {
+        "slot": "state",
+        "frame": "STATE3D",
+        "bytes": 34
+      },
+      {
+        "slot": "config",
+        "frame": "CONFIG",
+        "bytes": 24
+      },
+      {
+        "slot": "config_ack",
+        "frame": "CONFIG_ACK",
+        "bytes": 32
+      }
+    ],
+    "control_retry": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "control_primary",
+        "frame": "CONTROL3D",
+        "bytes": 30
+      },
+      {
+        "slot": "ack_primary",
+        "frame": "ACK3D",
+        "bytes": 34
+      },
+      {
+        "slot": "state",
+        "frame": "STATE3D",
+        "bytes": 34
+      },
+      {
+        "slot": "retry_control",
+        "frame": "CONTROL3D",
+        "bytes": 30
+      },
+      {
+        "slot": "retry_ack",
+        "frame": "ACK3D",
+        "bytes": 34
+      }
+    ],
+    "event_retry": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "control_primary",
+        "frame": "CONTROL3D",
+        "bytes": 30
+      },
+      {
+        "slot": "ack_primary",
+        "frame": "ACK3D",
+        "bytes": 34
+      },
+      {
+        "slot": "state",
+        "frame": "STATE3D",
+        "bytes": 34
+      },
+      {
+        "slot": "retry_control",
+        "frame": "EVENT",
+        "bytes": 20
+      }
+    ],
+    "gain_normal": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "control_primary",
+        "frame": "GAIN",
+        "bytes": 24
+      },
+      {
+        "slot": "ack_primary",
+        "frame": "GAIN_ACK",
+        "bytes": 32
+      },
+      {
+        "slot": "state",
+        "frame": "STATE",
+        "bytes": 32
+      }
+    ],
+    "pc_direct_normal": [
+      {
+        "slot": "event",
+        "frame": "EVENT",
+        "bytes": 20
+      },
+      {
+        "slot": "telem",
+        "frame": "TELEM",
+        "bytes": 32
+      },
+      {
+        "slot": "state",
+        "frame": "STATE",
+        "bytes": 32
+      }
+    ]
+  }
+}

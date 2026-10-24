@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+== test_editor_document (SceneDocument headless) ==
+PASS initial_state_and_guards
+PASS undo_redo_depth_ge_50
+PASS gate_editing_and_validation
+PASS forbidden_edits_running_paused_locked
+PASS random_layout_bounds_reproducible
+PASS run_bridge_disabled_and_esc_stop
+UI_LAYOUT root=(1920.0, 1080.0) left=[P: (0.0, 0.0), S: (337.0, 1080.0)] right=[P: (1651.2, 0.0), S: (268.8, 1080.0)] top=[P: (337.0, 0.0), S: (1314.2, 30.0)] bottom=[P: (337.0, 982.8), S: (1314.2, 97.20001)]
+UI_LAYOUT central_ratio=60.39%
+PASS viewer_initial_layout_and_ui_refresh
+PASS viewer_pointer_release_over_panel
+GREYBOX_MESH {"diameter_m":0.239999994635582,"length_m":0.799999952316284,"max_capsule_distance_m":0.119999997317791,"max_pivot_distance_m":0.417612254619598,"maximum":[0.119999997317791,0.119999997317791,0.399999976158142],"mesh_measurements":[{"capsule_distance":0.119999997317791,"closed":true,"front_radius":0.119999997317791,"maximum":"(0.12, 0.12, 0.18)","minimum":"(-0.12, -0.12, -0.4)","pivot_distance":0.417612254619598,"radius":0.119999997317791,"rear_radius":0.119999997317791,"signed_volume":-0.0261964502181703,"triangles":768,"vertices":522,"volume":0.0261964502181703},{"capsule_distance":0.119999997317791,"closed":true,"front_radius":0.0,"maximum":"(0.12, 0.12, 0.4)","minimum":"(-0.12, -0.12, 0.18)","pivot_distance":0.399999976158142,"radius":0.119999997317791,"rear_radius":0.119999997317791,"signed_volume":-0.0033121947356752,"triangles":640,"vertices":456,"volume":0.0033121947356752}],"minimum":[-0.119999997317791,-0.119999997317791,-0.399999976158142],"numeric_tolerance_m":0.000002}
+PASS greybox_drill_actual_mesh_envelope
+TESTS checks=696 failures=0
+RESULT PASS

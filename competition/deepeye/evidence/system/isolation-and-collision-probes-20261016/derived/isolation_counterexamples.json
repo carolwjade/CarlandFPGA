@@ -1,0 +1,113 @@
+{
+  "artifact_class": "derived",
+  "is_raw": false,
+  "private_origin_bindings": [
+    {
+      "alias": "isolation_initial_counterexamples",
+      "sha256": "837965869e9d5a903baf5eb686a5e74c28d568b33756c62cffffdc74dc3ba256",
+      "size": 4051
+    },
+    {
+      "alias": "isolation_initial_fix_os_binding",
+      "sha256": "394b8f6c51779bb8807e6d531668533e39947c73544d89bd69e26f739614bcce",
+      "size": 1876
+    },
+    {
+      "alias": "isolation_fix_review_report",
+      "sha256": "545ea833e028965279b19119fa24318775f533eb96876512911d5e0976ca9f8d",
+      "size": 7260
+    }
+  ],
+  "omitted_fields": [
+    "exact_hardlink_counterexample.logical_root",
+    "exact_hardlink_counterexample.target",
+    "exact_hardlink_counterexample.sddl_before",
+    "exact_hardlink_counterexample.sddl_after",
+    "protocol[*].parsed"
+  ],
+  "initial_counterexamples": [
+    {
+      "case": "exact_original_process_boundary_overwrite",
+      "rejected": true,
+      "exception": "complete frame changed earlier evidence",
+      "matches_expectation": true
+    },
+    {
+      "case": "consistent_nonfatal_control",
+      "rejected": false,
+      "matches_expectation": true
+    },
+    {
+      "case": "prior_model_false",
+      "rejected": true,
+      "exception": "positive controls incomplete before handle probe",
+      "matches_expectation": true
+    },
+    {
+      "case": "prior_pipe_false",
+      "rejected": true,
+      "exception": "positive controls incomplete before handle probe",
+      "matches_expectation": true
+    },
+    {
+      "case": "boundary_truth_open_success",
+      "rejected": true,
+      "exception": "complete frame changed earlier evidence",
+      "matches_expectation": true
+    },
+    {
+      "case": "empty_preceding_results",
+      "rejected": true,
+      "exception": "positive controls incomplete before handle probe",
+      "matches_expectation": true
+    },
+    {
+      "case": "drop_prior_nested_field",
+      "rejected": true,
+      "exception": "complete frame changed earlier evidence",
+      "matches_expectation": true
+    },
+    {
+      "case": "nested_type_change",
+      "rejected": true,
+      "exception": "complete frame changed earlier evidence",
+      "matches_expectation": true
+    },
+    {
+      "case": "literal_nan",
+      "rejected": true,
+      "exception": "nonfinite fixture field",
+      "matches_expectation": true
+    },
+    {
+      "case": "literal_infinity",
+      "rejected": true,
+      "exception": "nonfinite fixture field",
+      "matches_expectation": true
+    },
+    {
+      "case": "finite_JSON_literal_overflows_to_infinity",
+      "rejected": false,
+      "matches_expectation": false
+    },
+    {
+      "case": "nested_list_element_type_change",
+      "rejected": false,
+      "matches_expectation": false
+    }
+  ],
+  "hardlink_regression": {
+    "nlink": 2,
+    "rejected": true,
+    "error": "ACL directory must be empty before applying inheritable permissions",
+    "acl_unchanged": true
+  },
+  "initial_supplemental_failures_retained": [
+    "numeric_exponent_overflow",
+    "nested_list_bool_int_change"
+  ],
+  "final_protocol_results": "../raw/isolation/final_protocol_results.json",
+  "complete_frame_overwrite_closed_in_bounded_cases": true,
+  "finite_number_and_list_type_cases_closed_on_final_policy": true,
+  "general_filesystem_or_protocol_proof": false
+}

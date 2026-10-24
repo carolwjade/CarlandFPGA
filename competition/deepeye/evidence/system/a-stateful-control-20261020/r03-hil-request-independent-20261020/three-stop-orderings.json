@@ -1,0 +1,25 @@
+{
+  "before_owner_entry": {
+    "evidence": "pending-before-entry-result.json",
+    "result": "pending STOP drained; response stopped/unqualified",
+    "exit": 0,
+    "same_saved_packet_bytes": true
+  },
+  "during_verifier": {
+    "evidence": "controls-results.json",
+    "test": "test_foreign_thread_inside_verifier_is_fenced",
+    "result": "callback fence raises ValueError; owner stopped",
+    "test_status": "passed",
+    "rerun": false
+  },
+  "after_final_fence": {
+    "evidence": "literal-traces.json",
+    "test": "test_foreign_thread_after_final_fence_cannot_publish_qualified",
+    "injected_line": 463,
+    "result": "qualified diagnostic returned; next owner drains STOP",
+    "strong_before_publication_assertion": "retained failure",
+    "rerun": false
+  },
+  "interpretation": "post-fence overlap may linearize after diagnostic; before-publishing wording is broader; main decides code/documentation contract",
+  "motion_authority_or_TTL_violation_proven": false
+}

@@ -1,0 +1,246 @@
+{
+  "at_utc": "2026-10-20T02:38:17.969619+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "parent": "0fa0fee1eadeea2e3ddfbab0a8688e4bc2905365",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "scope": "Exact independently reviewed G01/G02 simulator composition and unchanged regression inputs.",
+  "independent_manifest_sha256": "427d0f5937f9a276a05a5d78cceca48f02025645a9389b125ce8fc0370c52873",
+  "verified_files": 402,
+  "independent_receipt_sha256": "0c102ed410d2c89dfbe9f42886718dc18fc81b4ade41114e2403f4ffd526bd9c",
+  "actual_terminal": "child-5c32d7c217d34ebd9c4ff58c4449fa0f",
+  "actual_commands": [
+    {
+      "name": "editor",
+      "pid": 28168,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "f7c7d487fb6e4c249e8fed069f236887ca09416aa7443400b76bea7510387283"
+    },
+    {
+      "name": "failure-bad-license",
+      "pid": 16776,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "87e88e76ef52509cbd85f3597776e0867aa4966bbe262138f317c9f9c5202ee3"
+    },
+    {
+      "name": "failure-empty-visual",
+      "pid": 47496,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "53b45015ca1213930641103564d1b2d2c9d554da7d472ca6564c04961b4bd27d"
+    },
+    {
+      "name": "failure-null",
+      "pid": 44128,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "48695d6269242ee2c4b226d921980c03d79e6e2928bf9d645225ff20e7faa5ef"
+    },
+    {
+      "name": "failure-signature",
+      "pid": 31620,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "7a048c8c622ad01498a1c52807183d1de33572eef2754348fa64d06c48bfcbfe"
+    },
+    {
+      "name": "import",
+      "pid": 44476,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "2d486a47121b62b460f22500c269bbe68a8ac07f26f724459641985bd624d9fa"
+    },
+    {
+      "name": "integration",
+      "pid": 11412,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "7ed4db0b79aa7fd74a4e6157e708d74f6194d51166ddf358e91ed04b9e538deb"
+    },
+    {
+      "name": "numeric",
+      "pid": 34904,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "b01ba7dfaae9cc97519b5c83fe6ac65c851a1dd221fec1775c06695b7eba985c"
+    },
+    {
+      "name": "oracle-analysis",
+      "pid": 23560,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "e3a91965d7f078fd0bfd20c526a7995c2c6ae9dd3df098653e882f43b56d8236"
+    },
+    {
+      "name": "persistence",
+      "pid": 53596,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "3e6e553c1c0367ea04dfb4f4c9b7eeaff24a8dc6996062eb9f0e58de8c0c6f1f"
+    },
+    {
+      "name": "reader",
+      "pid": 15908,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "5d425533803aa245993f1099d181c02546845df1aa48cf8989c6868160bf47d1"
+    },
+    {
+      "name": "reuse-audit",
+      "pid": 3696,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "49e9c0383fbdd24f447427ddd366147653202fe19cdb6758dcda2a89e0d28de5"
+    },
+    {
+      "name": "ui",
+      "pid": 28456,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "961856d3c76b7a189281bb96f194e389bcb92b8d150f8fe0fa93edc57ee0e44b"
+    },
+    {
+      "name": "unicode",
+      "pid": 44548,
+      "exit_code": 0,
+      "terminal": true,
+      "result_sha256": "c1861495e5ca65770e89422ca50b30326e8483a8313aedb61aadf7458d740094"
+    },
+    {
+      "name": "unicode-red",
+      "pid": 19248,
+      "exit_code": 1,
+      "terminal": true,
+      "result_sha256": "7811a94feb09b098ceade4e5deaa10598df828c80c6f6c0150b805447b550e25"
+    }
+  ],
+  "candidate_manifest_sha256": "9e58a498769321c91c3a198e9e6d5c242e96cb09aada1704cc74b512298e9aee",
+  "candidate_changes": [
+    {
+      "path": "editor/gate_json_numbers.gd",
+      "before": null,
+      "after": {
+        "bytes": 4504,
+        "sha256": "8554c99c1d8b70c9ef7471b3eb06ee994aef6f33397a2612f09d5c55aa73a3fa"
+      }
+    },
+    {
+      "path": "editor/gate_numeric.gd",
+      "before": null,
+      "after": {
+        "bytes": 8708,
+        "sha256": "9356b645b4ce947c9825b3766a6f6e2f690ceca08bdb888ce2faf884f84cd461"
+      }
+    },
+    {
+      "path": "editor/layout_codec.gd",
+      "before": {
+        "bytes": 14686,
+        "sha256": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72"
+      },
+      "after": {
+        "bytes": 15440,
+        "sha256": "adb5c7f1c24390ba6aa8456e40e713ac55a1dd80c2a866b9802e3775ee4826ef"
+      }
+    },
+    {
+      "path": "editor/layout_store.gd",
+      "before": {
+        "bytes": 5754,
+        "sha256": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56"
+      },
+      "after": {
+        "bytes": 5757,
+        "sha256": "752b023361b3ae935214dcef8beedc22e3722c66f0bdf1cef5b20939a91696a5"
+      }
+    },
+    {
+      "path": "editor/scene_document.gd",
+      "before": {
+        "bytes": 30327,
+        "sha256": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e"
+      },
+      "after": {
+        "bytes": 31324,
+        "sha256": "2bcc0c620333582361706f0b23b7e4bcc54b31a4e2a0cc6618935dcd296bdd6f"
+      }
+    },
+    {
+      "path": "tests/test_layout_unicode_path.gd",
+      "before": null,
+      "after": {
+        "bytes": 1283,
+        "sha256": "ab8a810b83ebfd145ca865a29be271cf4c257c57731b710c09b38770e576820c"
+      }
+    }
+  ],
+  "reproduction_inputs": {
+    "tests/test_gate_numeric.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\test_gate_numeric.gd",
+      "sha256": "07b73b6355818b76584b09d35348a2f4ee34dc1c8ce3a56f1a2389eb9d47beb1",
+      "unchanged": true
+    },
+    "tests/numeric_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\numeric_cases.json",
+      "sha256": "e98ed17cc2cf4926c51397d4c60fdd5e397f1849c71291843924c26a5540ceae",
+      "unchanged": true
+    },
+    "tests/test_gate_reader.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\test_gate_reader.gd",
+      "sha256": "e578b3df2f5f48697f64786472aeed8f76bab838138cb2802ed3339652bea279",
+      "unchanged": true
+    },
+    "tests/reader_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g01-g02-combined-independent-20261020\\stage\\tests\\reader_cases.json",
+      "sha256": "e0cf9367c4ddda8456e2948c8db96c6e3a701d2b1af391771116a57615e2eec8",
+      "unchanged": true
+    },
+    "tests/grammar_probe.gd": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\tests\\grammar_probe.gd",
+      "sha256": "5685853d7421d79a46ade8f7e142b9e76b428294a828a2a4fd290d1afd67ca22",
+      "unchanged": true
+    },
+    "tests/grammar_cases.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\tests\\grammar_cases.json",
+      "sha256": "237910ec610d70831c917c6dcff7b811ce6732478e62aabd33ba280af1401117",
+      "unchanged": true
+    },
+    "grammar-fixtures/leading-zero.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\leading-zero.json",
+      "sha256": "c2c5786f62c893cb3f9774610097cf21fbbaac3b35fb197b39e5c248dcd5a453",
+      "unchanged": true
+    },
+    "grammar-fixtures/missing-fraction-with-exponent.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\missing-fraction-with-exponent.json",
+      "sha256": "f1d8c719e1e09b36814c9d614bf530bdbc2cb5dd86aa95639b58703d23ad8ed0",
+      "unchanged": true
+    },
+    "grammar-fixtures/missing-fraction.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\missing-fraction.json",
+      "sha256": "044500804dcff5f673b864582e3462bd277ecc9cde248250181bc3e603724436",
+      "unchanged": true
+    },
+    "grammar-fixtures/valid-exponent.json": {
+      "source": ".planning\\deepeye-resume-20261018\\g02-json-number-grammar-repair-20261020\\stage\\grammar-fixtures\\valid-exponent.json",
+      "sha256": "e79b2909decaadda22851f211a65c0095eac65167b645c7c774059722213a7fb",
+      "unchanged": true
+    }
+  },
+  "evidence_reuse": "176 grammar and 622 B asset assertions reused at verified exact transitive dependencies; not fresh runs.",
+  "numerical_policy": "Finite binary64 coordinates; exact represented squared distance; gate-only nearest-even restoration. Negative zero geometry equivalence accepted, no signed-zero bit claim.",
+  "display": "Background/headless only. Earlier native save/open/orbit is scoped to older frozen UI; current G01 visuals and valid wheel routing not_run.",
+  "limitations": [
+    "Not full JSON conformance",
+    "No actual embedded-zero runtime String represented",
+    "Presentation drill is not authority geometry",
+    "Uncalibrated G03 remains open"
+  ],
+  "formal_cards": "all29 not_run",
+  "unrelated_files_preserved": {
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013"
+  }
+}

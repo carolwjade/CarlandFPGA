@@ -1,0 +1,29 @@
+{
+  "label": "delayed-transfer-vsim",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "delayed-transfer.independent_tb",
+    "-gCOUNT_W=4",
+    "-gWITNESS_W=8",
+    "-gTAG_W=8",
+    "+VEC=R:/test.vec",
+    "+LOG=R:/delayed-transfer.trace",
+    "-l",
+    "R:/delayed-transfer.transcript",
+    "-wlf",
+    "R:/delayed-transfer.wlf",
+    "-do",
+    "run.do"
+  ],
+  "cwd": "R:/build",
+  "pid": 38512,
+  "start": "2026-10-20T01:11:05.664023+00:00",
+  "end": "2026-10-20T01:11:07.653690+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "7c09fcdcd33f00d45714e923a4f9c54ea69f35974a26f4546c88d9d5589500ad",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

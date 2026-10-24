@@ -1,0 +1,11 @@
+--- exact-original
++++ high-plus-one
+@@ -173,7 +173,7 @@
+                     end else begin
+                         slot_valid_q  <= 1'b1;
+                         slot_period_q <= age_q + 1'b1;
+-                        slot_high_q   <= high_q;
++                        slot_high_q   <= high_q + 1'b1;
+                         slot_tag_q    <= win_tag_q;
+                     end
+                     state_q <= ST_HIGH;

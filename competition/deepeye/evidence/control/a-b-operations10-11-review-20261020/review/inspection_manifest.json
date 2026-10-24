@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "kind": "A independent review inspection manifest",
+  "generated_at_utc": "2026-10-19T17:00:46Z",
+  "task": {
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "work_id": "A-B-OPERATIONS10-11-REVIEW-20261020-v1"
+  },
+  "reviewer": {
+    "role": "A",
+    "node": "A",
+    "board_operator": "A",
+    "sole_director_thread_id": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+    "director_generation": 2,
+    "skill_sha256": "57077272cd366f9edf1b82a4e1c59d6558dd76d10f2df6f83f55754098436ccd",
+    "skill_role_sha256": "7e8934fd3ea51eb6ad6e78395a195073c214c3d17336bb6613226dd92e87f4b6",
+    "transfer_sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165"
+  },
+  "writable_scope": ".planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/review/",
+  "source_root": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/source",
+  "input_pins": {
+    "remote_pr_head": "cd48ae70082e33c7a669a6686a0c965f8e541757",
+    "tarball_bytes": 30806609,
+    "tarball_sha256": "3e4d738a0ea65e44188c7cb01aaa2e6744be6d9faba9559c2492935e41c28d8e",
+    "archive_integrity": {
+      "path": "../archive-integrity.json",
+      "bytes": 22389,
+      "sha256": "847a1eb4f05dac2acac93e1de71b62f11f949d2e4865e12754b0086be7fa04e6"
+    },
+    "lineage_and_blobs": {
+      "path": "../lineage-and-blobs.json",
+      "bytes": 1106,
+      "sha256": "ea01fe0c30d8ff7ced069521f14d817ae88101b3ed3bc49affe09ecb7c270d1c",
+      "commits": [
+        "cd48ae70082e33c7a669a6686a0c965f8e541757",
+        "9d8437151359eabec66342985506f13d98ce7b5a",
+        "f832efc5544a3b73a70f27bbc7e6d7171fc8fc4d",
+        "de4e8bdd61e0126988b42c36b9e4e89cabbc3223"
+      ]
+    },
+    "pr_readback_sha256": "5929fc2e0519ad4f7d8c35fd1dae12d2f8dacaead85a780f1d297a1a31873c74",
+    "download_record_sha256": "696ba28c8ea2aae6c631bb2618e2eed2a12663b94242461c00d4ce2250deebca",
+    "operations": {
+      "B-DEEPEYE-REGISTER-TRANSACTION-20261019-10": {
+        "source_commit": "de4e8bdd61e0126988b42c36b9e4e89cabbc3223",
+        "request_hash": "2a120a721d5fcd29dba0c5b0ff308b2edd6bfff5bfb8a4c3108d5a6233d10174",
+        "manifest_sha256": "f0c8acd38e3b5c5c6aa90a8aab91a26f09ec6010ca9d4462569e47e5f38dd6bf",
+        "manifest_artifact_entries": 75,
+        "manifest_files_rehashed": 75,
+        "manifest_mismatches": 0
+      },
+      "B-DEEPEYE-RAW-DIAGNOSTIC-PROPOSAL-20261019-11": {
+        "source_commit": "9d8437151359eabec66342985506f13d98ce7b5a",
+        "request_hash": "b8cf87f58739730a601f72625945246cd5f898f7911274f7bf8d5345c1a0f9e9",
+        "manifest_sha256": "530e993409b55b3a774f0ab62b5bec01a02b9383a03350c8bd927688bfea1b92",
+        "manifest_artifact_entries": 9,
+        "manifest_files_rehashed": 9,
+        "manifest_mismatches": 0
+      }
+    },
+    "archive_crosswalk": {
+      "selected_entries": 99,
+      "entries_rehashed": 99,
+      "size_mismatches": 0,
+      "sha256_mismatches": 0,
+      "groups": {
+        "op10_evidence": 69,
+        "op10_handoff": 3,
+        "op11_evidence": 6,
+        "op11_handoff": 3,
+        "golden_control": 12,
+        "tests_control": 4,
+        "docs": 2
+      },
+      "canonical_path_bytes_sha256_method": "json.dumps([{path,bytes,sha256}...] sorted by path, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8')",
+      "canonical_crosswalk_sha256": "c8ce55aa4bcae36e64002d198fb46caf2e944e245185427c4b753ec00e3206b0",
+      "canonical_op10_manifest_files_sha256": "b4a423f28828749efce82db6bf8e25741dcb942acdcb246e812d4f989e0eb2ef",
+      "canonical_op11_manifest_files_sha256": "b675b0d8a59bab2922a4a420edffff202a15a0e9e933a8f2dff7bf9930c6ca11"
+    }
+  },
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "revision": 1,
+    "requirements_file": "../source/docs/competition/deepeye-2026/immutable_scope.json",
+    "requirements_file_bytes": 6684,
+    "requirements_file_sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "markdown_file": "../source/docs/competition/deepeye-2026/immutable_scope.md",
+    "markdown_file_bytes": 6139,
+    "markdown_file_sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+    "declared_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "recomputed_requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "canonical_payload_bytes": 4680,
+    "hash_method": "json.dumps(requirements, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8')",
+    "requirement_ids": ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12", "H13", "H14", "H15"],
+    "requirement_count": 15,
+    "requirements_match": true,
+    "product_status": "all acceptance tasks not_run"
+  },
+  "inspected_files": [
+    {"path": ".agents/skills/fpga-multi-node/SKILL.md", "bytes": 3418, "sha256": "57077272cd366f9edf1b82a4e1c59d6558dd76d10f2df6f83f55754098436ccd", "kind": "role"},
+    {"path": ".agents/skills/fpga-multi-node/skill-role.json", "bytes": 146, "sha256": "7e8934fd3ea51eb6ad6e78395a195073c214c3d17336bb6613226dd92e87f4b6", "kind": "role"},
+    {"path": ".planning/deepeye-desktop-handoff-20261015/transfer.json", "bytes": 6075, "sha256": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165", "kind": "authority"},
+    {"path": "source/docs/competition/deepeye-2026/immutable_scope.json", "bytes": 6684, "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4", "kind": "contract"},
+    {"path": "source/docs/competition/deepeye-2026/immutable_scope.md", "bytes": 6139, "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd", "kind": "contract"},
+    {"path": "source/competition/deepeye/golden/control/README.md", "bytes": 11108, "sha256": "68ad6a1bd153f41bd0a6e27ad2c42038fa11d8efa5a6cf1cfdb5108d5427f8c9", "kind": "portable_commands"},
+    {"path": "source/competition/deepeye/golden/control/register_transaction_reference.py", "bytes": 47823, "sha256": "d2fad9f6ff4602e896e60d6c30050d4c1f65d07be82dc96965d9f274e0305718", "kind": "tested_model"},
+    {"path": "source/competition/deepeye/golden/control/REGISTER_TRANSACTION_REFERENCE.md", "bytes": 24017, "sha256": "228a19a506fb79bb94ae70dd8be2ec87371d79553c8a93c8a25536124c21239a", "kind": "semantic_spec"},
+    {"path": "source/competition/deepeye/tests/control/test_register_transaction.py", "bytes": 50220, "sha256": "0b29240518dd56162968d2e7bcbcf9869f1133bc133b0b69c3052bf13f581c15", "kind": "formal_tests"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/README.md", "bytes": 2635, "sha256": "533020f8befbf0d4b09cae444100b30ba0f17ff01f66b3c7f0ba65c3196a0682", "kind": "portable_commands"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/MAIN_SPEC.md", "bytes": 8914, "sha256": "ffbbfe35ce89f1f1135bb063dfd49832bcfa33b01cc58541a239cadeacbfa314", "kind": "main_spec"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/main_review.py", "bytes": 11541, "sha256": "a9d45029f0094c80f73792c9f699c9c827fc85adb39b70ea593d35e3feb89ef9", "kind": "main_bus_checker"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/main_adversarial.py", "bytes": 3142, "sha256": "4f4988da033a4b291a3ad24fc2e05d3a2a1bafa64a6b1c5322594c7bbabc5db4", "kind": "adversarial_checker"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/MAIN_ACCEPTANCE.json", "bytes": 1416, "sha256": "fc558ad4d0a70444cc397bb132a4fedacf8849798e04193fea15287f5f9a9b48", "kind": "historical_claim"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/original_worker_register_transaction_reference.py", "bytes": 46823, "sha256": "b5e4ee6cdbde370a5b837b6f16b7c4d9962f4a0899092f4d267609baa887ac1a", "kind": "historical_source"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/original_worker_test_register_transaction.py", "bytes": 50085, "sha256": "39eb1832fb5171ee9f58af37e46d4903ac3b49b7834e25f798cb06894f2023b1", "kind": "historical_test"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/original_worker_REGISTER_TRANSACTION_REFERENCE.md", "bytes": 22565, "sha256": "2131534dc1e8d4d0fdf06c5f92c4ab1d47feebb94caa9632ba12efbfe11f5c80", "kind": "historical_spec"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/wip-main-observation/result.json", "bytes": 552, "sha256": "0edd0ec60de7bc5c49fdea42651905f0b7ab2a3db7e2517ee677ff4b9faa067c", "kind": "historical_failure"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/wip-main-observation/stderr.txt", "bytes": 8833, "sha256": "e669cc148c15e6625fa860feb4539582f5110231aeae461d765bdddee1e58874", "kind": "historical_failure"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/corrected-worker-regression/result.json", "bytes": 1028, "sha256": "478d5da840a08cf1a30451ca0a3cc2950dcc2f6772977e05934cec4689dbc8c0", "kind": "historical_failure"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/corrected-worker-regression/stderr.txt", "bytes": 11121, "sha256": "0910ebf16c6dacd4eff0d598f7ef340a5bf6375bd684cba0564f0f1e5cf7044a", "kind": "historical_failure"},
+    {"path": "source/competition/deepeye/evidence/control/register-transaction-20261019-10/main/A-review/findings.md", "bytes": 5566, "sha256": "0b9964b3bac10b87b61f2bf31f1f28c4cb32f300aaa573d59ed947ec35d8c882", "kind": "prior_unrelated_A_review"},
+    {"path": "source/competition/deepeye/golden/control/raw_capture_diagnostic_candidate.json", "bytes": 17925, "sha256": "0237b3d57808965ac0367e15c910b9230a2072a43449a4960bd85c8a5e0760a5", "kind": "candidate_descriptor"},
+    {"path": "source/competition/deepeye/golden/control/RAW_CAPTURE_DIAGNOSTIC_CANDIDATE.md", "bytes": 6608, "sha256": "a9c9a52f70745462450b477654964fd3d35df338a533151e7aba01105f6bd9fd", "kind": "candidate_spec"},
+    {"path": "source/competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/README.md", "bytes": 1207, "sha256": "93ca04b3a5b6dedd1757c9be61e9ec8908bddb13eeae7f7175d9af2314363f76", "kind": "portable_commands"},
+    {"path": "source/competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/diagnostic_review.py", "bytes": 3594, "sha256": "16e53cdfb76d6024a9576f7d015e03207c8550fe7ae1b2a3badb723b9beb7158", "kind": "descriptor_checker"},
+    {"path": "source/competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/result.json", "bytes": 1524, "sha256": "5f9022e0985f5162b2ffe589e561a0b430abd0d212d6b3b105accfad49c2b523", "kind": "historical_result"},
+    {"path": "source/competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/stdout.txt", "bytes": 531, "sha256": "ebe274ca7320fbb7155667025a492116ff3b160c5c5f216415de96d2940affbc", "kind": "historical_log"},
+    {"path": "source/competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/stderr.txt", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "kind": "historical_log"},
+    {"path": "source/handoffs/b/B-DEEPEYE-REGISTER-TRANSACTION-20261019-10/input.json", "bytes": 9374, "sha256": "5365d3297eaebfd75d9a7939f77e9c59e4a032852a1e45781d659e656db41edb", "kind": "op10_request"},
+    {"path": "source/handoffs/b/B-DEEPEYE-REGISTER-TRANSACTION-20261019-10/manifest.json", "bytes": 25787, "sha256": "f0c8acd38e3b5c5c6aa90a8aab91a26f09ec6010ca9d4462569e47e5f38dd6bf", "kind": "op10_manifest"},
+    {"path": "source/handoffs/b/B-DEEPEYE-RAW-DIAGNOSTIC-PROPOSAL-20261019-11/input.json", "bytes": 2251, "sha256": "68662b9c3404a94404ec376e0153bf9a54d0387b81d8cbb7cfdf6e73027ed272", "kind": "op11_request"},
+    {"path": "source/handoffs/b/B-DEEPEYE-RAW-DIAGNOSTIC-PROPOSAL-20261019-11/manifest.json", "bytes": 4174, "sha256": "530e993409b55b3a774f0ab62b5bec01a02b9383a03350c8bd927688bfea1b92", "kind": "op11_manifest"}
+  ],
+  "python_execution": {
+    "executable": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe",
+    "python_sha256": "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2",
+    "version": "3.12.14",
+    "flags": ["-B", "-X", "utf8"],
+    "environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "TEMP": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/review/temp",
+      "TMP": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/review/temp",
+      "PYTHONPATH": null,
+      "PYTHONHOME": null
+    },
+    "cwd": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/source"
+  },
+  "runs": {
+    "import-origin": {
+      "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", "review/runs/import-origin/probe.py"],
+      "command_record": "runs/import-origin/command.json",
+      "exit_code": 0,
+      "probe_bytes": 1319,
+      "probe_sha256": "e74d8fdd96357ed3ccb360084599bdc47c15a61682332d3b68b83f598cf6d6d7",
+      "stdout_bytes": 2631,
+      "stdout_sha256": "a767605aca8883516fdd61c2d1d653bece8f771fd894b0906deb821a56a6abf0",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "model_module": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/source/competition/deepeye/golden/control/register_transaction_reference.py",
+      "model_sha256": "d2fad9f6ff4602e896e60d6c30050d4c1f65d07be82dc96965d9f274e0305718",
+      "test_module": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/source/competition/deepeye/tests/control/test_register_transaction.py",
+      "sys_path_first": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.planning/deepeye-resume-20261018/b-pr30-operations10-11-20261020/source/competition/deepeye/golden/control"
+    },
+    "formal70": {
+      "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", "-m", "unittest", "discover", "-s", "competition/deepeye/tests/control", "-p", "test_register_transaction.py", "-v"],
+      "command_record": "runs/formal70/command.json",
+      "exit_code": 0,
+      "result": "Ran 70 tests; OK",
+      "stdout": {"path": "runs/formal70/stdout.bin", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+      "stderr": {"path": "runs/formal70/stderr.bin", "bytes": 9826, "sha256": "dbcdd6fa93cc601437fd122c2a49e3bdae42fec7c0bc0baa5f02d5325f9b7c5d"},
+      "source_before_after_sha256": "d2fad9f6ff4602e896e60d6c30050d4c1f65d07be82dc96965d9f274e0305718",
+      "test_before_after_sha256": "0b29240518dd56162968d2e7bcbcf9869f1133bc133b0b69c3052bf13f581c15"
+    },
+    "main12": {
+      "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", "competition/deepeye/evidence/control/register-transaction-20261019-10/main/main_review.py", "--source", "competition/deepeye/golden/control/register_transaction_reference.py"],
+      "command_record": "runs/main12/command.json",
+      "exit_code": 0,
+      "result": {"tests": 12, "failures": 0, "errors": 0, "software_fixture_only": true},
+      "main_counts": {"accessible_words": 28, "apply_boundaries": 19, "command_strobe_cases": 1104, "config_lifecycle_checks": 12, "expected_rejections": 283, "invalid_capture_cases": 34, "random_capture_projections": 128, "reader_revocation_interleavings": 136, "shadow_reference_cases": 3000, "snapshot_words": 17, "stale_ticket_schedules": 6},
+      "stdout": {"path": "runs/main12/stdout.bin", "bytes": 415, "sha256": "85614c46c885242588bd8871137441a308449945ed69bf89d0a790ed53a19669"},
+      "stderr": {"path": "runs/main12/stderr.bin", "bytes": 1162, "sha256": "b9a7963522f600452d5fefae52d29e711ae40df9e5bfea8787b2083adcc07d0f"}
+    },
+    "adversarial4": {
+      "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", "competition/deepeye/evidence/control/register-transaction-20261019-10/main/main_adversarial.py", "--source", "competition/deepeye/golden/control/register_transaction_reference.py"],
+      "command_record": "runs/adversarial4/command.json",
+      "exit_code": 0,
+      "result": {"tests": 4, "failures": 0, "errors": 0, "scope": "offline fixture lifecycle only"},
+      "stdout": {"path": "runs/adversarial4/stdout.bin", "bytes": 85, "sha256": "3994ec5263abb975646c8b729d4b05a4a7c4d5cec1e681b018806b42ff37c44e"},
+      "stderr": {"path": "runs/adversarial4/stderr.bin", "bytes": 601, "sha256": "77f9e9c37f23edab3acb07e121b6d213760954b8e608d957f9dd3d0c080e040b"}
+    },
+    "diagnostic14-10": {
+      "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", "competition/deepeye/evidence/control/raw-diagnostic-proposal-20261019-11/diagnostic_review.py", "competition/deepeye/golden/control/raw_capture_diagnostic_candidate.json"],
+      "command_record": "runs/diagnostic14-10/command.json",
+      "exit_code": 0,
+      "result": {"result": "passed", "accessible_words": 51, "channels": 3, "wide_fields": 15, "synthetic_cases": 14, "negative_descriptors": 10, "scope": "descriptor/fixture arithmetic only; no RTL, HWH parse, physical capture or register transition execution"},
+      "stdout": {"path": "runs/diagnostic14-10/stdout.bin", "bytes": 531, "sha256": "ebe274ca7320fbb7155667025a492116ff3b160c5c5f216415de96d2940affbc"},
+      "stderr": {"path": "runs/diagnostic14-10/stderr.bin", "bytes": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+      "checker_before_after_sha256": "16e53cdfb76d6024a9576f7d015e03207c8550fe7ae1b2a3badb723b9beb7158",
+      "descriptor_before_after_sha256": "0237b3d57808965ac0367e15c910b9230a2072a43449a4960bd85c8a5e0760a5"
+    }
+  },
+  "run_file_hashes": {
+    "runs/adversarial4/command.json": "cecd076837ad6ccfeb27b191da0da63a9ce5e71273b56c958f274c72d7a3977a",
+    "runs/diagnostic14-10/command.json": "34a25cfe400c5a77975247ac48cdac4761ed93c3b604bfc090a02bffae50518f",
+    "runs/formal70/command.json": "dceb56d66a144515e68969abb787c4cc57678a32b494d81413556ac111b44f2f",
+    "runs/import-origin/command.json": "815923bd113640bb81c425f4170c8d9fdce0fc8e6ecd6e04ab8d3c5e0cd15cfc",
+    "runs/import-origin/probe.py": "e74d8fdd96357ed3ccb360084599bdc47c15a61682332d3b68b83f598cf6d6d7",
+    "runs/main12/command.json": "80238187f56162e9a715ecdd55cda93c1153dbadf7557ec280cef477db11f23c"
+  },
+  "pins": {
+    "before": {"path": "pins-before.json", "bytes": 6311, "sha256": "b970e06a85cb93181fd4723520d2e49b5780efee2d3af1cdd3726b96e418d0f0", "files": 18},
+    "after": {"path": "pins-after.json", "bytes": 9324, "sha256": "733e1175fc5817a65460ccb20841ddc200916b0bcd0eecaeba72934e2b13f474", "files": 18},
+    "matches_before_after": true,
+    "mismatches": []
+  },
+  "findings": {
+    "path": "findings.md",
+    "bytes": 9496,
+    "sha256": "0d0cc04d1f713582db6c7fbc00ab226caf4c82b242657bfbdb575f53ec0ca4cf"
+  },
+  "conclusion": {
+    "operation10_bounded_offline_reference": "pass",
+    "operation11_descriptor_arithmetic": "pass_candidate_only",
+    "blocking_defect_found": false,
+    "additional_counterexample": "not_needed",
+    "public_abi_extension_runtime_changed": false
+  },
+  "not_run": ["29 formal cards", "B01", "B05", "R03", "RTL simulation", "synthesis", "implementation", "timing", "CDC/RDC", "HWH parse/match", "physical capture", "board", "runtime exposure", "deployment", "system acceptance"],
+  "write_boundary": {
+    "review_directory_only": true,
+    "downloaded_source_modified": false,
+    "original_evidence_modified": false,
+    "product_modified": false,
+    "git_commit_or_push": false,
+    "pr_comment": false,
+    "group_or_peer_send": false,
+    "board_run_or_deployment": false,
+    "dependencies_installed": false,
+    "pycache_or_pytest_cache_found": false
+  }
+}

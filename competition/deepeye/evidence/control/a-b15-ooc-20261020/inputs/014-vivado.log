@@ -1,0 +1,233 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 08-oct-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Tue Oct 20 15:55:56 2026
+# Process ID         : 52684
+# Current directory  : C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1
+# Command line       : vivado.exe -mode batch -notrace -source synthesize.tcl -log vivado.log -journal vivado.jou
+# Log file           : C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/vivado.log
+# Journal file       : C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1\vivado.jou
+# Running On         : DESKTOP-FBHOHIO
+# Platform           : Windows 11
+# Operating System   : 26200
+# Processor Detail   : AMD Ryzen 7 8845H w/ Radeon 780M Graphics
+# CPU Frequency      : 3793 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 33601 MB
+# Swap memory        : 3221 MB
+# Total Virtual      : 36823 MB
+# Available Virtual  : 6138 MB
+#-----------------------------------------------------------
+source synthesize.tcl -notrace
+DEEPEYE_OOC_TOOL 2026.1
+DEEPEYE_OOC_THREAD_LIMIT 1
+read_verilog: Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 758.949 ; gain = 267.863
+Command: synth_design -top deepeye_pwm_applied_capture -part xc7z020clg400-1 -mode out_of_context -flatten_hierarchy rebuilt
+Starting synth_design
+Attempting to get a license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 1 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 52912
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1335.652 ; gain = 568.781
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'deepeye_pwm_applied_capture' [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_applied_capture.sv:15]
+INFO: [Synth 8-6157] synthesizing module 'deepeye_atomic_pwm' [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_atomic_pwm.sv:17]
+	Parameter COUNT_W bound to: 32 - type: integer 
+	Parameter TAG_W bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'deepeye_atomic_pwm' (0#1) [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_atomic_pwm.sv:17]
+INFO: [Synth 8-6157] synthesizing module 'deepeye_pwm_coherent_capture' [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:27]
+	Parameter COUNT_W bound to: 32 - type: integer 
+	Parameter WITNESS_W bound to: 64 - type: integer 
+	Parameter TAG_W bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'deepeye_pwm_coherent_capture' (0#1) [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:27]
+INFO: [Synth 8-6155] done synthesizing module 'deepeye_pwm_applied_capture' (0#1) [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_applied_capture.sv:15]
+WARNING: [Synth 8-6014] Unused sequential element witness_now_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:230]
+WARNING: [Synth 8-6014] Unused sequential element rise_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:233]
+WARNING: [Synth 8-6014] Unused sequential element fall_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:234]
+WARNING: [Synth 8-6014] Unused sequential element elapsed_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:272]
+WARNING: [Synth 8-6014] Unused sequential element coherent_candidate_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-v1/sources/deepeye_pwm_coherent_capture.sv:300]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.652 ; gain = 700.781
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.652 ; gain = 700.781
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1467.652 ; gain = 700.781
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1467.652 ; gain = 700.781
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   64 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 2     
++---Registers : 
+	               64 Bit    Registers := 3     
+	               32 Bit    Registers := 25    
+	                3 Bit    Registers := 4     
+	                1 Bit    Registers := 20    
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 14    
+	   2 Input   32 Bit        Muxes := 49    
+	   2 Input    3 Bit        Muxes := 16    
+	   3 Input    3 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   5 Input    3 Bit        Muxes := 1     
+	   6 Input    3 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 96    
+	   4 Input    1 Bit        Muxes := 1     
+	   5 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:30 . Memory (MB): peak = 1765.242 ; gain = 998.371
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:31 . Memory (MB): peak = 1765.242 ; gain = 998.371
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:24 ; elapsed = 00:00:32 . Memory (MB): peak = 1765.242 ; gain = 998.371
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |   122|
+|2     |LUT1   |     3|
+|3     |LUT2   |   205|
+|4     |LUT3   |     9|
+|5     |LUT4   |   478|
+|6     |LUT5   |    59|
+|7     |LUT6   |   396|
+|8     |FDRE   |  1117|
++------+-------+------+
+
+Report Instance Areas: 
++------+--------------+-----------------------------+------+
+|      |Instance      |Module                       |Cells |
++------+--------------+-----------------------------+------+
+|1     |top           |                             |  2389|
+|2     |  u_capture   |deepeye_pwm_coherent_capture |  1253|
+|3     |  u_generator |deepeye_atomic_pwm           |   970|
++------+--------------+-----------------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 5 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.777 ; gain = 1216.906
+Synthesis Optimization Complete : Time (s): cpu = 00:00:27 ; elapsed = 00:00:35 . Memory (MB): peak = 1983.781 ; gain = 1216.906
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1997.875 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 122 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 2113.266 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 558e0790
+INFO: [Common 17-83] Releasing license: Vivado_Synthesis
+18 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:30 ; elapsed = 00:00:39 . Memory (MB): peak = 2114.289 ; gain = 1355.340
+DEEPEYE_OOC_SYNTHESIS_FAIL Unexpected synthesized top
+Unexpected synthesized top
+    while executing
+"error "Unexpected synthesized top""
+INFO: [Common 17-206] Exiting Vivado at Tue Oct 20 15:57:00 2026...

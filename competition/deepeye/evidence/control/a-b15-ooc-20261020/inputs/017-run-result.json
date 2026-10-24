@@ -1,0 +1,33 @@
+{
+  "started_utc": "2026-10-20T08:00:06.176834+00:00",
+  "finished_utc": "2026-10-20T08:00:56.201867+00:00",
+  "duration_seconds": 50.01600000000326,
+  "pid": 49096,
+  "exit_code": 1,
+  "timeout": false,
+  "peak_job_committed_memory_bytes": 2249359360,
+  "exact_stdout_pass_marker": false,
+  "missing_outputs": [
+    "synthesis-facts.txt",
+    "synthesized.dcp",
+    "synthesized.v"
+  ],
+  "error_lines": [
+    "DEEPEYE_OOC_SYNTHESIS_FAIL ERROR: [Common 17-1292] The path 'C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1' already exists, but is not a directory.",
+    "ERROR: [Common 17-1292] The path 'C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1' already exists, but is not a directory.",
+    "DEEPEYE_OOC_SYNTHESIS_FAIL ERROR: [Common 17-1292] The path 'C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1' already exists, but is not a directory.",
+    "ERROR: [Common 17-1292] The path 'C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1' already exists, but is not a directory."
+  ],
+  "warning_lines": [
+    "WARNING: [Synth 8-6014] Unused sequential element witness_now_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:230]",
+    "WARNING: [Synth 8-6014] Unused sequential element rise_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:233]",
+    "WARNING: [Synth 8-6014] Unused sequential element fall_mask_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:234]",
+    "WARNING: [Synth 8-6014] Unused sequential element elapsed_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:272]",
+    "WARNING: [Synth 8-6014] Unused sequential element coherent_candidate_reg was removed.  [C:/Users/CarlJade/AppData/Local/Temp/deepeye-a-b15-ooc-20261020-fix1/sources/deepeye_pwm_coherent_capture.sv:300]",
+    "WARNING: [DRC 23-814] Not all possible (connectivity based) DRCs may have been run because this design is seen as Out of Context."
+  ],
+  "source_inputs_unchanged": true,
+  "batch_synthesis_candidate": "failed",
+  "independent_review": "pending",
+  "timing_implementation_board_all29": "not_run"
+}

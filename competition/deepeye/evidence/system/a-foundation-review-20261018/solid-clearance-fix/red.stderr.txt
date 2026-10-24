@@ -1,0 +1,35 @@
+test_full_stage_must_not_evaluate_initial_only (__main__.AliasContract.test_full_stage_must_not_evaluate_initial_only) ... FAIL
+test_kind_alias_cannot_change_same_digest_geometry (__main__.AliasContract.test_kind_alias_cannot_change_same_digest_geometry) ... FAIL
+test_material_alias_cannot_downgrade_forbidden_union (__main__.AliasContract.test_material_alias_cannot_downgrade_forbidden_union) ... FAIL
+
+======================================================================
+FAIL: test_full_stage_must_not_evaluate_initial_only (__main__.AliasContract.test_full_stage_must_not_evaluate_initial_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-implementation-a\solid-clearance-independent-review-20261016\test_alias_contract_red.py", line 53, in test_full_stage_must_not_evaluate_initial_only
+    self.assertEqual(expected.status,actual.status,'serialized full stage evaluated initial only')
+AssertionError: 'UNKNOWN' != 'CLEAR'
+- UNKNOWN
++ CLEAR
+ : serialized full stage evaluated initial only
+
+======================================================================
+FAIL: test_kind_alias_cannot_change_same_digest_geometry (__main__.AliasContract.test_kind_alias_cannot_change_same_digest_geometry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-implementation-a\solid-clearance-independent-review-20261016\test_alias_contract_red.py", line 38, in test_kind_alias_cannot_change_same_digest_geometry
+    self.assertEqual(before,s.certify_scene(self.path,world),
+AssertionError: SceneResult(status='UNKNOWN', binding='bac5590589a8c19c6cd1df[284 chars]alse) != SceneResult(status='CLEAR', binding='bac5590589a8c19c6cd1dfcf[1502 chars]alse) : accepted alias changed geometry while digest stayed fixed
+
+======================================================================
+FAIL: test_material_alias_cannot_downgrade_forbidden_union (__main__.AliasContract.test_material_alias_cannot_downgrade_forbidden_union)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-implementation-a\solid-clearance-independent-review-20261016\test_alias_contract_red.py", line 46, in test_material_alias_cannot_downgrade_forbidden_union
+    self.assertEqual(before,s.certify_scene(self.path,world),
+AssertionError: SceneResult(status='UNKNOWN', binding='bac5590589a8c19c6cd1df[284 chars]alse) != SceneResult(status='DRILLING_REQUIRED', binding='bac5590589a8[416 chars]alse) : accepted alias changed forbidden policy while digest stayed fixed
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.035s
+
+FAILED (failures=3)

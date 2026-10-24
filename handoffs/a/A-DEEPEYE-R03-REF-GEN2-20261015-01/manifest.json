@@ -1,0 +1,460 @@
+{
+  "artifacts": [
+    "competition/deepeye/.gitattributes",
+    "competition/deepeye/.gitignore",
+    "competition/deepeye/README.md",
+    "competition/deepeye/docs/boot_profiles.json",
+    "competition/deepeye/docs/enums.json",
+    "competition/deepeye/docs/host_contract.json",
+    "competition/deepeye/docs/host_timing_contract.md",
+    "competition/deepeye/docs/interface.json",
+    "competition/deepeye/docs/reference_checkpoint.md",
+    "competition/deepeye/docs/registers.csv",
+    "competition/deepeye/docs/requirements_trace.csv",
+    "competition/deepeye/docs/resource_contract.json",
+    "competition/deepeye/docs/rules.json",
+    "competition/deepeye/evidence/game/editor_foundation.txt",
+    "competition/deepeye/evidence/game/ui_add_single.png",
+    "competition/deepeye/evidence/game/ui_after_startup.png",
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.json",
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.txt",
+    "competition/deepeye/evidence/reviews/director_checkpoint_20261015.json",
+    "competition/deepeye/evidence/simulation/forward_profile_tests.txt",
+    "competition/deepeye/evidence/system/all_mode_schedule_proof.json",
+    "competition/deepeye/evidence/system/boot_profile_selftest.txt",
+    "competition/deepeye/evidence/system/director_review/boot_binding_red.txt",
+    "competition/deepeye/evidence/system/director_review/heartbeat_green.txt",
+    "competition/deepeye/evidence/system/director_review/heartbeat_red.txt",
+    "competition/deepeye/evidence/system/director_review/mode_directions_red.txt",
+    "competition/deepeye/evidence/system/director_review/pipeline_green.txt",
+    "competition/deepeye/evidence/system/director_review/pipeline_selftest.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_exact_commit.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_fault_green.txt",
+    "competition/deepeye/evidence/system/director_review/sensor_fault_red.txt",
+    "competition/deepeye/evidence/system/director_review/ui_exact_commit.txt",
+    "competition/deepeye/evidence/system/host_envelope_selftest.txt",
+    "competition/deepeye/evidence/system/host_schema_green.txt",
+    "competition/deepeye/evidence/system/host_schema_red.txt",
+    "competition/deepeye/evidence/system/interface_gate_behavior.json",
+    "competition/deepeye/evidence/system/interface_reference.json",
+    "competition/deepeye/evidence/system/layout_check_initial.txt",
+    "competition/deepeye/evidence/system/pipeline_selftest.txt",
+    "competition/deepeye/evidence/system/r03_validation.json",
+    "competition/deepeye/evidence/system/wire_test_manifest.json",
+    "competition/deepeye/evidence/system/wire_tests.txt",
+    "competition/deepeye/hardware/environment.json",
+    "competition/deepeye/integration/boot_profile.py",
+    "competition/deepeye/integration/clock_bounds.py",
+    "competition/deepeye/integration/host_envelope.py",
+    "competition/deepeye/integration/motion.py",
+    "competition/deepeye/integration/test_boot_binding.py",
+    "competition/deepeye/integration/test_clock_bounds.py",
+    "competition/deepeye/integration/test_contract_vectors.py",
+    "competition/deepeye/integration/test_host_envelope.py",
+    "competition/deepeye/integration/test_host_schema.py",
+    "competition/deepeye/integration/test_motion.py",
+    "competition/deepeye/integration/test_pc_direct_heartbeat.py",
+    "competition/deepeye/integration/test_wire.py",
+    "competition/deepeye/integration/wire.py",
+    "competition/deepeye/requirements-host.txt",
+    "competition/deepeye/simulation/sensors/forward_profile.py",
+    "competition/deepeye/simulator/editor/scene_document.gd",
+    "competition/deepeye/simulator/editor/scene_document.gd.uid",
+    "competition/deepeye/simulator/export_presets.cfg",
+    "competition/deepeye/simulator/project.godot",
+    "competition/deepeye/simulator/tests/test_editor_document.gd",
+    "competition/deepeye/simulator/tests/test_editor_document.gd.uid",
+    "competition/deepeye/simulator/ui/shell.gd",
+    "competition/deepeye/simulator/ui/shell.gd.uid",
+    "competition/deepeye/simulator/viewer/main.gd",
+    "competition/deepeye/simulator/viewer/main.gd.uid",
+    "competition/deepeye/simulator/viewer/main.tscn",
+    "competition/deepeye/tests/simulation/test_forward_profile.py",
+    "competition/deepeye/tests/test_boot_profile.py",
+    "competition/deepeye/tests/test_pipeline.py",
+    "competition/deepeye/tests/vectors/abi3_reference.json",
+    "competition/deepeye/tools/check_interface.py",
+    "competition/deepeye/tools/generate_vectors.py",
+    "competition/deepeye/tools/pipeline.py",
+    "docs/competition/deepeye-2026/immutable_scope.json",
+    "docs/competition/deepeye-2026/immutable_scope.md",
+    "docs/competition/deepeye-2026/taskbook_final.md",
+    "docs/competition/deepeye-2026/execution_plan_final.json",
+    "docs/competition/deepeye-2026/simulation_contract_final.json"
+  ],
+  "files": {
+    "competition/deepeye/.gitattributes": {
+      "sha256": "fa11ab31721afeaaf7e7ef5a3969b42bdf30d43736afd1bcbf1a61db4137c2fc",
+      "size": 246
+    },
+    "competition/deepeye/.gitignore": {
+      "sha256": "4c657497422b9917b5e4be2ab3116c833d2442b4694e2f1a6d72ef4699af1a97",
+      "size": 112
+    },
+    "competition/deepeye/README.md": {
+      "sha256": "c9862d00f584a838e46b788ee63a949550a53a46d555cccb084a47385e58044f",
+      "size": 2655
+    },
+    "competition/deepeye/docs/boot_profiles.json": {
+      "sha256": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+      "size": 20395
+    },
+    "competition/deepeye/docs/enums.json": {
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "size": 3255
+    },
+    "competition/deepeye/docs/host_contract.json": {
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "size": 19892
+    },
+    "competition/deepeye/docs/host_timing_contract.md": {
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "size": 8180
+    },
+    "competition/deepeye/docs/interface.json": {
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "size": 23031
+    },
+    "competition/deepeye/docs/reference_checkpoint.md": {
+      "sha256": "e8d91f4cc305a065c9245276dd3e585975c9d19c87484b465b19d665e5980806",
+      "size": 3398
+    },
+    "competition/deepeye/docs/registers.csv": {
+      "sha256": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+      "size": 2036
+    },
+    "competition/deepeye/docs/requirements_trace.csv": {
+      "sha256": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+      "size": 2050
+    },
+    "competition/deepeye/docs/resource_contract.json": {
+      "sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "size": 2655
+    },
+    "competition/deepeye/docs/rules.json": {
+      "sha256": "52e6c8b395b544a744c2aee570cd14b2a443b92f6fd0d78c0c6fd6512019d7b1",
+      "size": 6447
+    },
+    "competition/deepeye/evidence/game/editor_foundation.txt": {
+      "sha256": "90520e5a227f831abad69656e0243e7345067e3d2cc14a27abaa299583dbb6c9",
+      "size": 38243
+    },
+    "competition/deepeye/evidence/game/ui_add_single.png": {
+      "sha256": "75b6ba441cb9d9bf24eaee08d11b7046c7f576e0c0937a36a45a5fcfae7d5cf9",
+      "size": 272218
+    },
+    "competition/deepeye/evidence/game/ui_after_startup.png": {
+      "sha256": "e0c432b019c87b6e914daffbe36d071667b422400f848ad25619a426ff05524c",
+      "size": 147175
+    },
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.json": {
+      "sha256": "2d6085c79206601b8274dbca6f130688390177bf771c07263f6e7ce7e037f788",
+      "size": 4628
+    },
+    "competition/deepeye/evidence/reviews/c_traincoverage09_main.txt": {
+      "sha256": "7a7d8d68e169777ec873c97524d16757c7b2ab7207b856cddcf62ecb10af1189",
+      "size": 5905
+    },
+    "competition/deepeye/evidence/reviews/director_checkpoint_20261015.json": {
+      "sha256": "612d48663c7899056169e458ec0c94c8c4b7d57721176e56fe36e5612c84bf44",
+      "size": 4768
+    },
+    "competition/deepeye/evidence/simulation/forward_profile_tests.txt": {
+      "sha256": "7faf30a10f2cca5e931acf8eb372ded13596608af87b8cd8f441a3720f12ffc3",
+      "size": 11084
+    },
+    "competition/deepeye/evidence/system/all_mode_schedule_proof.json": {
+      "sha256": "1d68fada91b6a48dc417e6f4c77d0aacea81b44d9d99651c2827c172f9f785f9",
+      "size": 2067
+    },
+    "competition/deepeye/evidence/system/boot_profile_selftest.txt": {
+      "sha256": "eea61a6e6cb677b30e240d67b19f70231c9eb9d38ed5faaeed436b19695503ad",
+      "size": 19688
+    },
+    "competition/deepeye/evidence/system/director_review/boot_binding_red.txt": {
+      "sha256": "53e87087d150d05e8fcfb3ad8f307d28f178c633cf6b481048c6958c218e933c",
+      "size": 3619
+    },
+    "competition/deepeye/evidence/system/director_review/heartbeat_green.txt": {
+      "sha256": "9893ac01cc8c27301c8960340e74adbb74398d4bd3edcd32f824a78f3ab804ea",
+      "size": 815
+    },
+    "competition/deepeye/evidence/system/director_review/heartbeat_red.txt": {
+      "sha256": "4476230a35c90618c75c5e94c511ae230060f07e618a8b940c90d4c8be19656a",
+      "size": 4676
+    },
+    "competition/deepeye/evidence/system/director_review/mode_directions_red.txt": {
+      "sha256": "8d54670a28b2ddf1617a1148c5bef70beacc605b7f20c523c501363a2273e683",
+      "size": 1136
+    },
+    "competition/deepeye/evidence/system/director_review/pipeline_green.txt": {
+      "sha256": "7de6949da8f6fca0c5ab053709d86369d95adc4e96fe86a67528f06d5e086d58",
+      "size": 3613
+    },
+    "competition/deepeye/evidence/system/director_review/pipeline_selftest.txt": {
+      "sha256": "dc5eadbb578a09b751e17e9af2b9fca4c33ea7e864bc5029189bd0ed7e1ccc2d",
+      "size": 5115
+    },
+    "competition/deepeye/evidence/system/director_review/sensor_exact_commit.txt": {
+      "sha256": "fcc5b1a75b7ec7f7cbc3ce363f4307381e24693b62794d74301430aaf13d08a1",
+      "size": 5061
+    },
+    "competition/deepeye/evidence/system/director_review/sensor_fault_green.txt": {
+      "sha256": "6af821f7c944f952c40c054dfbf1399f5e564c44a2ae60ecd8637d50b9535128",
+      "size": 5061
+    },
+    "competition/deepeye/evidence/system/director_review/sensor_fault_red.txt": {
+      "sha256": "4532ac7c047de35e7195dac8f993ce49000ebec61fab81cf788e11fde32a6184",
+      "size": 961
+    },
+    "competition/deepeye/evidence/system/director_review/ui_exact_commit.txt": {
+      "sha256": "316dc75e1f67652d6d5f24deae29cc26b98b3503ff3b201ff790b5cb1cb9a2ce",
+      "size": 711
+    },
+    "competition/deepeye/evidence/system/host_envelope_selftest.txt": {
+      "sha256": "ce5ce270038585addd7db4d293a45354e6dbeae9b7fe0f837608fd1e7fd3bfc0",
+      "size": 47946
+    },
+    "competition/deepeye/evidence/system/host_schema_green.txt": {
+      "sha256": "0e5b7510d6e1b1ab1408352270c28d59f4b1b99626d150dc2e7883a5ac75d3f9",
+      "size": 110
+    },
+    "competition/deepeye/evidence/system/host_schema_red.txt": {
+      "sha256": "18726992b5b03ada979bf3a3b18ddab10797eb377b7d775d4d3c31df2e7b6ff9",
+      "size": 2228
+    },
+    "competition/deepeye/evidence/system/interface_gate_behavior.json": {
+      "sha256": "5bd55c0056e00ce8fc9dfb855d5a2f72d61a24b8c36280a27f6205614afed545",
+      "size": 1272
+    },
+    "competition/deepeye/evidence/system/interface_reference.json": {
+      "sha256": "14656eeba265ddc52df96c25f0555d20bef43218d48daa3bb78770979e6921f5",
+      "size": 2941
+    },
+    "competition/deepeye/evidence/system/layout_check_initial.txt": {
+      "sha256": "041d5aeb2fac835e31ce579b286f5d7ac53c8c225cac2c87c5942b107ce740aa",
+      "size": 1120
+    },
+    "competition/deepeye/evidence/system/pipeline_selftest.txt": {
+      "sha256": "130d0a6c918d5fa6d30025fb3f734bc0beff9bdf635dcc3ade4f918d19b81a4f",
+      "size": 76157
+    },
+    "competition/deepeye/evidence/system/r03_validation.json": {
+      "sha256": "fd0797e656561d94d983ddb04731cc1651838abeb01b8acc8b01f09da9e55077",
+      "size": 52323
+    },
+    "competition/deepeye/evidence/system/wire_test_manifest.json": {
+      "sha256": "aa3e14b6bcae469db729c115cf5561ab446165c41fc9c23d5246c22b6f9cd508",
+      "size": 850
+    },
+    "competition/deepeye/evidence/system/wire_tests.txt": {
+      "sha256": "d413ca6ff385c7e1ac3b19c9f99b7ee0bc4ad1cab3b1c81c81186c8dd8b1038f",
+      "size": 1191
+    },
+    "competition/deepeye/hardware/environment.json": {
+      "sha256": "00b85e70e25d0080f27b9158ca891556010be6a22b01697ad5f87f0fdcc64656",
+      "size": 1691
+    },
+    "competition/deepeye/integration/boot_profile.py": {
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+      "size": 81662
+    },
+    "competition/deepeye/integration/clock_bounds.py": {
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "size": 10136
+    },
+    "competition/deepeye/integration/host_envelope.py": {
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "size": 26184
+    },
+    "competition/deepeye/integration/motion.py": {
+      "sha256": "69d016f8890298829e71c18efbbb76e747bbf5c79d2ca3af1d5defd364071822",
+      "size": 3770
+    },
+    "competition/deepeye/integration/test_boot_binding.py": {
+      "sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b",
+      "size": 4051
+    },
+    "competition/deepeye/integration/test_clock_bounds.py": {
+      "sha256": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03",
+      "size": 12396
+    },
+    "competition/deepeye/integration/test_contract_vectors.py": {
+      "sha256": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7",
+      "size": 2524
+    },
+    "competition/deepeye/integration/test_host_envelope.py": {
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1",
+      "size": 33926
+    },
+    "competition/deepeye/integration/test_host_schema.py": {
+      "sha256": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb",
+      "size": 3851
+    },
+    "competition/deepeye/integration/test_motion.py": {
+      "sha256": "dd260201ae28490b738ebea4c1ab298be3e7fb066ef860c10e401b8d586e2796",
+      "size": 3232
+    },
+    "competition/deepeye/integration/test_pc_direct_heartbeat.py": {
+      "sha256": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d",
+      "size": 3129
+    },
+    "competition/deepeye/integration/test_wire.py": {
+      "sha256": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9",
+      "size": 4394
+    },
+    "competition/deepeye/integration/wire.py": {
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "size": 5459
+    },
+    "competition/deepeye/requirements-host.txt": {
+      "sha256": "44ff0dc2f1e40311b8239e83146749ab9d9cee2a650e699f5464755d552ee20d",
+      "size": 19
+    },
+    "competition/deepeye/simulation/sensors/forward_profile.py": {
+      "sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9",
+      "size": 28252
+    },
+    "competition/deepeye/simulator/editor/scene_document.gd": {
+      "sha256": "59a6940dcb9f350d920a07895cf97c392f42fb6379ae697d84b3f3e8192bade4",
+      "size": 27116
+    },
+    "competition/deepeye/simulator/editor/scene_document.gd.uid": {
+      "sha256": "3628c09ce97d19f254a41b1c1a091c915e7c7249b38ab32bc872375adc188783",
+      "size": 19
+    },
+    "competition/deepeye/simulator/export_presets.cfg": {
+      "sha256": "f2f1d57573b545ca075cf1323f0b1f6b903173b49554730846c4e0c0e33e6c34",
+      "size": 593
+    },
+    "competition/deepeye/simulator/project.godot": {
+      "sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "size": 628
+    },
+    "competition/deepeye/simulator/tests/test_editor_document.gd": {
+      "sha256": "bd084e6f21d0550f042e4b29840d5058eae007f9c562a5aec1826b08d4aee481",
+      "size": 19264
+    },
+    "competition/deepeye/simulator/tests/test_editor_document.gd.uid": {
+      "sha256": "6d7948a48f279d754c7d258619c993ddd6d06ac98f8413a0cb5e2419c1dce25f",
+      "size": 19
+    },
+    "competition/deepeye/simulator/ui/shell.gd": {
+      "sha256": "820491fc6671443967ba98aff3b3e8ec244b521ec30c5a9bffa05813b74fed92",
+      "size": 24665
+    },
+    "competition/deepeye/simulator/ui/shell.gd.uid": {
+      "sha256": "d8d62451c10c1145622891814f6064e68e623169a3cac514c5ba894135f11823",
+      "size": 19
+    },
+    "competition/deepeye/simulator/viewer/main.gd": {
+      "sha256": "d4596ec18b2b9d5e06cc6b715ffdce9c30715f7da40ba8da1e83a57ef7508c1e",
+      "size": 22407
+    },
+    "competition/deepeye/simulator/viewer/main.gd.uid": {
+      "sha256": "81d1a7ba1194d0235d4e4e7bde54fb5ce253cd4d7f1d09bd977006d0e1d362ce",
+      "size": 20
+    },
+    "competition/deepeye/simulator/viewer/main.tscn": {
+      "sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "size": 1272
+    },
+    "competition/deepeye/tests/simulation/test_forward_profile.py": {
+      "sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373",
+      "size": 35195
+    },
+    "competition/deepeye/tests/test_boot_profile.py": {
+      "sha256": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db",
+      "size": 22524
+    },
+    "competition/deepeye/tests/test_pipeline.py": {
+      "sha256": "13eb71dd2d6854d5aa21a13e18d6946749b41798b74acb93e67cdaa3e8dfdf58",
+      "size": 50973
+    },
+    "competition/deepeye/tests/vectors/abi3_reference.json": {
+      "sha256": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7",
+      "size": 10383
+    },
+    "competition/deepeye/tools/check_interface.py": {
+      "sha256": "b1ad541003fe20683785f20f41a26fcd6c89d6ee0149c75978dc0f8af0e251c4",
+      "size": 5127
+    },
+    "competition/deepeye/tools/generate_vectors.py": {
+      "sha256": "9bc06cf79c5cb0c8a9f6ced01a86fb42af4615f7f8e9b102ddd1ee26cfa0e02e",
+      "size": 2638
+    },
+    "competition/deepeye/tools/pipeline.py": {
+      "sha256": "398fc971ec99f5aec1ad2d828cbbcea322f0fc5f0977b3d0ed453cbd3d43dc2e",
+      "size": 58806
+    },
+    "docs/competition/deepeye-2026/execution_plan_final.json": {
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be",
+      "size": 11924
+    },
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "size": 6684
+    },
+    "docs/competition/deepeye-2026/immutable_scope.md": {
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "size": 6139
+    },
+    "docs/competition/deepeye-2026/simulation_contract_final.json": {
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9",
+      "size": 8257
+    },
+    "docs/competition/deepeye-2026/taskbook_final.md": {
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+      "size": 109430
+    }
+  },
+  "request": {
+    "code_commit": "cb0efe8a02a5dfbf7c4cd36e01cf919460a1fd71",
+    "expected_result": "Bounded software reference checkpoint only. No product card acceptance or board operation. Preserve DEEPEYE-HUMAN-LOCK-20261014/revision1 H01-H15 SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.",
+    "operation_id": "A-DEEPEYE-R03-REF-GEN2-20261015-01",
+    "requester": "node-a",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "test_steps": [
+      "Use isolated Python with competition/deepeye/requirements-host.txt installed. From competition/deepeye run python -B tools/check_interface.py; expected exit2 while software_checks=passed and full R03 blocked.",
+      "Run python -B tests/simulation/test_forward_profile.py; expected33 passed.",
+      "Use Godot4.7.2-stable --headless --path competition/deepeye/simulator --script res://tests/test_editor_document.gd; expected672 checks,0 failures.",
+      "Independently decode tests/vectors/abi3_reference.json, review BOOT binding, STATE8 PC_DIRECT and precise missing-register/TRACE boundaries; return exact-head feedback."
+    ]
+  },
+  "request_hash": "d1f0370baa219413a61f22cab026e0b7f79aa3007a771444782da4de253b6058",
+  "schema_version": 1,
+  "stages": {
+    "board": {
+      "status": "not_run"
+    },
+    "full_R03": {
+      "log": "competition/deepeye/evidence/system/r03_validation.json",
+      "status": "blocked"
+    },
+    "full_product": {
+      "status": "not_run"
+    },
+    "implementation": {
+      "status": "not_run"
+    },
+    "rtl_simulation": {
+      "status": "not_run"
+    },
+    "sensor_software": {
+      "log": "competition/deepeye/evidence/system/director_review/sensor_exact_commit.txt",
+      "status": "passed"
+    },
+    "software_reference": {
+      "log": "competition/deepeye/evidence/system/r03_validation.json",
+      "status": "passed"
+    },
+    "synthesis": {
+      "status": "not_run"
+    },
+    "ui_editor_checks": {
+      "log": "competition/deepeye/evidence/system/director_review/ui_exact_commit.txt",
+      "status": "passed"
+    }
+  }
+}

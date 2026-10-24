@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-10-20T00:22:20.7798051Z",
+  "queries": [
+    "Get-CimInstance Win32_Process filtered for ModelSim binaries",
+    "Get-CimInstance Win32_Process filtered for original-review Python command lines",
+    "C:/Windows/System32/subst.exe (read only)"
+  ],
+  "all_modelsim_processes": [],
+  "original_review_python_processes": [],
+  "subst_exit_code": 0,
+  "subst_stdout_lines": [],
+  "r_drive_mapping_lines": [],
+  "cleanup_observed": true,
+  "mutations_performed": [],
+  "limitation": "Current process and mapping snapshot; historical stop time is not inferred. Original job terminal failure is independently preserved."
+}

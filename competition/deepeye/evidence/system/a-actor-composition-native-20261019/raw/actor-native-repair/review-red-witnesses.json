@@ -1,0 +1,723 @@
+[
+  {
+    "mode": "before",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": true,
+    "primary": "before owner returned",
+    "cleanup": {
+      "state": "no-owner-returned",
+      "unresolved": true
+    },
+    "backend": null,
+    "events": [],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": false,
+      "unresolved": true,
+      "elapsed_ns": 0,
+      "events": [],
+      "cleanup": {
+        "state": "no-owner-returned",
+        "unresolved": true
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": {
+        "type": "OSError",
+        "message": "before owner returned"
+      },
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "after",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": "after owner retained",
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": null,
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": false,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [],
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": null,
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": {
+        "type": "OSError",
+        "message": "after owner retained"
+      },
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "persistence",
+    "case": "persistence-after-acquisition",
+    "passed": true,
+    "unresolved": false,
+    "primary": "intentional actor persistence failure after acquisition",
+    "cleanup": {
+      "state": "QUARANTINED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": false,
+      "evidence_errors": [
+        {
+          "type": "OSError",
+          "message": "intentional actor persistence failure after acquisition"
+        }
+      ],
+      "primary_error": {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [],
+    "persisted_result": {
+      "case": "persistence-after-acquisition",
+      "passed": true,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [],
+      "cleanup": {
+        "state": "QUARANTINED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": false,
+        "evidence_errors": [
+          {
+            "type": "OSError",
+            "message": "intentional actor persistence failure after acquisition"
+          }
+        ],
+        "primary_error": {
+          "type": "OSError",
+          "message": "intentional actor persistence failure after acquisition"
+        },
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "natural",
+    "case": "retained-natural-exit",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 0
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      }
+    ],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": true,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "poll/read retired",
+          "error": "original process terminal or life observation unknown"
+        }
+      ],
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": null,
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "expiry",
+    "case": "fixed-unbound-expiry",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixed actor/readiness/sample deadline expired"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixed actor/readiness/sample deadline expired"
+      }
+    ],
+    "persisted_result": {
+      "case": "fixed-unbound-expiry",
+      "passed": true,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "poll/read retired",
+          "error": "fixed actor/readiness/sample deadline expired"
+        }
+      ],
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "fixed actor/readiness/sample deadline expired"
+        },
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": null,
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": "unbound readiness=lifetime simultaneous expiry only"
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "crash",
+    "case": "retained-natural-exit",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 17
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      }
+    ],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": true,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "poll/read retired",
+          "error": "original process terminal or life observation unknown"
+        }
+      ],
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "original process terminal or life observation unknown"
+        },
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": null,
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "reader_timeout",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": "fixture read exceeded explicit elapsed budget",
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixture read exceeded explicit elapsed budget"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixture read exceeded explicit elapsed budget"
+      }
+    ],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": false,
+      "unresolved": false,
+      "elapsed_ns": 0,
+      "events": [
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "poll/read retired",
+          "error": "fixture read exceeded explicit elapsed budget"
+        }
+      ],
+      "cleanup": {
+        "state": "CLOSED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": true,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": true
+          }
+        ],
+        "resources_complete": true,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "fixture read exceeded explicit elapsed budget"
+        },
+        "unresolved_resources": []
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixture read exceeded explicit elapsed budget"
+      },
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "natural",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 0
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      },
+      {
+        "memory_result_persistence_error": "OSError",
+        "message": "controlled report write failure"
+      }
+    ],
+    "persisted_result": null,
+    "strong_original_roots_retained": true
+  },
+  {
+    "mode": "unresolved",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": true,
+    "primary": "fixed actor/readiness/sample deadline expired",
+    "cleanup": {
+      "state": "QUARANTINED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": false,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": false
+        }
+      ],
+      "resources_complete": false,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixed actor/readiness/sample deadline expired"
+      },
+      "unresolved_resources": [
+        "original-process"
+      ]
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {}
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixed actor/readiness/sample deadline expired"
+      }
+    ],
+    "persisted_result": {
+      "case": "retained-natural-exit",
+      "passed": false,
+      "unresolved": true,
+      "elapsed_ns": 0,
+      "events": [
+        {
+          "elapsed_ns": 0,
+          "operation": "public_poll",
+          "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+        },
+        {
+          "elapsed_ns": 0,
+          "operation": "poll/read retired",
+          "error": "fixed actor/readiness/sample deadline expired"
+        }
+      ],
+      "cleanup": {
+        "state": "QUARANTINED",
+        "instance_id": "fake-only-original-owner",
+        "original_process_reference_retained": true,
+        "original_native_unchanged": true,
+        "terminal_confirmed": false,
+        "profile_outcome": "confirmed",
+        "resources": [
+          {
+            "label": "process",
+            "terminal_confirmed": false
+          }
+        ],
+        "resources_complete": false,
+        "evidence_complete": true,
+        "evidence_errors": [],
+        "primary_error": {
+          "type": "ValueError",
+          "message": "fixed actor/readiness/sample deadline expired"
+        },
+        "unresolved_resources": [
+          "original-process"
+        ]
+      },
+      "actor_receipt_snapshots": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixed actor/readiness/sample deadline expired"
+      },
+      "runtime_ready_boot_ai_h12_formal": "not_run",
+      "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+      "expiry_meaning": null
+    },
+    "strong_original_roots_retained": true
+  }
+]

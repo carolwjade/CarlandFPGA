@@ -1,0 +1,72 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "job_id": "child-754808b3064e4a158cfff208a1baaaf3",
+  "agent": "/root/g01_asset_adapter_repair_independent_20261020",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_before_sha256": "cec59a2e79e75a3e37b44bc5809ad601db5276096d847a38dbc2ca8968c5b732",
+  "source_after_sha256": "8b41f11fb7bb215df5d7457c77095ed6fc5602c490bab06af97079f077087e9a",
+  "repair_receipt_sha256": "9056113536888d0e24ce92aa9015e0019cb7016cd00ef770bbae78a00b5155e2",
+  "diff_exact": true,
+  "unchanged_original_oracles": true,
+  "fresh_runs": [
+    {
+      "expected_summary": "",
+      "pid": 45852,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 4
+    },
+    {
+      "expected_summary": "INDEPENDENT checks=54 failures=0",
+      "pid": 44412,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 3
+    },
+    {
+      "expected_summary": "FAILURE_REVIEW mode=bad-license checks=14 failures=0",
+      "pid": 33696,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 3
+    },
+    {
+      "expected_summary": "FAILURE_REVIEW mode=signature checks=10 failures=0",
+      "pid": 43516,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 3
+    },
+    {
+      "expected_summary": "FAILURE_REVIEW mode=empty-visual checks=14 failures=0",
+      "pid": 7908,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 3
+    },
+    {
+      "expected_summary": "FAILURE_REVIEW mode=null checks=16 failures=0",
+      "pid": 54148,
+      "exit_code": 0,
+      "timeout": false,
+      "terminal": true,
+      "unicode_nul_diagnostics": 3
+    }
+  ],
+  "reuse_receipt_sha256": "3366e88e3e2986aa08370e9bd44667e8467d72f860d01a9f3f1cd29d899d1767",
+  "product_unchanged": true,
+  "sealed_repair_artifacts_unchanged": true,
+  "processes_remaining": 0,
+  "new_actionable_findings": [],
+  "F1_F4": "original failing oracles now pass; no new actionable defect found in bounded source review",
+  "all_29_formal_cards": "not_run",
+  "native_ui": "not_run",
+  "engine_clean": false,
+  "adoption_owner": "sole A main"
+}

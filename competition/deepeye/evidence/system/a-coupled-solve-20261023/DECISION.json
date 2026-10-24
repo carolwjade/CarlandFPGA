@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-23T16:01:29.433468+00:00",
+  "work_id": "A-G03-COUPLED-SOLVE-20261023-v1",
+  "decision": "ACCEPT_REVIEWED_EXPERIMENT_ARCHIVE_REJECT_PHYSICAL_ACCURACY",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "archive_allowed": true,
+  "integration_allowed": false,
+  "numerical_result": "strict_converged_candidate",
+  "scientific_receiver_gate": "failed",
+  "receiver_relative_errors": [
+    0.05858712111541739,
+    0.03527765623066182
+  ],
+  "gate_each": 0.01,
+  "actual_solve_calls": 1,
+  "original_preflight_failure_preserved": true,
+  "old_groups_replayed": false,
+  "independent_review_limitations": [
+    "augmented norm scalar reused from frozen producer; only sampled row-norm lower bounds independently checked",
+    "full direct/reduced comparison uses producer saved boolean; fixed sampled equations independently checked",
+    "no old full operator action, factorization, solver or control replay"
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "archive_sources": [
+    {
+      "prefix": "original",
+      "folder": "g03-coupled-solve-20261023",
+      "manifest_file": "format-actual-final-manifest.json",
+      "manifest_sha256": "9ae051d0a1b020e1d5166660c2b57f025f99f656fa28e6567e9b19359629c011"
+    },
+    {
+      "prefix": "independent",
+      "folder": "g03-coupled-solve-independent-20261023",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "30f30ecb34f210691691ddf36f46e47adad815f2964fc2f6b093f2c7fc5fd854"
+    }
+  ],
+  "root_archive_files": [
+    "actual-result-readback.json",
+    "coupled-solve-actual-selection.json",
+    "coupled-solve-format-actual-selection.json",
+    "final-source-control-readback.json",
+    "format-delta-readback.json",
+    "independent-result-readback.json",
+    "pre-green-worker-revision-selection.json",
+    "preconditioner-output-delta-selection.json",
+    "schur-rhs-correction-selection.json",
+    "sparse-format-correction-selection.json",
+    "decision.json",
+    "README.md"
+  ]
+}

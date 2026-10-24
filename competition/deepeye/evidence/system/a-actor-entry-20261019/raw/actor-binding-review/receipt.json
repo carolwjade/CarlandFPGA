@@ -1,0 +1,56 @@
+{
+  "work_id": "A-actor-binding-independent-review-20261019-v1",
+  "job_id": "child-f51ad639fe7a4aed9c4f5aff827ccea6",
+  "status": "review_completed_no_new_blocking_finding",
+  "findings_sha256": "e7825febe1f3c531eaec7d3d7302ee7a6c01d232744262bbf5606d15f2834c72",
+  "after_sha256": "35ef9b679f48b6359e359f3288cbfb336fe86e1f6bd0a0a506402acc0e4f84fc",
+  "candidate_manifest_sha256": "98f792a4f5d699ab235179dbaa345867c8fd32975ed9c32d8b28e042c773f670",
+  "current_G06_manifest_sha256": "cb904c57a2f985ff02ddb67e5b426968ecf4a22a1b03ecca2d382f99901ece19",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "exact_original8": {
+    "source_sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f",
+    "pass": 8,
+    "skip": 0,
+    "exit_code": 0
+  },
+  "different_boundaries": {
+    "pass": 4,
+    "skip": 0,
+    "exit_code": 0
+  },
+  "original_assertions_and_helpers_preserved": {
+    "competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "all_original_helper_test_AST_identical": true,
+      "original_module_AST_except_additive_Resource_import_identical": true,
+      "additive_Resource_import": false,
+      "old_test_methods": 20,
+      "current_test_methods": 21
+    },
+    "competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "all_original_helper_test_AST_identical": true,
+      "original_module_AST_except_additive_Resource_import_identical": true,
+      "additive_Resource_import": false,
+      "old_test_methods": 32,
+      "current_test_methods": 36
+    },
+    "competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "all_original_helper_test_AST_identical": true,
+      "original_module_AST_except_additive_Resource_import_identical": true,
+      "additive_Resource_import": true,
+      "old_test_methods": 16,
+      "current_test_methods": 19
+    }
+  },
+  "software_findings": {
+    "AOR-R1": "addressed per-target exact activation at callback dispatch",
+    "AOR-R2": "addressed exact int Wait at both phases; injected shape boundary only",
+    "AOR-R3": "addressed all4 exact int masks; injected shape boundary only"
+  },
+  "unwired_provider": "remaining deliberate integration gap; fake actor dead and numerical motion commits, not safety evidence",
+  "source_boundary_files_unchanged": 35,
+  "native": "not_run",
+  "main_current_G06_148_joint_regression": "separate main-owned evidence; not rerun/claimed here",
+  "historical_native": "predates repair; not transferred",
+  "formal29_AI_H12_Run_game_board": "not_run",
+  "acceptance_owner": "Desktop generation2 sole main"
+}

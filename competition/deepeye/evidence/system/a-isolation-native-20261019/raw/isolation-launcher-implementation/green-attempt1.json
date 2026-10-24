@@ -1,0 +1,61 @@
+{
+  "command": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\isolation-launcher-implementation\\unit_suite.py"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye",
+  "exit_code": 0,
+  "sources": {
+    "simulation/isolation/owned_resources.py": {
+      "size": 6343,
+      "sha256": "a9531712fb401e318981b35a1e656415798fab6af8bd7856026c82190bcd3de8"
+    },
+    "simulation/isolation/windows_cleanup.py": {
+      "size": 3321,
+      "sha256": "5fed58fcd4d6267623964e98621c9b502e0abadebdd4da08c95cc658b06af83e"
+    },
+    "simulation/isolation/prototype.py": {
+      "size": 15854,
+      "sha256": "49168a2d22b49af7f94e41e4bdb75596e5a7c1a50bc4b04080c2c50da23ab388"
+    },
+    "simulation/isolation/win32.py": {
+      "size": 17791,
+      "sha256": "2673d482aad87ac2af8cf83a032772f194be389521f222c84373245c387d115f"
+    },
+    "simulation/isolation/policy.py": {
+      "size": 6507,
+      "sha256": "1a7e666fda7b9483cac4490024c014257acc6e5cceb4d4a827d3906244e8a1b2"
+    },
+    "tests/isolation/test_owned_resources.py": {
+      "size": 3167,
+      "sha256": "d9b683e7b8612e23b1178c3fa3a24eb2bf563550aa02e78d425fb64770d2e2b4"
+    },
+    "tests/isolation/test_windows_cleanup.py": {
+      "size": 6906,
+      "sha256": "09c62c20b763a81c9c86859526c80c142160a516299c9262bc94e90f1b3601d8"
+    },
+    "tests/isolation/test_prototype_cleanup.py": {
+      "size": 7062,
+      "sha256": "0220c8260c2f0baa3384c5623ac18b61df7571899ff3f318a6d95802b7aa0f5e"
+    },
+    "tests/isolation/test_policy.py": {
+      "size": 9894,
+      "sha256": "7c9500893a4d02acd4078bfab7df582e2e660c38ae1bb9b92009b399f35a3824"
+    },
+    "tests/isolation/test_windows_live.py": {
+      "size": 2486,
+      "sha256": "5b2b8e10a8ee5da091013fb9791e6dbe06fce3a73b3f7f9b164f697237b1fe00"
+    },
+    "docs/isolation_resource_cleanup.md": {
+      "size": 7737,
+      "sha256": "f0a1b929bbacd7466d8929620c07cb16d2261c69626a2bdf5a1e16c8105fee63"
+    },
+    "docs/process_isolation_prototype.md": {
+      "size": 10276,
+      "sha256": "da889d3335d7981882e6d14ee6eb63af2262211ce213d70c985529d627f15ff3"
+    }
+  }
+}

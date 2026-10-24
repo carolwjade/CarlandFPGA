@@ -1,0 +1,75 @@
+{
+  "precision": 100,
+  "binary_input_semantics": "exact recovered binary32 mesh and transform components",
+  "vertices": 978,
+  "meshes": 2,
+  "minimum": [
+    "-0.11999999731779098510742187500000000000000000000000000000000000000000000000000",
+    "-0.119999997317790985107421875",
+    "-0.399999991059303283691406250"
+  ],
+  "maximum": [
+    "0.11999999731779098510742187500000000000000000000000000000000000000000000000000000",
+    "0.1199999973177909851074218750000000000000000000000000000000000000000000000000000",
+    "0.39999999105930328369140625"
+  ],
+  "length_m": "0.799999982118606567382812500",
+  "diameter_m": "0.2399999990076228362060694627142858658370412810555077033435259820750687456556461275714158198607979434",
+  "max_capsule_distance_m": "0.1199999995038114181030347313571429329185206405277538516717629910375343728278230637857079099303989717",
+  "max_pivot_distance_m": "0.4176122516502089495182728000336498718232021483251705291996582749866597526591397270053660993964164679",
+  "errors_m": {
+    "length_error": "1.7881393432617187500E-8",
+    "diameter_error": "9.923771637939305372857141341629587189444922966564740179249312543443538724285841801392020566E-10",
+    "rear_error": "8.940696716308593750E-9",
+    "front_error": "8.94069671630859375E-9",
+    "capsule_excess": "0"
+  },
+  "tolerance_m": "0.000002",
+  "commands": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-probe-simulator",
+        "--editor",
+        "--import",
+        "--log-file",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-import.engine.log"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015",
+      "exit_code": 0,
+      "stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-import.stdout.log",
+        "sha256": "0dec3ae651e31db0e00b9d301b3e853a548d44e64c8f2007ffddcc005444720f"
+      },
+      "stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-import.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-probe-simulator",
+        "--script",
+        "res://exact_probe.gd",
+        "--log-file",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-vertices.engine.log"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015",
+      "exit_code": 0,
+      "stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-vertices.stdout.log",
+        "sha256": "de47fb37e7d28a17af135aa453d75d9cbd2d81f0dca1684efbd27c2dac80b7d5"
+      },
+      "stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-implementation-a\\greybox-drill-envelope-20261015\\exact-vertices.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "raw_export_sha256": "de47fb37e7d28a17af135aa453d75d9cbd2d81f0dca1684efbd27c2dac80b7d5"
+}

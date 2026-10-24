@@ -1,0 +1,56 @@
+{
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-trusted-motion-review-20261019-v1",
+  "job_id": "child-34daa654230745abb8816e0b9baad365",
+  "reviewer": "/root/pc_direct_review_20261018",
+  "result": "repair_requested_TM_R1_later_materialization_error_does_not_latch_stop",
+  "main_owns_acceptance": true,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15": "unchanged",
+  "owned_files": {
+    "competition/deepeye/simulation/authority/motion_executor.py": "f38b28ead8b5f2564301b007bcd6b57df08bdd9d99a9859390669a41b065dabc",
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe",
+    "competition/deepeye/tests/simulation/test_motion_executor.py": "05f527da19263330e0f5855f94fdc584898d8021813966eb7ef992c5b6f070aa",
+    "competition/deepeye/docs/motion_executor.md": "6a75bd53e7059a18a2d3fe0760b4833891094d2f402f07c2693c6ec49007beb3"
+  },
+  "relevant_files_verified_unchanged": 35,
+  "owned_count": 4,
+  "other_inputs_count": 31,
+  "original_passage_AST_prefix": "unchanged",
+  "author_baseline": {
+    "tests": 135,
+    "passed": 135,
+    "exit_code": 0
+  },
+  "independent": {
+    "tests": 8,
+    "passed": 7,
+    "failures": 1,
+    "errors": 0,
+    "exit_code": 1
+  },
+  "findings": {
+    "bytes": 9218,
+    "sha256": "86dfbbe17b09d0ec2958de9dd759f84888223ba6bc949ec64d6d76dc87ee0b9e"
+  },
+  "evidence_manifest": {
+    "bytes": 9111,
+    "sha256": "84ff9a84afa7e9b5ae3387fa7db4ba6584647b8b080ab78ae4176cd52485b4ce"
+  },
+  "tested_source_manifest": {
+    "bytes": 4496,
+    "sha256": "36f684466129470de946061a5c2f59efcf0573518fdf86304e3a59183871d290"
+  },
+  "finding": {
+    "id": "TM-R1",
+    "file": "competition/deepeye/simulation/authority/motion_executor.py:188",
+    "boundary": "later standalone authority materialization",
+    "witness": "After committed step, injected materialization MemoryError propagates with stopped=False; next same-BOOT/same-command step commits without readmission",
+    "proposed_repair": "Preserve committed frame/pose/history; retire pending/future motion and stop before propagating. Unknown error is not proved collision."
+  },
+  "source_repaired": false,
+  "real_providers": "not_run",
+  "OS_service_board_Run_activation": "not_run",
+  "all_29_formal_cards": "not_run"
+}

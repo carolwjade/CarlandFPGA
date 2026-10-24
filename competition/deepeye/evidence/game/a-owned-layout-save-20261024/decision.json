@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "utc": "2026-10-24T00:00:52.454009+00:00",
+  "source_parent": "5398cd76e5b5e277ad14053e1786ea014b90260e",
+  "director": "01a16988-bdcb-70e1-ae10-1304b5cf7875/generation3",
+  "outcome": "APPROVED_BOUNDED_CODE_INTEGRATION_WITH_HEADLESS_CALLER_EVIDENCE",
+  "selected_source_and_test_files": 34,
+  "verified_manifest_member_counts": {
+    "owned-leaf/author": 33,
+    "owned-leaf/preflight": 21,
+    "owned-leaf/review": 3,
+    "owned-leaf/bridge-design": 11,
+    "godot/cli-author": 123,
+    "godot/preflight": 6,
+    "godot/job-supervisor": 21,
+    "godot/author": 142,
+    "godot/review": 10
+  },
+  "native_leaf_tests": {
+    "new_tests": 19,
+    "replayed": false
+  },
+  "CLI": {
+    "new_tests": 19,
+    "actual_process_observations": 45
+  },
+  "Godot": {
+    "total_new_invocations": 10,
+    "full05": {
+      "checks": 81,
+      "failures": 0,
+      "scope": "pre-review bridge/shell bytes; not rebound to final v2"
+    },
+    "first_guard07": {
+      "checks": 7,
+      "failures": 0,
+      "scope": "unresolved cancel guard only, pre-final v2"
+    },
+    "targeted09": {
+      "checks": 16,
+      "expected_failures": 11,
+      "exit": 1
+    },
+    "final10": {
+      "checks": 21,
+      "failures": 0,
+      "original_launcher_pid_exit": [
+        3372,
+        0
+      ],
+      "Godot_pid_exit": [
+        2296,
+        0
+      ],
+      "job_active_final": 0,
+      "actual_launch_save_reopen": true
+    },
+    "mixed_drive_prefix_branch": "source-reviewed canonical-key hardening only; not behaviorally exercised in09/10"
+  },
+  "preserved_failure08": {
+    "outer_redirector_pid_exit": [
+      40336,
+      1
+    ],
+    "base_python_parent_pid": 34244,
+    "base_python_exit": "unobserved; absent CIM is not exit proof",
+    "Godot_pid_exact_handle_terminated_exit": [
+      9632,
+      125
+    ],
+    "not_natural_success": true
+  },
+  "limits": [
+    "Source-tree trusted existing CPython/stdlib installation, small identity pins; no whole-runtime closure or exportedPCK readiness",
+    "Parent directory creation remains separate and non-atomic; never removed",
+    "UI deadline and helper watchdog are ordinary-scheduler behavior, not kernel deadline; unknown never grants replay/delete",
+    "Known-exited original map cleanup is one attempted handle release; ignored engine CloseHandle returns are not verified kernel-close success",
+    "No actual mouse/DPI/fullG02/H09/dualH12/all29 acceptance or physical board operation"
+  ],
+  "human_contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_fullH12": "preserved/open",
+  "G02": "open",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "old_tests_384_solver_replayed": false,
+  "C4_original_cache_index_preserved_before_selection": true,
+  "next": "Keep existing B minimalPL and C fixedCPU/causal assignments. A alone proceeds realPL observation -> PC_DIRECT headless submit and original-expiry stop when same-build fresh-trigger/collector-stop package arrives; continue local29-card work meanwhile.",
+  "byte_preservation_attributes": {
+    "scope": "Two repository-local byte-preservation attribute entries only; no global config, runtime source or C4 changes",
+    "original_simulator_attributes_sha256": "3fc63f004bd3b90e254ad9c3f415859a4a3b0197202cb4e16e0d52504e3ac318",
+    "selected_attributes_sha256": {
+      "competition/deepeye/simulator/.gitattributes": "5525ce02d64c9a7d42724015e4c133438e286830e751ff234b193f2c974dabee",
+      "competition/deepeye/simulator/native/.gitattributes": "37141fe957e3fc4d5460496fe1e44c3bb54696fd9759c1358fd20661e3a38562"
+    },
+    "reason": "Global text:set would normalize the actual tested CRLF bridge/launcher bytes. Existing tests/.gitattributes already preserves fixed test adapters. Actual staged and committed blobs must equal selected raw bytes."
+  }
+}

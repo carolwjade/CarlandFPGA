@@ -1,0 +1,29 @@
+.F..FF..
+======================================================================
+FAIL: test_board_response_structure_has_a_route_from_bridge_to_authority (__main__.HostSchemaTests.test_board_response_structure_has_a_route_from_bridge_to_authority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_schema.py", line 31, in test_board_response_structure_has_a_route_from_bridge_to_authority
+    self.assertTrue(self.validator.is_valid(response()))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean (__main__.HostSchemaTests.test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean) (field='timing_record_sha256')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_schema.py", line 52, in test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean
+    self.assertTrue(self.validator.is_valid(data))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean (__main__.HostSchemaTests.test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean) (field='physical_capture_record_sha256')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_host_schema.py", line 52, in test_measurement_reference_is_optional_but_cannot_be_a_claim_boolean
+    self.assertTrue(self.validator.is_valid(data))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.037s
+
+FAILED (failures=3)

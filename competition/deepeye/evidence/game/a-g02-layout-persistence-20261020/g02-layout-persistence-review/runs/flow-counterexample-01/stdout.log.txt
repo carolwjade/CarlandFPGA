@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS_CHECK isolated probe directory
+PASS_CHECK save after dialog-open state change is rejected
+PASS_CHECK late-state save creates no target
+PASS_CHECK late-state save preserves document/history/seed/run/link
+PASS_CHECK first save succeeds
+PASS_CHECK stale second callback has no retained action
+PASS_CHECK stale callback creates no file
+PASS_CHECK stale callback preserves document and provenance
+PASS_CHECK cancel signal after success reports canceled
+PASS_CHECK cancel after success does not change document/provenance
+PASS_CHECK cancel leaves prior saved target intact
+COUNTEREXAMPLE_FLOW checks=11 failures=0
+COUNTEREXAMPLE_FLOW_RESULT PASS

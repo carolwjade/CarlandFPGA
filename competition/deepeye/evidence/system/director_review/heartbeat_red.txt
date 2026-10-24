@@ -1,0 +1,51 @@
+test_crc_epoch_and_producer_are_checked (__main__.PcDirectHeartbeatTests.test_crc_epoch_and_producer_are_checked) ... ERROR
+test_fault_is_transportable_for_authority_to_stop (__main__.PcDirectHeartbeatTests.test_fault_is_transportable_for_authority_to_stop) ... ERROR
+test_invalid_state_fields_are_rejected (__main__.PcDirectHeartbeatTests.test_invalid_state_fields_are_rejected) ... ok
+test_state8_cannot_be_routed_to_ai_or_claim_pc_board_motion_capture (__main__.PcDirectHeartbeatTests.test_state8_cannot_be_routed_to_ai_or_claim_pc_board_motion_capture) ... ok
+test_state8_reaches_authority_as_exact_32_byte_record (__main__.PcDirectHeartbeatTests.test_state8_reaches_authority_as_exact_32_byte_record) ... ERROR
+
+======================================================================
+ERROR: test_crc_epoch_and_producer_are_checked (__main__.PcDirectHeartbeatTests.test_crc_epoch_and_producer_are_checked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_pc_direct_heartbeat.py", line 54, in test_crc_epoch_and_producer_are_checked
+    bad['wire_frame_hex'] = wire.encode(wire.Frame(8, 3, frame.seq, frame.tick_ms, frame.payload)).hex()
+                                                         ^^^^^^^^^
+AttributeError: 'Frame' object has no attribute 'seq'
+
+======================================================================
+ERROR: test_fault_is_transportable_for_authority_to_stop (__main__.PcDirectHeartbeatTests.test_fault_is_transportable_for_authority_to_stop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_pc_direct_heartbeat.py", line 41, in test_fault_is_transportable_for_authority_to_stop
+    self.assertEqual(validate(heartbeat(fault_flags=1, phase=4)).kind, 'board_response')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_pc_direct_heartbeat.py", line 26, in validate
+    return host_envelope.validate_message(encode(doc), producer=producer,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\host_envelope.py", line 599, in validate_message
+    _KIND_CHECKS[kind](document, context, now_ns)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\host_envelope.py", line 549, in _check_board_response
+    raise ValueError(
+ValueError: board_response may carry only CONFIG_ACK(9), GAIN_ACK(11), BOOT_ACK(13), ACK3D(15) or STATE3D(16)
+
+======================================================================
+ERROR: test_state8_reaches_authority_as_exact_32_byte_record (__main__.PcDirectHeartbeatTests.test_state8_reaches_authority_as_exact_32_byte_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_pc_direct_heartbeat.py", line 33, in test_state8_reaches_authority_as_exact_32_byte_record
+    record = validate(doc)
+             ^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\test_pc_direct_heartbeat.py", line 26, in validate
+    return host_envelope.validate_message(encode(doc), producer=producer,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\host_envelope.py", line 599, in validate_message
+    _KIND_CHECKS[kind](document, context, now_ns)
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\integration\host_envelope.py", line 549, in _check_board_response
+    raise ValueError(
+ValueError: board_response may carry only CONFIG_ACK(9), GAIN_ACK(11), BOOT_ACK(13), ACK3D(15) or STATE3D(16)
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.015s
+
+FAILED (errors=3)

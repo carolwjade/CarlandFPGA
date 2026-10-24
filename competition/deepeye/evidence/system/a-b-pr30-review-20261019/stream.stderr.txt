@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-stream-pr30-review\run_simulations.py", line 66, in <module>
+    main()
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-stream-pr30-review\run_simulations.py", line 31, in main
+    stream_child()
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-stream-pr30-review\run_simulations.py", line 27, in stream_child
+    module.run(HERE / 'a-stream-public-ports', FPGA / 'stream/deepeye_block_stream.sv')
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-stream-pr30-review\exact-source\competition\deepeye\evidence\stream\stream-reset-20261018-09\main\main_stream_review.py", line 166, in run
+    call('vlog',[str(TOOLS/'vlog.exe'),'-sv','-work','work',str(CORE),str(wrapper),str(H/'main_stream_ports.sv')])
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-stream-pr30-review\exact-source\competition\deepeye\evidence\stream\stream-reset-20261018-09\main\main_stream_review.py", line 162, in call
+    assert r.returncode==0,(name,r.returncode,r.stderr.decode(errors='replace')[-1000:]);return r.stdout+r.stderr
+           ^^^^^^^^^^^^^^^
+AssertionError: ('vlog', 232, 'sqlite3_open_v2: No such file or directory\r\nsqlite3_open_v2: No such file or directory\r\n')

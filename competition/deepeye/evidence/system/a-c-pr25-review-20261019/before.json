@@ -1,0 +1,2455 @@
+{
+  "head": "942fa309ffc8f1d32c816cfa643b009b031d7d0a",
+  "clean": true,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "files": {
+    "competition/deepeye/ai_pc/control_broker/deadlines.py": {
+      "blob": "b89c1008d52798170e91d3a71550f30403445f77",
+      "source_blob": "b89c1008d52798170e91d3a71550f30403445f77",
+      "sha256": "9439b4bc2bc2fef5bea2fb829694c8c8e41c5102067775dde5e8d42721aa7bfc",
+      "size": 16985,
+      "checkout_sha256": "9439b4bc2bc2fef5bea2fb829694c8c8e41c5102067775dde5e8d42721aa7bfc",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/ai_pc/control_broker/mailbox.py": {
+      "blob": "5612c3751836b31269c559b68375a46a82085523",
+      "source_blob": "5612c3751836b31269c559b68375a46a82085523",
+      "sha256": "705b565d6047ae34a676566c2df42ef7596707656fc52e298380f1d3ffbb9f61",
+      "size": 22532,
+      "checkout_sha256": "705b565d6047ae34a676566c2df42ef7596707656fc52e298380f1d3ffbb9f61",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/ai_pc/control_broker/motion_request.py": {
+      "blob": "f907bd435e19598039ee6e7a492a3f1c31503812",
+      "source_blob": "f907bd435e19598039ee6e7a492a3f1c31503812",
+      "sha256": "18c02349e9ebe1387e6763e90c707de67208407f067088edacffa31ce99dedda",
+      "size": 21534,
+      "checkout_sha256": "5bc0938f819bacc4834ed6a59e2dc1f48a0015f64c024faa94876e3d00ae1109",
+      "checkout_exact": false,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/force_inventory.py": {
+      "blob": "8d50e1abb8315f1bf50a6f0ae49d5f5c98ae5754",
+      "source_blob": "8d50e1abb8315f1bf50a6f0ae49d5f5c98ae5754",
+      "sha256": "86404425615f7551ce04907c9dbd6d7a40edca76372ad82a1a9655092a186932",
+      "size": 24320,
+      "checkout_sha256": "70255bad32d6fe2e211fab8b936ace2dee4c89517acebbbb6025983f78849487",
+      "checkout_exact": false,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/force_preprocess.py": {
+      "blob": "b24a1a22f316bcaa05ca451fdefad2bd481556a5",
+      "source_blob": "b24a1a22f316bcaa05ca451fdefad2bd481556a5",
+      "sha256": "1cc71d045065495d99a3f79c31107705cdc3a4942409a8decf6ae732501bc308",
+      "size": 51890,
+      "checkout_sha256": "1cc71d045065495d99a3f79c31107705cdc3a4942409a8decf6ae732501bc308",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/force_wells.json": {
+      "blob": "f9b41f7b24a315444d1f9dd4045d6b5bbc35e9a2",
+      "source_blob": "f9b41f7b24a315444d1f9dd4045d6b5bbc35e9a2",
+      "sha256": "ace9a0eb9930f19c6b8125e151d07346fb23029b1455eac04964d15b97461e59",
+      "size": 507665,
+      "checkout_sha256": "ace9a0eb9930f19c6b8125e151d07346fb23029b1455eac04964d15b97461e59",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/grouping.py": {
+      "blob": "24b0b73f445aff2bf21dc32efee0dab1174fbeaf",
+      "source_blob": "24b0b73f445aff2bf21dc32efee0dab1174fbeaf",
+      "sha256": "f1a35a5b060cafb640d8f65b2914af9616258b7fa21f99d1a589d232f7b2be4d",
+      "size": 11608,
+      "checkout_sha256": "3a02addb88ce582350582a7d77a3e944e617d33cb3774fe67ba5db9cbeae1d2f",
+      "checkout_exact": false,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/label_schema.json": {
+      "blob": "916a3365809e787f6023a5388a6986aacf0ba75f",
+      "source_blob": "916a3365809e787f6023a5388a6986aacf0ba75f",
+      "sha256": "0913ff5a59085b47802a9902f23a836f4fa1129700de8e6593840416f4d7beed",
+      "size": 3594,
+      "checkout_sha256": "0913ff5a59085b47802a9902f23a836f4fa1129700de8e6593840416f4d7beed",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/manifest.json": {
+      "blob": "3357b5fa0be7f7df59bcc5f57f8a95c976549562",
+      "source_blob": "3357b5fa0be7f7df59bcc5f57f8a95c976549562",
+      "sha256": "5a822cf1ccc042d849acca7bd016465f8b452aac19b82be825124755eb37bd30",
+      "size": 10852,
+      "checkout_sha256": "5a822cf1ccc042d849acca7bd016465f8b452aac19b82be825124755eb37bd30",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/preprocessing.json": {
+      "blob": "40d9bbf668d64db6f67de238f05646e87baddd5d",
+      "source_blob": "40d9bbf668d64db6f67de238f05646e87baddd5d",
+      "sha256": "cb66fd302165c86344f3b8d1af9d9c4e4e229621cef44cbfa6fb8cd121a63eef",
+      "size": 29849,
+      "checkout_sha256": "cb66fd302165c86344f3b8d1af9d9c4e4e229621cef44cbfa6fb8cd121a63eef",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/provenance/force_2020_v1/.gitattributes": {
+      "blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "source_blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "size": 14,
+      "checkout_sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/provenance/force_2020_v1/README.md": {
+      "blob": "340956e600fda32feb03e904c602e3f16377ddfd",
+      "source_blob": "340956e600fda32feb03e904c602e3f16377ddfd",
+      "sha256": "a9333cf137f2e6be73e9e2ea1b0dc8c757a8caacf6f0094bc5ee027ee4cc4f8d",
+      "size": 1692,
+      "checkout_sha256": "a9333cf137f2e6be73e9e2ea1b0dc8c757a8caacf6f0094bc5ee027ee4cc4f8d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/provenance/force_2020_v1/force_inventory.py": {
+      "blob": "e37e07250d14fc9031b18a81a3eaa4c752e4a769",
+      "source_blob": "e37e07250d14fc9031b18a81a3eaa4c752e4a769",
+      "sha256": "5bba8316ea36484df058dacb2289073ffb09ce19e401dfb297598b3e3cd10f47",
+      "size": 22801,
+      "checkout_sha256": "5bba8316ea36484df058dacb2289073ffb09ce19e401dfb297598b3e3cd10f47",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/provenance/force_2020_v1/force_preprocess.py": {
+      "blob": "f3e7036e41d44362f65ed0b887ea62070a639f2d",
+      "source_blob": "f3e7036e41d44362f65ed0b887ea62070a639f2d",
+      "sha256": "75b2015c0ec9deab9a94a2032b77117124085631f2bd758a54c7ea7fdfdf2848",
+      "size": 51033,
+      "checkout_sha256": "75b2015c0ec9deab9a94a2032b77117124085631f2bd758a54c7ea7fdfdf2848",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/source_inventory.json": {
+      "blob": "d60a0a20170e32dff35540adcec871db441c736f",
+      "source_blob": "d60a0a20170e32dff35540adcec871db441c736f",
+      "sha256": "7800fda1b4f712d5e93a05d14b6a0726eb5699f979db065dea61eb9a7f84337c",
+      "size": 2690,
+      "checkout_sha256": "7800fda1b4f712d5e93a05d14b6a0726eb5699f979db065dea61eb9a7f84337c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/split_policy.json": {
+      "blob": "4cf19ff18d923f3acf7874d3f2d7eab8968bfc76",
+      "source_blob": "4cf19ff18d923f3acf7874d3f2d7eab8968bfc76",
+      "sha256": "66c5138ad45138104bca20d39c4680daa82534a16e381f8d2879eea6f37b81c9",
+      "size": 2852,
+      "checkout_sha256": "66c5138ad45138104bca20d39c4680daa82534a16e381f8d2879eea6f37b81c9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/data/splits.json": {
+      "blob": "83fc941ff4af294a4740c5e45e8c463e0ff7c614",
+      "source_blob": "83fc941ff4af294a4740c5e45e8c463e0ff7c614",
+      "sha256": "f10ddb8f37e6bdf7c9663eed45d0f6554ef8992899724013a7e487ad3e3cef91",
+      "size": 45632,
+      "checkout_sha256": "f10ddb8f37e6bdf7c9663eed45d0f6554ef8992899724013a7e487ad3e3cef91",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/.gitattributes": {
+      "blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "source_blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "size": 14,
+      "checkout_sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/README.md": {
+      "blob": "51d94b06de83d8d8690995fb9e0f430f5787ad3c",
+      "source_blob": "51d94b06de83d8d8690995fb9e0f430f5787ad3c",
+      "sha256": "7d691b571d251ec50aa528f5f73cf7c124578abbc1d489af32c03631ba7c2833",
+      "size": 6121,
+      "checkout_sha256": "7d691b571d251ec50aa528f5f73cf7c124578abbc1d489af32c03631ba7c2833",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_inventory.result.json": {
+      "blob": "91e47bfdcf4c5e029df517b854cc0cfc57e62bb9",
+      "source_blob": "91e47bfdcf4c5e029df517b854cc0cfc57e62bb9",
+      "sha256": "bd74ee809c85e855086f460df3104d888565d052d95bda0716bb8d28e6c0ab38",
+      "size": 1440,
+      "checkout_sha256": "bd74ee809c85e855086f460df3104d888565d052d95bda0716bb8d28e6c0ab38",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_inventory.stderr.txt": {
+      "blob": "3297deb3e2e5ff290e035450cfe2c13245795fb5",
+      "source_blob": "3297deb3e2e5ff290e035450cfe2c13245795fb5",
+      "sha256": "ac1a03c863141192ad72f0677b29c493fafdf92e89aed14559ebfb8f69d0cf0d",
+      "size": 2663,
+      "checkout_sha256": "ac1a03c863141192ad72f0677b29c493fafdf92e89aed14559ebfb8f69d0cf0d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_inventory.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_preprocess.result.json": {
+      "blob": "31ca35f13fcf35ed7f80ab2a2b20b21f7fe3908b",
+      "source_blob": "31ca35f13fcf35ed7f80ab2a2b20b21f7fe3908b",
+      "sha256": "10cea5d5c6569bab376636c5e988ecb5adcc866ed89417db16cb90a2bdb2ee9a",
+      "size": 1441,
+      "checkout_sha256": "10cea5d5c6569bab376636c5e988ecb5adcc866ed89417db16cb90a2bdb2ee9a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_preprocess.stderr.txt": {
+      "blob": "5f74f30fb8bc134501e9f6bb13605330b251dc1f",
+      "source_blob": "5f74f30fb8bc134501e9f6bb13605330b251dc1f",
+      "sha256": "59b5ee8cb4b26ec59e4fd08be5452a08db56a8c69c9b60998802b37b8b0f0436",
+      "size": 4563,
+      "checkout_sha256": "59b5ee8cb4b26ec59e4fd08be5452a08db56a8c69c9b60998802b37b8b0f0436",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_force_preprocess.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_verify_data.result.json": {
+      "blob": "166f8bd64726d99787b0dc321f7c18394469f6e2",
+      "source_blob": "166f8bd64726d99787b0dc321f7c18394469f6e2",
+      "sha256": "7556471f0b390eb73393e536fd14c8c500a350d133406829447d27fa0f52c2fc",
+      "size": 1436,
+      "checkout_sha256": "7556471f0b390eb73393e536fd14c8c500a350d133406829447d27fa0f52c2fc",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_verify_data.stderr.txt": {
+      "blob": "3c3d2f2629705ec35090692021db57aec1b0ff84",
+      "source_blob": "3c3d2f2629705ec35090692021db57aec1b0ff84",
+      "sha256": "edc124906b28386bf80c40d018882d3fb4f979f4c40e6f6bf263040afcd3c7d1",
+      "size": 164,
+      "checkout_sha256": "edc124906b28386bf80c40d018882d3fb4f979f4c40e6f6bf263040afcd3c7d1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/baseline_verify_data.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_cli.result.json": {
+      "blob": "a87192f74883ef08cfedde39df58a3b27e8636b4",
+      "source_blob": "a87192f74883ef08cfedde39df58a3b27e8636b4",
+      "sha256": "2b3767308cae1517fed0f4d8dd5618fd98223a832fde02c0d14f479f46795561",
+      "size": 1455,
+      "checkout_sha256": "2b3767308cae1517fed0f4d8dd5618fd98223a832fde02c0d14f479f46795561",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_cli.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_cli.stdout.txt": {
+      "blob": "daac1db8a5718d644c7b60464c4cb6dce50abde7",
+      "source_blob": "daac1db8a5718d644c7b60464c4cb6dce50abde7",
+      "sha256": "61c4870b2d13599f46da12c73eac1007c46a41453d06a3a424174d13a67eb1d7",
+      "size": 9256,
+      "checkout_sha256": "61c4870b2d13599f46da12c73eac1007c46a41453d06a3a424174d13a67eb1d7",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_suite.result.json": {
+      "blob": "ec7cb0223c06a8864e2687f4655b8008c42de830",
+      "source_blob": "ec7cb0223c06a8864e2687f4655b8008c42de830",
+      "sha256": "107802fbcc1efa3f387f9f0e0a52298ad787c87ce49368f2deeae9154954125e",
+      "size": 1436,
+      "checkout_sha256": "107802fbcc1efa3f387f9f0e0a52298ad787c87ce49368f2deeae9154954125e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_suite.stderr.txt": {
+      "blob": "25b4f5a05defb6b0c4e3d929ec164314cef0ff88",
+      "source_blob": "25b4f5a05defb6b0c4e3d929ec164314cef0ff88",
+      "sha256": "30e6cf4ee50016ff36c829831c72ae77539647d327a1dbeb87c3be3a30acdead",
+      "size": 2777,
+      "checkout_sha256": "30e6cf4ee50016ff36c829831c72ae77539647d327a1dbeb87c3be3a30acdead",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/candidate_verify_suite.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/capture.py": {
+      "blob": "8e44eab04878a2de543b087fd1a626423ebcb52c",
+      "source_blob": "8e44eab04878a2de543b087fd1a626423ebcb52c",
+      "sha256": "bce9b7c39af3c3c746476d6f6fed2deea380f83f65c2ba20ffcd3efd515d636c",
+      "size": 3395,
+      "checkout_sha256": "bce9b7c39af3c3c746476d6f6fed2deea380f83f65c2ba20ffcd3efd515d636c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/finalize.py": {
+      "blob": "432037d9832e15accc0793fc9c662ea49b8a7711",
+      "source_blob": "432037d9832e15accc0793fc9c662ea49b8a7711",
+      "sha256": "ad0803cc857c4a1c39214c3fe65c9c46cddf826301a04df57f35588f3a07a40d",
+      "size": 4687,
+      "checkout_sha256": "ad0803cc857c4a1c39214c3fe65c9c46cddf826301a04df57f35588f3a07a40d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_inventory.result.json": {
+      "blob": "8a1ad81f52863736d921b56ea5a219b635c8e464",
+      "source_blob": "8a1ad81f52863736d921b56ea5a219b635c8e464",
+      "sha256": "aaadd482a661f655fd4268287a72b9fc430863aa5f3be2d4c526533df9c10777",
+      "size": 1440,
+      "checkout_sha256": "aaadd482a661f655fd4268287a72b9fc430863aa5f3be2d4c526533df9c10777",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_inventory.stderr.txt": {
+      "blob": "44af5f7a2a1dfcfaf011f41f67a48bf5259f1943",
+      "source_blob": "44af5f7a2a1dfcfaf011f41f67a48bf5259f1943",
+      "sha256": "ef270eae7db86e2bcbf1f55070d256625eeec959fc601003175bb31683ec244a",
+      "size": 3096,
+      "checkout_sha256": "ef270eae7db86e2bcbf1f55070d256625eeec959fc601003175bb31683ec244a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_inventory.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_portable.result.json": {
+      "blob": "614460f3f0ebe0fd1cfa375fea5dd3be5f796dac",
+      "source_blob": "614460f3f0ebe0fd1cfa375fea5dd3be5f796dac",
+      "sha256": "02fefefb313e4a06181c115a93d6a0d8a5ef898d712fe6a88f535b5229f17cc6",
+      "size": 1455,
+      "checkout_sha256": "02fefefb313e4a06181c115a93d6a0d8a5ef898d712fe6a88f535b5229f17cc6",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_portable.stderr.txt": {
+      "blob": "738a40b6efc8dca8108b0bbbab7c318673a06a38",
+      "source_blob": "738a40b6efc8dca8108b0bbbab7c318673a06a38",
+      "sha256": "aef8fd00df4e630a2e7249ce396a90d4ac8de6bb6cfc0a6ac067d4329f92c529",
+      "size": 260,
+      "checkout_sha256": "aef8fd00df4e630a2e7249ce396a90d4ac8de6bb6cfc0a6ac067d4329f92c529",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_portable.stdout.txt": {
+      "blob": "1c04ccac1607739e9b36888ec8bbab1fafa0248c",
+      "source_blob": "1c04ccac1607739e9b36888ec8bbab1fafa0248c",
+      "sha256": "4751ea82072dad9750607e45562649ab8864a24987448b46917489782ccedddd",
+      "size": 206,
+      "checkout_sha256": "4751ea82072dad9750607e45562649ab8864a24987448b46917489782ccedddd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_preprocess.result.json": {
+      "blob": "6d5f452f0dafc878caa55d357686aba81b4360ab",
+      "source_blob": "6d5f452f0dafc878caa55d357686aba81b4360ab",
+      "sha256": "dc6e46a26057df08a4f670ec02b7ca7773b5db11e3a5d5c374da2cb0eaa2f6c9",
+      "size": 1441,
+      "checkout_sha256": "dc6e46a26057df08a4f670ec02b7ca7773b5db11e3a5d5c374da2cb0eaa2f6c9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_preprocess.stderr.txt": {
+      "blob": "03e15f5c7ce023c2f22e31447ae3d81395630d06",
+      "source_blob": "03e15f5c7ce023c2f22e31447ae3d81395630d06",
+      "sha256": "c58ed6dc102225bd38bf4b739ba75fe5d85e914b2b596cd301824fe009d1502b",
+      "size": 4999,
+      "checkout_sha256": "c58ed6dc102225bd38bf4b739ba75fe5d85e914b2b596cd301824fe009d1502b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/green_preprocess.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/handoff.json": {
+      "blob": "810fbbd49cc9b1da9debc43bae641dd2672922e9",
+      "source_blob": "810fbbd49cc9b1da9debc43bae641dd2672922e9",
+      "sha256": "4896d31ec4ec286df3359e06dd517e0f22b49ccd6dc8905fe641ba7824fae719",
+      "size": 3473,
+      "checkout_sha256": "4896d31ec4ec286df3359e06dd517e0f22b49ccd6dc8905fe641ba7824fae719",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/fixture_setup_error_independent_headers.py": {
+      "blob": "8d8ba5a827c04c26dce9b0930632ec5f0bc29f16",
+      "source_blob": "8d8ba5a827c04c26dce9b0930632ec5f0bc29f16",
+      "sha256": "8d336e5e5900c722de565379c34ca6f5f21dc64a32b7cb45fdbc3f470da93cb2",
+      "size": 2196,
+      "checkout_sha256": "8d336e5e5900c722de565379c34ca6f5f21dc64a32b7cb45fdbc3f470da93cb2",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/fixture_setup_error_result.json": {
+      "blob": "60764d07c4cf47b2b035386bc4582e035bbaa534",
+      "source_blob": "60764d07c4cf47b2b035386bc4582e035bbaa534",
+      "sha256": "af962df33be3f60028ed6d7e5a8fefdce5802b615dcf6fc7022451e42569c9bb",
+      "size": 1760,
+      "checkout_sha256": "af962df33be3f60028ed6d7e5a8fefdce5802b615dcf6fc7022451e42569c9bb",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/fixture_setup_error_stderr.txt": {
+      "blob": "a9a651ff9d56c909166e95321cee5dce907899e1",
+      "source_blob": "a9a651ff9d56c909166e95321cee5dce907899e1",
+      "sha256": "bf177234551c09184c29c73cf5206aba35484978d9124bcd5af0805e32f0e2cd",
+      "size": 2073,
+      "checkout_sha256": "bf177234551c09184c29c73cf5206aba35484978d9124bcd5af0805e32f0e2cd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/fixture_setup_error_stdout.txt": {
+      "blob": "31ecb0e09b9811f4a2a1f23efca02098643f5d51",
+      "source_blob": "31ecb0e09b9811f4a2a1f23efca02098643f5d51",
+      "sha256": "f457ed49d98c20ded86e63ee0db37ecaaa1c1afdbd7494ba1f90312a9c5a4f5d",
+      "size": 171,
+      "checkout_sha256": "f457ed49d98c20ded86e63ee0db37ecaaa1c1afdbd7494ba1f90312a9c5a4f5d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/independent_headers.py": {
+      "blob": "2ce1f8f0d97b8a6ade646ce6967604e524b17aee",
+      "source_blob": "2ce1f8f0d97b8a6ade646ce6967604e524b17aee",
+      "sha256": "397983c49e8763f02ca7ce1f37a6fa821293459e32802ced672a777e33964803",
+      "size": 2368,
+      "checkout_sha256": "397983c49e8763f02ca7ce1f37a6fa821293459e32802ced672a777e33964803",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/result.json": {
+      "blob": "44f886b2fcbb9562bd697fbf579f9fe7b52a1aa2",
+      "source_blob": "44f886b2fcbb9562bd697fbf579f9fe7b52a1aa2",
+      "sha256": "c25605856194faec7ec45bd80d0865514f8c555be757e01d8e16f7ebdc9aaac8",
+      "size": 1977,
+      "checkout_sha256": "c25605856194faec7ec45bd80d0865514f8c555be757e01d8e16f7ebdc9aaac8",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/stderr.txt": {
+      "blob": "bcf55a9a292fcd5232653f9050f98c836128f4e8",
+      "source_blob": "bcf55a9a292fcd5232653f9050f98c836128f4e8",
+      "sha256": "6ee3ca57e6433ed6c5dbbc521c327c9a312678e66e6ad40b088b7681e597590f",
+      "size": 397,
+      "checkout_sha256": "6ee3ca57e6433ed6c5dbbc521c327c9a312678e66e6ad40b088b7681e597590f",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/main_review/stdout.txt": {
+      "blob": "31ecb0e09b9811f4a2a1f23efca02098643f5d51",
+      "source_blob": "31ecb0e09b9811f4a2a1f23efca02098643f5d51",
+      "sha256": "f457ed49d98c20ded86e63ee0db37ecaaa1c1afdbd7494ba1f90312a9c5a4f5d",
+      "size": 171,
+      "checkout_sha256": "f457ed49d98c20ded86e63ee0db37ecaaa1c1afdbd7494ba1f90312a9c5a4f5d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/manifest.json": {
+      "blob": "4eb65dac3f40388de3df5f64ab67982a8fdca669",
+      "source_blob": "4eb65dac3f40388de3df5f64ab67982a8fdca669",
+      "sha256": "683d39730ed76a42ef3c44177996defad98c6d2b84ace5d288038b2ed678f46e",
+      "size": 11017,
+      "checkout_sha256": "683d39730ed76a42ef3c44177996defad98c6d2b84ace5d288038b2ed678f46e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original/data/force_inventory.py": {
+      "blob": "e37e07250d14fc9031b18a81a3eaa4c752e4a769",
+      "source_blob": "e37e07250d14fc9031b18a81a3eaa4c752e4a769",
+      "sha256": "5bba8316ea36484df058dacb2289073ffb09ce19e401dfb297598b3e3cd10f47",
+      "size": 22801,
+      "checkout_sha256": "5bba8316ea36484df058dacb2289073ffb09ce19e401dfb297598b3e3cd10f47",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original/data/force_preprocess.py": {
+      "blob": "f3e7036e41d44362f65ed0b887ea62070a639f2d",
+      "source_blob": "f3e7036e41d44362f65ed0b887ea62070a639f2d",
+      "sha256": "75b2015c0ec9deab9a94a2032b77117124085631f2bd758a54c7ea7fdfdf2848",
+      "size": 51033,
+      "checkout_sha256": "75b2015c0ec9deab9a94a2032b77117124085631f2bd758a54c7ea7fdfdf2848",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original/tests/ai/data_model/test_force_inventory.py": {
+      "blob": "678b01a761ee251dc3f18965a598a24cfb02a068",
+      "source_blob": "678b01a761ee251dc3f18965a598a24cfb02a068",
+      "sha256": "6a261640d04fec0281f618b1b87f7f2670137c2e189320e01cd305aec468b077",
+      "size": 20449,
+      "checkout_sha256": "6a261640d04fec0281f618b1b87f7f2670137c2e189320e01cd305aec468b077",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original/tests/ai/data_model/test_force_preprocess.py": {
+      "blob": "a984287dfa190ba684eb8235a8b7f66dd2339aba",
+      "source_blob": "a984287dfa190ba684eb8235a8b7f66dd2339aba",
+      "sha256": "a96529e9f3954379f23bb1c5d4806b750801a10c037101712effcdcb8d71bef4",
+      "size": 62724,
+      "checkout_sha256": "a96529e9f3954379f23bb1c5d4806b750801a10c037101712effcdcb8d71bef4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original/tests/ai/data_model/test_verify_data.py": {
+      "blob": "e1cf8f1d62d7dcfca2f5077c631a195fb40ca225",
+      "source_blob": "e1cf8f1d62d7dcfca2f5077c631a195fb40ca225",
+      "sha256": "4fe3b827a4c5c6ccca65c3fb8e21099f70c96e42e6ebd19c0087b6b8a1974d74",
+      "size": 71054,
+      "checkout_sha256": "4fe3b827a4c5c6ccca65c3fb8e21099f70c96e42e6ebd19c0087b6b8a1974d74",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/original_sha256.json": {
+      "blob": "817f90ad427afdd0a637cba15c5fb2dd28bde194",
+      "source_blob": "817f90ad427afdd0a637cba15c5fb2dd28bde194",
+      "sha256": "73255dd843faf69060e2859fbce5aeaccc9658fe0c39d299d262b1157022e4e1",
+      "size": 2106,
+      "checkout_sha256": "73255dd843faf69060e2859fbce5aeaccc9658fe0c39d299d262b1157022e4e1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/portable_fixture_probe.py": {
+      "blob": "9238e5aaf2ba7848075d75803fe32cb0010651e1",
+      "source_blob": "9238e5aaf2ba7848075d75803fe32cb0010651e1",
+      "sha256": "2e9b7f82d91f753cb3405f8b04186261f76fd37558070a0dcef1bd0cb3ae1b5b",
+      "size": 1473,
+      "checkout_sha256": "2e9b7f82d91f753cb3405f8b04186261f76fd37558070a0dcef1bd0cb3ae1b5b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/preflight.result.json": {
+      "blob": "85cbdae02a2540f8ead2132226670318bbe23964",
+      "source_blob": "85cbdae02a2540f8ead2132226670318bbe23964",
+      "sha256": "9afb2f99155e0b6ea86b1a6a8a001a81f01be3133616a2b635bd925a2f156a66",
+      "size": 1488,
+      "checkout_sha256": "9afb2f99155e0b6ea86b1a6a8a001a81f01be3133616a2b635bd925a2f156a66",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/preflight.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/preflight.stdout.txt": {
+      "blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "source_blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "size": 192,
+      "checkout_sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_inventory.result.json": {
+      "blob": "5ee877b42df162cf7eef102bacf911b9808c2c0d",
+      "source_blob": "5ee877b42df162cf7eef102bacf911b9808c2c0d",
+      "sha256": "d5d088d95bb13b27cf2462ee9dc2832dd84b761322595e998ccd42c510c356d9",
+      "size": 1682,
+      "checkout_sha256": "d5d088d95bb13b27cf2462ee9dc2832dd84b761322595e998ccd42c510c356d9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_inventory.stderr.txt": {
+      "blob": "948b3b07fae3b4315388b5d73235727b92a3394f",
+      "source_blob": "948b3b07fae3b4315388b5d73235727b92a3394f",
+      "sha256": "5ace0ba6e225418424ec780a5fae07f9d9ffaa1dd48ac4c994b640e6e899118d",
+      "size": 75728,
+      "checkout_sha256": "5ace0ba6e225418424ec780a5fae07f9d9ffaa1dd48ac4c994b640e6e899118d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_inventory.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_portable.result.json": {
+      "blob": "c97d34ec0c095748564b07b05b0b4129948dad6b",
+      "source_blob": "c97d34ec0c095748564b07b05b0b4129948dad6b",
+      "sha256": "02e4add09255ec158e73637408468522d9f20570e437a97982d871e227c8d6e9",
+      "size": 1455,
+      "checkout_sha256": "02e4add09255ec158e73637408468522d9f20570e437a97982d871e227c8d6e9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_portable.stderr.txt": {
+      "blob": "d35ae6b47f6adf657781081477ab82985f3ece53",
+      "source_blob": "d35ae6b47f6adf657781081477ab82985f3ece53",
+      "sha256": "184edbc9dc450333c37b0c10fd8544ef59d27c985f46c2613574392158628679",
+      "size": 1937,
+      "checkout_sha256": "184edbc9dc450333c37b0c10fd8544ef59d27c985f46c2613574392158628679",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_portable.stdout.txt": {
+      "blob": "fccdf36f343a7ed5612025d7ae1f492540f50ec2",
+      "source_blob": "fccdf36f343a7ed5612025d7ae1f492540f50ec2",
+      "sha256": "281654a3cbff1db3dc10040290ab617a09e5ba8f6b0dd8cb28537e5cb586b6d0",
+      "size": 238,
+      "checkout_sha256": "281654a3cbff1db3dc10040290ab617a09e5ba8f6b0dd8cb28537e5cb586b6d0",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_preprocess.result.json": {
+      "blob": "2a914209cfe8ed99074f1fd7630c5ba32e283d01",
+      "source_blob": "2a914209cfe8ed99074f1fd7630c5ba32e283d01",
+      "sha256": "dc38f0579882c62b7eec19909548573384356a3d483dcf7fee68e2effbc7a2f2",
+      "size": 1686,
+      "checkout_sha256": "dc38f0579882c62b7eec19909548573384356a3d483dcf7fee68e2effbc7a2f2",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_preprocess.stderr.txt": {
+      "blob": "6470cda685081c7e2280f500d6e10669265f363c",
+      "source_blob": "6470cda685081c7e2280f500d6e10669265f363c",
+      "sha256": "40b5579e8bc3c858a941b915f810c6b1e5be9ddb6e75744e760848c8bc5ffd68",
+      "size": 76247,
+      "checkout_sha256": "40b5579e8bc3c858a941b915f810c6b1e5be9ddb6e75744e760848c8bc5ffd68",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/red_preprocess.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/release.json": {
+      "blob": "0dbd85f088c97d3e111100054df2be82a83d7a40",
+      "source_blob": "0dbd85f088c97d3e111100054df2be82a83d7a40",
+      "sha256": "52f5afbfb7a46afdc544cd6c41bba5c45daeb3d2f5f6f7e4242ee034c5e920ea",
+      "size": 1701,
+      "checkout_sha256": "52f5afbfb7a46afdc544cd6c41bba5c45daeb3d2f5f6f7e4242ee034c5e920ea",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6196800813.result.json": {
+      "blob": "a2196324c546fb9de6982067926774aab99d4bd6",
+      "source_blob": "a2196324c546fb9de6982067926774aab99d4bd6",
+      "sha256": "3cd0b5c710b230f4d81eef44cff3fd55472e490f2ca387f3338314c5e03a0579",
+      "size": 1325,
+      "checkout_sha256": "3cd0b5c710b230f4d81eef44cff3fd55472e490f2ca387f3338314c5e03a0579",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6196800813.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6196800813.stdout.txt": {
+      "blob": "dbf24e80171bd15618bdd52c1f2f7d23179f4fe4",
+      "source_blob": "dbf24e80171bd15618bdd52c1f2f7d23179f4fe4",
+      "sha256": "146c79527b204139e93a9d0f29b714d33fa66e92e7e189e74a7a25c8a0b6384d",
+      "size": 6996,
+      "checkout_sha256": "146c79527b204139e93a9d0f29b714d33fa66e92e7e189e74a7a25c8a0b6384d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197182815.result.json": {
+      "blob": "67b35d8b2318fdf514165bf70faaa1382314ce27",
+      "source_blob": "67b35d8b2318fdf514165bf70faaa1382314ce27",
+      "sha256": "17a2e25eb4f5f334c5ee8631c68729db37de9a874ab3cd4d11725758806dd1c4",
+      "size": 1325,
+      "checkout_sha256": "17a2e25eb4f5f334c5ee8631c68729db37de9a874ab3cd4d11725758806dd1c4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197182815.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197182815.stdout.txt": {
+      "blob": "789bd4401b8e08db451693c438e39df4aee3fe87",
+      "source_blob": "789bd4401b8e08db451693c438e39df4aee3fe87",
+      "sha256": "0be5636af6c63f7cc1730517ad86a34e1cef71dce9232f93a352655f40498b3e",
+      "size": 6793,
+      "checkout_sha256": "0be5636af6c63f7cc1730517ad86a34e1cef71dce9232f93a352655f40498b3e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197806056.result.json": {
+      "blob": "7f8b42b8b3b8ce2f0ba85fc4b59a97d762d73855",
+      "source_blob": "7f8b42b8b3b8ce2f0ba85fc4b59a97d762d73855",
+      "sha256": "dd819eedb695c23d3c14842c142b41cfe594472db9bb233b1f1f4fb61a2c09da",
+      "size": 1325,
+      "checkout_sha256": "dd819eedb695c23d3c14842c142b41cfe594472db9bb233b1f1f4fb61a2c09da",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197806056.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/review6197806056.stdout.txt": {
+      "blob": "59fd9d299465d0dd8fd930c846e24db5da5a1240",
+      "source_blob": "59fd9d299465d0dd8fd930c846e24db5da5a1240",
+      "sha256": "e027e3094f1d1f694aa3746918657085dab16f05c1eea952020bb32e477fc5fd",
+      "size": 7337,
+      "checkout_sha256": "e027e3094f1d1f694aa3746918657085dab16f05c1eea952020bb32e477fc5fd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/reviewable.diff.txt": {
+      "blob": "6c16716abc3206537836462a3d226fa332fc2578",
+      "source_blob": "6c16716abc3206537836462a3d226fa332fc2578",
+      "sha256": "21032d40508c1078b492dac3f526b2568c00dc23487d248d2f17be9c855970f4",
+      "size": 17912,
+      "checkout_sha256": "21032d40508c1078b492dac3f526b2568c00dc23487d248d2f17be9c855970f4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/scope.result.json": {
+      "blob": "bc1f8990fb2ebeded074385419789c46417b39dd",
+      "source_blob": "bc1f8990fb2ebeded074385419789c46417b39dd",
+      "sha256": "c816cc439a927983387f66f552a55a120ef659887c66322211343d0dbee21a63",
+      "size": 1528,
+      "checkout_sha256": "c816cc439a927983387f66f552a55a120ef659887c66322211343d0dbee21a63",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/scope.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/scope.stdout.txt": {
+      "blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "source_blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "size": 272,
+      "checkout_sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_historical.result.json": {
+      "blob": "e05dc8877d21e67c6571efc46193e56f3ec34bbd",
+      "source_blob": "e05dc8877d21e67c6571efc46193e56f3ec34bbd",
+      "sha256": "dce4b2b79a6ef15de932a1b1e3358d44861b5fad16333dc0b53dab33d2ddffb1",
+      "size": 1465,
+      "checkout_sha256": "dce4b2b79a6ef15de932a1b1e3358d44861b5fad16333dc0b53dab33d2ddffb1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_historical.stderr.txt": {
+      "blob": "2c50c2f200bb0da80498986bb15bdf54a60f4d23",
+      "source_blob": "2c50c2f200bb0da80498986bb15bdf54a60f4d23",
+      "sha256": "73da09fd15756ca73c6d0b35957860537976db98b1537c46f46a8205ed48fb62",
+      "size": 164,
+      "checkout_sha256": "73da09fd15756ca73c6d0b35957860537976db98b1537c46f46a8205ed48fb62",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_historical.stdout.txt": {
+      "blob": "ac874ad08070f639c44bb46643ebe364d49d3978",
+      "source_blob": "ac874ad08070f639c44bb46643ebe364d49d3978",
+      "sha256": "91d6a659fc3d0322a03997f097295bbe89def04d663062a36d958435d9f3be3f",
+      "size": 189,
+      "checkout_sha256": "91d6a659fc3d0322a03997f097295bbe89def04d663062a36d958435d9f3be3f",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_unaffected.result.json": {
+      "blob": "48b5c80aea39817fc3ca7eefe51a2066232e0c41",
+      "source_blob": "48b5c80aea39817fc3ca7eefe51a2066232e0c41",
+      "sha256": "85b1af01908ea3d08e7bf0dae3639acf04649ec424633b0daf2fce75155d0754",
+      "size": 1465,
+      "checkout_sha256": "85b1af01908ea3d08e7bf0dae3639acf04649ec424633b0daf2fce75155d0754",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_unaffected.stderr.txt": {
+      "blob": "901f99b892758ee7e7dc7bbf03d794aa8a4c1baa",
+      "source_blob": "901f99b892758ee7e7dc7bbf03d794aa8a4c1baa",
+      "sha256": "8eaba986384fa6f3cc80fd114acf2f9f5f77cbcfd297fb68a33d4eeb19c3883a",
+      "size": 6530,
+      "checkout_sha256": "8eaba986384fa6f3cc80fd114acf2f9f5f77cbcfd297fb68a33d4eeb19c3883a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verifier_unaffected.stdout.txt": {
+      "blob": "58630ca7a646b4f5fee37d4da08b1ea59596a653",
+      "source_blob": "58630ca7a646b4f5fee37d4da08b1ea59596a653",
+      "sha256": "7b2b3ffc3071093da6f7dc69157df50be0bf268a871046794268b3098dbe45dc",
+      "size": 382,
+      "checkout_sha256": "7b2b3ffc3071093da6f7dc69157df50be0bf268a871046794268b3098dbe45dc",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/data_boundary_repair/verify_checks.py": {
+      "blob": "429755e3a391cf989e449cb322f54d9ee8219389",
+      "source_blob": "429755e3a391cf989e449cb322f54d9ee8219389",
+      "sha256": "0cec47651311b3cc1bbd30a8cb93409e039216c083f75464e3b2c133244946d3",
+      "size": 3399,
+      "checkout_sha256": "0cec47651311b3cc1bbd30a8cb93409e039216c083f75464e3b2c133244946d3",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/.gitattributes": {
+      "blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "source_blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "size": 14,
+      "checkout_sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/docs/enums.json": {
+      "blob": "5eb1ea83660ebff0b313b41ff2ab529170583002",
+      "source_blob": "5eb1ea83660ebff0b313b41ff2ab529170583002",
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "size": 3255,
+      "checkout_sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/docs/host_contract.json": {
+      "blob": "11ae4992cb4983684c90460f5622d41efae76670",
+      "source_blob": "11ae4992cb4983684c90460f5622d41efae76670",
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "size": 19892,
+      "checkout_sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/docs/host_timing_contract.md": {
+      "blob": "2118b7fbb2a21cf9f00dc1154c4ae55c7381c7c4",
+      "source_blob": "2118b7fbb2a21cf9f00dc1154c4ae55c7381c7c4",
+      "sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "size": 8180,
+      "checkout_sha256": "0f15f4f2589f4804ef671d520531fc12f163d2df21ca887e40723492f2eff5ff",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/docs/interface.json": {
+      "blob": "ed7d405510c4c5d542e98cbc67c016aadfca9fe8",
+      "source_blob": "ed7d405510c4c5d542e98cbc67c016aadfca9fe8",
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "size": 23031,
+      "checkout_sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/docs/trace_contract_review.md": {
+      "blob": "b241e5a0357674a359f97d9553bb39ece324d341",
+      "source_blob": "b241e5a0357674a359f97d9553bb39ece324d341",
+      "sha256": "0b96fd5845c49d10e38658f6fbbe9e87a0e9a0a5ef91a523028b0d2afbd7dd88",
+      "size": 14359,
+      "checkout_sha256": "0b96fd5845c49d10e38658f6fbbe9e87a0e9a0a5ef91a523028b0d2afbd7dd88",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/integration/clock_bounds.py": {
+      "blob": "0bec384496c8dc39bea63845eb52e3d5afbc77c8",
+      "source_blob": "0bec384496c8dc39bea63845eb52e3d5afbc77c8",
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "size": 10136,
+      "checkout_sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/integration/host_envelope.py": {
+      "blob": "705ef2e8b33d0e8c3874e65172dd334307c5a889",
+      "source_blob": "705ef2e8b33d0e8c3874e65172dd334307c5a889",
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "size": 26184,
+      "checkout_sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/integration/motion.py": {
+      "blob": "698778a0112f7274c3d2da22abda81812e36701a",
+      "source_blob": "698778a0112f7274c3d2da22abda81812e36701a",
+      "sha256": "69d016f8890298829e71c18efbbb76e747bbf5c79d2ca3af1d5defd364071822",
+      "size": 3770,
+      "checkout_sha256": "69d016f8890298829e71c18efbbb76e747bbf5c79d2ca3af1d5defd364071822",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/integration/wire.py": {
+      "blob": "ca2a7d9ad44c239cbf36840d35a502a306cd6834",
+      "source_blob": "ca2a7d9ad44c239cbf36840d35a502a306cd6834",
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "size": 5459,
+      "checkout_sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/manifest.json": {
+      "blob": "dc78c710eb69c460284b5ff924c8a62d01ae57ae",
+      "source_blob": "dc78c710eb69c460284b5ff924c8a62d01ae57ae",
+      "sha256": "b39076c6282a29dda4a9af19ab6b409502f378f5fe2d5dffcd55396877c10750",
+      "size": 3163,
+      "checkout_sha256": "b39076c6282a29dda4a9af19ab6b409502f378f5fe2d5dffcd55396877c10750",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/reference-manifest.json": {
+      "blob": "d3abc3eaead27806766a4008c899c03d99df6701",
+      "source_blob": "d3abc3eaead27806766a4008c899c03d99df6701",
+      "sha256": "2a9b1cb82ea8d9ba6cea1ca41d3324ffae9a3db87d8b721f472e6cb7bc20e240",
+      "size": 2164,
+      "checkout_sha256": "2a9b1cb82ea8d9ba6cea1ca41d3324ffae9a3db87d8b721f472e6cb7bc20e240",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/reference/supplementary-manifest.json": {
+      "blob": "64af5be6b4aa05d1ff7356cfb81727d5fd5c0927",
+      "source_blob": "64af5be6b4aa05d1ff7356cfb81727d5fd5c0927",
+      "sha256": "5eb339e306d3a930ee3260080ff39343af3cdf4f46610fd3b699351bf954679e",
+      "size": 1358,
+      "checkout_sha256": "5eb339e306d3a930ee3260080ff39343af3cdf4f46610fd3b699351bf954679e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_feedback_6206605911.command.json": {
+      "blob": "5b5c282a89b93ac249a1cd0a154e0422a752b2b5",
+      "source_blob": "5b5c282a89b93ac249a1cd0a154e0422a752b2b5",
+      "sha256": "8f7890ab9f53b3bac6329e090244bd544628b1fe7a7b3de54272b71b1471d1f1",
+      "size": 1451,
+      "checkout_sha256": "8f7890ab9f53b3bac6329e090244bd544628b1fe7a7b3de54272b71b1471d1f1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_feedback_6206605911.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_feedback_6206605911.stdout.txt": {
+      "blob": "3cc02a20ae939f1b06be88bcf94e3f8dd65213da",
+      "source_blob": "3cc02a20ae939f1b06be88bcf94e3f8dd65213da",
+      "sha256": "f2446d9102a287e2672c29818729b9bfc21c2de3fe1c81ce2bc702f312f715fb",
+      "size": 4494,
+      "checkout_sha256": "f2446d9102a287e2672c29818729b9bfc21c2de3fe1c81ce2bc702f312f715fb",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_prior_approval_5541868728.command.json": {
+      "blob": "98dd9344789170ec7e7815dda8ab5090c475ef1c",
+      "source_blob": "98dd9344789170ec7e7815dda8ab5090c475ef1c",
+      "sha256": "ff2ebf675ee8bf049b8eccad97289eab91fc87b478667365f886d2f1d2291c9e",
+      "size": 1464,
+      "checkout_sha256": "ff2ebf675ee8bf049b8eccad97289eab91fc87b478667365f886d2f1d2291c9e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_prior_approval_5541868728.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/A_prior_approval_5541868728.stdout.txt": {
+      "blob": "556653b74d9bb02a4cc6fa73303a1e0b3a92d987",
+      "source_blob": "556653b74d9bb02a4cc6fa73303a1e0b3a92d987",
+      "sha256": "c95538b96711a72af489d25880a5d1c14062c31a868afe6742f80f67e43e91e2",
+      "size": 1535,
+      "checkout_sha256": "c95538b96711a72af489d25880a5d1c14062c31a868afe6742f80f67e43e91e2",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/README.md": {
+      "blob": "754c6a3f6cf3c67da6b1e37e870c4f69c999eb9c",
+      "source_blob": "754c6a3f6cf3c67da6b1e37e870c4f69c999eb9c",
+      "sha256": "e2b21af2763d921379fdba4d8ba2fc29f79632386443f68cf18786fb5bfe4ad8",
+      "size": 4909,
+      "checkout_sha256": "e2b21af2763d921379fdba4d8ba2fc29f79632386443f68cf18786fb5bfe4ad8",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/evidence.py": {
+      "blob": "97796bf09d280d143e01d9ad9244db6651f91ba9",
+      "source_blob": "97796bf09d280d143e01d9ad9244db6651f91ba9",
+      "sha256": "f85ed3bb31665e275cb292912211cda5a3bcf11240bf341630a0f08b1653cbfc",
+      "size": 6331,
+      "checkout_sha256": "f85ed3bb31665e275cb292912211cda5a3bcf11240bf341630a0f08b1653cbfc",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_adapter_full.command.json": {
+      "blob": "0bc8d728dbb87bffaaccd935960c8bd930207273",
+      "source_blob": "0bc8d728dbb87bffaaccd935960c8bd930207273",
+      "sha256": "f93911657ade67b8a5dfbbb2f9215230302ea18a43efedd17e9413a8e138b143",
+      "size": 1596,
+      "checkout_sha256": "f93911657ade67b8a5dfbbb2f9215230302ea18a43efedd17e9413a8e138b143",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_adapter_full.stderr.txt": {
+      "blob": "8f364a71644980e9cd39df01334ae09de9c199c5",
+      "source_blob": "8f364a71644980e9cd39df01334ae09de9c199c5",
+      "sha256": "11507ff640778fb9255b04526f343e57dbe421d03e4e79d09ef49d3c195fd934",
+      "size": 6794,
+      "checkout_sha256": "11507ff640778fb9255b04526f343e57dbe421d03e4e79d09ef49d3c195fd934",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_adapter_full.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_deadlines.command.json": {
+      "blob": "c896552304d26179242217f5f69c54122cf4827f",
+      "source_blob": "c896552304d26179242217f5f69c54122cf4827f",
+      "sha256": "407834012a25e4828ad3ac50fd536b99bd00471280480b7e299b8ab5801640dd",
+      "size": 1585,
+      "checkout_sha256": "407834012a25e4828ad3ac50fd536b99bd00471280480b7e299b8ab5801640dd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_deadlines.stderr.txt": {
+      "blob": "a2c551e84a78f1d2365fec4e387a04ae71cd87c0",
+      "source_blob": "a2c551e84a78f1d2365fec4e387a04ae71cd87c0",
+      "sha256": "b6772c8414aaa339faa00cc0d9ccf9beb9e147852a711d1bba723a8850264c77",
+      "size": 4456,
+      "checkout_sha256": "b6772c8414aaa339faa00cc0d9ccf9beb9e147852a711d1bba723a8850264c77",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_deadlines.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_mailbox.command.json": {
+      "blob": "64d835f4020415ea3ff680747e3ee7433398c2dd",
+      "source_blob": "64d835f4020415ea3ff680747e3ee7433398c2dd",
+      "sha256": "46c9c9f7ba2ae3f5dff6ede478ec021072a97a279ff9a2506a4061803a90aaae",
+      "size": 1579,
+      "checkout_sha256": "46c9c9f7ba2ae3f5dff6ede478ec021072a97a279ff9a2506a4061803a90aaae",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_mailbox.stderr.txt": {
+      "blob": "666e5d6669293d81b2d5b69f1adccf87c57afbdb",
+      "source_blob": "666e5d6669293d81b2d5b69f1adccf87c57afbdb",
+      "sha256": "17a6bcada18516021fd029117cdee8ec0fb3c3cea00ffd994a8b62d01b74e236",
+      "size": 5844,
+      "checkout_sha256": "17a6bcada18516021fd029117cdee8ec0fb3c3cea00ffd994a8b62d01b74e236",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_mailbox.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_targeted.command.json": {
+      "blob": "2730aa7fd6ddd4d3a10c28bf6c9c6e8246da34ad",
+      "source_blob": "2730aa7fd6ddd4d3a10c28bf6c9c6e8246da34ad",
+      "sha256": "72335d421f6311823cbe58e66391c41c844d82c538e60fbfac866a566d6db376",
+      "size": 1629,
+      "checkout_sha256": "72335d421f6311823cbe58e66391c41c844d82c538e60fbfac866a566d6db376",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_targeted.stderr.txt": {
+      "blob": "94e32d75e89bedee2f750edb3ba0ddb20561f98d",
+      "source_blob": "94e32d75e89bedee2f750edb3ba0ddb20561f98d",
+      "sha256": "a93fbba6c8952c60d0e8bc909ecd611faa2c74542ab9c507b89c95f1d8f16748",
+      "size": 1615,
+      "checkout_sha256": "a93fbba6c8952c60d0e8bc909ecd611faa2c74542ab9c507b89c95f1d8f16748",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/green_targeted.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/main_review/independent_motion_review.py": {
+      "blob": "e52fb7ed230604f7ad175ee2e141c42824233eab",
+      "source_blob": "e52fb7ed230604f7ad175ee2e141c42824233eab",
+      "sha256": "255bb92ed66fdf581413707f093d48ee191cd2c3a17d74f893ea6bab670b8bfa",
+      "size": 3495,
+      "checkout_sha256": "255bb92ed66fdf581413707f093d48ee191cd2c3a17d74f893ea6bab670b8bfa",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/main_review/result.json": {
+      "blob": "0c7b095202fc7c21a7591ded54786a146bfd9a12",
+      "source_blob": "0c7b095202fc7c21a7591ded54786a146bfd9a12",
+      "sha256": "f429d27a371907cc41947e21198f633466dd6480afd5ca7c2d29da6e7966ba58",
+      "size": 1580,
+      "checkout_sha256": "f429d27a371907cc41947e21198f633466dd6480afd5ca7c2d29da6e7966ba58",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/main_review/stderr.txt": {
+      "blob": "75e300586470f9a8ad7f89758773f65c6c193756",
+      "source_blob": "75e300586470f9a8ad7f89758773f65c6c193756",
+      "sha256": "1d6ccc6d22fdefb6645ee0f59e845c2c6e7fa512dfb1686073ff2c5c6fea041f",
+      "size": 699,
+      "checkout_sha256": "1d6ccc6d22fdefb6645ee0f59e845c2c6e7fa512dfb1686073ff2c5c6fea041f",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/main_review/stdout.txt": {
+      "blob": "7f6e033d1524b917ab3109a58d1df1f07f0ec99a",
+      "source_blob": "7f6e033d1524b917ab3109a58d1df1f07f0ec99a",
+      "sha256": "b817099fce4b076d2fcebda6c4f3deeb2a9ac87a12314b9e4400d6761153b410",
+      "size": 80,
+      "checkout_sha256": "b817099fce4b076d2fcebda6c4f3deeb2a9ac87a12314b9e4400d6761153b410",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/manifest.json": {
+      "blob": "87bf91902755ab411756848ed52e3cabf8ca9556",
+      "source_blob": "87bf91902755ab411756848ed52e3cabf8ca9556",
+      "sha256": "9880ac8ec6e265c83a81bcb83292435e34b82e8b90f613e767df8acb7857bf81",
+      "size": 11536,
+      "checkout_sha256": "9880ac8ec6e265c83a81bcb83292435e34b82e8b90f613e767df8acb7857bf81",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/original_manifest.json": {
+      "blob": "a398e4e46138936ebe47d530a91686113eaabc7e",
+      "source_blob": "a398e4e46138936ebe47d530a91686113eaabc7e",
+      "sha256": "fc3f1a56efe207f6d7bfd44c8e1d0be711e3609590bbc5f1a65d4fd929c5a0c0",
+      "size": 1296,
+      "checkout_sha256": "fc3f1a56efe207f6d7bfd44c8e1d0be711e3609590bbc5f1a65d4fd929c5a0c0",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/pre_repair/motion_request.py": {
+      "blob": "1fe7df7c0bc5a8b4fcbbe0d8ce29c8bc3deaaca8",
+      "source_blob": "1fe7df7c0bc5a8b4fcbbe0d8ce29c8bc3deaaca8",
+      "sha256": "29bf83a68929a882671bbed1a14b5a717e2e0bfa53cdb812512400a0aa621e7f",
+      "size": 19811,
+      "checkout_sha256": "29bf83a68929a882671bbed1a14b5a717e2e0bfa53cdb812512400a0aa621e7f",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/pre_repair/test_motion_request.py": {
+      "blob": "50aa8ac7b7c95951ec04b58027c8caa08134b672",
+      "source_blob": "50aa8ac7b7c95951ec04b58027c8caa08134b672",
+      "sha256": "f662e18845a6077790bab6a9bd9f148d3da8acfbfde13e74d4a3bcbf7d212bb0",
+      "size": 28473,
+      "checkout_sha256": "f662e18845a6077790bab6a9bd9f148d3da8acfbfde13e74d4a3bcbf7d212bb0",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/preflight.command.json": {
+      "blob": "aa15bfcb62362681d4632d48cb00798baff6a37b",
+      "source_blob": "aa15bfcb62362681d4632d48cb00798baff6a37b",
+      "sha256": "6695fce4faf12340ffdd0e2768491d3a711abfc22246cb6f584470422eec7856",
+      "size": 1451,
+      "checkout_sha256": "6695fce4faf12340ffdd0e2768491d3a711abfc22246cb6f584470422eec7856",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/preflight.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/preflight.stdout.txt": {
+      "blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "source_blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "size": 192,
+      "checkout_sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original.command.json": {
+      "blob": "d3f5a2e66e9917ca141bc666e6c04c4e31967c9d",
+      "source_blob": "d3f5a2e66e9917ca141bc666e6c04c4e31967c9d",
+      "sha256": "3fdbb49c7c193979d37edffcc52c82089cf36fd4e8d868165638c56d7645092b",
+      "size": 1626,
+      "checkout_sha256": "3fdbb49c7c193979d37edffcc52c82089cf36fd4e8d868165638c56d7645092b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original.stderr.txt": {
+      "blob": "44e43642c6165ae4baa604c3f6eb51dc6e2e4498",
+      "source_blob": "44e43642c6165ae4baa604c3f6eb51dc6e2e4498",
+      "sha256": "9c0c30b1299fb2638467cc051a6c7c9cc2235a5a7278b7330ca9a3de7d33bd63",
+      "size": 15748,
+      "checkout_sha256": "9c0c30b1299fb2638467cc051a6c7c9cc2235a5a7278b7330ca9a3de7d33bd63",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original_replay.command.json": {
+      "blob": "f24d573897b9d15cbb46908d95eb539b297b2ca7",
+      "source_blob": "f24d573897b9d15cbb46908d95eb539b297b2ca7",
+      "sha256": "c94bd9680e1bc38c116ac50ee7edbbd687e4caa523122e6565f83ae497aa86e8",
+      "size": 1534,
+      "checkout_sha256": "c94bd9680e1bc38c116ac50ee7edbbd687e4caa523122e6565f83ae497aa86e8",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original_replay.stderr.txt": {
+      "blob": "dfe090748743147e348cff16cedab7fc8a8cea04",
+      "source_blob": "dfe090748743147e348cff16cedab7fc8a8cea04",
+      "sha256": "3574a57ec0eaf7ab3947fab80a89fe56ae2c97f0618a3486b7a20472107a513a",
+      "size": 15920,
+      "checkout_sha256": "3574a57ec0eaf7ab3947fab80a89fe56ae2c97f0618a3486b7a20472107a513a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_original_replay.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/red_test_motion_request.py": {
+      "blob": "dd85251eaff02108c6ba5311aed6641526b41a21",
+      "source_blob": "dd85251eaff02108c6ba5311aed6641526b41a21",
+      "sha256": "c23f6d17f4ee68296b7807721f31a2fe148a26a125cb713f83fa7b65b3563060",
+      "size": 37201,
+      "checkout_sha256": "c23f6d17f4ee68296b7807721f31a2fe148a26a125cb713f83fa7b65b3563060",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/replay_original.py": {
+      "blob": "c7d59bb1000c40c2d9d977a0b3aaebed0a2f112a",
+      "source_blob": "c7d59bb1000c40c2d9d977a0b3aaebed0a2f112a",
+      "sha256": "be0d52bb26e061233ff54243d0fdf4a6858b3cfdb1c7c3fe6cda18b9bb6d19a8",
+      "size": 1047,
+      "checkout_sha256": "be0d52bb26e061233ff54243d0fdf4a6858b3cfdb1c7c3fe6cda18b9bb6d19a8",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/scope.command.json": {
+      "blob": "f2b5196d995210c14c0839c52be7cd7d335dc8c2",
+      "source_blob": "f2b5196d995210c14c0839c52be7cd7d335dc8c2",
+      "sha256": "583fd6974176d940dc864765587e1e760bcb2796e0289c60e09c1664c07f1fb5",
+      "size": 1571,
+      "checkout_sha256": "583fd6974176d940dc864765587e1e760bcb2796e0289c60e09c1664c07f1fb5",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/scope.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/motion_request/review_repair2/scope.stdout.txt": {
+      "blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "source_blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "size": 272,
+      "checkout_sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/.gitattributes": {
+      "blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "source_blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "size": 14,
+      "checkout_sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/README.md": {
+      "blob": "e5512cc1c354c2e3f60eb5f52e88dbaebb50963b",
+      "source_blob": "e5512cc1c354c2e3f60eb5f52e88dbaebb50963b",
+      "sha256": "3fc355be9503a25765f45a8b86c013698e705b457fd6ff8c4c6a8a2199feb8d9",
+      "size": 3970,
+      "checkout_sha256": "3fc355be9503a25765f45a8b86c013698e705b457fd6ff8c4c6a8a2199feb8d9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/capture_run.py": {
+      "blob": "d39f4d44db067042715f34daa2f6276303a9bd69",
+      "source_blob": "d39f4d44db067042715f34daa2f6276303a9bd69",
+      "sha256": "992d7d34ea156e5a0469481858d9c713bc9bfe73b25a3f1dd287152c449e0a65",
+      "size": 2638,
+      "checkout_sha256": "992d7d34ea156e5a0469481858d9c713bc9bfe73b25a3f1dd287152c449e0a65",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/diff_check.command.json": {
+      "blob": "b11dbc4c35c56011cc7b2ee0c43825bb6d650c68",
+      "source_blob": "b11dbc4c35c56011cc7b2ee0c43825bb6d650c68",
+      "sha256": "adf3a37e640550af56ea633c510d172f0775cb0617b69b39d604ce52fbb04d22",
+      "size": 499,
+      "checkout_sha256": "adf3a37e640550af56ea633c510d172f0775cb0617b69b39d604ce52fbb04d22",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/diff_check.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/diff_check.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/finalize_evidence.py": {
+      "blob": "18e55ca15df9278af1ffb320113312bc7ca8d189",
+      "source_blob": "18e55ca15df9278af1ffb320113312bc7ca8d189",
+      "sha256": "fb751404e7e0b99132974c1cf32e5620b82ff8460b4256fe8e98165a867e25d3",
+      "size": 5107,
+      "checkout_sha256": "fb751404e7e0b99132974c1cf32e5620b82ff8460b4256fe8e98165a867e25d3",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/green_full.command.json": {
+      "blob": "b6c295b5b761356d35aa247a9443256192fcf0c4",
+      "source_blob": "b6c295b5b761356d35aa247a9443256192fcf0c4",
+      "sha256": "efb2b6fd5d28ae0456467bedce44f0a8913ba074a22513ed2ffa11e28aeb8e3b",
+      "size": 2433,
+      "checkout_sha256": "efb2b6fd5d28ae0456467bedce44f0a8913ba074a22513ed2ffa11e28aeb8e3b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/green_full.stderr.txt": {
+      "blob": "27c27b18e90baf10c574e169a72a7fed0cbba744",
+      "source_blob": "27c27b18e90baf10c574e169a72a7fed0cbba744",
+      "sha256": "37a45c82147fc46169689e5ebc6dc45e138549e9c77757435ecd06e0ad8678d1",
+      "size": 8146,
+      "checkout_sha256": "37a45c82147fc46169689e5ebc6dc45e138549e9c77757435ecd06e0ad8678d1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/green_full.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/default_full_blocked.stderr.txt": {
+      "blob": "43f9d92723c9088eaf48553422a9c66effc417e0",
+      "source_blob": "43f9d92723c9088eaf48553422a9c66effc417e0",
+      "sha256": "dc108bd3e05a5bea667213b4165b07692f812b1946f715612f63033cd2c2bd4e",
+      "size": 55,
+      "checkout_sha256": "dc108bd3e05a5bea667213b4165b07692f812b1946f715612f63033cd2c2bd4e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/default_full_blocked.stdout.txt": {
+      "blob": "307f3ea9e3a01ee4508c4490bef235f858c66f30",
+      "source_blob": "307f3ea9e3a01ee4508c4490bef235f858c66f30",
+      "sha256": "7c276eae62e0a424b3594e34f5b7a5943f1ea5428c73d8faa5931b6065db1d7e",
+      "size": 3040,
+      "checkout_sha256": "7c276eae62e0a424b3594e34f5b7a5943f1ea5428c73d8faa5931b6065db1d7e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/independent_provenance_review.py": {
+      "blob": "7cd03fcee4a8652d63f9a31cc0cf70730da709a0",
+      "source_blob": "7cd03fcee4a8652d63f9a31cc0cf70730da709a0",
+      "sha256": "a1cc0a26dc131ba389db8cdbfe546d657124054a24d22b5cbc48502b060e01ee",
+      "size": 3529,
+      "checkout_sha256": "a1cc0a26dc131ba389db8cdbfe546d657124054a24d22b5cbc48502b060e01ee",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/positive.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/positive.stdout.txt": {
+      "blob": "f942c0c20bba06b9ddb6b9e8f3b8989c1aa93528",
+      "source_blob": "f942c0c20bba06b9ddb6b9e8f3b8989c1aa93528",
+      "sha256": "079dab2d63d6dbcb09622a7a85b866a2ffd391341bb15d61ec01a67af377109a",
+      "size": 11600,
+      "checkout_sha256": "079dab2d63d6dbcb09622a7a85b866a2ffd391341bb15d61ec01a67af377109a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/run.command.json": {
+      "blob": "c33a6a69b2ea297fe73a408b29ad3de1dd6c6e99",
+      "source_blob": "c33a6a69b2ea297fe73a408b29ad3de1dd6c6e99",
+      "sha256": "adfb62db1d097672727eda0231ea236154e045052e6f8f37955d1d84af31d41a",
+      "size": 906,
+      "checkout_sha256": "adfb62db1d097672727eda0231ea236154e045052e6f8f37955d1d84af31d41a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/run.stderr.txt": {
+      "blob": "c5be0e3765ac5157965cd25ab654302f1c53058b",
+      "source_blob": "c5be0e3765ac5157965cd25ab654302f1c53058b",
+      "sha256": "d263cedb1155271e108b9068d9f0bc34c71c85703a5e8d7edbc3d1fbc786c36d",
+      "size": 367,
+      "checkout_sha256": "d263cedb1155271e108b9068d9f0bc34c71c85703a5e8d7edbc3d1fbc786c36d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/cli_harness_setup_error/run.stdout.txt": {
+      "blob": "ba976e93bb98cb440718037b7abc2e58037a53ac",
+      "source_blob": "ba976e93bb98cb440718037b7abc2e58037a53ac",
+      "sha256": "260be1dd8e995b2caa1fd67d5894ff54b1e268df51cdb5883cde2e3eeafd9cd0",
+      "size": 53,
+      "checkout_sha256": "260be1dd8e995b2caa1fd67d5894ff54b1e268df51cdb5883cde2e3eeafd9cd0",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/corrupt_live_helper.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/corrupt_live_helper.stdout.txt": {
+      "blob": "ed82252e5404140bdbbcb572bad0fbf6a8989a2d",
+      "source_blob": "ed82252e5404140bdbbcb572bad0fbf6a8989a2d",
+      "sha256": "efd6c970f3c8619d968bffcfea6574262a0ae3742bf4705fad48a0148d058d70",
+      "size": 10045,
+      "checkout_sha256": "efd6c970f3c8619d968bffcfea6574262a0ae3742bf4705fad48a0148d058d70",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/corrupt_snapshot.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/corrupt_snapshot.stdout.txt": {
+      "blob": "935f53edafc77b427cad3efef5229f0975696d5b",
+      "source_blob": "935f53edafc77b427cad3efef5229f0975696d5b",
+      "sha256": "cca637d3b91f4fcd747318e517163fdf77955613ce96c353b0001439321b2312",
+      "size": 10070,
+      "checkout_sha256": "cca637d3b91f4fcd747318e517163fdf77955613ce96c353b0001439321b2312",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/default_full_blocked.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/default_full_blocked.stdout.txt": {
+      "blob": "e2778f23575ccbcd260a02ea8fbe5765b10637da",
+      "source_blob": "e2778f23575ccbcd260a02ea8fbe5765b10637da",
+      "sha256": "59415340c303b1b0372c42c273058e91491bb61a7838a5c5b5560cd549792108",
+      "size": 11386,
+      "checkout_sha256": "59415340c303b1b0372c42c273058e91491bb61a7838a5c5b5560cd549792108",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/independent_provenance_review.py": {
+      "blob": "2948ce6632d446422d2bbd7b7e5a4b6a96de2676",
+      "source_blob": "2948ce6632d446422d2bbd7b7e5a4b6a96de2676",
+      "sha256": "252c65282b6b052d67d6a596ef27f4e1de66fa98b11f323cdbfd0de319d7b4d4",
+      "size": 3529,
+      "checkout_sha256": "252c65282b6b052d67d6a596ef27f4e1de66fa98b11f323cdbfd0de319d7b4d4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/main-decision.json": {
+      "blob": "3881e036e2d40514281f03f2edc53fbbaa6be786",
+      "source_blob": "3881e036e2d40514281f03f2edc53fbbaa6be786",
+      "sha256": "a80b024a5d4b19f9e4e060417427ee24160bd6d5e95c0fd770702bd25d4b0ef1",
+      "size": 1530,
+      "checkout_sha256": "a80b024a5d4b19f9e4e060417427ee24160bd6d5e95c0fd770702bd25d4b0ef1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/missing_snapshot.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/missing_snapshot.stdout.txt": {
+      "blob": "db73ecaa9ac5bd23fe0e8c63137884443035f1ac",
+      "source_blob": "db73ecaa9ac5bd23fe0e8c63137884443035f1ac",
+      "sha256": "7f97378c7d980c26a55c62a36804ddde65008edc93a14cd4b63b06e647765d52",
+      "size": 9912,
+      "checkout_sha256": "7f97378c7d980c26a55c62a36804ddde65008edc93a14cd4b63b06e647765d52",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/positive.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/positive.stdout.txt": {
+      "blob": "9504fcac8a27bf1cca327bb6fd5b4dcab012726e",
+      "source_blob": "9504fcac8a27bf1cca327bb6fd5b4dcab012726e",
+      "sha256": "9532599c24ff5e8ff412b827c85ad11e6a12188fc585933335dee123d417780b",
+      "size": 11600,
+      "checkout_sha256": "9532599c24ff5e8ff412b827c85ad11e6a12188fc585933335dee123d417780b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/result.json": {
+      "blob": "3e168e372b2a8a2aeee7bd364cf26a8fe84b8d0e",
+      "source_blob": "3e168e372b2a8a2aeee7bd364cf26a8fe84b8d0e",
+      "sha256": "ab2c8e2e922d4ff60681cd72be522a0c630d4c0207c0192f2287b121f8124a9c",
+      "size": 6528,
+      "checkout_sha256": "ab2c8e2e922d4ff60681cd72be522a0c630d4c0207c0192f2287b121f8124a9c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/run.command.json": {
+      "blob": "667fa58f7c5487b724a68a5a4ca83b0c8a17046f",
+      "source_blob": "667fa58f7c5487b724a68a5a4ca83b0c8a17046f",
+      "sha256": "d906e78fcb219e09ff7bc6892ddcc738f34c3e0292e1a49c0ad041fbf2a372fd",
+      "size": 1175,
+      "checkout_sha256": "d906e78fcb219e09ff7bc6892ddcc738f34c3e0292e1a49c0ad041fbf2a372fd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/run.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/run.stdout.txt": {
+      "blob": "51a9c68422666ae78fcada9b3c15a1b50877ab92",
+      "source_blob": "51a9c68422666ae78fcada9b3c15a1b50877ab92",
+      "sha256": "c744ceae46979c342d2b8bd05e3966feb0336e2371b44906ced47673a6e250a3",
+      "size": 205,
+      "checkout_sha256": "c744ceae46979c342d2b8bd05e3966feb0336e2371b44906ced47673a6e250a3",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/snapshot_hardlink_output.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/main_review/snapshot_hardlink_output.stdout.txt": {
+      "blob": "fd2c19f6d4ec2cad0355078ca80fafc1e4024d09",
+      "source_blob": "fd2c19f6d4ec2cad0355078ca80fafc1e4024d09",
+      "sha256": "43aff8c4b12416a5f17df71852520bb0c25441cfd8f9d37755fb989e39528c4d",
+      "size": 12280,
+      "checkout_sha256": "43aff8c4b12416a5f17df71852520bb0c25441cfd8f9d37755fb989e39528c4d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/manifest.json": {
+      "blob": "c59c20978523c8bf56f64d3eef516ef8ca3d221b",
+      "source_blob": "c59c20978523c8bf56f64d3eef516ef8ca3d221b",
+      "sha256": "6abd67fdfc43e8ce5a39de77e3d88b9f6150369e53bf233bf7fa0a1bfa22aaf5",
+      "size": 4626,
+      "checkout_sha256": "6abd67fdfc43e8ce5a39de77e3d88b9f6150369e53bf233bf7fa0a1bfa22aaf5",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/preserve_snapshots.py": {
+      "blob": "ee2b211e362175ad2f97a9ed313cae125097af59",
+      "source_blob": "ee2b211e362175ad2f97a9ed313cae125097af59",
+      "sha256": "664d423c14f88add6063a3b2e1fe2c9b562ed5f9daa77845220084ea561c4081",
+      "size": 2040,
+      "checkout_sha256": "664d423c14f88add6063a3b2e1fe2c9b562ed5f9daa77845220084ea561c4081",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/red_new_boundaries.command.json": {
+      "blob": "9d63f0a718fb16a852caaf502474f216cbb565fb",
+      "source_blob": "9d63f0a718fb16a852caaf502474f216cbb565fb",
+      "sha256": "0ac0ef9fc1cd8280cd836f1f90d3ba3607e393805987419cb1c2fedf2a7dcc70",
+      "size": 2278,
+      "checkout_sha256": "0ac0ef9fc1cd8280cd836f1f90d3ba3607e393805987419cb1c2fedf2a7dcc70",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/red_new_boundaries.stderr.txt": {
+      "blob": "c139356dc844f4794225829db5b3d248ac14f4a0",
+      "source_blob": "c139356dc844f4794225829db5b3d248ac14f4a0",
+      "sha256": "e7ba6884e20685ab5258ff675fdac9cd6caf1e7e7165257302106e12fa30e8e6",
+      "size": 17317,
+      "checkout_sha256": "e7ba6884e20685ab5258ff675fdac9cd6caf1e7e7165257302106e12fa30e8e6",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/red_new_boundaries.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/release.json": {
+      "blob": "5220aae7f5c848b36d1e6ff87f019a880d4a374f",
+      "source_blob": "5220aae7f5c848b36d1e6ff87f019a880d4a374f",
+      "sha256": "498a39e61c08a3a0df768c36d857d88af6e413252dc62df873b4934cc6ac1120",
+      "size": 731,
+      "checkout_sha256": "498a39e61c08a3a0df768c36d857d88af6e413252dc62df873b4934cc6ac1120",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/reviewable.diff.txt": {
+      "blob": "66dbad9f90e676bb7f705cf903c6d72871143d43",
+      "source_blob": "66dbad9f90e676bb7f705cf903c6d72871143d43",
+      "sha256": "c0a581832492ff3141250071ff5d7ba0f7ad341886d504b446a4434d5577452f",
+      "size": 18821,
+      "checkout_sha256": "c0a581832492ff3141250071ff5d7ba0f7ad341886d504b446a4434d5577452f",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/snapshot-source-receipt.json": {
+      "blob": "3966061c7ee109228a78cf449578bdc61c9a9e9a",
+      "source_blob": "3966061c7ee109228a78cf449578bdc61c9a9e9a",
+      "sha256": "538347f8f70adfb79f7dee32081a5527c2b3606a0ba47ba081b9f2bc44688ee5",
+      "size": 1255,
+      "checkout_sha256": "538347f8f70adfb79f7dee32081a5527c2b3606a0ba47ba081b9f2bc44688ee5",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/parser_provenance_migration/validation-summary.json": {
+      "blob": "4324bf55bcb3ffb8aeb944d4cf9c95518fd0b52a",
+      "source_blob": "4324bf55bcb3ffb8aeb944d4cf9c95518fd0b52a",
+      "sha256": "da45149b7baafd594fee2706c118f1059fc1e7af129a307a5c241746e9f68d9d",
+      "size": 3157,
+      "checkout_sha256": "da45149b7baafd594fee2706c118f1059fc1e7af129a307a5c241746e9f68d9d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/control_broker/test_deadlines.py": {
+      "blob": "11807dd97b29dab8ca1b8629923ea1dbcc12a9f8",
+      "source_blob": "11807dd97b29dab8ca1b8629923ea1dbcc12a9f8",
+      "sha256": "d6739eb0475ccf0ce450b0ebed13f5896e227783c2d41ab87851b1aad3170c8c",
+      "size": 29212,
+      "checkout_sha256": "d6739eb0475ccf0ce450b0ebed13f5896e227783c2d41ab87851b1aad3170c8c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/control_broker/test_mailbox.py": {
+      "blob": "4f962dc6ca2d8bc647f1aa5fdcb9362be7b94342",
+      "source_blob": "4f962dc6ca2d8bc647f1aa5fdcb9362be7b94342",
+      "sha256": "5f22312714ffda533bc9b3a7feaefde97a577aefa5f7a1248408f8ec1d75a125",
+      "size": 40555,
+      "checkout_sha256": "5f22312714ffda533bc9b3a7feaefde97a577aefa5f7a1248408f8ec1d75a125",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/control_broker/test_motion_request.py": {
+      "blob": "90edbfe3b7a738760ba9c70db75700c14749b23a",
+      "source_blob": "90edbfe3b7a738760ba9c70db75700c14749b23a",
+      "sha256": "286df39e7975e78063ed1a2a8d77a796e9645ca14954239ff551754231ead53a",
+      "size": 37887,
+      "checkout_sha256": "4d8bfb2c682592e05698824f5248d18af1c6cd0088ad44db31eb094ef01ccecb",
+      "checkout_exact": false,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/data_model/test_force_inventory.py": {
+      "blob": "616fb372e0b51676b5d94b908e0ba713536eb771",
+      "source_blob": "616fb372e0b51676b5d94b908e0ba713536eb771",
+      "sha256": "d5bc098714afe5565fe026dded51a39671f60228510e3f5898bf4fb23415f504",
+      "size": 24387,
+      "checkout_sha256": "acd1450966c6f94b470815c577a8ef0b7f1d9cc9de987472358162e30fbb72b5",
+      "checkout_exact": false,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/data_model/test_force_preprocess.py": {
+      "blob": "a17a0eb8f10692fc6db55709f677d04173c9624d",
+      "source_blob": "a17a0eb8f10692fc6db55709f677d04173c9624d",
+      "sha256": "238ab21224e705f03bf9555e43185e435adc3d809145097823e31c99a485ac00",
+      "size": 66835,
+      "checkout_sha256": "238ab21224e705f03bf9555e43185e435adc3d809145097823e31c99a485ac00",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tests/ai/data_model/test_verify_data.py": {
+      "blob": "8461c16b5f1675939335d76dd85dff5c0e9647d6",
+      "source_blob": "8461c16b5f1675939335d76dd85dff5c0e9647d6",
+      "sha256": "646d6c56434456a4ada81fa704b317dc072b945b55f9ba43c46870cd52fb3cb1",
+      "size": 79695,
+      "checkout_sha256": "646d6c56434456a4ada81fa704b317dc072b945b55f9ba43c46870cd52fb3cb1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/tools/verify_data.py": {
+      "blob": "930ed0b9a6783064a444a4078e921bc03b26ab78",
+      "source_blob": "930ed0b9a6783064a444a4078e921bc03b26ab78",
+      "sha256": "bf8a59490c334544ea6a7c95fe0156ec3c143e87756f75e937fd28abada4a551",
+      "size": 106220,
+      "checkout_sha256": "bf8a59490c334544ea6a7c95fe0156ec3c143e87756f75e937fd28abada4a551",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/.gitattributes": {
+      "blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "source_blob": "98f5487ae6088c4db6d98340ebe3e87cf32b5457",
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "size": 14,
+      "checkout_sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/artifact_manifest.json": {
+      "blob": "8460e3200e54c9ae150dd93831a129b04b56a085",
+      "source_blob": "8460e3200e54c9ae150dd93831a129b04b56a085",
+      "sha256": "82b519bfaf8ab4542fd035717104e83347e6abecf5b1c52314f1a21c3041aee6",
+      "size": 9928,
+      "checkout_sha256": "82b519bfaf8ab4542fd035717104e83347e6abecf5b1c52314f1a21c3041aee6",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/candidate_decode.py": {
+      "blob": "fda45538be1a2d36539f0c116cd705a4718bdae3",
+      "source_blob": "fda45538be1a2d36539f0c116cd705a4718bdae3",
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c",
+      "size": 10519,
+      "checkout_sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/capture.py": {
+      "blob": "0093e5974bce85bbb74ba1260b0369f8b57c5f47",
+      "source_blob": "0093e5974bce85bbb74ba1260b0369f8b57c5f47",
+      "sha256": "4fb0a04f353627628782b1bc0fe77c0a116e17d84fd2d0f67ada6ef8e402b184",
+      "size": 3019,
+      "checkout_sha256": "4fb0a04f353627628782b1bc0fe77c0a116e17d84fd2d0f67ada6ef8e402b184",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/preflight-01.command.json": {
+      "blob": "a1bcc0d70b220f4df7858a52a80c63bdb5cf84e1",
+      "source_blob": "a1bcc0d70b220f4df7858a52a80c63bdb5cf84e1",
+      "sha256": "5e56a7ee43e39822ab67f1e38295e06ee98e949efe372986d2a675b54ac16223",
+      "size": 970,
+      "checkout_sha256": "5e56a7ee43e39822ab67f1e38295e06ee98e949efe372986d2a675b54ac16223",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/preflight-01.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/preflight-01.stdout.txt": {
+      "blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "source_blob": "21254f3e8b1d137db34d28e79cd66c4c24b207f5",
+      "sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "size": 192,
+      "checkout_sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-01.command.json": {
+      "blob": "c738b9be766edb4f09bb634ec92c947b65303f0a",
+      "source_blob": "c738b9be766edb4f09bb634ec92c947b65303f0a",
+      "sha256": "7c55742a377f8bbaeaa12295c5ab1021ae3e02bb329b2f529527b1ff2d207619",
+      "size": 1108,
+      "checkout_sha256": "7c55742a377f8bbaeaa12295c5ab1021ae3e02bb329b2f529527b1ff2d207619",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-01.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-01.stdout.txt": {
+      "blob": "a77ebc953d5660647b5ab33f4e753f50e32fef59",
+      "source_blob": "a77ebc953d5660647b5ab33f4e753f50e32fef59",
+      "sha256": "90ff89300f4af90908cacac60750c38ff1652ca6fe90c3ad19118e1aaa3b22af",
+      "size": 307,
+      "checkout_sha256": "90ff89300f4af90908cacac60750c38ff1652ca6fe90c3ad19118e1aaa3b22af",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-02.command.json": {
+      "blob": "b0371bbe3d36b6fbe6b092351af258043207a027",
+      "source_blob": "b0371bbe3d36b6fbe6b092351af258043207a027",
+      "sha256": "a29b99054f4d0b5f2c8aa257f20e2ebe65f61b5ee67d47f741296bb55fc82863",
+      "size": 1281,
+      "checkout_sha256": "a29b99054f4d0b5f2c8aa257f20e2ebe65f61b5ee67d47f741296bb55fc82863",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-02.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/provenance-02.stdout.txt": {
+      "blob": "333bd14fb23c1b06d5bbccd9b371ec8aa265b6e4",
+      "source_blob": "333bd14fb23c1b06d5bbccd9b371ec8aa265b6e4",
+      "sha256": "e41b8c619e5981a472c307d6128023738a8e43ebccb2f89ae4badd20b94838b3",
+      "size": 334,
+      "checkout_sha256": "e41b8c619e5981a472c307d6128023738a8e43ebccb2f89ae4badd20b94838b3",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-01.command.json": {
+      "blob": "a862d2e5717d031a5b4ff4ad02adb79674ece408",
+      "source_blob": "a862d2e5717d031a5b4ff4ad02adb79674ece408",
+      "sha256": "933769faacb44af5078de8d6bc1d50391c36f820d0f5221adb9bc631f63b26e4",
+      "size": 1011,
+      "checkout_sha256": "933769faacb44af5078de8d6bc1d50391c36f820d0f5221adb9bc631f63b26e4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-01.stderr.txt": {
+      "blob": "2f4786489518f06d497d645452c004011c709e23",
+      "source_blob": "2f4786489518f06d497d645452c004011c709e23",
+      "sha256": "e57f0e7bf74234daa6c32aa58da5a98962c58aa8c26139c87467fa5d7b1ee708",
+      "size": 1031,
+      "checkout_sha256": "e57f0e7bf74234daa6c32aa58da5a98962c58aa8c26139c87467fa5d7b1ee708",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-01.stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-02.command.json": {
+      "blob": "2c32e65972f617d2f2185b5c0670f88e6e0ab380",
+      "source_blob": "2c32e65972f617d2f2185b5c0670f88e6e0ab380",
+      "sha256": "8148679963bdd173334085a0e89b408d768facda6b942b8b45952901226a0b18",
+      "size": 1011,
+      "checkout_sha256": "8148679963bdd173334085a0e89b408d768facda6b942b8b45952901226a0b18",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-02.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-02.stdout.txt": {
+      "blob": "2a6f14e67e465bcf15c2225267ccc9332a9cb820",
+      "source_blob": "2a6f14e67e465bcf15c2225267ccc9332a9cb820",
+      "sha256": "a3d5d4ed0050decef5557a4ae0bafbb52a7286efddca8869bfc7262be46325d5",
+      "size": 24892,
+      "checkout_sha256": "a3d5d4ed0050decef5557a4ae0bafbb52a7286efddca8869bfc7262be46325d5",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-03.command.json": {
+      "blob": "79b86fda695a7af6bf91ae3da308d852413771e1",
+      "source_blob": "79b86fda695a7af6bf91ae3da308d852413771e1",
+      "sha256": "28b7ff9ae076d27bb1a60bdd5c10e826ce97ddae34de6283f6270c18866e89b7",
+      "size": 1011,
+      "checkout_sha256": "28b7ff9ae076d27bb1a60bdd5c10e826ce97ddae34de6283f6270c18866e89b7",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-03.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-03.stdout.txt": {
+      "blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "source_blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "size": 27481,
+      "checkout_sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-final.command.json": {
+      "blob": "f44f99aa652283514fa8c09a2e2a0763ab0658d4",
+      "source_blob": "f44f99aa652283514fa8c09a2e2a0763ab0658d4",
+      "sha256": "1e9c9c1d50996a585114de43f6a81351698e070f945947a12d2912dbb989194c",
+      "size": 1186,
+      "checkout_sha256": "1e9c9c1d50996a585114de43f6a81351698e070f945947a12d2912dbb989194c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-final.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/replay-final.stdout.txt": {
+      "blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "source_blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "size": 27481,
+      "checkout_sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/scope-01.command.json": {
+      "blob": "5702857af040cfd2342cffd25f8da50eecea4fab",
+      "source_blob": "5702857af040cfd2342cffd25f8da50eecea4fab",
+      "sha256": "2d9b6f7e0fcb5354864713ae7cac693b2141d9e943e2268978a0078605e4dd35",
+      "size": 1278,
+      "checkout_sha256": "2d9b6f7e0fcb5354864713ae7cac693b2141d9e943e2268978a0078605e4dd35",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/scope-01.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/captures/scope-01.stdout.txt": {
+      "blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "source_blob": "431ed7a3bf6822f8572c916076d549b5c97534eb",
+      "sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "size": 272,
+      "checkout_sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_expected.json": {
+      "blob": "750cf65aefbc6c31581d04ea6c8a517f511d4341",
+      "source_blob": "750cf65aefbc6c31581d04ea6c8a517f511d4341",
+      "sha256": "5e607d78e553d54e321f85cc1b026dd286ef8fd19c23e2cb7b918c6162585caa",
+      "size": 357580,
+      "checkout_sha256": "5e607d78e553d54e321f85cc1b026dd286ef8fd19c23e2cb7b918c6162585caa",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/README.md": {
+      "blob": "2642832dac427a288298a6f2c36f5be4f58c1132",
+      "source_blob": "2642832dac427a288298a6f2c36f5be4f58c1132",
+      "sha256": "1b91ead03a6b1aeae2960ee849f5829800dba59e31b65b334ce7755506198d8a",
+      "size": 4576,
+      "checkout_sha256": "1b91ead03a6b1aeae2960ee849f5829800dba59e31b65b334ce7755506198d8a",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/candidate_snapshot.py": {
+      "blob": "fda45538be1a2d36539f0c116cd705a4718bdae3",
+      "source_blob": "fda45538be1a2d36539f0c116cd705a4718bdae3",
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c",
+      "size": 10519,
+      "checkout_sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/capture.py": {
+      "blob": "297b646d137517d17d9eb066891832298b74f025",
+      "source_blob": "297b646d137517d17d9eb066891832298b74f025",
+      "sha256": "02a9459b3e3613ebcb0139e9b693e0d113b8543c1dc434a5ec7339887cb9e311",
+      "size": 3526,
+      "checkout_sha256": "02a9459b3e3613ebcb0139e9b693e0d113b8543c1dc434a5ec7339887cb9e311",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/finalize.py": {
+      "blob": "5f9d6df4a8cd851b0ec3bb6b3ce68f97cd781fb5",
+      "source_blob": "5f9d6df4a8cd851b0ec3bb6b3ce68f97cd781fb5",
+      "sha256": "4c6a3bea57448148ce2e4d2ed6e0f6f424c3759d848048e05e540bcca65e6375",
+      "size": 2299,
+      "checkout_sha256": "4c6a3bea57448148ce2e4d2ed6e0f6f424c3759d848048e05e540bcca65e6375",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/manifest.json": {
+      "blob": "370ade288e537ee960ede64a0c5e62a737ca9b4e",
+      "source_blob": "370ade288e537ee960ede64a0c5e62a737ca9b4e",
+      "sha256": "7db19ca290a0acebb7f086ba533f2298942d087943bf02e4a09b7421905977ea",
+      "size": 2222,
+      "checkout_sha256": "7db19ca290a0acebb7f086ba533f2298942d087943bf02e4a09b7421905977ea",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/metrics.json": {
+      "blob": "615e07292918882cdd794bb2472f1009d9de2d8d",
+      "source_blob": "615e07292918882cdd794bb2472f1009d9de2d8d",
+      "sha256": "e58796e9b09549333efeaa1970cd6c0afdf3bafa19312ba381b0e6af33e6468d",
+      "size": 393,
+      "checkout_sha256": "e58796e9b09549333efeaa1970cd6c0afdf3bafa19312ba381b0e6af33e6468d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/normative_inputs/TRACE_CANDIDATE.md": {
+      "blob": "a2a3f1fa097f8ec88146d42d3b7fbc5a0f300fb8",
+      "source_blob": "a2a3f1fa097f8ec88146d42d3b7fbc5a0f300fb8",
+      "sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b",
+      "size": 24050,
+      "checkout_sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/normative_inputs/main_candidate_spec.md": {
+      "blob": "5970501901b8c698f10b1a6b6bd7c8a9acc6f30d",
+      "source_blob": "5970501901b8c698f10b1a6b6bd7c8a9acc6f30d",
+      "sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73",
+      "size": 11748,
+      "checkout_sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/normative_inputs/main_manual_vectors.json": {
+      "blob": "df3e3eb0b0ef7b406dc1ef15898d12725a3d17f2",
+      "source_blob": "df3e3eb0b0ef7b406dc1ef15898d12725a3d17f2",
+      "sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24",
+      "size": 31201,
+      "checkout_sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/normative_inputs/trace_candidate_layout.json": {
+      "blob": "339147cf8ed75395e9749fc451caa92c327931a8",
+      "source_blob": "339147cf8ed75395e9749fc451caa92c327931a8",
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c",
+      "size": 9784,
+      "checkout_sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/normative_inputs/trace_candidate_vectors.json": {
+      "blob": "66516f1e3f677acee6adcd9d23f3957f6683eca7",
+      "source_blob": "66516f1e3f677acee6adcd9d23f3957f6683eca7",
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2",
+      "size": 530236,
+      "checkout_sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/probe.py": {
+      "blob": "89f6a3450da3400674a3ad1b553cbeb0b14a9123",
+      "source_blob": "89f6a3450da3400674a3ad1b553cbeb0b14a9123",
+      "sha256": "cc46c1280a925101b2bbd920102c683eb0b6677031c156f64582673ea01e3790",
+      "size": 14079,
+      "checkout_sha256": "cc46c1280a925101b2bbd920102c683eb0b6677031c156f64582673ea01e3790",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/release.json": {
+      "blob": "adcfd7e7e24c39c078f572e4336de9485e217802",
+      "source_blob": "adcfd7e7e24c39c078f572e4336de9485e217802",
+      "sha256": "87756792175725788cfdaba4cf16633f29cf00fd8b3b1216ed4bba27f8ecd64d",
+      "size": 781,
+      "checkout_sha256": "87756792175725788cfdaba4cf16633f29cf00fd8b3b1216ed4bba27f8ecd64d",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/result.json": {
+      "blob": "a8f3673445c40a8192a381bac14082dee0c66bcb",
+      "source_blob": "a8f3673445c40a8192a381bac14082dee0c66bcb",
+      "sha256": "3a2d1089e7f638e6107d986f7ee2c7ca88caa193a305ee29650f3a8b683bfcb4",
+      "size": 2310,
+      "checkout_sha256": "3a2d1089e7f638e6107d986f7ee2c7ca88caa193a305ee29650f3a8b683bfcb4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/stderr.txt": {
+      "blob": "02f912aacf4df21db8310ce6eeedf21702e40016",
+      "source_blob": "02f912aacf4df21db8310ce6eeedf21702e40016",
+      "sha256": "28a2a7f261eea65a1d727ea97ca14b9be2e651c9d69fd78554b2668647b76973",
+      "size": 789,
+      "checkout_sha256": "28a2a7f261eea65a1d727ea97ca14b9be2e651c9d69fd78554b2668647b76973",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/independent_review/stdout.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/input_manifest.json": {
+      "blob": "ad1be1f6ff51c59b4f21882171448157de0a11a5",
+      "source_blob": "ad1be1f6ff51c59b4f21882171448157de0a11a5",
+      "sha256": "762e8971148d7570fcdbfadbfe52e1d68486273c731660e2ed84f4fa4cceda9e",
+      "size": 4572,
+      "checkout_sha256": "762e8971148d7570fcdbfadbfe52e1d68486273c731660e2ed84f4fa4cceda9e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/TRACE_CANDIDATE.md": {
+      "blob": "a2a3f1fa097f8ec88146d42d3b7fbc5a0f300fb8",
+      "source_blob": "a2a3f1fa097f8ec88146d42d3b7fbc5a0f300fb8",
+      "sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b",
+      "size": 24050,
+      "checkout_sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/immutable_scope.json": {
+      "blob": "190e46b7dee1dba49f0d92f9044a898931a7644b",
+      "source_blob": "190e46b7dee1dba49f0d92f9044a898931a7644b",
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "size": 6684,
+      "checkout_sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/immutable_scope.md": {
+      "blob": "f744f507f5e972f77a07de7099bb381c1085961d",
+      "source_blob": "f744f507f5e972f77a07de7099bb381c1085961d",
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "size": 6139,
+      "checkout_sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/main_candidate_spec.md": {
+      "blob": "5970501901b8c698f10b1a6b6bd7c8a9acc6f30d",
+      "source_blob": "5970501901b8c698f10b1a6b6bd7c8a9acc6f30d",
+      "sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73",
+      "size": 11748,
+      "checkout_sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/main_manual_vectors.json": {
+      "blob": "df3e3eb0b0ef7b406dc1ef15898d12725a3d17f2",
+      "source_blob": "df3e3eb0b0ef7b406dc1ef15898d12725a3d17f2",
+      "sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24",
+      "size": 31201,
+      "checkout_sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/trace_candidate_layout.json": {
+      "blob": "339147cf8ed75395e9749fc451caa92c327931a8",
+      "source_blob": "339147cf8ed75395e9749fc451caa92c327931a8",
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c",
+      "size": 9784,
+      "checkout_sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/inputs/trace_candidate_vectors.json": {
+      "blob": "66516f1e3f677acee6adcd9d23f3957f6683eca7",
+      "source_blob": "66516f1e3f677acee6adcd9d23f3957f6683eca7",
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2",
+      "size": 530236,
+      "checkout_sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/main-review.json": {
+      "blob": "9bb37962946d2d2c313debcf83b264577271f070",
+      "source_blob": "9bb37962946d2d2c313debcf83b264577271f070",
+      "sha256": "78492b81f89dedade11530da49e69377b1b41a374c0ccb7a31e7c7905bff21f9",
+      "size": 1416,
+      "checkout_sha256": "78492b81f89dedade11530da49e69377b1b41a374c0ccb7a31e7c7905bff21f9",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/main_probe.py": {
+      "blob": "884339466295ab01dde41f12a7ecd9ca854d165b",
+      "source_blob": "884339466295ab01dde41f12a7ecd9ca854d165b",
+      "sha256": "cdc42e3418fc69d57746d5d59109201f8fd0cbba800ef91d6c6e3c4db93e13ce",
+      "size": 3439,
+      "checkout_sha256": "cdc42e3418fc69d57746d5d59109201f8fd0cbba800ef91d6c6e3c4db93e13ce",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/portable-provenance.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/portable-provenance.stdout.txt": {
+      "blob": "edcb7cb5c682c74910d6831e8f7bb93dc2b23e27",
+      "source_blob": "edcb7cb5c682c74910d6831e8f7bb93dc2b23e27",
+      "sha256": "74862e323ebbc338ad4a52916d84dffcafedce10c5fdec803e8020945871d1ea",
+      "size": 335,
+      "checkout_sha256": "74862e323ebbc338ad4a52916d84dffcafedce10c5fdec803e8020945871d1ea",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/portable-replay.stderr.txt": {
+      "blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "source_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0,
+      "checkout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/portable-replay.stdout.txt": {
+      "blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "source_blob": "64939afca8550bc94a93df04a0dea24708464def",
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "size": 27481,
+      "checkout_sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/portable-result.json": {
+      "blob": "7cb5b4f868d64a08a1fd6db5be4efe74901cffb7",
+      "source_blob": "7cb5b4f868d64a08a1fd6db5be4efe74901cffb7",
+      "sha256": "981df75b0e5b7aaa78e60de0c0d3ab07e28f99ca62e5706488ca011d2ba539cc",
+      "size": 1347,
+      "checkout_sha256": "981df75b0e5b7aaa78e60de0c0d3ab07e28f99ca62e5706488ca011d2ba539cc",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/result.json": {
+      "blob": "692575faeabb0febefe09b80b2f14377b7b0646f",
+      "source_blob": "692575faeabb0febefe09b80b2f14377b7b0646f",
+      "sha256": "bf5a40bea6cddea4d0d2259802fdd5433126160db1b5ee9a8c31ee0d0ed05ba0",
+      "size": 832,
+      "checkout_sha256": "bf5a40bea6cddea4d0d2259802fdd5433126160db1b5ee9a8c31ee0d0ed05ba0",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/stderr.txt": {
+      "blob": "cdc5fbb513bacc6495cd03918e819eea4d86e9a0",
+      "source_blob": "cdc5fbb513bacc6495cd03918e819eea4d86e9a0",
+      "sha256": "54981ac1344b130988aafd49161000e94fc437bf96ee07b27ff7b19249c2970b",
+      "size": 659,
+      "checkout_sha256": "54981ac1344b130988aafd49161000e94fc437bf96ee07b27ff7b19249c2970b",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/main_review/stdout.txt": {
+      "blob": "392f9d6ad25f22e023d02a977f83b8e802a39b3b",
+      "source_blob": "392f9d6ad25f22e023d02a977f83b8e802a39b3b",
+      "sha256": "4381636903792c05249464de0ad9eed0c43b49f0da7dcfd051cfae86e4113abb",
+      "size": 80,
+      "checkout_sha256": "4381636903792c05249464de0ad9eed0c43b49f0da7dcfd051cfae86e4113abb",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/provenance.py": {
+      "blob": "630a95869a7e2a31ccdc469ac95d12407174443b",
+      "source_blob": "630a95869a7e2a31ccdc469ac95d12407174443b",
+      "sha256": "a4383f9e34260bad8112ad09333ca03e483a473eef0ed3a269bc90d7da34ef49",
+      "size": 5398,
+      "checkout_sha256": "a4383f9e34260bad8112ad09333ca03e483a473eef0ed3a269bc90d7da34ef49",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/release.json": {
+      "blob": "b9aecbf5025ebd60b71fdad021b85de5a0d7a8ad",
+      "source_blob": "b9aecbf5025ebd60b71fdad021b85de5a0d7a8ad",
+      "sha256": "e0bc00428ce7b4c45499e84ebf017d6cadc11c05c620ce8305edc1ccd7310d41",
+      "size": 1021,
+      "checkout_sha256": "e0bc00428ce7b4c45499e84ebf017d6cadc11c05c620ce8305edc1ccd7310d41",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/replay.py": {
+      "blob": "eca8876ed242daa698573f046a42ec1db789d2a1",
+      "source_blob": "eca8876ed242daa698573f046a42ec1db789d2a1",
+      "sha256": "e0135756de0233252413ae76fd211d31ba13a7c6e22eae363b512d9ea8d59f4e",
+      "size": 22945,
+      "checkout_sha256": "e0135756de0233252413ae76fd211d31ba13a7c6e22eae363b512d9ea8d59f4e",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/replay_results.json": {
+      "blob": "a3fd613f53fd39f5921d019146091d44f5c7e51e",
+      "source_blob": "a3fd613f53fd39f5921d019146091d44f5c7e51e",
+      "sha256": "2c45593d9842bbdd774e2094c0759689fbda5e4955c1a0bc08f09de88555c485",
+      "size": 39975,
+      "checkout_sha256": "2c45593d9842bbdd774e2094c0759689fbda5e4955c1a0bc08f09de88555c485",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/report.md": {
+      "blob": "02a4cce84a12928b8493d83c2dfdb603a407a68c",
+      "source_blob": "02a4cce84a12928b8493d83c2dfdb603a407a68c",
+      "sha256": "956d83f79bdf9fce152b1751432fc84c1676b08d334fff14243896b83d40e1ae",
+      "size": 7755,
+      "checkout_sha256": "956d83f79bdf9fce152b1751432fc84c1676b08d334fff14243896b83d40e1ae",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/seal.py": {
+      "blob": "7314ef6b6573fc9c7b8471f5aa02e8ddab7809a5",
+      "source_blob": "7314ef6b6573fc9c7b8471f5aa02e8ddab7809a5",
+      "sha256": "4afb33bb76173fb216c42c9080fef382880608be8ecd860f7e415cd9cf1c9f60",
+      "size": 2735,
+      "checkout_sha256": "4afb33bb76173fb216c42c9080fef382880608be8ecd860f7e415cd9cf1c9f60",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    },
+    "competition/deepeye/evidence/ai/trace_candidate_decode/source_versions.json": {
+      "blob": "e877d3e8a849b3e40cdc96b502f5703fd494e6aa",
+      "source_blob": "e877d3e8a849b3e40cdc96b502f5703fd494e6aa",
+      "sha256": "e1da8e76506179c160fb29bc284acc7cb0dbe458782e0e65ba8bbc0f3b492a60",
+      "size": 989,
+      "checkout_sha256": "e1da8e76506179c160fb29bc284acc7cb0dbe458782e0e65ba8bbc0f3b492a60",
+      "checkout_exact": true,
+      "only_line_endings_differ": true
+    }
+  }
+}

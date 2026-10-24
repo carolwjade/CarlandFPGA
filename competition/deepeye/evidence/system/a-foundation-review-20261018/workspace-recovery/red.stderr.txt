@@ -1,0 +1,15 @@
+test_exit_role_cannot_use_string_alias_to_select_blue_entry_aperture (competition.deepeye.tests.simulation.test_workspace_boundaries.WorkspaceBoundaryTests.test_exit_role_cannot_use_string_alias_to_select_blue_entry_aperture) ... FAIL
+
+======================================================================
+FAIL: test_exit_role_cannot_use_string_alias_to_select_blue_entry_aperture (competition.deepeye.tests.simulation.test_workspace_boundaries.WorkspaceBoundaryTests.test_exit_role_cannot_use_string_alias_to_select_blue_entry_aperture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_workspace_boundaries.py", line 79, in test_exit_role_cannot_use_string_alias_to_select_blue_entry_aperture
+    with self.assertRaises(ValueError):w.check_slice(prepared,0,RoleAlias('exit'))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)

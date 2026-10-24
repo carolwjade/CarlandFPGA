@@ -1,0 +1,47 @@
+{
+  "status": "reference_checks_passed",
+  "scope": "reference_only",
+  "R01": "not_run",
+  "formal_acceptance": false,
+  "hardware_enable_eligible": false,
+  "coverage": {
+    "human_requirements": 15,
+    "official_requirements": 15,
+    "core_metrics": 5,
+    "special_metrics": 2,
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+  },
+  "source": {
+    "status": "passed",
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\sources\\amd_guide_20260831.pdf",
+    "bytes": 950952,
+    "sha256": "c6ad82acd4f7bdcd13bd412e232ed85d05f2a87dd5e2cdd04f9d219f88b569fc",
+    "scope": "exact frozen source identity; no fresh online retrieval or semantic re-interpretation"
+  },
+  "declared_gates": {
+    "rules_trace": "mapped_from_verified_local_pdf",
+    "rocm_project_C03": "not_run",
+    "physical_gain_rules_recognition": "not_run",
+    "physical_gain_engineering_A05": "not_run",
+    "R01": "not_run"
+  },
+  "registration_claim": {
+    "status": "human_confirmed_in_frozen_handoff",
+    "independent_receipt_verified": false,
+    "action": "archive existing registration only; no re-registration"
+  },
+  "remaining_gates": [
+    "independent registration/qualification evidence",
+    "organizer rule recognition of the proposed real physical task",
+    "actual ROCm project and physical engineering evidence owned by their cards",
+    "separately reviewed formal acceptance integration"
+  ],
+  "note": "Metadata status fields are claims; this read-only checker cannot accept measured or human qualification gates.",
+  "artifact_sha256": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-tamper\\competition\\deepeye\\docs\\rules.json": "cb263981ba8e52b3b4ab651625e6b1196e36f3291d29cc8c950f7985653f20c5",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-tamper\\competition\\deepeye\\docs\\requirements_trace.csv": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\r01-checker-review\\work\\counterexamples\\weights-tamper\\docs\\competition\\deepeye-2026\\immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+  },
+  "source_inside_checkout": false,
+  "checked_utc": "2026-10-19T16:42:53.877980+00:00"
+}

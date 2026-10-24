@@ -1,0 +1,60 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "outer_argv_prefix": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8"
+  ],
+  "outer_cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+  "outer_invocations": [
+    {
+      "script": "baseline.py",
+      "exit_code": 0
+    },
+    {
+      "script": "run_independent.py",
+      "exit_code": 1
+    },
+    {
+      "script": "run_continuation.py",
+      "exit_code": 0
+    },
+    {
+      "script": "finalize_review.py",
+      "exit_code": 0
+    }
+  ],
+  "author_baseline": {
+    "tests": 135,
+    "passed": 135,
+    "exit_code": 0
+  },
+  "independent": {
+    "tests": 8,
+    "passed": 7,
+    "failures": 1,
+    "errors": 0,
+    "exit_code": 1
+  },
+  "continuation_observer": {
+    "exit_code": 0,
+    "meaning": "Successful observation of missing fail-stop; not safety pass",
+    "observed": {
+      "after_failure": {
+        "pose_revision": 1,
+        "stopped": false,
+        "trial_failed": false
+      },
+      "all_records_are_explicit_software_fixtures": true,
+      "materialization_error_observed": true,
+      "same_boot": true,
+      "same_command": true,
+      "second_commit_without_boot_or_readmission": {
+        "end_ns": 1030000000,
+        "pose_revision": 2,
+        "start_ns": 1020000000
+      }
+    }
+  }
+}

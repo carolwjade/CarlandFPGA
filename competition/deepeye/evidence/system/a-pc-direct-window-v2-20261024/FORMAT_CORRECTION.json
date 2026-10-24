@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:50:27.679829+00:00",
+  "kind": "post_review_single_LF_EOF_correction",
+  "file": "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py",
+  "reviewed_sha256": "bc360a4225070addfb676a0a1f5349612bf7ea5e661b802af5f756536b71c7fa",
+  "published_sha256": "9a4b97b105ad9c675235cfd405584bbf16452744a7bc197fa13a640417685ed7",
+  "reviewed_bytes": 10513,
+  "published_bytes": 10512,
+  "removed_bytes_hex": "0a",
+  "only_change": "remove one empty final line",
+  "python_AST_identical": true,
+  "all_six_other_reviewed_source_files_unchanged": true,
+  "behavior_tests_rerun": false,
+  "original_review_source_and_logs_preserved": "review-evidence.zip",
+  "commit_had_not_started": true,
+  "precommit_gate_exit": 2,
+  "precommit_gate_stdout": "competition/deepeye/tests/simulation/test_pc_direct_window_v2.py:205: new blank line at EOF.\n",
+  "protected_files_unchanged": true
+}

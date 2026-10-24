@@ -1,0 +1,29 @@
+test_01_stop_during_boot_verification_cannot_be_erased_by_same_boot (__main__.IndependentRuntime.test_01_stop_during_boot_verification_cannot_be_erased_by_same_boot) ... FAIL
+test_02_rejected_reentrant_event_during_boot_remains_latched (__main__.IndependentRuntime.test_02_rejected_reentrant_event_during_boot_remains_latched) ... FAIL
+test_03_reentrant_stop_during_ai_command_admission_vetoes (__main__.IndependentRuntime.test_03_reentrant_stop_during_ai_command_admission_vetoes) ... ok
+test_04_exact_observation_duplicate_cannot_extend_original_sample_age (__main__.IndependentRuntime.test_04_exact_observation_duplicate_cannot_extend_original_sample_age) ... ok
+test_05_saved_successful_fence_cannot_be_reused_after_commit_returns (__main__.IndependentRuntime.test_05_saved_successful_fence_cannot_be_reused_after_commit_returns) ... ok
+test_06_failed_fence_consumes_even_when_executor_suppresses_then_omits_retry (__main__.IndependentRuntime.test_06_failed_fence_consumes_even_when_executor_suppresses_then_omits_retry) ... ok
+test_07_last_four_eviction_never_restores_retired_sequence (__main__.IndependentRuntime.test_07_last_four_eviction_never_restores_retired_sequence) ... ok
+test_08_invalid_event_during_geometry_prepare_vetoes_fence_even_if_caught (__main__.IndependentRuntime.test_08_invalid_event_during_geometry_prepare_vetoes_fence_even_if_caught) ... ok
+
+======================================================================
+FAIL: test_01_stop_during_boot_verification_cannot_be_erased_by_same_boot (__main__.IndependentRuntime.test_01_stop_during_boot_verification_cannot_be_erased_by_same_boot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\pc-runtime-independent\adversarial_runtime.py", line 31, in test_01_stop_during_boot_verification_cannot_be_erased_by_same_boot
+    self.assertFalse(result.committed,'BOOT activation erased a STOP raised during its own verifier')
+AssertionError: True is not false : BOOT activation erased a STOP raised during its own verifier
+
+======================================================================
+FAIL: test_02_rejected_reentrant_event_during_boot_remains_latched (__main__.IndependentRuntime.test_02_rejected_reentrant_event_during_boot_remains_latched)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\pc-runtime-independent\adversarial_runtime.py", line 47, in test_02_rejected_reentrant_event_during_boot_remains_latched
+    self.assertFalse(result.committed,'same in-flight BOOT cleared a rejected event STOP')
+AssertionError: True is not false : same in-flight BOOT cleared a rejected event STOP
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.041s
+
+FAILED (failures=2)

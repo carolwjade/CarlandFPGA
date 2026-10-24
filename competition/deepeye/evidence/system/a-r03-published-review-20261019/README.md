@@ -1,0 +1,3 @@
+The full reference entrypoint ran once on clean PR24 published head4523157db12203d127ceb6ae25f2d187e85c9cc9. All13 child commands exited0:246 discovered,245 passed,1 intentional nested pipeline skip. The full entrypoint itself stayed exit2/blocked; R03 and all29 formal cards remain not_run. No default ledger was created;61 artifact hashes and411 unchanged files were checked. This run predates the separately reviewed PC runtime source and does not silently extend its scope to that new adapter.
+
+Raw stdout, per-child outputs and exact receipt are retained; copying .log to .txt changes the filename only. Runner-preparation quoting failure is preserved. No board, service, native OS probe, UI or actual four-process runtime trial was performed.

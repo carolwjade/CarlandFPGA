@@ -1,0 +1,682 @@
+{
+  "utc": "2026-10-20T13:13:08.915191+00:00",
+  "artifacts": [
+    {
+      "path": "raw/b-normative/trace_candidate_layout.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/b-normative/trace_candidate_layout.json",
+      "bytes": 9784,
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c"
+    },
+    {
+      "path": "raw/b-normative/trace_candidate_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/b-normative/trace_candidate_vectors.json",
+      "bytes": 530236,
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2"
+    },
+    {
+      "path": "raw/c-main-controls-command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/c-main-controls-command.json",
+      "bytes": 1192,
+      "sha256": "beb0964c0ff4db820c5663a0385dc44d9264d6150f7d987ebf01550933cbda27"
+    },
+    {
+      "path": "raw/c-main-controls-result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/c-main-controls-result.json",
+      "bytes": 1416,
+      "sha256": "13672a045ee4b6c487840c4ddfdbf4793993739a7c2604d4c869b6943fc6ca50"
+    },
+    {
+      "path": "raw/c-main-controls-stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/c-main-controls-stderr.txt",
+      "bytes": 659,
+      "sha256": "5bb90a21144f87bebb374375357090fe2e078a527ed4cbc63ba120c6f40dd40e"
+    },
+    {
+      "path": "raw/c-main-controls-stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/c-main-controls-stdout.txt",
+      "bytes": 80,
+      "sha256": "4381636903792c05249464de0ad9eed0c43b49f0da7dcfd051cfae86e4113abb"
+    },
+    {
+      "path": "raw/candidate/.gitattributes",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/.gitattributes",
+      "bytes": 14,
+      "sha256": "85e48d232edc7b02f6cecf8fbbf905f3b126c467b594d8dd16c4f8fa283a8320"
+    },
+    {
+      "path": "raw/candidate/artifact_manifest.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/artifact_manifest.json",
+      "bytes": 9928,
+      "sha256": "82b519bfaf8ab4542fd035717104e83347e6abecf5b1c52314f1a21c3041aee6"
+    },
+    {
+      "path": "raw/candidate/candidate_decode.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/candidate_decode.py",
+      "bytes": 10519,
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c"
+    },
+    {
+      "path": "raw/candidate/capture.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/capture.py",
+      "bytes": 3019,
+      "sha256": "4fb0a04f353627628782b1bc0fe77c0a116e17d84fd2d0f67ada6ef8e402b184"
+    },
+    {
+      "path": "raw/candidate/captures/preflight-01.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/preflight-01.command.json",
+      "bytes": 970,
+      "sha256": "5e56a7ee43e39822ab67f1e38295e06ee98e949efe372986d2a675b54ac16223"
+    },
+    {
+      "path": "raw/candidate/captures/preflight-01.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/preflight-01.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/preflight-01.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/preflight-01.stdout.txt",
+      "bytes": 192,
+      "sha256": "a431b17aa3a337fed830fafd867ccac80c15ad7440f913347e03a5b0918eb501"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-01.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-01.command.json",
+      "bytes": 1108,
+      "sha256": "7c55742a377f8bbaeaa12295c5ab1021ae3e02bb329b2f529527b1ff2d207619"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-01.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-01.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-01.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-01.stdout.txt",
+      "bytes": 307,
+      "sha256": "90ff89300f4af90908cacac60750c38ff1652ca6fe90c3ad19118e1aaa3b22af"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-02.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-02.command.json",
+      "bytes": 1281,
+      "sha256": "a29b99054f4d0b5f2c8aa257f20e2ebe65f61b5ee67d47f741296bb55fc82863"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-02.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-02.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/provenance-02.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/provenance-02.stdout.txt",
+      "bytes": 334,
+      "sha256": "e41b8c619e5981a472c307d6128023738a8e43ebccb2f89ae4badd20b94838b3"
+    },
+    {
+      "path": "raw/candidate/captures/replay-01.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-01.command.json",
+      "bytes": 1011,
+      "sha256": "933769faacb44af5078de8d6bc1d50391c36f820d0f5221adb9bc631f63b26e4"
+    },
+    {
+      "path": "raw/candidate/captures/replay-01.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-01.stderr.txt",
+      "bytes": 1031,
+      "sha256": "e57f0e7bf74234daa6c32aa58da5a98962c58aa8c26139c87467fa5d7b1ee708"
+    },
+    {
+      "path": "raw/candidate/captures/replay-01.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-01.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/replay-02.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-02.command.json",
+      "bytes": 1011,
+      "sha256": "8148679963bdd173334085a0e89b408d768facda6b942b8b45952901226a0b18"
+    },
+    {
+      "path": "raw/candidate/captures/replay-02.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-02.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/replay-02.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-02.stdout.txt",
+      "bytes": 24892,
+      "sha256": "a3d5d4ed0050decef5557a4ae0bafbb52a7286efddca8869bfc7262be46325d5"
+    },
+    {
+      "path": "raw/candidate/captures/replay-03.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-03.command.json",
+      "bytes": 1011,
+      "sha256": "28b7ff9ae076d27bb1a60bdd5c10e826ce97ddae34de6283f6270c18866e89b7"
+    },
+    {
+      "path": "raw/candidate/captures/replay-03.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-03.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/replay-03.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-03.stdout.txt",
+      "bytes": 27481,
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1"
+    },
+    {
+      "path": "raw/candidate/captures/replay-final.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-final.command.json",
+      "bytes": 1186,
+      "sha256": "1e9c9c1d50996a585114de43f6a81351698e070f945947a12d2912dbb989194c"
+    },
+    {
+      "path": "raw/candidate/captures/replay-final.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-final.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/replay-final.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/replay-final.stdout.txt",
+      "bytes": 27481,
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1"
+    },
+    {
+      "path": "raw/candidate/captures/scope-01.command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/scope-01.command.json",
+      "bytes": 1278,
+      "sha256": "2d9b6f7e0fcb5354864713ae7cac693b2141d9e943e2268978a0078605e4dd35"
+    },
+    {
+      "path": "raw/candidate/captures/scope-01.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/scope-01.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/captures/scope-01.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/captures/scope-01.stdout.txt",
+      "bytes": 272,
+      "sha256": "e6a0a5722482707d449e03400819ffe28ddb53cb53e43f355e9645f5c9303f1c"
+    },
+    {
+      "path": "raw/candidate/independent_expected.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_expected.json",
+      "bytes": 357580,
+      "sha256": "5e607d78e553d54e321f85cc1b026dd286ef8fd19c23e2cb7b918c6162585caa"
+    },
+    {
+      "path": "raw/candidate/independent_review/candidate_snapshot.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/candidate_snapshot.py",
+      "bytes": 10519,
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c"
+    },
+    {
+      "path": "raw/candidate/independent_review/capture.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/capture.py",
+      "bytes": 3526,
+      "sha256": "02a9459b3e3613ebcb0139e9b693e0d113b8543c1dc434a5ec7339887cb9e311"
+    },
+    {
+      "path": "raw/candidate/independent_review/finalize.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/finalize.py",
+      "bytes": 2299,
+      "sha256": "4c6a3bea57448148ce2e4d2ed6e0f6f424c3759d848048e05e540bcca65e6375"
+    },
+    {
+      "path": "raw/candidate/independent_review/manifest.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/manifest.json",
+      "bytes": 2222,
+      "sha256": "7db19ca290a0acebb7f086ba533f2298942d087943bf02e4a09b7421905977ea"
+    },
+    {
+      "path": "raw/candidate/independent_review/metrics.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/metrics.json",
+      "bytes": 393,
+      "sha256": "e58796e9b09549333efeaa1970cd6c0afdf3bafa19312ba381b0e6af33e6468d"
+    },
+    {
+      "path": "raw/candidate/independent_review/normative_inputs/main_candidate_spec.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/normative_inputs/main_candidate_spec.md",
+      "bytes": 11748,
+      "sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73"
+    },
+    {
+      "path": "raw/candidate/independent_review/normative_inputs/main_manual_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/normative_inputs/main_manual_vectors.json",
+      "bytes": 31201,
+      "sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24"
+    },
+    {
+      "path": "raw/candidate/independent_review/normative_inputs/TRACE_CANDIDATE.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/normative_inputs/TRACE_CANDIDATE.md",
+      "bytes": 24050,
+      "sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b"
+    },
+    {
+      "path": "raw/candidate/independent_review/normative_inputs/trace_candidate_layout.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/normative_inputs/trace_candidate_layout.json",
+      "bytes": 9784,
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c"
+    },
+    {
+      "path": "raw/candidate/independent_review/normative_inputs/trace_candidate_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/normative_inputs/trace_candidate_vectors.json",
+      "bytes": 530236,
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2"
+    },
+    {
+      "path": "raw/candidate/independent_review/probe.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/probe.py",
+      "bytes": 14079,
+      "sha256": "cc46c1280a925101b2bbd920102c683eb0b6677031c156f64582673ea01e3790"
+    },
+    {
+      "path": "raw/candidate/independent_review/README.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/README.md",
+      "bytes": 4576,
+      "sha256": "1b91ead03a6b1aeae2960ee849f5829800dba59e31b65b334ce7755506198d8a"
+    },
+    {
+      "path": "raw/candidate/independent_review/release.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/release.json",
+      "bytes": 781,
+      "sha256": "87756792175725788cfdaba4cf16633f29cf00fd8b3b1216ed4bba27f8ecd64d"
+    },
+    {
+      "path": "raw/candidate/independent_review/result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/result.json",
+      "bytes": 2310,
+      "sha256": "3a2d1089e7f638e6107d986f7ee2c7ca88caa193a305ee29650f3a8b683bfcb4"
+    },
+    {
+      "path": "raw/candidate/independent_review/stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/stderr.txt",
+      "bytes": 789,
+      "sha256": "28a2a7f261eea65a1d727ea97ca14b9be2e651c9d69fd78554b2668647b76973"
+    },
+    {
+      "path": "raw/candidate/independent_review/stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/independent_review/stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/input_manifest.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/input_manifest.json",
+      "bytes": 4572,
+      "sha256": "762e8971148d7570fcdbfadbfe52e1d68486273c731660e2ed84f4fa4cceda9e"
+    },
+    {
+      "path": "raw/candidate/inputs/immutable_scope.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/immutable_scope.json",
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "path": "raw/candidate/inputs/immutable_scope.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/immutable_scope.md",
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    {
+      "path": "raw/candidate/inputs/main_candidate_spec.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/main_candidate_spec.md",
+      "bytes": 11748,
+      "sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73"
+    },
+    {
+      "path": "raw/candidate/inputs/main_manual_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/main_manual_vectors.json",
+      "bytes": 31201,
+      "sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24"
+    },
+    {
+      "path": "raw/candidate/inputs/TRACE_CANDIDATE.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/TRACE_CANDIDATE.md",
+      "bytes": 24050,
+      "sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b"
+    },
+    {
+      "path": "raw/candidate/inputs/trace_candidate_layout.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/trace_candidate_layout.json",
+      "bytes": 9784,
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c"
+    },
+    {
+      "path": "raw/candidate/inputs/trace_candidate_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/inputs/trace_candidate_vectors.json",
+      "bytes": 530236,
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2"
+    },
+    {
+      "path": "raw/candidate/main_review/main-review.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/main-review.json",
+      "bytes": 1416,
+      "sha256": "78492b81f89dedade11530da49e69377b1b41a374c0ccb7a31e7c7905bff21f9"
+    },
+    {
+      "path": "raw/candidate/main_review/main_probe.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/main_probe.py",
+      "bytes": 3439,
+      "sha256": "cdc42e3418fc69d57746d5d59109201f8fd0cbba800ef91d6c6e3c4db93e13ce"
+    },
+    {
+      "path": "raw/candidate/main_review/portable-provenance.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/portable-provenance.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/main_review/portable-provenance.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/portable-provenance.stdout.txt",
+      "bytes": 335,
+      "sha256": "74862e323ebbc338ad4a52916d84dffcafedce10c5fdec803e8020945871d1ea"
+    },
+    {
+      "path": "raw/candidate/main_review/portable-replay.stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/portable-replay.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/candidate/main_review/portable-replay.stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/portable-replay.stdout.txt",
+      "bytes": 27481,
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1"
+    },
+    {
+      "path": "raw/candidate/main_review/portable-result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/portable-result.json",
+      "bytes": 1347,
+      "sha256": "981df75b0e5b7aaa78e60de0c0d3ab07e28f99ca62e5706488ca011d2ba539cc"
+    },
+    {
+      "path": "raw/candidate/main_review/result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/result.json",
+      "bytes": 832,
+      "sha256": "bf5a40bea6cddea4d0d2259802fdd5433126160db1b5ee9a8c31ee0d0ed05ba0"
+    },
+    {
+      "path": "raw/candidate/main_review/stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/stderr.txt",
+      "bytes": 659,
+      "sha256": "54981ac1344b130988aafd49161000e94fc437bf96ee07b27ff7b19249c2970b"
+    },
+    {
+      "path": "raw/candidate/main_review/stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/main_review/stdout.txt",
+      "bytes": 80,
+      "sha256": "4381636903792c05249464de0ad9eed0c43b49f0da7dcfd051cfae86e4113abb"
+    },
+    {
+      "path": "raw/candidate/provenance.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/provenance.py",
+      "bytes": 5398,
+      "sha256": "a4383f9e34260bad8112ad09333ca03e483a473eef0ed3a269bc90d7da34ef49"
+    },
+    {
+      "path": "raw/candidate/release.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/release.json",
+      "bytes": 1021,
+      "sha256": "e0bc00428ce7b4c45499e84ebf017d6cadc11c05c620ce8305edc1ccd7310d41"
+    },
+    {
+      "path": "raw/candidate/replay.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/replay.py",
+      "bytes": 22945,
+      "sha256": "e0135756de0233252413ae76fd211d31ba13a7c6e22eae363b512d9ea8d59f4e"
+    },
+    {
+      "path": "raw/candidate/replay_results.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/replay_results.json",
+      "bytes": 39975,
+      "sha256": "2c45593d9842bbdd774e2094c0759689fbda5e4955c1a0bc08f09de88555c485"
+    },
+    {
+      "path": "raw/candidate/report.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/report.md",
+      "bytes": 7755,
+      "sha256": "956d83f79bdf9fce152b1751432fc84c1676b08d334fff14243896b83d40e1ae"
+    },
+    {
+      "path": "raw/candidate/seal.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/seal.py",
+      "bytes": 2735,
+      "sha256": "4afb33bb76173fb216c42c9080fef382880608be8ecd860f7e415cd9cf1c9f60"
+    },
+    {
+      "path": "raw/candidate/source_versions.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/candidate/source_versions.json",
+      "bytes": 989,
+      "sha256": "e1da8e76506179c160fb29bc284acc7cb0dbe458782e0e65ba8bbc0f3b492a60"
+    },
+    {
+      "path": "raw/check-results.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/check-results.json",
+      "bytes": 3257,
+      "sha256": "7c21c66f0d8f953360fe5e0316ed6d8a073c42d650b989aab7a5489e9d3dac5f"
+    },
+    {
+      "path": "raw/execution/candidate_decode.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/candidate_decode.py",
+      "bytes": 10519,
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c"
+    },
+    {
+      "path": "raw/execution/independent_expected.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/independent_expected.json",
+      "bytes": 357580,
+      "sha256": "5e607d78e553d54e321f85cc1b026dd286ef8fd19c23e2cb7b918c6162585caa"
+    },
+    {
+      "path": "raw/execution/independent_review/candidate_snapshot.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/independent_review/candidate_snapshot.py",
+      "bytes": 10519,
+      "sha256": "b02010280b72d3a94842db627f733df9c1fa6ecfe54f572509d57869d2d3d72c"
+    },
+    {
+      "path": "raw/execution/independent_review/metrics.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/independent_review/metrics.json",
+      "bytes": 393,
+      "sha256": "e58796e9b09549333efeaa1970cd6c0afdf3bafa19312ba381b0e6af33e6468d"
+    },
+    {
+      "path": "raw/execution/independent_review/probe.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/independent_review/probe.py",
+      "bytes": 14079,
+      "sha256": "cc46c1280a925101b2bbd920102c683eb0b6677031c156f64582673ea01e3790"
+    },
+    {
+      "path": "raw/execution/inputs/immutable_scope.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/immutable_scope.json",
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "path": "raw/execution/inputs/immutable_scope.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/immutable_scope.md",
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    {
+      "path": "raw/execution/inputs/main_candidate_spec.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/main_candidate_spec.md",
+      "bytes": 11748,
+      "sha256": "7bc33ebc28c9f08e200c539a1a59c07b42b36211cb49b08ac449875bf75f9a73"
+    },
+    {
+      "path": "raw/execution/inputs/main_manual_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/main_manual_vectors.json",
+      "bytes": 31201,
+      "sha256": "36b8e3fdb53e3c8fc911cc44b4f4151d62863d2e05b189f68c42fefe869b2d24"
+    },
+    {
+      "path": "raw/execution/inputs/TRACE_CANDIDATE.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/TRACE_CANDIDATE.md",
+      "bytes": 24050,
+      "sha256": "f702db7239082570a26856091a3131293b7df610c76d7af830415ed40a08d56b"
+    },
+    {
+      "path": "raw/execution/inputs/trace_candidate_layout.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/trace_candidate_layout.json",
+      "bytes": 9784,
+      "sha256": "0de9a9a303ed691c645beba2ba9d39c7eb2261a8df336ea321f5055a07436e9c"
+    },
+    {
+      "path": "raw/execution/inputs/trace_candidate_vectors.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/inputs/trace_candidate_vectors.json",
+      "bytes": 530236,
+      "sha256": "e9fb59aa20324ebdeffb25ac89f43e42a085b3d49cec3ee9104ff551d9409bf2"
+    },
+    {
+      "path": "raw/execution/main_review/main_probe.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/main_review/main_probe.py",
+      "bytes": 3439,
+      "sha256": "cdc42e3418fc69d57746d5d59109201f8fd0cbba800ef91d6c6e3c4db93e13ce"
+    },
+    {
+      "path": "raw/execution/provenance.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/provenance.py",
+      "bytes": 5398,
+      "sha256": "a4383f9e34260bad8112ad09333ca03e483a473eef0ed3a269bc90d7da34ef49"
+    },
+    {
+      "path": "raw/execution/replay.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/replay.py",
+      "bytes": 22945,
+      "sha256": "e0135756de0233252413ae76fd211d31ba13a7c6e22eae363b512d9ea8d59f4e"
+    },
+    {
+      "path": "raw/execution/replay_results.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/execution/replay_results.json",
+      "bytes": 39975,
+      "sha256": "2c45593d9842bbdd774e2094c0759689fbda5e4955c1a0bc08f09de88555c485"
+    },
+    {
+      "path": "raw/export_inputs.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/export_inputs.py",
+      "bytes": 2841,
+      "sha256": "8186a58c0bfff361ff976e7b8f1765c545bd6fd809b08742fea9d13ce4baf9a5"
+    },
+    {
+      "path": "raw/exported-inputs.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/exported-inputs.json",
+      "bytes": 24548,
+      "sha256": "584cf922b6300c4f39bbcdf390c89c8df7579a198e4cadccf227d6f4db83f6da"
+    },
+    {
+      "path": "raw/findings.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/findings.md",
+      "bytes": 3962,
+      "sha256": "ea1047a674bd24cc242e5f004f6216406f5036eb04a1c698d51b19459b1f2431"
+    },
+    {
+      "path": "raw/independent-qa-command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/independent-qa-command.json",
+      "bytes": 1003,
+      "sha256": "37148b9af982078505fe7bf16df0a8fa0b00f45c02c7e18850ab9aac4250d545"
+    },
+    {
+      "path": "raw/independent-qa-result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/independent-qa-result.json",
+      "bytes": 1241,
+      "sha256": "a9dc62f79d0e4a08bb3ee2691ea2db0cf083e0fef3baff673a099cb76f539567"
+    },
+    {
+      "path": "raw/independent-qa-stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/independent-qa-stderr.txt",
+      "bytes": 789,
+      "sha256": "07f2d485dd1e4601ef86fc6da23f9c4ed84a9a5f69a5f9e3f8263b1299e6ec70"
+    },
+    {
+      "path": "raw/independent-qa-stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/independent-qa-stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/initial-harness-failure.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/initial-harness-failure.json",
+      "bytes": 491,
+      "sha256": "5bb4a95842791cadceeeed404f47ef3979636268b8f5e284f4717fa4e2613999"
+    },
+    {
+      "path": "raw/plan.md",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/plan.md",
+      "bytes": 1586,
+      "sha256": "64447a3bcf919273eb13bb033e14cbe91d02dbda18d573b66882a07c4a49fb38"
+    },
+    {
+      "path": "raw/provenance-command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/provenance-command.json",
+      "bytes": 1009,
+      "sha256": "5c3244b05d00f6618c7bee4d891de206446bd270ba85045f5b566deba0db9d1d"
+    },
+    {
+      "path": "raw/provenance-result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/provenance-result.json",
+      "bytes": 1247,
+      "sha256": "cb1cc4714b10a65f6dff242c07ba7daf193b37a3452b1eaa9f001440feb3ac67"
+    },
+    {
+      "path": "raw/provenance-stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/provenance-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/provenance-stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/provenance-stdout.txt",
+      "bytes": 335,
+      "sha256": "74862e323ebbc338ad4a52916d84dffcafedce10c5fdec803e8020945871d1ea"
+    },
+    {
+      "path": "raw/replay-command.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/replay-command.json",
+      "bytes": 984,
+      "sha256": "dd889a12305a386607134623dcea5b40906196492a380d3d350fa1446fe2ca5c"
+    },
+    {
+      "path": "raw/replay-result.json",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/replay-result.json",
+      "bytes": 1222,
+      "sha256": "fb305f8e8924707bd406c4c63498754aa92756b645a334da7e13be72949c24d1"
+    },
+    {
+      "path": "raw/replay-stderr.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/replay-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "raw/replay-stdout.txt",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/replay-stdout.txt",
+      "bytes": 27481,
+      "sha256": "1cde66670c7b9002e363c39978e54cafed91949283042c5f6d4616bb189dcba1"
+    },
+    {
+      "path": "raw/run_checks.failed-v1.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/run_checks.failed-v1.py",
+      "bytes": 5808,
+      "sha256": "b92b4c45fb2e39b63a314441f271be0dbacc3a81242eeef82b53496bb3ef502b"
+    },
+    {
+      "path": "raw/run_checks.py",
+      "source": ".planning/deepeye-resume-20261018/c-trace-exact-review-20261020/run_checks.py",
+      "bytes": 5924,
+      "sha256": "a26e52aca5da074da753bd54b5635fe182aa23b361a5a8d7d240f7a4a1a4e74f"
+    }
+  ],
+  "source_C_commit": "942fa309ffc8f1d32c816cfa643b009b031d7d0a",
+  "B_normative_commit": "f7736ac737d1c7b256974beb1574b94096819270",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_does_not_include_private_data": true,
+  "all29": "not_run"
+}

@@ -1,0 +1,61 @@
+[
+  {
+    "id": 0,
+    "name": "independent_literal_positive",
+    "require": {
+      "min_handshakes": 1
+    }
+  },
+  {
+    "id": 1,
+    "name": "registered_pwm_loopback",
+    "require": {}
+  },
+  {
+    "id": 2,
+    "name": "legal_unmeasurable_(0, 1, 1)",
+    "require": {
+      "code": 6,
+      "max_handshakes": 0
+    }
+  },
+  {
+    "id": 3,
+    "name": "legal_unmeasurable_(0, 1, 1)",
+    "require": {
+      "code": 6,
+      "max_handshakes": 0
+    }
+  },
+  {
+    "id": 4,
+    "name": "legal_unmeasurable_(2, 1, 1)",
+    "require": {
+      "code": 6,
+      "max_handshakes": 0
+    }
+  },
+  {
+    "id": 5,
+    "name": "legal_unmeasurable_(1, 2, 1)",
+    "require": {
+      "code": 6,
+      "max_handshakes": 0
+    }
+  },
+  {
+    "id": 6,
+    "name": "legal_unmeasurable_(1, 1, 2)",
+    "require": {
+      "code": 6,
+      "max_handshakes": 0
+    }
+  },
+  {
+    "id": 7,
+    "name": "minimum_witness_exhaustion",
+    "require": {
+      "code": 4
+    }
+  }
+]

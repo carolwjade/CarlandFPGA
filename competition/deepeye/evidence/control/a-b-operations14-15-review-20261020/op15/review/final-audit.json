@@ -1,0 +1,734 @@
+{
+  "selected_files": 1795,
+  "handoff_entries": 1773,
+  "all_bytes_and_git_blobs_match": true,
+  "request_hash": "564729a70a21b5ff71526b85958f6a113a50e7943ae0ed07a72d976723d39272",
+  "repaired_commands_verified": 47,
+  "repaired_positive_totals": {
+    "assertions": 100587,
+    "cases": 1431,
+    "failure_events": 953,
+    "groups": 19,
+    "handshakes": 459,
+    "mismatches": 0,
+    "passed_scenarios": 19,
+    "raw_faults": 6,
+    "records": 476,
+    "samples": 208667,
+    "scenarios": 19,
+    "window_starts": 507
+  },
+  "strict_positive_markers_and_stats": [
+    {
+      "id": "g00-startup-controls",
+      "pass_marker": "# TB_PASS group=0 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=29 assertions=206 records=2 raw_faults=0 failure_events=0 window_starts=3 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g01-exhaustive-w2",
+      "pass_marker": "# TB_PASS group=1 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=99 samples=629 assertions=6705 records=9 raw_faults=0 failure_events=90 window_starts=9 handshakes=9 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g02-exhaustive-w3",
+      "pass_marker": "# TB_PASS group=2 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1295 samples=10927 assertions=90293 records=441 raw_faults=0 failure_events=854 window_starts=441 handshakes=441 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g03-faults-recovery",
+      "pass_marker": "# TB_PASS group=3 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=84 assertions=508 records=4 raw_faults=2 failure_events=4 window_starts=7 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g04-min-exhaustion",
+      "pass_marker": "# TB_PASS group=4 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=16 assertions=141 records=2 raw_faults=1 failure_events=1 window_starts=2 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g05-count16-boundaries",
+      "pass_marker": "# TB_PASS group=5 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=196613 assertions=127 records=1 raw_faults=1 failure_events=1 window_starts=2 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g06-max-width-bounded",
+      "pass_marker": "# TB_PASS group=6 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=23 assertions=130 records=2 raw_faults=0 failure_events=0 window_starts=2 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g07-default-smoke",
+      "pass_marker": "# TB_PASS group=7 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=13 assertions=73 records=1 raw_faults=0 failure_events=0 window_starts=1 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g08-loopback-record",
+      "pass_marker": "# TB_PASS group=8 loopback=1",
+      "stats": "# TB_STATS groups=1 cases=1 samples=12 assertions=75 records=1 raw_faults=0 failure_events=0 window_starts=1 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g09-loopback-exhaustion",
+      "pass_marker": "# TB_PASS group=9 loopback=1",
+      "stats": "# TB_STATS groups=1 cases=1 samples=10 assertions=68 records=0 raw_faults=1 failure_events=1 window_starts=1 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g10-phase-controls",
+      "pass_marker": "# TB_PASS group=10 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=15 samples=135 assertions=1110 records=0 raw_faults=0 failure_events=0 window_starts=20 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g11-same-edge-fault",
+      "pass_marker": "# TB_PASS group=11 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=30 assertions=154 records=2 raw_faults=1 failure_events=1 window_starts=2 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g12-future-waveform",
+      "pass_marker": "# TB_PASS group=12 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=9 assertions=48 records=1 raw_faults=0 failure_events=0 window_starts=1 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g13-same-tag-boundaries",
+      "pass_marker": "# TB_PASS group=13 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=36 assertions=250 records=4 raw_faults=0 failure_events=0 window_starts=4 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g14-control-at-handshake",
+      "pass_marker": "# TB_PASS group=14 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=30 assertions=221 records=3 raw_faults=0 failure_events=0 window_starts=3 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g15-constant-missing-edges",
+      "pass_marker": "# TB_PASS group=15 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=2 samples=32 assertions=174 records=1 raw_faults=0 failure_events=0 window_starts=3 handshakes=1 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g20-T-boundary-control",
+      "pass_marker": "# TB_PASS group=20 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=14 assertions=118 records=1 raw_faults=0 failure_events=0 window_starts=2 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g21-same-tag-control",
+      "pass_marker": "# TB_PASS group=21 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=14 assertions=118 records=1 raw_faults=0 failure_events=0 window_starts=2 handshakes=0 mismatches=0",
+      "exit": 0
+    },
+    {
+      "id": "g22-mismatch-control",
+      "pass_marker": "# TB_PASS group=22 loopback=0",
+      "stats": "# TB_STATS groups=1 cases=1 samples=11 assertions=68 records=0 raw_faults=0 failure_events=1 window_starts=1 handshakes=0 mismatches=0",
+      "exit": 0
+    }
+  ],
+  "mutants_actual_behaviors": [
+    {
+      "id": "m1-t-invalidation-delayed",
+      "group": 21,
+      "expect": "fail",
+      "exit": 0,
+      "mismatches": 2,
+      "mismatch_labels": [
+        "T_suppresses_preexisting_out_valid",
+        "T_suppresses_old_handshake"
+      ],
+      "diagnostics": [
+        "** Fatal: TB_FAIL public-port self-check"
+      ]
+    },
+    {
+      "id": "m2-same-tag-state-retained",
+      "group": 13,
+      "expect": "fail",
+      "exit": 0,
+      "mismatches": 4,
+      "mismatch_labels": [
+        "same_tuple_T_suppresses_old_valid",
+        "same_tuple_T_no_old_handshake",
+        "same_tag_different_tuple_T_suppresses_old_valid",
+        "same_tag_different_tuple_T_no_old_handshake"
+      ],
+      "diagnostics": [
+        "** Fatal: TB_FAIL public-port self-check"
+      ]
+    },
+    {
+      "id": "m3-mismatch-admitted",
+      "group": 22,
+      "expect": "fail",
+      "exit": 0,
+      "mismatches": 4,
+      "mismatch_labels": [
+        "out_valid_raw_matches_expected",
+        "mismatch_control_not_external_valid",
+        "handshake_raw_matches_expected",
+        "mismatch_control_no_handshake"
+      ],
+      "diagnostics": [
+        "** Fatal: TB_FAIL public-port self-check"
+      ]
+    },
+    {
+      "id": "m4-no-capture-rearm",
+      "group": 30,
+      "expect": "pass_code7",
+      "exit": 0,
+      "mismatches": 0,
+      "mismatch_labels": [],
+      "diagnostics": []
+    },
+    {
+      "id": "m4-no-capture-rearm",
+      "group": 13,
+      "expect": "fail",
+      "exit": 0,
+      "mismatches": 65,
+      "mismatch_labels": [
+        "same_tuple_window_start",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_old_record",
+        "same_tuple_new_application",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_fresh_post_boundary_record",
+        "same_tuple_record_handshake",
+        "same_tag_old_window_start",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_old_record",
+        "same_tag_different_tuple_application",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record",
+        "same_tag_different_tuple_fresh_record"
+      ],
+      "diagnostics": [
+        "** Fatal: TB_FAIL public-port self-check"
+      ]
+    }
+  ],
+  "guards_exact_own_diagnostic": 9,
+  "main_preserved_log_reconciliation": {
+    "result_sha256": "d0d95934b2d23c6eb60e8d70342fff108ec3a5b74c75d87e5f4ea22c2ae93489",
+    "commands": [
+      {
+        "name": "vlog-version",
+        "exit_code": 0
+      },
+      {
+        "name": "vsim-version",
+        "exit_code": 0
+      },
+      {
+        "name": "vlib",
+        "exit_code": 0
+      },
+      {
+        "name": "vlog",
+        "exit_code": 0
+      },
+      {
+        "name": "c2_w6_t1",
+        "exit_code": 0
+      },
+      {
+        "name": "c3_w6_t64",
+        "exit_code": 0
+      },
+      {
+        "name": "c2_w2_t64",
+        "exit_code": 0
+      },
+      {
+        "name": "c3_w3_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "c16_w18_t64",
+        "exit_code": 0
+      },
+      {
+        "name": "c32_w64_t64",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c1_w8_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c33_w8_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c0_w8_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c-1_w8_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w1_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w65_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w0_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w-1_t32",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w8_t0",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w8_t-1",
+        "exit_code": 0
+      },
+      {
+        "name": "invalid_c3_w8_t65",
+        "exit_code": 0
+      }
+    ],
+    "runs": [
+      {
+        "config": [
+          2,
+          6,
+          1
+        ],
+        "edges": 11564,
+        "rle_rows": 11447,
+        "vectors_sha256": "32dec131f69dd7e6986939fbdf8c217bc27d3d09ba4cb85c0bdb1eadfd755fc7"
+      },
+      {
+        "config": [
+          3,
+          6,
+          64
+        ],
+        "edges": 34340,
+        "rle_rows": 28794,
+        "vectors_sha256": "bd069d90085713da98101cba040dee78bba66e25467500ec4f11c279152bcf9d"
+      },
+      {
+        "config": [
+          2,
+          2,
+          64
+        ],
+        "edges": 9696,
+        "rle_rows": 9658,
+        "vectors_sha256": "9849a0cfb03e78f25f3ae00dbb587386d4e709425d247c24ef34478cb875e262"
+      },
+      {
+        "config": [
+          3,
+          3,
+          32
+        ],
+        "edges": 11409,
+        "rle_rows": 11185,
+        "vectors_sha256": "75a93c4a16551dd2a814e8c8bb9f4a021810c9cd7277fdce0c10b6e1e47ea17e"
+      },
+      {
+        "config": [
+          16,
+          18,
+          64
+        ],
+        "edges": 404578,
+        "rle_rows": 11186,
+        "vectors_sha256": "e9d2b624fb89021b2c63f88ac55decb81b49415e23fe9c5771cb03d3adfe7c78"
+      },
+      {
+        "config": [
+          32,
+          64,
+          64
+        ],
+        "edges": 20853,
+        "rle_rows": 11192,
+        "vectors_sha256": "631841a3772cd543565b7c8e98eebe4e66e4fb6946ae4825bc698ee70d5cfb2d"
+      }
+    ],
+    "claim_boundary": "raw record reconciliation only; no B oracle imported or broad simulation rerun"
+  },
+  "fresh_total_edges": 4472,
+  "fresh_total_handshakes": 173,
+  "fresh_trace_valid_observations": 558,
+  "fresh_checker_errors": 0,
+  "fresh_guard_count": 9,
+  "fresh_mutant_errors": {
+    "delayed-transfer": 2,
+    "same-tag-retained": 84,
+    "mismatch-admitted": 12
+  },
+  "own_command_records": 57,
+  "own_all_commands_exited_without_timeout": true,
+  "own_commands": [
+    {
+      "path": "commands\\positive-4-8-8\\record.json",
+      "pid": 46976,
+      "exit": 0
+    },
+    {
+      "path": "commands\\subst-after\\record.json",
+      "pid": 8932,
+      "exit": 0
+    },
+    {
+      "path": "commands\\subst-before\\record.json",
+      "pid": 23228,
+      "exit": 0
+    },
+    {
+      "path": "commands\\subst-create\\record.json",
+      "pid": 18924,
+      "exit": 0
+    },
+    {
+      "path": "commands\\subst-remove\\record.json",
+      "pid": 38632,
+      "exit": 0
+    },
+    {
+      "path": "commands\\vlib\\record.json",
+      "pid": 50336,
+      "exit": 0
+    },
+    {
+      "path": "commands\\vlog\\record.json",
+      "pid": 51924,
+      "exit": 0
+    },
+    {
+      "path": "commands\\vlog-version\\record.json",
+      "pid": 51288,
+      "exit": 0
+    },
+    {
+      "path": "commands\\vsim-version\\record.json",
+      "pid": 8396,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\positive-2-2-1\\record.json",
+      "pid": 39220,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\positive-4-8-8\\record.json",
+      "pid": 46892,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\subst-before\\record.json",
+      "pid": 54580,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\subst-create\\record.json",
+      "pid": 44772,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\vlib\\record.json",
+      "pid": 37152,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\vlog\\record.json",
+      "pid": 49956,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\vlog-version\\record.json",
+      "pid": 53588,
+      "exit": 0
+    },
+    {
+      "path": "attempt02\\commands\\vsim-version\\record.json",
+      "pid": 38012,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard--1-64-32\\record.json",
+      "pid": 2516,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-0-64-32\\record.json",
+      "pid": 11148,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32--2-32\\record.json",
+      "pid": 38192,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32-0-32\\record.json",
+      "pid": 39272,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32-64--1\\record.json",
+      "pid": 30768,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32-64-0\\record.json",
+      "pid": 52480,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32-64-65\\record.json",
+      "pid": 52900,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-32-65-32\\record.json",
+      "pid": 17260,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\guard-33-64-32\\record.json",
+      "pid": 50764,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\positive-2-2-1\\record.json",
+      "pid": 49856,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\positive-32-64-64\\record.json",
+      "pid": 22612,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\positive-4-8-8\\record.json",
+      "pid": 53044,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\subst-after\\record.json",
+      "pid": 40224,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\subst-before\\record.json",
+      "pid": 51656,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\subst-create\\record.json",
+      "pid": 40436,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\subst-remove\\record.json",
+      "pid": 49836,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\vlib\\record.json",
+      "pid": 43456,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\vlog\\record.json",
+      "pid": 51356,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\vlog-version\\record.json",
+      "pid": 39556,
+      "exit": 0
+    },
+    {
+      "path": "attempt03\\commands\\vsim-version\\record.json",
+      "pid": 49804,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\delayed-transfer-vlib\\record.json",
+      "pid": 40416,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\delayed-transfer-vlog\\record.json",
+      "pid": 18424,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\delayed-transfer-vsim\\record.json",
+      "pid": 38512,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\mismatch-admitted-vlib\\record.json",
+      "pid": 54180,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\mismatch-admitted-vlog\\record.json",
+      "pid": 42428,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\mismatch-admitted-vsim\\record.json",
+      "pid": 47484,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\same-tag-retained-vlib\\record.json",
+      "pid": 39572,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\same-tag-retained-vlog\\record.json",
+      "pid": 48264,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\same-tag-retained-vsim\\record.json",
+      "pid": 32336,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\subst-after\\record.json",
+      "pid": 50652,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\subst-before\\record.json",
+      "pid": 52364,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\subst-create\\record.json",
+      "pid": 52544,
+      "exit": 0
+    },
+    {
+      "path": "mutant-runs\\commands\\subst-remove\\record.json",
+      "pid": 48592,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\subst-after\\record.json",
+      "pid": 18196,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\subst-before\\record.json",
+      "pid": 38644,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\subst-create\\record.json",
+      "pid": 49576,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\subst-remove\\record.json",
+      "pid": 28156,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\vlib\\record.json",
+      "pid": 39572,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\vlog\\record.json",
+      "pid": 50700,
+      "exit": 0
+    },
+    {
+      "path": "same-tag-probe\\commands\\vsim\\record.json",
+      "pid": 52996,
+      "exit": 0
+    }
+  ],
+  "source_unchanged_after_runs": true,
+  "all29_formal": "not_run",
+  "additional_same_tag_state_retention_probe": {
+    "error_count": 184,
+    "counterexample_old_handshake_edges": [
+      631,
+      674,
+      826,
+      859
+    ]
+  }
+}

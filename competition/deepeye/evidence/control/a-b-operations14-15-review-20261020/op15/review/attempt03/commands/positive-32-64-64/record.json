@@ -1,0 +1,29 @@
+{
+  "label": "positive-32-64-64",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "lib.independent_tb",
+    "-l",
+    "R:/positive-32-64-64.transcript",
+    "-wlf",
+    "R:/positive-32-64-64.wlf",
+    "-do",
+    "run.do",
+    "-gCOUNT_W=32",
+    "-gWITNESS_W=64",
+    "-gTAG_W=64",
+    "+VEC=R:/positive-32-64-64.vec",
+    "+LOG=R:/positive-32-64-64.trace"
+  ],
+  "cwd": "R:/build",
+  "pid": 22612,
+  "start": "2026-10-20T01:10:21.216066+00:00",
+  "end": "2026-10-20T01:10:23.079579+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "93b0332e95b27c44a96836ccbf0607feac467f1a81dc709b5c6957bd68e05e8b",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

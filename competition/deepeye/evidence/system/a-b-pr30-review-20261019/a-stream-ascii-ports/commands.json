@@ -1,0 +1,54 @@
+[
+  {
+    "name": "version",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-version"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "vlib",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+      "work"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "vlog",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+      "-sv",
+      "-work",
+      "work",
+      "C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\exact-source\\competition\\deepeye\\fpga\\codec\\deepeye_block_encoder.sv",
+      "C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\exact-source\\competition\\deepeye\\fpga\\stream\\deepeye_block_stream.sv",
+      "C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\exact-source\\competition\\deepeye\\evidence\\stream\\stream-reset-20261018-09\\main\\main_stream_ports.sv"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "2c318973978b7b056fa100c311eae12ad8ac947de0d9ff9ee835ecabd182f44f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "vsim",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-c",
+      "-lib",
+      "work",
+      "main_stream_ports",
+      "+COMMANDS=C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\a-stream-ascii-ports\\commands.txt",
+      "+PORTS=C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\a-stream-ascii-ports\\ports.txt",
+      "-do",
+      "C:\\Users\\CarlJade\\Documents\\CodexBuildLinks\\deepeye-pr30-20261019\\a-stream-ascii-ports\\run.do"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "70bcb2dbc56034e98a524da9c546f548edb649855f1d6427b739846cd2ac9dcf",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

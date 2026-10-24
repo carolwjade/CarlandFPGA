@@ -1,0 +1,27 @@
+--- reviewed-test
++++ final-test
+@@ -346,12 +346,20 @@
+ 
+     def test_unrelated_new_completion_does_not_extend_old_command(self):
+         self.arm(); old = self.comp._progress.bound
++        record = self.comp._command_record
+         proof = next(iter(self.channels.completions.values()))
+-        self.channels.completions[('unrelated', 99)] = replace(proof, invocation_id=99,
+-            completion_lower_ns=old.deadline_ns, completion_upper_ns=old.deadline_ns)
+-        self.clock.value = old.deadline_ns
+-        self.assertFalse(self.step().committed)
++        self.clock.value += 10_000_000
++        candidate = rt.runtime.envelope._parse_message(proof.candidate_raw)
++        candidate.update(candidate_id=99, completed_monotonic_ns=self.clock.value)
++        unrelated = replace(proof, candidate_raw=rt.encode(candidate), invocation_id=99,
++            dispatch_lower_ns=self.clock.value, completion_lower_ns=self.clock.value,
++            completion_upper_ns=self.clock.value)
++        with patch.object(self.channels, 'completion_for_command', return_value=unrelated) as lookup:
++            with self.assertRaises(c.CompositionRejected):
++                self.comp.accept_command(self.channels.event(record))
++        self.assertEqual(lookup.call_count, 1)
+         self.assertIs(self.comp._progress.bound, old)
++        self.assertTrue(self.comp._progress.revoked)
+         self.assert_no_pose()
+ 
+     def test_expired_progress_cannot_be_restored_by_new_candidate(self):

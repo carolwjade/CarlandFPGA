@@ -1,0 +1,98 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-GEOMETRY-LF-COMMIT-REVIEW-20261018-v1",
+  "job_id": "child-e6c79db425494c48a47bf1d7777c839c",
+  "agent_id": "/root/r03_review_20261018",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "bounded_byte_gate": "passed",
+  "three_pairs": {
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "old_sha256": "44867bd7ae6d11c53dd4d0e05222a255d507b85481424d1957a1435371a4143f",
+      "new_sha256": "28c948f63ba9010bc48a89f5472faa70a18887733284b1f5b0fcb03c65bc07cc",
+      "index_sha256": "28c948f63ba9010bc48a89f5472faa70a18887733284b1f5b0fcb03c65bc07cc",
+      "old_crlf_count": 185,
+      "new_crlf_count": 0,
+      "exact_crlf_to_lf": true,
+      "AST_equal": true
+    },
+    "competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "old_sha256": "ca3ac03b0632d4877bb3d5981f052e959bf0756804961fe25562fd76973f3785",
+      "new_sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e",
+      "index_sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e",
+      "old_crlf_count": 130,
+      "new_crlf_count": 0,
+      "exact_crlf_to_lf": true,
+      "AST_equal": true
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "old_sha256": "d75ecfaf880b950aae859af7fa94075457150e9623fec1cd183c20ccc6cb7110",
+      "new_sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75",
+      "index_sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75",
+      "old_crlf_count": 107,
+      "new_crlf_count": 0,
+      "exact_crlf_to_lf": true,
+      "AST_equal": true
+    }
+  },
+  "ten_exact_index_working_pairs": {
+    "competition/deepeye/docs/authority_solid_clearance.md": {
+      "working_sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d",
+      "index_sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d"
+    },
+    "competition/deepeye/docs/workspace_passage.md": {
+      "working_sha256": "2e969b956dfc5c92c5a3eb1222c83b2f1824dda35ecc23dc979d3189cf032621",
+      "index_sha256": "2e969b956dfc5c92c5a3eb1222c83b2f1824dda35ecc23dc979d3189cf032621"
+    },
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "working_sha256": "28c948f63ba9010bc48a89f5472faa70a18887733284b1f5b0fcb03c65bc07cc",
+      "index_sha256": "28c948f63ba9010bc48a89f5472faa70a18887733284b1f5b0fcb03c65bc07cc"
+    },
+    "competition/deepeye/simulation/authority/motion/solid_clearance.py": {
+      "working_sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484",
+      "index_sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    "competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "working_sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077",
+      "index_sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "working_sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75",
+      "index_sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75"
+    },
+    "competition/deepeye/tests/simulation/test_solid_clearance.py": {
+      "working_sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03",
+      "index_sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03"
+    },
+    "competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "working_sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e",
+      "index_sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    "competition/deepeye/tests/test_pipeline.py": {
+      "working_sha256": "30975a18de452dcfcb5f85d3c5ac905cc3b7c98473f039849177adec0db89486",
+      "index_sha256": "30975a18de452dcfcb5f85d3c5ac905cc3b7c98473f039849177adec0db89486"
+    },
+    "competition/deepeye/tools/pipeline.py": {
+      "working_sha256": "66ab1ec191fd88cce2de6f1d70461d112a9d61caba02fba194477c9b35192056",
+      "index_sha256": "66ab1ec191fd88cce2de6f1d70461d112a9d61caba02fba194477c9b35192056"
+    }
+  },
+  "other7_prior_hashes_equal": true,
+  "AST_equal": true,
+  "only_CRLF_to_LF": true,
+  "attributes_text_set_eol_lf": true,
+  "source_and_index_stable": true,
+  "workspace_tests": {
+    "tests": 21,
+    "passed": 21,
+    "exit_code": 0
+  },
+  "unchanged_other_tests_reused_not_rerun": true,
+  "all29_formal_cards": "not_run",
+  "source_or_index_mutations_by_reviewer": false,
+  "hardware_service_OS_security_operations": false,
+  "no_pending_commands_or_write": true,
+  "quality_main_owns_commit_and_acceptance": true,
+  "evidence_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\geometry-lf-review",
+  "evidence_manifest_sha256": "0157206219809767a7ab71ebe8eb64fa55b3d977818097802cebd72dcb74a793"
+}

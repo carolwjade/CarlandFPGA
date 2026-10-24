@@ -1,0 +1,35 @@
+test_exact_equality_ack_accepts_and_rejects_differences (__main__.BootFrameTests.test_exact_equality_ack_accepts_and_rejects_differences) ... ok
+test_malformed_frames_rejected (__main__.BootFrameTests.test_malformed_frames_rejected) ... ok
+test_roundtrip_via_existing_wire (__main__.BootFrameTests.test_roundtrip_via_existing_wire) ... ok
+test_compose_and_parse_roundtrip (__main__.BootModeTests.test_compose_and_parse_roundtrip) ... ok
+test_rejects_zero_reserved_and_unknown (__main__.BootModeTests.test_rejects_zero_reserved_and_unknown) ... ok
+test_canonical_rejects_nonfinite (__main__.CanonicalTests.test_canonical_rejects_nonfinite) ... ok
+test_canonical_sorted_compact_utf8 (__main__.CanonicalTests.test_canonical_sorted_compact_utf8) ... ok
+test_load_rejects_duplicate_keys (__main__.CanonicalTests.test_load_rejects_duplicate_keys) ... ok
+test_load_rejects_nonfinite_tokens (__main__.CanonicalTests.test_load_rejects_nonfinite_tokens) ... ok
+test_validate_rejects_float_boolean_and_unknown (__main__.CanonicalTests.test_validate_rejects_float_boolean_and_unknown) ... ok
+test_validate_rejects_missing_required_key (__main__.CanonicalTests.test_validate_rejects_missing_required_key) ... ok
+test_digest_lengths_and_sha128_prefix (__main__.DigestTests.test_digest_lengths_and_sha128_prefix) ... ok
+test_every_covered_group_changes_digest (__main__.DigestTests.test_every_covered_group_changes_digest) ... ok
+test_original_profile_hash_mutations_rejected (__main__.DigestTests.test_original_profile_hash_mutations_rejected) ... ok
+test_real_document_valid (__main__.DigestTests.test_real_document_valid) ... ok
+test_runtime_digests_runtime_loaded_unverified (__main__.RuntimeDigestTests.test_runtime_digests_runtime_loaded_unverified) ... ok
+test_unmeasured_values_must_stay_null (__main__.RuntimeDigestTests.test_unmeasured_values_must_stay_null) ... ok
+test_branches_disjoint_ordered_within_window_with_guard (__main__.SlotReferenceTests.test_branches_disjoint_ordered_within_window_with_guard) ... ok
+test_budget_variants_match_frozen_anchors (__main__.SlotReferenceTests.test_budget_variants_match_frozen_anchors) ... ok
+test_ceil_bounds (__main__.SlotReferenceTests.test_ceil_bounds) ... ok
+test_fast_branch_anchors_exact (__main__.SlotReferenceTests.test_fast_branch_anchors_exact) ... ok
+test_grant_masks_legal_and_invalid (__main__.SlotReferenceTests.test_grant_masks_legal_and_invalid) ... ok
+test_lost_grant_and_lost_ack_keep_slots_unshifted (__main__.SlotReferenceTests.test_lost_grant_and_lost_ack_keep_slots_unshifted) ... ok
+test_no_grant_no_send_and_suppress_after_success (__main__.SlotReferenceTests.test_no_grant_no_send_and_suppress_after_success) ... ok
+test_primary_response_anchored_to_slot_not_receipt (__main__.SlotReferenceTests.test_primary_response_anchored_to_slot_not_receipt) ... ok
+test_retry_offset_fixed_and_absolute_shift (__main__.SlotReferenceTests.test_retry_offset_fixed_and_absolute_shift) ... ok
+test_rolling_window_occupancy_across_three_periods (__main__.SlotReferenceTests.test_rolling_window_occupancy_across_three_periods) ... ok
+test_speed_mapping_not_mixed (__main__.SlotReferenceTests.test_speed_mapping_not_mixed) ... ok
+test_stress_branch_anchors_exact (__main__.SlotReferenceTests.test_stress_branch_anchors_exact) ... ok
+test_validate_flags_overlapping_slot_and_guard_break (__main__.SlotReferenceTests.test_validate_flags_overlapping_slot_and_guard_break) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.061s
+
+OK

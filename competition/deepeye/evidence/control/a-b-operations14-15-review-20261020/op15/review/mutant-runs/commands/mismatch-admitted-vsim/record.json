@@ -1,0 +1,29 @@
+{
+  "label": "mismatch-admitted-vsim",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "mismatch-admitted.independent_tb",
+    "-gCOUNT_W=4",
+    "-gWITNESS_W=8",
+    "-gTAG_W=8",
+    "+VEC=R:/test.vec",
+    "+LOG=R:/mismatch-admitted.trace",
+    "-l",
+    "R:/mismatch-admitted.transcript",
+    "-wlf",
+    "R:/mismatch-admitted.wlf",
+    "-do",
+    "run.do"
+  ],
+  "cwd": "R:/build",
+  "pid": 47484,
+  "start": "2026-10-20T01:11:10.245389+00:00",
+  "end": "2026-10-20T01:11:12.273156+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "0b5986c9225904699935b08ea2641bd275a15864824712b45fb1aa4a72e96037",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

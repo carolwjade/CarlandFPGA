@@ -1,0 +1,508 @@
+{
+  "software_fixtures_only": true,
+  "no_preview_commit_or_motion_grant": true,
+  "cases": [
+    {
+      "fixture_phase": "EXIT_CROSSING",
+      "fixture_z": -15.519,
+      "yaw_code": 7000,
+      "count": 2,
+      "current_preview": {
+        "status": "UNKNOWN",
+        "reason": "arrival within multi-slice plan needs event-window refinement",
+        "proof_count": 1,
+        "candidate_is_original": true
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 7142857,
+          "end_z": -15.52078571402335,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "APERTURE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          }
+        },
+        {
+          "index": 1,
+          "start_elapsed_ns": 7142857,
+          "end_elapsed_ns": 10000000,
+          "end_z": -15.521499999378072,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "STRICT_OUTSIDE_ACTIVE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          }
+        }
+      ]
+    },
+    {
+      "fixture_phase": "EXIT_CROSSING",
+      "fixture_z": -15.5184,
+      "yaw_code": 7000,
+      "count": 2,
+      "current_preview": {
+        "status": "UNKNOWN",
+        "reason": "arrival within multi-slice plan needs event-window refinement",
+        "proof_count": 1,
+        "candidate_is_original": true
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 7142857,
+          "end_z": -15.52018571402335,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "APERTURE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          }
+        },
+        {
+          "index": 1,
+          "start_elapsed_ns": 7142857,
+          "end_elapsed_ns": 10000000,
+          "end_z": -15.520899999378072,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "APERTURE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          }
+        }
+      ]
+    },
+    {
+      "fixture_phase": "EXIT_CROSSING",
+      "fixture_z": -15.5199,
+      "yaw_code": 7000,
+      "count": 2,
+      "current_preview": {
+        "status": "UNKNOWN",
+        "reason": "arrival within multi-slice plan needs event-window refinement",
+        "proof_count": 1,
+        "candidate_is_original": true
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 7142857,
+          "end_z": -15.52168571402335,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "APERTURE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          }
+        },
+        {
+          "index": 1,
+          "start_elapsed_ns": 7142857,
+          "end_elapsed_ns": 10000000,
+          "end_z": -15.522399999378072,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "STRICT_OUTSIDE_ACTIVE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          }
+        }
+      ]
+    },
+    {
+      "fixture_phase": "EXIT_CROSSING",
+      "fixture_z": -15.519,
+      "yaw_code": 0,
+      "count": 1,
+      "current_preview": {
+        "status": "SAFE",
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "proof_count": 1,
+        "candidate_is_original": false
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 10000000,
+          "end_z": -15.5215,
+          "entry": {
+            "status": "UNKNOWN",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "ENVELOPE_NOT_CLEAR",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000000000004974
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": false,
+            "end_outside": true,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "APERTURE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000000000004974
+          }
+        }
+      ]
+    },
+    {
+      "fixture_phase": "ENTRY_CROSSING",
+      "fixture_z": 14.481,
+      "yaw_code": 7000,
+      "count": 2,
+      "current_preview": {
+        "status": "SAFE",
+        "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+        "proof_count": 2,
+        "candidate_is_original": false
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 7142857,
+          "end_z": 14.47921428597665,
+          "entry": {
+            "status": "SAFE",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "APERTURE",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          },
+          "exit": {
+            "status": "UNKNOWN",
+            "active_face": "back",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "ENVELOPE_NOT_CLEAR",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          }
+        },
+        {
+          "index": 1,
+          "start_elapsed_ns": 7142857,
+          "end_elapsed_ns": 10000000,
+          "end_z": 14.478500000621928,
+          "entry": {
+            "status": "SAFE",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          },
+          "exit": {
+            "status": "SAFE",
+            "active_face": "back",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "STRICT_INSIDE",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          }
+        }
+      ]
+    },
+    {
+      "fixture_phase": "ENTRY_CROSSING",
+      "fixture_z": 14.4815,
+      "yaw_code": 7000,
+      "count": 2,
+      "current_preview": {
+        "status": "UNKNOWN",
+        "reason": "insufficient envelope/aperture/budget evidence",
+        "proof_count": 2,
+        "candidate_is_original": true
+      },
+      "slices": [
+        {
+          "index": 0,
+          "start_elapsed_ns": 0,
+          "end_elapsed_ns": 7142857,
+          "end_z": 14.47971428597665,
+          "entry": {
+            "status": "SAFE",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "APERTURE",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          },
+          "exit": {
+            "status": "UNKNOWN",
+            "active_face": "back",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "ENVELOPE_NOT_CLEAR",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005001947912038053
+          }
+        },
+        {
+          "index": 1,
+          "start_elapsed_ns": 7142857,
+          "end_elapsed_ns": 10000000,
+          "end_z": 14.479000000621928,
+          "entry": {
+            "status": "SAFE",
+            "active_face": "front",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "APERTURE",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          },
+          "exit": {
+            "status": "UNKNOWN",
+            "active_face": "back",
+            "end_inside": true,
+            "end_outside": false,
+            "monotone_at_gate": true,
+            "face_methods": {
+              "top": "STRICT_INSIDE",
+              "bottom": "STRICT_INSIDE",
+              "front": "ENVELOPE_NOT_CLEAR",
+              "back": "STRICT_INSIDE",
+              "left": "STRICT_INSIDE",
+              "right": "STRICT_INSIDE"
+            },
+            "rho_m": 0.0005000311665976126
+          }
+        }
+      ]
+    }
+  ]
+}

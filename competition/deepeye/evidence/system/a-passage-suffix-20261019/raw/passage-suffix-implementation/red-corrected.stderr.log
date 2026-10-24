@@ -1,0 +1,272 @@
+test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state) ... FAIL
+test_budget_unknown_does_not_commit_partial_events (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_budget_unknown_does_not_commit_partial_events) ... ok
+test_existing_entry_and_single_slice_exit_keep_their_behavior (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_existing_entry_and_single_slice_exit_keep_their_behavior) ... ok
+test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) ... 
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='front') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='back') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='left') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='right') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='top') ... FAIL
+  test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='bottom') ... FAIL
+test_initial_whole_body_outside_and_correct_orientation_are_required (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_initial_whole_body_outside_and_correct_orientation_are_required) ... ok
+test_no_arbitrary_phase_or_external_plan_can_be_supplied (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_no_arbitrary_phase_or_external_plan_can_be_supplied) ... ok
+test_numeric_error_and_speed_carry_are_not_reset_on_next_command (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_numeric_error_and_speed_carry_are_not_reset_on_next_command) ... ok
+test_partial_entry_wrong_direction_does_not_reset_or_advance (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_partial_entry_wrong_direction_does_not_reset_or_advance) ... ok
+test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) ... 
+  test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) (x=0.15) ... FAIL
+test_scene_gate_epoch_and_pose_change_cannot_reuse_history (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_scene_gate_epoch_and_pose_change_cannot_reuse_history) ... ok
+test_stop_and_expired_deadline_hold_phase_pose_speed_and_revision (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_stop_and_expired_deadline_hold_phase_pose_speed_and_revision) ... ok
+test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) ... 
+  test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.519) ... FAIL
+  test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.5199) ... FAIL
+test_suffix_budget_or_stop_never_returns_a_partial_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_suffix_budget_or_stop_never_returns_a_partial_arrival) ... ok
+test_suffix_cannot_bypass_direction_rim_rotation_or_nonactive_face_failure (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_suffix_cannot_bypass_direction_rim_rotation_or_nonactive_face_failure) ... ok
+test_tip_or_center_beyond_red_is_not_full_body_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_tip_or_center_beyond_red_is_not_full_body_arrival) ... ok
+test_tip_partial_entry_is_not_entered_and_stop_does_not_complete_it (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_tip_partial_entry_is_not_entered_and_stop_does_not_complete_it) ... ok
+test_T01_prepare_never_publishes_pose_or_phase (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T01_prepare_never_publishes_pose_or_phase) ... ok
+test_T02_actual_final_interval_maps_only_new_events_and_one_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T02_actual_final_interval_maps_only_new_events_and_one_publication) ... ok
+test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T03_callback_stop_invalidates_root_even_if_callback_returns_fence) ... ok
+test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T04_same_pose_new_world_asset_epoch_boot_or_command_rejects_old_handle) ... ok
+test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T05_repeat_foreign_reentrant_and_failed_handles_never_repeat_motion) ... ok
+test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T06_real_runtime_final_checks_expired_ttl_state_sample_or_ai) ... ok
+test_T07_deadline_equality_and_overlapping_actual_intervals_reject (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T07_deadline_equality_and_overlapping_actual_intervals_reject) ... ok
+test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T08_later_slice_obstacle_or_budget_failure_never_commits_safe_prefix) ... ok
+test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T09_missing_compound_piece_and_forbidden_material_union_are_not_ignored) ... ok
+test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T10_sweep_floor_chord_bounds_and_rounding_error_carry_survive) ... ok
+test_T11_whole_tail_and_correct_role_required_for_entry_and_exit (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T11_whole_tail_and_correct_role_required_for_entry_and_exit) ... ok
+test_T12_unresolved_multislice_arrival_and_drilling_never_grant (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T12_unresolved_multislice_arrival_and_drilling_never_grant) ... ok
+test_T13_new_boot_does_not_clear_trial_failure_or_old_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T13_new_boot_does_not_clear_trial_failure_or_old_history) ... ok
+test_T14_waiting_changes_actual_mapping_but_never_integrates_pause (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T14_waiting_changes_actual_mapping_but_never_integrates_pause) ... ok
+test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T15_fence_exception_consumes_handle_and_lost_receipt_reconciles_without_replay) ... ok
+test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_T16_controller_export_has_no_truth_proof_or_precise_collision_oracle) ... ok
+test_caught_malformed_mutation_call_during_callback_still_vetoes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_caught_malformed_mutation_call_during_callback_still_vetoes) ... ok
+test_caught_materialization_failure_in_final_callback_vetoes_publication (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_caught_materialization_failure_in_final_callback_vetoes_publication) ... ok
+test_fence_boot_alias_cannot_run_equality_callback_after_root_check (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_fence_boot_alias_cannot_run_equality_callback_after_root_check) ... ok
+test_later_materialization_failure_retires_pending_without_losing_committed_history (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_later_materialization_failure_retires_pending_without_losing_committed_history) ... ok
+test_positive_explicit_asset_budget_is_in_workspace_and_solid_conjunction (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_positive_explicit_asset_budget_is_in_workspace_and_solid_conjunction) ... ok
+test_pre_fence_publication_allocation_failure_has_no_pose_effect (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_pre_fence_publication_allocation_failure_has_no_pose_effect) ... ok
+test_real_runtime_double_fence_callback_or_missing_callback_never_publishes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_real_runtime_double_fence_callback_or_missing_callback_never_publishes) ... ok
+test_runtime_success_uses_owned_geometry_actual_clock_and_second_revision (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_runtime_success_uses_owned_geometry_actual_clock_and_second_revision) ... ok
+test_strict_red_suffix_commits_full_original_step_once_and_then_freezes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_red_suffix_commits_full_original_step_once_and_then_freezes) ... 
+  test_strict_red_suffix_commits_full_original_step_once_and_then_freezes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_red_suffix_commits_full_original_step_once_and_then_freezes) (z=-15.519) ... ERROR
+  test_strict_red_suffix_commits_full_original_step_once_and_then_freezes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_red_suffix_commits_full_original_step_once_and_then_freezes) (z=-15.5199) ... ERROR
+test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) ... 
+  test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='STOP') ... ERROR
+  test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='deadline') ... ERROR
+  test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='world') ... ERROR
+test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix) ... 
+  test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix) (material='water') ... FAIL
+  test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix) (material='hard_rock') ... FAIL
+
+======================================================================
+ERROR: test_strict_red_suffix_commits_full_original_step_once_and_then_freezes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_red_suffix_commits_full_original_step_once_and_then_freezes) (z=-15.519)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 228, in test_strict_red_suffix_commits_full_original_step_once_and_then_freezes
+    before=ex.authority_snapshot();handle=self.prepare(ex);audit=ex.prepared_audit(handle)
+                                          ^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 50, in prepare
+    def prepare(self,ex,dt=DT):return ex.prepare_step(self.f.binding,ex.admitted_raw,ex.renderer_view().pose_revision,dt)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 117, in call
+    try:return method(self,*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 304, in prepare_step
+    raise PreparationRejected(preview.status)
+competition.deepeye.simulation.authority.motion_executor.PreparationRejected: motion preparation rejected
+
+======================================================================
+ERROR: test_strict_red_suffix_commits_full_original_step_once_and_then_freezes (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_red_suffix_commits_full_original_step_once_and_then_freezes) (z=-15.5199)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 228, in test_strict_red_suffix_commits_full_original_step_once_and_then_freezes
+    before=ex.authority_snapshot();handle=self.prepare(ex);audit=ex.prepared_audit(handle)
+                                          ^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 50, in prepare
+    def prepare(self,ex,dt=DT):return ex.prepare_step(self.f.binding,ex.admitted_raw,ex.renderer_view().pose_revision,dt)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 117, in call
+    try:return method(self,*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 304, in prepare_step
+    raise PreparationRejected(preview.status)
+competition.deepeye.simulation.authority.motion_executor.PreparationRejected: motion preparation rejected
+
+======================================================================
+ERROR: test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='STOP')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 286, in test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto
+    handle=self.prepare(ex);before=ex.renderer_view();calls=[]
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 50, in prepare
+    def prepare(self,ex,dt=DT):return ex.prepare_step(self.f.binding,ex.admitted_raw,ex.renderer_view().pose_revision,dt)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 117, in call
+    try:return method(self,*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 304, in prepare_step
+    raise PreparationRejected(preview.status)
+competition.deepeye.simulation.authority.motion_executor.PreparationRejected: motion preparation rejected
+
+======================================================================
+ERROR: test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='deadline')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 286, in test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto
+    handle=self.prepare(ex);before=ex.renderer_view();calls=[]
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 50, in prepare
+    def prepare(self,ex,dt=DT):return ex.prepare_step(self.f.binding,ex.admitted_raw,ex.renderer_view().pose_revision,dt)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 117, in call
+    try:return method(self,*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 304, in prepare_step
+    raise PreparationRejected(preview.status)
+competition.deepeye.simulation.authority.motion_executor.PreparationRejected: motion preparation rejected
+
+======================================================================
+ERROR: test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto) (failure='world')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 286, in test_strict_suffix_final_stop_deadline_and_world_revocation_still_veto
+    handle=self.prepare(ex);before=ex.renderer_view();calls=[]
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 50, in prepare
+    def prepare(self,ex,dt=DT):return ex.prepare_step(self.f.binding,ex.admitted_raw,ex.renderer_view().pose_revision,dt)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 117, in call
+    try:return method(self,*args,**kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\simulation\authority\motion_executor.py", line 304, in prepare_step
+    raise PreparationRejected(preview.status)
+competition.deepeye.simulation.authority.motion_executor.PreparationRejected: motion preparation rejected
+
+======================================================================
+FAIL: test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 84, in test_aperture_only_tail_is_unknown_with_every_checked_certificate_and_original_state
+    self.assertEqual(2,len(result.proofs))
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='front')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='back')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='left')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='right')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='top')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals) (face='bottom')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 102, in test_full_suffix_proof_is_symmetric_for_all_six_red_face_normals
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_same_face_red_gate_does_not_accept_blue_aperture_as_exit (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_same_face_red_gate_does_not_accept_blue_aperture_as_exit) (x=0.15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 112, in test_same_face_red_gate_does_not_accept_blue_aperture_as_exit
+    self.assertEqual(status,result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.519)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 60, in test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival (competition.deepeye.tests.simulation.test_passage_phase.PassagePhaseTests.test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival) (z=-15.5199)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_passage_phase.py", line 60, in test_strict_outside_red_suffix_keeps_full_dt_certificates_and_one_arrival
+    self.assertEqual('SAFE',result.status)
+AssertionError: 'SAFE' != 'UNKNOWN'
+- SAFE
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix) (material='water')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 277, in test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix
+    self.assertEqual(2,blocked.exception.checked_slices)
+AssertionError: 2 != 0
+
+======================================================================
+FAIL: test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix (competition.deepeye.tests.simulation.test_motion_executor.MotionExecutorTests.test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix) (material='hard_rock')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_motion_executor.py", line 277, in test_true_final_suffix_solid_prevents_the_whole_step_not_just_the_suffix
+    self.assertEqual(2,blocked.exception.checked_slices)
+AssertionError: 2 != 0
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.861s
+
+FAILED (failures=12, errors=5)

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "mode": "unchanged AST-selected pure functions; no module import/main/file helpers",
+  "input_sha256": {
+    "candidate_rules": "50e19ea0513e4f7a66c5f5793223d190838afaf5a012c659ee7183068efcd4d9",
+    "current_trace": "4fe991b4247cadbe87cfaf7b0dc77d3e4a7a9e0956ccbfc5dffbd25a5f397b08",
+    "current_scope": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+    "checker_source": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e"
+  },
+  "extracted_functions": [
+    "_constant",
+    "_finite_float",
+    "_pairs",
+    "_same_members",
+    "_state",
+    "parse_json",
+    "parse_trace",
+    "require",
+    "validate_metadata"
+  ],
+  "selected_ast_sha256": "2e0ff58ae5fc094bdbb2f13c26626b957c5d07023102d079c798e124cf0b0674",
+  "validate_metadata_output": {
+    "human_requirements": 15,
+    "official_requirements": 15,
+    "core_metrics": 5,
+    "special_metrics": 2,
+    "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+  },
+  "formal_acceptance": false,
+  "R01": "not_run",
+  "full_reference_cli": "not_run; main will run after adoption"
+}

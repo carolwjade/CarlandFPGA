@@ -1,0 +1,66 @@
+{
+  "at_utc": "2026-10-20T06:46:14.945219+00:00",
+  "source_hashes": {
+    "competition/deepeye/tools/preflight.py": "94d574a5e6c742fb4948df65e3e9fdfb1137f950ab1b8798317aed1423a7786b",
+    "competition/deepeye/tools/preflight_windows.ps1": "f1af74889d292b1bacfdc1542e81a14fd0b9cfc01bfb8d02d890d3f75a5599ca",
+    "competition/deepeye/tests/test_preflight.py": "a0b4e8b02452647d474e135773cd60b2220e963517dc2f43deb20521347bffc2",
+    "competition/deepeye/hardware/preflight.md": "766283e8bcf090c010c80323526ed3a27a91e7b35fa5114469fa56981db5925f",
+    "docs/competition/deepeye-2026/.gitattributes": "bd36dbd14f9885f0a63e1fab18064bbd0bbe44f200fe97c95129e867b2972e44",
+    "competition/deepeye/ai_pc/host_timing/reference.py": "22885eb958a1839f628a2f82e3f9d7b1bd2022b40ed8b47df05f22343ac372f0",
+    "competition/deepeye/evidence/ai/host_timing/reference_evidence.txt": "b4fc17dd93cbad0e9449e9b1c3c8571451d4a065393267360eba1544b96f3713",
+    "competition/deepeye/tests/ai/host_timing/test_reference.py": "bbc1fdcdc2d71327ce4907493e35ed60fc3b65523a05cc52855f1d46b4efa013",
+    "docs/competition/deepeye-2026/immutable_scope.json": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+  },
+  "protected_dirty_bytes_preserved": true,
+  "protected_files_unstaged": true,
+  "historical_evidence_brief_report_environment_preserved": true,
+  "test_and_live_sources_identical": true,
+  "stdout_output_json_identical": true,
+  "stdout_output_bytes_identical": false,
+  "raw_file_hashes": {
+    "live.stdout.txt": "502c79858308e3f339fcbddac03f6b93fa1f332ecb4e5b98973ef72e99552341",
+    "live.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "host-inventory.json": "1b9cb19a30e09cb5c9beb7ffab15afeea1672ee10cef8fe8ecc853b7ff03c8f6"
+  },
+  "contracts": {
+    "root": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "product": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+  },
+  "git": {
+    "head": {
+      "command": [
+        "C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "stdout": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe\n",
+      "stderr": ""
+    },
+    "status": {
+      "command": [
+        "C:/Users/CarlJade/.cache/codex-runtimes/codex-primary-runtime/dependencies/native/git/cmd/git.exe",
+        "-C",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a",
+        "status",
+        "--porcelain=v1",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "stdout": " M docs/competition/deepeye-2026/.gitattributes\n?? competition/deepeye/ai_pc/host_timing/reference.py\n?? competition/deepeye/evidence/ai/host_timing/reference_evidence.txt\n?? competition/deepeye/hardware/preflight.md\n?? competition/deepeye/tests/ai/host_timing/test_reference.py\n?? competition/deepeye/tests/test_preflight.py\n?? competition/deepeye/tools/preflight.py\n?? competition/deepeye/tools/preflight_windows.ps1\n?? docs/superpowers/plans/2026-10-20-r02-readonly-preflight.md\n",
+      "stderr": ""
+    }
+  },
+  "live_exit_code": 0,
+  "inventory_complete": true,
+  "group_counts": {
+    "cpu": 1,
+    "os": 1,
+    "gpu": 2,
+    "npu_candidates": 1,
+    "drivers": 3,
+    "disks": 2
+  }
+}

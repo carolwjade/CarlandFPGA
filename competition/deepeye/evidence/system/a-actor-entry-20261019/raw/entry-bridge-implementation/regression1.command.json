@@ -1,0 +1,213 @@
+{
+  "argv": [
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "-m",
+    "unittest",
+    "-v",
+    "-v",
+    "competition.deepeye.tests.simulation.test_passage_phase",
+    "competition.deepeye.tests.simulation.test_motion_executor",
+    "competition.deepeye.tests.simulation.test_workspace_boundaries",
+    "competition.deepeye.tests.simulation.test_solid_clearance",
+    "competition.deepeye.tests.simulation.test_pc_direct_runtime",
+    "competition.deepeye.tests.simulation.test_certified_path",
+    "competition.deepeye.tests.simulation.test_gate_clearance",
+    "competition.deepeye.tests.simulation.test_gate_geometry",
+    "competition.deepeye.tests.simulation.test_kinematics"
+  ],
+  "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a",
+  "exit_code": 0,
+  "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a;C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-host-deps",
+  "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\entry-bridge-implementation\\temp",
+  "before": {
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "sha256": "3032625c2a56e66c9593bc5206bc26fa9cf6c4b570e78204b15eee46b21f9478",
+      "bytes": 15628
+    },
+    "competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "sha256": "2d42019cce6b4ac360766470b20518dd6ac8e66e94abae0e9772c83705a75b75",
+      "bytes": 13605
+    },
+    "competition/deepeye/simulation/authority/motion/certified_path.py": {
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e",
+      "bytes": 17268
+    },
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": {
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+      "bytes": 11856
+    },
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": {
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+      "bytes": 15309
+    },
+    "competition/deepeye/simulation/authority/motion/kinematics.py": {
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043",
+      "bytes": 11016
+    },
+    "competition/deepeye/simulation/authority/motion/solid_clearance.py": {
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484",
+      "bytes": 20063
+    },
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62",
+      "bytes": 17156
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb",
+      "bytes": 23468
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "sha256": "1aca3a04ad8815db540b165b7871aeb595e343d1f7bf1c943ef6e893b4dcc196",
+      "bytes": 26722
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4",
+      "bytes": 28506
+    },
+    "competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "sha256": "26c53ca1fa3e3119d0d2572ecbbb31b96d024d3db80ff90b61fe826a2e517a3f",
+      "bytes": 10169
+    },
+    "competition/deepeye/docs/certified_motion_path.md": {
+      "sha256": "c3c855fa67a519c8c75e3bda1d26623ffe52a0ab5613e4ee703b75c4d2932f8a",
+      "bytes": 16846
+    },
+    "competition/deepeye/docs/workspace_passage.md": {
+      "sha256": "cda84f4b2290c0d740331591c2a2825544115a20f341ac29f57a9da12dc42bf4",
+      "bytes": 14075
+    },
+    "competition/deepeye/docs/motion_executor.md": {
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390",
+      "bytes": 8682
+    },
+    "competition/deepeye/docs/authority_solid_clearance.md": {
+      "sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d",
+      "bytes": 13438
+    },
+    "competition/deepeye/docs/passage_suffix_checkpoint_20261019.md": {
+      "sha256": "00b0efd5c9c3549c57c265a2f6b92716997d20020c3db00f608953dad90945db",
+      "bytes": 3961
+    },
+    "docs/competition/deepeye-2026/taskbook_final.md": {
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+      "bytes": 109430
+    },
+    "docs/competition/deepeye-2026/simulation_contract_final.json": {
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9",
+      "bytes": 8257
+    },
+    "docs/competition/deepeye-2026/immutable_scope.md": {
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "bytes": 6139
+    },
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "bytes": 6684
+    },
+    "docs/competition/deepeye-2026/execution_plan_final.json": {
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be",
+      "bytes": 11924
+    },
+    "competition/deepeye/integration/motion.py": {
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+      "bytes": 3935
+    }
+  },
+  "after": {
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "sha256": "3032625c2a56e66c9593bc5206bc26fa9cf6c4b570e78204b15eee46b21f9478",
+      "bytes": 15628
+    },
+    "competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "sha256": "2d42019cce6b4ac360766470b20518dd6ac8e66e94abae0e9772c83705a75b75",
+      "bytes": 13605
+    },
+    "competition/deepeye/simulation/authority/motion/certified_path.py": {
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e",
+      "bytes": 17268
+    },
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": {
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977",
+      "bytes": 11856
+    },
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": {
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+      "bytes": 15309
+    },
+    "competition/deepeye/simulation/authority/motion/kinematics.py": {
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043",
+      "bytes": 11016
+    },
+    "competition/deepeye/simulation/authority/motion/solid_clearance.py": {
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484",
+      "bytes": 20063
+    },
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62",
+      "bytes": 17156
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb",
+      "bytes": 23468
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "sha256": "1aca3a04ad8815db540b165b7871aeb595e343d1f7bf1c943ef6e893b4dcc196",
+      "bytes": 26722
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4",
+      "bytes": 28506
+    },
+    "competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "sha256": "26c53ca1fa3e3119d0d2572ecbbb31b96d024d3db80ff90b61fe826a2e517a3f",
+      "bytes": 10169
+    },
+    "competition/deepeye/docs/certified_motion_path.md": {
+      "sha256": "c3c855fa67a519c8c75e3bda1d26623ffe52a0ab5613e4ee703b75c4d2932f8a",
+      "bytes": 16846
+    },
+    "competition/deepeye/docs/workspace_passage.md": {
+      "sha256": "cda84f4b2290c0d740331591c2a2825544115a20f341ac29f57a9da12dc42bf4",
+      "bytes": 14075
+    },
+    "competition/deepeye/docs/motion_executor.md": {
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390",
+      "bytes": 8682
+    },
+    "competition/deepeye/docs/authority_solid_clearance.md": {
+      "sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d",
+      "bytes": 13438
+    },
+    "competition/deepeye/docs/passage_suffix_checkpoint_20261019.md": {
+      "sha256": "00b0efd5c9c3549c57c265a2f6b92716997d20020c3db00f608953dad90945db",
+      "bytes": 3961
+    },
+    "docs/competition/deepeye-2026/taskbook_final.md": {
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18",
+      "bytes": 109430
+    },
+    "docs/competition/deepeye-2026/simulation_contract_final.json": {
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9",
+      "bytes": 8257
+    },
+    "docs/competition/deepeye-2026/immutable_scope.md": {
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd",
+      "bytes": 6139
+    },
+    "docs/competition/deepeye-2026/immutable_scope.json": {
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4",
+      "bytes": 6684
+    },
+    "docs/competition/deepeye-2026/execution_plan_final.json": {
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be",
+      "bytes": 11924
+    },
+    "competition/deepeye/integration/motion.py": {
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+      "bytes": 3935
+    }
+  }
+}

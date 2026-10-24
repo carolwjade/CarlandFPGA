@@ -1,0 +1,21 @@
+test_all_passed_metadata_cannot_grant_formal_acceptance (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_all_passed_metadata_cannot_grant_formal_acceptance) ... ok
+test_csv_headers_extra_columns_and_oversized_metadata_are_rejected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_csv_headers_extra_columns_and_oversized_metadata_are_rejected) ... ok
+test_current_artifacts_have_fifteen_official_and_fifteen_human_rows (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_current_artifacts_have_fifteen_official_and_fifteen_human_rows) ... ok
+test_declared_metric_count_cannot_replace_missing_actual_metric (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_declared_metric_count_cannot_replace_missing_actual_metric) ... ok
+test_duplicate_trace_row_does_not_fake_coverage (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_duplicate_trace_row_does_not_fake_coverage) ... ok
+test_human_owner_mapping_cannot_be_omitted_or_redirected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_human_owner_mapping_cannot_be_omitted_or_redirected) ... ok
+test_jointly_changed_csv_and_rules_cannot_move_rocm_requirement (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_jointly_changed_csv_and_rules_cannot_move_rocm_requirement) ... ok
+test_json_duplicate_keys_and_nonfinite_constants_are_rejected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_json_duplicate_keys_and_nonfinite_constants_are_rejected) ... ok
+test_missing_source_stays_blocked_and_forged_pdf_fails (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_missing_source_stays_blocked_and_forged_pdf_fails) ... ok
+test_removed_human_or_official_row_is_rejected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_removed_human_or_official_row_is_rejected) ... ok
+test_requirement_status_mismatch_or_unknown_status_is_rejected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_requirement_status_mismatch_or_unknown_status_is_rejected) ... ok
+test_scope_content_change_cannot_reuse_pinned_hash_field (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_scope_content_change_cannot_reuse_pinned_hash_field) ... ok
+test_source_identity_claims_cannot_substitute_for_original_bytes (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_source_identity_claims_cannot_substitute_for_original_bytes) ... ok
+test_special_metrics_must_be_distinct_mapped_categories (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_special_metrics_must_be_distinct_mapped_categories) ... ok
+test_strict_integer_and_gate_types (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_strict_integer_and_gate_types) ... ok
+test_wrong_page_or_source_is_rejected (competition.deepeye.tests.test_check_rules.RuleCheckerTests.test_wrong_page_or_source_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.030s
+
+OK

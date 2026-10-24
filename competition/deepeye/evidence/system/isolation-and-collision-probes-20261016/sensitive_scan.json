@@ -1,0 +1,19 @@
+{
+  "artifact_class": "derived",
+  "scope": "payload files before FILE_LIST/manifest; final private verification covers all bundle files",
+  "payload_files_scanned": 49,
+  "rules": [
+    "absolute_windows_path",
+    "personal_profile_path",
+    "windows_sid_value",
+    "secret_assignment",
+    "private_key_or_api_secret",
+    "concrete_win32_identity",
+    "object_namespace_path"
+  ],
+  "known_private_identity_literals_compared": 18,
+  "findings": [],
+  "result": "no detected secrets/personal paths/SID/Win32 identity values; structured derivatives manually whitelisted",
+  "limitations": "pattern and exact-known-literal scan plus selective review; not a universal secret detector",
+  "experiment_reruns": 0
+}

@@ -1,0 +1,225 @@
+ignore_direction
+.................F.FF.......
+======================================================================
+FAIL: test_pose_and_direction_are_not_cached (gate_clearance_private_tests.GateClearanceTests.test_pose_and_direction_are_not_cached)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 242, in test_pose_and_direction_are_not_cached
+    self.assertEqual(self.section(direction=-1).status, 'UNKNOWN')
+AssertionError: 'CLEAR_SECTION' != 'UNKNOWN'
+- CLEAR_SECTION
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_reverse_axis_requires_reverse_direction (gate_clearance_private_tests.GateClearanceTests.test_reverse_axis_requires_reverse_direction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 75, in test_reverse_axis_requires_reverse_direction
+    self.assertEqual(self.section(body).status, 'UNKNOWN')
+AssertionError: 'CLEAR_SECTION' != 'UNKNOWN'
+- CLEAR_SECTION
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_reverse_sweep_direction_and_parallel (gate_clearance_private_tests.GateClearanceTests.test_reverse_sweep_direction_and_parallel)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 189, in test_reverse_sweep_direction_and_parallel
+    self.assertEqual(self.sweep(body).status, 'UNKNOWN')
+AssertionError: 'SAFE_IF_INTERSECTING' != 'UNKNOWN'
+- SAFE_IF_INTERSECTING
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.012s
+
+FAILED (failures=3)
+
+remove_uncertainty
+.........F................F.
+======================================================================
+FAIL: test_errors_expand_radius_and_support (gate_clearance_private_tests.GateClearanceTests.test_errors_expand_radius_and_support)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 112, in test_errors_expand_radius_and_support
+    self.assertEqual(self.section(body, errors=errors).status, 'UNKNOWN')
+AssertionError: 'CLEAR_SECTION' != 'UNKNOWN'
+- CLEAR_SECTION
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_sweep_errors_are_explicit_and_additive (gate_clearance_private_tests.GateClearanceTests.test_sweep_errors_are_explicit_and_additive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 148, in test_sweep_errors_are_explicit_and_additive
+    self.assertGreaterEqual(result.inflation_upper_m, .0005+.5*.001**2/8+.001+.52*.0001+.002)
+AssertionError: 0.0005000625000000001 not greater than or equal to 0.0035520625
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.011s
+
+FAILED (failures=2)
+
+remove_rotation_floor
+........................F.FF
+======================================================================
+FAIL: test_sweep_clearance_contains_required_inflation (gate_clearance_private_tests.GateClearanceTests.test_sweep_clearance_contains_required_inflation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 136, in test_sweep_clearance_contains_required_inflation
+    self.assertGreaterEqual(result.inflation_upper_m, expected)
+AssertionError: 0.0004421806250000001 not greater than or equal to 0.000500180625
+
+======================================================================
+FAIL: test_sweep_errors_are_explicit_and_additive (gate_clearance_private_tests.GateClearanceTests.test_sweep_errors_are_explicit_and_additive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 148, in test_sweep_errors_are_explicit_and_additive
+    self.assertGreaterEqual(result.inflation_upper_m, .0005+.5*.001**2/8+.001+.52*.0001+.002)
+AssertionError: 0.0033120625000000003 not greater than or equal to 0.0035520625
+
+======================================================================
+FAIL: test_sweep_uses_both_axis_plane_intersections (gate_clearance_private_tests.GateClearanceTests.test_sweep_uses_both_axis_plane_intersections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 177, in test_sweep_uses_both_axis_plane_intersections
+    self.assertGreaterEqual(result.radial_upper_m, .1605)
+AssertionError: 0.16000000000000003 not greater than or equal to 0.1605
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.011s
+
+FAILED (failures=3)
+
+remove_rotation_cover
+.....................F......
+======================================================================
+FAIL: test_rotation_linear_bound_is_not_only_minimum_margin (gate_clearance_private_tests.GateClearanceTests.test_rotation_linear_bound_is_not_only_minimum_margin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 144, in test_rotation_linear_bound_is_not_only_minimum_margin
+    self.assertGreaterEqual(result.inflation_upper_m, 2.12*.0008+.5*.001**2/8)
+AssertionError: 0.0005000625000000001 not greater than or equal to 0.0016960625000000003
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.010s
+
+FAILED (failures=1)
+
+remove_chord_cover
+.....................F..F.F.
+======================================================================
+FAIL: test_rotation_linear_bound_is_not_only_minimum_margin (gate_clearance_private_tests.GateClearanceTests.test_rotation_linear_bound_is_not_only_minimum_margin)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 144, in test_rotation_linear_bound_is_not_only_minimum_margin
+    self.assertGreaterEqual(result.inflation_upper_m, 2.12*.0008+.5*.001**2/8)
+AssertionError: 0.0016960000000000002 not greater than or equal to 0.0016960625000000003
+
+======================================================================
+FAIL: test_sweep_clearance_contains_required_inflation (gate_clearance_private_tests.GateClearanceTests.test_sweep_clearance_contains_required_inflation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 136, in test_sweep_clearance_contains_required_inflation
+    self.assertGreaterEqual(result.inflation_upper_m, expected)
+AssertionError: 0.0005000000000000001 not greater than or equal to 0.000500180625
+
+======================================================================
+FAIL: test_sweep_errors_are_explicit_and_additive (gate_clearance_private_tests.GateClearanceTests.test_sweep_errors_are_explicit_and_additive)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 148, in test_sweep_errors_are_explicit_and_additive
+    self.assertGreaterEqual(result.inflation_upper_m, .0005+.5*.001**2/8+.001+.52*.0001+.002)
+AssertionError: 0.0035520000000000005 not greater than or equal to 0.0035520625
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.011s
+
+FAILED (failures=3)
+
+ignore_end_position
+...........................F
+======================================================================
+FAIL: test_sweep_uses_both_axis_plane_intersections (gate_clearance_private_tests.GateClearanceTests.test_sweep_uses_both_axis_plane_intersections)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 176, in test_sweep_uses_both_axis_plane_intersections
+    self.assertEqual(result.status, 'UNKNOWN')
+AssertionError: 'SAFE_IF_INTERSECTING' != 'UNKNOWN'
+- SAFE_IF_INTERSECTING
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.011s
+
+FAILED (failures=1)
+
+ignore_slice_angle
+........F...................
+======================================================================
+FAIL: test_endpoint_clear_mid_rotation_angle_violation_is_rejected (gate_clearance_private_tests.GateClearanceTests.test_endpoint_clear_mid_rotation_angle_violation_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 161, in test_endpoint_clear_mid_rotation_angle_violation_is_rejected
+    self.assertEqual(result.status, 'UNKNOWN')
+AssertionError: 'SAFE_IF_INTERSECTING' != 'UNKNOWN'
+- SAFE_IF_INTERSECTING
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.010s
+
+FAILED (failures=1)
+
+remove_slice_angle_cap
+......................F.....
+======================================================================
+FAIL: test_slice_larger_than_point_zero_five_degree_is_unknown (gate_clearance_private_tests.GateClearanceTests.test_slice_larger_than_point_zero_five_degree_is_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 151, in test_slice_larger_than_point_zero_five_degree_is_unknown
+    self.assertEqual(self.sweep(theta=math.radians(.050001)).status, 'UNKNOWN')
+AssertionError: 'SAFE_IF_INTERSECTING' != 'UNKNOWN'
+- SAFE_IF_INTERSECTING
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.011s
+
+FAILED (failures=1)
+
+allow_contact
+......F.........F...........
+======================================================================
+FAIL: test_contact_and_near_contact_do_not_clear (gate_clearance_private_tests.GateClearanceTests.test_contact_and_near_contact_do_not_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 89, in test_contact_and_near_contact_do_not_clear
+    self.assertEqual(self.section(body).status, 'UNKNOWN')
+AssertionError: 'CLEAR_SECTION' != 'UNKNOWN'
+- CLEAR_SECTION
++ UNKNOWN
+
+
+======================================================================
+FAIL: test_plane_tangency_and_guard_are_not_empty_or_clear (gate_clearance_private_tests.GateClearanceTests.test_plane_tangency_and_guard_are_not_empty_or_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.local\deepeye-implementation-a\competition\deepeye\tests\simulation\test_gate_clearance.py", line 97, in test_plane_tangency_and_guard_are_not_empty_or_clear
+    self.assertEqual(result.status, 'UNKNOWN')
+AssertionError: 'EMPTY' != 'UNKNOWN'
+- EMPTY
++ UNKNOWN
+
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.010s
+
+FAILED (failures=2)

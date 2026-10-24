@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-10-20T06:37:54.782849+00:00",
+  "base": "f1d8c6d37bf6e17b3b0b92dc4998a4c7f8959bbe",
+  "candidate_v1_sha256": {
+    "competition/deepeye/tools/preflight.py": "5052890bc30b9b7a3170a771b1f2e247210d81c11c98c221e07d011db870037d",
+    "competition/deepeye/tools/preflight_windows.ps1": "75a0454a82e1f9a27e4ba2fbd2870643121521a0413cbb568909c168477d5cc2",
+    "competition/deepeye/tests/test_preflight.py": "b554eb98c5fe587f6f91fc9fab6b82e0a6155243aafe0ef882c948b0b78b1ebc",
+    "competition/deepeye/hardware/preflight.md": "16503a3383843dbdc1554d17ad760bfe92eb831ccc89b04f95560aea7e2beab3"
+  },
+  "original_terminal_verified": true,
+  "tests_passed": 14,
+  "live_exit_code": 2,
+  "live_inventory_complete": false,
+  "known_blocker": "-File launch denied by existing execution policy; no CIM queries ran",
+  "raw_stdout_file_bytes_identical": false,
+  "parsed_json_equal": true,
+  "protected_dirty_bytes_preserved": true,
+  "adopted": false,
+  "independent_review": "child-46e36fbd55aa432fb4cb499f314750c8 active",
+  "all29_formal_cards": "not_run"
+}

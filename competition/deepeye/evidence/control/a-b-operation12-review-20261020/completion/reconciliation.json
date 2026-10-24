@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "status": "evidence_reconciled",
+  "at_utc": "2026-10-20T00:21:58.020131+00:00",
+  "tested_head": "f7e95af8f8abae6d4a5312c08d99e095a7e5dec1",
+  "source_commit": "61141302a68c3085951721074abbfeec31bfcb3a",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "original_job_terminal": {
+    "job_id": "child-5345bee33b45490bbc0c070bd3473a41",
+    "instance_id": "deepseek-a-28",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "route": "deepseek",
+    "work_id": "A-B-PWM-ATOMIC-REVIEW-20261020-v1",
+    "ownership": [
+      ".planning/deepeye-resume-20261018/b-pr30-followup-20261020/review"
+    ],
+    "native_agent_id": null,
+    "status": "failed",
+    "terminal": true,
+    "stale": false,
+    "result": null,
+    "error": "TimeoutError: ",
+    "created_at": "2026-10-19T17:43:14.493387Z",
+    "updated_at": "2026-10-20T00:06:00.410054Z"
+  },
+  "source_files_verified": 357,
+  "manifest_entries_verified": 353,
+  "archive": {
+    "bytes": 32450442,
+    "sha256": "20e8034ff74e5dc6dc7244a8ac4f8e641f2b66c0201bc6b1453a47bf21a38520"
+  },
+  "archive_safe_members": 2549,
+  "source_snapshot_aggregate_sha256": "63bc299b223c2bab97eaa063f98bb9b7dec86ea951ef94bc25557d02d3995c5f",
+  "original_source_and_review_unchanged_during_reconciliation": true,
+  "captured_commands": 26,
+  "simulator_command_records_verified": 22,
+  "cases": [
+    {
+      "case": "w2_t1",
+      "rows": 7041,
+      "vector": {
+        "bytes": 309809,
+        "sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7"
+      },
+      "ports": {
+        "bytes": 1716894,
+        "sha256": "2da7df7035c9386ba89e46b6c375d665d85de6427d9aa9bba052b4836ff744d1"
+      },
+      "stdout": {
+        "bytes": 1133,
+        "sha256": "a5eabd445e8536348e44f770270ca47f996b55df7d0589baad5338ab01718adc"
+      },
+      "coverage": {
+        "exhaustive_legal_tuple": 99,
+        "boundary_position": 18,
+        "abort_or_busy_overlap": 132,
+        "random_cycle": 6000
+      }
+    },
+    {
+      "case": "w3_t64",
+      "rows": 26603,
+      "vector": {
+        "bytes": 1486417,
+        "sha256": "1ffad1a5a2d8c65016c6a2aa05d915255d130112a90b9d0fcc6cd5c5445d7201"
+      },
+      "ports": {
+        "bytes": 6506625,
+        "sha256": "e766b74117cff8715bd045174aad7565d54f32bc8cff322575f20a278ae52852"
+      },
+      "stdout": {
+        "bytes": 1141,
+        "sha256": "def04ea82ffafb026ccde4d67b45ece43309ee6472dc83fadafd65b0199eaeae"
+      },
+      "coverage": {
+        "exhaustive_legal_tuple": 1295,
+        "boundary_position": 84,
+        "abort_or_busy_overlap": 1176,
+        "random_cycle": 6000
+      }
+    },
+    {
+      "case": "w32_t32",
+      "rows": 12546,
+      "vector": {
+        "bytes": 791834,
+        "sha256": "a399c4d33ec1dd4cd3c1301d55d456ff3c9539dd3063606c792c7db48edceee7"
+      },
+      "ports": {
+        "bytes": 3062660,
+        "sha256": "9a6ea46ebf2b07001385fcb8a17165b670cd4fc798ce04ad3393b5cddbcf5582"
+      },
+      "stdout": {
+        "bytes": 1147,
+        "sha256": "a589267f55148c6d74088c087a8886719537a9f8c44231909d8e820c699d345f"
+      },
+      "coverage": {
+        "32bit_legal_tuple": 40,
+        "32bit_full_frames": 20,
+        "32bit_partial_abort": 20,
+        "unsigned_invalid": 4,
+        "random_cycle": 6000
+      }
+    }
+  ],
+  "public_port_edge_samples": 46190,
+  "long_case": {
+    "full_frame_intervals": 2000000,
+    "high_counts": [
+      10000,
+      490000,
+      70000
+    ],
+    "new_period": 37,
+    "new_complete_frames": 2,
+    "stdout": {
+      "bytes": 1128,
+      "sha256": "572b9a8fc454acabee26ff74a518ab54af07383a63230d8b778bd56381a4477a"
+    }
+  },
+  "parameter_guards": [
+    {
+      "count_w": 1,
+      "tag_w": 32,
+      "exact_marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=1 TAG_W=32",
+      "exit_code": 0,
+      "bytes": 1263,
+      "sha256": "cb4fc037cf0243fb8c46b45a78e6125b475afc2563ee45cc56cf11909dd7f41b"
+    },
+    {
+      "count_w": 33,
+      "tag_w": 32,
+      "exact_marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=33 TAG_W=32",
+      "exit_code": 0,
+      "bytes": 1266,
+      "sha256": "624a43c3a6c9e4da015d8708e0e455d7dd37db59c99762e431f676274faa6f9c"
+    },
+    {
+      "count_w": 3,
+      "tag_w": 0,
+      "exact_marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=3 TAG_W=0",
+      "exit_code": 0,
+      "bytes": 1260,
+      "sha256": "1b0184c108123c5c23aa781e3ed460dd6794d4a86c7e176f55b4be27896c9d03"
+    },
+    {
+      "count_w": 3,
+      "tag_w": 65,
+      "exact_marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=3 TAG_W=65",
+      "exit_code": 0,
+      "bytes": 1263,
+      "sha256": "9e005e99905c5eaadb6b4f6230f6d795efd2c68d743f3c42b3fd8fc2dfd5dfce"
+    }
+  ],
+  "mutants": [
+    {
+      "name": "stop_ignored",
+      "row": 815,
+      "field": 13,
+      "got": 1,
+      "expected": 0,
+      "mutant": {
+        "bytes": 7975,
+        "sha256": "ef7e14d5ab26813bdcdb29c26066ee75c85b16b697ee246206e4e45b2ec38486"
+      },
+      "stdout": {
+        "bytes": 1232,
+        "sha256": "e06017dbdcdc89d07a5114fd1b25f85f057245e749905c4abb375526ad801c5a"
+      },
+      "diff": "--- \n+++ \n@@ -99,7 +99,7 @@\n         applied_q     <= 1'b0;\n         frame_start_q <= 1'b0;\n \n-        if (rst || stop) begin\n+        if (rst) begin\n             running_q            <= 1'b0;\n             pending_q            <= 1'b0;\n             phase_q              <= COUNT_ZERO;\n"
+    },
+    {
+      "name": "pitch_from_yaw",
+      "row": 12,
+      "field": 19,
+      "got": 0,
+      "expected": 1,
+      "mutant": {
+        "bytes": 7981,
+        "sha256": "b0d89c1ae1b81d91ad6ddb06f41ca9459004e76c9b138a6fd4bba8df97f64395"
+      },
+      "stdout": {
+        "bytes": 1229,
+        "sha256": "a1032511afb00813908a9ebf760e6989785b805fea92982c7590a3bc3517b573"
+      },
+      "diff": "--- \n+++ \n@@ -120,7 +120,7 @@\n             phase_q              <= COUNT_ZERO;\n             active_period_q      <= pending_period_q;\n             active_high_yaw_q    <= pending_high_yaw_q;\n-            active_high_pitch_q  <= pending_high_pitch_q;\n+            active_high_pitch_q  <= pending_high_yaw_q;\n             active_high_speed_q  <= pending_high_speed_q;\n             active_tag_q         <= pending_tag_q;\n             pending_period_q     <= COUNT_ZERO;\n"
+    }
+  ],
+  "author": {
+    "committed_verified": 40,
+    "unavailable_work_entries": 45,
+    "manifest_entries": 85,
+    "aliases": [
+      [
+        "replay_events.log",
+        "replay_events.log.txt"
+      ],
+      [
+        "transcript",
+        "transcript.txt"
+      ]
+    ],
+    "groups": 9,
+    "author_assertion_invocations": 90644277,
+    "rerun": false
+  },
+  "installed_tool_binaries": {
+    "vlib.exe": {
+      "bytes": 3590512,
+      "sha256": "12fa9f43fac4af70f9694e6055f376dcc419c39518a0e30d7aa047c37aaca576"
+    },
+    "vlog.exe": {
+      "bytes": 21366640,
+      "sha256": "39e7f5cbae66a5aa65a179f5ab8faee01a0c53dc838e5e2b76510ac6c77e80a6"
+    },
+    "vsim.exe": {
+      "bytes": 5058416,
+      "sha256": "011f110291dc69707d7118e8f8d712b91438e0c837f9bc10ce6bf53c1d048cfd"
+    }
+  },
+  "frozen_oracle_runner_sha256": "e34e0bf9da8453eb3523756b4f4b60ca67daed637bc716636e7732ecfdf3d093",
+  "executed_runner_sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+  "frozen_vectors_regenerated_byte_exact": true,
+  "simulation_rerun_by_this_job": false,
+  "reason_no_simulation_rerun": "All unchanged raw simulation outputs, sources, canonical vectors, traces, guards and mutants reconcile; no missing falsifying check found.",
+  "not_run": [
+    "all_29_formal_cards",
+    "G05/B06/R03_system_acceptance",
+    "synthesis",
+    "implementation",
+    "timing",
+    "CDC/RDC",
+    "physical_board",
+    "ABI_or_motion_authority"
+  ],
+  "notes": [
+    "Original result-audit author.files_verified=85 overstates locally verifiable published entries: 40 checked bytes, 45 unpublished work entries retained as absent.",
+    "Runner result records pre-wrapper argv; actual translated batch/syncio argv independently matched raw COMPAT_VSIM stderr.",
+    "Original child failed TimeoutError; this is a new evidence reconciliation result, not a relabel of the old job."
+  ]
+}

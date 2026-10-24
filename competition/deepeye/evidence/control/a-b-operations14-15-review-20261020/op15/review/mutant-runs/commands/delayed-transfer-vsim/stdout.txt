@@ -1,0 +1,25 @@
+# vsim -batch -syncio delayed-transfer.independent_tb -gCOUNT_W=4 -gWITNESS_W=8 -gTAG_W=8 "+VEC=R:/test.vec" "+LOG=R:/delayed-transfer.trace" -l R:/delayed-transfer.transcript -wlf R:/delayed-transfer.wlf -do "run.do" 
+# Start time: 09:11:05 on Oct 20,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.independent_tb(fast)
+# 
+# do run.do
+# INDEPENDENT_TRACE_DONE edges=2376
+# ** Note: $finish    : R:/snapshot/independent_tb.sv(88)
+#    Time: 23766 ns  Iteration: 0  Instance: /independent_tb
+# End time: 09:11:07 on Oct 20,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0

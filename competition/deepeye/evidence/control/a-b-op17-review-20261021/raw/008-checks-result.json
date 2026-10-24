@@ -1,0 +1,318 @@
+{
+  "current_methods": 31,
+  "original_methods": 23,
+  "original_method_ASTs_unchanged": true,
+  "checks": [
+    {
+      "name": "positive-control",
+      "stdout_sha256": "2ab5ad49cfebe3c5af328fd6c569dba8ade002213ee8a0e94575d944756736f5",
+      "baseline_accepted": true,
+      "final_accepted": true
+    },
+    {
+      "name": "code7-in-ordinary-group",
+      "stdout_sha256": "4df540e0c3e98473be7761e913822d7549193300fcd60255db45641edd5801fd",
+      "baseline_accepted": true,
+      "final_accepted": false
+    },
+    {
+      "name": "guard-control",
+      "stdout_sha256": "208fca1fd3b587c0409950405d437b2213061042e8dfb50896bb3941d6a4d97b",
+      "baseline_accepted": true,
+      "final_accepted": true
+    },
+    {
+      "name": "guard-extra-unrelated-fatal",
+      "stdout_sha256": "43945861d9cc0029db7d9d2d130b22b97cce5d348d8d1ee9e21b90304bc1d29f",
+      "baseline_accepted": true,
+      "final_accepted": false
+    },
+    {
+      "name": "guard-prefixed-records",
+      "stdout_sha256": "8c0c9db3c279cd13ed88436b5acbbdde48371f79c07c926a3d72c73097fa0eca",
+      "baseline_accepted": true,
+      "final_accepted": false
+    },
+    {
+      "name": "mixed-known-prefix-crlf",
+      "expected": true,
+      "observed": true,
+      "stdout_sha256": "47c5d80d5dd47c913076f8af60b6f1ab7cc26831241649b3e76c73c16ffefa31",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "unterminated-final-fatal",
+      "expected": true,
+      "observed": true,
+      "stdout_sha256": "55edf9a25de79e2041b1ca8b15543ab9a01ee16a3c4384ebb995f3415902d1d3",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "embedded-NUL-diagnostic",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "d53092009c58a85973cb0f62b6703a278ce572cc52a88d6f0f54e6d3c0b28d7c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "double-CR",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "d54c1b3e627d18836b43f7aa43740165b16e3d8c7bbc823d10c3c97d91d04034",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "terminal-UTF8-refusal",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "755d498b6acf2c613192b82138a46566602bdf73917104cc5f4e7af73c09396f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "stderr-late-own-fatal",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "208fca1fd3b587c0409950405d437b2213061042e8dfb50896bb3941d6a4d97b",
+      "stderr_sha256": "6a6f12ec862ca1cf4cf3c969e5ea4b727d4b8b3779af0e46888fff8e3e37d6fc"
+    },
+    {
+      "name": "unknown-fatal-prefix",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "18428a05854dbc4ca5eaaae8f6a5b751e0b658fc3344feca76a3ff462c77b873",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "leading-zero-safe",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "f1e0596b59196332d63fb8fc1e0c9b8dbfcfa6ca28e67c666b79b6a3eff86b7c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "negative-zero-input",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "d67f8a99485b6bf9bc13bacf614e54916f458d8000f8447757e657d3b13618fd",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "extra-fatal-between",
+      "expected": false,
+      "observed": false,
+      "stdout_sha256": "9d2e1197ad7871234a4b661970624f0c176432b302ca41d4fc856f46735c04a4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fully-supported-request-refuses-guard",
+      "observed": false
+    },
+    {
+      "name": "dedicated-code7-control",
+      "expected": true,
+      "observed": true
+    },
+    {
+      "name": "dedicated-missing-code7",
+      "expected": false,
+      "observed": false
+    },
+    {
+      "name": "loopback-code7-refused",
+      "expected": false,
+      "observed": false
+    }
+  ],
+  "saved_streams_rehashed": 94,
+  "saved_scenarios": [
+    {
+      "name": "g00-startup-controls",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 29
+    },
+    {
+      "name": "g01-exhaustive-w2",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 629
+    },
+    {
+      "name": "g02-exhaustive-w3",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 10927
+    },
+    {
+      "name": "g03-faults-recovery",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 84
+    },
+    {
+      "name": "g04-min-exhaustion",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 16
+    },
+    {
+      "name": "g05-count16-boundaries",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 196613
+    },
+    {
+      "name": "g06-max-width-bounded",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 23
+    },
+    {
+      "name": "g07-default-smoke",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 13
+    },
+    {
+      "name": "g08-loopback-record",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 12
+    },
+    {
+      "name": "g09-loopback-exhaustion",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 10
+    },
+    {
+      "name": "g10-phase-controls",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 135
+    },
+    {
+      "name": "g11-same-edge-fault",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 30
+    },
+    {
+      "name": "g12-future-waveform",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 9
+    },
+    {
+      "name": "g13-same-tag-boundaries",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 36
+    },
+    {
+      "name": "g14-control-at-handshake",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 30
+    },
+    {
+      "name": "g15-constant-missing-edges",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 32
+    },
+    {
+      "name": "g20-T-boundary-control",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 14
+    },
+    {
+      "name": "g21-same-tag-control",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 14
+    },
+    {
+      "name": "g22-mismatch-control",
+      "kind": "positive",
+      "accepted": true,
+      "samples": 11
+    },
+    {
+      "name": "m1-t-invalidation-delayed-g21",
+      "kind": "fail",
+      "accepted": true
+    },
+    {
+      "name": "m2-same-tag-state-retained-g13",
+      "kind": "fail",
+      "accepted": true
+    },
+    {
+      "name": "m3-mismatch-admitted-g22",
+      "kind": "fail",
+      "accepted": true
+    },
+    {
+      "name": "m4-no-capture-rearm-g30",
+      "kind": "pass_code7",
+      "accepted": true
+    },
+    {
+      "name": "m4-no-capture-rearm-g13",
+      "kind": "fail",
+      "accepted": true
+    },
+    {
+      "name": "invalid-count-zero",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-count-negative",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-count-high",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-witness-zero",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-witness-negative",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-witness-high",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-tag-zero",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-tag-negative",
+      "kind": "guard",
+      "accepted": true
+    },
+    {
+      "name": "invalid-tag-high",
+      "kind": "guard",
+      "accepted": true
+    }
+  ],
+  "saved_positive_samples": 208667,
+  "new_simulator_commands": 0,
+  "prohibited_effect_attempts": [],
+  "runner_sha256": "b6735257dbfc107a14791ec69cb7386f306d0408173acf9466a0f69c93c30b94",
+  "test_sha256": "f8d4d5633949f8583e2d25b2622b3a67b30a05880bd84c2788e327c440516a34"
+}

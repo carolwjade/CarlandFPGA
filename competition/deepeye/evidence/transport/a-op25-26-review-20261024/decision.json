@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:02:20.993318+00:00",
+  "tested_commit": "dfdb2b8120793ba816fd09cd8fc255953bbf73ac",
+  "source_commit": "63a7c23adaf23cea1eb679993a7c87a403c5f305",
+  "disposition": "ACCEPT_STANDALONE_DIGITAL_RX_AND_OPAQUE_FRAME_TX_SIMULATION_ONLY",
+  "operations": {
+    "B-DEEPEYE-UART-RX-20261023-25": {
+      "request_hash": "e95a13c451b3a8750928ad1f7ebe08fb76858556d5fa135c3c58ecc55c29febe",
+      "manifest_sha256": "e6dce5a953c66a83dd0f8e9daaf6ed14cf88c360e02a9fb59c01facc4deec0b2",
+      "root_rehashed_files": 12
+    },
+    "B-DEEPEYE-UART-FRAME-TX-20261023-26": {
+      "request_hash": "a214c2014390a3a68ca7a3f4f99f9e5a8f930e0580aa37b44ef8c4bb47ab98ee",
+      "manifest_sha256": "6cb1fcdf0244a90bb36a8fdc621bd746e84aaf0d6b9dddf0cca49fd65026fe4b",
+      "root_rehashed_files": 12
+    }
+  },
+  "acquisition": "authenticated exact-head byte snapshot; incomplete Git checkout after bounded own fetch stop",
+  "complete_git_checkout": false,
+  "exact_head_changed_files": 6,
+  "report_count_correction": "The child report says four head-only handoff metadata files. The saved exact-head commit API and identity-result list six: README/input/manifest for each operation. Root verified six and preserves the original report. This correction changes no RTL or simulation result. Complete checkout remains unavailable; no whole-tree integration claim is made.\n",
+  "report_sha256": "5f7ee23ed2ac443558c1dd9bc379e9251801e57ad3d5ebd8b1af54bfba5c2156",
+  "new_cases": 4,
+  "new_edges": 33751,
+  "new_assertions": 164192,
+  "new_processes": 12,
+  "external_decoder_bytes": 162,
+  "external_crc_frames": 4,
+  "external_negative_controls": 4,
+  "DUT_CRC_generation_validation": false,
+  "root_log_checks": {
+    "rx-int-vlib": {
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rx-int-vlog": {
+      "stdout_sha256": "9704b29e3f26c01f3ece3685f66aa8c7062d7d1cf853ea517d16a4bce6e7d37a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rx-int-vsim": {
+      "stdout_sha256": "a0bb2fd1212ccf10fb9447462d9bd0e886d8bb96b12f0ca96e4e2219c6c28800",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rx-frac-sat-vlib": {
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rx-frac-sat-vlog": {
+      "stdout_sha256": "b7a916808b645ac16cff360a4a2d0e800adbb04015ee5133d49940278a1297a5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rx-frac-sat-vsim": {
+      "stdout_sha256": "c07a7a9e6bce99ba12f6ed94642b475b4b168fb38bc510f074c2735afb3d46a1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-zero-vlib": {
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-zero-vlog": {
+      "stdout_sha256": "ade18aab27785bd734f2fba853285b9ca9bd4508a728720b2f2374a8c0a069d9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-zero-vsim": {
+      "stdout_sha256": "a9018a826c09e56d7f1b3e2af18e5a8d615974a3d8ca7b67f1bd4e9fa63b11c1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-frac-guards-vlib": {
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-frac-guards-vlog": {
+      "stdout_sha256": "da7c79d5eda03e16ac25a47eae11f71df7c126f5b16770de2a5a2039da1856a8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "frame-frac-guards-vsim": {
+      "stdout_sha256": "1639db3619ea60c0ae8416a53a9d37c3169734ac89cadaee1928caa8bda6e8e4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "old_suites_replayed": false,
+  "independent_parser_synthetic_reclassification": false,
+  "H01_H15_preserved": true,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "board_actions": false
+}

@@ -1,0 +1,14 @@
+{
+  "original_sha256": "d8c33ebad98acca113e18dbc5831643646663b946714af139d8b1637047356f3",
+  "mutant_sha256": "5d8ea52c85b3a4b9d12df14f07a61ef05b8c57393b9a41cc3305aff6c45d9bb4",
+  "replacements": [
+    [
+      "rst || stop || transfer_now || g_pending || !g_running",
+      "rst || stop || (transfer_now && (cfg_tag != expected_tag_q)) || (g_pending && (cfg_tag != expected_tag_q)) || !g_running"
+    ],
+    [
+      "assign capture_rearm = capture_arm;",
+      "assign capture_rearm = capture_arm && (cfg_tag != expected_tag_q);"
+    ]
+  ]
+}

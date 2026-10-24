@@ -1,0 +1,4 @@
+Actual command: existing ROOT/.local/venv/Scripts/python.exe -B -X utf8 this-folder/audit_static.py
+Exit 1, tool chunk 315845, elapsed 0.4899202 s. UTC not emitted by shell.
+AssertionError: generated Verilog top ports and exact default widths
+Reviewer parser required whitespace between a vector closing bracket and its identifier. Vivado legally emits [31:0]cfg_period. Corrected regex accepts that syntax; no RTL/netlist change. Original reviewer source and input snapshot retained as audit_static_v1.py and static-v1-inputs-before.json.

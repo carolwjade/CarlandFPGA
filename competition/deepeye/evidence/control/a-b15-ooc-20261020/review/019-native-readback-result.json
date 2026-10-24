@@ -1,0 +1,25 @@
+{
+  "status": "failed",
+  "started_utc": "2026-10-20T10:30:06.274323+00:00",
+  "finished_utc": "2026-10-20T10:30:31.608907+00:00",
+  "duration_seconds": 25.344000000011874,
+  "batch_exit_code": 1,
+  "timeout": false,
+  "peak_job_committed_memory_bytes": 1782493184,
+  "actual_job_memory_cap_bytes": 4294967296,
+  "actual_job_priority_class": 16384,
+  "total_job_processes": 4,
+  "residual_processes_before_job_close": 1,
+  "kill_on_close": true,
+  "error_lines": [
+    "B15_CHECKPOINT_READBACK_FAIL Unexpected checkpoint identity",
+    "B15_CHECKPOINT_READBACK_FAIL Unexpected checkpoint identity"
+  ],
+  "warning_lines": [],
+  "input_hashes_unchanged": true,
+  "stdout_sha256": "1b62ebf60e25ff63797cf5f770c697a62a52bfc2d4292abcccd2e50f6d2f551e",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "new_synthesis_runs": 0,
+  "new_open_checkpoint_runs": 1,
+  "implementation_board_all29": "not_run"
+}

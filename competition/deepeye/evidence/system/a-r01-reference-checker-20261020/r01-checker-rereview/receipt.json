@@ -1,0 +1,199 @@
+{
+  "schema": 1,
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-R01-CHECKER-REREVIEW-20261020-v1",
+  "main": "Desktop01a13d7e-dcf1-7272-a738-a637dd62ff9d generation2",
+  "scope": "bounded independent rereview of the repair for R01-CHK-01",
+  "verdict": "PASS_BOUNDED_REPAIR_REREVIEW",
+  "finding": {
+    "id": "R01-CHK-01",
+    "original_severity": "High",
+    "bounded_status": "closed",
+    "no_new_regression_observed": true,
+    "historical_failure_rewritten_as_pass": false
+  },
+  "candidate": {
+    "candidate_manifest": ".planning/deepeye-resume-20261018/r01-checker-repair/candidate-manifest.json",
+    "sha256": "9582bde875bf1aa2daef6c8f1b3d4925ed67cba0a22cb11f9d7ac0d773291f90",
+    "requested_pin_matches": true,
+    "repair_patch_sha256": "94423ad780224ddbee0c989ea8402ee61b15a20d66c85e1fb30b40102acf8d2c",
+    "source_hashes": {
+      "competition/deepeye/tools/check_rules.py": {
+        "before": "6276854e4c336d32d1afc3c110f61c3d112135965ea09997a28af4862042057a",
+        "after": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e"
+      },
+      "competition/deepeye/tests/test_check_rules.py": {
+        "before": "8a21b7aa71714c2ffacd1c7a002b4280b17c979be1350ddbc5f84a1f9f16feac",
+        "after": "fcd9ac2be810731c3f4e77f9ccf06152287bea78af774d5f63ca7ddbe02c06ab"
+      },
+      "competition/deepeye/docs/rules_verification.md": {
+        "before": "2cfdcca1cb0ade6eb50d5aa90ca3f799b1369dbb87e495e605c7f2f0c3e5bc9b",
+        "after": "451ae603ae206ec7c0a46fb57b347ee506b999f31217c4d326f87b02a45cbf0f"
+      }
+    }
+  },
+  "pin_rehash": {
+    "original_candidate_sha256": "85a6db6ee4f839685a47770590fcbca6683862927318d94d05f749fad3b3c8cd",
+    "input_pins_checked": 6,
+    "input_pins_matching": 6,
+    "repair_evidence_checked": 24,
+    "repair_evidence_matching": 24,
+    "source_pre_repair_matches_original_manifest": true,
+    "source_product_matches_repair_manifest": true,
+    "source_stage_matches_product": true,
+    "original_review_files": 95,
+    "original_review_tree_sha256": "1defa9cfa10cbac4d4020e3a52174068ec884e359af3636afac8374a468a359c",
+    "original_review_tree_unchanged": true
+  },
+  "assessment_weights": {
+    "exact_mapping": {
+      "system_completeness": 20,
+      "pc_ai": 20,
+      "fpga_quality": 25,
+      "cooperation": 20,
+      "engineering_innovation": 15
+    },
+    "exact_five_key_set": true,
+    "strict_integer_values": true,
+    "sum": 100,
+    "checker_matches_frozen_rules": true,
+    "checker_matches_reviewed_mapping": true,
+    "missing_or_changed_values_rejected": true,
+    "source_association": {
+      "taskbook": "docs/competition/deepeye-2026/taskbook_final.md:331",
+      "selected_plan": ".planning/deepeye-resume-20261018/r01-checker-main/plan.md:27",
+      "frozen_rules": "competition/deepeye/docs/rules.json:245"
+    }
+  },
+  "tests": {
+    "before_methods": 17,
+    "after_methods": 20,
+    "original_17_ast_bodies_unchanged": true,
+    "added": [
+      "test_assessment_weight_types_and_categories_cannot_substitute",
+      "test_assessment_weights_cannot_be_omitted_or_incomplete",
+      "test_changed_assessment_weights_are_rejected_even_when_total_is_100"
+    ],
+    "independent_runs": 1,
+    "ran_20_tests": true,
+    "result": "OK"
+  },
+  "normal_default_full_exit_map": {
+    "reference_only": 0,
+    "default": 2,
+    "full_explicit_source": 2
+  },
+  "runs": {
+    "unittest20": {
+      "exact_command_record": "runs/unittest20/command.json",
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e19f8a8fb60c1080e8bac451f2f7b07db6539944ed3a19a23ddc4672bc7169a5"
+    },
+    "cli-reference": {
+      "exact_command_record": "runs/cli-reference/command.json",
+      "exit_code": 0,
+      "status": "reference_checks_passed",
+      "stdout_sha256": "43650c1d709d42d94c2e161058dbb291968051322d2e4560100e6660445fedae",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cli-default": {
+      "exact_command_record": "runs/cli-default/command.json",
+      "exit_code": 2,
+      "status": "blocked",
+      "stdout_sha256": "6a1dedb1b5d16205b3dbb8af24d0ff1d624735b4e40b60cbbad02c6a8a95570e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "cli-full": {
+      "exact_command_record": "runs/cli-full/command.json",
+      "exit_code": 2,
+      "status": "blocked",
+      "stdout_sha256": "77f889497ac0c31028982825ff6973457b19770c739110c254c74c1c880c2064",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case-weights-tamper": {
+      "exact_command_record": "runs/case-weights-tamper/command.json",
+      "exit_code": 1,
+      "status": "failed",
+      "error": "assessment weights differ from the reviewed section 3.2 distribution",
+      "stdout_sha256": "a5bc8538d52b77f0ab2ca22211937d95a642712d629e0aa1c9df7a6c5d095abc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "case-weights-missing": {
+      "exact_command_record": "runs/case-weights-missing/command.json",
+      "exit_code": 1,
+      "status": "failed",
+      "error": "assessment weights must contain exactly the reviewed section 3.2 categories",
+      "stdout_sha256": "d8daadc6bc1f741b65bac0a3b7c0afc20f451111bfc9bfebcb9b77fcbad47657",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "static-inspection": {
+      "exact_command_record": "runs/static-inspection/command.json",
+      "exit_code": 0,
+      "stdout_sha256": "6a04d81253074bc0d8d62ae5718491c8dd791d984cb49c597424db07f5b2733a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "provenance": {
+      "exact_command_record": "runs/provenance/command.json",
+      "exit_code": 0,
+      "stdout_sha256": "f324ccda650744c869b5b0db4335f536f1a352e6ea980a0ef09e06308285bf01",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "import_origin": {
+    "python_executable": ".local/venv/Scripts/python.exe",
+    "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "stage_root": ".planning/deepeye-resume-20261018/r01-checker-rereview/stage-01/product",
+    "test_module_loaded_from_stage": true,
+    "checker_module_loaded_from_stage": true,
+    "sys_path_0_is_stage": true,
+    "test_method_count": 20,
+    "flags": {
+      "python_B": true,
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONNOUSERSITE": "1",
+      "PYTHONPYCACHEPREFIX_private": true,
+      "TEMP_TMP_private": true,
+      "PYTHONPATH_removed": true
+    }
+  },
+  "requirements": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "revision": 1,
+    "ids": ["H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12", "H13", "H14", "H15"],
+    "canonical_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+    "matches_expected": true,
+    "scope_copies_byte_identical": true
+  },
+  "historical_evidence_preserved": {
+    "original_findings_md_sha256": "548004b667fd0995b7a39fc82ccdfc7612e4fb67bd04525547b6f5af1e43f4d7",
+    "case_weights_tamper_run_exit": 0,
+    "case_weights_missing_run_exit": 0,
+    "runs_rewritten_as_pass": false
+  },
+  "states": {
+    "R01": "not_run",
+    "formal29": "not_run",
+    "formal29_count": 29,
+    "formal_acceptance": false,
+    "hardware_enable_eligible": false,
+    "live_organizer_qualification": "not_run",
+    "registration_qualification": "not_run",
+    "rocm_project_C03": "not_run",
+    "physical_gain_rules_recognition": "not_run",
+    "physical_gain_engineering_A05": "not_run",
+    "physical_task_qualification": "not_run"
+  },
+  "inspection_manifest": {
+    "path": "inspection_manifest.json",
+    "sha256": "b7699a65883ec1f61f003b8fec8364b5f69b7bd8fcf34feebcd3cfc53e69d613",
+    "all_checks_pass": true
+  },
+  "limits": [
+    "Bounded offline schema, provenance, exact-byte, and exit-report review only.",
+    "No live organizer semantics, registration, ROCm, physical task recognition, hardware, board, service, or formal R01 approval.",
+    "No formal acceptance and no hardware eligibility are granted.",
+    "PRODUCT HEAD advanced concurrently through unrelated main work; exact source hashes define this review."
+  ]
+}

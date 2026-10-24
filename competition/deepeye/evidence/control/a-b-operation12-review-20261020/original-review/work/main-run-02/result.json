@@ -1,0 +1,62 @@
+{
+  "operation_id": "B-DEEPEYE-PWM-ATOMIC-20261020-12",
+  "kind": "main_independent_public_ports",
+  "rtl": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+  "rtl_sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+  "tb_sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+  "runner_sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+  "negative_control": false,
+  "commands": [
+    {
+      "name": "vlog-version",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-version"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work\\main-run-02",
+      "exit_code": 0,
+      "stdout_sha256": "9949950d6f825cd33090c7c244a9bfc5b0bfdcf492ad0f1979aca71861a775cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vsim-version",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-version"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work\\main-run-02",
+      "exit_code": 0,
+      "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vlib",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+        "work"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work\\main-run-02",
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vlog",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-sv",
+        "-work",
+        "work",
+        "dut.sv",
+        "tb.sv"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\review\\work\\main-run-02",
+      "exit_code": 232,
+      "stdout_sha256": "1340b054aed3518cebbdfcacc881b0fd25081d4e4ef200bf6c152baab1d3a8cb",
+      "stderr_sha256": "778cf232ceb207ee77174c14e33c50f4329244a2e3f50d6671c288cd30800ab6"
+    }
+  ],
+  "runs": [],
+  "status": "failed",
+  "error": "AssertionError()"
+}

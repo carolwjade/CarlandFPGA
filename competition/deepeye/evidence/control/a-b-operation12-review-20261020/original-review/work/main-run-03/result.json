@@ -1,0 +1,97 @@
+{
+  "operation_id": "B-DEEPEYE-PWM-ATOMIC-20261020-12",
+  "kind": "main_independent_public_ports",
+  "rtl": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\b-pr30-followup-20261020\\source\\competition\\deepeye\\fpga\\control3d\\deepeye_atomic_pwm.sv",
+  "rtl_sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+  "tb_sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+  "runner_sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+  "negative_control": false,
+  "commands": [
+    {
+      "name": "vlog-version",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-version"
+      ],
+      "cwd": "R:\\main-run-03",
+      "exit_code": 0,
+      "stdout_sha256": "9949950d6f825cd33090c7c244a9bfc5b0bfdcf492ad0f1979aca71861a775cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vsim-version",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-version"
+      ],
+      "cwd": "R:\\main-run-03",
+      "exit_code": 0,
+      "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vlib",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+        "work"
+      ],
+      "cwd": "R:\\main-run-03",
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "vlog",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+        "-sv",
+        "-work",
+        "work",
+        "dut.sv",
+        "tb.sv"
+      ],
+      "cwd": "R:\\main-run-03",
+      "exit_code": 0,
+      "stdout_sha256": "144126bb9f131add6679c973a62a98761402c84fa9955a63d87140f0928702ac",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "w2_t1",
+      "command": [
+        "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+        "-c",
+        "-onfinish",
+        "stop",
+        "work.main_tb_atomic_pwm",
+        "-gCOUNT_W=2",
+        "-gTAG_W=1",
+        "+VECTORS=w2_t1.vectors.txt",
+        "+TRACE=w2_t1.ports.txt",
+        "-do",
+        "w2_t1.do"
+      ],
+      "cwd": "R:\\main-run-03",
+      "exit_code": 0,
+      "stdout_sha256": "db2f5e944c30126b6396807fef5e9da4e551c1c5b4f99c60b7920f8e87e81e3d",
+      "stderr_sha256": "16c0b42bc087e0dc98fe45fa085d32060994423969c7f28674e1163ac58634ff"
+    }
+  ],
+  "runs": [
+    {
+      "count_w": 2,
+      "tag_w": 1,
+      "rows": 7041,
+      "coverage": {
+        "exhaustive_legal_tuple": 99,
+        "boundary_position": 18,
+        "abort_or_busy_overlap": 132,
+        "random_cycle": 6000
+      },
+      "vectors_sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7",
+      "ports_sha256": "2da7df7035c9386ba89e46b6c375d665d85de6427d9aa9bba052b4836ff744d1",
+      "passed": false
+    }
+  ],
+  "status": "failed",
+  "error": "AssertionError('w2_t1 failed')"
+}

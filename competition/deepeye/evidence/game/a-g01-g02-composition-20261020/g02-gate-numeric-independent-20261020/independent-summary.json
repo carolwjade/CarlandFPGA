@@ -1,0 +1,34 @@
+{
+  "original_rows": 2100,
+  "original_legal_roundtrips": 1116,
+  "oracle_disagreements": 0,
+  "grammar": [
+    {
+      "token": "01",
+      "candidate_ok": true,
+      "python_json_ok": false
+    },
+    {
+      "token": "1.",
+      "candidate_ok": true,
+      "python_json_ok": false
+    },
+    {
+      "token": "1.e0",
+      "candidate_ok": true,
+      "python_json_ok": false
+    },
+    {
+      "token": "1e+0",
+      "candidate_ok": true,
+      "python_json_ok": true
+    }
+  ],
+  "candidate_exact_pins": {
+    "editor/gate_json_numbers.gd": "fbae3077a4a8943165e7f19d41b5bc43d4af23a16620ac9aca40a0428ffbda4a",
+    "editor/gate_numeric.gd": "9356b645b4ce947c9825b3766a6f6e2f690ceca08bdb888ce2faf884f84cd461",
+    "editor/layout_codec.gd": "adb5c7f1c24390ba6aa8456e40e713ac55a1dd80c2a866b9802e3775ee4826ef",
+    "editor/scene_document.gd": "2bcc0c620333582361706f0b23b7e4bcc54b31a4e2a0cc6618935dcd296bdd6f"
+  },
+  "baseline_codec_sha256": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72"
+}

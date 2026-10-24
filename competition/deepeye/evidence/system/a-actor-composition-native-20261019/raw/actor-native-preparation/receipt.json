@@ -1,0 +1,27 @@
+{
+  "work_id": "A-actor-native-fixture-preparation-20261019-v1",
+  "job_id": "child-ccfb46268a8e450da682eac66cffe460",
+  "status": "ready-for-independent-review",
+  "report_sha256": "2802dfb59ad44f092f8dfae2c2bd353668d2307fa72c0f1720098d7bea0cca21",
+  "source_manifest_sha256": "6474920de9d6ddd99eab6a7aa9ff66010fbcf40ba05a3b29954c4ebe3afdf9fa",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "tests": {
+    "discovered": 13,
+    "offline_passed": 10,
+    "native_skipped": 3,
+    "exit_code": 0,
+    "red_failed": 6,
+    "red_native_skipped": 3
+  },
+  "native": "not_run",
+  "runtime_staging": "not_run",
+  "actual_exit_write": "not_run: synchronous write has no deadline contract",
+  "normal_alternative": "fixed natural exit, prepared only",
+  "expiry": "readiness=lifetime simultaneous unbound cap only",
+  "raw_wait_capture": "not_run; evidence explicitly source-derived",
+  "repaired_actor_manifest": "not bound by this preparation",
+  "final_allow_record": "not produced; main owns it",
+  "all29": "not_run",
+  "H12_AI_Run_board_geometry": "not_run",
+  "owned_product_files": 3
+}

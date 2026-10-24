@@ -1,0 +1,9 @@
+# A independent B operation14 and15 review
+
+Operation14 at B7dd2c410/source21ae4c6b: fresh ModelSim coherent capture800870edges/65156RLE/450smalltriples,11exact DUT guards and2actual public-port mutants. Operation15 at Bdf82af1b/source52dc249c: fresh independent wrapper4472edges/173handshakes/558validobservations,9DUTguards and4compiled behavioral mutants. Existing op12/op14 dependency campaigns reused only at exact hashes. A main rehashed309+1795sourcefiles and233+567reviewfiles, checked30+57command records/streams and actual terminal results.
+
+Operation15 runner qualification remains OPEN. Repaired runner83f192c7 accepts a synthetic NOT_TB_PASS_MARKER substring and accepts a first zero-mismatch TB_STATS row followed by a conflicting nonzero row. Preserve qualification-repaired raw fixtures. Require anchored/unique PASS and one complete consistent stats row, with negative regression tests. The actual repaired47commands have19proper unique positive markers and208667samples; no observed actual run exploits these synthetic gaps. B original13/16qualification failures and all original preparation/debug/manifest-race evidence remain preserved.
+
+See each review/findings.md for independent-oracle chronology, reused stimulus/dependencies, exact failure diagnostics and limitations. ModelSim exit0 alone is never success. B15's command-ledger recheck followed saved trace; this is disclosed. The reviewer's transient7byte outside-ownership scratch file was removed and disclosed, not retroactively approved.
+
+No physical/asynchronous capture,source freshness/TTL/BOOT/profile,coherent motion authority,synthesis/timing/CDC/RDC,board/H12completechains/system or formalR03 acceptance. All29formal cards remain not_run; H01-H15 unchanged. Raw bytes preserved. Original complete manifests include local compiler caches omitted from this archive; excluded-local-ephemeral.json enumerates them. No private leases published.

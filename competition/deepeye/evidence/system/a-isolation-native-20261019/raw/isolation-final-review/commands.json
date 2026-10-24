@@ -1,0 +1,18 @@
+[
+  {
+    "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", ".planning/deepeye-resume-20261018/isolation-final-review/check_harness.py"],
+    "cwd": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发",
+    "child_exit_code": 1,
+    "stdout": "harness-check.stdout.log",
+    "stderr": "harness-check.stderr.log",
+    "environment": "No native opt-in set; script removes DEEPEYE_ISOLATION_EVIDENCE_PARENT in its own process; no temporary filesystem fixture"
+  },
+  {
+    "command": ["C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发/.local/venv/Scripts/python.exe", "-B", "-X", "utf8", ".planning/deepeye-resume-20261018/isolation-final-review/test_observer_fake.py"],
+    "cwd": "C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发",
+    "child_exit_code": 0,
+    "stdout": "observer-fake.stdout.log",
+    "stderr": "observer-fake.stderr.log",
+    "environment": "No native opt-in set; main never invoked; all delegated functions and ctypes error TLS functions replaced by fakes; no temporary filesystem fixture"
+  }
+]

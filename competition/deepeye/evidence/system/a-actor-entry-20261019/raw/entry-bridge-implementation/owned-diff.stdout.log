@@ -1,0 +1,526 @@
+diff --git a/competition/deepeye/docs/workspace_passage.md b/competition/deepeye/docs/workspace_passage.md
+index c6e8753..ffc0e24 100644
+--- a/competition/deepeye/docs/workspace_passage.md
++++ b/competition/deepeye/docs/workspace_passage.md
+@@ -103,6 +103,84 @@ window. The existing executor still checks initial/full solid clearance for
+ final fence and one publication. A forbidden or drilling-required final-slice
+ solid blocks the whole step. No work is moved after the fence.
+ 
++## Same-plan blue entry handoff bridge
++
++The current entry seed z=14.4815, inward quaternion(0,1,0,0), v=.25,
++speed20/yaw7000 and original10ms has two canonical slices. The first endpoint
++is wholly inside blue by about.285866mm and records ENTERED in its original
++0/7,142,857ns window. The next ordinary exit-role blue-face envelope still
++overlaps the plane because its cast inflation is at least.5mm. Merely delaying
++ENTERED or changing role would not prove absence of reverse-blue exit.
++
++`check_inward_support(prepared, index)` now derives a separate typed
++`InwardSupport` from the same original prepared CanonicalPath/slice, never
++caller-supplied sides or bounds. For outward blue normal n and every rigid
++body point y with |y|<=Rb, the accepted exact spatial law has p'=a and
++|(Ry)'|<=K*Rb per arclength. The existing inward angle predicate is rechecked
++over the full slice with rotation plus record angle error; it ensures
++n.a<=-c, where c=.99595<cos5deg. The directed bound
++`slope_lower = c - Rb*K_upper > 0` therefore proves the nominal maximum
++whole-body support cannot increase. Nonnegative speed only changes time
++parameterization; zero speed holds without dividing by speed.
++
++The start support bound includes h*abs(n.axis)+r using the exactly normalized
++start Capsule axis and the *uniform record.errors*, not point-time errors:
++position + Rb*angle + all additional model/transform/numeric margins. CP
++constructs its position error using original-start inherited angle drift to
++the end distance and maximum endpoint position export enclosure; its start
++orientation/axis export error encloses the start of this exact analytic law.
++The additional proof needs no future float sample interpolation: nominal
++whole-body support is analytic and nonincreasing, and the constant full-slice
++perturbation ball bounds source drift, speed carry and start export error
++uniformly. No monotonicity of actual uncertain perturbations is assumed.
++Only strict upper<-1e-12, a proved inward angle and positive slope return
++SAFE. Missing provenance, uncertain sources or unverified asset containment
++remain external integration obligations, never supplied by frozen records.
++
++The reducer permits a bridge only after its own earlier ENTERED event in
++this *same original plan*. A seeded/preexisting INSIDE state has no bridge
++capability. Normal exit certificates are checked first and retained, including
++their original UNKNOWN. Only the blue ENVELOPE_NOT_CLEAR mismatch (or blue/red
++same-face APERTURE_UNKNOWN) with the other five STRICT_INSIDE is eligible.
++Any normal VIOLATION_PROVED or other-face failure still rejects immediately.
++The supplementary unchanged entry-role certificate must be SAFE, exactly six
++unique faces, blue APERTURE and other five STRICT_INSIDE. The typed inward
++support certificate must match the exact prepared binding/index/errors/face.
++The composite `EntryBridge` binds these proofs to the earlier ENTERED event.
++It proves strict *non-exit* at blue; it does not authorize its aperture after
++entry or activate two holes. Same-face legal tangent circles remain legal,
++overlap remains invalid and the later red-only outward rule is unchanged.
++
++All ordinary and supplemental casts remain in `Preview.proofs` in order;
++`Preview.bridges` retains the separate composite and analytic proof. A bridge
++adds no ENTERED/EXIT_WINDOW/ARRIVED event. It preserves the earlier event window
++and binding. Candidate pose/errors/speed carry are original plan.end, one
++revision and the full original duration. Any later failure or one-ns clipping
++rejects the whole input state/history, retaining checked proofs for audit.
++The private trace uses `same-plan-entry-bridge-v1`; wire/workspace VERSION,
++ordinary no-bridge traces and strict-red-outside suffix obligations are intact.
++
++Work is explicitly bounded: `max_slices` still charges every original slice
++and rejects before ordinary checks. New `max_bridge_checks=4` is an additional
++finite proof-call allowance, independently checked as a nonnegative strict
++integer. Each bridge attempt reserves two units *before either extra call*:
++one entry six-face cast and one analytic support check; even an early failed
++entry check consumes the reservation. Budgets0/1 cannot attempt a bridge;
++2 permits one, the default4 at most two. There are no adaptive retries or
++restarted speed laws. Thus at most max_slices+max_bridge_checks proof calls
++can occur. The existing executor uses this bounded default and still performs
++every original initial/full solid sweep, then its unchanged actual final fence
++and single owner-root CAS. No extra geometry occurs after that fence.
++
++At z14.4815, second-slice uniform support upper is about-.000285866332043517m,
++slope lower .741830060909625602, and its *unchanged* full entry cast still has
++rho>=.5mm. The composition now yields a complete10ms INSIDE preview. In contrast,
++at z14.45568 with .05rad inherited angle error, the point-time start is inside
++but the whole-record uniform support is positive: the supplemental proof is
++UNKNOWN. Larger pivot, outward angle, rim/corner/other-face uncertainty and
++foreign/missing/corrupt proof boundaries are tested explicitly. These are
++numerical fixtures, not proof of preceding execution or an actual AI source.
++
+ ## Verified boundary and remaining work
+ 
+ The original interrupted implementation's four source/test files were preserved
+@@ -118,10 +196,10 @@ yaw7000 produce two slices, 0/7,142,857/10,000,000ns. They now certify the compl
+ original 10ms and retain only one arrival window. These are explicit internal
+ phase fixtures, not evidence of the preceding physical/committed route. Six red
+ face orientations and correct-role same-face apertures are checked likewise.
+-At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The entry
+-seed z14.4815 still has a blue-to-exit-role envelope gap and remains `UNKNOWN`.
+-General APERTURE tails, entry role-switch refinement and exact crossing-time
+-refinement are not solved by the strict suffix rule.
++At z=-15.5184 the suffix has only `APERTURE`, so it remains `UNKNOWN`. The narrow
++same-plan entry bridge above closes the z14.4815 numerical handoff while
++preserving its original ENTERED witness. General APERTURE tails, prior-plan
++entry handoffs and exact crossing-time refinement remain unresolved.
+ 
+ The actual numerical executor regression uses a thin box at z=-16.0414: the
+ first sweep is `CLEAR`, the final nominal cap contains the box centre, and the
+diff --git a/competition/deepeye/simulation/authority/motion/passage_phase.py b/competition/deepeye/simulation/authority/motion/passage_phase.py
+index a1024bf..8925756 100644
+--- a/competition/deepeye/simulation/authority/motion/passage_phase.py
++++ b/competition/deepeye/simulation/authority/motion/passage_phase.py
+@@ -126,15 +126,34 @@ class Preview:
+     proofs: tuple
+     reason: str
+     failure_candidate: bool = False
++    bridges: tuple = ()
+     motion_grant: bool = field(default=False,init=False)
+     atomic_cas_completed: bool = field(default=False,init=False)
+ 
+ 
+-def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16):
++@dataclass(frozen=True)
++class EntryBridge:
++    index: int
++    entered: Event
++    normal: w.SliceProof
++    entry: w.SliceProof
++    support: w.InwardSupport
++    binding: str
++
++
++def _bridge_mismatch(prepared,index,proof):
++    blue=prepared.layout.blue.face;red=prepared.layout.red.face
++    return (w._valid_slice(prepared,index,'exit',proof) and proof.status=='UNKNOWN'
++        and all(f.method==('APERTURE_UNKNOWN' if blue==red else 'ENVELOPE_NOT_CLEAR')
++                if f.face==blue else f.method=='STRICT_INSIDE' for f in proof.faces))
++
++
++def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4):
+     if type(path) is not cp.CanonicalPath or type(context) is not RunContext:
+         raise TypeError('canonical path and owner-asserted immutable context required')
+     if not _valid(state):raise ValueError('invalid internal history; no imported arbitrary phase')
+     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
++    if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
+     if (context!=state.context or expected_pose_revision!=state.pose_revision
+             or path.provenance.start_state!=state.pose or start_monotonic_ns<state.monotonic_ns):
+         return Preview('UNKNOWN',state,(),'run/scene/gates/epoch/pose/time mismatch')
+@@ -149,6 +168,9 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
+         return Preview('UNKNOWN',state,(),'inherited pose/numeric/speed carry budget reset')
+     if len(plan.slices)>max_slices:return Preview('UNKNOWN',state,(),'slice work budget exhausted before any advance')
+     phase=state.phase;entered=state.entered;history=list(state.history);proofs=[];strict_suffix=False
++    bridges=[];bridge_checks=0;entered_here=None
++    def reject(status,reason,failure=False):
++        return Preview(status,state,tuple(proofs),reason,failure,tuple(bridges))
+     def event(kind,index,proof):
+         record=plan.slices[index]
+         history.append(Event(kind,start_monotonic_ns+record.start.elapsed_ns,
+@@ -157,7 +179,24 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
+         role='entry' if phase in ('OUTSIDE_ENTRY','ENTRY_CROSSING') else 'exit'
+         proof=w.check_slice(prepared,index,role);proofs.append(proof)
+         if proof.status!='SAFE':
+-            return Preview(proof.status,state,tuple(proofs),proof.reason,proof.status=='VIOLATION_PROVED')
++            # No seeded/prior-plan INSIDE capability and no generic UNKNOWN
++            # fallback. Only the blue conservative role mismatch is eligible.
++            if not (phase=='INSIDE' and entered_here is not None and _bridge_mismatch(prepared,index,proof)):
++                return reject(proof.status,proof.reason,proof.status=='VIOLATION_PROVED')
++            # Reserve two extra proof calls before executing either: one full
++            # entry six-face check and one analytic uniform-support check.
++            if bridge_checks+2>max_bridge_checks:return reject('UNKNOWN','entry bridge proof work budget exhausted')
++            bridge_checks+=2
++            entry=w.check_slice(prepared,index,'entry');proofs.append(entry)
++            if entry.status=='VIOLATION_PROVED':return reject(entry.status,entry.reason,True)
++            if not (w._valid_slice(prepared,index,'entry',entry) and entry.status=='SAFE'
++                    and all(f.method==('APERTURE' if f.face==context.layout.blue.face else 'STRICT_INSIDE') for f in entry.faces)):
++                return reject('UNKNOWN','complete entry bridge aperture conjunction missing')
++            support=w.check_inward_support(prepared,index)
++            if not w._valid_inward_support(prepared,index,support):return reject('UNKNOWN','uniform inward-support non-exit proof missing')
++            binding=w.digest(('same-plan-entry-bridge-v1',prepared.binding,index,entered_here,proof,entry,support))
++            bridges.append(EntryBridge(index,entered_here,proof,entry,support,binding))
++            continue  # Strictly inside all six faces: no new passage event.
+         if phase=='ARRIVED':
+             # This preview's earlier slice proved full-body red exit. Every
+             # remaining ORIGINAL slice still needs its complete exit-role proof:
+@@ -165,7 +204,7 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
+             if (len(proof.faces)!=len(w.FACES) or {face.face for face in proof.faces}!=set(w.FACES)
+                     or proof.role!='exit' or any(face.method!=('STRICT_OUTSIDE_ACTIVE'
+                     if face.face==context.layout.red.face else 'STRICT_INSIDE') for face in proof.faces)):
+-                return Preview('UNKNOWN',state,tuple(proofs),'strict red-outside suffix certificate missing')
++                return reject('UNKNOWN','strict red-outside suffix certificate missing')
+             strict_suffix=True
+             continue  # Retain ARRIVED, without another ARRIVED/EXIT_WINDOW event.
+         active=context.layout.blue if role=='entry' else context.layout.red
+@@ -175,25 +214,26 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
+                 event('ENTRY_WINDOW',index,proof);phase='ENTRY_CROSSING'
+             if side.inside and all(s.inside for s in proof.end_sides):
+                 if phase=='OUTSIDE_ENTRY':event('ENTRY_WINDOW',index,proof)
+-                event('ENTERED',index,proof);phase='INSIDE';entered=True
++                event('ENTERED',index,proof);phase='INSIDE';entered=True;entered_here=history[-1]
+         else:
+-            if not entered:return Preview('UNKNOWN',state,tuple(proofs),'missing ordered entered history')
++            if not entered:return reject('UNKNOWN','missing ordered entered history')
+             if phase=='INSIDE' and not side.inside:
+                 event('EXIT_WINDOW',index,proof);phase='EXIT_CROSSING'
+             if side.outside:
+                 if phase=='INSIDE':event('EXIT_WINDOW',index,proof)
+                 event('ARRIVED',index,proof);phase='ARRIVED'
+         # At most one role completion in this slice; role switches next slice.
+-    if strict_suffix and plan.covered_ns!=path.provenance.requested_dt_ns:
+-        return Preview('UNKNOWN',state,tuple(proofs),'strict suffix requires the complete original duration')
++    if (strict_suffix or bridges) and plan.covered_ns!=path.provenance.requested_dt_ns:
++        return reject('UNKNOWN','strict suffix/entry bridge requires the complete original duration')
+     trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
+-    trace=w.digest(('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
++    trace=w.digest(('same-plan-entry-bridge-v1',trace_values,tuple(bridges)) if bridges else
++        ('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
+     end=plan.end
+     next_state=_state(context=context,pose=end.state,errors=end.errors,
+         speed_error_upper=state.speed_error_upper+Fraction(end.speed_export_error_m_s),
+         error_budget_reference=path.provenance.error_budget_reference,pose_revision=state.pose_revision+1,
+         monotonic_ns=start_monotonic_ns+plan.covered_ns,phase=phase,entered=entered,history=tuple(history),trace_hash=trace)
+-    return Preview('SAFE',next_state,tuple(proofs),'whole plan preview only; owner must recheck STOP/deadline and CAS')
++    return Preview('SAFE',next_state,tuple(proofs),'whole plan preview only; owner must recheck STOP/deadline and CAS',bridges=tuple(bridges))
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/competition/deepeye/simulation/authority/motion/workspace_boundaries.py b/competition/deepeye/simulation/authority/motion/workspace_boundaries.py
+index 13c5ef5..175278d 100644
+--- a/competition/deepeye/simulation/authority/motion/workspace_boundaries.py
++++ b/competition/deepeye/simulation/authority/motion/workspace_boundaries.py
+@@ -226,3 +226,59 @@ def check_slice(prepared,index,role,*,max_gate_checks=1):
+     binding=digest((prepared.binding,index,role,tuple(faces),start_sides,end_sides))
+     return SliceProof(status,binding,role,start_sides,end_sides,tuple(faces),cp._upper_float(rho),monotone,
+         'complete continuous six-face conjunction' if status=='SAFE' else 'exact fixture witness' if violation else 'insufficient envelope/aperture/budget evidence')
++
++
++@dataclass(frozen=True,init=False)
++class InwardSupport:
++    prepared_binding: str
++    index: int
++    face: str
++    errors: gc.ErrorBounds
++    upper: Decimal
++    slope_lower: Decimal
++    inward: bool
++    status: str
++    binding: str = field(init=False)
++
++
++def check_inward_support(prepared,index):
++    """Additional analytic non-exit proof; never a replacement cast or grant.
++
++    For each pivot-bounded body point y, (n.(p+Ry))' <= -c+Rb*K
++    per original arclength. The full-slice constant perturbation ball is
++    bounded by record.errors: original-start source drift through end s,
++    start pose/axis export enclosure, and all explicit additional margins.
++    Its support is constant, so no derivative of uncertain error is assumed.
++    All separate full inflated aperture/other-face casts remain necessary.
++    """
++    if type(prepared) is not PreparedPath:raise TypeError('internally prepared canonical path required')
++    if type(index) is not int or not 0<=index<len(prepared.plan.slices):raise ValueError('valid derived slice index required')
++    record=prepared.plan.slices[index];envelope=prepared.envelope;gate=prepared.layout.blue
++    capsule=_capsule(record.start,envelope)
++    axis,_,normal,_=g._FACE_DATA[gate.face]
++    centre=g._exact(normal[axis]*record.start.state.position_m[axis])-_I.exact(Decimal(15))
++    extent=g._exact(envelope.half_segment_m)*g._abs_bounds(capsule._unit[axis])+g._exact(envelope.radius_m)
++    upper=g._UP.add((centre+extent).hi,_uncertainty(record.errors,envelope))
++    slope=g._DOWN.subtract(_COS5_LOWER,(g._exact(envelope.pivot_radius_m)*g._exact(record.gate_bounds.curvature_upper_per_m)).hi)
++    un=g._support_intervals(capsule,gate.plane)[3]
++    angle=g._UP.add(g._exact(record.gate_bounds.rotation_upper_rad).hi,g._exact(record.errors.angle_error_rad).hi)
++    inward=gc._angle_proved(un,-1,angle)
++    proof=_create(InwardSupport,prepared_binding=prepared.binding,index=index,face=gate.face,
++        errors=record.errors,upper=upper,slope_lower=slope,inward=inward,
++        status='SAFE' if inward and slope>0 and upper<_GUARD.copy_negate() else 'UNKNOWN')
++    object.__setattr__(proof,'binding',digest(('uniform-inward-support-v1',proof)))
++    return proof
++
++
++def _valid_inward_support(prepared,index,proof):
++    return (type(proof) is InwardSupport and proof.prepared_binding==prepared.binding and proof.index==index
++        and proof.face==prepared.layout.blue.face and proof.errors==prepared.plan.slices[index].errors
++        and proof.binding==digest(('uniform-inward-support-v1',proof)) and proof.status=='SAFE'
++        and proof.inward is True and proof.slope_lower>0 and proof.upper<_GUARD.copy_negate())
++
++
++def _valid_slice(prepared,index,role,proof):
++    return (type(proof) is SliceProof and type(proof.role) is str and proof.role==role and len(proof.faces)==len(FACES)
++        and all(type(f) is FaceProof and type(f.face) is str for f in proof.faces)
++        and {f.face for f in proof.faces}==set(FACES)
++        and proof.binding==digest((prepared.binding,index,role,proof.faces,proof.start_sides,proof.end_sides)))
+diff --git a/competition/deepeye/tests/simulation/test_passage_phase.py b/competition/deepeye/tests/simulation/test_passage_phase.py
+index 03cfac2..dcfbafa 100644
+--- a/competition/deepeye/tests/simulation/test_passage_phase.py
++++ b/competition/deepeye/tests/simulation/test_passage_phase.py
+@@ -4,6 +4,7 @@ import unittest
+ from dataclasses import replace
+ from fractions import Fraction
+ import math
++from unittest.mock import patch
+ 
+ from competition.deepeye.simulation.authority.motion import certified_path as cp
+ from competition.deepeye.simulation.authority.motion import gate_geometry as g
+@@ -35,11 +36,11 @@ class PassagePhaseTests(unittest.TestCase):
+              inherited_errors=errors or p.required_inherited_errors(state,dt),
+              error_budget_reference='fixture carries prior bounds')
+ 
+-    def step(self,state,*,path=None,stop=False,deadline=None,context=None,budget=16):
++    def step(self,state,*,path=None,stop=False,deadline=None,context=None,budget=16,bridge_budget=4):
+         path=path or self.path(state)
+         return p.preview(state,path,context or self.context,expected_pose_revision=state.pose_revision,
+              start_monotonic_ns=state.monotonic_ns,deadline_monotonic_ns=deadline if deadline is not None else state.monotonic_ns+10_000_001,
+-             hard_stop=stop,max_slices=budget)
++             hard_stop=stop,max_slices=budget,max_bridge_checks=bridge_budget)
+ 
+     def numerical_seed(self,phase,position,q=(0,1,0,0),context=None):
+         # Internal numerical phase fixture, not evidence of a preceding route.
+@@ -118,13 +119,162 @@ class PassagePhaseTests(unittest.TestCase):
+         result=self.step(state,path=self.path(state,yaw=0))
+         self.assertEqual(('SAFE','ARRIVED',1),(result.status,result.candidate.phase,len(result.proofs)))
+         self.assertEqual('HELD',self.step(result.candidate).status)
+-        for z,status in ((14.481,'SAFE'),(14.4815,'UNKNOWN')):
++        for z,status in ((14.481,'SAFE'),(14.4815,'SAFE')):
+             state=self.numerical_seed('ENTRY_CROSSING',(0,0,z))
+             result=self.step(state,path=self.path(state,yaw=7000))
+             self.assertEqual(status,result.status)
+             if status=='SAFE':self.assertEqual('INSIDE',result.candidate.phase)
+             else:self.assertIs(result.candidate,state)
+ 
++    def test_bridge_preserves_entered_window_and_full_original_step(self):
++        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
++        result=self.step(state,path=path)
++        self.assertEqual('SAFE',result.status)
++        self.assertEqual(('INSIDE',6,10_000_010),(result.candidate.phase,result.candidate.pose_revision,result.candidate.monotonic_ns))
++        self.assertEqual(path.sample(10_000_000).state,result.candidate.pose)
++        self.assertEqual(state.history,result.candidate.history[:len(state.history)])
++        self.assertEqual(['ENTERED'],[e.kind for e in result.candidate.history[len(state.history):]])
++        entered=result.candidate.history[-1]
++        self.assertEqual((10,7_142_867),(entered.start_ns,entered.end_ns))
++        self.assertEqual(result.proofs[0].binding,entered.proof_binding)
++        self.assertEqual(['entry','exit','entry'],[x.role for x in result.proofs])
++        self.assertEqual(['SAFE','UNKNOWN','SAFE'],[x.status for x in result.proofs])
++        self.assertEqual(1,len(result.bridges));bridge=result.bridges[0]
++        self.assertEqual(1,bridge.index);self.assertEqual(entered,bridge.entered)
++        self.assertIs(result.proofs[1],bridge.normal);self.assertIs(result.proofs[2],bridge.entry)
++        self.assertLess(bridge.support.upper,0);self.assertGreater(bridge.support.slope_lower,0)
++        self.assertFalse(result.motion_grant);self.assertFalse(result.atomic_cas_completed)
++
++    def test_bridge_extra_proofs_are_finitely_charged_before_alternative_work(self):
++        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
++        for budget in (0,1):
++            actual=w.check_slice;calls=[]
++            def check(*a,**kw):calls.append(a[2]);return actual(*a,**kw)
++            with patch.object(w,'check_slice',side_effect=check),patch.object(w,'check_inward_support',side_effect=AssertionError('unbudgeted proof')):
++                result=self.step(state,path=path,bridge_budget=budget)
++            self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
++            self.assertEqual(['entry','exit'],calls);self.assertEqual((),result.bridges)
++        self.assertEqual('SAFE',self.step(state,path=path,bridge_budget=2).status)
++        for budget in (True,-1,1.5):
++            with self.assertRaises(ValueError):self.step(state,path=path,bridge_budget=budget)
++        for budget in (0,1):
++            with patch.object(w,'check_slice',side_effect=AssertionError('slice budget checked first')):
++                self.assertEqual('UNKNOWN',self.step(state,path=path,budget=budget).status)
++
++    def test_bridge_never_reuses_seeded_inside_or_prior_plan_entered_capability(self):
++        state=self.numerical_seed('INSIDE',(0,0,14.4799));path=self.path(state,yaw=7000)
++        with patch.object(w,'check_inward_support',side_effect=AssertionError('no ENTERED in this plan')):
++            result=self.step(state,path=path)
++        self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
++        self.assertEqual((),result.bridges)
++
++    def test_bridge_same_face_and_geometric_negatives_do_not_union_holes(self):
++        ctx=replace(self.context,layout=w.Layout(g.Gate('front',-.15,0),g.Gate('front',.15,0)))
++        state=self.numerical_seed('ENTRY_CROSSING',(-.15,0,14.4815),context=ctx)
++        result=self.step(state,path=self.path(state,yaw=7000),context=ctx)
++        self.assertEqual(('SAFE','INSIDE'),(result.status,result.candidate.phase))
++        self.assertEqual(1,len(result.bridges));self.assertEqual('ENTERED',result.candidate.history[-1].kind)
++        cases=[((0,0,14.4815),(0,0,0,1),7000,self.context),
++            ((.0295,0,15.),(0,1,0,0),7000,self.context),
++            ((15.6,0,14.4815),(0,1,0,0),7000,self.context),
++            ((14.8794,0,14.4815),(0,1,0,0),7000,replace(self.context,layout=w.Layout(g.Gate('front',14.85,0),g.Gate('back',0,0)))),
++            ((-.15,0,14.4815),(0,0,0,1),7000,ctx)]
++        for position,q,yaw,context in cases:
++            with self.subTest(position=position,q=q):
++                state=self.numerical_seed('ENTRY_CROSSING',position,q,context)
++                result=self.step(state,path=self.path(state,yaw=yaw),context=context)
++                self.assertEqual('UNKNOWN',result.status);self.assertIs(state,result.candidate)
++        exact=replace(self.context,envelope=replace(self.body,exact_fixture=True))
++        state=self.numerical_seed('ENTRY_CROSSING',(.03,0,15.),context=exact)
++        result=self.step(state,context=exact)
++        self.assertEqual('VIOLATION_PROVED',result.status);self.assertTrue(result.failure_candidate)
++
++    def test_bridge_preserves_violation_and_rejects_corrupted_or_foreign_proofs(self):
++        for fault in ('violation','missing','duplicate','other_face','foreign','entry_missing','support_foreign'):
++            with self.subTest(fault=fault):
++                state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));actual=w.check_slice
++                def check(prepared,index,role,**kw):
++                    proof=actual(prepared,index,role,**kw)
++                    if index!=1:return proof
++                    if role=='exit':
++                        if fault=='violation':return replace(proof,status='VIOLATION_PROVED')
++                        if fault=='missing':return replace(proof,faces=proof.faces[:-1])
++                        if fault=='duplicate':return replace(proof,faces=proof.faces[:-1]+(proof.faces[0],))
++                        if fault=='other_face':return replace(proof,faces=tuple(replace(f,method='ENVELOPE_NOT_CLEAR') if f.face=='right' else f for f in proof.faces))
++                        if fault=='foreign':return replace(proof,binding='different prepared path')
++                    if role=='entry' and fault=='entry_missing':return replace(proof,faces=proof.faces[:-1])
++                    return proof
++                support=w.check_inward_support
++                def inward(prepared,index):return support(prepared,0 if fault=='support_foreign' else index)
++                with patch.object(w,'check_slice',side_effect=check),patch.object(w,'check_inward_support',side_effect=inward):
++                    result=self.step(state,path=self.path(state,yaw=7000))
++                self.assertEqual('VIOLATION_PROVED' if fault=='violation' else 'UNKNOWN',result.status)
++                self.assertIs(state,result.candidate);self.assertEqual(state.history,result.candidate.history)
++                self.assertEqual(fault=='violation',result.failure_candidate)
++
++    def test_bridge_ramp_three_original_slices_and_final_failure_rollback(self):
++        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4803))
++        values={n:getattr(state,n) for n in state.__dataclass_fields__ if n!='seal'}
++        values['pose']=RigidState(state.pose.position_m,state.pose.orientation_xyzw,.24951171875);state=p._state(**values)
++        path=self.path(state,yaw=7000);result=self.step(state,path=path)
++        plan=path.plan(start_monotonic_ns=10,deadline_monotonic_ns=10_000_011,hard_stop=False)
++        self.assertEqual(3,len(plan.slices));self.assertEqual(1_953_125,plan.slices[0].end.elapsed_ns)
++        self.assertEqual('SAFE',result.status);self.assertEqual(1,len(result.bridges))
++        self.assertEqual(plan.end.state,result.candidate.pose);self.assertEqual(plan.end.errors,result.candidate.errors)
++        self.assertEqual(10_000_010,result.candidate.monotonic_ns)
++        for status in ('UNKNOWN','VIOLATION_PROVED'):
++            actual=w.check_slice
++            def check(prepared,index,role,**kw):
++                proof=actual(prepared,index,role,**kw)
++                return replace(proof,status=status) if index==2 else proof
++            with patch.object(w,'check_slice',side_effect=check):result=self.step(state,path=path)
++            self.assertEqual(status,result.status);self.assertIs(state,result.candidate)
++            self.assertEqual(1,len(result.bridges));self.assertEqual(state.history,result.candidate.history)
++
++    def test_bridge_requires_full_duration_and_stop_cannot_publish_entered_prefix(self):
++        state=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815));path=self.path(state,yaw=7000)
++        result=self.step(state,path=path,deadline=10+10_000_000)
++        self.assertEqual('UNKNOWN',result.status);self.assertEqual(1,len(result.bridges));self.assertIs(state,result.candidate)
++        self.assertEqual('HELD',self.step(state,path=path,stop=True).status)
++        zero=self.numerical_seed('ENTRY_CROSSING',(0,0,14.4815))
++        values={n:getattr(zero,n) for n in zero.__dataclass_fields__ if n!='seal'}
++        values['pose']=RigidState(zero.pose.position_m,zero.pose.orientation_xyzw,0.);zero=p._state(**values)
++        held=self.step(zero,path=self.path(zero,speed=0))
++        self.assertEqual('SAFE',held.status);self.assertFalse(held.candidate.entered);self.assertEqual((),held.bridges)
++
++    def test_bridge_actual_executor_keeps_solids_and_original_final_fence(self):
++        from competition.deepeye.tests.simulation import test_motion_executor as fx
++        from competition.deepeye.simulation.authority.motion import solid_clearance as s
++        fixture=fx.MotionExecutorTests();fixture.setUp()
++        state=fixture.seeded('ENTRY_CROSSING',(0,0,14.4815));ex=fixture.make(state=state)
++        ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000))
++        handle=fixture.prepare(ex);audit=ex.prepared_audit(handle)
++        self.assertEqual(1,len(audit.relative.preview.bridges));self.assertEqual(2,len(audit.solids))
++        for outcome in ('commit','STOP','deadline'):
++            if outcome!='commit':
++                ex=fixture.make(state=state);ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000));handle=fixture.prepare(ex)
++            calls=[]
++            def final():
++                calls.append(1)
++                if outcome=='STOP':ex.revoke('final STOP')
++                return replace(fixture.fence(deadline=1_010_000_000 if outcome=='deadline' else 1_400_000_000),command_seq=4)
++            with patch.object(w,'check_inward_support',side_effect=AssertionError('proof after final fence')),patch.object(w,'check_slice',side_effect=AssertionError('geometry after final fence')):
++                if outcome=='commit':
++                    receipt=ex.commit_step(handle,final);self.assertEqual(6,receipt.pose_revision)
++                else:
++                    with self.assertRaises(ValueError):ex.commit_step(handle,final)
++                    self.assertEqual(5,ex.renderer_view().pose_revision)
++            self.assertEqual([1],calls)
++        # Place a thin obstacle beyond the first inflated leading tip but
++        # within the final nominal cap, so the bridge cannot omit slice two.
++        end=audit.path.sample(10_000_000);cap=tuple(end.state.position_m[i]+.4*end.axis[i] for i in range(3))
++        centre=(cap[0],cap[1],cap[2]-.1199)
++        part=s.Solid('bridge-final','v1','box',centre,(.00001,.00001,.00001),(0,0,0,1))
++        scene=s.Scene('bridge-obstacle','v1',(('water',('bridge-final',)),),(s.SceneObject('water','water',(part,)),))
++        ex=fixture.make(state=state,scene=scene);ex.admit_command(fixture.f.binding,fixture.raw(speed_code=20,yaw_q=7000))
++        with self.assertRaises(fx.m.PreparationRejected) as blocked:fixture.prepare(ex)
++        self.assertEqual(2,blocked.exception.checked_slices);self.assertEqual(5,ex.renderer_view().pose_revision)
++
+     def test_tip_or_center_beyond_red_is_not_full_body_arrival(self):
+         for z in (-15.,-15.3):
+             state=self.numerical_seed('EXIT_CROSSING',(0,0,z))
+diff --git a/competition/deepeye/tests/simulation/test_workspace_boundaries.py b/competition/deepeye/tests/simulation/test_workspace_boundaries.py
+index 3cf854e..eba6cbc 100644
+--- a/competition/deepeye/tests/simulation/test_workspace_boundaries.py
++++ b/competition/deepeye/tests/simulation/test_workspace_boundaries.py
+@@ -126,5 +126,45 @@ class WorkspaceBoundaryTests(unittest.TestCase):
+         self.assertGreater(nominal(dt//2).lower,0)
+         self.assertNotEqual('SAFE',w.check_slice(prepared,0,'exit').status)
+ 
++    def test_uniform_inward_support_adds_non_exit_without_shrinking_aperture_cast(self):
++        prepared=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000)
++        support=w.check_inward_support(prepared,1)
++        self.assertEqual('SAFE',support.status);self.assertTrue(w._valid_inward_support(prepared,1,support))
++        self.assertLess(support.upper,-.00028);self.assertGreater(support.slope_lower,.74)
++        cast=w.check_slice(prepared,1,'entry')
++        self.assertGreaterEqual(cast.rho_m,.0005)
++        self.assertEqual('APERTURE',next(f.method for f in cast.faces if f.face=='front'))
++        self.assertEqual('UNKNOWN',w.check_slice(prepared,1,'exit').status)
++        self.assertEqual('UNKNOWN',w.check_inward_support(prepared,0).status)
++
++    def test_uniform_record_errors_cannot_be_replaced_by_inside_point_errors(self):
++        prepared=self.prepare((0,0,14.45568),(0,1,0,0),yaw=7000,errors=gc.ErrorBounds(0.,.05,0.))
++        record=prepared.plan.slices[1]
++        self.assertTrue(next(s.inside for s in w.point_sides(record.start,self.body) if s.face=='front'))
++        self.assertGreater(record.errors.position_error_m,record.start.errors.position_error_m)
++        support=w.check_inward_support(prepared,1)
++        self.assertGreater(support.upper,0);self.assertEqual('UNKNOWN',support.status)
++        self.assertEqual(record.errors,support.errors)
++
++    def test_inward_support_requires_direction_rotation_and_covering_pivot(self):
++        for q,errors,body in (((0,0,0,1),self.errors,self.body),
++                ((0,1,0,0),gc.ErrorBounds(0.,.09,0.),self.body),
++                ((0,1,0,0),self.errors,replace(self.body,pivot_radius_m=3.))):
++            with self.subTest(q=q,errors=errors,body=body):
++                prepared=self.prepare((0,0,14.3),q,yaw=7000,errors=errors,body=body)
++                self.assertEqual('UNKNOWN',w.check_inward_support(prepared,1).status)
++        with self.assertRaises(TypeError):w.check_inward_support(object(),0)
++        with self.assertRaises(ValueError):w.check_inward_support(self.prepare(),True)
++
++    def test_inward_support_foreign_body_index_or_changed_bound_is_not_reusable(self):
++        prepared=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000)
++        support=w.check_inward_support(prepared,1)
++        other=self.prepare((0,0,14.4815),(0,1,0,0),yaw=7000,body=replace(self.body,pivot_radius_m=.6))
++        self.assertFalse(w._valid_inward_support(other,1,support))
++        self.assertFalse(w._valid_inward_support(prepared,0,support))
++        values={k:getattr(support,k) for k in support.__dataclass_fields__};values['upper']=-1
++        bad=w._create(w.InwardSupport,**values)
++        self.assertFalse(w._valid_inward_support(prepared,1,bad))
++
+ 
+ if __name__=='__main__':unittest.main()

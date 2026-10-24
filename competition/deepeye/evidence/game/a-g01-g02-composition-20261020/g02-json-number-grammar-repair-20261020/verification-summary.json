@@ -1,0 +1,31 @@
+{
+  "original_numeric_rows": 2100,
+  "legal_exact_roundtrips": 1116,
+  "oracle_disagreements": 0,
+  "grammar_rows": 81,
+  "grammar_assertions": 176,
+  "grammar_failures": 0,
+  "original_fixtures_reused_exact": 4,
+  "full_obstacle_cases": 6,
+  "authority_sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839",
+  "candidate": {
+    "adoption_root": "competition/deepeye/simulator",
+    "base_patch_sha256": "e403b274483c3074423950a4d12a358a0b95b4263345cfd62c339e7429e3c292",
+    "files": {
+      "editor/gate_json_numbers.gd": "8554c99c1d8b70c9ef7471b3eb06ee994aef6f33397a2612f09d5c55aa73a3fa",
+      "editor/gate_numeric.gd": "9356b645b4ce947c9825b3766a6f6e2f690ceca08bdb888ce2faf884f84cd461",
+      "editor/layout_codec.gd": "adb5c7f1c24390ba6aa8456e40e713ac55a1dd80c2a866b9802e3775ee4826ef",
+      "editor/scene_document.gd": "2bcc0c620333582361706f0b23b7e4bcc54b31a4e2a0cc6618935dcd296bdd6f"
+    },
+    "additive_patch_sha256": "adc0dc6be11966438812e2e7c756c570d345dc5c7509fbba40d1a0de6664f708",
+    "additive_base_files": {
+      "editor/gate_json_numbers.gd": "fbae3077a4a8943165e7f19d41b5bc43d4af23a16620ac9aca40a0428ffbda4a",
+      "editor/gate_numeric.gd": "9356b645b4ce947c9825b3766a6f6e2f690ceca08bdb888ce2faf884f84cd461",
+      "editor/layout_codec.gd": "adb5c7f1c24390ba6aa8456e40e713ac55a1dd80c2a866b9802e3775ee4826ef",
+      "editor/scene_document.gd": "2bcc0c620333582361706f0b23b7e4bcc54b31a4e2a0cc6618935dcd296bdd6f"
+    },
+    "changed_files": [
+      "editor/gate_json_numbers.gd"
+    ]
+  }
+}

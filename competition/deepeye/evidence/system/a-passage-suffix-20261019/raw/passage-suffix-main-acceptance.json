@@ -1,0 +1,30 @@
+{
+  "accepted_at_utc": "2026-10-19T10:37:42.787753+00:00",
+  "accepted": true,
+  "main_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "scope": "exact bounded full-original-duration strict red-outside numerical suffix",
+  "source_manifest_sha256": "c4b5b656e78a084e36e8bfcedfdb2f65144226d8af7b336f4588cc4352df6657",
+  "review_pins": {
+    "passage-suffix-review/findings.md": "4e52dce5a4c5df0393fd1df2b21c81588aa561e0f1877e107d821a508dec839a",
+    "passage-suffix-review/receipt.json": "9b79ff9f4a5d135c65b28cb28179d4daef8109fda10ce7c62c10716748ce07b3",
+    "passage-suffix-review/253.command.json": "f3f7d2074c3ee2eaaa8b7e6d3cfa6110461246b27042ec3ab2e91e2024549d1e",
+    "passage-suffix-review/253.stderr.bin": "3da19bc6a39fb4fb258c62746c4e8cd1c7228404c622ec8b7bf55f610be08a6d",
+    "passage-suffix-review/independent.command.json": "bdcb4bc4594ccc23cc9de3702bcc60dd03c460934d814162b924240a1d469113",
+    "passage-suffix-review/independent.stderr.bin": "ef44800f6fd4ab524923279187ffa67352d0303c25374fb39ad0b1adbcbfc59f",
+    "passage-suffix-review/native_complete.json": "29300f015ef541ddf44e708da91d88641059820123d4df6b30dc6689d05c6f9d"
+  },
+  "review_completion_path": "passage-suffix-review/native_complete.json",
+  "independent_regressions": 253,
+  "independent_extra_methods": 7,
+  "checked_live_sources": 4,
+  "checked_live_dependencies": 41,
+  "checked_old_design_files": 16,
+  "formal_acceptance": "not_run",
+  "limitations": [
+    "seeded phase and synthetic channels do not prove complete preceding route or actual source/AI identity",
+    "weak APERTURE tails and blue role-switch gap stay UNKNOWN",
+    "full G06/G07 campaigns, live runtime/renderer, material law and both H12 chains remain required"
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

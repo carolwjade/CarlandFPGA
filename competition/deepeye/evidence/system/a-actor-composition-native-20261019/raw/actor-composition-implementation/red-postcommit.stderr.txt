@@ -1,0 +1,37 @@
+test_binding_error_after_binding_is_revoked (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_binding_error_after_binding_is_revoked) ... ok
+test_caught_malformed_reentry_from_clock_vetoes_outer_step (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_caught_malformed_reentry_from_clock_vetoes_outer_step) ... ok
+test_caught_reentry_from_channel_latches_outer_activation (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_caught_reentry_from_channel_latches_outer_activation) ... ok
+test_cleanup_failure_preserves_primary_and_strong_registry (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_cleanup_failure_preserves_primary_and_strong_registry) ... ok
+test_death_during_prepare_and_inside_final_fence_never_commits (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_death_during_prepare_and_inside_final_fence_never_commits) ... ok
+test_each_revocation_dispatch_rechecks_successor_identity (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_each_revocation_dispatch_rechecks_successor_identity) ... ok
+test_exact_original_actor_and_real_numeric_executor_commit (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_exact_original_actor_and_real_numeric_executor_commit) ... ok
+test_external_stop_and_broker_stop_never_become_motion (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_external_stop_and_broker_stop_never_become_motion) ... ok
+test_final_fence_detects_death_after_preparation_checks (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_final_fence_detects_death_after_preparation_checks) ... ok
+test_foreign_thread_veto_has_no_foreign_native_effect_and_owner_drains (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_foreign_thread_veto_has_no_foreign_native_effect_and_owner_drains) ... ok
+test_foreign_veto_during_original_wait_is_seen_before_pose_commit (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_foreign_veto_during_original_wait_is_seen_before_pose_commit) ... ok
+test_missing_production_verifier_rejects_before_registry_construction (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_missing_production_verifier_rejects_before_registry_construction) ... ok
+test_missing_progress_cannot_be_replaced_by_nonsignaled_process (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_missing_progress_cannot_be_replaced_by_nonsignaled_process) ... ok
+test_noncommitted_idle_is_conservatively_retired (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_noncommitted_idle_is_conservatively_retired) ... ok
+test_partial_activation_failures_revoke_originals_and_cleanup_once (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_partial_activation_failures_revoke_originals_and_cleanup_once) ... ok
+test_plain_records_and_fixture_ready_text_never_authenticate (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_plain_records_and_fixture_ready_text_never_authenticate) ... ok
+test_plain_verified_command_record_cannot_bypass_channel (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_plain_verified_command_record_cannot_bypass_channel) ... ok
+test_public_factory_has_no_provider_actor_or_lease_injection (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_public_factory_has_no_provider_actor_or_lease_injection) ... ok
+test_registry_is_retained_before_construction_and_failed_launch (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_registry_is_retained_before_construction_and_failed_launch) ... ok
+test_runtime_activation_error_after_assignment_is_revoked (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_runtime_activation_error_after_assignment_is_revoked) ... ok
+test_same_value_different_boot_object_cannot_pass_private_verifier (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_same_value_different_boot_object_cannot_pass_private_verifier) ... ok
+test_static_channel_provider_cannot_mask_original_death (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_static_channel_provider_cannot_mask_original_death) ... ok
+test_unknown_call_shape_retires_even_when_already_active (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_unknown_call_shape_retires_even_when_already_active) ... ok
+test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission) ... FAIL
+
+======================================================================
+FAIL: test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission (competition.deepeye.tests.simulation.test_actor_composition.ActorCompositionTests.test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\actor-composition-implementation\red-postcommit-source\competition\deepeye\tests\simulation\test_actor_composition.py", line 284, in test_veto_after_actual_commit_keeps_receipt_fact_and_retires_admission
+    self.assertTrue(result.committed)
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 24 tests in 1.381s
+
+FAILED (failures=1)

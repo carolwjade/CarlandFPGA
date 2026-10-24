@@ -1,0 +1,103 @@
+{
+  "prior_exact_HEAD": "31267d6c4ae284b8788ebb457f49c4ae5a49c60c",
+  "prior_source_matches_current_exact_blob": true,
+  "prior_review_sha256": "9b256cbd81daea055dc6dbd8b9bd3abeb7e0e8a97bf912a3460d63d0baa00d5c",
+  "prior_receipt_sha256": "ff8248ec1065d939781aab2de3e0be1b46c78583437bdb8e2d8b66462440ea82",
+  "prior_artifact_checks": {
+    "review.md": {
+      "expected": "9b256cbd81daea055dc6dbd8b9bd3abeb7e0e8a97bf912a3460d63d0baa00d5c",
+      "actual": "9b256cbd81daea055dc6dbd8b9bd3abeb7e0e8a97bf912a3460d63d0baa00d5c",
+      "matches": true
+    },
+    "handoff_manifest.json": {
+      "expected": "0d6b5389bd5c7e81860475c6e0f28b024216b2b64a205e0e2a5369438d8bae18",
+      "actual": "0d6b5389bd5c7e81860475c6e0f28b024216b2b64a205e0e2a5369438d8bae18",
+      "matches": true
+    },
+    "manifest_verification.json": {
+      "expected": "137083fb925fb1de8510652b03a8d117e07db12c065717848bbcb07594e3bb9d",
+      "actual": "137083fb925fb1de8510652b03a8d117e07db12c065717848bbcb07594e3bb9d",
+      "matches": true
+    },
+    "a_source_hashes.json": {
+      "expected": "1bff0f236a5712f2dc13a9151a59418a6c01c4791b75f7f40c29a5fce3ba1a51",
+      "actual": "1bff0f236a5712f2dc13a9151a59418a6c01c4791b75f7f40c29a5fce3ba1a51",
+      "matches": true
+    },
+    "c-regression.raw.txt": {
+      "expected": "bb97f9d1b38d3f798a7fc2afd33560bc3a23e858c982119d780830f0e6c66bc9",
+      "actual": "bb97f9d1b38d3f798a7fc2afd33560bc3a23e858c982119d780830f0e6c66bc9",
+      "matches": true
+    },
+    "c-regression-with-deps.raw.txt": {
+      "expected": "17786dcec4bec376eb3ca3b7272ad9d9631a57a8e13dd93e326eb0a1ce7d383a",
+      "actual": "17786dcec4bec376eb3ca3b7272ad9d9631a57a8e13dd93e326eb0a1ce7d383a",
+      "matches": true
+    },
+    "c_reproduced_review/independent-adapter-verifier.log": {
+      "expected": "a647f5c769387ac9f899fd6f2777932de2f293fa473d37065437f3ba2eee0439",
+      "actual": "a647f5c769387ac9f899fd6f2777932de2f293fa473d37065437f3ba2eee0439",
+      "matches": true
+    },
+    "c_reproduced_review/independent-adapter-verifier-result.json": {
+      "expected": "d34bc0c2151fbd2cf04b36bc78c609076f9e13c7a39dc0774ebf0b1c1ff7f006",
+      "actual": "d34bc0c2151fbd2cf04b36bc78c609076f9e13c7a39dc0774ebf0b1c1ff7f006",
+      "matches": true
+    },
+    "independent_review.py": {
+      "expected": "a042d4c1f12189ed980c3aa267a83156e250487c261372d5468080bdcffc79ca",
+      "actual": "a042d4c1f12189ed980c3aa267a83156e250487c261372d5468080bdcffc79ca",
+      "matches": true
+    },
+    "independent-review.raw.txt": {
+      "expected": "bfd51bbf9b539dbbbda641b888959e360bd4e424d823f8338dbc987ee359ff82",
+      "actual": "bfd51bbf9b539dbbbda641b888959e360bd4e424d823f8338dbc987ee359ff82",
+      "matches": true
+    },
+    "independent_review_result.json": {
+      "expected": "90c039cff4db2dd0d4b6cf792c761cf97efcb34840cd4441566446771dbbfd1d",
+      "actual": "90c039cff4db2dd0d4b6cf792c761cf97efcb34840cd4441566446771dbbfd1d",
+      "matches": true
+    },
+    "counterexamples_expected_safe.py": {
+      "expected": "d0c06fa7233943ee524eff992a59daa2d9f0e9e79cb7cb5f729606443003cb96",
+      "actual": "d0c06fa7233943ee524eff992a59daa2d9f0e9e79cb7cb5f729606443003cb96",
+      "matches": true
+    },
+    "counterexamples-expected-safe.raw.txt": {
+      "expected": "16a30029cc0019c3ec900a1c1318b37a7fe3e2b8e9b0cf4f5b2602a946363e85",
+      "actual": "16a30029cc0019c3ec900a1c1318b37a7fe3e2b8e9b0cf4f5b2602a946363e85",
+      "matches": true
+    },
+    "github_final_read.json": {
+      "expected": "91e6332e9c84d856bbb1bb20c8ac4cc2c2731f12c8d16f8764fa24e6c0ed7092",
+      "actual": "91e6332e9c84d856bbb1bb20c8ac4cc2c2731f12c8d16f8764fa24e6c0ed7092",
+      "matches": true
+    }
+  },
+  "prior_validation": {
+    "C_worker_tests_passed": 107,
+    "C_archived_independent_script_reproduced_tests_passed": 17,
+    "C_random_deadline_vectors": 96,
+    "C_public_sequence_allocations": 65536,
+    "new_independent_checks": 11,
+    "new_checks_include_two_counterexample_existence_assertions": true,
+    "current_A_interop_vectors": 144,
+    "independent_quantization_vectors": 1006,
+    "independent_deadline_boundary_vectors": 800,
+    "expected_safe_red_tests": 2,
+    "expected_safe_red_exit_code": 1,
+    "initial_missing_jsonschema_failure_preserved": true
+  },
+  "A_current_hashes": {
+    "docs/host_contract.json": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28",
+    "integration/host_envelope.py": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd",
+    "integration/motion.py": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e",
+    "integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+  },
+  "A_dependency_changed_since_prior_review": [
+    "integration/motion.py"
+  ],
+  "older_no_adapter_finding": "superseded by same current-head review; not used as current finding",
+  "large_full_suite_rerun": false
+}

@@ -1,0 +1,163 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "installed-ModelSim digital public-port simulation only",
+  "source_snapshot_unchanged": true,
+  "source_aggregate_sha256": "63bc299b223c2bab97eaa063f98bb9b7dec86ea951ef94bc25557d02d3995c5f",
+  "main_result": {
+    "bytes": 9149,
+    "sha256": "6bd34768ea570102861808123c4b9308340d591f3d013326d4902f786da1e299",
+    "status": "passed",
+    "runner_sha256": "ba2491beffd479c2f1e28ab63dd7eefa4df82d29bf8e0bc2cb80856665cb6839",
+    "rtl_sha256": "9dc8ecf96e59a2ae8467bda64572f62eb602d52db535733f236f64ff97c43428",
+    "tb_sha256": "7bff8dbcdb4325910de35e498aea3ebe770db0b6b8ab1280009363f02d9cd228",
+    "commands": 12
+  },
+  "positive_cases": {
+    "w2_t1": {
+      "bytes": 1133,
+      "sha256": "a5eabd445e8536348e44f770270ca47f996b55df7d0589baad5338ab01718adc",
+      "marker": "MAIN_PWM_PASS rows=7041 COUNT_W=2 TAG_W=1",
+      "rows": 7041,
+      "vector_bytes": 309809,
+      "vector_sha256": "792c44276245cdfb192ed3e7e9cc8f0dbed7e091fa6db59b7eb3d043511926d7"
+    },
+    "w3_t64": {
+      "bytes": 1141,
+      "sha256": "def04ea82ffafb026ccde4d67b45ece43309ee6472dc83fadafd65b0199eaeae",
+      "marker": "MAIN_PWM_PASS rows=26603 COUNT_W=3 TAG_W=64",
+      "rows": 26603,
+      "vector_bytes": 1486417,
+      "vector_sha256": "1ffad1a5a2d8c65016c6a2aa05d915255d130112a90b9d0fcc6cd5c5445d7201"
+    },
+    "w32_t32": {
+      "bytes": 1147,
+      "sha256": "a589267f55148c6d74088c087a8886719537a9f8c44231909d8e820c699d345f",
+      "marker": "MAIN_PWM_PASS rows=12546 COUNT_W=32 TAG_W=32",
+      "rows": 12546,
+      "vector_bytes": 791834,
+      "vector_sha256": "a399c4d33ec1dd4cd3c1301d55d456ff3c9539dd3063606c792c7db48edceee7"
+    }
+  },
+  "public_port_edge_rows": 46190,
+  "long_case": {
+    "bytes": 1128,
+    "sha256": "572b9a8fc454acabee26ff74a518ab54af07383a63230d8b778bd56381a4477a",
+    "marker": "MAIN_PWM_LONG_PASS full_period=2000000 high_counts=10000,490000,70000 new_period=37 new_frames=2",
+    "full_frame_intervals": 2000000,
+    "new_complete_frames": 2
+  },
+  "invalid_parameters": [
+    {
+      "count_w": 1,
+      "tag_w": 32,
+      "exit_code": 0,
+      "bytes": 1263,
+      "sha256": "cb4fc037cf0243fb8c46b45a78e6125b475afc2563ee45cc56cf11909dd7f41b",
+      "marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=1 TAG_W=32",
+      "time_zero": true,
+      "errors": 1,
+      "warnings": 0
+    },
+    {
+      "count_w": 33,
+      "tag_w": 32,
+      "exit_code": 0,
+      "bytes": 1266,
+      "sha256": "624a43c3a6c9e4da015d8708e0e455d7dd37db59c99762e431f676274faa6f9c",
+      "marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=33 TAG_W=32",
+      "time_zero": true,
+      "errors": 1,
+      "warnings": 0
+    },
+    {
+      "count_w": 3,
+      "tag_w": 0,
+      "exit_code": 0,
+      "bytes": 1260,
+      "sha256": "1b0184c108123c5c23aa781e3ed460dd6794d4a86c7e176f55b4be27896c9d03",
+      "marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=3 TAG_W=0",
+      "time_zero": true,
+      "errors": 1,
+      "warnings": 0
+    },
+    {
+      "count_w": 3,
+      "tag_w": 65,
+      "exit_code": 0,
+      "bytes": 1263,
+      "sha256": "9e005e99905c5eaadb6b4f6230f6d795efd2c68d743f3c42b3fd8fc2dfd5dfce",
+      "marker": "** Fatal: ATOMIC_PWM_UNSUPPORTED_PARAMETERS COUNT_W=3 TAG_W=65",
+      "time_zero": true,
+      "errors": 1,
+      "warnings": 0
+    }
+  ],
+  "mutations": {
+    "stop_ignored": {
+      "result_rtl_sha256": "ef7e14d5ab26813bdcdb29c26066ee75c85b16b697ee246206e4e45b2ec38486",
+      "row": 815,
+      "field": 13,
+      "bytes": 1232,
+      "sha256": "e06017dbdcdc89d07a5114fd1b25f85f057245e749905c4abb375526ad801c5a",
+      "exact_fatal": "** Fatal: row=815 field=13 got=0000000000000001 expected=0000000000000000"
+    },
+    "pitch_from_yaw": {
+      "result_rtl_sha256": "b0d89c1ae1b81d91ad6ddb06f41ca9459004e76c9b138a6fd4bba8df97f64395",
+      "row": 12,
+      "field": 19,
+      "bytes": 1229,
+      "sha256": "a1032511afb00813908a9ebf760e6989785b805fea92982c7590a3bc3517b573",
+      "exact_fatal": "** Fatal: row=12 field=19 got=0000000000000000 expected=0000000000000001"
+    }
+  },
+  "author_evidence": {
+    "manifest_bytes": 14980,
+    "manifest_sha256": "491e7fa65ef7b0052e8b1a109144ca1fbda14f8077cb3b362e16089d46d09ccd",
+    "files_verified": 85,
+    "cases": 9,
+    "pass": 9,
+    "fail": 0,
+    "checks": 90644277,
+    "replay_bytes": 518357,
+    "replay_sha256": "8f1ca2c0b5d5b01a0b69ecf609da263c780e32449558aeb1aebd58127510cdfc",
+    "manifest_path_aliases": [
+      {
+        "declared_path": "replay_events.log",
+        "committed_path": "replay_events.log.txt",
+        "reason": ".gitignore excludes **/*.log and **/transcript; committed names add .txt"
+      },
+      {
+        "declared_path": "transcript",
+        "committed_path": "transcript.txt",
+        "reason": ".gitignore excludes **/*.log and **/transcript; committed names add .txt"
+      }
+    ],
+    "committed_manifest_entries_verified": 40,
+    "uncommitted_work_entries": 45,
+    "committed_files_on_disk": 42,
+    "rerun_by_reviewer": false,
+    "reason_not_rerun": "No distinct unresolved issue; author suite is not independent evidence."
+  },
+  "tool_binaries": {
+    "vlib.exe": {
+      "bytes": 3590512,
+      "sha256": "12fa9f43fac4af70f9694e6055f376dcc419c39518a0e30d7aa047c37aaca576"
+    },
+    "vlog.exe": {
+      "bytes": 21366640,
+      "sha256": "39e7f5cbae66a5aa65a179f5ab8faee01a0c53dc838e5e2b76510ac6c77e80a6"
+    },
+    "vsim.exe": {
+      "bytes": 5058416,
+      "sha256": "011f110291dc69707d7118e8f8d712b91438e0c837f9bc10ce6bf53c1d048cfd"
+    }
+  },
+  "not_run": {
+    "synthesis_implementation_timing": true,
+    "cdc_rdc": true,
+    "board_or_physical": true,
+    "formal_29_cards": true,
+    "g05_b06_r03_system": true
+  }
+}

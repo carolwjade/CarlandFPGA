@@ -1,0 +1,31 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Tue Oct 20 16:04:24 2026
+| Host         : DESKTOP-FBHOHIO running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file utilization.rpt
+| Design       : deepeye_pwm_applied_capture
+| Device       : xc7z020clg400-1
+| Speed File   : -1
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|             Instance            |            Module            | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++---------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| deepeye_pwm_applied_capture     |                        (top) |        842 |        842 |       0 |    0 | 1117 |      0 |      0 |          0 |
+|   (deepeye_pwm_applied_capture) |                        (top) |          0 |          0 |       0 |    0 |  166 |      0 |      0 |          0 |
+|   u_capture                     | deepeye_pwm_coherent_capture |        526 |        526 |       0 |    0 |  590 |      0 |      0 |          0 |
+|   u_generator                   |           deepeye_atomic_pwm |        316 |        316 |       0 |    0 |  361 |      0 |      0 |          0 |
++---------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+
+

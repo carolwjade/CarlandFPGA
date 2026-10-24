@@ -1,0 +1,46 @@
+{
+  "commands": [
+    {
+      "label": "author-23",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/isolation",
+        "-p",
+        "test_resource_cleanup.py",
+        "-v"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\competition\\deepeye",
+      "exit_code": 0,
+      "stdout": "author-23.stdout.log",
+      "stderr": "author-23.stderr.log"
+    },
+    {
+      "label": "independent-8",
+      "argv": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\isolation-cleanup-review\\test_independent_cleanup.py"
+      ],
+      "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\competition\\deepeye",
+      "exit_code": 0,
+      "stdout": "independent-8.stdout.log",
+      "stderr": "independent-8.stderr.log"
+    }
+  ],
+  "environment_overrides": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\deepeye-implementation-a\\competition\\deepeye",
+    "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\isolation-cleanup-review",
+    "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\isolation-cleanup-review"
+  },
+  "scope": "review directory only"
+}

@@ -1,0 +1,23 @@
+{
+  "job_id": "child-52e445a08a2e44c4b584fcedeee59530",
+  "instance_id": "",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "route": "gpt_native",
+  "work_id": "A-G01-ASSET-ADAPTER-INDEPENDENT-20261020-v1",
+  "ownership": [
+    ".planning/deepeye-resume-20261018/g01-asset-adapter-independent-20261020"
+  ],
+  "native_agent_id": "/root/g01_asset_adapter_independent_20261020",
+  "status": "completed",
+  "terminal": true,
+  "stale": false,
+  "result": {
+    "text": "Independent review completed with 4 reproducible P2 findings for main disposition; no acceptance decision or product edits.\nF1 viewer/asset_presenter.gd:80: source_license={} triggers a String constructor runtime error and the validator fails open, adopting the invalid asset with report ready.\nF2 viewer/asset_presenter.gd:35-42,61,224: a static create_obstacle with the wrong arity triggers a call error and produces a greybox while report/shell remain ready.\nF3 viewer/asset_presenter.gd:78-96: an empty Visual subtree with stale positive metadata passes validation; real geometry silently disappears without fallback/diagnostic.\nF4 viewer/main.gd:339-343,639-649: under a rotated/translated parent, fallback labels use local bounds as global coordinates and world-ray picking misses the displayed object. Current identity scene is unaffected by this conditional case.\nFresh exact integration 122/0 and independent corrected geometry/cache/persistence/control-boundary checks 54/0, both terminal exit0. Fresh missing10/0, deliberate parser10/0 assertions with retained engine errors, enabled collider14/0; null16/2, empty-visual14/7, bad-license14/7 and signature10/3 reproduce findings. First own harness attempt49/0 had a runtime error and is INVALID, preserved; corrected54/0 is eligible evidence. No timeout or killed process in this review.\nExact receipt/source/binary/log/argv verification justifies reuse of B622/0, editor696/0, persistence628/0, UI-fit266/0. All9 A pins/all15 B pins and full product manifest unchanged. Author actual native terminal verified. No assigned Godot process remains.\nCandidate manifest SHA256 4e174b26b9c52ccd76458dab1910cd59b8a17092a400a441a3b74377b29c4dc2; diff 44f2e8a9c39c9fa20db2c2ae8f112eb76ef3343e331e8f4879e243dfd0a6d51e. Independent receipt SHA256 23b59f51e0cf3d94980159d5135f10bdb5e649fb656775ef214bc0a6fcdb2217; findings SHA256 1ef246cc88ecb95ca87ffd16d79dea81fe9e84c0aeebd304c140eaa22917f0cf.\nEvidence: .planning/deepeye-resume-20261018/g01-asset-adapter-independent-20261020/findings.md, independent-review-receipt.json, exact-evidence-reuse.json, frozen stage/fixture manifests, raw argv/PID/hash/stdout/stderr/exit/terminal receipts and source-before/source-after.json.\nDEEPEYE-HUMAN-LOCK-20261014/revision1 requirements SHA256 c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804 unchanged. H01-H15 preserved. All29 formal cards and native UI/GPU/physics/crossing/sensors/PC AI/both-control-modes/board/system remain not_run. Inherited Unicode NUL diagnostics persist; engine-clean gate unsatisfied. Older main nativeG02stage predates this adapter and provides no newasset evidence. Sole A main owns final decisions and acceptance.\n",
+    "native_agent_id": "/root/g01_asset_adapter_independent_20261020"
+  },
+  "error": null,
+  "created_at": "2026-10-20T01:29:01.154761Z",
+  "updated_at": "2026-10-20T01:36:05.223854Z",
+  "duplicate": false
+}

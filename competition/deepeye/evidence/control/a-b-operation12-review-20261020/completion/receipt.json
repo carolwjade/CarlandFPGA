@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "status": "completed_evidence_reconciliation",
+  "at_utc": "2026-10-20T00:23:26.909953+00:00",
+  "job_id": "child-dee2ddf706be42e4abe16057fcf794f5",
+  "native_agent_id": "/root/b_op12_review_complete_20261020",
+  "work_id": "A-B-OP12-REVIEW-COMPLETION-20261020-v1",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "tested_head": "f7e95af8f8abae6d4a5312c08d99e095a7e5dec1",
+  "source_commit": "61141302a68c3085951721074abbfeec31bfcb3a",
+  "operation_id": "B-DEEPEYE-PWM-ATOMIC-20261020-12",
+  "request_sha256": "9951beb894c52fa1e9ec6ae6f487856125a9a91e7e91b8aae75c297b04420e56",
+  "source_handoff_manifest_sha256": "6d6de98ec58741efdd20110dba91ea3cff644ae59901413910fc654376b7cd04",
+  "contract_id": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "original_job": {
+    "job_id": "child-5345bee33b45490bbc0c070bd3473a41",
+    "instance_id": "deepseek-a-28",
+    "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+    "task_version": 1,
+    "route": "deepseek",
+    "work_id": "A-B-PWM-ATOMIC-REVIEW-20261020-v1",
+    "ownership": [
+      ".planning/deepeye-resume-20261018/b-pr30-followup-20261020/review"
+    ],
+    "native_agent_id": null,
+    "status": "failed",
+    "terminal": true,
+    "stale": false,
+    "result": null,
+    "error": "TimeoutError: ",
+    "created_at": "2026-10-19T17:43:14.493387Z",
+    "updated_at": "2026-10-20T00:06:00.410054Z"
+  },
+  "evidence_reuse": true,
+  "simulation_rerun": false,
+  "samples": 46190,
+  "full_frame_intervals": 2000000,
+  "following_complete_period37_frames": 2,
+  "exact_dut_guards": 4,
+  "real_mutants": 2,
+  "author_entries_verified": 40,
+  "author_unavailable_work_entries": 45,
+  "source_and_original_review_unchanged": true,
+  "cleanup_observed": true,
+  "product_acceptance": "not_granted; quality main owns adoption",
+  "formal_cards": "all 29 not_run",
+  "other_not_run": [
+    "all_29_formal_cards",
+    "G05/B06/R03_system_acceptance",
+    "synthesis",
+    "implementation",
+    "timing",
+    "CDC/RDC",
+    "physical_board",
+    "ABI_or_motion_authority"
+  ],
+  "findings": {
+    "bytes": 7335,
+    "sha256": "51d2424cabe13f8d9e6ae5cd70c7c9c5ae145f518424c2353ef87437fa80428f"
+  },
+  "reconciliation": {
+    "bytes": 8518,
+    "sha256": "d7f2ff6f1ac9ce0cc975afd973f17207e9fc8a4e37ae2766822bc22092ba0b70"
+  },
+  "manifest": {
+    "bytes": 3077,
+    "sha256": "cef7445687c35a84023e2d4ebb2f1c2da67bb960847777130b44bdf9633c6a48"
+  },
+  "new_audit_command": {
+    "argv": [
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op12-review-completion-20261020\\reconcile.py"
+    ],
+    "cwd": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发",
+    "exit_code": 0,
+    "started_utc": "2026-10-20T00:21:56.094093+00:00",
+    "finished_utc": "2026-10-20T00:21:58.045513+00:00",
+    "environment": {
+      "TEMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op12-review-completion-20261020\\temp",
+      "TMP": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-op12-review-completion-20261020\\temp",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "stdout": {
+      "bytes": 297,
+      "sha256": "50041d4b589d4d74a6edf1b307dc9fdba55a6fd4ff1ab9d1d2a0f10350203743"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-10-19T17:01:23.137058+00:00",
+  "original_job": "child-9d0281a0ffd54a8c99db1ad653d1d39c",
+  "terminal": true,
+  "source_files": 6,
+  "dependencies": 5,
+  "evidence_files": 48,
+  "manifest_sha256": "d6149d0c55c063af52d90d2ab41b927f3f81afdf024acf3e9d61208175ddf586",
+  "report_sha256": "b5db84b2d57f398330f52908cf79308da8afba3435800002a4ce2cb5870a6b7e",
+  "receipt_sha256": "4ce04cd29f6f26a4f475ca1e7ae16d07f5b79af7812238bfa890f4e608667cd1",
+  "index_sha256": "1beeb40486c79dcda72c2314994c9699efe9f76ed4e7168dbc509413562a5b45",
+  "blob_encoding_distinction": {
+    "competition/deepeye/docs/layout_persistence.md": {
+      "raw_blob_sha1": "9313993a5a3a8435a9bd0bce7f4ce94d2d3e8572",
+      "reported_clean_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+      "raw_sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "lf_sha256": "1a4f3bd49cf675aaa4c30bb71b6dca4d4e92c2dfcd655f2a363688183ceba93d",
+      "interpretation": "author used Git clean/text normalization for doc SHA1; actual CRLF SHA256 is correct; original report retained"
+    }
+  },
+  "original_pre_dispatch_assertion": "raw Git SHA1 check failed for doc before any dispatch; independently read git hash-object and --no-filters resolved CRLF/clean distinction; no candidate changed",
+  "formal29": "not_run"
+}

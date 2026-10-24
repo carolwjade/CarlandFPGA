@@ -1,0 +1,34 @@
+{
+  "work_id": "A-actor-native-classification-repair-20261019-v1",
+  "job_id": "child-bc0ea14b25eb4fbfbcbf1e2e3606266e",
+  "status": "frozen_for_independent_review",
+  "source_manifest_sha256": "415fb81c4c47ae8b1024bc3079f24866094bc737c6ebf3760b522b14b5ca39e3",
+  "report_sha256": "e2fb15ae4ef7ba531964e57d6f3f647a33ed96284142c37a2f76a8c1b783f1c7",
+  "after_sha256": "89f94c2e94ea7176e2d793d6d3504f20a1f436e9cf1d8f74f24ce25cd516276a",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "reviewer9": {
+    "unchanged_source_sha256": "1b1befc27be8f80de7182bd5ea056a471277102595fc266eed8ada01f408b171",
+    "red_failures": 1,
+    "green_pass": 9,
+    "skipped": 0
+  },
+  "added_boundaries": {
+    "methods": 3,
+    "matrix_entries": 10,
+    "red_failed_assertions_subtests": 13,
+    "green_pass": 3
+  },
+  "existing_offline": {
+    "discovered": 13,
+    "pass": 10,
+    "native_skipped": 3,
+    "exit_code": 0
+  },
+  "original_tests_AST_unchanged": true,
+  "modified_product_files": 2,
+  "unchanged_product_dependency_files": 36,
+  "original_process_exit": "exact retained resource_id; strict builtin int0; backend.terminated is False; separate provenance",
+  "expected_negative_receipts": "fixture expectation may match, normal_exit_success/evidence_success remain False",
+  "actual_native_stage_registry_AI_H12_Run_board_all29": "not_run",
+  "acceptance_owner": "sole generation2 main after independent review"
+}

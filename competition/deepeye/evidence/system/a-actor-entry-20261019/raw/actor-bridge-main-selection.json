@@ -1,0 +1,43 @@
+{
+  "at_utc": "2026-10-19T11:52:06.324460+00:00",
+  "main": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "terminals": {
+    "actor-binding-repair/native_completion.json": "child-bc96ffdb98124a4682293803674ac807",
+    "actor-binding-review/native_complete.json": "child-f51ad639fe7a4aed9c4f5aff827ccea6",
+    "entry-bridge-review/native_complete.json": "child-f337f8c19052446ab2e5fbec9f7cd26b",
+    "actor-native-review/native_complete.json": "child-286812f797964cf7985276d49f701dc1",
+    "actor-composition-design/native_completion.json": "child-37334357eaea4e4a91639bad35a47e67"
+  },
+  "reviews": {
+    "actor-binding-review": {
+      "manifest": "b37e8cc3206816d370f0fd22cf39bdfde06c645d2f95e8b8a28a79defe98304b",
+      "verified_artifacts": 37
+    },
+    "entry-bridge-review": {
+      "manifest": "294fbf2fdb4d1f0bce9f6d32cd3c368f43aad69eb61fb5cfce10f95d4dee52c1",
+      "verified_artifacts": 31
+    }
+  },
+  "joint": {
+    "modules": [
+      "competition.deepeye.tests.simulation.test_actor_owner",
+      "competition.deepeye.tests.simulation.test_actor_lifetime",
+      "competition.deepeye.tests.simulation.test_pc_direct_runtime",
+      "independent_actor_tests",
+      "test_windows_cleanup"
+    ],
+    "tests": 148,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "successful": true
+  },
+  "joint_source_pins": 76,
+  "actor_manifest": "98f792a4f5d699ab235179dbaa345867c8fd32975ed9c32d8b28e042c773f670",
+  "bridge_manifest": "cb904c57a2f985ff02ddb67e5b426968ecf4a22a1b03ecca2d382f99901ece19",
+  "decision": "Accept exact actor repair and entry bridge at bounded software/numerical scope; select narrow harness ANH-R1 repair and unavailable-production-channel composition design",
+  "native": "not_run",
+  "all29": "not_run",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

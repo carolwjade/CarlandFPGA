@@ -1,0 +1,96 @@
+{
+  "work_id": "A-C-TRACE-EXACT-CANDIDATE-REVIEW-20261020-v1",
+  "utc": "2026-10-20T13:09:48.670663+00:00",
+  "manifests": [
+    {
+      "manifest": "candidate\\artifact_manifest.json",
+      "files": 43,
+      "exact": true
+    },
+    {
+      "manifest": "candidate\\independent_review\\manifest.json",
+      "files": 15,
+      "exact": true
+    }
+  ],
+  "executions": [
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-trace-exact-review-20261020\\execution\\provenance.py",
+        "--check-only"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.11000000001513399
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-trace-exact-review-20261020\\execution\\replay.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.40599999998812564
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-trace-exact-review-20261020\\execution\\independent_review\\probe.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.14100000000325963
+    },
+    {
+      "command": [
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-trace-exact-review-20261020\\execution\\main_review\\main_probe.py",
+        "--candidate",
+        "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c-trace-exact-review-20261020\\execution\\candidate_decode.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.125
+    }
+  ],
+  "replay_groups": 81,
+  "costs": {
+    "selected_raw_bytes_total": 1816,
+    "frame_bytes_total": 5346,
+    "line_bits_8n1_total": 53460
+  },
+  "qa_metrics": {
+    "canonical_grid": {
+      "accepted": 300,
+      "raw": 46,
+      "rice": 254,
+      "noncanonical_raw_rejected": 154,
+      "nonoptimal_k_rejected": 254
+    },
+    "highwater_atomic_recovery_checks": 18,
+    "explicit_canonical_boundaries": 11,
+    "held_metadata": {
+      "positive": 6,
+      "negative": 8
+    },
+    "progression_mask_metadata": {
+      "positive": 6,
+      "negative": 21
+    }
+  },
+  "production_rejected_offline_packets": 126,
+  "production_wire_sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+  "all70_exported_bytes_unchanged": true,
+  "all29": "not_run",
+  "R03": "not_run",
+  "runtime_or_hardware_adoption": false
+}

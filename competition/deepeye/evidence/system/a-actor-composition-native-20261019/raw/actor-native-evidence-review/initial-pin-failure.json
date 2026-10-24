@@ -1,0 +1,8 @@
+{
+  "command": [".local/venv/Scripts/python.exe", "-B", "-X", "utf8", ".planning/deepeye-resume-20261018/actor-native-evidence-review/verify_evidence.py"],
+  "exit_code": 1,
+  "failure": "AssertionError line16: main assignment had a malformed 65-character retained readback SHA256",
+  "source_retained": "verify_evidence.initial.py.txt",
+  "observed_sha256": "a360b90f7a89f11da67e63b4050fef0cf10318a83a34af32d50546281816030d",
+  "disposition": "Main confirmed transcription error in a separate preserved pin-correction record; no original evidence changed and no native rerun"
+}

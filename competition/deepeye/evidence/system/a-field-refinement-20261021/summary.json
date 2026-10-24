@@ -1,0 +1,316 @@
+{
+  "utc": "2026-10-21T11:36:50.356618+00:00",
+  "selection": {
+    "work": [
+      {
+        "folder": "g03-l4-receiver-error-decomposition-20261021",
+        "manifest_sha256": "466e8269f93f9cb8b655d2b76b30d233d88f90546044d874e75807a2134695db",
+        "review_folder": "g03-l4-receiver-main-review-20261021",
+        "review_status": "ACCEPT_OBSERVED_RECEIVER_LOCAL_ERROR_DECOMPOSITION"
+      },
+      {
+        "folder": "g03-l5-propagation-z-refinement-20261021",
+        "manifest_sha256": "521022089175583b344c45cbb6a2ca88e1198845a9f14f0ea347421e10fb9730",
+        "review_folder": "g03-l5-main-review-20261021",
+        "review_status": "ACCEPT_NEW_L5_NUMERICAL_RESULT_ONLY"
+      },
+      {
+        "folder": "g03-l6-outer-xy-refinement-20261021",
+        "manifest_sha256": "ca357bd5b4067e46eed712c375ee8a1fab84b0a9c43638ee6684602f53c2b71d",
+        "review_folder": "g03-l6-main-review-20261021",
+        "review_status": "ACCEPT_NEW_L6_CONTROLS_AND_FAILED_ATTEMPT_ONLY",
+        "native_status": "failed",
+        "native_error": "Selected L6 actual process timeout; no solved field. Original worker interrupted, root verified termination and sealed without replay."
+      },
+      {
+        "folder": "g03-secondary-field-design-20261021",
+        "manifest_name": "manifest.json",
+        "manifest_sha256": "774f655449546250fc18c647a985a9657c5514eea7ce5c969713a15f240deead",
+        "review_folder": "g03-secondary-field-main-review-20261021",
+        "review_status": "SELECT_S1_NONZERO_OFF_AXIS_DERIVATIVE_DESIGN",
+        "native_text_file": "native-final-body.txt",
+        "extra_files": [
+          "native-final-body.txt",
+          "terminal-evidence.json"
+        ]
+      }
+    ],
+    "scope": "New completed receiver diagnostic and L5, retained failed L6, and selected S1 design; no S1 numerical result yet."
+  },
+  "reviews": {
+    "g03-l4-receiver-error-decomposition-20261021": {
+      "status": "ACCEPT_OBSERVED_RECEIVER_LOCAL_ERROR_DECOMPOSITION",
+      "verified_files": 34,
+      "manifest_sha256": "466e8269f93f9cb8b655d2b76b30d233d88f90546044d874e75807a2134695db",
+      "native_job": {
+        "job_id": "child-cc1a2f4f638a45aa956306d928d1f0d0",
+        "status": "completed",
+        "terminal": true,
+        "stale": false
+      },
+      "result": {
+        "status": "receiver_support_decomposition_complete",
+        "counts": {
+          "C_constructions": 0,
+          "A_assemblies": 0,
+          "factorizations": 0,
+          "reference_evaluations": 0,
+          "new_receiver_support_quadrature_pairs": 1
+        },
+        "support_counts": [
+          176,
+          88
+        ],
+        "support_union_count": 264,
+        "support_on_old_boundary": 0,
+        "minimum_z_separation_from_Tx_plane_m": 0.28750000000000003,
+        "new_receiver_pair_max_difference_Vpm": 1.3110258557874867e-16,
+        "unchanged_pair_gate_Vpm": 1.967577343353139e-12,
+        "V_numeric_from_rE_V": [
+          [
+            -3.9185684013635874e-07,
+            -0.0010089363656603251
+          ],
+          [
+            -2.501519436033116e-07,
+            -0.0002183661200513896
+          ]
+        ],
+        "V_saved_V": [
+          [
+            -3.9185684013635874e-07,
+            -0.0010089363656603258
+          ],
+          [
+            -2.501519436033116e-07,
+            -0.00021836612005138962
+          ]
+        ],
+        "numeric_reconstruction_abs_gap_V": [
+          6.505213034913027e-19,
+          2.710505431213761e-20
+        ],
+        "numeric_reconstruction_roundoff_bound_V": [
+          5.735139676268315e-17,
+          1.241268497174384e-17
+        ],
+        "V_green_low_V": [
+          [
+            -3.7416091906102804e-07,
+            -0.0008773261415377379
+          ],
+          [
+            -2.472494340538034e-07,
+            -0.00019586380867939396
+          ]
+        ],
+        "V_green_high_V": [
+          [
+            -3.7416091906094885e-07,
+            -0.0008773261415377381
+          ],
+          [
+            -2.4724943405384605e-07,
+            -0.0001958638086793932
+          ]
+        ],
+        "field_component_V": [
+          [
+            -1.7695921075409894e-08,
+            -0.00013161022412258767
+          ],
+          [
+            -2.902509549465563e-09,
+            -2.250231137199642e-05
+          ]
+        ],
+        "receiver_functional_component_V": [
+          [
+            3.715479038544017e-11,
+            2.987800484543536e-07
+          ],
+          [
+            8.423547882464939e-12,
+            2.5077470967724757e-08
+          ]
+        ],
+        "total_difference_V": [
+          [
+            -1.7658766285024454e-08,
+            -0.00013131144407413332
+          ],
+          [
+            -2.8940860015830982e-09,
+            -2.2477233901028695e-05
+          ]
+        ],
+        "field_component_abs_V": [
+          0.00013161022531225824,
+          2.2502311559189667e-05
+        ],
+        "receiver_functional_component_abs_V": [
+          2.987800507645454e-07,
+          2.5077472382463846e-08
+        ],
+        "total_difference_abs_V": [
+          0.00013131144526150898,
+          2.247723408734463e-05
+        ],
+        "decomposition_closure_abs_gap_V": [
+          0.0,
+          0.0
+        ],
+        "decomposition_roundoff_bound_V": [
+          7.855441209700476e-17,
+          1.7340632617509508e-17
+        ],
+        "observed_receiver_low_high_sensitivity_V": [
+          2.308506677503018e-19,
+          7.601400527279568e-19
+        ],
+        "low_high_sensitivity_sumabs_bound_V": [
+          5.863703944006753e-18,
+          2.953335462830815e-18
+        ],
+        "qualification": "observed quadrature consistency and algebraic decomposition only; not a physical error certificate",
+        "physical_acceptance": "open",
+        "G03": "not_run",
+        "R03": "not_run",
+        "all29": "not_run"
+      },
+      "source_review": "Saved sparse functional and source-separated264edge analytic pair; no solver/mesh/PDE/reference call; fixed gates retained. JSON complex decomposition independently checked.",
+      "source_sha256": "fd7eb5459d147a9b1fa5717dde7beae0273f9836caed808a1e22ab765d283adb",
+      "physical_acceptance": "unqualified",
+      "old_tests_repeated": false
+    },
+    "g03-l5-propagation-z-refinement-20261021": {
+      "status": "ACCEPT_NEW_L5_NUMERICAL_RESULT_ONLY",
+      "independent_residual_eta": 5.501251487034391e-17,
+      "fixed_gate": 2.842170943040401e-14,
+      "residual_traversal_max_difference": 0.0,
+      "independent_transposed_functional_V": [
+        [
+          -3.9131176532794164e-07,
+          -0.0009753705970663086
+        ],
+        [
+          -2.4976380169352687e-07,
+          -0.00021393015200500015
+        ]
+      ],
+      "transposed_vs_reported_absolute_V": [
+        1.0842033357076168e-19,
+        0.0
+      ],
+      "fixed_roundoff_voltage_bounds": [
+        2.7721701927763645e-17,
+        6.080264762569264e-18
+      ],
+      "relative_reference_errors": [
+        0.11137521928697745,
+        0.09209941416907708
+      ],
+      "factorizations": 0,
+      "matrix_assemblies": 0,
+      "reference_evaluations": 0,
+      "old_tests_repeated": false,
+      "physical_accuracy": "unqualified",
+      "G03": "not_run",
+      "all29_formal": "not_run"
+    },
+    "g03-l6-outer-xy-refinement-20261021": {
+      "status": "ACCEPT_NEW_L6_CONTROLS_AND_FAILED_ATTEMPT_ONLY",
+      "native": {
+        "job_id": "child-d810d0c8ece848e593e105a1f943c65b",
+        "status": "failed",
+        "terminal": true,
+        "stale": false,
+        "error": "Selected L6 actual process timeout; no solved field. Original worker interrupted, root verified termination and sealed without replay."
+      },
+      "manifest_sha256": "ca357bd5b4067e46eed712c375ee8a1fab84b0a9c43638ee6684602f53c2b71d",
+      "verified_files": 52,
+      "array_review": {
+        "status": "ACCEPT_NEW_L6_SAVED_ASSEMBLY_AND_CACHE_ONLY",
+        "bit_identical_cached_edges": 7904,
+        "new_boundary_edges": 2848,
+        "AII_exact_submatrix": true,
+        "reduced_rhs_exact_from_saved_assembly": true,
+        "solution_present": false,
+        "matrix_assemblies": 0,
+        "factorizations": 0,
+        "Green_evaluations": 0,
+        "old_tests_repeated": false,
+        "physical_accuracy": "unqualified",
+        "G03": "not_run",
+        "all29": "not_run"
+      },
+      "scope": "Source and cache mapping reviewed; C/A/AII and RHS saved and independently checked. No solved field or voltage, no hard120s wall-time proof.",
+      "original_worker_interrupted_verified": true,
+      "old_tests_repeated": false,
+      "formal_G03": "not_run",
+      "all29": "not_run"
+    },
+    "g03-secondary-field-design-20261021": {
+      "status": "SELECT_S1_NONZERO_OFF_AXIS_DERIVATIVE_DESIGN",
+      "verified_manifest_files": 9,
+      "verified_source_pins": 27,
+      "manifest_sha256": "774f655449546250fc18c647a985a9657c5514eea7ce5c969713a15f240deead",
+      "native": {
+        "job_id": "child-14b822d4f4174e67b8a84c5063bacf12",
+        "status": "completed",
+        "terminal": true,
+        "stale": false,
+        "error": null
+      },
+      "design_sha256": "07cfae8e50869a2d87fc8613a4887ce828f3070963950c60f10eb578c13d8bd7",
+      "review": "Consistent exp(+iwt), admittivity displacement sign, physical contrast vs discrete wire residual distinction, arbitrary-pose finite loop, compatible three-component trace and independent H-volume/flux derivative. Installed conductivity-only primary-secondary and sigma-denominator E oracle excluded.",
+      "selected_scope": "One new nonzero off-axis sigma+epsilon derivative, fixed saved L5 background AII and independent Geoana magnetic-field volume integral; no finite-strength or arbitrary-heterogeneous acceptance.",
+      "qualifications": [
+        "1% derivative and0.1% quadrature screens are new engineering diagnostics, not original taskbook gates.",
+        "Zero secondary boundary is approximate and its bias remains part of the observed difference.",
+        "Timeouts are sampled thresholds; L6 proves no hard wall-time bound. Require actual terminal and held-handle evidence.",
+        "Noise/calibration budget and independent full heterogeneous validation remain missing."
+      ],
+      "numerical_validation": "not_run",
+      "old_tests_repeated": false,
+      "formal_G03": "not_run",
+      "all29": "not_run"
+    }
+  },
+  "public_derivatives": [
+    {
+      "published_path": "g03-l4-receiver-error-decomposition-20261021/run-01/started-public.json",
+      "original_sha256": "71ab6dc8738be1ab3b4d62d3eea7de169264cd634c34ea333e78b20c161fd18d"
+    },
+    {
+      "published_path": "g03-l5-propagation-z-refinement-20261021/controls-01/started-public.json",
+      "original_sha256": "5ca0c595650dd3c6368e151cf65c7a5f461c54bf66acf2f621806929136623ba"
+    },
+    {
+      "published_path": "g03-l5-propagation-z-refinement-20261021/run-01/started-public.json",
+      "original_sha256": "e885b71ce42e4889e8af0bf6d71f3db8da227962d852b18320f3c358d7e80b91"
+    },
+    {
+      "published_path": "g03-l5-main-review-20261021/run-01/started-public.json",
+      "original_sha256": "633f17ca9c75ac1508874d022e34116401576a084318ce10c6e9ef2ac14bf653"
+    },
+    {
+      "published_path": "g03-l6-outer-xy-refinement-20261021/controls-01/started-public.json",
+      "original_sha256": "72a82facf69e375ec5b2e310ee5f9b821bc6ad430c13ec627176ddddf6773520"
+    },
+    {
+      "published_path": "g03-l6-outer-xy-refinement-20261021/run-01/started-public.json",
+      "original_sha256": "c2f529eefa1e10467c600f775d73b61d6faad27995be1a4a2f8b9bb662cc6726"
+    },
+    {
+      "published_path": "g03-l6-main-review-20261021/run-01/started-public.json",
+      "original_sha256": "c37a3993be36e09e17a3c9f103b8e47c099bfc0aa4aa23f6ad22f92b642b3707"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_tests_repeated": false,
+  "physical_accuracy": "unqualified",
+  "formal_G03": "not_run",
+  "formal_R03": "not_run",
+  "all29": "not_run"
+}

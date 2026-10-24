@@ -1,0 +1,299 @@
+{
+    "schema":  1,
+    "generated_at_utc":  "2026-10-19T17:19:24.1843251Z",
+    "engine":  {
+                   "path":  ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+                   "sha256":  "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+                   "version":  "4.7.2.stable.official.ed1daf0bf"
+               },
+    "note":  "exit_code is authoritative from each run result.json; preserved early null exits are not converted into success by a placeholder exit file",
+    "runs":  [
+                 {
+                     "label":  "editor-01",
+                     "purpose":  "untouched 696-check editor suite, fresh staged copy",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\editor-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\editor-01\\simulator",
+                                  "--script",
+                                  "res://tests/test_editor_document.gd"
+                              ],
+                     "command_json":  "runs/editor-01/command.json",
+                     "command_json_sha256":  "71c9272c159a7eeb038dcdffd248dac30bc0626d1c93ebedef3e2fb98e21d358",
+                     "result_json":  "runs/editor-01/result.json",
+                     "stdout":  "runs/editor-01/stdout.log",
+                     "stdout_bytes":  1763,
+                     "stdout_sha256":  "7e342013dd6bf007283ad1c4a87438ec273721b8a283bba21e8b8e7ae3d09652",
+                     "stderr":  "runs/editor-01/stderr.log",
+                     "stderr_bytes":  294,
+                     "stderr_sha256":  "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  696,
+                     "failures":  0,
+                     "markers":  [
+                                     "RESULT PASS"
+                                 ]
+                 },
+                 {
+                     "label":  "engine-version-02",
+                     "purpose":  "preserved PowerShell Start-Process probe; process exited but ExitCode unavailable",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+                     "argv":  [
+                                  "--version"
+                              ],
+                     "command_json":  "runs/engine-version-02/command.json",
+                     "command_json_sha256":  "98b38c24bdd473314f9e46e2a4a77d7e96086ce178359351a86bba35a718695b",
+                     "result_json":  "runs/engine-version-02/result.json",
+                     "stdout":  "runs/engine-version-02/stdout.log",
+                     "stdout_bytes":  33,
+                     "stdout_sha256":  "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+                     "stderr":  "runs/engine-version-02/stderr.log",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "exit_code":  null,
+                     "exit_file_value":  null,
+                     "exit_file_present":  false,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  null,
+                     "has_exited":  true,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+
+                                 ]
+                 },
+                 {
+                     "label":  "engine-version-03",
+                     "purpose":  "preserved first .NET version probe; process exited but ExitCode read after dispose was unavailable",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+                     "argv":  [
+                                  "--version"
+                              ],
+                     "command_json":  "runs/engine-version-03/command.json",
+                     "command_json_sha256":  "340cf1508f95f24ad33f13eddae0eaf5fa3ad46b1eaf44a4934fc37916da4ecb",
+                     "result_json":  "runs/engine-version-03/result.json",
+                     "stdout":  "runs/engine-version-03/stdout.log",
+                     "stdout_bytes":  33,
+                     "stdout_sha256":  "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+                     "stderr":  "runs/engine-version-03/stderr.log",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "exit_code":  null,
+                     "exit_file_value":  null,
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+
+                                 ]
+                 },
+                 {
+                     "label":  "engine-version-04",
+                     "purpose":  "corrected pinned engine version readback",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\candidate-01\\simulator",
+                     "argv":  [
+                                  "--version"
+                              ],
+                     "command_json":  "runs/engine-version-04/command.json",
+                     "command_json_sha256":  "cf7fad1ac67e09696b9e6408f1c21a6c547043c9c342544bf337e82508f34b54",
+                     "result_json":  "runs/engine-version-04/result.json",
+                     "stdout":  "runs/engine-version-04/stdout.log",
+                     "stdout_bytes":  33,
+                     "stdout_sha256":  "bf8803022b574250bb04dea65053a46b7c58570725316c1f7fe2aa6735706498",
+                     "stderr":  "runs/engine-version-04/stderr.log",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+
+                                 ]
+                 },
+                 {
+                     "label":  "flow-counterexample-01",
+                     "purpose":  "dialog state-change, stale callback, and cancellation flow",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-flow-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-flow-01\\simulator",
+                                  "--script",
+                                  "res://tests/counterexample_state_callback.gd"
+                              ],
+                     "command_json":  "runs/flow-counterexample-01/command.json",
+                     "command_json_sha256":  "deb7eece3e49bc57887afb3628971190634a6c12396142749c38890b2de8c358",
+                     "result_json":  "runs/flow-counterexample-01/result.json",
+                     "stdout":  "runs/flow-counterexample-01/stdout.log",
+                     "stdout_bytes":  733,
+                     "stdout_sha256":  "88fc721a40358caa8f806721af85f197a954973b296254b6cc823c377ed90088",
+                     "stderr":  "runs/flow-counterexample-01/stderr.log",
+                     "stderr_bytes":  294,
+                     "stderr_sha256":  "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  11,
+                     "failures":  0,
+                     "markers":  [
+                                     "RESULT PASS",
+                                     "COUNTEREXAMPLE_FLOW_RESULT PASS"
+                                 ]
+                 },
+                 {
+                     "label":  "import-origin-01",
+                     "purpose":  "resource import origin trace",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-import-origin-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-import-origin-01\\simulator",
+                                  "--script",
+                                  "res://tests/probe_import_origins.gd"
+                              ],
+                     "command_json":  "runs/import-origin-01/command.json",
+                     "command_json_sha256":  "31c2e676f7766ba0e0224aca06f537a876e1cf10cb7b6a5effba197341d0d6e8",
+                     "result_json":  "runs/import-origin-01/result.json",
+                     "stdout":  "runs/import-origin-01/stdout.log",
+                     "stdout_bytes":  1999,
+                     "stdout_sha256":  "e03c3245305321ca73634afd45415ae2d9633696de91f932bd519309f1775b16",
+                     "stderr":  "runs/import-origin-01/stderr.log",
+                     "stderr_bytes":  392,
+                     "stderr_sha256":  "64f7293fdb93bbf8e856ec93a2b81542ae974ed53719538d66cdbf7f2d2a098c",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+
+                                 ]
+                 },
+                 {
+                     "label":  "persistence-01",
+                     "purpose":  "author 618-check persistence suite, fresh staged copy",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\persistence-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\persistence-01\\simulator",
+                                  "--script",
+                                  "res://tests/test_layout_persistence.gd"
+                              ],
+                     "command_json":  "runs/persistence-01/command.json",
+                     "command_json_sha256":  "58bd66ad11dee3e231e4c7d8b7322b916dc4cae85508b185b00066fd977fab07",
+                     "result_json":  "runs/persistence-01/result.json",
+                     "stdout":  "runs/persistence-01/stdout.log",
+                     "stdout_bytes":  382,
+                     "stdout_sha256":  "7aede2de3e85f608c01a6b6989992e485a02fb45ee3fe6757c6f2d5a8347ad1e",
+                     "stderr":  "runs/persistence-01/stderr.log",
+                     "stderr_bytes":  2234,
+                     "stderr_sha256":  "9538d70279dedcc7039e07a41666db108df82e82f2340543177f559bd6ea2a6f",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  618,
+                     "failures":  0,
+                     "markers":  [
+                                     "RESULT PASS"
+                                 ]
+                 },
+                 {
+                     "label":  "rename-probe-01",
+                     "purpose":  "pinned-engine disposable rename destination-exists behavior",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-rename-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\counterexample-rename-01\\simulator",
+                                  "--script",
+                                  "res://tests/probe_rename_existing.gd"
+                              ],
+                     "command_json":  "runs/rename-probe-01/command.json",
+                     "command_json_sha256":  "a122e94c93ef0b12c75ea2724b9ddd1e28429d03efb483cf996935766f15c07b",
+                     "result_json":  "runs/rename-probe-01/result.json",
+                     "stdout":  "runs/rename-probe-01/stdout.log",
+                     "stdout_bytes":  479,
+                     "stdout_sha256":  "a6cbfe6e9ab8dae121e4f5ed4776f158841f6e86efd7d2288ed09038be6d40ee",
+                     "stderr":  "runs/rename-probe-01/stderr.log",
+                     "stderr_bytes":  0,
+                     "stderr_sha256":  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+                                     "RENAME_EXISTING_NAME=OK",
+                                     "TARGET_AFTER_HEX=4e45575c6e"
+                                 ]
+                 },
+                 {
+                     "label":  "smoke-01",
+                     "purpose":  "headless main scene instantiation smoke, fresh staged copy",
+                     "project":  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\smoke-01\\simulator",
+                     "argv":  [
+                                  "--headless",
+                                  "--path",
+                                  "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-persistence-review\\stage\\smoke-01\\simulator",
+                                  "--script",
+                                  "res://tests/smoke_layout_scene.gd"
+                              ],
+                     "command_json":  "runs/smoke-01/command.json",
+                     "command_json_sha256":  "a2bba86c688f32a008e1048befac5b2f44897e58ea01239a4b89a35d75670989",
+                     "result_json":  "runs/smoke-01/result.json",
+                     "stdout":  "runs/smoke-01/stdout.log",
+                     "stdout_bytes":  126,
+                     "stdout_sha256":  "7ac4397ebff368fd3163edcdea114fb27051533a0a833ddb1af96ab495779b2f",
+                     "stderr":  "runs/smoke-01/stderr.log",
+                     "stderr_bytes":  294,
+                     "stderr_sha256":  "14df897fcc2fcb8ddaf9d4c29b351a4bb779fe06035e991cc5770160df42b4f8",
+                     "exit_code":  0,
+                     "exit_file_value":  "0",
+                     "exit_file_present":  true,
+                     "process_exited":  true,
+                     "timed_out":  false,
+                     "process_started":  true,
+                     "has_exited":  null,
+                     "checks":  null,
+                     "failures":  null,
+                     "markers":  [
+                                     "SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1"
+                                 ]
+                 }
+             ]
+}

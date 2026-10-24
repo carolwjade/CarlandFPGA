@@ -1,0 +1,37 @@
+[
+  {
+    "name": "version",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+      "-version"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "433d78f40b9f1a2367db4b5cbd9b398bb99c3280f35c317ca321adfcc1b71423",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "vlib",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vlib.exe",
+      "work"
+    ],
+    "exit_code": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "name": "vlog",
+    "command": [
+      "C:\\modeltech64_2020.4\\win64\\vlog.exe",
+      "-sv",
+      "-work",
+      "work",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-stream-pr30-review\\exact-source\\competition\\deepeye\\fpga\\codec\\deepeye_block_encoder.sv",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-stream-pr30-review\\exact-source\\competition\\deepeye\\fpga\\stream\\deepeye_block_stream.sv",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-stream-pr30-review\\exact-source\\competition\\deepeye\\evidence\\stream\\stream-reset-20261018-09\\main\\main_stream_ports.sv"
+    ],
+    "exit_code": 232,
+    "stdout_sha256": "ddcb3b19a7c58d0d0e5ea357073b6c17afd4e36340a666cdcab6f246c2fd847c",
+    "stderr_sha256": "778cf232ceb207ee77174c14e33c50f4329244a2e3f50d6671c288cd30800ab6"
+  }
+]

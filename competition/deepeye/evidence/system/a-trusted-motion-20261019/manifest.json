@@ -1,0 +1,1083 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-19T09:51:07.978096+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "source_directory": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018",
+  "artifacts": [
+    {
+      "source_relative": "trusted-motion-implementation/dependency_manifest.json",
+      "published_relative": "raw/trusted-motion-implementation/dependency_manifest.json",
+      "bytes": 13296,
+      "sha256": "d2bfa37b93646d38465093e5525aaaa40e5bb711af2815809dac995c902a7977"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/evidence.py",
+      "published_relative": "raw/trusted-motion-implementation/evidence.py",
+      "bytes": 2200,
+      "sha256": "c9f95fe272f404c6ef0c00c5380b7f01ec2275d51c5f6ab6b25b83d3f1e74105"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite-frozen.command.json",
+      "published_relative": "raw/trusted-motion-implementation/final-suite-frozen.command.json",
+      "bytes": 881,
+      "sha256": "b9f6a14a3378bdcb4fdeb0278188494a9d1ce606c7c3819b3eedf6890b8798a1"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite-frozen.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/final-suite-frozen.stderr.log",
+      "bytes": 28179,
+      "sha256": "9fc45c0afdcfbea915a538b731ed943c04a54dd8132abe2e06bbc620416474ab"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite-frozen.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/final-suite-frozen.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite.command.json",
+      "published_relative": "raw/trusted-motion-implementation/final-suite.command.json",
+      "bytes": 881,
+      "sha256": "b9f6a14a3378bdcb4fdeb0278188494a9d1ce606c7c3819b3eedf6890b8798a1"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/final-suite.stderr.log",
+      "bytes": 27721,
+      "sha256": "31f204c14564964077057982b3b30423b5797fb71291e21f979d88506906acc8"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/final-suite.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/final-suite.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/git_commands.json",
+      "published_relative": "raw/trusted-motion-implementation/git_commands.json",
+      "bytes": 13113,
+      "sha256": "515c7caf69aeedd05b2880ea687c273990a8a0eb3f8600a59afc79fba5ef4fcf"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-adversarial-entry.command.json",
+      "published_relative": "raw/trusted-motion-implementation/green-adversarial-entry.command.json",
+      "bytes": 612,
+      "sha256": "3a719f5b485da010563e03654c05c397ee3d61076e0aa09d2aa5776318695b47"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-adversarial-entry.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/green-adversarial-entry.stderr.log",
+      "bytes": 4638,
+      "sha256": "abec0e08a5f3d3dae60d18d1256fc8db2a34edd86e049be40cbd3269f533952a"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-adversarial-entry.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/green-adversarial-entry.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-1.command.json",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-1.command.json",
+      "bytes": 612,
+      "sha256": "093ae8216b971b1b07ab771a033a67b5ccb8312aeae39cbcd807b816d57586a6"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-1.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-1.stderr.log",
+      "bytes": 8163,
+      "sha256": "dce7be5fd5b48bc64cf70bae1ec23876a66515b95639f8a374d8788abbb75853"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-1.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-1.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-2.command.json",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-2.command.json",
+      "bytes": 612,
+      "sha256": "3a719f5b485da010563e03654c05c397ee3d61076e0aa09d2aa5776318695b47"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-2.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-2.stderr.log",
+      "bytes": 3724,
+      "sha256": "a63d1ae9f321eda14e65153f237f10663272f2efb33ea1790c9b67125ca955ef"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-attempt-2.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/green-attempt-2.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-final.command.json",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-final.command.json",
+      "bytes": 612,
+      "sha256": "3a719f5b485da010563e03654c05c397ee3d61076e0aa09d2aa5776318695b47"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-final.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-final.stderr.log",
+      "bytes": 4638,
+      "sha256": "5a15078c271ca7f87a84df4b6729d994d207d4a5d08349586ca66054dade4d07"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-final.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-final.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-refined.command.json",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-refined.command.json",
+      "bytes": 612,
+      "sha256": "093ae8216b971b1b07ab771a033a67b5ccb8312aeae39cbcd807b816d57586a6"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-refined.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-refined.stderr.log",
+      "bytes": 6719,
+      "sha256": "8bd98092d8045bc7f74957821e448027c6c61ad8cca7bd82b4cd589a67aae75f"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/green-focused-refined.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/green-focused-refined.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/native_completion_receipt.json",
+      "published_relative": "raw/trusted-motion-implementation/native_completion_receipt.json",
+      "bytes": 2786,
+      "sha256": "e3b94e44fde55fd9ab1f378f09595f259ee401351c48d9afb343e670cc009e36"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/passage_phase.before.py",
+      "published_relative": "raw/trusted-motion-implementation/passage_phase.before.py",
+      "bytes": 9491,
+      "sha256": "28c948f63ba9010bc48a89f5472faa70a18887733284b1f5b0fcb03c65bc07cc"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/receipt.json",
+      "published_relative": "raw/trusted-motion-implementation/receipt.json",
+      "bytes": 1161,
+      "sha256": "1deafc745e2041f811bb7c962395358e90b8972fb11d057ffb39407f4fc6a92b"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-adversarial-entry.command.json",
+      "published_relative": "raw/trusted-motion-implementation/red-adversarial-entry.command.json",
+      "bytes": 612,
+      "sha256": "093ae8216b971b1b07ab771a033a67b5ccb8312aeae39cbcd807b816d57586a6"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-adversarial-entry.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/red-adversarial-entry.stderr.log",
+      "bytes": 7587,
+      "sha256": "89218af9848b58081ce33028b2485c08b17f7b39abf8e06e9c6b7f3b05011106"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-adversarial-entry.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/red-adversarial-entry.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-missing-executor.command.json",
+      "published_relative": "raw/trusted-motion-implementation/red-missing-executor.command.json",
+      "bytes": 612,
+      "sha256": "093ae8216b971b1b07ab771a033a67b5ccb8312aeae39cbcd807b816d57586a6"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-missing-executor.stderr.log",
+      "published_relative": "raw/trusted-motion-implementation/red-missing-executor.stderr.log",
+      "bytes": 15490,
+      "sha256": "3deeabe644e9c36aac6e88398f0d2625fe8be7f5067cd9a4c8854ff36ab52d0a"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/red-missing-executor.stdout.log",
+      "published_relative": "raw/trusted-motion-implementation/red-missing-executor.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/reference_collect_evidence.py",
+      "published_relative": "raw/trusted-motion-implementation/reference_collect_evidence.py",
+      "bytes": 7615,
+      "sha256": "933b359b31d03461b5b14d4a36a49257395d50d6a41153ea2fc37e5dfbef079e"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/report.md",
+      "published_relative": "raw/trusted-motion-implementation/report.md",
+      "bytes": 9181,
+      "sha256": "a8e18ad0fb4c880b1c659c8731734378e1feb4c97965b367d9e0cab7b0e7b6db"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/source_before-metadata.json",
+      "published_relative": "raw/trusted-motion-implementation/source_before-metadata.json",
+      "bytes": 171,
+      "sha256": "25bf12efc22dbd0ef4c2b3720ee47dbc79314b4e118c4856baeafb44bfa64d32"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/source_before.json",
+      "published_relative": "raw/trusted-motion-implementation/source_before.json",
+      "bytes": 3328,
+      "sha256": "4c9689e680566212423547815018b06def32e63bf8681cfc14c2fb80fd711138"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/source_final.json",
+      "published_relative": "raw/trusted-motion-implementation/source_final.json",
+      "bytes": 4496,
+      "sha256": "36f684466129470de946061a5c2f59efcf0573518fdf86304e3a59183871d290"
+    },
+    {
+      "source_relative": "trusted-motion-implementation/validation_receipt.json",
+      "published_relative": "raw/trusted-motion-implementation/validation_receipt.json",
+      "bytes": 390,
+      "sha256": "35e1409b0e342bdb419aea3f364f998cc78be45da9397ee366140979c82aa868"
+    },
+    {
+      "source_relative": "trusted-motion-repair/assignment.json",
+      "published_relative": "raw/trusted-motion-repair/assignment.json",
+      "bytes": 1227,
+      "sha256": "86283d98c266d567b97e555ff02117b706a835ffabe96ed49e907828eb6ceefb"
+    },
+    {
+      "source_relative": "trusted-motion-repair/before/competition/deepeye/docs/motion_executor.md",
+      "published_relative": "raw/trusted-motion-repair/before/competition/deepeye/docs/motion_executor.md",
+      "bytes": 8208,
+      "sha256": "6a75bd53e7059a18a2d3fe0760b4833891094d2f402f07c2693c6ec49007beb3"
+    },
+    {
+      "source_relative": "trusted-motion-repair/before/competition/deepeye/simulation/authority/motion_executor.py",
+      "published_relative": "raw/trusted-motion-repair/before/competition/deepeye/simulation/authority/motion_executor.py",
+      "bytes": 16717,
+      "sha256": "f38b28ead8b5f2564301b007bcd6b57df08bdd9d99a9859390669a41b065dabc"
+    },
+    {
+      "source_relative": "trusted-motion-repair/before/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "published_relative": "raw/trusted-motion-repair/before/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "bytes": 20703,
+      "sha256": "05f527da19263330e0f5855f94fdc584898d8021813966eb7ef992c5b6f070aa"
+    },
+    {
+      "source_relative": "trusted-motion-repair/frozen/competition/deepeye/docs/motion_executor.md",
+      "published_relative": "raw/trusted-motion-repair/frozen/competition/deepeye/docs/motion_executor.md",
+      "bytes": 8682,
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390"
+    },
+    {
+      "source_relative": "trusted-motion-repair/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "published_relative": "raw/trusted-motion-repair/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "bytes": 12230,
+      "sha256": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe"
+    },
+    {
+      "source_relative": "trusted-motion-repair/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "published_relative": "raw/trusted-motion-repair/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "bytes": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    {
+      "source_relative": "trusted-motion-repair/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "published_relative": "raw/trusted-motion-repair/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "bytes": 23122,
+      "sha256": "6f475a2fc2071df8fd2e8f2d82c434ab9c4a9d0d402b3df6b18c8a8ede48cf90"
+    },
+    {
+      "source_relative": "trusted-motion-repair/green-complete.command.json",
+      "published_relative": "raw/trusted-motion-repair/green-complete.command.json",
+      "bytes": 953,
+      "sha256": "6b0ffbdac0b2d5b88d540ac166c6e9ee8bc9c3191df07fbb403ac0670c05dfd8"
+    },
+    {
+      "source_relative": "trusted-motion-repair/green-complete.stderr.log",
+      "published_relative": "raw/trusted-motion-repair/green-complete.stderr.log",
+      "bytes": 28669,
+      "sha256": "245047a50748bfb5bdbe08962336b7e32d83de5db86d9b8d40dcb90a5d55b41b"
+    },
+    {
+      "source_relative": "trusted-motion-repair/green-complete.stdout.log",
+      "published_relative": "raw/trusted-motion-repair/green-complete.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-repair/independent-eight.command.json",
+      "published_relative": "raw/trusted-motion-repair/independent-eight.command.json",
+      "bytes": 872,
+      "sha256": "68bd9085bc819df183af6acad4b1a4e535b7eacf0e5ed89c4f903c359d7b48c9"
+    },
+    {
+      "source_relative": "trusted-motion-repair/independent-eight.stderr.log",
+      "published_relative": "raw/trusted-motion-repair/independent-eight.stderr.log",
+      "bytes": 1489,
+      "sha256": "5d4c2cd8d27eec31818d93daf52c5f16a81b89bfe5753eb178e239dc718c0beb"
+    },
+    {
+      "source_relative": "trusted-motion-repair/independent-eight.stdout.log",
+      "published_relative": "raw/trusted-motion-repair/independent-eight.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-repair/receipt.json",
+      "published_relative": "raw/trusted-motion-repair/receipt.json",
+      "bytes": 1646,
+      "sha256": "de9d58b940f4f6048e11c3e51b73c003fde0d78e3d970072256ff84d9afa77af"
+    },
+    {
+      "source_relative": "trusted-motion-repair/red-materialization.command.json",
+      "published_relative": "raw/trusted-motion-repair/red-materialization.command.json",
+      "bytes": 947,
+      "sha256": "fa1680ddba442e2d5ebe37ee2814b208b24fdb33028ede64b12188d61299ebc4"
+    },
+    {
+      "source_relative": "trusted-motion-repair/red-materialization.stderr.log",
+      "published_relative": "raw/trusted-motion-repair/red-materialization.stderr.log",
+      "bytes": 4724,
+      "sha256": "17df7ae0c8752db85d8572121416d5b8b16c577cda4f5fa0a150e772d3f8e6b6"
+    },
+    {
+      "source_relative": "trusted-motion-repair/red-materialization.stdout.log",
+      "published_relative": "raw/trusted-motion-repair/red-materialization.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-repair/report.md",
+      "published_relative": "raw/trusted-motion-repair/report.md",
+      "bytes": 2234,
+      "sha256": "9196d5f92e3e15ace81cd506b77ef5a865c62fcfcd730032c056d65544bb026e"
+    },
+    {
+      "source_relative": "trusted-motion-repair/run_checks.py",
+      "published_relative": "raw/trusted-motion-repair/run_checks.py",
+      "bytes": 1577,
+      "sha256": "c03352cb9238e259e714dc7b359e5508e0852f1a62d27859e43762f5dc572a20"
+    },
+    {
+      "source_relative": "trusted-motion-repair/source-before.json",
+      "published_relative": "raw/trusted-motion-repair/source-before.json",
+      "bytes": 392,
+      "sha256": "5d216ca0d7d4fd464ec3fab2ff25a8b59b914410090a92ee93e2b605fd88b82d"
+    },
+    {
+      "source_relative": "trusted-motion-repair/source-manifest.json",
+      "published_relative": "raw/trusted-motion-repair/source-manifest.json",
+      "bytes": 698,
+      "sha256": "1165585bb6e1bb049edb15a8df67e31f371203f6b6d22a03774d0e3ee5251533"
+    },
+    {
+      "source_relative": "trusted-motion-repair/test_independent_motion.py",
+      "published_relative": "raw/trusted-motion-repair/test_independent_motion.py",
+      "bytes": 5113,
+      "sha256": "0062affaa0648bf77f7ea652313804901c4ffcbc3a2b567948f7e8b6b2890393"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/after.json",
+      "published_relative": "raw/trusted-motion-rereview/after.json",
+      "bytes": 6294,
+      "sha256": "42aa06a7ccc8a74a9effe9fa28a065f2222f741f68c7b589840ba9152242b29e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/before.json",
+      "published_relative": "raw/trusted-motion-rereview/before.json",
+      "bytes": 7495,
+      "sha256": "be9ecec663102fd539566c519796779457bd5179af7ef84f8752641b94404ed2"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/commands.json",
+      "published_relative": "raw/trusted-motion-rereview/commands.json",
+      "bytes": 2434,
+      "sha256": "4d672f6b95f5bd50e930e353ad03d9b6ce21c0fd876e6e5995f40730f3592082"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/completion-text.txt",
+      "published_relative": "raw/trusted-motion-rereview/completion-text.txt",
+      "bytes": 1111,
+      "sha256": "518ebf7ee4a5f35716e90f152a900ca556da94db235a55bcf883059f35a47f30"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/evidence_manifest.json",
+      "published_relative": "raw/trusted-motion-rereview/evidence_manifest.json",
+      "bytes": 8639,
+      "sha256": "f6ff7a2df8fe79d7a981f7859b9163ceb62a187c451aff6e84010787df828190"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/execution-summary.json",
+      "published_relative": "raw/trusted-motion-rereview/execution-summary.json",
+      "bytes": 822,
+      "sha256": "a76623e787ad55b3079c36204c20346fed239108eda5b1331303d926a489bb1f"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/final-native-validation.json",
+      "published_relative": "raw/trusted-motion-rereview/final-native-validation.json",
+      "bytes": 313,
+      "sha256": "0d336bfea1db040db4d3b162fced1de2d8a951467fe891354b39fb39cfbe3d9e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/findings.md",
+      "published_relative": "raw/trusted-motion-rereview/findings.md",
+      "bytes": 6340,
+      "sha256": "991f8a401da9086e70a9b19ad2057cc9c3b54ce311bce961fc74a812747a5ae5"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/.gitattributes",
+      "published_relative": "raw/trusted-motion-rereview/frozen/.gitattributes",
+      "bytes": 301,
+      "sha256": "12b126d3ed13f1bc5427a3ab046f748fa28c18f9edcf9edef28317dfa7ce836a"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/authority_solid_clearance.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/authority_solid_clearance.md",
+      "bytes": 13438,
+      "sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/certified_motion_path.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/certified_motion_path.md",
+      "bytes": 16846,
+      "sha256": "c3c855fa67a519c8c75e3bda1d26623ffe52a0ab5613e4ee703b75c4d2932f8a"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/enums.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/enums.json",
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/host_contract.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/host_contract.json",
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/interface.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/interface.json",
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/motion_executor.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/motion_executor.md",
+      "bytes": 8682,
+      "sha256": "144bb611ebc5c5a1aff1568cb8b37759962c4aa2f0fd32e3469d2d30759a1390"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/pc_direct_runtime.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/pc_direct_runtime.md",
+      "bytes": 14963,
+      "sha256": "90821f70cb27a67ada6fab4147c9992fd8177c426232bb2ade1e680291227665"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/docs/workspace_passage.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/docs/workspace_passage.md",
+      "bytes": 5447,
+      "sha256": "2e969b956dfc5c92c5a3eb1222c83b2f1824dda35ecc23dc979d3189cf032621"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/host_envelope.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/host_envelope.py",
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/motion.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/motion.py",
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/pc_direct_watchdog.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/pc_direct_watchdog.py",
+      "bytes": 12255,
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/test_host_envelope.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/test_host_envelope.py",
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/test_pc_direct_watchdog.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/test_pc_direct_watchdog.py",
+      "bytes": 22083,
+      "sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/integration/wire.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/integration/wire.py",
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/certified_path.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/certified_path.py",
+      "bytes": 17268,
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "bytes": 11856,
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/gate_geometry.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/gate_geometry.py",
+      "bytes": 15309,
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/kinematics.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/kinematics.py",
+      "bytes": 11016,
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "bytes": 12230,
+      "sha256": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/solid_clearance.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/solid_clearance.py",
+      "bytes": 20063,
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/workspace_boundaries.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion/workspace_boundaries.py",
+      "bytes": 10527,
+      "sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "bytes": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "bytes": 23468,
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "bytes": 23122,
+      "sha256": "6f475a2fc2071df8fd2e8f2d82c434ab9c4a9d0d402b3df6b18c8a8ede48cf90"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_passage_phase.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_passage_phase.py",
+      "bytes": 6061,
+      "sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_pc_direct_runtime.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_pc_direct_runtime.py",
+      "bytes": 26994,
+      "sha256": "e988feddce8e5a4987f0617c4b429a20088429822fc3fa2936f985bac81e72e5"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_solid_clearance.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_solid_clearance.py",
+      "bytes": 17924,
+      "sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_workspace_boundaries.py",
+      "published_relative": "raw/trusted-motion-rereview/frozen/competition/deepeye/tests/simulation/test_workspace_boundaries.py",
+      "bytes": 7466,
+      "sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/competition/deepeye-2026/execution_plan_final.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/competition/deepeye-2026/execution_plan_final.json",
+      "bytes": 11924,
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/competition/deepeye-2026/immutable_scope.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/competition/deepeye-2026/immutable_scope.json",
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/competition/deepeye-2026/immutable_scope.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/competition/deepeye-2026/immutable_scope.md",
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/competition/deepeye-2026/simulation_contract_final.json",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/competition/deepeye-2026/simulation_contract_final.json",
+      "bytes": 8257,
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/competition/deepeye-2026/taskbook_final.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/competition/deepeye-2026/taskbook_final.md",
+      "bytes": 109430,
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/frozen/docs/superpowers/specs/2026-10-19-trusted-motion-executor-design.md",
+      "published_relative": "raw/trusted-motion-rereview/frozen/docs/superpowers/specs/2026-10-19-trusted-motion-executor-design.md",
+      "bytes": 3443,
+      "sha256": "8073c35a6356d776e64a62ab29b232e7216e12f3d3fd7b595f4d6c4d1eae5960"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/full-137.stderr.log",
+      "published_relative": "raw/trusted-motion-rereview/full-137.stderr.log",
+      "bytes": 28669,
+      "sha256": "86d83ac49a7d7537fa47510b7cccb7927f343c32f31f239a0bd13b2ca9fdf078"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/full-137.stdout.log",
+      "published_relative": "raw/trusted-motion-rereview/full-137.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/native_complete.json",
+      "published_relative": "raw/trusted-motion-rereview/native_complete.json",
+      "bytes": 1767,
+      "sha256": "33fd5b66077e57df25a2f3c20c732224bc3a9f6679bf1774dadcc85f3d13470b"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/original-eight.stderr.log",
+      "published_relative": "raw/trusted-motion-rereview/original-eight.stderr.log",
+      "bytes": 1489,
+      "sha256": "e5a88ddf9d059de30ba0fe88b39de941485b2dd3747bbf41113a89ec48472b51"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/original-eight.stdout.log",
+      "published_relative": "raw/trusted-motion-rereview/original-eight.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/original_independent_eight.py",
+      "published_relative": "raw/trusted-motion-rereview/original_independent_eight.py",
+      "bytes": 5113,
+      "sha256": "0062affaa0648bf77f7ea652313804901c4ffcbc3a2b567948f7e8b6b2890393"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/receipt.json",
+      "published_relative": "raw/trusted-motion-rereview/receipt.json",
+      "bytes": 2336,
+      "sha256": "74905208b48e7d4551ebc56386a40664c94fdb76564b920af4a2e07bfff58e46"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/repair.diff",
+      "published_relative": "raw/trusted-motion-rereview/repair.diff",
+      "bytes": 4905,
+      "sha256": "c0affb25827e7dc592524ac04b23d85aa5854405a83e3e85a5b3854786cff5f2"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/run_rereview.py",
+      "published_relative": "raw/trusted-motion-rereview/run_rereview.py",
+      "bytes": 4095,
+      "sha256": "1e064645fc31c613ab430c18e0d5ada9116fcc56af849961fc8bf44c1a3fd4fa"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/safe-continuation.stderr.log",
+      "published_relative": "raw/trusted-motion-rereview/safe-continuation.stderr.log",
+      "bytes": 649,
+      "sha256": "2627d51ceb6b60de393aef9b0f6fa6a394f57be6be4c1e15560e6935b543a025"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/safe-continuation.stdout.log",
+      "published_relative": "raw/trusted-motion-rereview/safe-continuation.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/test_safe_continuation.py",
+      "published_relative": "raw/trusted-motion-rereview/test_safe_continuation.py",
+      "bytes": 2775,
+      "sha256": "67d88308a541f7143edaad0d1f832586891183ca359d943b45d6e744fd8cdc5f"
+    },
+    {
+      "source_relative": "trusted-motion-rereview/tested-source-manifest.json",
+      "published_relative": "raw/trusted-motion-rereview/tested-source-manifest.json",
+      "bytes": 698,
+      "sha256": "1165585bb6e1bb049edb15a8df67e31f371203f6b6d22a03774d0e3ee5251533"
+    },
+    {
+      "source_relative": "trusted-motion-review/after.json",
+      "published_relative": "raw/trusted-motion-review/after.json",
+      "bytes": 4903,
+      "sha256": "fd5ab108cc7578935e064a9e496f04f3c160e0cc22a863d3553c307c4491e774"
+    },
+    {
+      "source_relative": "trusted-motion-review/author-135.stderr.log",
+      "published_relative": "raw/trusted-motion-review/author-135.stderr.log",
+      "bytes": 28179,
+      "sha256": "b43d4b679cb673eaeabd7025a1d0a07d9124544fa7fda50634e7c682b8d7b116"
+    },
+    {
+      "source_relative": "trusted-motion-review/author-135.stdout.log",
+      "published_relative": "raw/trusted-motion-review/author-135.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-review/author-command.json",
+      "published_relative": "raw/trusted-motion-review/author-command.json",
+      "bytes": 1231,
+      "sha256": "801f3727f4dc319c135508a906deed9e5089839062339cee6b44cc3f2c5fb8f6"
+    },
+    {
+      "source_relative": "trusted-motion-review/baseline.py",
+      "published_relative": "raw/trusted-motion-review/baseline.py",
+      "bytes": 2964,
+      "sha256": "159d3e7b2e70c732ab7adaddf0931e076e67bc92222cc4e5bb4ef8cded26f3a5"
+    },
+    {
+      "source_relative": "trusted-motion-review/before.json",
+      "published_relative": "raw/trusted-motion-review/before.json",
+      "bytes": 5366,
+      "sha256": "543801196d785127d6b1e8a02f74dedae993b95e9c9e9df436bbc582a39c20ba"
+    },
+    {
+      "source_relative": "trusted-motion-review/completion-text.txt",
+      "published_relative": "raw/trusted-motion-review/completion-text.txt",
+      "bytes": 1087,
+      "sha256": "2f1aa9d7aca4ded5ad2028620ca1c2aa2ab244b88ebbec11d9b282125b0a829a"
+    },
+    {
+      "source_relative": "trusted-motion-review/continuation-command.json",
+      "published_relative": "raw/trusted-motion-review/continuation-command.json",
+      "bytes": 1145,
+      "sha256": "fd243173c5715f553c76bc81774137d809ec788fe5f91594bda316c3e2eec9ca"
+    },
+    {
+      "source_relative": "trusted-motion-review/continuation.stderr.log",
+      "published_relative": "raw/trusted-motion-review/continuation.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-review/continuation.stdout.log",
+      "published_relative": "raw/trusted-motion-review/continuation.stdout.log",
+      "bytes": 328,
+      "sha256": "274fae8ae3d4aaaa9eb36cf04cc90d12c2ba0aa18741a164ba4e0eda03146034"
+    },
+    {
+      "source_relative": "trusted-motion-review/evidence_manifest.json",
+      "published_relative": "raw/trusted-motion-review/evidence_manifest.json",
+      "bytes": 9111,
+      "sha256": "84ff9a84afa7e9b5ae3387fa7db4ba6584647b8b080ab78ae4176cd52485b4ce"
+    },
+    {
+      "source_relative": "trusted-motion-review/execution-summary.json",
+      "published_relative": "raw/trusted-motion-review/execution-summary.json",
+      "bytes": 1482,
+      "sha256": "c229ddb782af03911c5327e15f08a6ef1f8680ab4f3a39b35d8e7b8d0c4110a5"
+    },
+    {
+      "source_relative": "trusted-motion-review/final-native-validation.json",
+      "published_relative": "raw/trusted-motion-review/final-native-validation.json",
+      "bytes": 311,
+      "sha256": "654472f9b6508dc5ddb54c1d09d3f422b2ef35692a23a87033627dd3a2ff9e13"
+    },
+    {
+      "source_relative": "trusted-motion-review/findings.md",
+      "published_relative": "raw/trusted-motion-review/findings.md",
+      "bytes": 9218,
+      "sha256": "86dfbbe17b09d0ec2958de9dd759f84888223ba6bc949ec64d6d76dc87ee0b9e"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/.gitattributes",
+      "published_relative": "raw/trusted-motion-review/frozen/.gitattributes",
+      "bytes": 301,
+      "sha256": "12b126d3ed13f1bc5427a3ab046f748fa28c18f9edcf9edef28317dfa7ce836a"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/authority_solid_clearance.md",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/authority_solid_clearance.md",
+      "bytes": 13438,
+      "sha256": "d255c608e2a18ea83bf6b72f426fe5df3a86833af69d8a45b9b3f50205960a3d"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/certified_motion_path.md",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/certified_motion_path.md",
+      "bytes": 16846,
+      "sha256": "c3c855fa67a519c8c75e3bda1d26623ffe52a0ab5613e4ee703b75c4d2932f8a"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/enums.json",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/enums.json",
+      "bytes": 3255,
+      "sha256": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/host_contract.json",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/host_contract.json",
+      "bytes": 19892,
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/interface.json",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/interface.json",
+      "bytes": 23031,
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/motion_executor.md",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/motion_executor.md",
+      "bytes": 8208,
+      "sha256": "6a75bd53e7059a18a2d3fe0760b4833891094d2f402f07c2693c6ec49007beb3"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/pc_direct_runtime.md",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/pc_direct_runtime.md",
+      "bytes": 14963,
+      "sha256": "90821f70cb27a67ada6fab4147c9992fd8177c426232bb2ade1e680291227665"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/docs/workspace_passage.md",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/docs/workspace_passage.md",
+      "bytes": 5447,
+      "sha256": "2e969b956dfc5c92c5a3eb1222c83b2f1824dda35ecc23dc979d3189cf032621"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/host_envelope.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/host_envelope.py",
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/motion.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/motion.py",
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/pc_direct_watchdog.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/pc_direct_watchdog.py",
+      "bytes": 12255,
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/test_host_envelope.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/test_host_envelope.py",
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/test_pc_direct_watchdog.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/test_pc_direct_watchdog.py",
+      "bytes": 22083,
+      "sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/integration/wire.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/integration/wire.py",
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/certified_path.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/certified_path.py",
+      "bytes": 17268,
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "bytes": 11856,
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/gate_geometry.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/gate_geometry.py",
+      "bytes": 15309,
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/kinematics.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/kinematics.py",
+      "bytes": 11016,
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "bytes": 12230,
+      "sha256": "19ba2644db3b9bf3e78af7dddc896ee2e5ebea1cc6363b936aea5110928df6fe"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/solid_clearance.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/solid_clearance.py",
+      "bytes": 20063,
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/workspace_boundaries.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion/workspace_boundaries.py",
+      "bytes": 10527,
+      "sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/motion_executor.py",
+      "bytes": 16717,
+      "sha256": "f38b28ead8b5f2564301b007bcd6b57df08bdd9d99a9859390669a41b065dabc"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "bytes": 23468,
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_motion_executor.py",
+      "bytes": 20703,
+      "sha256": "05f527da19263330e0f5855f94fdc584898d8021813966eb7ef992c5b6f070aa"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_passage_phase.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_passage_phase.py",
+      "bytes": 6061,
+      "sha256": "d34e789e0cddca5eadaa4a2dad8cd7eaf4b2f2d5a18009b3ed627f18b4b5eb75"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_pc_direct_runtime.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_pc_direct_runtime.py",
+      "bytes": 26994,
+      "sha256": "e988feddce8e5a4987f0617c4b429a20088429822fc3fa2936f985bac81e72e5"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_solid_clearance.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_solid_clearance.py",
+      "bytes": 17924,
+      "sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_workspace_boundaries.py",
+      "published_relative": "raw/trusted-motion-review/frozen/competition/deepeye/tests/simulation/test_workspace_boundaries.py",
+      "bytes": 7466,
+      "sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/competition/deepeye-2026/execution_plan_final.json",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/competition/deepeye-2026/execution_plan_final.json",
+      "bytes": 11924,
+      "sha256": "e93f10d247109e8cb7070ded7fdfac5b3543a44afb3387261531556eebde41be"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/competition/deepeye-2026/immutable_scope.json",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/competition/deepeye-2026/immutable_scope.json",
+      "bytes": 6684,
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/competition/deepeye-2026/immutable_scope.md",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/competition/deepeye-2026/immutable_scope.md",
+      "bytes": 6139,
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/competition/deepeye-2026/simulation_contract_final.json",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/competition/deepeye-2026/simulation_contract_final.json",
+      "bytes": 8257,
+      "sha256": "f77589954051b36eeb42f1a6cb4ceb13f97df631bd305b8c2ae8b0d2678bd3b9"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/competition/deepeye-2026/taskbook_final.md",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/competition/deepeye-2026/taskbook_final.md",
+      "bytes": 109430,
+      "sha256": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+    },
+    {
+      "source_relative": "trusted-motion-review/frozen/docs/superpowers/specs/2026-10-19-trusted-motion-executor-design.md",
+      "published_relative": "raw/trusted-motion-review/frozen/docs/superpowers/specs/2026-10-19-trusted-motion-executor-design.md",
+      "bytes": 3443,
+      "sha256": "8073c35a6356d776e64a62ab29b232e7216e12f3d3fd7b595f4d6c4d1eae5960"
+    },
+    {
+      "source_relative": "trusted-motion-review/independent-command.json",
+      "published_relative": "raw/trusted-motion-review/independent-command.json",
+      "bytes": 1140,
+      "sha256": "64e5836ed80df7009cdeecd9f822d3a1aa7e103dac5cdb3ca39c7f8cc37de71d"
+    },
+    {
+      "source_relative": "trusted-motion-review/independent.stderr.log",
+      "published_relative": "raw/trusted-motion-review/independent.stderr.log",
+      "bytes": 2302,
+      "sha256": "45bc82b2a3c3213cfb38cadc1d5b6ebd3b0b35526459b11b0646c509370b898b"
+    },
+    {
+      "source_relative": "trusted-motion-review/independent.stdout.log",
+      "published_relative": "raw/trusted-motion-review/independent.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source_relative": "trusted-motion-review/materialization_continuation.py",
+      "published_relative": "raw/trusted-motion-review/materialization_continuation.py",
+      "bytes": 1201,
+      "sha256": "c6b80911c6e038cbd79eec3c670f73eae036bd9af6560561a60e27398cb790fc"
+    },
+    {
+      "source_relative": "trusted-motion-review/native_complete.json",
+      "published_relative": "raw/trusted-motion-review/native_complete.json",
+      "bytes": 1739,
+      "sha256": "4efd5cc7b8c55221e4643c7ca4fbf4e39c666c0568e749ea4c5fb2bedbfa1f9b"
+    },
+    {
+      "source_relative": "trusted-motion-review/receipt.json",
+      "published_relative": "raw/trusted-motion-review/receipt.json",
+      "bytes": 2479,
+      "sha256": "021dd877b018c07e5a5e313856f1082c07fbf5c07893bd6716ba88e4630e9361"
+    },
+    {
+      "source_relative": "trusted-motion-review/run_continuation.py",
+      "published_relative": "raw/trusted-motion-review/run_continuation.py",
+      "bytes": 908,
+      "sha256": "6eaa042f8b73ae98322caa05ff3cf57fda549f081c8fcafbd605f72b3fd218a1"
+    },
+    {
+      "source_relative": "trusted-motion-review/run_independent.py",
+      "published_relative": "raw/trusted-motion-review/run_independent.py",
+      "bytes": 870,
+      "sha256": "afd08ac1b1478be0a24771fa14595a51df7838f6ca7935963642e8930ef99aa4"
+    },
+    {
+      "source_relative": "trusted-motion-review/test_independent_motion.py",
+      "published_relative": "raw/trusted-motion-review/test_independent_motion.py",
+      "bytes": 5113,
+      "sha256": "0062affaa0648bf77f7ea652313804901c4ffcbc3a2b567948f7e8b6b2890393"
+    },
+    {
+      "source_relative": "trusted-motion-review/tested-source-manifest.json",
+      "published_relative": "raw/trusted-motion-review/tested-source-manifest.json",
+      "bytes": 4496,
+      "sha256": "36f684466129470de946061a5c2f59efcf0573518fdf86304e3a59183871d290"
+    }
+  ],
+  "formal_acceptance": "not_run",
+  "excluded": [
+    "private lease/control data",
+    "staged runtime binaries",
+    "truth.canary contents",
+    "bytecode caches",
+    "internal completion/finalization scripts"
+  ],
+  "publication_scope": "Raw retained software evidence, including failed intermediate candidates. See ../../../docs/runtime_checkpoint_20261019.md for the main decision."
+}

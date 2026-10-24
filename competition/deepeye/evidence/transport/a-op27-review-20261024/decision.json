@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "utc": "2026-10-23T17:19:20.426984+00:00",
+  "main": "01a16988-bdcb-70e1-ae10-1304b5cf7875",
+  "generation": 3,
+  "disposition": "ACCEPT_STANDALONE_BINARY_COMBINATIONAL_CRC_BYTE_UPDATE_SIMULATION_ONLY",
+  "tested_commit": "11e24d80ebf2acf822a7b45d3c3c346eb2a4d7cc",
+  "source_commit": "779e66ddc7d454ee997f449f6ee5c86063a97324",
+  "operation_id": "B-DEEPEYE-CRC16-BYTE-20261024-27",
+  "request_hash": "2addd741faa481897314cde62d1f3f0abe9169b4eef1404208759066d9125013",
+  "manifest_sha256": "9baff4320ef1d28cbd356d68263ea7ba952206535accca669c007e725dec00ba",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "root_verified_manifest_artifacts": 12,
+  "root_verified_review_artifacts": 555,
+  "saved_archive_members": 355,
+  "independent_checks": 196,
+  "independent_unique_pairs": 189,
+  "independent_mismatches": 0,
+  "independent_negative_exit": 1,
+  "old_exhaustive_and_author_runs_rerun": false,
+  "board_run": false,
+  "B04": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "limits": [
+    "binary mathematical byte update only; not packet CRC/seed/byte order/framing or parser",
+    "new GF(2) oracle differs from archived binascii code path; 196 comparisons are not exhaustive",
+    "no synthesis/implementation/timing/CDC/RDC, X/Z guarantee, hardware build or board/system acceptance",
+    "authenticated immutable API snapshot and Git blob/tree checks; no full checkout or raw unsigned commit reconstruction"
+  ]
+}

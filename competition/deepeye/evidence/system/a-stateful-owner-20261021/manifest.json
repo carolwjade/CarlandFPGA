@@ -1,0 +1,64 @@
+{
+  "utc": "2026-10-20T18:06:22.581605+00:00",
+  "source_groups": {
+    "r03-stateful-owner-implementation-20261020": {
+      "manifest_sha256": "9547bd821046dd4a349b75df099009022f2b77bbf86b7b335b2a937baa0bae0f",
+      "files": 1184,
+      "job_id": "child-b4ad57212b1943f09f34fab01700abde",
+      "completed": true,
+      "terminal": true,
+      "exact_result": true,
+      "result_sha256": "713326d5c1ddeb5cb3551838eaba6285d29dfa2b7b16776d8d0d73f0abdcc249"
+    },
+    "r03-stateful-owner-independent-20261021": {
+      "manifest_sha256": "613d49c871da889ce877e0385f825622e0c356da9527df00de9310bbdd5427a6",
+      "files": 63,
+      "job_id": "child-2c35d0e9ff2342cf9ec2be5f3732c179",
+      "completed": true,
+      "terminal": true,
+      "exact_result": true,
+      "result_sha256": "770ea33e3b80071ce3208867dae45ccaeb10324b91f4a945ee8caa8d04ff484f"
+    }
+  },
+  "files": {
+    ".gitattributes": {
+      "bytes": 21,
+      "sha256": "68e477a626b1494c050b6d664078030c7bb9291f3fe848a4454df7a74ca6b082"
+    },
+    "archive-index.json": {
+      "bytes": 288012,
+      "sha256": "505f543a3ca7853aeb3484b81011afaf450a60aeb2e32dc09e1e3c42f33669e5"
+    },
+    "author-report.md": {
+      "bytes": 16459,
+      "sha256": "b61848cad5412b1cbeb4b4332587e6a941a185d58ea84b4ffeef0b8bbd9df5fb"
+    },
+    "CORRECTION.md": {
+      "bytes": 871,
+      "sha256": "0d14940c98852bd90ad0791aa595db4019f71912a2593b1156e6085a0c47a080"
+    },
+    "independent-report.md": {
+      "bytes": 13478,
+      "sha256": "92dedf1dad994fcb4188a3d24a1f2a36626ff8efd16de2b36668b2a71d340005"
+    },
+    "main-verification.json": {
+      "bytes": 3625,
+      "sha256": "6131cc34f6af8516eadd42a602b5382e2f9c1fb2246365b726333bebf84078a3"
+    },
+    "raw-evidence.zip": {
+      "bytes": 1645537,
+      "sha256": "7ba47ab9d183ca8e13f01f7525515b1f156fa7a51ca6761146657dad30e1af9c"
+    },
+    "README.md": {
+      "bytes": 3023,
+      "sha256": "8ed785bd06ec2c76ce0b7bcd9f3c6f0b0f2a5e9ac25203b51588edf8449b1554"
+    }
+  },
+  "archive_members": 1251,
+  "archive_original_bytes": 6645460,
+  "zip_crc_and_all_member_bytes_verified": true,
+  "credential_canary_hits": 0,
+  "R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run"
+}

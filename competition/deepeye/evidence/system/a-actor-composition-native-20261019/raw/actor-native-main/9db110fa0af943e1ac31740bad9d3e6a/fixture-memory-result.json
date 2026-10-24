@@ -1,0 +1,410 @@
+{
+  "case": "persistence-after-acquisition",
+  "passed": true,
+  "unresolved": false,
+  "normal_exit_success": false,
+  "evidence_success": false,
+  "result_semantics": "expected_negative_fixture",
+  "elapsed_ns": 375000000,
+  "events": [],
+  "cleanup": {
+    "state": "QUARANTINED",
+    "instance_id": "b9b9619d7a394457bf4ac1cb97de1695:1",
+    "original_process_reference_retained": true,
+    "original_native_unchanged": true,
+    "terminal_confirmed": true,
+    "profile_outcome": "confirmed",
+    "original_process_exit": {
+      "resource_id": "process:15",
+      "identity_continuous": true,
+      "exit_code_recorded": true,
+      "exit_code": 57005,
+      "exit_code_type": "int",
+      "exit_code_source": "original WindowsCleanupBackend.wait_terminal exit_codes[resource_id]",
+      "owner_terminated": true,
+      "owner_terminated_type": "bool",
+      "termination_source": "original WindowsCleanupBackend.terminated; successful owner TerminateProcess observation"
+    },
+    "resources": [
+      {
+        "resource_id": "self_token:1",
+        "label": "self_token",
+        "release": "kernel",
+        "native": 960,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "sid_string:2",
+        "label": "sid_string",
+        "release": "local",
+        "native": 1923402175184,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "security_descriptor:3",
+        "label": "security_descriptor",
+        "release": "local",
+        "native": 1923441108112,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile:4",
+        "label": "profile",
+        "release": "profile",
+        "native": "DeepEye.Actor.9f6b8acf9128491988d746d81740348e",
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile_sid:5",
+        "label": "profile_sid",
+        "release": "sid",
+        "native": 1923433509552,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "sid_string:6",
+        "label": "sid_string",
+        "release": "local",
+        "native": 1923398098064,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "profile_path_string:7",
+        "label": "profile_path_string",
+        "release": "cotask",
+        "native": 1923392397840,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "security_descriptor:8",
+        "label": "security_descriptor",
+        "release": "local",
+        "native": 1923431099776,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "input_read:9",
+        "label": "input_read",
+        "release": "kernel",
+        "native": 952,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "input_write:10",
+        "label": "input_write",
+        "release": "kernel",
+        "native": 932,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "output_read:11",
+        "label": "output_read",
+        "release": "kernel",
+        "native": 540,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "output_write:12",
+        "label": "output_write",
+        "release": "kernel",
+        "native": 956,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "job:13",
+        "label": "job",
+        "release": "kernel",
+        "native": 948,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "attributes:14",
+        "label": "attributes",
+        "release": "attributes",
+        "native": 1923450613808,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "process:15",
+        "label": "process",
+        "release": "kernel",
+        "native": 980,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": true,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "primary_thread:16",
+        "label": "primary_thread",
+        "release": "kernel",
+        "native": 972,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "child_token:17",
+        "label": "child_token",
+        "release": "kernel",
+        "native": 1000,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      },
+      {
+        "resource_id": "sid_string:18",
+        "label": "sid_string",
+        "release": "local",
+        "native": 1923398099120,
+        "attempted": true,
+        "outcome": "confirmed",
+        "terminal_confirmed": false,
+        "ambiguous": false
+      }
+    ],
+    "resources_complete": true,
+    "evidence_complete": false,
+    "evidence_errors": [
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      }
+    ],
+    "primary_error": {
+      "type": "OSError",
+      "message": "intentional actor persistence failure after acquisition"
+    },
+    "unresolved_resources": []
+  },
+  "actor_receipt_snapshots": [
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\actor-native-main\\9db110fa0af943e1ac31740bad9d3e6a\\actor-c3f67a45de5d4ac3a1c6658696a03efa\\receipt.json",
+      "sha256": "b2003dab6eb618312de6a5423b84586b0eeab6652fe0cf760408eb378cf580ac",
+      "meaning": "observed snapshot only; may predate injected failure"
+    }
+  ],
+  "primary_error": {
+    "type": "OSError",
+    "message": "intentional actor persistence failure after acquisition"
+  },
+  "runtime_ready_boot_ai_h12_formal": "not_run",
+  "exit_write": "not_run: synchronous WriteFile lacks a deadline contract",
+  "expiry_meaning": null
+}

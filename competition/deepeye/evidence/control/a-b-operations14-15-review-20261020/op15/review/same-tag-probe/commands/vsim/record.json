@@ -1,0 +1,29 @@
+{
+  "label": "vsim",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "lib.independent_tb",
+    "-gCOUNT_W=4",
+    "-gWITNESS_W=8",
+    "-gTAG_W=8",
+    "+VEC=R:/test.vec",
+    "+LOG=R:/same-tag.trace",
+    "-l",
+    "R:/same-tag.transcript",
+    "-wlf",
+    "R:/same-tag.wlf",
+    "-do",
+    "run.do"
+  ],
+  "cwd": "R:/build",
+  "pid": 52996,
+  "start": "2026-10-20T01:13:33.124258+00:00",
+  "end": "2026-10-20T01:13:35.106415+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "44dccec59c2e0619445d31bc7e8dde5653c7f85a770f0bc16980406bfe24ad41",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

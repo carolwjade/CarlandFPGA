@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "kind": "new_review_evidence_manifest",
+  "work_id": "A-B-OP12-REVIEW-COMPLETION-20261020-v1",
+  "job_id": "child-dee2ddf706be42e4abe16057fcf794f5",
+  "files": {
+    "assignment.md": {
+      "bytes": 2227,
+      "sha256": "d757599dd14f6c70df9278809ff52260795f0020c9fa8dc30cdfc0d26cc7f930"
+    },
+    "audit-attempt-01.json": {
+      "bytes": 790,
+      "sha256": "5f0333527c3f4ffec4fe55d50440778fb9dd91468aaf36fb0876f3447515b861"
+    },
+    "audit-attempt-02/command.json": {
+      "bytes": 1144,
+      "sha256": "dd0974518aa7eb5025ae9c36b2b370108b22be84565fa49863f34385587f3b88"
+    },
+    "audit-attempt-02/stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "audit-attempt-02/stdout.bin": {
+      "bytes": 297,
+      "sha256": "50041d4b589d4d74a6edf1b307dc9fdba55a6fd4ff1ab9d1d2a0f10350203743"
+    },
+    "capture-reconciliation.json": {
+      "bytes": 25203,
+      "sha256": "bf21f52fa3a5525587e7eeed88619a19a26b246ffdc0fba9cdcd03639cc7b49d"
+    },
+    "check-cleanup.ps1": {
+      "bytes": 1849,
+      "sha256": "795f7ba5a784a2ac038f4d51835e06fad1587c4fbbccc86ef41d2929d52913c5"
+    },
+    "cleanup-current.json": {
+      "bytes": 662,
+      "sha256": "8135320d2b0831c7ccfcc41d24bf1c8bfc4a54a54a129189555aa97ce3992410"
+    },
+    "finalize_receipt.py": {
+      "bytes": 2896,
+      "sha256": "7cf09b22987882ad393cc919c8ea6b4818b4a057187682fea160259a63fe2d0e"
+    },
+    "findings.md": {
+      "bytes": 7335,
+      "sha256": "51d2424cabe13f8d9e6ae5cd70c7c9c5ae145f518424c2353ef87437fa80428f"
+    },
+    "lease-validation.json": {
+      "bytes": 416,
+      "sha256": "904426b18610548bf97f9a0b07ab140469b95bd7aaa0c2f77ff750d8ec5dfd96"
+    },
+    "preserved-input-index.json": {
+      "bytes": 148368,
+      "sha256": "d34a493d02fc09e81735d4c20fad26e77d0a68b2e0c0b837956c38d4a03ed01f"
+    },
+    "reconcile.py": {
+      "bytes": 16605,
+      "sha256": "7877daa5a727957fb94ea38d4d27116ab6735114f503a1b6d325ec36d60bbc48"
+    },
+    "reconciliation.json": {
+      "bytes": 8518,
+      "sha256": "d7f2ff6f1ac9ce0cc975afd973f17207e9fc8a4e37ae2766822bc22092ba0b70"
+    },
+    "run_reconcile.py": {
+      "bytes": 1367,
+      "sha256": "574b0660086e36263d7a6a032ae9a8270f3b5923eedeedf592ef3d11ea6d2d11"
+    },
+    "simulator-command-reconciliation.json": {
+      "bytes": 15940,
+      "sha256": "7fe66b6d5e372c0ebff1d0eed3ab468399e5eb7271912ccb619b24056e3ff872"
+    },
+    "source-inventory-current.json": {
+      "bytes": 107258,
+      "sha256": "ce99c397e84fe8f3b7e3a87a61930087f28386cbd73ca6ce24da8da23b7a2ce0"
+    }
+  },
+  "exclusions": [
+    "lease.private.json",
+    "manifest.json",
+    "receipt.json",
+    "final-result.txt",
+    "native-complete.json",
+    "final-check.json"
+  ],
+  "exclusion_reason": "Private lease never included; manifest, dependent receipt and terminal administration are outside this acyclic evidence index. Preserved originals are bound by preserved-input-index.json."
+}

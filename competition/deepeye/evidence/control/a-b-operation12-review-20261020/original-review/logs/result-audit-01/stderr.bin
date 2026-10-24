@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-pr30-followup-20261020\review\audit_results.py", line 220, in <module>
+    main()
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-pr30-followup-20261020\review\audit_results.py", line 100, in main
+    trace_rows = check_trace(main_run / f"{label}.ports.txt", vectors)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-pr30-followup-20261020\review\audit_results.py", line 54, in check_trace
+    require(fields == [index, *expected[8:]], f"trace mismatch {path} row={index}")
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-pr30-followup-20261020\review\audit_results.py", line 35, in require
+    raise AssertionError(message)
+AssertionError: trace mismatch C:\Users\CarlJade\Documents\ChatGPT\FPGA多机协作开发\.planning\deepeye-resume-20261018\b-pr30-followup-20261020\review\work\main-run-04\w2_t1.ports.txt row=10

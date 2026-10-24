@@ -1,0 +1,29 @@
+{
+  "label": "guard-32-64-65",
+  "argv": [
+    "C:\\modeltech64_2020.4\\win64\\vsim.exe",
+    "-batch",
+    "-syncio",
+    "lib.independent_tb",
+    "-l",
+    "R:/guard-32-64-65.transcript",
+    "-wlf",
+    "R:/guard-32-64-65.wlf",
+    "-do",
+    "run.do",
+    "-gCOUNT_W=32",
+    "-gWITNESS_W=64",
+    "-gTAG_W=65",
+    "+VEC=R:/positive-4-8-8.vec",
+    "+LOG=R:/guard-32-64-65.trace"
+  ],
+  "cwd": "R:/build",
+  "pid": 52900,
+  "start": "2026-10-20T01:10:35.256157+00:00",
+  "end": "2026-10-20T01:10:36.727116+00:00",
+  "exit": 0,
+  "timeout": false,
+  "process_exited": true,
+  "stdout_sha256": "c2c8f372d7664bc41084c2961251cd63c583875f89f948a6754e3b2fcaa2e9e1",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

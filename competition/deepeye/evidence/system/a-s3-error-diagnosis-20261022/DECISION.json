@@ -1,0 +1,21 @@
+{
+  "at_utc": "2026-10-22T15:59:35.197172+00:00",
+  "selected_work_id": "A-G03-CONSISTENT-HODGE-ACTION-20261022-v1",
+  "basis": "Root read actual diagnosis, scalar collector, prior source projection design and mathematical local Hodge formulas; native result terminal. Nine artifact hashes and 78 immutable source pins plus five new action inputs checked.",
+  "diagnosis_manifest_sha256": "9a08ccfc84bf8a998d1f740653e8b4f673ff1b8f71ab53fc813bd8d6b8f75bdd",
+  "mutable_checkpoint_changed_by_root": [
+    ".planning/deepeye-resume-20261018/continuation-current-increment-20261022.md"
+  ],
+  "selected": "Implement matrix-free consistent-Hodge delta action, new local analytic controls, one saved full S3-field action after controls pass",
+  "PDE_solves": 0,
+  "old_tests_rerun": 0,
+  "source_geometry_or_receiver_change": false,
+  "boundary_rule": "Apply full DeltaA to full E including existing boundary, then restrict I. Accumulated saved residual plus delta action is alternative-operator residual.",
+  "resource_plan": "One scientific Python worker; existing held Win32 guard/controller allowed up to3 total handles/processes. Each stage30s sampled threshold,512MiB per process,1GiB job,BLAS1,chunk<=256. No sparse global matrix or solver.",
+  "stop": "Any pin/analytic/finite/resource failure retains original stage and stops without rerun; nonzero defect does not authorize solve or claim receiver improvement.",
+  "fixed_physical_receiver_gate": 0.01,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "physical_accuracy": "unqualified",
+  "G03": "not_run",
+  "all29": "not_run"
+}

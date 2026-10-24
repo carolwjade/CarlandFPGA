@@ -1,0 +1,11 @@
+--- a/competition/deepeye/simulator/editor/layout_store.gd
++++ b/competition/deepeye/simulator/editor/layout_store.gd
+@@ -108,7 +108,7 @@
+ 		DirAccess.remove_absolute(path)
+ 
+ func _absolute_path(path: String) -> Dictionary:
+-	if path.is_empty() or path.find("\u0000") != -1 or not path.is_absolute_path():
++	if path.is_empty() or path.to_utf8_buffer().has(0) or not path.is_absolute_path():
+ 		return _fail("invalid_path", "布局文件必须位于显式绝对本地路径")
+ 	var normalized := path.simplify_path()
+ 	if not normalized.is_absolute_path():

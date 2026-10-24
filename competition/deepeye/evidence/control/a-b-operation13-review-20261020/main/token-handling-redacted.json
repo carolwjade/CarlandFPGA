@@ -1,0 +1,14 @@
+{
+  "agent": "b_op13_review_20261020",
+  "job_id": "child-353d776cb7564092a0960bce35b6c14f",
+  "terminal_validation": {
+    "content": [
+      {
+        "type": "text",
+        "text": "RuntimeError: native lease is no longer active (completed)"
+      }
+    ],
+    "isError": true
+  },
+  "interpretation": "Terminal lease validation was refused. Token exposed only in child tool output, never published; original output retained. No provider credentials changed or lease replayed."
+}

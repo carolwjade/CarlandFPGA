@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-19T17:45:56.280958+00:00",
+  "work_id": "A-R01-CHECKER-REPAIR-20261020-v1",
+  "original_review_job": "child-fc8960d8c9a64b959c5f06e1be252bba",
+  "rereview_job": "child-8a981456e01d49f8a47d800608772384",
+  "rereview_terminal": true,
+  "finding": "R01-CHK-01 closed in bounded checker scope",
+  "source_files": {
+    "competition/deepeye/tools/check_rules.py": "c864fb29c13bbe64dba8d6e344ec1f229e6cc757a3e1fa29018264184215384e",
+    "competition/deepeye/tests/test_check_rules.py": "fcd9ac2be810731c3f4e77f9ccf06152287bea78af774d5f63ca7ddbe02c06ab",
+    "competition/deepeye/docs/rules_verification.md": "451ae603ae206ec7c0a46fb57b347ee506b999f31217c4d326f87b02a45cbf0f"
+  },
+  "candidate_manifest_sha256": "9582bde875bf1aa2daef6c8f1b3d4925ed67cba0a22cb11f9d7ac0d773291f90",
+  "independent_manifest_sha256": "b7699a65883ec1f61f003b8fec8364b5f69b7bd8fcf34feebcd3cfc53e69d613",
+  "input_pins_checked": 6,
+  "repair_evidence_checked": 24,
+  "preserved_original_review_files": 95,
+  "rereview_index_entries_checked": 44,
+  "tests": 20,
+  "exit_map": {
+    "unittest20": 0,
+    "cli-reference": 0,
+    "cli-default": 2,
+    "cli-full": 2,
+    "case-weights-tamper": 1,
+    "case-weights-missing": 1
+  },
+  "source_edit_after_review": false,
+  "all29_formal_cards": "not_run",
+  "formal_R01": "not_run",
+  "hardware_enable_eligible": false,
+  "main_decision": "adopt exact reviewed checker/tests/docs for bounded reference verification; publish with original failures and repair evidence"
+}

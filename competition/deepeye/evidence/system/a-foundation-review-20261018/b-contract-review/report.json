@@ -1,0 +1,421 @@
+{
+  "schema": 1,
+  "recorded_utc": "2026-10-18T14:52:26.038486+00:00",
+  "task": "DEEPEYE-IMPLEMENTATION-20261014/v1",
+  "work_id": "A-B-PR30-CONTRACT-REVIEW-20261018-v3",
+  "native_job": "child-02829693860347828869501a8dc1c2df",
+  "agent": "/root/worker_results_review_20261018",
+  "director": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "status": "bounded_independent_review_complete_for_A_main_decision",
+  "PR": 30,
+  "reviewed_HEAD": "781be78d9da77a75ea711cf690eeea6523733d3a",
+  "A_input_HEAD_at_baseline": "b3db473370c6ee4fed476db6fc89f8fdb8c945bd",
+  "A_current_HEAD": "b3db473370c6ee4fed476db6fc89f8fdb8c945bd",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15": "preserved; root/A/B canonical requirements pin verified",
+  "operations": [
+    {
+      "operation_id": "B-DEEPEYE-REGISTER-PROPOSAL-20261017-07",
+      "request_hash": "23ad1f5ab0792864d8c3212d4bb3b1ae953ab42d1c183a998182ac3958057eed",
+      "code_commit": "b29f30f8ae109034947cd95eff970b1271897516",
+      "manifest_sha256": "c3e444d021fda63bf42f2ef69a7c1433b9ff4f858b52d141866674603e854986",
+      "stages": {
+        "B05": {
+          "status": "not_run"
+        },
+        "R03": {
+          "status": "not_run"
+        },
+        "board": {
+          "status": "not_run"
+        },
+        "implementation": {
+          "status": "not_run"
+        },
+        "runtime": {
+          "status": "not_run"
+        },
+        "simulation": {
+          "status": "not_run"
+        },
+        "static_descriptor_review": {
+          "log": "competition/deepeye/evidence/control/register-proposal-20261017-07/descriptor-review.json",
+          "status": "passed"
+        },
+        "synthesis": {
+          "status": "not_run"
+        },
+        "system": {
+          "status": "not_run"
+        }
+      },
+      "file_count": 16
+    },
+    {
+      "operation_id": "B-DEEPEYE-TRACE-CANDIDATE-20261017-05",
+      "request_hash": "abe52729c5bb46944ec8c55dd92481af9362b4d5a92b0bdefd13d1061038de4a",
+      "code_commit": "12bd2913957cbb6873343e99de4803347c19a591",
+      "manifest_sha256": "b0de709c56d040ddf85b373898c3cadbbb0671cb9465b6ec302827086ec539f1",
+      "stages": {
+        "B01": {
+          "status": "not_run"
+        },
+        "B05": {
+          "status": "not_run"
+        },
+        "G01": {
+          "status": "not_run"
+        },
+        "R03": {
+          "status": "not_run"
+        },
+        "board": {
+          "status": "not_run"
+        },
+        "implementation": {
+          "status": "not_run"
+        },
+        "main_independent_trace_review": {
+          "log": "competition/deepeye/evidence/codec/trace-candidate-20261017-05/main/main-acceptance.json",
+          "status": "passed"
+        },
+        "offline_trace_candidate_software": {
+          "log": "competition/deepeye/evidence/codec/trace-candidate-20261017-05/main/review-01/main-final-unit.stderr.txt",
+          "status": "passed"
+        },
+        "simulation": {
+          "status": "not_run"
+        },
+        "synthesis": {
+          "status": "not_run"
+        },
+        "system": {
+          "status": "not_run"
+        }
+      },
+      "file_count": 189
+    }
+  ],
+  "exact_blob_exports": {
+    "files": 205,
+    "checksum_manifest": "exact_blob_export.json",
+    "checksum_manifest_sha256": "da213790a384dd23e7c087b0fbd95c042b05cf080810374ae66432c0bbeb0102",
+    "checkout_CRLF_differences": [
+      "competition/deepeye/golden/codec/TRACE_CANDIDATE.md",
+      "competition/deepeye/golden/codec/codec_reference.py",
+      "competition/deepeye/golden/codec/known_vectors.json",
+      "competition/deepeye/golden/codec/trace_candidate.py",
+      "competition/deepeye/golden/codec/trace_candidate_layout.json",
+      "competition/deepeye/golden/codec/trace_candidate_vectors.json",
+      "competition/deepeye/tests/codec/test_trace_candidate.py",
+      "competition/deepeye/tests/codec/test_trace_corrections.py"
+    ]
+  },
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "evidence-byte-caveat-resolved-in-review",
+      "finding": "Clean PR30 checkout contains8 CRLF-converted TRACE files whose raw SHA256 differs from the manifest. All189 original source-commit Git blobs and corresponding HEAD blobs match the TRACE handoff manifest. Register07 all16 checkout files match raw.",
+      "repro": "handoff_verification.json records every current/source/HEAD hash. exact_blob_export.json and exact-git-blobs/ contain205 exact original artifact bytes.",
+      "action": "Consume/export Git blobs for exact-byte handoff evidence; never claim normalized checkout bytes passed original hash validation. Tests149/80 ran actual checkout bytes bound in baseline.json; small independent TRACE cases ran exact exported trace_candidate.py. No checkout edits performed."
+    },
+    {
+      "id": "F02",
+      "severity": "full-register-contract-incomplete",
+      "finding": "B07 explicitly leaves identity, CONFIG/rate domains, queue attribution, tick/period source/width mapping and raw high-count/edge diagnostics to A. A register CSV remains address inventory only. Descriptor consistency cannot close these public-runtime semantics.",
+      "repro": "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:144-152; descriptor_review.json lists external domains and proposed_transition_examples_not_executed=true.",
+      "action": "A main choose REG01-REG06; document remaining literal domains and complete local diagnostics before full register freeze/ENABLE. Retain B05/R03 not_run."
+    },
+    {
+      "id": "F03",
+      "severity": "production-TRACE-integration-open",
+      "finding": "B offline binding(session,config_epoch,E) authenticates neither source/profile/clock nor current observations; no C independent binary adapter evidence is established here. Complete metadata expands sparse traffic.",
+      "repro": "TRACE_CANDIDATE.md143-152,224 onward and main README; independent_cases.json confirms metadata-valid source_fault is preserved and A production rejects type7.",
+      "action": "Use TRACE01-04 as separate format/adaptation/lifecycle/scheduling decisions, close C and BOOT dependencies before type7 production enable. Keep ordinary control/observations independent of TRACE."
+    },
+    {
+      "id": "F04",
+      "severity": "historical-A-defect-fixed",
+      "finding": "A R03 DEFAULT_CLAIMS once claimed competition/deepeye/registers.csv, so ownership overlap missed actual docs/registers.csv. Current A source already claims the correct path.",
+      "repro": "reviewer_assumption_failure.json compares historicalb3db473 AST with current default_claims and paths_overlap; prior audit assertion expected the old bug and failed after completed suites.",
+      "action": "Retain current fix, rebind source hash/commit in A evidence; no need to edit B or rewrite old reservations. Do not retroactively assert old wrong claims protected the file."
+    }
+  ],
+  "recommendations_not_freeze": [
+    {
+      "id": "REG01",
+      "decision": "Control/access semantics",
+      "recommendation_to_A_main": "Accept B07 as the proposed core command design: 0x08 bits0 STOP,1 CLEAR_FAULT,2 ENABLE,3 LATCH,4 RELEASE; read/reset0. A strobed byte0 STOP revokes first even with strobed reserved bits, then reports error; it never clears/enables/latches in that write. Other commands require WSTRB15, exactly one command bit and no reserved bits; zero command no-op. Known writable WSTRB0 no-op; reserved0x2c rejects even WSTRB0; RO/unknown/unaligned access rejects.",
+      "remaining_dependency": "Implement and independently test this state machine before operational acceptance; the 35 examples are expectations, not executed transitions.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:39",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:101",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:108"
+      ]
+    },
+    {
+      "id": "REG02",
+      "decision": "Status and reset layout",
+      "recommendation_to_A_main": "Accept candidate status mask0x00ff07ff, reset0x00000001; STOP powers up active, enabled/capture/source validity inactive; fault_flags occupy23:16 using existing A low8 fault meanings. Preserve all29 source rows and no_access0x2c. ABI register candidate reset3 is an intended software constant; identification remains unassigned.",
+      "remaining_dependency": "A must assign actual image identity and bind all actual reset values to the matched new RTL/bit/HWH. No probe of old overlay.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:35",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:42",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:144"
+      ]
+    },
+    {
+      "id": "REG03",
+      "decision": "CONFIG staging and atomic apply",
+      "recommendation_to_A_main": "Accept byte-masked shadow layout:0x10 threshold[15:0]/apply_block[23:16],0x18 rate[7:0],0x1c actualE[7:0] in{0,1,2,4,8},0x20 acquisition profile[7:0].0x14 full-word write triggers CONFIG request_seq[15:0], including valid sequence0, read0 is not ACK. Validate resulting complete shadow atomically; apply at block boundary. Requested epoch must be authority-derived.",
+      "remaining_dependency": "Choose rate-code domain and immutable apply-context/session/BOOT path; profile values can reference A acquisition_profile_id{1,2,3} only with approved calibration/domain mapping; retain zero as unconfigured. Do not introduce a motion command through CONFIG.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:50",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:103",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:120",
+        "A:competition/deepeye/docs/interface.json CONFIG fields; docs/enums.json acquisition_profile_id"
+      ]
+    },
+    {
+      "id": "REG04",
+      "decision": "Motion snapshot fields and read protocol",
+      "recommendation_to_A_main": "Accept proposed sign-extended signed32 yaw/pitch with input int16 range+/-15000 at0x30/0x60, speed low8 0..20 at0x34, request stamp0x38=(type0x0e<<24)|(control_epoch<<16)|request_seq, session0x3c, capture_seq0x50 low16, capture_quality0x54 low4 matching A, gain0x58 in{0,1,2,4}, ratio0x5c low16 Q8.8 and independent gain_ratio_valid. Separate capture local batch32 from wire16; reject truncation/wrap.",
+      "remaining_dependency": "LATCH must bind one nonwrapping revocation generation; STOP/fault/session/epoch/request/new-cycle/conflict immediately invalidate it. Reader serializes ownership and checks coherent/session/seq before and after. Mailbox06 opaque transport is insufficient to establish those semantics.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:65",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:81",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:88",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:125",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:135"
+      ]
+    },
+    {
+      "id": "REG05",
+      "decision": "Tick/period and diagnostic completion",
+      "recommendation_to_A_main": "Keep B07 tick low/high0x40/0x44 and yaw-period low/high0x48/0x4c as explicit proposals, not inferred existing semantics; pitch/speed periods remain32bit0x64/0x68. A must choose acquisition counter units/source, period-clock units and projection/association.",
+      "remaining_dependency": "BLOCK full register freeze until every raw period/high-count/edge tick required by taskbook section7 has a local diagnostic path in a matched new HWH. Current29 words omit all three high-count/edge diagnostics. Define a separate local bank/interface; never reuse0x2c or expose it as AI input.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:73",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:77",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:148",
+        "A:docs/competition/deepeye-2026/taskbook_final.md:138"
+      ]
+    },
+    {
+      "id": "REG06",
+      "decision": "Queue and counter attribution",
+      "recommendation_to_A_main": "Accept candidate representation0x24 used[15:0]/capacity[31:16],0x28 independently saturating16 overflow/merge counters only as a bit layout.",
+      "remaining_dependency": "A must name the exact scheduler queue, entry unit, capacity<=65535 and event attribution/reset policy; if it cannot fit, choose a wider reviewed representation. Example256 is not an implemented capacity.",
+      "source_locations": [
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:58",
+        "competition/deepeye/golden/control/REGISTER_SEMANTICS_CANDIDATE.md:63"
+      ]
+    },
+    {
+      "id": "TRACE01",
+      "decision": "Offline serializer layout ready for explicit A adoption decision",
+      "recommendation_to_A_main": "Recommend accepting the exact B05 offline codec/format candidate at source12bd291:21-byte prefix, <=32-byte payload, <=46-byte ABI3 frame, CRC agreement; actual per-channel index32/tick64; uniform masks/strides; independent anchor; LE anchor/RAW and MSB Rice residuals; E codes0..4->{0,1,2,4,8}; significant-bit-minimizing Rice k then padded-byte comparison with RAW winning byte ties; bounded quotient31 and zero padding.",
+      "remaining_dependency": "This is a software-format decision only. Existing A wire.py must continue rejecting type7 until all production integration choices are frozen and re-bound.",
+      "source_locations": [
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:54",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:73",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:101",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:154"
+      ]
+    },
+    {
+      "id": "TRACE02",
+      "decision": "Source-origin and receiver lifecycle ready as format policy",
+      "recommendation_to_A_main": "Accept short held age1..65535 with age<=first_tick; long absolute origin only when age>65535; no invalid held/saturation; source_fault is metadata, never observation authority. Accept bounded16-packet duplicate cache, no sequence wrap, per-channel index/tick high-water, atomic rejection, terminal close, and authoritative replacement on new session/epoch.",
+      "remaining_dependency": "Retain current ADC source constraints<=2^31-1/multiples10 and EM source tick multiples50 when adapting real source; synthetic uint64 vectors do not enlarge current source eligibility.",
+      "source_locations": [
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:89",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:127",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:143",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:224"
+      ]
+    },
+    {
+      "id": "TRACE03",
+      "decision": "Production binding/C adapter/schedule still required",
+      "recommendation_to_A_main": "Freeze header tick specifically as low32 of FIRST acquisition tick, distinct from TELEM last-summary-sample tick and ACK/STATE send tick. Map index to actual acquisition sequence qualified by binding+channel; never use frame seq as sample index or infer simultaneity from equal per-channel indices.",
+      "remaining_dependency": "A needs source/profile/physical-unit/error-budget/clock-origin mapping under full BOOT digest, plus C independent decode/grouping on these exact bytes. Current candidate binding contains only session/config_epoch/E; it is intentionally insufficient as runtime authority. Do not silently add fields to this candidate.",
+      "source_locations": [
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:65",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:143",
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:175",
+        "B:competition/deepeye/golden/codec/trace_candidate.py:175"
+      ]
+    },
+    {
+      "id": "TRACE04",
+      "decision": "Keep TRACE spare/offline until measured budget exists",
+      "recommendation_to_A_main": "Keep TRACE outside normal control/observation admission. Use complete metadata+outer+padding+8N1 byte cost. Sparse example968 selected valid raw bytes becomes11084 full-frame bytes/110840 line bits over280 frames, so it is expansion.",
+      "remaining_dependency": "A must bind any optional live TRACE windows and recheck all fixed/sliding windows, event priority/turns/guards/retries and BOOT hash. Existing schedule has no TRACE slot. Offline acceptance creates no bandwidth or continuous-sampling claim.",
+      "source_locations": [
+        "competition/deepeye/golden/codec/TRACE_CANDIDATE.md:190",
+        "B:competition/deepeye/evidence/codec/trace-candidate-20261017-05/main/README.md:64",
+        "A:docs/competition/deepeye-2026/taskbook_final.md:165"
+      ]
+    }
+  ],
+  "code_defect_in_B_codec_established": false,
+  "blocking_for_bounded_offline_candidate_acceptance": false,
+  "full_register_and_production_TRACE_contract_complete": false,
+  "recommendation_summary": "A can accept B07 as a declarative core-register candidate and B05 as an independently reviewed offline TRACE-format candidate. A must explicitly decide REG01-06/TRACE01-04 and complete remaining domains/diagnostics/binding/C/scheduling before full public runtime freeze/enable. This reviewer neither freezes nor adopts source.",
+  "verification": {
+    "reused_successful_commands": [
+      {
+        "name": "codec_unit",
+        "argv": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "competition/deepeye/tests/codec",
+          "-v"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "9457ad3aa224ea90b4557b6892920ae1ac325bf24f13bfcc5bf5bcb617df96d3"
+      },
+      {
+        "name": "control_unit",
+        "argv": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "competition/deepeye/tests/control",
+          "-p",
+          "test_capture_snapshot.py",
+          "-v"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "16499a94478c9b86ff6dfda2732a0e7a102eac1aec7c84171826a1438ce03316"
+      },
+      {
+        "name": "register_descriptor",
+        "argv": [
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\venv\\Scripts\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "competition/deepeye/evidence/control/register-proposal-20261017-07/review_descriptor.py",
+          "--descriptor",
+          "competition/deepeye/golden/control/register_semantics_candidate.json",
+          "--examples",
+          "competition/deepeye/golden/control/register_semantics_examples.json",
+          "--register-source",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\registers.csv",
+          "--interface",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\interface.json",
+          "--enums",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-implementation-a\\competition\\deepeye\\docs\\enums.json",
+          "--output",
+          "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-contract-review\\descriptor_review.json"
+        ],
+        "cwd": "C:\\Users\\CarlJade\\.codex\\worktrees\\deepeye-b-pr30-review\\FPGA多机协作开发",
+        "exit_code": 0,
+        "stdout_sha256": "ad5ad16cc2df1bbe270349e81a01a5ecd367caa1a5fa97900591c1f1824a903c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "tests": {
+      "codec": 149,
+      "capture_control": 80,
+      "register_descriptor": {
+        "rows": 29,
+        "fields": 51,
+        "design_examples": 35,
+        "arithmetic_checked": 19,
+        "rejected_encodings": 4,
+        "state_machine_executed": false
+      }
+    },
+    "small_independent_cases": {
+      "execution_module": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\b-contract-review\\exact-git-blobs\\competition\\deepeye\\golden\\codec\\trace_candidate.py",
+      "execution_module_sha256": "a489ac34b49976532803b34f006f8bc24103548f34ddd55cc2ecaedc529a9642",
+      "manual_singleton": {
+        "payload_hex": "010804011078563412090000005a00000000000000d204",
+        "frame_hex": "a55a0307170304005a000000010804011078563412090000005a00000000000000d2049313",
+        "frame_bytes": 37,
+        "CRC_A_agrees_with_independent_binascii": true
+      },
+      "bad_CRC_preserves_state": true,
+      "duplicate_returns_zero_points_preserves_state": true,
+      "same_sequence_conflict_preserves_state": true,
+      "reCRC_held_age1001_at_tick1000_rejects_without_state_commit": true,
+      "valid_source_fault_retained_as_metadata_only": true,
+      "production_A_wire_rejects_all3_TRACE_frames": true,
+      "DEFAULT_CLAIMS_corrected_current": true,
+      "scope": "small independent offline cases only; no source authority or hardware"
+    },
+    "unchanged_files": {
+      "B_HEAD": "781be78d9da77a75ea711cf690eeea6523733d3a",
+      "B_clean": true,
+      "B_audited_files_unchanged": 211,
+      "A_read_inputs_before": {
+        "competition/deepeye/tools/pipeline.py": "66ab1ec191fd88cce2de6f1d70461d112a9d61caba02fba194477c9b35192056",
+        "competition/deepeye/docs/registers.csv": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+        "competition/deepeye/docs/enums.json": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+        "competition/deepeye/docs/interface.json": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+        "competition/deepeye/integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+        "competition/deepeye/integration/boot_profile.py": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+        "competition/deepeye/docs/boot_profiles.json": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+        "docs/competition/deepeye-2026/taskbook_final.md": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+      },
+      "A_read_inputs_after": {
+        "competition/deepeye/tools/pipeline.py": "66ab1ec191fd88cce2de6f1d70461d112a9d61caba02fba194477c9b35192056",
+        "competition/deepeye/docs/registers.csv": "fd3d69509776829a4e33ea4f1a6ce8b39679bd101080b33dc2ff1df38c0a4f33",
+        "competition/deepeye/docs/enums.json": "a52f3631d94d396c7da769f82a09e70d55c765b0c2651de27476e644c486573e",
+        "competition/deepeye/docs/interface.json": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb",
+        "competition/deepeye/integration/wire.py": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec",
+        "competition/deepeye/integration/boot_profile.py": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4",
+        "competition/deepeye/docs/boot_profiles.json": "06588c82bdc803800c5891ca4aa46e184e6391ddd9045a77d99297878973bd74",
+        "docs/competition/deepeye-2026/taskbook_final.md": "7f5c94f7fc73698236be954ae7818266d6dfe8b4949d1752dd045d76f4b71f18"
+      },
+      "A_hashes_unchanged": true,
+      "current_A_HEAD": "b3db473370c6ee4fed476db6fc89f8fdb8c945bd",
+      "parent_may_advance_A_outside_review": true,
+      "reviewer_source_writes": false,
+      "large_completed_suites_rerun": false,
+      "native_job": "child-02829693860347828869501a8dc1c2df"
+    },
+    "large_suites_rerun_in_v3": false
+  },
+  "remaining_product_gates": {
+    "R03": "not_run",
+    "B01": "not_run",
+    "B05": "not_run",
+    "G05": "not_run",
+    "G01": "not_run",
+    "simulation": "not_run",
+    "synthesis": "not_run",
+    "implementation": "not_run",
+    "matched_RTL_bit_HWH": "not_run",
+    "physical_board": "not_run",
+    "system": "not_run",
+    "C_independent_interoperability": "not_verified_by_this_review"
+  },
+  "unrelated_state": "B deployment peer receipt and Feishu API21001 recovery are separate; this review makes no availability/recovery claim. No remote status substituted for PR evidence.",
+  "preserved_failures": [
+    "initial-provenance-failure.txt",
+    "audit_run.initial.py",
+    "reviewer_assumption_failure.json"
+  ],
+  "old_jobs": "v1/v2 interrupted/cancelled by main with stop confirmation; no replay. This v3 completes only its own original job.",
+  "effects": "Only b-contract-review/ evidence written; B/A source read-only, no source adoption/Git mutation/services/OS probes/board/credentials/external sends/new agents."
+}

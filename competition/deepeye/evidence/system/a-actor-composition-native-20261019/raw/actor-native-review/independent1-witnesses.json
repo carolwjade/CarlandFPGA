@@ -1,0 +1,380 @@
+[
+  {
+    "mode": "before",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": true,
+    "primary": "before owner returned",
+    "cleanup": {
+      "state": "no-owner-returned",
+      "unresolved": true
+    },
+    "backend": null,
+    "events": []
+  },
+  {
+    "mode": "after",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": "after owner retained",
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": null,
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": []
+  },
+  {
+    "mode": "persistence",
+    "case": "persistence-after-acquisition",
+    "passed": true,
+    "unresolved": false,
+    "primary": "intentional actor persistence failure after acquisition",
+    "cleanup": {
+      "state": "QUARANTINED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": false,
+      "evidence_errors": [
+        {
+          "type": "OSError",
+          "message": "intentional actor persistence failure after acquisition"
+        }
+      ],
+      "primary_error": {
+        "type": "OSError",
+        "message": "intentional actor persistence failure after acquisition"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": []
+  },
+  {
+    "mode": "natural",
+    "case": "retained-natural-exit",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 0
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      }
+    ]
+  },
+  {
+    "mode": "expiry",
+    "case": "fixed-unbound-expiry",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixed actor/readiness/sample deadline expired"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixed actor/readiness/sample deadline expired"
+      }
+    ]
+  },
+  {
+    "mode": "crash",
+    "case": "retained-natural-exit",
+    "passed": true,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 17
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      }
+    ]
+  },
+  {
+    "mode": "reader_timeout",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": "fixture read exceeded explicit elapsed budget",
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixture read exceeded explicit elapsed budget"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": true,
+      "exit_codes": {
+        "original-process": 57005
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixture read exceeded explicit elapsed budget"
+      }
+    ]
+  },
+  {
+    "mode": "natural",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": false,
+    "primary": null,
+    "cleanup": {
+      "state": "CLOSED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": true,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": true
+        }
+      ],
+      "resources_complete": true,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "original process terminal or life observation unknown"
+      },
+      "unresolved_resources": []
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {
+        "original-process": 0
+      }
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "original process terminal or life observation unknown"
+      },
+      {
+        "memory_result_persistence_error": "OSError",
+        "message": "controlled report write failure"
+      }
+    ]
+  },
+  {
+    "mode": "unresolved",
+    "case": "retained-natural-exit",
+    "passed": false,
+    "unresolved": true,
+    "primary": "fixed actor/readiness/sample deadline expired",
+    "cleanup": {
+      "state": "QUARANTINED",
+      "instance_id": "fake-only-original-owner",
+      "original_process_reference_retained": true,
+      "original_native_unchanged": true,
+      "terminal_confirmed": false,
+      "profile_outcome": "confirmed",
+      "resources": [
+        {
+          "label": "process",
+          "terminal_confirmed": false
+        }
+      ],
+      "resources_complete": false,
+      "evidence_complete": true,
+      "evidence_errors": [],
+      "primary_error": {
+        "type": "ValueError",
+        "message": "fixed actor/readiness/sample deadline expired"
+      },
+      "unresolved_resources": [
+        "original-process"
+      ]
+    },
+    "backend": {
+      "terminated": false,
+      "exit_codes": {}
+    },
+    "events": [
+      {
+        "elapsed_ns": 0,
+        "operation": "public_poll",
+        "wait_result_source": "strict integer258 implied by pinned successful _sample, not separately intercepted"
+      },
+      {
+        "elapsed_ns": 0,
+        "operation": "poll/read retired",
+        "error": "fixed actor/readiness/sample deadline expired"
+      }
+    ]
+  }
+]

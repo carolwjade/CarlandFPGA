@@ -1,0 +1,125 @@
+{
+  "utc": "2026-10-23T15:06:57.373651+00:00",
+  "decision": "ACCEPT_COUPLED_FACE_ASSEMBLY_AND_DISTINCT_INDEPENDENT_AUDIT",
+  "work_id": "A-G03-COUPLED-FACE-CLOSURE-20261023-v1",
+  "director_thread": "01a13d7e-dcf1-7272-a738-a637dd62ff9d",
+  "generation": 2,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "H01_H15_preserved": true,
+  "archive_allowed": true,
+  "integration_allowed": false,
+  "accepted_as_new_solve_inputs": true,
+  "actual_global_solve_selected": false,
+  "assembly_attempts": 1,
+  "source_pins_sha256": "f7db8e5194fede45d4ea324702c78a8b4b148678d6cc714155672a7b5038ebb1",
+  "actual_result": {
+    "status": "coupled_face_assembly_completed",
+    "fixed_seed_count": 128,
+    "marked_cells": 134,
+    "closure_directions": 556,
+    "local_ordered_bubble_pairs": 10000,
+    "local_coarse_bubble_pairs": 13344,
+    "U_entries": 11120,
+    "U_boundary_entries": 0,
+    "coupled_block_entries": 8888,
+    "nonzero_offdiagonal_MQ": 2338,
+    "nonzero_offdiagonal_KQ": 2338,
+    "new_block_diagonals_match_accepted": true,
+    "ordinary_symmetry_verified": true,
+    "trace_nonzero_entries": 0,
+    "trace_active_intervals": 0,
+    "trace_total_intervals": 4052,
+    "trace_max_root_residual": 9.540979117872439e-18,
+    "trace_zero_reason": "no active patch support on either receiver",
+    "consistent_b8_delta_provenance_retained": true,
+    "full_boundary_U_rows_retained": true,
+    "F8_Q_ell8_Q_direct_saved_indexing": true,
+    "source_or_field_evaluations": 0,
+    "coarse_trace_recomputed": false,
+    "old_tests_replayed": 0,
+    "global_operator_actions": 0,
+    "factorizations": 0,
+    "PDE_solves": 0,
+    "original_GMRES_info": 3,
+    "original_disjoint_coverage_failure_unchanged": true,
+    "physical_receiver_gate": 0.01,
+    "physical_receiver_screens": "not_run",
+    "physical_accuracy": "unqualified",
+    "finite_strength_noise_OOD_runtime": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "all29": "not_run",
+    "root_acceptance": "pending"
+  },
+  "independent_sample_Q_pairs": 3,
+  "independent_sample_U_entries": 6,
+  "independent_trace_zero_geometric_proofs": [
+    {
+      "receiver": 0,
+      "all_marked_cells_outside_radius_cube": true,
+      "minimum_axis_separation_m": 0.011250000000000003,
+      "cells_not_proved_by_conservative_cube": []
+    },
+    {
+      "receiver": 1,
+      "all_marked_cells_outside_radius_cube": true,
+      "minimum_axis_separation_m": 0.1925,
+      "cells_not_proved_by_conservative_cube": []
+    }
+  ],
+  "old_science_or_tests_replayed": false,
+  "old_disjoint_coverage_gate": "failed_preserved",
+  "old_GMRES_info3": "failed_preserved",
+  "physical_receiver_errors_previous": [
+    0.057027777284,
+    0.028609120129
+  ],
+  "physical_receiver_gate_each": 0.01,
+  "new_physical_receiver_evaluation": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "archive_sources": [
+    {
+      "prefix": "original",
+      "folder": "g03-coupled-face-closure-20261023",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "85dc4af60d256b9b9c803566ee235e70147b3aef24575f28b4f538d0d9b4e87f",
+      "manifest_files_verified": 78
+    },
+    {
+      "prefix": "independent",
+      "folder": "g03-coupled-face-independent-20261023",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "174574b3cd9d349ba4c0221d482781396597f81d02bdc5719dc2ada941ca40fa",
+      "manifest_files_verified": 43
+    },
+    {
+      "prefix": "space_design",
+      "folder": "g03-next-space-design-20261023",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "d1607e6dde579490a0d5a950334489fb36c8f107a56538acb19e0bf119fbf8e9",
+      "manifest_files_verified": 23
+    },
+    {
+      "prefix": "solve_design",
+      "folder": "g03-coupled-solve-design-20261023",
+      "manifest_file": "manifest.json",
+      "manifest_sha256": "3b67eeb46e322e8af8c48770f405a10c38dbfba7ed2902d49962f54013f52ed6",
+      "manifest_files_verified": 11
+    }
+  ],
+  "root_archive_files": [
+    "implementation-selection.json",
+    "assembly-selection.json",
+    "actual-result-readback.json",
+    "independent-result-readback.json",
+    "original-native-readback.json",
+    "independent-native-readback.json",
+    "next-solve-design-review.json",
+    "design-native-readback.json",
+    "solve-implementation-selection.json",
+    "decision.json",
+    "README.md"
+  ]
+}

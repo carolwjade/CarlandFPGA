@@ -1,0 +1,11 @@
+--- exact-original
++++ relaxed_common_R1
+@@ -287,7 +287,7 @@
+                                 high2_q        <= elapsed;
+                             end
+                             partial_age_q <= elapsed;
+-                        end else if (rise_mask != RISE_ALL) begin
++                        end else if (1'b0) begin // MAIN MUTANT: every rising subset may close
+                             // Abandon every old partial field. No earlier lane
+                             // interval may be spliced into a later frame.
+                             incoherent_event_q <= 1'b1;

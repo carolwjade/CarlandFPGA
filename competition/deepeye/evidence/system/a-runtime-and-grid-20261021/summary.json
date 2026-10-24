@@ -1,0 +1,448 @@
+{
+  "utc": "2026-10-21T09:44:48.104189+00:00",
+  "reviews": {
+    "g03-l1-main-review-20261021": {
+      "status": "ACCEPT_BOUNDED_L1_DIAGNOSTIC_PHYSICAL_ACCURACY_OPEN",
+      "utc": "2026-10-21T09:12:08.939683+00:00",
+      "manifest_sha256": "3b8fb37e5618e88364f3ca2e5e79e345f94eeaa9756dcb7066a3f4dea10a3502",
+      "files_independently_rehashed": 71,
+      "actual_native_terminal_exact": true,
+      "terminals": [
+        {
+          "stage": "controls-01",
+          "status": "failed",
+          "exit_code": 125,
+          "held": 1
+        },
+        {
+          "stage": "controls-02",
+          "status": "failed",
+          "exit_code": 1,
+          "held": 3
+        },
+        {
+          "stage": "controls-03",
+          "status": "failed",
+          "exit_code": 1,
+          "held": 3
+        },
+        {
+          "stage": "controls-04",
+          "status": "success",
+          "exit_code": 0,
+          "held": 3
+        },
+        {
+          "stage": "run-01",
+          "status": "success",
+          "exit_code": 0,
+          "held": 3
+        }
+      ],
+      "protected_files_unchanged": true,
+      "source_review": [
+        "stable endpoint circular-segment series agrees with theta-minus-sin-cos expansion through theta9",
+        "disk weights integrate compatible face basis; matrix-free transpose curl agrees with separate segmented edge trace and actual C.T",
+        "same source and boundary sign use +iomega t and -iomega source forcing",
+        "one sparse AII solve and fixed residual gate; no inverse, clipping, tolerance relaxation or old-reference recomputation",
+        "actual L1 raw result versus saved reference is substantial error; old smooth receiver comparison is descriptive only"
+      ],
+      "relative_difference": [
+        0.4288648983112377,
+        0.34381684017566017
+      ],
+      "backward_residual_eta": 5.3408036965947124e-18,
+      "known_limits": [
+        "two scalar source/reference points do not validate moving coils, heterogeneous medium, causal sensors or G03",
+        "observed quadrature consistency is not a rigorous total receiver error certificate",
+        "earlier interim failed source bytes are not all retained as source snapshots; raw failure logs and their source hashes are retained"
+      ],
+      "new_scientific_reruns": 0,
+      "old_tests_rerun": 0,
+      "G03": "not_run",
+      "R03": "not_run",
+      "all29": "not_run"
+    },
+    "g03-l2-main-review-20261021": {
+      "status": "ACCEPT_BOUNDED_L2_DIAGNOSTIC_PHYSICAL_ACCURACY_OPEN",
+      "utc": "2026-10-21T09:20:23.412171+00:00",
+      "manifest_sha256": "8b6b59d65c8b4c4c3c7bfc8cc0067fba1239ec5c58e17a59ac80ce161e37bef7",
+      "files_independently_rehashed": 57,
+      "actual_native_terminal_exact": true,
+      "source_diff_review": "Only selected X shape, controls geometry and reused L1 comparison added; no physics/sign/solver/residual-gate changes. Original endpoint control reused without rerun.",
+      "known_label_defect": {
+        "raw_result_path": "run-01/result.json",
+        "raw_status_text": "one_actual_L1_solve_complete",
+        "correction": "The inherited raw status label says L1. This run is the selected L2 12x12x14 geometry, as bound by assignment.json, controls-01/control-result.json, run-01/started.json, and the 5126x5126 AII result. Raw science source/result bytes are preserved unchanged.",
+        "physical_accuracy": "open",
+        "convergence_certificate": false,
+        "G03": "not_run",
+        "all29": "not_run"
+      },
+      "relative_difference": [
+        0.42521623756675525,
+        0.3403507317006062
+      ],
+      "L2_minus_L1_absolute_V": [
+        3.2021559116452454e-06,
+        6.789726708668332e-07
+      ],
+      "physical_acceptance": "open",
+      "new_scientific_reruns": 0,
+      "old_tests_rerun": 0,
+      "G03": "not_run",
+      "R03": "not_run",
+      "all29": "not_run"
+    },
+    "g03-l3-main-review-20261021": {
+      "status": "ACCEPT_BOUNDED_L3_DIAGNOSTIC_PHYSICAL_ACCURACY_OPEN",
+      "utc": "2026-10-21T09:43:58.736986+00:00",
+      "manifest_sha256": "4abb3197104ed1b01c25512e48f94146cac6815579f005d9c9dbed743d4bcc9c",
+      "files_independently_rehashed": 57,
+      "native_exact_terminal": true,
+      "finalization": {
+        "utc": "2026-10-21T09:43:19.490605+00:00",
+        "canonical_agent": "/root/g03_grid_continuation_20261021",
+        "agent_status_confirmed": "interrupted",
+        "original_scientific_jobs_terminal": true,
+        "source_manifest_verified": "4abb3197104ed1b01c25512e48f94146cac6815579f005d9c9dbed743d4bcc9c",
+        "purpose": "Close immutable already completed result after stalled finalization; no source edits or execution replay",
+        "main_thread_preserved": true
+      },
+      "source_diff_review": "Only selected z subdivision, explicit selected-node checks, saved area reuse and L1/L2 comparison added; operator physics, source sign, solver, residual and boundary gates unchanged. Prior raw mislabeled L2 preserved; new L3 label corrected.",
+      "relative_difference": [
+        0.3019413420486286,
+        0.29950851212244745
+      ],
+      "L3_minus_L2_absolute_V": [
+        0.00010818913350555452,
+        8.00054384495961e-06
+      ],
+      "physical_acceptance": "open",
+      "new_scientific_reruns": 0,
+      "old_tests_rerun": 0,
+      "G03": "not_run",
+      "R03": "not_run",
+      "all29": "not_run"
+    },
+    "r02-runtime-main-review-20261021": {
+      "status": "ACCEPT_OFFLINE_INSTALL_AND_ONE_REAL_AMD_KERNEL",
+      "utc": "2026-10-21T09:27:41.292512+00:00",
+      "files_independently_rehashed": 121,
+      "manifest_sha256": "f3bcff3589ca2342252e8b2f0c0c884b755af2c6102cb1a063792674204add46",
+      "native_exact_terminal": true,
+      "installed_metadata_independently_compared": [
+        {
+          "name": "amd-torch-device-gfx1103",
+          "version": "2.12.0+rocm7.14.1",
+          "installed_metadata_sha256": "972ea36a2884c1b307e61663b30bd3bc70f9e910f3d7388956cb2d58f8a1d574",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "amd-torch-device-gfx110x",
+          "version": "2.12.0+rocm7.14.1",
+          "installed_metadata_sha256": "090244624018f9f6c722c7ee7780fff1a13d99a2b14f3f57e45696bc159fd630",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "filelock",
+          "version": "4.2.4",
+          "installed_metadata_sha256": "d99c0f72a7ab84c924b734018a28a5001505fe0f96280c4462b864313edddb50",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "fsspec",
+          "version": "2026.9.0",
+          "installed_metadata_sha256": "68f5a262767510638e9b1933b1493f2baadc9616fe1e696f62aedd59c8c0a37c",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "jinja2",
+          "version": "3.1.6",
+          "installed_metadata_sha256": "68c5548fb67c4132a13898d9b31ec50c6bea2abdd915d921f214355c3a6499c8",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "markupsafe",
+          "version": "3.0.4",
+          "installed_metadata_sha256": "08fa79954ab288d778b0fee4f0e6c7dbc869e545a415747d1324622465d3b08d",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "mpmath",
+          "version": "1.3.0",
+          "installed_metadata_sha256": "44b66ea444b9c0d19ae94815d356bf047ae6b680c19268b5c265687cd6a81406",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "networkx",
+          "version": "3.7",
+          "installed_metadata_sha256": "ffcf42a343af6ffc54ff9cc4c09cf9638cd73b131370f395abd11b630186c90c",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "rocm",
+          "version": "7.14.1",
+          "installed_metadata_sha256": "fc2bd60cd5a83b03e533f3fcc375669c5943cb4c8f863c8a6ccff052703ab25f",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "rocm-bootstrap",
+          "version": "0.1.0",
+          "installed_metadata_sha256": "f8769927fc2c2c50f00b2b943aa8527cfead319c409657825e188eb86b25afc6",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "rocm-sdk-core",
+          "version": "7.14.1",
+          "installed_metadata_sha256": "536b9aa28a314e3a9b3d5b0774a3f01da6f585eac20dce7a3047824a2e0dcdb8",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "rocm-sdk-device-gfx1103",
+          "version": "7.14.1",
+          "installed_metadata_sha256": "65d765afd1cd7439f010418da60940aa73a0567534277e22a0d8232c631bf003",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "rocm-sdk-libraries",
+          "version": "7.14.1",
+          "installed_metadata_sha256": "2cfd3f72d633f4004e668ffe10de59cba7291ec5526b8789fa34b973ef691e51",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "setuptools",
+          "version": "70.2.0",
+          "installed_metadata_sha256": "41eaf58a72526d8da654204684c7a078885598cce74018feaeb91818e01d2f58",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "sympy",
+          "version": "1.14.0",
+          "installed_metadata_sha256": "b756c2fbfd5be05ac5bdb0ebca61f55618f30f633ed92d88a5687429313a7595",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "torch",
+          "version": "2.12.0+rocm7.14.1",
+          "installed_metadata_sha256": "0c9566e3cbece6e121daf3b90ba330bd03d260299463bbd698f12322501e7d7e",
+          "wheel_metadata_exact": true
+        },
+        {
+          "name": "typing-extensions",
+          "version": "4.16.0",
+          "installed_metadata_sha256": "b05084ca1d50879865178d9fff9fabeab61bdfb1f361bfbde95421ffc8f9be46",
+          "wheel_metadata_exact": true
+        }
+      ],
+      "pip_check_runs_reused": 1,
+      "original_process_trees": 9,
+      "held_handles_terminal": 26,
+      "torch": {
+        "version": "2.12.0+rocm7.14.1",
+        "file": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-rocm-7.14.1-cp312-gfx1103\\Lib\\site-packages\\torch\\__init__.py",
+        "hip": "7.14.60850",
+        "cuda": null
+      },
+      "devices": [
+        {
+          "index": 0,
+          "name": "AMD Radeon 780M Graphics",
+          "gcnArchName": "gfx1103",
+          "total_memory": 13137575936
+        }
+      ],
+      "kernel": {
+        "operation": "one FP32 4x4 matmul",
+        "device": "cuda:0",
+        "actual": [
+          [
+            1.0,
+            4.0,
+            9.0,
+            16.0
+          ],
+          [
+            5.0,
+            12.0,
+            21.0,
+            32.0
+          ],
+          [
+            9.0,
+            20.0,
+            33.0,
+            48.0
+          ],
+          [
+            13.0,
+            28.0,
+            45.0,
+            64.0
+          ]
+        ],
+        "expected_literal": [
+          [
+            1.0,
+            4.0,
+            9.0,
+            16.0
+          ],
+          [
+            5.0,
+            12.0,
+            21.0,
+            32.0
+          ],
+          [
+            9.0,
+            20.0,
+            33.0,
+            48.0
+          ],
+          [
+            13.0,
+            28.0,
+            45.0,
+            64.0
+          ]
+        ],
+        "sync_calls": 1,
+        "matmul_calls": 1,
+        "matches": true
+      },
+      "source_review": "Reviewed original runner/worker and exact continuation diff. Correct module argv; expected metadata binds original selected built-v6 wheel, installed metadata and frozen artifact. Failed pure harness checks retained. No package reinstall or successful test rerun.",
+      "old_tests_rerun": 0,
+      "additional_torch_imports_or_kernels": 0,
+      "qualifications": [
+        "experimental current driver, not official 8845H support",
+        "torch.version.hip is a build marker; actual loaded HIP runtime DLL/API version was not collected",
+        "NumPy warning preserved; no unselected package added",
+        "project CNN, concurrency, physical fixture calibration and formal R02/C03 remain pending"
+      ],
+      "R02": "not_run",
+      "C03": "not_run",
+      "all29": "not_run"
+    }
+  },
+  "public_derivatives": [
+    {
+      "published_path": "g03-internal-source-grid-continuation-20261021/controls-01/started-unparsed-public.json",
+      "original_sha256": "c9e91047246fed7e5d4478cc262b23546d9054923fc6c7df7c55ab14b6dda363",
+      "malformed_original_retained_locally": true
+    },
+    {
+      "published_path": "g03-internal-source-grid-continuation-20261021/controls-02/started-public.json",
+      "original_sha256": "5bbfa8c5415ca70ee562ecc4d963dae06234cccfed6f383ddb7395f98b65d800"
+    },
+    {
+      "published_path": "g03-internal-source-grid-continuation-20261021/controls-03/started-public.json",
+      "original_sha256": "d9f8a7a94035051e155c9d198bb5f73814b3f33f80f24c190f766974162b7339"
+    },
+    {
+      "published_path": "g03-internal-source-grid-continuation-20261021/controls-04/started-public.json",
+      "original_sha256": "83cff38471a11c5f5e23b8b2115ac4a6581864c627bbaddfe72f600a0d761c6c"
+    },
+    {
+      "published_path": "g03-internal-source-grid-continuation-20261021/run-01/started-public.json",
+      "original_sha256": "837f9bdd8973effc068c640c9a69b1ccf416f311d98e32eeeaa0f0b0660cd50e"
+    },
+    {
+      "published_path": "g03-l2-xy-refinement-20261021/controls-01/started-public.json",
+      "original_sha256": "5d212a11b42765cad4ec222ca8ca5a7bcfd510492ec0bf42eda0610357f42d13"
+    },
+    {
+      "published_path": "g03-l2-xy-refinement-20261021/run-01/started-public.json",
+      "original_sha256": "e9935d2de45e33f7ea9f72dcfdc81247c4f76545f8dd1cb4e0d75e0c36b849ba"
+    },
+    {
+      "published_path": "g03-l3-z-refinement-20261021/controls-01/started-public.json",
+      "original_sha256": "ba76f372b6d893888d5d0e8b183cba2a715af0fe21c5abda0a5a28a2238eb65a"
+    },
+    {
+      "published_path": "g03-l3-z-refinement-20261021/run-01/started-public.json",
+      "original_sha256": "c60478a0a0f907423d8d3fa3ff71a778763082f7c3631044f1415f49661d6f3a"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/evidence/bootstrap/command-public.json",
+      "original_sha256": "7bae480647388aa007ce49b4e60d8ca2f65ae1e9fcadcb19bdd0d8efd6129e15"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/evidence/check/command-public.json",
+      "original_sha256": "d4df21dbce155d6c317f8256b59056b63efa6fa296a9c5f464af01e2e583bb6a"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/evidence/install/command-public.json",
+      "original_sha256": "9cc51d76f6af5f094da85ac28a059439752879b532ec86b16119bbd51461eff6"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/evidence/install/install-report-public.json",
+      "original_sha256": "40b63e66b32dfeafee852263fa3001c3df09be1b5bef061bceebaa6598a4ca78"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/runs/bootstrap/started-public.json",
+      "original_sha256": "c821e2482b981feb7710638e5115767d0eab93a8ed9692ac4281cdabbddfd6a0"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/runs/check/started-public.json",
+      "original_sha256": "7ef4015d16e55acefa0380f453e5ed2f202a46b5ba852b6b42a0d2b9a8cad3e1"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-01/runs/install/started-public.json",
+      "original_sha256": "8e9a32aea474ef385f4b6308301c90e10ceb806a6edc6648318a5a105a56fdb8"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-02/evidence/check/command-public.json",
+      "original_sha256": "56ca2a34ce94e871678e740b12f671394be6c92669f4b513c8c1a19de8a10685"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-02/runs/check/started-public.json",
+      "original_sha256": "85376c58d9bf644839a0862fc31f47bc59d7e204e836bb0f3ccdcb9101de05bc"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-03/evidence/check/command-public.json",
+      "original_sha256": "749f40ec69d947605ba3c658411d4009059b311ab4ea6420dfe0762989cc3100"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-03/evidence/probe/command-public.json",
+      "original_sha256": "981b4b39d7805e92fe76896d504591fd9548873debe29dba71a49a2045c67d9a"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-03/runs/check/started-public.json",
+      "original_sha256": "b35b763b8223e374c04670661560ef3b62f0e1832993f30ce6a7ffbff73b94af"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/continuation-03/runs/probe/started-public.json",
+      "original_sha256": "6f4e8e30daf94fc0938d24b8a61cbbedcc7a3c38023f47116253e83b3e7f5fda"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/evidence/bootstrap/command-public.json",
+      "original_sha256": "65baeff4bbe98d5a996916052ac59b4ec0629d655ea9ef4405a71fa8a35cf761"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/evidence/copy/command-public.json",
+      "original_sha256": "6293fc0b8a0d5e759d988fad8b0ff9209d25c77268ae4a102953916d061aa6e8"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/evidence/venv/command-public.json",
+      "original_sha256": "f5b030ed889e0631f21e79fe9635bf99827273171b7643e4e4fcbe283ad06c83"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/runs/bootstrap/started-public.json",
+      "original_sha256": "f244885d976193743850e161c52e994f9841cd083edda19bbe0cbbf6d1981c08"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/runs/copy/started-public.json",
+      "original_sha256": "b6fb803293ebfc8f93d5fb2f59b4f5a8edcef4e45ba356675597bf0709bbc8eb"
+    },
+    {
+      "published_path": "r02-runtime-install-20261021/runs/venv/started-public.json",
+      "original_sha256": "8f32ab799a5be2a016455c832805bc0312c33b8bc114deb6cddd10b05ab97fca"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "old_tests_repeated": false,
+  "formal_R03": "not_run",
+  "full_H12": "not_run",
+  "all29": "not_run"
+}

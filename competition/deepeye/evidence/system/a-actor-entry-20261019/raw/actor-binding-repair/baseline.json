@@ -1,0 +1,386 @@
+{
+  "base": "3f702903f1e16fa72eae15f03ba431b78de24bd0",
+  "tar_sha256": "9bf528a2fc99e37822f970dfb8c2db7905c5b4e65f1f4a3b8c9ccad62e36c215",
+  "exported_git_blobs": {
+    "competition/deepeye/integration/boot_profile.py": {
+      "mode": "100644",
+      "git_blob": "39b5417db7b5d326d73060f147c715e0b6f98c83",
+      "bytes": 81662,
+      "sha256": "859400e677bffff926bee9b99a6385cee8477ced66486ca304c145e1e387d0e4"
+    },
+    "competition/deepeye/integration/clock_bounds.py": {
+      "mode": "100644",
+      "git_blob": "0bec384496c8dc39bea63845eb52e3d5afbc77c8",
+      "bytes": 10136,
+      "sha256": "d4dcbeff8f741574c6842ee7556d8e04fcce8731b0f9ad4f413dc5968b59dc08"
+    },
+    "competition/deepeye/integration/host_envelope.py": {
+      "mode": "100644",
+      "git_blob": "705ef2e8b33d0e8c3874e65172dd334307c5a889",
+      "bytes": 26184,
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    "competition/deepeye/integration/motion.py": {
+      "mode": "100644",
+      "git_blob": "be9bb5d6a1d005306b25c2fc62ee15ce1598c7dc",
+      "bytes": 3935,
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    "competition/deepeye/integration/pc_direct_watchdog.py": {
+      "mode": "100644",
+      "git_blob": "33d681a3a643bf5ab1a872cabfda68dacd08a1d5",
+      "bytes": 12255,
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1"
+    },
+    "competition/deepeye/integration/sensor_source.py": {
+      "mode": "100644",
+      "git_blob": "ecccd7b15c3754740d8cc4f57f88bfce8b5ab8ac",
+      "bytes": 11285,
+      "sha256": "dd817b25cbec4423ab7ef788b2801f9edb8b66aaf19254511d6590b390f6fc57"
+    },
+    "competition/deepeye/integration/test_boot_binding.py": {
+      "mode": "100644",
+      "git_blob": "5cf99ba112b355ec74b17bec16aa4004ecf5035f",
+      "bytes": 4051,
+      "sha256": "359c50e5bd8fc907010cd5b600a3863098c5d210c8d2433cc8dd106b30dbbc5b"
+    },
+    "competition/deepeye/integration/test_clock_bounds.py": {
+      "mode": "100644",
+      "git_blob": "d9a1f8361f2c3089d78181b3d0f6bd740403d8c8",
+      "bytes": 12396,
+      "sha256": "9b34b86eedcb7e19b955bca78054edfd5fc96cac92060a2274239aadd1167f03"
+    },
+    "competition/deepeye/integration/test_contract_vectors.py": {
+      "mode": "100644",
+      "git_blob": "e67101608dd70e1a1520e602597879eaf23b7ce7",
+      "bytes": 2524,
+      "sha256": "363c294a405388e47933256113ccdae9824a58d139ca5a43a5593dd16b0d05c7"
+    },
+    "competition/deepeye/integration/test_host_envelope.py": {
+      "mode": "100644",
+      "git_blob": "9786d32844eced97217b07d08c3389fc1c2ec738",
+      "bytes": 33926,
+      "sha256": "3e56e0b575f897b9d5f792ee0e8a594412532872cc6ea3ea9a1722e52d17c0f1"
+    },
+    "competition/deepeye/integration/test_host_schema.py": {
+      "mode": "100644",
+      "git_blob": "da932e908c7214c7f208c4ae56ff30b3b5cb68c7",
+      "bytes": 3851,
+      "sha256": "27cd4f5cc04b7501013246ea7e6240a3b1b62f8159ed01642c6d850278d8c6fb"
+    },
+    "competition/deepeye/integration/test_motion.py": {
+      "mode": "100644",
+      "git_blob": "82527a4dc8f0c503d1cff8d78ad4c77d1abcec6f",
+      "bytes": 5350,
+      "sha256": "a4c5445af5feea6566e92781c188466e41b386155aaf6c771154e1f9050ce1af"
+    },
+    "competition/deepeye/integration/test_pc_direct_heartbeat.py": {
+      "mode": "100644",
+      "git_blob": "7dc4551e4d715fa7ddd504f29a69b1aff0ec3ed3",
+      "bytes": 3129,
+      "sha256": "c83743bc54f3070f53bb0bcb3c64681da77d013a4d27a5c3bd1070eb52b0df1d"
+    },
+    "competition/deepeye/integration/test_pc_direct_watchdog.py": {
+      "mode": "100644",
+      "git_blob": "245fc801486aca8ba7f07bcfd27a665450b8651e",
+      "bytes": 22083,
+      "sha256": "49b9861d5c2912154b73e4440710476601c52a1b845d4e198c75941963c34cea"
+    },
+    "competition/deepeye/integration/test_sensor_source.py": {
+      "mode": "100644",
+      "git_blob": "335e0a82b72acf9b19c682fb11827ade59def438",
+      "bytes": 22102,
+      "sha256": "d331a51b1a0e00a0c6b3b37ebd2a09e6ca4ebf9551c774106486bfdafdf12d13"
+    },
+    "competition/deepeye/integration/test_trace_payload.py": {
+      "mode": "100644",
+      "git_blob": "c32371564745766cbb5c2a80e25e56e54d1f9f40",
+      "bytes": 5070,
+      "sha256": "f130591cdb0f665d81206801a6c82d08d2c47489876e1f05114d4e1130b8a4f2"
+    },
+    "competition/deepeye/integration/test_wire.py": {
+      "mode": "100644",
+      "git_blob": "5c83fe7c979c12bec45b244dc75601976ca8e46f",
+      "bytes": 4394,
+      "sha256": "f3e4093fd8e18fc527baaa309dedb125f9ac8913d557958a028f7335759d7fa9"
+    },
+    "competition/deepeye/integration/wire.py": {
+      "mode": "100644",
+      "git_blob": "ca2a7d9ad44c239cbf36840d35a502a306cd6834",
+      "bytes": 5459,
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    "competition/deepeye/simulation/authority/motion/certified_path.py": {
+      "mode": "100644",
+      "git_blob": "83eb66c0a33205db9fe384bad5ab4ea34840fa35",
+      "bytes": 17268,
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e"
+    },
+    "competition/deepeye/simulation/authority/motion/gate_clearance.py": {
+      "mode": "100644",
+      "git_blob": "0668653c5b25f9644619acf998909e3e08ca9952",
+      "bytes": 11856,
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977"
+    },
+    "competition/deepeye/simulation/authority/motion/gate_geometry.py": {
+      "mode": "100644",
+      "git_blob": "8645a02c67607e361114a9fb6e90d0deb19321a3",
+      "bytes": 15309,
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839"
+    },
+    "competition/deepeye/simulation/authority/motion/kinematics.py": {
+      "mode": "100644",
+      "git_blob": "c010fcaeba88d8937ffb4fdef5b3c19debb6f1cf",
+      "bytes": 11016,
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043"
+    },
+    "competition/deepeye/simulation/authority/motion/passage_phase.py": {
+      "mode": "100644",
+      "git_blob": "a1024bf17412366e45654e0ddf72ec999bcf1af9",
+      "bytes": 13132,
+      "sha256": "924c7bc2c24f16064503cf711af31154edc68904495a9dd8d5fe1bff853e1fa9"
+    },
+    "competition/deepeye/simulation/authority/motion/solid_clearance.py": {
+      "mode": "100644",
+      "git_blob": "a2cf9dbaea432a1b144017eb21d9e62a8318ea38",
+      "bytes": 20063,
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    "competition/deepeye/simulation/authority/motion/workspace_boundaries.py": {
+      "mode": "100644",
+      "git_blob": "13c5ef5c74ed3ed4b77be95c095e61ae75a0b55a",
+      "bytes": 10527,
+      "sha256": "6b8ccdaa7fc9b0026c66e062277d9b247c9ca7895a52999abe989da666246077"
+    },
+    "competition/deepeye/simulation/authority/motion_executor.py": {
+      "mode": "100644",
+      "git_blob": "012f025672596527af405cfee65436dab44e1ef6",
+      "bytes": 17156,
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    "competition/deepeye/simulation/authority/pc_direct_runtime.py": {
+      "mode": "100644",
+      "git_blob": "730eb829639be17d3dddc9a3e1230cc0e96fe881",
+      "bytes": 23468,
+      "sha256": "7d6a9e7aeb64de38cc88f5b5acad7f0f9df0d49109bca8cb12bf35939333cbdb"
+    },
+    "competition/deepeye/simulation/isolation/__init__.py": {
+      "mode": "100644",
+      "git_blob": "7bc8c01dd4fcf25d0d66086b92321e4d60e3b398",
+      "bytes": 80,
+      "sha256": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0"
+    },
+    "competition/deepeye/simulation/isolation/fixture.py": {
+      "mode": "100644",
+      "git_blob": "9dd9cda83096b840da9ff91c91dc42eb7fa94981",
+      "bytes": 2287,
+      "sha256": "44386d373a98173c4ba1013a007e9d9e91b72cd931d78ce380dbcb7c6da0864c"
+    },
+    "competition/deepeye/simulation/isolation/owned_resources.py": {
+      "mode": "100644",
+      "git_blob": "c29ee12e87e2d74b7152f5f5136845a6881b6335",
+      "bytes": 9095,
+      "sha256": "b4c771286306a343d605e3c4d29db554960713f9cce246345e54cbc89829cf4e"
+    },
+    "competition/deepeye/simulation/isolation/policy.py": {
+      "mode": "100644",
+      "git_blob": "39e88aeeb1a560c1efb52c2914d4464486c58129",
+      "bytes": 7119,
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    "competition/deepeye/simulation/isolation/prototype.py": {
+      "mode": "100644",
+      "git_blob": "d9dfe96a3b8eebb46ca3ba5b63c2f8f862f807e8",
+      "bytes": 16264,
+      "sha256": "1578ed1df91da9c9b2f9da43e5799fb8538c95df58acf8829838cab3e15c1eda"
+    },
+    "competition/deepeye/simulation/isolation/resource_cleanup.py": {
+      "mode": "100644",
+      "git_blob": "86644f89012ae57c15f3f1c73284979c54da43ad",
+      "bytes": 11539,
+      "sha256": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f"
+    },
+    "competition/deepeye/simulation/isolation/win32.py": {
+      "mode": "100644",
+      "git_blob": "f4546f22e044008293f9b05c56776e26fb2e5da8",
+      "bytes": 17780,
+      "sha256": "813bb52876b00fb3843289d6d6de802679064045e0a25f46dd99df7ebced0d1e"
+    },
+    "competition/deepeye/simulation/isolation/windows_cleanup.py": {
+      "mode": "100644",
+      "git_blob": "9e8b643414283334e26ff604eaf48795b2ed2189",
+      "bytes": 4184,
+      "sha256": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d"
+    },
+    "competition/deepeye/simulation/sensors/forward_profile.py": {
+      "mode": "100644",
+      "git_blob": "c468d43d1a6e58f6962423de4bf806d1e45109fb",
+      "bytes": 28252,
+      "sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9"
+    },
+    "competition/deepeye/tests/isolation/test_owned_resources.py": {
+      "mode": "100644",
+      "git_blob": "c7eee5510b9949435b7e5797101f6024770da8a7",
+      "bytes": 5832,
+      "sha256": "b0380e1b2926ce4e10992af86f0d9186f159387771880fd78e6cc8d942ebd77b"
+    },
+    "competition/deepeye/tests/isolation/test_policy.py": {
+      "mode": "100644",
+      "git_blob": "e7b38a36ee487e5bce2f8f822d0230a318f0e306",
+      "bytes": 11085,
+      "sha256": "0596d77ade275426dfbdba6fc897f08eab258b734d324682105427b64afedf8f"
+    },
+    "competition/deepeye/tests/isolation/test_prototype_cleanup.py": {
+      "mode": "100644",
+      "git_blob": "812178ba4f36d08cc93a44bf066611886db31490",
+      "bytes": 9062,
+      "sha256": "c7dfe79aad09418d8901cd1f34c059647ada32b5de086a773304e0bee90bbd24"
+    },
+    "competition/deepeye/tests/isolation/test_resource_cleanup.py": {
+      "mode": "100644",
+      "git_blob": "1f6931d307d0ac8af1f5ac5136970cda17b6db50",
+      "bytes": 16407,
+      "sha256": "9236b45d3978619912425fda170b4ee1964c53b63e31ba79dae739b2cb7e8292"
+    },
+    "competition/deepeye/tests/isolation/test_windows_cleanup.py": {
+      "mode": "100644",
+      "git_blob": "eeaab953862a8282a353524e0dc0a2ee0f05e47c",
+      "bytes": 13706,
+      "sha256": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e"
+    },
+    "competition/deepeye/tests/isolation/test_windows_live.py": {
+      "mode": "100644",
+      "git_blob": "642cdbac86219a0f8a1acedd67c7f8d5611e5d00",
+      "bytes": 4344,
+      "sha256": "bfce80b3fa26be12d6f27e6994552a7dab776fd06a0df28860a4863955c5da74"
+    },
+    "competition/deepeye/tests/simulation/test_certified_path.py": {
+      "mode": "100644",
+      "git_blob": "91eaf3149af245c9acfea97d64fb2bb7a2f8244f",
+      "bytes": 16132,
+      "sha256": "a6286a41cb3dbdc7f335809659019fd860b2a029f89bad3ce5533d4997ef66e0"
+    },
+    "competition/deepeye/tests/simulation/test_forward_profile.py": {
+      "mode": "100644",
+      "git_blob": "c911e035abb1b58df13f79ddb88e572c6cf28396",
+      "bytes": 35195,
+      "sha256": "c5056e4449083c0f706c76badda7a53d50f8d742983d6e76fdda77a508d6e373"
+    },
+    "competition/deepeye/tests/simulation/test_gate_clearance.py": {
+      "mode": "100644",
+      "git_blob": "ac8e34930b4a461a8b6d19e42087463eb7522b45",
+      "bytes": 14593,
+      "sha256": "3771cf93cb4756b7b5b0c5bacc18b6c522e8c47dfb95c9d5abecfb11831fda98"
+    },
+    "competition/deepeye/tests/simulation/test_gate_geometry.py": {
+      "mode": "100644",
+      "git_blob": "0d5bb4494cea339f7e36612d57f45a2e9f7edb5a",
+      "bytes": 11529,
+      "sha256": "d3e44c511b46a676c87a0caa2e2330f772fdd9305fb3e0a01e0ce5b1997aaa79"
+    },
+    "competition/deepeye/tests/simulation/test_kinematics.py": {
+      "mode": "100644",
+      "git_blob": "a1ab6af996135e18db92f52fe6bda280f125a4ba",
+      "bytes": 19565,
+      "sha256": "ba0ed8751c5fd8a529f9b06b2b7ec556a7c002570bc4ae5cce1431a8f098d4c7"
+    },
+    "competition/deepeye/tests/simulation/test_motion_executor.py": {
+      "mode": "100644",
+      "git_blob": "352c13454f5158d4aacaec7435175a3b9b1517f2",
+      "bytes": 28506,
+      "sha256": "9e1b07801d9ac1dce48ce9bb21209455ec7e25c082cb01b16e128b505b5223e4"
+    },
+    "competition/deepeye/tests/simulation/test_passage_phase.py": {
+      "mode": "100644",
+      "git_blob": "03cfac2e731e42e24a10d9caad0d4a6734807025",
+      "bytes": 15200,
+      "sha256": "b6ffc13eda0a4099b52e514a78c3386aced186f013760ef3147264841cc6f7dd"
+    },
+    "competition/deepeye/tests/simulation/test_pc_direct_runtime.py": {
+      "mode": "100644",
+      "git_blob": "71e931d95825db6fb69396eea8b97ce2882172f0",
+      "bytes": 26994,
+      "sha256": "e988feddce8e5a4987f0617c4b429a20088429822fc3fa2936f985bac81e72e5"
+    },
+    "competition/deepeye/tests/simulation/test_solid_clearance.py": {
+      "mode": "100644",
+      "git_blob": "d016429acdd388c83951a9418d9bb6fab74e4ca4",
+      "bytes": 17924,
+      "sha256": "ea85e078aaf16af6aebd7be778d579bd9a4c91597f928fe4656b8520b665ef03"
+    },
+    "competition/deepeye/tests/simulation/test_workspace_boundaries.py": {
+      "mode": "100644",
+      "git_blob": "3cf854e8ab96e7362de93d91c3ee93110b9a4f7a",
+      "bytes": 7466,
+      "sha256": "dfe80ed6462991bc72fecef5318f723e7e561dc6362c00c6eb2127e53e837d7e"
+    },
+    "competition/deepeye/tests/test_boot_profile.py": {
+      "mode": "100644",
+      "git_blob": "a617fa07eb82fbfd496625329794e4bfe2fdc053",
+      "bytes": 22524,
+      "sha256": "d6c21e9279bfe7e69642972e8ecdc6355529dd2589f4c36e7b83b9c5af4177db"
+    },
+    "competition/deepeye/tests/test_pipeline.py": {
+      "mode": "100644",
+      "git_blob": "fa0ea4e0965db215465d09a84369b1aa45adb2df",
+      "bytes": 51645,
+      "sha256": "30975a18de452dcfcb5f85d3c5ac905cc3b7c98473f039849177adec0db89486"
+    },
+    "competition/deepeye/tests/test_verify_game.py": {
+      "mode": "100644",
+      "git_blob": "068087603f4b98f86f7db0c3cf3934113fefa0d2",
+      "bytes": 14056,
+      "sha256": "b1edd95b098536c8c392c0e70ae7d9d3edfa1604e68d2c6718bb6ccc9b832fa1"
+    },
+    "competition/deepeye/tests/vectors/abi3_reference.json": {
+      "mode": "100644",
+      "git_blob": "66cc88f729921346750a514ff9de37826eec56c6",
+      "bytes": 10383,
+      "sha256": "007bcfa6db61c76efddb4a6eec77603840ea54670e68c98315a3c4047115b1b7"
+    }
+  },
+  "actor_overlay": {
+    "competition/deepeye/simulation/isolation/actor_owner.py": {
+      "bytes": 21579,
+      "sha256": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151",
+      "origin": "original frozen actor candidate"
+    },
+    "competition/deepeye/simulation/isolation/actor_lifetime.py": {
+      "bytes": 2609,
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0",
+      "origin": "original frozen actor candidate"
+    },
+    "competition/deepeye/tests/simulation/test_actor_owner.py": {
+      "bytes": 15537,
+      "sha256": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d",
+      "origin": "original frozen actor candidate"
+    },
+    "competition/deepeye/tests/simulation/test_actor_lifetime.py": {
+      "bytes": 17341,
+      "sha256": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880",
+      "origin": "original frozen actor candidate"
+    },
+    "competition/deepeye/docs/actor_lifetime.md": {
+      "bytes": 13169,
+      "sha256": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a",
+      "origin": "original frozen actor candidate"
+    }
+  },
+  "before_owned_and_lifetime": {
+    "competition/deepeye/simulation/isolation/actor_owner.py": "0dd2faf317a956a15acc1e86d74d58a9fb7d4cfcc72002782392b9d9e903e151",
+    "competition/deepeye/simulation/isolation/windows_cleanup.py": "ca1771e1828fb8800b57ab3051f85df2e73601efe5e7874f42c8bca50361102d",
+    "competition/deepeye/tests/simulation/test_actor_owner.py": "27f26c9d964c574c6ff9a6bda12e384ea874c1e4c28b5b5bba3662ca41f2385d",
+    "competition/deepeye/tests/simulation/test_actor_lifetime.py": "fd16df5e4f9017403fa75bfb37119ed49a36bc79c293f0e54e2426960bb66880",
+    "competition/deepeye/tests/isolation/test_windows_cleanup.py": "10957397ba19a743f5bc05685ae2994c1e240f5b30dd741541e53148385f1f4e",
+    "competition/deepeye/docs/actor_lifetime.md": "dc86dcae28d6aed38ff9f020cb232e0e7a82a9ff9457632253b323a2aec5634a",
+    "competition/deepeye/simulation/isolation/actor_lifetime.py": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+  },
+  "independent_source_sha256": "de9ffef018ebb645ff785759442d1487b02b1b84c6e72733e8e263ca30c84f4f",
+  "controls": {
+    ".agents/skills/fpga-multi-node/SKILL.md": "57077272cd366f9edf1b82a4e1c59d6558dd76d10f2df6f83f55754098436ccd",
+    ".agents/skills/fpga-multi-node/skill-role.json": "7e8934fd3ea51eb6ad6e78395a195073c214c3d17336bb6613226dd92e87f4b6",
+    ".agents/skills/fpga-multi-node/references/protocol.md": "dff3f00071c50083775aae40254fc6f5aa9264afc141e6f0362bde0d0820a8e2",
+    ".planning/deepeye-desktop-handoff-20261015/transfer.json": "91d3ba46ea62c6aade0459c2c6e2a167ab076a4369b0cee304241b9fe265c165"
+  },
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+}

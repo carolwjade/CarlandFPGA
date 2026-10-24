@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "generated_at_utc": "2026-10-19T16:43:58.412310+00:00",
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "A-G02-LAYOUT-CONTINUE-20261020-v1",
+  "product_root": ".local/deepeye-implementation-a",
+  "branch": "codex/a/deepeye-implementation-20261014",
+  "initial_head_observed_at_task_start": "889d7d6ebf0e2719aeb64cf13e3be6ebca2a2bc1",
+  "current_head_at_manifest_time": "678e01dd097f326e5bf724dc9db9e6b3e388384d",
+  "head_advanced_by_main_not_this_child": true,
+  "head_advance_affects_layout_six": false,
+  "git_status_six": [
+    " M competition/deepeye/simulator/editor/scene_document.gd",
+    " M competition/deepeye/simulator/ui/shell.gd",
+    "?? competition/deepeye/docs/layout_persistence.md",
+    "?? competition/deepeye/simulator/editor/layout_codec.gd",
+    "?? competition/deepeye/simulator/editor/layout_store.gd",
+    "?? competition/deepeye/simulator/tests/test_layout_persistence.gd"
+  ],
+  "git_status_all_raw": [
+    " M competition/deepeye/simulator/editor/scene_document.gd",
+    " M competition/deepeye/simulator/ui/shell.gd",
+    " M docs/competition/deepeye-2026/.gitattributes",
+    "?? competition/deepeye/ai_pc/",
+    "?? competition/deepeye/docs/layout_persistence.md",
+    "?? competition/deepeye/docs/rules_verification.md",
+    "?? competition/deepeye/evidence/ai/",
+    "?? competition/deepeye/simulator/editor/layout_codec.gd",
+    "?? competition/deepeye/simulator/editor/layout_store.gd",
+    "?? competition/deepeye/simulator/tests/test_layout_persistence.gd",
+    "?? competition/deepeye/tests/ai/",
+    "?? competition/deepeye/tests/test_check_rules.py",
+    "?? competition/deepeye/tools/check_rules.py"
+  ],
+  "six_file_manifest": [
+    {
+      "path": "competition/deepeye/simulator/editor/layout_codec.gd",
+      "bytes": 14686,
+      "sha256": "c3846c39426c7ae5042e300d02c1bb7a6705f7482318f5eb70bc095ee8ca4a72",
+      "git_blob_sha1": "d9c2605f78382ef8d12569c788a352a137026eed",
+      "lines": 367,
+      "ends_with_lf": true
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/layout_store.gd",
+      "bytes": 5754,
+      "sha256": "6386a5d49fb2856bbcd46d1f07192842aef399220e097f92e64409e9211efe56",
+      "git_blob_sha1": "6843951203e1ccbeed2923b28592bd8a9f0ce10f",
+      "lines": 119,
+      "ends_with_lf": true
+    },
+    {
+      "path": "competition/deepeye/simulator/editor/scene_document.gd",
+      "bytes": 30327,
+      "sha256": "b603c7468b2f798f68601af23bf1c78051d217f086f806aa604962032dee1f5e",
+      "git_blob_sha1": "46c322fb5aca044e7ba425b38e05ca15dce6de6c",
+      "lines": 838,
+      "ends_with_lf": true
+    },
+    {
+      "path": "competition/deepeye/simulator/ui/shell.gd",
+      "bytes": 31110,
+      "sha256": "97e96a52eea2fe1c6d0c436d1a2526553fd8a6c0c72e2f930148d7bb2a3640fc",
+      "git_blob_sha1": "6fa169f2055bdc3a4520ac8006b22c2ec8aa0cab",
+      "lines": 828,
+      "ends_with_lf": true
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_layout_persistence.gd",
+      "bytes": 37201,
+      "sha256": "dfe81da4c6134865483e19776edf1a0f2ff79b279e694eb25a0fb1e64a0cd6b7",
+      "git_blob_sha1": "90bb41d812b70d3befd520c3dc1ad862447ebed5",
+      "lines": 690,
+      "ends_with_lf": true
+    },
+    {
+      "path": "competition/deepeye/docs/layout_persistence.md",
+      "bytes": 6228,
+      "sha256": "2f796aef1b0f276bea66ca54741dcc1b1c6284d156f6d7301fc9595307897a5c",
+      "git_blob_sha1": "adc8a2abaebd0d1ff283b05ab9b0a9931e2ceb23",
+      "lines": 108,
+      "ends_with_lf": true
+    }
+  ],
+  "new_uid_sidecars": [
+    {
+      "path": "simulator/editor/layout_codec.gd.uid",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "path": "simulator/editor/layout_store.gd.uid",
+      "exists": false,
+      "sha256": null
+    },
+    {
+      "path": "simulator/tests/test_layout_persistence.gd.uid",
+      "exists": false,
+      "sha256": null
+    }
+  ],
+  "engine": {
+    "path": ".planning/deepeye-implementation-a/app-worker-ui/godot/Godot_v4.7.2-stable_win64_console.exe",
+    "sha256": "c8f0a6bc45a19b33541501e57f6f7cd972ab18453743266339d495cbbe846643",
+    "version_stdout": "4.7.2.stable.official.ed1daf0bf",
+    "version_exit_code": 0
+  },
+  "dependencies_before_after": [
+    {
+      "path": "competition/deepeye/simulator/project.godot",
+      "before_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "after_sha256": "be6e37bfb9873eb5557aba170f3de4d4593833daf134ccde8593b9f7e3624161",
+      "same": true,
+      "current_git_blob_sha1": "4174296e3eab3456a7a6fb8267347f487c170598"
+    },
+    {
+      "path": "competition/deepeye/simulator/viewer/main.gd",
+      "before_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "after_sha256": "9d04c654aa0d64643654d2378eed631135ee9927059b8fc8a5c7d26127644083",
+      "same": true,
+      "current_git_blob_sha1": "d0fe53d87a42552aa80968007f537f3abc46514e"
+    },
+    {
+      "path": "competition/deepeye/simulator/viewer/main.tscn",
+      "before_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "after_sha256": "b770eedd64ea5dea3205c324b0501d483dbb2c6d52cadbb9c24aa428b15314db",
+      "same": true,
+      "current_git_blob_sha1": "9e2282ac2595758740c68184b73fe4f86c085a72"
+    },
+    {
+      "path": "competition/deepeye/simulator/tests/test_editor_document.gd",
+      "before_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "after_sha256": "3b1e79c8cde2b29122c9e0a36819eef63bdd329862ed299f84d6ce1cf1b5b430",
+      "same": true,
+      "current_git_blob_sha1": "26f1ea547084b09eaf5de41f80ab108569067161"
+    },
+    {
+      "path": "competition/deepeye/docs/resource_contract.json",
+      "before_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "after_sha256": "852a686a0ee261773dbc233350a6ab1d540edae0b2c3889d928caefdfc629ff4",
+      "same": true,
+      "current_git_blob_sha1": "e65957dc6efff443e183384e3eb05c251499387f"
+    }
+  ],
+  "dependency_change": "none; no new external runtime dependency; project.godot and read-only viewer/editor-test inputs equal initial head",
+  "tests": {
+    "layout_persistence_final": {
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08",
+      "arguments": "﻿--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-08\\simulator\" --script \"res://tests/test_layout_persistence.gd\"\n",
+      "exit_code": 0,
+      "checks": 618,
+      "failures": 0,
+      "stdout_sha256": "b307e8eb37ec543e1b70fc5092826564421ec6a9ee8c59082f430c44b8e5c203",
+      "stderr_sha256": "d1dd8efcae7f3327997b59a010dd647101e67992ba77857e77d9b65728de27a4",
+      "stdout_reference": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stdout.log",
+      "stderr_reference": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/persistence-run-08/stderr.log"
+    },
+    "editor_regression_final": {
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04",
+      "arguments": "﻿--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-04-editor\\simulator\" --script \"res://tests/test_editor_document.gd\"\n",
+      "exit_code": 0,
+      "checks": 696,
+      "failures": 0,
+      "stdout_sha256": "f16f984cdb956be0f6d84e49537f41a7456ca67bafb019c612b7319b4260f24f",
+      "stderr_sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "stdout_reference": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stdout.log",
+      "stderr_reference": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/editor-run-04/stderr.log"
+    },
+    "scene_load_smoke_final": {
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/scene-smoke-07",
+      "arguments": "﻿--headless --path \"C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\g02-layout-continuation-20261020\\author\\stage-07-smoke\\simulator\" --script \"res://tests/smoke_layout_scene.gd\"\n",
+      "exit_code": 0,
+      "stdout_sha256": "965e1689605dea549fe91c63c4720348edb9b742a86388b2936b6684f139b9e7",
+      "stderr_sha256": "352d315e7eca06d76ec796af65123fdff21deea4adf2f92dffa2d0a2406263a0",
+      "marker": "SCENE_SMOKE_PASS document=1 shell=1 file_dialog=1"
+    },
+    "initial_compile_partial_source": {
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/compile-run-01",
+      "exit_code": 1,
+      "note": "Preserved failed attempt against partial source: missing Shell methods and store EOF/UTF-8 behavior."
+    },
+    "failed_store_probe": {
+      "evidence_dir": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/author/probe-store-01",
+      "exit_code": 0,
+      "note": "Preserved diagnostic showing bounded read mistakenly treating EOF as I/O error."
+    }
+  },
+  "original_missing_function_red_reference": {
+    "root": ".planning/deepeye-resume-20261018/g02-layout-persistence-author",
+    "files": {
+      "red/run2/evidence/stdout.log": {
+        "exists": true,
+        "sha256": "c5f1097065249fad9b3fd6172382b7fc0c97f64e96d629a443f8aeaad587c239"
+      },
+      "red/run2/evidence/stderr.log": {
+        "exists": true,
+        "sha256": "5ef97367d041bd1cadbfb82a16ff29cb5d30781b7e19c4c7d6775593abb8ca2d"
+      },
+      "red/run2/evidence/exit_code.txt": {
+        "exists": true,
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      },
+      "red/baseline/competition/deepeye/simulator/tests/test_layout_persistence.gd": {
+        "exists": true,
+        "sha256": "3ce9816b1346040ccb5d08da28e63c42a90018a1a6195e8f0e62cd15c02ad38a"
+      }
+    }
+  },
+  "predecessor_partial_test_snapshot": {
+    "path": ".planning/deepeye-resume-20261018/g02-layout-continuation-20261020/predecessor-snapshot/partial-test_layout_persistence.gd",
+    "sha256": "fd5bf42ef47bf62662b559f7858160797e2a04f27e9b6aeab319e569c608f319"
+  },
+  "scope_status": {
+    "candidate_headless_pass": true,
+    "main_review_required": true,
+    "product_accepted": false,
+    "g02": "not_run",
+    "h01_h15": "not_run",
+    "formal29": "not_run",
+    "native_ui": "not_run",
+    "dual_h12": "not_run",
+    "board_run": "forbidden_not_run",
+    "service_changes": "forbidden_not_run"
+  }
+}
