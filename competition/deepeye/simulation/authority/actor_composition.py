@@ -534,6 +534,13 @@ class ActorComposition:
     def poll(self):
         self._channel_health()
         self._actor.poll()
+        if self._state == 'ACTIVE':
+            # Sample actual runtime time after the original actor's poll. This
+            # observes stopping only; step() could prepare and publish motion.
+            expiry = self._runtime.check_expiry()
+            if expiry.stop_required:
+                self._retire(expiry.reason)
+                return _STOPPED
 
     @_entry
     def stop(self, reason):

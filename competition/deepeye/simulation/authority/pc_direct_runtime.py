@@ -108,6 +108,13 @@ class StepResult:
     receipt: CommitReceipt | None = None
 
 
+@dataclass(frozen=True)
+class ExpiryStatus:
+    """Owner-only stop diagnostic; neither readiness nor motion permission."""
+    stop_required: bool
+    reason: str
+
+
 class AuthorityDependencies(ABC):
     """Trusted in-process boundary. All missing/rejected evidence must raise.
 
@@ -408,6 +415,35 @@ class PcDirectRuntime:
         """Any operator/config/mode/restart/source/AI loss may always stop safely."""
         self._trip(reason if type(reason) is str and reason else 'external_stop')
 
+    @_runtime_entry
+    def check_expiry(self):
+        """Observe original expiry without dependencies, preparation or motion.
+
+        No expiry requirement is only a diagnostic: an uncommanded runtime may
+        still lack heartbeat, observations or liveness. Normal command expiry
+        remains non-latching here; the composed owner retires that activation.
+        """
+        entered = False
+        try:
+            if self._busy or self._stepping:
+                raise ValueError('reentrant expiry check forbidden during an event or physics step')
+            self._busy = True
+            entered = True
+            now = self._advance()
+            if self._latched:
+                return ExpiryStatus(True, self._reason)
+            # _advance or a prior channel event may already have cleared the
+            # current action. Only fresh verified BOOT resets this history.
+            if self._last_command is not None and now >= self._last_command.deadline_ns:
+                return ExpiryStatus(True, 'command_deadline')
+            return ExpiryStatus(False, 'no_expiry_requirement')
+        except BaseException:
+            self._trip('expiry_check_failed')
+            raise
+        finally:
+            if entered:
+                self._busy = False
+
     def _ready(self, dt_ns):
         now = self._advance(); self._active()
         if now < self._executed_until_ns:
@@ -507,4 +543,5 @@ class PcDirectRuntime:
 
 
 __all__ = ['PcDirectRuntime', 'AuthorityDependencies', 'BootBinding', 'VerifiedEnvelope',
-           'VerifiedObservation', 'AiLease', 'StepFence', 'CommitReceipt', 'StepResult']
+           'VerifiedObservation', 'AiLease', 'StepFence', 'CommitReceipt', 'StepResult',
+           'ExpiryStatus']
