@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "utc": "2026-10-24T00:04:46.269220+00:00",
+  "state": "EXPLICIT_BOUNDED_FORMAT_ACCEPTANCE; DEFAULT_GIT_CHECKS_REMAIN_FAILED_AND_PRESERVED",
+  "default_git_check": {
+    "exit": 2,
+    "stdout_bytes": 103747,
+    "stdout_sha256": "3ac69ca0c729feda561e9e1f0c128692daf6cab3748ad0a66fa9b18d56c3d8ac",
+    "reason": "CRLF code/fixtures are intentionally preserved to match actual tested raw pins"
+  },
+  "CRLF_aware_git_check": {
+    "exit": 2,
+    "preserved_default_categories": [
+      "blank-at-eol",
+      "blank-at-eof",
+      "space-before-tab"
+    ],
+    "added_line_ending_interpretation": "cr-at-eol",
+    "complete_remaining_output": [
+      "competition/deepeye/simulator/tests/fixtures/before/layout_commit_cli.py:22: new blank line at EOF.",
+      "competition/deepeye/simulator/tests/fixtures/delay/layout_commit_cli.py:28: new blank line at EOF.",
+      "competition/deepeye/simulator/tests/fixtures/loss/layout_commit_cli.py:24: new blank line at EOF.",
+      "competition/deepeye/simulator/tests/fixtures/split/layout_commit_cli.py:30: new blank line at EOF.",
+      "competition/deepeye/simulator/tests/fixtures/trailing/layout_commit_cli.py:27: new blank line at EOF."
+    ]
+  },
+  "root_raw_text_scan": {
+    "files": 39,
+    "CRLF_recognized_as_line_ending": true,
+    "unexpected_embedded_CR_or_trailing_spaces_or_space_before_tab": 0,
+    "unapproved_blank_at_EOF": 0
+  },
+  "exact_pinned_test_fixture_exceptions": {
+    "competition/deepeye/simulator/tests/fixtures/before/layout_commit_cli.py": {
+      "sha256": "5a30b8070e0c67515b34009062b724b06597a23827129df30ead7424d6681226",
+      "diagnostic_line": 22,
+      "raw_tail_hex": "2f7075626c69636174696f6e0d0a0d0a",
+      "terminal_blank_suffix_hex": "0d0a0d0a",
+      "status": "Immutable hash-bound test-only helper; exactly one terminal empty line retained, not a production whitespace exception"
+    },
+    "competition/deepeye/simulator/tests/fixtures/delay/layout_commit_cli.py": {
+      "sha256": "7537e5648a550d999d8a49e11634feb04a8e4541074cfb582fb4cba9121d4117",
+      "diagnostic_line": 28,
+      "raw_tail_hex": "646f672e63616e63656c28290d0a0d0a",
+      "terminal_blank_suffix_hex": "0d0a0d0a",
+      "status": "Immutable hash-bound test-only helper; exactly one terminal empty line retained, not a production whitespace exception"
+    },
+    "competition/deepeye/simulator/tests/fixtures/loss/layout_commit_cli.py": {
+      "sha256": "2bf441c2f7b9ad70edd3d8d7d00133aefc4ec05bc4cf772654c9b65aa489f99f",
+      "diagnostic_line": 24,
+      "raw_tail_hex": "696f6e616c6c79206c6f73740d0a0d0a",
+      "terminal_blank_suffix_hex": "0d0a0d0a",
+      "status": "Immutable hash-bound test-only helper; exactly one terminal empty line retained, not a production whitespace exception"
+    },
+    "competition/deepeye/simulator/tests/fixtures/split/layout_commit_cli.py": {
+      "sha256": "4004f85216cd35dc99c3b07a21a1ea356b38c7fbf8b0697ee53d36e97d03a281",
+      "diagnostic_line": 30,
+      "raw_tail_hex": "646f672e63616e63656c28290d0a0d0a",
+      "terminal_blank_suffix_hex": "0d0a0d0a",
+      "status": "Immutable hash-bound test-only helper; exactly one terminal empty line retained, not a production whitespace exception"
+    },
+    "competition/deepeye/simulator/tests/fixtures/trailing/layout_commit_cli.py": {
+      "sha256": "01ad043c394f45dc2c3a95012b979f40e4a059f607b569530daf1beea3a8d112",
+      "diagnostic_line": 27,
+      "raw_tail_hex": "646f672e63616e63656c28290d0a0d0a",
+      "terminal_blank_suffix_hex": "0d0a0d0a",
+      "status": "Immutable hash-bound test-only helper; exactly one terminal empty line retained, not a production whitespace exception"
+    }
+  },
+  "independent_opinion": {
+    "accepted": true,
+    "decision_owner": "A Desktop Gen3 root under existing human implementation authorization",
+    "independent_reviewer": "/root/godot_owned_save_review",
+    "frozen_review_manifest_sha256": "1682ee15cbd2e9a80a25984c2af9bdbc0fc2f1900bc0b23d818595af1b64b155",
+    "additional_readonly_review": "Reviewer independently read both original failed outputs and all five actual staged fixture blobs. Each matches frozen selection32 and current raw worktree bytes; all are CRLF, with exactly one terminal empty line and no trailing spaces/tabs. CRLF-aware output is exactly the five paths/lines22,28,24,30,27; stderr empty.",
+    "verdict": "Accept a one-shot exact-hash formatting exception only for those five immutable test-helper terminal blank lines, recognize CRLF as line endings, retain all other whitespace categories strictly. Do not claim either exit2 gate passed; publish both outcomes and exact exception scope. Do not change source/fixtures, permanent whitespace rules or global Git config. No test replay or new engine.",
+    "publication_condition": "Revalidate41 staged and committed raw blobs and C4, then resume only the unexecuted commit/push once from the existing stage. Original40-file transaction and failed checks remain preserved."
+  },
+  "effective_attributes": "competition/deepeye/simulator/editor/layout_commit_bridge.gd: text: unset\ncompetition/deepeye/simulator/editor/layout_commit_bridge.gd: filter: unset\ncompetition/deepeye/simulator/native/run_viewer.py: text: unset\ncompetition/deepeye/simulator/native/run_viewer.py: filter: unset\ncompetition/deepeye/simulator/tests/fixtures/before/layout_commit_cli.py: text: unset\ncompetition/deepeye/simulator/tests/fixtures/before/layout_commit_cli.py: filter: unspecified\n",
+  "source_or_fixture_bytes_changed_for_format": false,
+  "global_or_future_Git_check_config_changed": false,
+  "tests_or_engines_reexecuted": false,
+  "acceptance_boundary": "Formatting metadata/adjudication only; no product/test/H01-H15 gate is relaxed or marked passed. FormalG02/physical/H12/all29 remain open.",
+  "original_publication_stop": "After stage/rawblob verification; before commit/push; source HEAD and remote unchanged. Resume only the remaining commit/push."
+}

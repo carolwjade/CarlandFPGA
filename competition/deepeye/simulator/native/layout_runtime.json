@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "executable_sha256": [
+    "8da03db46eee55bac083e84362a6d75bf2c53ed12848b7400757b5fe53a432f2"
+  ],
+  "dependencies": [
+    {
+      "origin": "base_prefix",
+      "path": "python.exe",
+      "sha256": "ceabb31054d429f57cb3825775677eeaf0db35fdabbc5ff6aef661c037154b00"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "python312.dll",
+      "sha256": "7e6decf2bf713fc4bdec8f08ff96517f79a481ac12a7aed4daeec55dfb414b3e"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "python3.dll",
+      "sha256": "313753204dbbb0e3b80ab860f98abb23b58d9f7e7eecb53e618021c01238c261"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "DLLs/libffi-8.dll",
+      "sha256": "1dd144bf29b21d130803552f4d335d3b920bd8b4d589a03d7ac23bbf5a717176"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "vcruntime140.dll",
+      "sha256": "d5e4d9a3e835fa679450145d6a7d94e36573a509317111904d9b3712c30d9066"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "vcruntime140_1.dll",
+      "sha256": "1f2d41c4aa5db0bc33ebf7b66d72943a817d7ce6cbe880502a9403823633093f"
+    },
+    {
+      "origin": "base_prefix",
+      "path": "DLLs/_ctypes.pyd",
+      "sha256": "428bc44c7d358a37e85dc55a521fd957252b17cd513d1575e6081a2ca01576f1"
+    },
+    {
+      "origin": "prefix",
+      "path": "pyvenv.cfg",
+      "sha256": "80d8975bb12ff82e3f6fb8e4bdfaa51b8e031f91c5fdea0dbc10b6cc42d1d5e9"
+    }
+  ],
+  "trust_boundary": "Existing approved CPython 3.12 installation and standard library. These small identity pins are not a full runtime or standard-library anti-tamper closure."
+}

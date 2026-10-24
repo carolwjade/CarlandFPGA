@@ -1,108 +1,73 @@
 # 私有布局保存与重开（G02 增量）
 
-状态：作者候选实现，主会话独立审查前不构成验收。正式 G02、H01-H15 和
-29 张任务书卡片仍为 `not_run`。本功能只处理编辑器几何的本地持久化，不证明
-未来模型/进程隔离、产品物理、控制链路或正式 UI 验收。
+本增量将另存为接到已审查的 Windows 独占源句柄发布原语。它仍是待主会话
+独立审查的候选；headless 软件结果不等于正式 G02、真实鼠标/DPI、H09、
+完整双 H12 或29卡验收。合同 H01-H15 不变。
 
-## 用户流程
+编辑或停止状态可保存/打开，运行、暂停或锁定状态仍禁止。保存使用明确的本地
+绝对路径，只创建新文件，不覆盖目标。保存期间有独立提示，Save/Open 按钮
+禁用；界面仍可绘制和响应，保存不修改几何、选择、撤销/重做、种子、运行、
+链路或控制状态。超时后普通编辑可继续，未结束的保存仍占用唯一保存槽。
 
-- 左侧现有工具栏新增“保存布局…”和“打开布局…”按钮。编辑状态为
-  `editing` 或 `stopped` 时可用；`running`、`paused`、`locked` 时按钮禁用，
-  且迟到的 `file_selected` 仍会在改变文档前再次检查状态。
-- 两个按钮打开同一个显式 `FileDialog`（`ACCESS_FILESYSTEM`，本项目使用非原生
-  场景内对话框）。默认目录为 Godot 查看器私有用户数据下的 `layouts/`；用户
-  可明确选择其他本地路径。
-- 保存只创建新文件；顺序执行时拒绝已存在的文件或目录，失败不改变当前文档，
-  也不改变已有目标的内容。
-- 打开先完成有界读取和全部严格校验，再一次性替换原始 `SceneDocument` 的几何。
-  成功后清空撤销/重做和选择，设置来源为“文件布局”、种子未知，并通过现有
-  `layout_changed` / `gates_changed` 信号重建原 viewer 网格和圈。
-- 取消、读取失败、格式失败、状态变化或写入失败均保持当前几何、选择、历史、
-  Run/链路状态不变；失败事件只用于可见反馈，不恢复文件中的任何运行字段。
+5000ms 等待截止时显示“保存结果未知，文件可能已写入；请检查目标文件，勿
+自动重试”。这不表示失败或取消。文件、临时源或已创建的父目录都不会被调用方
+删除，也不会重放请求。独立 helper 的6秒 watchdog 在普通调度下自退出124，
+该值既可能在发布前出现，也可能在发布后出现。解释器启动、调度或内核停顿
+不受严格 OS 截止保证；真正未结束的 worker 被保留，不 join、不重启、不重试。
+同一路径的 unknown 结果在本进程继续隔离。重启不自动恢复或重放；后续明确的
+另存为可选择新路径。迟到的结果单独记录/提示，不替换原 unknown，也不回放旧几何。
 
-## 文件和哈希
+`LayoutStore.save_new_async` 供 shell await；兼容 `save_new` 也走同一安全 worker，
+有限等待后返回。旧临时路径检查、FileAccess 写入和 Godot rename 发布/清理算法
+已移除。目标文件只由 Windows leaf 的原始源 HANDLE 写入、flush、重读和单次
+no-replace rename 发布。原语仅支持现有已审范围：普通固定本地 NTFS、直接
+HarddiskVolume 盘符映射、支持的绝对路径/父目录。并发源与目标安全沿用独立审查
+和原19项 NTFS 证据；本次不重跑旧原语测试。
 
-文件是普通 UTF-8 JSON，不是 Godot Resource。固定顶层字段：
+UNC、设备路径、ADS、NUL、traversal 和显见非法/保留名称在 mkdir 前拒绝。
+可信运行环境预检后，worker 可递归创建缺失父目录；这是独立、非原子的便利步骤，
+可能先于 leaf 的不支持卷/祖先拒绝发生，失败也不删除父目录。它不能消除并发改链，
+不等于整个保存事务原子。特权命名空间/驱动过滤/ACL/盘符改映射与断电持久性
+仍不在该限定承诺内。
 
-```json
-{
-  "schema": 1,
-  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision1",
-  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
-  "units": "m",
-  "layout": {
-    "obstacles": [],
-    "gates": {
-      "entry": {"face": "front", "u": 0.0, "v": 0.0},
-      "exit": {"face": "back", "u": 0.0, "v": 0.0}
-    }
-  },
-  "layout_hash": "<64 lowercase hex characters>"
-}
-```
+打开仍使用原有1MiB/UTF8有界读取与严格几何 codec，校验成功才一次替换文档。
+成功打开会清空历史和选择、设置来源“文件布局”、种子未知；失败保持当前状态。
+codec/文档/控制逻辑没有改变。JSON 仍只含 schema、不可变合同与 requirements
+hash、m 单位、obstacles/gates 几何和 layout_hash；不含运行/链路/控制/模型/种子/
+路线/真值。layout_hash 是规范几何内容一致性标识，不是签名或权限。
 
-`layout_hash` 沿用现有 `SceneDocument.commitment_hash()` 的规范化：对象键排序，
-数组保持顺序，数值固定六位小数，字符串使用 JSON 转义，对 UTF-8 canonical JSON
-取 SHA256。它只校验内容一致性，不是签名、权限或权威认可。
+源项目请用 `simulator/native/run_viewer.py`，明确传入经过固定 SHA256 验证的
+Godot 路径和独占 userdata/cache/TEMP 目录。启动器使用当前真实 Python 路径，
+核对 interpreter/base/DLL/pyvenv.cfg 等小型身份清单；现有 CPython/stdlib 安装
+是信任边界，不假称完整标准库闭包。仅子进程获得显式绑定和环境白名单，provider/
+FPGA 凭据与 PATH/PYTHONPATH 不复制。无全局配置或服务变更。具体命令见
+`simulator/native/README.md`。PCK 导出须另行安装真实文件侧车/runtime 与等价
+固定 pins；本增量不建立或声称导出安装可用。
 
-每个 obstacle 只允许 `object_id`、`kind`、`position`、`rotation_deg`、`size`、
-`priority`。`kind` 必须是现有五种材料之一，`priority` 必须等于该材料的固定
-优先级。`object_id` 必须是唯一正整数；Godot 4.7.2 将 JSON 数字解析为浮点数，
-因此 codec 要求数值精确为整数且在安全整数范围内，不做字符串强转或小数截断。
+helper 只接收一帧不超过1MiB的严格 UTF8 opaque 几何；argv 不传目标或负载，
+只含固定 bootstrap、bundle 路径和其 pin。校验 helper/leaf 原始字节后直接执行
+那些已校验字节；不从布局 JSON 导入模块，不注册 AI/provider/control/service。
+工作线程独占 pipe，不调用 SceneTree/文档/控制。主循环只查看锁保护状态，
+Thread 不再 alive 才 join。精确原子进程退出>=0和独占未释放 map 条目均确认后，
+只消费一次原 HANDLE cleanup；FAILED 不作停止证据或重试理由。Godot 不暴露
+CloseHandle 返回值，所以这里只记录 cleanup 尝试与 map 读回，不声称内核句柄
+关闭已验证。
 
-## 严格边界
+worker 累积 blocking header/body 的所有 partial bytes；先观察原 helper 精确
+退出，再逐字节有界 drain stdout/stderr。当前固定 helper/adapters 不创建子进程
+或额外 writer，生产 stderr 不超过4096；仅在这些条件下，末次读取0作为本范围
+drain 结束点。Godot 不暴露底层 Win32 read error，故不声称一般 EOF/逐错误码
+证明。截断、超限或尾随 stdout 均为 unknown，不查询 pipe length 或压制日志。
 
-- 最大文件 1 MiB，最大 30 个 obstacle，JSON 嵌套最多 32 层；先检查大小和深度，
-  再交给 JSON 解析器。
-- 顶层、`layout`、obstacle、vector 和 gate 均拒绝缺失或额外字段。因此
-  `run_state`、`control_bridge_connected`、`link_state`、随机种子、路线、
-  BOOT、模型、传感器真值、资源路径和控制字段都不能进入或恢复。
-- 所有坐标、尺寸、旋转和门参数必须是有限数值；bool、字符串、NaN/Infinity 和
-  超大指数不能冒充数值。
-- 位置中心须在 `[-15, 15]^3` 内；尺寸按现有 kind 范围；门面只能是六个合法面，
-  `|u|`、`|v|` 不超过 14.85 m，同面两圈中心距不得小于 0.30 m。
-- 文件字节必须是有效 UTF-8。实现不使用 `ResourceLoader`、`load()`、`eval()`，
-  不执行文件中任何内容；只调用 JSON 数据解析。
+新的聚焦脚本 `simulator/tests/test_layout_commit_bridge.gd` 在全新 staging /
+userdata/cache/TEMP 路径运行，覆盖真实 helper 保存重开、Unicode/nonBMP、
+codec hash、空/恰好1MiB/超限、已有哨兵、缺少/错误 runtime 零启动、同步兼容、
+异步帧/提示/状态保持、唯一 worker 与第二请求拒绝、发布前后124、响应丢失、
+迟到成功单独记录、尾随 stdout 拒绝及完成 worker 的回收。split-frame 测试还
+实际观察 header/body partial read 并确认字节不丢失。故障仅来自分开固定哈希的
+test-only adapters；无生产故障开关。不重跑旧618/696/384或 solver/板测。
 
-## 保存发布的已知限制
-
-当前 store 在同一目标目录写入唯一临时文件，重读校验后再调用
-`DirAccess.rename_absolute` 发布；发布前后都检查目标不存在。Godot 4.7.2 的
-`FileAccess` 没有向调用方提供独占创建原语，这段检查、临时文件写入和 rename
-不是并发安全的原子事务。外部进程若在最终检查和 rename 之间创建目标，平台行为
-可能是 rename 失败或替换；当前实现不能声称“并发 no-overwrite”或“跨进程原子
-发布”。顺序场景的拒绝已有目标和失败保留旧目标由 headless 测试证明。
-
-临时名重试最多 16 次；所有候选均被占用时返回 `temp_unavailable` 并失败关闭，
-不会在重试耗尽后重新打开或截断已有临时文件。该检查也不能消除上述检查/打开之间
-的并发竞态，因此本功能不能替代 OS 目录权限和隔离验收。
-
-保存文件可能包含编辑器私有几何。默认位置是查看器私有用户数据，但用户可在
-文件对话框中选择其他本地路径；此功能不建立 AI/模型输入白名单，也不证明它们
-无法在操作系统层读取该路径。
-
-## Headless 验证
-
-作者在精确 `Godot 4.7.2.stable.official.ed1daf0bf` 上，于全新 staging
-项目/userdata/cache/TEMP 中运行：
-
-```text
-godot --headless --path <staged-simulator> --script res://tests/test_layout_persistence.gd
-godot --headless --path <staged-simulator> --script res://tests/test_editor_document.gd
-godot --headless --path <staged-simulator> --script res://tests/smoke_layout_scene.gd
-```
-
-该 smoke 脚本只存在于作者 staging 证据目录，不属于 PRODUCT 六文件范围。
-
-当前候选结果为 `test_layout_persistence` 618 checks / 0 failures、
-`test_editor_document` 696 checks / 0 failures，显式 scene-load smoke 为
-`SCENE_SMOKE_PASS`。拒绝 NaN、无效 UTF-8 和超大指数时引擎 stderr 会打印解析
-警告，测试仍按预期拒绝且退出码为 0；这不是通过证据，也不是正式 UI 证据。
-
-## 仍未完成的正式义务
-
-- 真实鼠标点击保存/打开/取消、真实文件选择和中文失败反馈记录。
-- 200 步真实 UI 操作、保存后修改再打开、屏幕哈希读回及人工核对。
-- 1080p/1440p 和 125%/150% 缩放下的新按钮、对话框裁切检查。
-- G02 所依赖的正式资产、物理碰撞、完整穿门、控制模式、隔离及性能证据。
-- 双 H12 链路、正式 29 卡和 H01-H15 均保持未验收。
+仍需真实鼠标/选择/取消、200步真实操作与屏幕读回、1080p/1440p及125%/150%
+缩放、正式资产/体积碰撞/完整穿门、隐藏布局与因果传感、PC AI 和双 H12 链路的
+各自证据。本次不建立新的模型数据白名单，也不证明其他 OS 进程读不到用户选定
+文件。G03/R03/all29 保持 `not_run`。

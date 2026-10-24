@@ -49,6 +49,8 @@ var _initialized := false
 var _layout_store = null
 var _dialog_action := ""
 var last_file_result: Dictionary = {}
+var _file_save_pending := false
+var _save_pending_label: Label
 
 var _pick_buttons: Dictionary = {}
 var _kind_option: OptionButton
@@ -108,6 +110,17 @@ func bind_editor(main_node: Node, document) -> void:
 	for event in _document.events:
 		_append_event(event)
 	_refresh_all()
+
+func _process(_delta: float) -> void:
+	if _layout_store == null or _save_pending_label == null:
+		return
+	var late: Array = _layout_store.take_late_save_results()
+	if not late.is_empty():
+		_save_pending_label.text = "上次保存已结束；请自行检查目标文件"
+		_refresh_all()
+	elif not _file_save_pending and not _layout_store.has_unresolved_save() and _save_pending_label.text == "保存结果未知，仍在等待结束；请勿重试":
+		_save_pending_label.text = "上次保存已结束；请自行检查目标文件"
+		_refresh_all()
 
 # ---------------------------------------------------------------------------
 # UI construction
@@ -372,6 +385,9 @@ func _build_left(box: VBoxContainer) -> void:
 	_open_button.tooltip_text = "严格校验后替换当前几何；失败不改变当前布局"
 	file_row.add_child(_save_button)
 	file_row.add_child(_open_button)
+	_save_pending_label = Label.new()
+	_save_pending_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	box.add_child(_save_pending_label)
 	_layout_source_label = Label.new()
 	_layout_source_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_layout_source_label.text = "布局来源: 初始默认 · 种子未知"
@@ -685,9 +701,9 @@ func _refresh_all() -> void:
 	_undo_button.disabled = snapshot.undo_depth == 0 or not snapshot.can_edit
 	_redo_button.disabled = snapshot.redo_depth == 0 or not snapshot.can_edit
 	if _save_button != null:
-		_save_button.disabled = not snapshot.can_edit
+		_save_button.disabled = not snapshot.can_edit or _file_save_pending or (_layout_store != null and _layout_store.has_unresolved_save())
 	if _open_button != null:
-		_open_button.disabled = not snapshot.can_edit
+		_open_button.disabled = not snapshot.can_edit or _file_save_pending or (_layout_store != null and _layout_store.has_unresolved_save())
 	if _layout_source_label != null:
 		var seed_text := "种子 %d" % int(snapshot.random_seed) if bool(snapshot.seed_known) else "种子未知"
 		_layout_source_label.text = "布局来源: %s · %s" % [String(snapshot.layout_origin), seed_text]
@@ -751,10 +767,11 @@ func _configure_file_dialog(action: String) -> bool:
 	return true
 
 func _prepare_file_dialog(action: String) -> bool:
+	if _file_save_pending or (_layout_store != null and _layout_store.has_unresolved_save()):
+		_set_hint("上次保存尚未结束，请稍候")
+		return false
 	_dialog_action = action
 	var layout_dir: String = _layout_store.default_layout_dir()
-	if not DirAccess.dir_exists_absolute(layout_dir):
-		DirAccess.make_dir_recursive_absolute(layout_dir)
 	_file_dialog.current_dir = layout_dir
 	_file_dialog.current_file = ""
 	if action == "save":
@@ -792,6 +809,9 @@ func _on_open_layout_pressed() -> void:
 	_configure_file_dialog("open")
 
 func _on_file_selected(path: String) -> void:
+	if _file_save_pending or (_layout_store != null and _layout_store.has_unresolved_save()):
+		_set_hint("上次保存尚未结束，请稍候")
+		return
 	var action := _dialog_action
 	_dialog_action = ""
 	if _file_dialog != null:
@@ -808,7 +828,13 @@ func _on_file_selected(path: String) -> void:
 			if not bool(exported.get("ok", false)):
 				_set_file_failure(String(exported.get("code", "export_failed")), _result_reason(exported))
 				return
-			var stored: Dictionary = _layout_store.save_new(path, String(exported.get("text", "")))
+			_file_save_pending = true
+			_save_pending_label.text = "正在保存布局，请稍候…"
+			_refresh_all()
+			var stored: Dictionary = await _layout_store.save_new_async(path, String(exported.get("text", "")))
+			_file_save_pending = false
+			_save_pending_label.text = "保存结果未知，仍在等待结束；请勿重试" if _layout_store.has_unresolved_save() else ""
+			_refresh_all()
 			if not bool(stored.get("ok", false)):
 				_set_file_failure(String(stored.get("code", "save_failed")), _result_reason(stored))
 				return
@@ -820,7 +846,7 @@ func _on_file_selected(path: String) -> void:
 				"layout_hash": String(exported.get("layout_hash", "")),
 				"count": int(exported.get("count", 0)),
 			}
-			_set_hint("已另存为新文件（仅几何，hash %s）" % String(exported.get("layout_hash", "")).substr(0, 12))
+			_set_hint("已另存为新文件（仅几何）")
 		"open":
 			var read_result: Dictionary = _layout_store.read_text(path)
 			if not bool(read_result.get("ok", false)):
@@ -846,6 +872,10 @@ func _on_file_selected(path: String) -> void:
 			_set_file_failure("no_action", "未选择布局文件操作")
 
 func _on_file_dialog_canceled() -> void:
+	if _dialog_action.is_empty():
+		return
+	if _file_save_pending or (_layout_store != null and _layout_store.has_unresolved_save()):
+		return
 	_dialog_action = ""
 	last_file_result = {
 		"ok": false,
