@@ -8,6 +8,7 @@ import errno
 import hashlib
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path
 import select
@@ -23,6 +24,8 @@ PYNQ_SHA='d2ea2a5b61df23214e3d7990e6c103e23d2bada59be0abbf2a7d36db8f4ab384'
 BUILD_SHA='e906b1517d328e05b123346ea71c0c5c7c6552be7baa31dde2eb42833f0ef13a'
 BIT_SHA='8455b5f8648ff913926c7f55495c5e2ed7328e92a312558eed131f3edb0d11db'
 HWH_SHA='aa0ce7094eb0f1ed6a12684713cefe3a1635ef8c32af9fc32f8e1cc3cbef3ee1'
+RUNTIME_SOURCE_MANIFEST_SHA='9b0646628fef08bca9540a40efaf68f2080c785d090fee51c80b61f0a4c713dd'
+RUNTIME_SOURCE_PINS={'__init__.py': {'bytes': 766, 'sha256': 'd2ea2a5b61df23214e3d7990e6c103e23d2bada59be0abbf2a7d36db8f4ab384'}, 'bitstream.py': {'bytes': 7430, 'sha256': 'b7e37302fefca9f2d09ebf487aa14abac8e603e12c544e8888d9ebaca9bf2914'}, 'overlay.py': {'bytes': 39749, 'sha256': '949bbd3a1d296b487702f4c49013de24c3d6eb44da9fb2ebe1ada70d054237d7'}, 'pl_server/embedded_device.py': {'bytes': 24231, 'sha256': 'cfd41079517552329914c125ecfec97293e0d3160db008ed18de9afa7834dee1'}, 'ps.py': {'bytes': 23304, 'sha256': '7c9cd379fcb34415e4c664ec262eff2ab4b0e212ab417d128e7b19dec83522ba'}, 'registers.py': {'bytes': 14907, 'sha256': '3ecb2e19c4aa8a6972ae39e335c9de65c48993bac5796d8a693b27ac672b66ea'}, 'pl_server/device.py': {'bytes': 15268, 'sha256': 'cbfac4c5d0e78b1c2aa726ac18dcd5bf52d3d693159e8f948a0977b4af30ed74'}, 'pl_server/global_state.py': {'bytes': 2927, 'sha256': 'd04390c6647f9b8e2e8b55d49001b1daba739afd3203734c3753055611b397c6'}, 'pl_server/xrt_device.py': {'bytes': 20471, 'sha256': 'b79765ec53d92ac97657e95a7c990e8d1bdacb133161b278e1a8c3e4159fcd5e'}}
 U32=(1<<32)-1
 QUALIFICATION_SENTINEL=b'DEEPEYE_PRIVATE_RELAY_QUALIFICATION_V1\n'
 PRIVATE_PRELUDE=b'DEEPEYE_PRIVATE_INPUT_V1\n'  # Transport startup only; never BOOT/auth/wire evidence.
@@ -30,6 +33,76 @@ PRIVATE_PRELUDE=b'DEEPEYE_PRIVATE_INPUT_V1\n'  # Transport startup only; never B
 
 def require(value,message):
     if not value:raise ValueError(message)
+
+
+def _runtime_sources(package):
+    """Bounded static byte checks, not a measured-clock or hardware guarantee."""
+    require(package.is_dir() and not package.is_symlink(),'runtime package directory required')
+    identities=set();observed={}
+    for name,wanted in RUNTIME_SOURCE_PINS.items():
+        path=package/name
+        for part in (path,)+tuple(path.parents):
+            require(not part.is_symlink(),'runtime source symlink refused')
+            if part==package:break
+        descriptor=os.open(path,os.O_RDONLY|getattr(os,'O_NOFOLLOW',0))
+        with os.fdopen(descriptor,'rb') as source:
+            before=os.fstat(source.fileno());identity=(before.st_dev,before.st_ino)
+            require(stat_mode.S_ISREG(before.st_mode) and before.st_nlink==1 and identity not in identities and
+                    0<before.st_size==wanted['bytes']<=65536,'regular bounded unique runtime source required')
+            identities.add(identity);digest=hashlib.sha256();count=0
+            while True:
+                block=source.read(min(65536,before.st_size-count+1))
+                if not block:break
+                count+=len(block);require(count<=before.st_size,'runtime source grew during read');digest.update(block)
+            after=os.fstat(source.fileno())
+        require((before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns,before.st_nlink)==
+                (after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns,after.st_nlink) and
+                count==before.st_size and digest.hexdigest()==wanted['sha256'],'runtime source bytes changed')
+        observed[name]={'bytes':count,'sha256':digest.hexdigest()}
+    require(hashlib.sha256(json.dumps(observed,sort_keys=True,separators=(',',':')).encode()).hexdigest()==
+            RUNTIME_SOURCE_MANIFEST_SHA,'frozen runtime manifest mismatch')
+    return RUNTIME_SOURCE_MANIFEST_SHA
+
+
+def _configured_clock(value):
+    require(type(value) in (int,float) and math.isfinite(value) and value==100.0,
+            'configured FCLK0 must be finite numeric100; not a physical frequency measurement')
+    return value
+
+
+def _startup_preflight(request,ctx,pynq,clocks):
+    mode='require_operating';expected_manager='operating'
+    if 'startup_policy' in request:
+        policy=request['startup_policy']
+        require(type(policy) is dict and set(policy)=={'mode','expected_boot_id','expected_manager_state',
+                'expected_fclk0_mhz','runtime_source_manifest_sha256','vendor_download_effects_acknowledged'},
+                'exact six-key cold policy required')
+        require(type(policy['mode']) is str and policy['mode']=='root_released_unknown_start' and
+                type(policy['expected_boot_id']) is str and policy['expected_boot_id']==ctx['boot_id'] and
+                type(policy['expected_manager_state']) is str and policy['expected_manager_state']=='unknown' and
+                type(policy['runtime_source_manifest_sha256']) is str and
+                policy['runtime_source_manifest_sha256']==RUNTIME_SOURCE_MANIFEST_SHA and
+                policy['vendor_download_effects_acknowledged'] is True,'explicit current-boot pinned cold policy required')
+        _configured_clock(policy['expected_fclk0_mhz'])
+        mode=policy['mode'];expected_manager='unknown'
+    require(pynq.__version__=='3.0.1' and RUNTIME_SOURCE_PINS['__init__.py']['sha256']==PYNQ_SHA,
+            'current runtime module mismatch')
+    runtime_manifest=_runtime_sources(Path(pynq.__file__).parent)
+    boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    manager=Path('/sys/class/fpga_manager/fpga0/state').read_text().strip()
+    configured=_configured_clock(clocks.fclk0_mhz)
+    require(boot==ctx['boot_id'] and manager==expected_manager,'current startup boot/manager mismatch; no fallback')
+    return {'mode':mode,'boot_id':boot,'manager_state':manager,'configured_fclk0_mhz':configured,
+            'runtime_source_manifest_sha256':runtime_manifest,'physical_clock_proof':False,
+            'vendor_download_effects':'unchanged PYNQ clock/internalMMIO/cache/global-state/firmware/XRT path'}
+
+
+def _post_programming(ctx,clocks):
+    boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    manager=Path('/sys/class/fpga_manager/fpga0/state').read_text().strip()
+    configured=_configured_clock(clocks.fclk0_mhz)
+    require(boot==ctx['boot_id'] and manager=='operating','post-download boot/manager mismatch')
+    return {'boot_id':boot,'manager_state':manager,'configured_fclk0_mhz':configured,'physical_clock_proof':False}
 
 
 def _read_credential(fd):
@@ -446,7 +519,7 @@ class _Journal:
         raw=(json.dumps({'index':self.index,'agent_monotonic_ns':time.monotonic_ns(),**item},sort_keys=True,allow_nan=False)+'\n').encode()
         require(self.count+len(raw)<=self.limit,'finite journal budget exhausted')
         require(self.stream.write(raw)==len(raw),'short original journal write');self.stream.flush()
-        if item['event'].endswith('started_unknown') or item['event']=='session_finished':os.fsync(self.stream.fileno())
+        if item['event'].endswith('started_unknown') or item['event'] in ('session_finished','post_programming_verified'):os.fsync(self.stream.fileno())
         self.count+=len(raw);self.index+=1
     def close(self):self.stream.close()
 
@@ -525,9 +598,7 @@ def main(argv=None):
     input_fd=_open_fifo(args,request)  # Separate data-only FIFO, before ANY runtime/image/MMIO/START.
     import pynq
     from pynq import Clocks
-    require(hashlib.sha256(Path(pynq.__file__).read_bytes()).hexdigest()==PYNQ_SHA and pynq.__version__=='3.0.1' and
-            float(Clocks.fclk0_mhz)==100.0 and Path('/sys/class/fpga_manager/fpga0/state').read_text().strip()=='operating',
-            'current runtime/module/configuration mismatch')
+    prestate=_startup_preflight(request,ctx,pynq,Clocks)
     out=root/'live-evidence';require(not out.exists(),'new exclusive evidence required');out.mkdir()
     journal=_Journal(out/'operations.jsonl');session=None;bus=None;failure=None
     def interrupted(signum,frame):raise InterruptedError('signal '+str(signum))
@@ -540,9 +611,11 @@ def main(argv=None):
         require(verified.fixture.run_id==ctx['operation_id'] and verified.fixture.session_id==ctx['session_id'] and
                 verified.fixture.tag==ctx['tag'] and verified.fixture.nonce==request['session_nonce'],
                 'validation fixture must bind new session; its samples are never live inputs')
-        journal.event('image_load_started_unknown',operation_id=ctx['operation_id'],request_sha256=args.request_sha256,context=ctx)
+        journal.event('image_load_started_unknown',operation_id=ctx['operation_id'],request_sha256=args.request_sha256,context=ctx,prestate=prestate)
         runtime=helper.PynqRuntime();overlay=runtime.overlay(bit);helper.check_overlay(overlay,verified)
-        overlay.download();journal.event('image_load_returned');helper.check_overlay(overlay,verified)
+        overlay.download();journal.event('image_load_returned')
+        poststate=_post_programming(ctx,Clocks);helper.check_overlay(overlay,verified)
+        journal.event('post_programming_verified',observed=poststate,metadata_checked=True)
         bus=helper.Bus(runtime.mmio(verified.base,verified.span),journal)
         session=_LiveSession(bus,helper,ctx,time.monotonic,time.sleep,journal.append,
                              total_seconds=request['total_seconds'],poll_seconds=request['poll_seconds'],max_scans=request['max_scans'])
