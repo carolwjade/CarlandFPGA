@@ -19,7 +19,11 @@ their Job cohorts were empty and all six native handles closed. The ReadSpy
 caps forwarding to avoid the oversized allocation in the host test; this is
 an actual call-argument proof, not a physical ARM memory guarantee.
 
-Run the committed probe with an absolute collector path and a fresh case root:
+The Reader probe is a historical proof with fixed byte pins. Use an absolute
+path to the byte-exact collector extracted from commit
+9819c688ec3588e6e8e880f04c70d600a53b3aed and a fresh case root. Supplying the
+later metadata-corrected collector intentionally refuses the old hash gate;
+this command is not a general regression runner for later source revisions:
 
 ```text
 python -I -B -X utf8 competition/deepeye/tests/diagnostic/bounded_reader/reader_budget_probe.py --collector ABS_COLLECTOR --phase corrected --cases ABS_NEW_CASE_DIR
