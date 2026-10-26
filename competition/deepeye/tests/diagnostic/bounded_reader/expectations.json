@@ -1,0 +1,313 @@
+{
+  "baseline": {
+    "duplicate_identity_rejected": {
+      "data_hex": "64757065",
+      "data_sha256": "4356f4252f6d90ead88cb6e0e47f76b0e03fddb883c97458d08be77a2d751b82",
+      "exception_message": "input path/hardlink alias",
+      "exception_type": "Rejected",
+      "file_bytes": 4,
+      "file_hex": "64757065",
+      "file_links": 1,
+      "file_sha256": "4356f4252f6d90ead88cb6e0e47f76b0e03fddb883c97458d08be77a2d751b82",
+      "fixture_error": null,
+      "forwarded_limits": [
+        5
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        268435457
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 4
+    },
+    "growth_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input changed during snapshot",
+      "exception_type": "Rejected",
+      "file_bytes": 5,
+      "file_hex": "67726f7721",
+      "file_links": 1,
+      "file_sha256": "77a21898c5af581b3bbabfb7430183782fb61152bc1124df07c22e1806e50f80",
+      "fixture_error": null,
+      "forwarded_limits": [
+        5
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        268435457
+      ],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "hardlink_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input path/hardlink alias",
+      "exception_type": "Rejected",
+      "file_bytes": 4,
+      "file_hex": "6c696e6b",
+      "file_links": 2,
+      "file_sha256": "b1b1bdb480c61d075300d9bff7d9cb69cf31695ea048e478facadf426e8d0fb0",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "limit_boundary_success": {
+      "data_hex": "30313233343536373839616263646566",
+      "data_sha256": "9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f",
+      "exception_message": null,
+      "exception_type": null,
+      "file_bytes": 16,
+      "file_hex": "30313233343536373839616263646566",
+      "file_links": 1,
+      "file_sha256": "9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f",
+      "fixture_error": null,
+      "forwarded_limits": [
+        17
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        17
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 16
+    },
+    "oversize_rejected_before_read": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input size limit",
+      "exception_type": "Rejected",
+      "file_bytes": 17,
+      "file_hex": "3031323334353637383961626364656621",
+      "file_links": 1,
+      "file_sha256": "a8ee4326a871934c72e692046d05de176a16f0f0f4e6d45e92ace07d9daaf68b",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "small_file_read_budget": {
+      "data_hex": "616c706861",
+      "data_sha256": "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8",
+      "exception_message": null,
+      "exception_type": null,
+      "file_bytes": 5,
+      "file_hex": "616c706861",
+      "file_links": 1,
+      "file_sha256": "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8",
+      "fixture_error": null,
+      "forwarded_limits": [
+        6
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        268435457
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 5
+    },
+    "total_limit_rejected_before_read": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input size limit",
+      "exception_type": "Rejected",
+      "file_bytes": 5,
+      "file_hex": "746f74616c",
+      "file_links": 1,
+      "file_sha256": "11239872d178729acc9e5aeaf7fc001a0ffd878c922330be43712b9b3be043a7",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 536870908
+    },
+    "truncation_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input changed during snapshot",
+      "exception_type": "Rejected",
+      "file_bytes": 3,
+      "file_hex": "747275",
+      "file_links": 1,
+      "file_sha256": "e2de3f751ecb78216c447144c8c1f4bf9e0645c32b72a02d3ad1d1c48eec2fe7",
+      "fixture_error": null,
+      "forwarded_limits": [
+        9
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        268435457
+      ],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    }
+  },
+  "collector_pins": {
+    "baseline": {
+      "bytes": 29706,
+      "sha256": "0b5fbdb9016eca5858cb1945068bd356d4d84ab7a032c8f5e567131414364384"
+    },
+    "corrected": {
+      "bytes": 29713,
+      "sha256": "391ed05c23f3f8e19b25877b897fe0361d073327ec4e4d62898db9c499f1f501"
+    }
+  },
+  "corrected": {
+    "duplicate_identity_rejected": {
+      "data_hex": "64757065",
+      "data_sha256": "4356f4252f6d90ead88cb6e0e47f76b0e03fddb883c97458d08be77a2d751b82",
+      "exception_message": "input path/hardlink alias",
+      "exception_type": "Rejected",
+      "file_bytes": 4,
+      "file_hex": "64757065",
+      "file_links": 1,
+      "file_sha256": "4356f4252f6d90ead88cb6e0e47f76b0e03fddb883c97458d08be77a2d751b82",
+      "fixture_error": null,
+      "forwarded_limits": [
+        5
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        5
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 4
+    },
+    "growth_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input changed during snapshot",
+      "exception_type": "Rejected",
+      "file_bytes": 5,
+      "file_hex": "67726f7721",
+      "file_links": 1,
+      "file_sha256": "77a21898c5af581b3bbabfb7430183782fb61152bc1124df07c22e1806e50f80",
+      "fixture_error": null,
+      "forwarded_limits": [
+        5
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        5
+      ],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "hardlink_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input path/hardlink alias",
+      "exception_type": "Rejected",
+      "file_bytes": 4,
+      "file_hex": "6c696e6b",
+      "file_links": 2,
+      "file_sha256": "b1b1bdb480c61d075300d9bff7d9cb69cf31695ea048e478facadf426e8d0fb0",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "limit_boundary_success": {
+      "data_hex": "30313233343536373839616263646566",
+      "data_sha256": "9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f",
+      "exception_message": null,
+      "exception_type": null,
+      "file_bytes": 16,
+      "file_hex": "30313233343536373839616263646566",
+      "file_links": 1,
+      "file_sha256": "9f9f5111f7b27a781f1f1ddde5ebc2dd2b796bfc7365c9c28b548e564176929f",
+      "fixture_error": null,
+      "forwarded_limits": [
+        17
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        17
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 16
+    },
+    "oversize_rejected_before_read": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input size limit",
+      "exception_type": "Rejected",
+      "file_bytes": 17,
+      "file_hex": "3031323334353637383961626364656621",
+      "file_links": 1,
+      "file_sha256": "a8ee4326a871934c72e692046d05de176a16f0f0f4e6d45e92ace07d9daaf68b",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    },
+    "small_file_read_budget": {
+      "data_hex": "616c706861",
+      "data_sha256": "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8",
+      "exception_message": null,
+      "exception_type": null,
+      "file_bytes": 5,
+      "file_hex": "616c706861",
+      "file_links": 1,
+      "file_sha256": "8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8",
+      "fixture_error": null,
+      "forwarded_limits": [
+        6
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        6
+      ],
+      "reader_identity_count": 1,
+      "reader_total": 5
+    },
+    "total_limit_rejected_before_read": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input size limit",
+      "exception_type": "Rejected",
+      "file_bytes": 5,
+      "file_hex": "746f74616c",
+      "file_links": 1,
+      "file_sha256": "11239872d178729acc9e5aeaf7fc001a0ffd878c922330be43712b9b3be043a7",
+      "fixture_error": null,
+      "forwarded_limits": [],
+      "read_call_count": 0,
+      "read_requests": [],
+      "reader_identity_count": 0,
+      "reader_total": 536870908
+    },
+    "truncation_rejected": {
+      "data_hex": null,
+      "data_sha256": null,
+      "exception_message": "input changed during snapshot",
+      "exception_type": "Rejected",
+      "file_bytes": 3,
+      "file_hex": "747275",
+      "file_links": 1,
+      "file_sha256": "e2de3f751ecb78216c447144c8c1f4bf9e0645c32b72a02d3ad1d1c48eec2fe7",
+      "fixture_error": null,
+      "forwarded_limits": [
+        9
+      ],
+      "read_call_count": 1,
+      "read_requests": [
+        9
+      ],
+      "reader_identity_count": 0,
+      "reader_total": 0
+    }
+  },
+  "schema": 1
+}
