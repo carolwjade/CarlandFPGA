@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "operation_id": "A-PRIVATE-PL-CAPTURE-20261026-v4",
+  "request_hash": "465fc5373ab574b1f9c737812e7330cf40b2086a8bcf2fd650ca58bfff867e6f",
+  "tested_commit": "8b6e130c9d760ed9b4a935d8d5f6090203fa73b6",
+  "collector_sha256": "723435f542b050405d8a6286a806a6561fbb613e6608ebf5f84407c7418407e6",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "physical_operator": "A only",
+  "stage": "real_private_source4_digital_PL_capture",
+  "status": "passed_scoped_diagnostic",
+  "formal_product_acceptance": "not_run",
+  "all29_fullH12_ADC_AI_freshness_100ms": "not_run",
+  "expected_values": [
+    17,
+    4095,
+    32769,
+    65280
+  ],
+  "observed_values": [
+    17,
+    4095,
+    32769,
+    65280
+  ],
+  "cleanup": {
+    "active_tag": 0,
+    "attempted": true,
+    "confirmed": true,
+    "status": 0
+  },
+  "archive": {
+    "path": "handoffs/a/A-PRIVATE-PL-CAPTURE-20261026-v4/board-evidence.zip",
+    "bytes": 13791,
+    "sha256": "00ce1884c524881507edc3111f3083299830cdc73e04a138b1747c8adcbe18a2"
+  },
+  "archive_members": {
+    "public-summary.json": {
+      "bytes": 3717,
+      "sha256": "60a41c58988d756ee1a44d867f2821ac9e2c2cc72c9eff70541ae54967c3798e"
+    },
+    "raw/RESULT.json": {
+      "bytes": 7658,
+      "sha256": "f346dfd964233248e8d078c43ff0853fb0946ea437eb396fbab0fa281775128e"
+    },
+    "raw/collector-stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "raw/collector-stdout.bin": {
+      "bytes": 163,
+      "sha256": "2bac58c67c72ff423c0a84fb871bf538943627132a0061d35884ef8b23b2b601"
+    },
+    "raw/fixture.json": {
+      "bytes": 648,
+      "sha256": "1ed7716fb7510a3d7ec0818a151d4e36709bb878a85c3b459f80b7e5fc46883a"
+    },
+    "raw/host-driver-result.json": {
+      "bytes": 1109,
+      "sha256": "a07a186b768b0ed89f409096d20f661882c445ac7fd8197bea7d9b148d7d5e4e"
+    },
+    "raw/operations.jsonl": {
+      "bytes": 75392,
+      "sha256": "31efe5ec80a939207a19798098e62ab5182e963a095660ca851e3696914c1b4d"
+    },
+    "raw/original-ssh-invoke.process.json": {
+      "bytes": 424,
+      "sha256": "52842f698170ff479d4f4994f5cbb1099eee09518d03613c636ab2acac72beab"
+    },
+    "raw/snapshot-readback.json": {
+      "bytes": 3302,
+      "sha256": "ca81c24f0baf6a13b9ef3b8fa24fd0a794ab66d7420b288c68738dc307e3674e"
+    },
+    "raw/snapshot-readback.process.json": {
+      "bytes": 424,
+      "sha256": "32563cc4757081219d87e9570394cf1ef1ca9a56da4c1c2d3eab745d87320b5c"
+    }
+  },
+  "private_originals": "Retained unchanged in director original repository .planning/deepeye-resume-20261018/a-b56-reprdict-board-20261026; public packet excludes credentials and private board identities",
+  "created_A_host_UTC": "2026-10-26T09:53:29.542200+00:00"
+}
