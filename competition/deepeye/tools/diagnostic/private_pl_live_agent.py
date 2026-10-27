@@ -514,9 +514,42 @@ class _OutputLines:
 class _Journal:
     def __init__(self,path,max_bytes=8*1024*1024):
         self.stream=path.open('xb');self.count=0;self.limit=max_bytes;self.index=0
+        # Formatting-only cache. Bus permissions and every evidence I/O remain unchanged.
+        self._mmio_fragments={}
+        offsets=(('read',('0x0','0x4','0x8','0x10','0x14','0x18','0x1c','0x20','0x24','0x28','0x30','0x34',
+                          '0x80','0x84','0x88','0x8c','0x90','0x94','0x98','0x9c','0xa0','0xa4')),
+                 ('write',('0xc','0x10','0x40','0x44','0x48','0x4c','0x50','0x54','0x58','0x5c','0x60','0x64','0x68','0x6c','0x70')))
+        for operation,allowed in offsets:
+            for event in ('mmio_attempt','mmio_returned'):
+                for offset in allowed:
+                    middle=b', "event": "'+event.encode('ascii')+b'", "index": '
+                    tail=b', "offset": "'+offset.encode('ascii')+b'", "operation": "'+operation.encode('ascii')+b'"'
+                    self._mmio_fragments[(event,operation,offset)]=(middle,tail,operation=='write' or event=='mmio_returned')
     def event(self,event,**fields):self.append({'event':event,**fields})
+    def _mmio_bytes(self,item,index,stamp):
+        # Unsupported shapes/types always use the original generic encoder.
+        if type(item) is not dict or type(index) is not int or type(stamp) is not int:return None
+        if not (0<=index<(1<<64) and 0<=stamp<(1<<64)):return None
+        if any(type(key) is not str for key in item):return None
+        event,operation,offset=item.get('event'),item.get('operation'),item.get('offset')
+        if type(event) is not str or type(operation) is not str or type(offset) is not str:return None
+        fragment=self._mmio_fragments.get((event,operation,offset))
+        if fragment is None:return None
+        middle,tail,has_value=fragment
+        # The three mandatory names above plus exact length/value presence prove exact keysets.
+        if len(item)!=(4 if has_value else 3) or has_value and 'value' not in item:return None
+        value_tail=b''
+        if has_value:
+            value=item['value']
+            if type(value) is not int or not 0<=value<(1<<32):return None
+            value_tail=b', "value": '+str(value).encode('ascii')
+        return (b'{"agent_monotonic_ns": '+str(stamp).encode('ascii')+middle+str(index).encode('ascii')+
+                tail+value_tail+b'}\n')
     def append(self,item):
-        raw=(json.dumps({'index':self.index,'agent_monotonic_ns':time.monotonic_ns(),**item},sort_keys=True,allow_nan=False)+'\n').encode()
+        index=self.index;stamp=time.monotonic_ns()
+        raw=self._mmio_bytes(item,index,stamp)
+        if raw is None:
+            raw=(json.dumps({'index':index,'agent_monotonic_ns':stamp,**item},sort_keys=True,allow_nan=False)+'\n').encode()
         require(self.count+len(raw)<=self.limit,'finite journal budget exhausted')
         require(self.stream.write(raw)==len(raw),'short original journal write');self.stream.flush()
         if item['event'].endswith('started_unknown') or item['event'] in ('session_finished','post_programming_verified'):os.fsync(self.stream.fileno())
