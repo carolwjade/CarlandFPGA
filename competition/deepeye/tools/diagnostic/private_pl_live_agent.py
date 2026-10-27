@@ -17,6 +17,7 @@ import stat as stat_mode
 import sys
 import subprocess
 import time
+import threading
 
 COLLECTOR_SHA='723435f542b050405d8a6286a806a6561fbb613e6608ebf5f84407c7418407e6'
 CONTRACT='c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
@@ -447,7 +448,7 @@ class _LiveSession:
         return self.cleanup
 
 
-def _serve(session,read_next,write,codec):
+def _serve(session,read_next,write,codec,profile=None):
     error=None
     try:
         ready=session.start();write(codec.record('diagnostic_ready',session.context,**ready))
@@ -455,7 +456,9 @@ def _serve(session,read_next,write,codec):
             raw=read_next()
             if raw is None:break
             request=codec.decode_request(raw,session.context,session.sequence)
+            _arm_metric_call(profile,'set_phase',session.sequence)
             result=session.scan(request)
+            _arm_metric_call(profile,'set_phase',3)
             write(codec.record('diagnostic_capture',session.context,request_seq=request['request_seq'],
                                request_sha256=hashlib.sha256(raw).hexdigest(),**result))
     except BaseException as failure:error={'type':type(failure).__name__,'message':str(failure)[:512]}
@@ -511,8 +514,172 @@ class _OutputLines:
             position+=count
 
 
+# Root opt-in is diagnostic only; the original execution permissions remain necessary.
+_ARM_PROFILE_POLICY_SHA='ce2b05d1bcc0da2010f29f7b4125c2431b3492e44a40bbd5c3eb102e46cec1ea'
+_ARM_PROFILE_U64=(1<<64)-1
+
+
+def _arm_profile_enabled(request):
+    if 'arm_journal_profile' not in request:return False
+    option=request['arm_journal_profile']
+    require(type(option) is dict and set(option)=={'schema','enabled','policy_sha256'} and
+            type(option['schema']) is int and option['schema']==1 and option['enabled'] is True and
+            type(option['policy_sha256']) is str and option['policy_sha256']==_ARM_PROFILE_POLICY_SHA,
+            'exact Root journal profile policy required')
+    require(request.get('phase')=='private_live' and request.get('execute_a') is True and
+            type(request.get('attempts')) is int and request['attempts']==1 and
+            type(request.get('max_scans')) is int and 1<=request['max_scans']<=2,
+            'journal profiling requires original private live single attempt and one or two scans')
+    return True
+
+
+class _ArmJournalProfile:
+    """Fixed diagnostic storage. Ordinary failures disable metrics, never evidence I/O."""
+    def __init__(self):
+        self.stats=[[stage,phase,0,0,0,0,0,0,None,None,None,None] for phase in range(5) for stage in range(5)]
+        self.endpoints=[[None]*15 for _ in range(32)]
+        self.seen=[False]*5;self.phase=0;self.slot=None;self.used=0;self.last_clock=None
+        self.disabled=False;self.reason_bits=0;self.overflow_bits=0;self.binding=None
+        self.publication_attempted=False
+    def disable(self,reason):
+        self.disabled=True;self.reason_bits|=reason
+    def set_phase(self,phase):
+        if type(phase) is not int or not 0<=phase<4:self.disable(16);return
+        self.phase=phase
+    def _add(self,row,column,value=1):
+        if row[column]>_ARM_PROFILE_U64-value:
+            row[column]=_ARM_PROFILE_U64;self.overflow_bits|=1<<column;self.disable(4)
+        else:row[column]+=value
+    def _sample(self):
+        try:value=time.monotonic_ns()
+        except (InterruptedError,KeyboardInterrupt,SystemExit,GeneratorExit):raise
+        except Exception:self.disable(1);return None
+        if type(value) is not int or not 0<=value<=_ARM_PROFILE_U64:self.disable(1);return None
+        if self.last_clock is not None and value<self.last_clock:self.disable(2);return None
+        self.last_clock=value;return value
+    def begin_record(self,index,stamp,item):
+        self.slot=None
+        for i in range(5):self.seen[i]=False
+        if type(stamp) is not int or not 0<=stamp<=_ARM_PROFILE_U64 or self.last_clock is not None and stamp<self.last_clock:
+            self.disable(2);return
+        self.last_clock=stamp
+        if type(item) is not dict or type(item.get('event')) is not str:return
+        event=item['event']
+        if event=='session_finished':self.phase=4
+        if not (event.endswith('started_unknown') or event in ('session_finished','post_programming_verified')):return
+        if self.used>=32:self.disable(32);return
+        names=('image_load_started_unknown','post_programming_verified','startup_stop_started_unknown',
+               'start_started_unknown','trigger_started_unknown','ack_started_unknown','session_finished')
+        code=names.index(event) if event in names else 7
+        row=self.endpoints[self.used];self.slot=self.used;self.used+=1
+        seq=item.get('request_seq',item.get('seq'));lane=item.get('channel',item.get('lane'))
+        row[0]=index;row[1]=code;row[2]=self.phase
+        row[3]=seq if type(seq) is int and 0<=seq<=_ARM_PROFILE_U64 else None
+        row[4]=lane if type(lane) is int and 0<=lane<4 else None
+        row[5]=stamp;row[14]=0
+    def start(self,stage):
+        begin=self._sample()
+        if begin is not None and self.slot is not None:self.endpoints[self.slot][(None,7,9,11)[stage]]=begin
+        return begin
+    def returned(self,stage,begin):
+        row=self.stats[self.phase*5+stage];self._add(row,3);self._add(row,4);self.seen[stage]=True
+        if stage==4 and self.slot is not None:self.endpoints[self.slot][14]=1
+        if self.disabled:return
+        end=self._sample()
+        if end is None:return
+        if self.slot is not None:self.endpoints[self.slot][(6,8,10,12,13)[stage]]=end
+        if begin is None:return
+        if end<begin:self.disable(2);return
+        duration=end-begin;self._add(row,6);self._add(row,7,duration)
+        row[8]=duration if row[8] is None else min(row[8],duration)
+        row[9]=duration if row[9] is None else max(row[9],duration)
+        if row[10] is None:row[10]=begin
+        row[11]=end
+    def failed(self,stage):
+        # No clock call while preserving an original exception or interruption.
+        for value in (stage,4) if stage!=4 else (4,):
+            if not self.seen[value]:
+                row=self.stats[self.phase*5+value];self._add(row,3);self._add(row,5);self.seen[value]=True
+        if self.slot is not None and self.endpoints[self.slot][14]!=1:self.endpoints[self.slot][14]=2
+        self.disable(8)
+
+
+def _arm_metric_call(profile,method,*args):
+    if profile is None or profile.disabled:return None
+    try:return getattr(profile,method)(*args)
+    except (InterruptedError,KeyboardInterrupt,SystemExit,GeneratorExit):raise
+    except Exception:profile.disable(16);return None
+
+
+def _arm_profile_binding(profile,request,ctx,request_sha):
+    # Called only after source/request checks and before FIFO/runtime/START; no clock sample.
+    try:
+        info=time.get_clock_info('monotonic');pid=os.getpid()
+        with Path('/proc/self/stat').open('rb') as stream:
+            raw=stream.read(4097);require(len(raw)<=4096,'bounded original process identity required')
+        ticks=raw.rsplit(b')',1)[1].split()[19].decode('ascii')
+        require(ticks.isdecimal() and info.monotonic,'original monotonic process identity required')
+        profile.binding={'context':dict(ctx),'request_file_sha256':request_sha,
+            'sources':{'agent_sha256':request['agent_sha256'],'collector_sha256':COLLECTOR_SHA,'codec_sha256':request['codec_sha256']},
+            'clock':{'domain_id':os.urandom(16).hex(),'kind':'agent_linux_monotonic_ns','host_domain_id':ctx['clock_domain_id'],
+                     'boot_id':ctx['boot_id'],'pid':pid,'native_thread_id':threading.get_native_id(),'process_start_ticks':ticks,
+                     'implementation':info.implementation,'nominal_resolution_seconds':info.resolution,
+                     'authenticated':False,'measured_timing':False,'clock_conversion':'not_established'}}
+    except (InterruptedError,KeyboardInterrupt,SystemExit,GeneratorExit):raise
+    except Exception:profile.disable(64)
+
+
+def _arm_profile_pin(path,limit):
+    require(not path.is_symlink() and not path.parent.is_symlink(),'diagnostic original link refused')
+    fd=os.open(path,os.O_RDONLY|getattr(os,'O_NOFOLLOW',0))
+    with os.fdopen(fd,'rb') as stream:
+        before=os.fstat(stream.fileno())
+        require(stat_mode.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<before.st_size<=limit,'bounded closed original required')
+        digest=hashlib.sha256();count=0
+        while True:
+            block=stream.read(min(65536,before.st_size-count+1))
+            if not block:break
+            count+=len(block);require(count<=before.st_size,'closed original grew');digest.update(block)
+        after=os.fstat(stream.fileno())
+    require((before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns,before.st_nlink)==
+            (after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns,after.st_nlink) and count==before.st_size,
+            'closed original changed during diagnostic hash')
+    return {'bytes':count,'sha256':digest.hexdigest()}
+
+
+def _arm_profile_publish(profile,out,cleanup,terminal_written,originals_closed):
+    # A JSON payload cannot self-attest its subsequent write/flush/close. No ACK or retry.
+    if profile is None or profile.publication_attempted or not terminal_written or not originals_closed or not cleanup.get('attempted'):
+        return False
+    profile.publication_attempted=True;stream=None
+    try:
+        value={'schema':1,'kind':'private_live_arm_journal_profile','policy_sha256':_ARM_PROFILE_POLICY_SHA,
+               'binding':profile.binding,'stats':profile.stats,'durable_endpoints':profile.endpoints,'durable_used':profile.used,
+               'status':{'measurement_complete':not profile.disabled,'producer_publication':'not_self_attested',
+                         'reason_bits':profile.reason_bits,'overflow_bits':profile.overflow_bits,
+                         'after_original_cleanup':True,'raw_STOP_confirmed':cleanup.get('confirmed') is True},
+               'originals':{'operations.jsonl':_arm_profile_pin(out/'operations.jsonl',8*1024*1024),
+                            'TERMINAL.json':_arm_profile_pin(out/'TERMINAL.json',65536)},
+               'bare_mmio_available':False,'raw_STOP':{'begin_ns':None,'write_end_ns':None,'end_ns':None,'duration_ns':None},
+               'append_duration':'includes_instrumentation_no_subtraction','formal_acceptance':'not_run','clock_conversion':'not_established'}
+        raw=json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False).encode()
+        require(len(raw)<=65536,'fixed journal profile sidecar bound')
+        stream=(out/'STAGE_METRICS.json').open('xb')
+        require(stream.write(raw)==len(raw),'short diagnostic sidecar write');stream.flush()
+    except (InterruptedError,KeyboardInterrupt,SystemExit,GeneratorExit):raise
+    except Exception:profile.disable(128);return False
+    finally:
+        if stream is not None:
+            try:stream.close()
+            except (InterruptedError,KeyboardInterrupt,SystemExit,GeneratorExit):raise
+            except Exception:profile.disable(128)
+    return not bool(profile.reason_bits&128)
+
+
 class _Journal:
-    def __init__(self,path,max_bytes=8*1024*1024):
+    def __init__(self,path,max_bytes=8*1024*1024,profile=None):
+        require(profile is None or type(profile) is _ArmJournalProfile,'fixed journal profiler only')
+        self._arm_profile=profile
         self.stream=path.open('xb');self.count=0;self.limit=max_bytes;self.index=0
         # Formatting-only cache. Bus permissions and every evidence I/O remain unchanged.
         self._mmio_fragments={}
@@ -547,13 +714,40 @@ class _Journal:
                 tail+value_tail+b'}\n')
     def append(self,item):
         index=self.index;stamp=time.monotonic_ns()
-        raw=self._mmio_bytes(item,index,stamp)
-        if raw is None:
-            raw=(json.dumps({'index':index,'agent_monotonic_ns':stamp,**item},sort_keys=True,allow_nan=False)+'\n').encode()
-        require(self.count+len(raw)<=self.limit,'finite journal budget exhausted')
-        require(self.stream.write(raw)==len(raw),'short original journal write');self.stream.flush()
-        if item['event'].endswith('started_unknown') or item['event'] in ('session_finished','post_programming_verified'):os.fsync(self.stream.fileno())
-        self.count+=len(raw);self.index+=1
+        profile=self._arm_profile
+        if profile is None:
+            raw=self._mmio_bytes(item,index,stamp)
+            if raw is None:
+                raw=(json.dumps({'index':index,'agent_monotonic_ns':stamp,**item},sort_keys=True,allow_nan=False)+'\n').encode()
+            require(self.count+len(raw)<=self.limit,'finite journal budget exhausted')
+            require(self.stream.write(raw)==len(raw),'short original journal write');self.stream.flush()
+            if item['event'].endswith('started_unknown') or item['event'] in ('session_finished','post_programming_verified'):os.fsync(self.stream.fileno())
+            self.count+=len(raw);self.index+=1
+            return
+        stage=0
+        try:
+            _arm_metric_call(profile,'begin_record',index,stamp,item)
+            raw=self._mmio_bytes(item,index,stamp)
+            if raw is None:
+                raw=(json.dumps({'index':index,'agent_monotonic_ns':stamp,**item},sort_keys=True,allow_nan=False)+'\n').encode()
+            _arm_metric_call(profile,'returned',0,stamp)
+            require(self.count+len(raw)<=self.limit,'finite journal budget exhausted')
+            begin=_arm_metric_call(profile,'start',1);stage=1
+            require(self.stream.write(raw)==len(raw),'short original journal write')
+            _arm_metric_call(profile,'returned',1,begin)
+            begin=_arm_metric_call(profile,'start',2);stage=2
+            self.stream.flush()
+            _arm_metric_call(profile,'returned',2,begin)
+            if item['event'].endswith('started_unknown') or item['event'] in ('session_finished','post_programming_verified'):
+                begin=_arm_metric_call(profile,'start',3);stage=3
+                os.fsync(self.stream.fileno())
+                _arm_metric_call(profile,'returned',3,begin)
+            stage=4
+            self.count+=len(raw);self.index+=1
+            _arm_metric_call(profile,'returned',4,stamp)
+        except BaseException:
+            _arm_metric_call(profile,'failed',stage)
+            raise
     def close(self):self.stream.close()
 
 
@@ -589,6 +783,7 @@ def main(argv=None):
     unsigned=dict(request);logical_hash=unsigned.pop('request_hash')
     require(hashlib.sha256(json.dumps(unsigned,sort_keys=True,separators=(',',':'),ensure_ascii=True,allow_nan=False).encode()).hexdigest()==logical_hash,
             'canonical logical request hash mismatch')
+    profile_enabled=_arm_profile_enabled(request)
     if args.fifo_qualification:
         require(not args.execute_a and request['requirements_sha256']==CONTRACT and type(request['attempts']) is int and
                 request['attempts']==1 and request['expected_boot_id']==Path('/proc/sys/kernel/random/boot_id').read_text().strip() and
@@ -628,12 +823,14 @@ def main(argv=None):
             request['inputs']['package/artifacts/private_diag.hwh']['sha256']==HWH_SHA,'source/build pins differ')
     require(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==ctx['boot_id'],'current boot mismatch')
     require(type(request['idle_timeout_ms']) is int and 1<=request['idle_timeout_ms']<=100,'explicit bounded input idle budget required')
+    profile=_ArmJournalProfile() if profile_enabled else None
+    if profile is not None:_arm_profile_binding(profile,request,ctx,args.request_sha256)
     input_fd=_open_fifo(args,request)  # Separate data-only FIFO, before ANY runtime/image/MMIO/START.
     import pynq
     from pynq import Clocks
     prestate=_startup_preflight(request,ctx,pynq,Clocks)
     out=root/'live-evidence';require(not out.exists(),'new exclusive evidence required');out.mkdir()
-    journal=_Journal(out/'operations.jsonl');session=None;bus=None;failure=None
+    journal=_Journal(out/'operations.jsonl',profile=profile);session=None;bus=None;failure=None
     def interrupted(signum,frame):raise InterruptedError('signal '+str(signum))
     handlers={sig:signal.signal(sig,interrupted) for sig in (signal.SIGINT,signal.SIGTERM)}
     try:
@@ -654,7 +851,7 @@ def main(argv=None):
                              total_seconds=request['total_seconds'],poll_seconds=request['poll_seconds'],max_scans=request['max_scans'])
         reader=_InputLines(input_fd,session,request['idle_timeout_ms']/1000,codec.MAX_LINE)
         writer=_OutputLines(1,session,codec,min(request['idle_timeout_ms']/1000,0.1))
-        code=_serve(session,reader,writer,codec)
+        code=_serve(session,reader,writer,codec,profile)
         return code
     except BaseException as error:
         failure={'type':type(error).__name__,'message':str(error)[:512]}
@@ -680,6 +877,7 @@ def main(argv=None):
             for sig,handler in handlers.items():signal.signal(sig,handler)
             os.close(input_fd)
         if terminal_failed:return 2
+        _arm_profile_publish(profile,out,cleanup,True,True)
 
 
 if __name__=='__main__':
