@@ -12,6 +12,7 @@ import json
 import os
 from pathlib import Path
 import shlex
+import stat
 import subprocess
 import sys
 import threading
@@ -28,6 +29,30 @@ def canonical(value):return json.dumps(value,ensure_ascii=True,sort_keys=True,se
 def pin(path):
     require(path.is_file() and not path.is_symlink() and path.stat().st_nlink==1,'regular unaliased source required')
     raw=path.read_bytes();return {'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+
+
+def pin_system_ssh(path):
+    path=Path(path)
+    require(path.is_absolute() and path==Path('C:/WINDOWS/System32/OpenSSH/ssh.exe'),
+            'exact original system SSH path required')
+    def identity(info):
+        return (info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns,info.st_nlink,
+                stat.S_IFMT(info.st_mode),info.st_file_attributes)
+    before=path.lstat()
+    require(stat.S_ISREG(before.st_mode) and not before.st_file_attributes&stat.FILE_ATTRIBUTE_REPARSE_POINT,
+            'regular non-reparse system SSH required')
+    with path.open('rb') as stream:
+        a=os.fstat(stream.fileno())
+        require(stat.S_ISREG(a.st_mode) and not a.st_file_attributes&stat.FILE_ATTRIBUTE_REPARSE_POINT and
+                a.st_nlink==2 and a.st_size==1256448 and identity(before)==identity(a),
+                'exact original two-link system SSH required')
+        raw=stream.read(a.st_size+1);z=os.fstat(stream.fileno())
+    require(len(raw)==a.st_size and a.st_mode==z.st_mode and identity(a)==identity(z)==identity(path.lstat()),
+            'system SSH changed during bounded read')
+    digest=hashlib.sha256(raw).hexdigest()
+    require(digest=='98d447730047f5df91373e852d057928a921c3d1e89938700ab656ba84b19dc8',
+            'original system SSH bytes differ')
+    return {'bytes':len(raw),'sha256':digest}
 
 
 def read_json(path,limit=16384):
@@ -290,7 +315,7 @@ def main(argv=None):
         prior=read_json(root/'.planning/deepeye-resume-20261018/board-preflight-20261021/started.private.json',65536)
         base=prior['argv'][:-1];require(base[-1].startswith('xilinx@') and base[-1].endswith('%8') and
                 all(x in base for x in ('StrictHostKeyChecking=yes','BatchMode=yes','IdentitiesOnly=yes')),'original strict SSH route required')
-        require(pin(Path(base[0]))['sha256']==prior['ssh_sha256'],'original SSH binary changed')
+        require(pin_system_ssh(Path(base[0]))['sha256']==prior['ssh_sha256'],'original SSH binary changed')
         known=next(x.split('=',1)[1] for x in base if x.startswith('UserKnownHostsFile='))
         require(pin(Path(known))['sha256']==prior['pinned_known_hosts_sha256'],'knownhost bytes changed')
         legacy=root/'.planning/deepeye-resume-20261018/board-baseline-20261021/run.py'
