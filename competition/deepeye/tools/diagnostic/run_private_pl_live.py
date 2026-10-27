@@ -189,8 +189,9 @@ class _Transport:
         k.PeekNamedPipe.restype=wintypes.BOOL
         ok=k.PeekNamedPipe(msvcrt.get_osfhandle(stream.fileno()),None,0,None,ctypes.byref(available),None)
         if not ok:
-            if self.process.poll() is not None:return 0
-            raise OSError(ctypes.get_last_error(),'original pipe observation failed')
+            error=ctypes.get_last_error()
+            if error==109:return 0  # Actual closed-writer ERROR_BROKEN_PIPE; no other error is EOF.
+            raise OSError(error,'original pipe observation failed')
         return available.value
     def _drain(self):
         for stream,log,name,bound in ((self.process.stdout,self.stdout_log,'stdout',512*1024),(self.process.stderr,self.stderr_log,'stderr',1024*1024)):
@@ -218,7 +219,7 @@ class _Transport:
         require(count==len(raw),'partial/unknown original write; no replay')
     def close_input(self):self.process.stdin.close()
     def finish(self):
-        process=self.process;timed_out=False;error=None;cleanup_errors=[];job_closed=False;handle_closed=False
+        process=self.process;timed_out=False;error=None;error_details=None;cleanup_errors=[];job_closed=False;handle_closed=False
         try:
             while process.poll() is None:
                 self._drain()
@@ -227,7 +228,7 @@ class _Transport:
                 time.sleep(0.005)
             code=process.wait(timeout=10);self._drain()
         except BaseException as failure:
-            error=type(failure).__name__;process.kill();code=process.wait(timeout=10)
+            error=type(failure).__name__;error_details={'stage':'finish','type':error,'errno':getattr(failure,'errno',None),'winerror':getattr(failure,'winerror',None)};process.kill();code=process.wait(timeout=10)
         finally:
             for stream in (process.stdin,process.stdout,process.stderr):
                 try:
@@ -240,7 +241,7 @@ class _Transport:
             except BaseException as failure:cleanup_errors.append({'stage':'process_handle_close','type':type(failure).__name__})
             self.stdout_log.close();self.stderr_log.close()
         value={'original_pid':process.pid,'original_exit':code,'original_wait_completed':True,'local_timed_out':timed_out,
-               'error':error,'remote_STOP_or_exit_not_inferred':True,'automatic_retry':False,
+               'error':error,'error_details':error_details,'remote_STOP_or_exit_not_inferred':True,'automatic_retry':False,
                'stdout':pin(self.out/'SSH.stdout.bin'),'stderr':pin(self.out/'SSH.stderr.bin'),'original_job_closed':job_closed,
                'original_process_handle_closed':handle_closed,'cleanup_errors':cleanup_errors}
         save(self.out/'SSH-process.json',value);return value
@@ -345,7 +346,7 @@ def main(argv=None):
         save(out/'HOST_TERMINAL.json',{'primary_error':primary,'original_process':process,
              'SSH_started':transport is not None or (out/'SSH_CONSTRUCTOR_TERMINAL.json').exists(),
              'remote_STOP_not_inferred_from_local_cleanup':True,'movement_authorized':False,'automatic_retry':False})
-    return (0 if primary is None and process is not None and process.get('original_exit')==0 and not process.get('cleanup_errors') and
+    return (0 if primary is None and process is not None and process.get('original_exit')==0 and not process.get('error') and not process.get('cleanup_errors') and
             process.get('original_job_closed') and process.get('original_process_handle_closed') else 2)
 
 
