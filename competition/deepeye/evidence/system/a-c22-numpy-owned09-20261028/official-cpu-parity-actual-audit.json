@@ -1,0 +1,193 @@
+{
+  "schema": 1,
+  "utc": "2026-10-27T20:53:24.508318+00:00",
+  "status": "actual_full_real_C22_CPU_reference_NumPy_parity_passed",
+  "original_receipts": [
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03-original-process\\command.json",
+        "bytes": 139050,
+        "sha256": "c7a949b34c37da065ea86ecd1062c0cdfce496bd3dead1c67d28e17290462035"
+      },
+      "original_process": {
+        "pid": 34464,
+        "thread_id": 32268,
+        "wait_completed": true,
+        "exit_code": 0,
+        "original_process_handle": 568,
+        "original_thread_handle": 564
+      },
+      "limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "peaks": {
+        "query_ok": true,
+        "process_bytes": 296812544,
+        "job_bytes": 298041344
+      },
+      "elapsed_seconds": 7.688,
+      "started_utc": "2026-10-27T20:42:44.490987+00:00",
+      "finished_utc": "2026-10-27T20:42:52.184033+00:00",
+      "Wait_Job0_sixclose": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04-original-process\\command.json",
+        "bytes": 154525,
+        "sha256": "f271ea82fea14521e57faa54f537cb13a4ba8c0be725bca69ea02c2bf93c5901"
+      },
+      "original_process": {
+        "pid": 38364,
+        "thread_id": 29176,
+        "wait_completed": true,
+        "exit_code": 0,
+        "original_process_handle": 548,
+        "original_thread_handle": 540
+      },
+      "limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "peaks": {
+        "query_ok": true,
+        "process_bytes": 69967872,
+        "job_bytes": 71192576
+      },
+      "elapsed_seconds": 8.578,
+      "started_utc": "2026-10-27T20:44:07.604276+00:00",
+      "finished_utc": "2026-10-27T20:44:16.188095+00:00",
+      "Wait_Job0_sixclose": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 48045,
+        "sha256": "b7910043049c74c92eb794975cbd7cab1861da47b44496163331e9140179e334"
+      },
+      "original_process": {
+        "pid": 13504,
+        "thread_id": 32972,
+        "wait_completed": true,
+        "exit_code": 0,
+        "original_process_handle": 576,
+        "original_thread_handle": 572
+      },
+      "limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "peaks": {
+        "query_ok": true,
+        "process_bytes": 26877952,
+        "job_bytes": 28114944
+      },
+      "elapsed_seconds": 2.406,
+      "started_utc": "2026-10-27T20:44:07.611612+00:00",
+      "finished_utc": "2026-10-27T20:44:10.017580+00:00",
+      "Wait_Job0_sixclose": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 44153,
+        "sha256": "b19fbd9f5b7fad8dd83be4bf4ea7000c55a32cf529d5f3cce9e41c2e0fb5fc06"
+      },
+      "original_process": {
+        "pid": 33820,
+        "thread_id": 36440,
+        "wait_completed": true,
+        "exit_code": 0,
+        "original_process_handle": 556,
+        "original_thread_handle": 560
+      },
+      "limits": {
+        "flags": 8960,
+        "process_bytes": 268435456,
+        "job_bytes": 1073741824
+      },
+      "peaks": {
+        "query_ok": true,
+        "process_bytes": 39383040,
+        "job_bytes": 41394176
+      },
+      "elapsed_seconds": 2.188,
+      "started_utc": "2026-10-27T20:44:51.694074+00:00",
+      "finished_utc": "2026-10-27T20:44:53.882988+00:00",
+      "Wait_Job0_sixclose": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 44877,
+        "sha256": "c7ebb85f1b06ecf0dd6b7f8bf2e4ec2eb5213467da39cef6db2539d893a5edf3"
+      },
+      "original_process": {
+        "pid": 21688,
+        "thread_id": 37520,
+        "wait_completed": true,
+        "exit_code": 0,
+        "original_process_handle": 356,
+        "original_thread_handle": 584
+      },
+      "limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "peaks": {
+        "query_ok": true,
+        "process_bytes": 27295744,
+        "job_bytes": 28528640
+      },
+      "elapsed_seconds": 2.218,
+      "started_utc": "2026-10-27T20:46:06.307031+00:00",
+      "finished_utc": "2026-10-27T20:46:08.531362+00:00",
+      "Wait_Job0_sixclose": true
+    }
+  ],
+  "reference": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03\\reference.json",
+    "bytes": 195332,
+    "sha256": "ac3ba5cc420eaef920a6958f3fdb286a2384819eb12da2235ff4f200f0787d77"
+  },
+  "comparison": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03\\comparison.json",
+    "bytes": 178868,
+    "sha256": "476fef22776a1a36dbe696c2b2cc728e75b95787f6d4482d9dfdd1092f5638c2"
+  },
+  "max_abs_probability_error": 4.470348358154297e-08,
+  "max_abs_logits_error": 4.76837158203125e-07,
+  "max_probability_sum_error": 1.0128132998943329e-07,
+  "numpy_before": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03\\result.json",
+    "bytes": 581,
+    "sha256": "868665202901deca6145fe10afc2119110cb31f3ae30590f9dda44ed0023f42d"
+  },
+  "numpy_after": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03\\result.json",
+    "bytes": 580,
+    "sha256": "0ead75e339c07d9335dbcaa2f40c8e731f00700ad1cb5ff56fcbfbcf38a610a8"
+  },
+  "CPU_inventory_after_reference": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04\\inventory.json",
+    "bytes": 4994331,
+    "sha256": "e790c3f43821465b0ba434a8d9bf991eec67eddb5f4e2ac2aa9d54e2b2c8620c"
+  },
+  "CPU_full_before_after_equal": true,
+  "numpy_selected_files": 3252,
+  "original_false_acceptance_fields_preserved": true,
+  "model_quality": "macroF1 0.1827348057438266 FAIL unchanged",
+  "actor_deployed": false,
+  "physical_accuracy_lt_1_percent": false,
+  "latency_100ms_passed": false,
+  "formal_H12_G03_R03_all29": "not_run"
+}

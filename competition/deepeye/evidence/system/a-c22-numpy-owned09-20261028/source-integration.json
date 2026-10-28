@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "operation_id": "A-PC-AI-C22-NUMPY-SOURCE-INTEGRATE-20261028-01",
+  "utc": "2026-10-28T12:56:43.153214+00:00",
+  "director_id": "01a16988-bdcb-70e1-ae10-1304b5cf7875",
+  "director_generation": 3,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "base_head": "9f2c53d66e1ef861b756c00c4164e9e3a07d60c2",
+  "source_plan_sha256": "ab1c14cb158b2f6a4dd83270f6f2762d860d0ccedec3ecf94f8fef53c5e1622b",
+  "files": [
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/__init__.py",
+      "bytes": 68,
+      "sha256": "bedb21fee166cf80aa42a75adee9199d915f332958c213c97eecbf248f8daa48",
+      "qualified_stage_path": "product/ai_pc/cpu_package/__init__.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_package\\__init__.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/endpoint_protocol.py",
+      "bytes": 6910,
+      "sha256": "1654f857a6cb17af734aa66e8f96f028551b15f4a7767f196e511104783de998",
+      "qualified_stage_path": "product/ai_pc/cpu_package/endpoint_protocol.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_package\\endpoint_protocol.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/runner.py",
+      "bytes": 21133,
+      "sha256": "92114790259b7e35e8bf7b1a0519f0e3f68da52729d08b5b9862c992deae70af",
+      "qualified_stage_path": "product/ai_pc/cpu_package/runner.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_package\\runner.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/model/curve_input.py",
+      "bytes": 39152,
+      "sha256": "c017729a2d5717ff2bbf5a6c591320519c415ac10068b4cee19b3136913d848c",
+      "qualified_stage_path": "product/ai_pc/model/curve_input.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\model\\curve_input.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/model/force_cnn.py",
+      "bytes": 10384,
+      "sha256": "5003427e1ac01e50b612d8f4f9c674c7df352b3942a5cc39978e23bdfbdb1260",
+      "qualified_stage_path": "product/ai_pc/model/force_cnn.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\model\\force_cnn.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/model_manifest.json",
+      "bytes": 3932,
+      "sha256": "0b76bcd1b21b6b1e254eef0e2e5815a15121fdb8ac48c33710f2b2d85bdf2959",
+      "qualified_stage_path": "product/ai_pc/cpu_model/force_v1/model_manifest.json",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_model\\force_v1\\model_manifest.json"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/graph.json",
+      "bytes": 1429,
+      "sha256": "6fd93fab7e65b56b1cd9473475c54b071b3e82ff09549ee447675988f07efee2",
+      "qualified_stage_path": "product/ai_pc/cpu_model/force_v1/graph.json",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_model\\force_v1\\graph.json"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/weights.json",
+      "bytes": 102250,
+      "sha256": "8988f4bbcf425d9b48c9a62866ac350e6096ea43fabdd9b1e616b22ba4b6d187",
+      "qualified_stage_path": "product/ai_pc/cpu_model/force_v1/weights.json",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\ai_pc\\cpu_model\\force_v1\\weights.json"
+    },
+    {
+      "path": "competition/deepeye/data/preprocessing.json",
+      "bytes": 29849,
+      "sha256": "cb66fd302165c86344f3b8d1af9d9c4e4e229621cef44cbfa6fb8cd121a63eef",
+      "qualified_stage_path": "product/data/preprocessing.json",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\data\\preprocessing.json"
+    },
+    {
+      "path": "competition/deepeye/data/label_schema.json",
+      "bytes": 3594,
+      "sha256": "0913ff5a59085b47802a9902f23a836f4fa1129700de8e6593840416f4d7beed",
+      "qualified_stage_path": "product/data/label_schema.json",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\c22-source-inputs-20261027\\source\\competition\\deepeye\\data\\label_schema.json"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_leaf.py",
+      "bytes": 3486,
+      "sha256": "6547a7a5d1f6d480eec407b66dfbba21656209dff145c027f3e6385141e46ba9",
+      "qualified_stage_path": "product/ai_pc/cpu_package/numpy_leaf.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned03-staging-fix-source-20261028\\candidate\\product\\ai_pc\\cpu_package\\numpy_leaf.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_model.py",
+      "bytes": 9709,
+      "sha256": "e2c152a2f2e1eafca11581cd17d142f4fc2eb062d8ec21de5640a6559bb4bdb1",
+      "qualified_stage_path": "product/ai_pc/cpu_package/numpy_model.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned03-staging-fix-source-20261028\\candidate\\product\\ai_pc\\cpu_package\\numpy_model.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_process_endpoint.py",
+      "bytes": 10027,
+      "sha256": "9cb467dbdf7b3ce986b8604cd455c2ef613972fdfa8488a30b3e227ba0ac3a0a",
+      "qualified_stage_path": "product/ai_pc/cpu_package/numpy_process_endpoint.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned03-staging-fix-source-20261028\\candidate\\product\\ai_pc\\cpu_package\\numpy_process_endpoint.py"
+    },
+    {
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_stream_core.py",
+      "bytes": 19677,
+      "sha256": "722e6d133266d255465a2d369e2c9b28b8b05c3db5155ba924a271206a9cafe0",
+      "qualified_stage_path": "product/ai_pc/cpu_package/numpy_stream_core.py",
+      "original_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned03-staging-fix-source-20261028\\candidate\\product\\ai_pc\\cpu_package\\numpy_stream_core.py"
+    }
+  ],
+  "proofs": {
+    "owned09-actual-audit.json": {
+      "original_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-root-control-20261028-09\\Root-owned09-success-final-readback.json",
+      "bytes": 6759,
+      "sha256": "2fc1b21ab645678079c616ce05a0c368cd74609c4f78626f8fb27b0739e8ff0c"
+    },
+    "official-cpu-parity-actual-audit.json": {
+      "original_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\Root-full-parity03-final-readback.json",
+      "bytes": 8109,
+      "sha256": "3aadac92957ac156d56ead89064e16e0b72ea1bcc04c599fec8b9dc7dba3b4d6"
+    },
+    "independent-parity-review-manifest.json": {
+      "original_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-parity03-independent-actual-review-20261028\\manifest.json",
+      "bytes": 965,
+      "sha256": "8a0d8d4b5ee02285d389f5250eae0996220d3395580a71373cbb5057c4c8865c"
+    },
+    "independent-parity-bridge.json": {
+      "original_path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-parity03-independent-actual-review-20261028\\bridge.json",
+      "bytes": 42954,
+      "sha256": "fba07d72668941be1397e6058b9c8d92c1d40ff684bca649a60c12f3c175cff4"
+    }
+  },
+  "verification": {
+    "all_product_bytes_equal_qualified_stage_sources": true,
+    "python_syntax_parsed_without_import": true,
+    "model_runs_in_this_integration": 0,
+    "endpoint_runs_in_this_integration": 0,
+    "board_operations_in_this_integration": 0
+  },
+  "acceptance": {
+    "complete_fixed_CPU_NumPy_graph_numerical_migration": "passed_in_original_named_parity_operation",
+    "single_original_owned_endpoint_diagnostic": "passed_in_original_owned09_operation",
+    "single_feedback_ms": 39.8192,
+    "FORCE_macro_F1": 0.1827348057438266,
+    "quality_gate": "FAIL",
+    "permanent_endpoint_deployment": false,
+    "sim_em_domain_use": false,
+    "ROCm_3D_1000_P95_100ms": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "full_H12": "not_run",
+    "all29": "not_run"
+  }
+}

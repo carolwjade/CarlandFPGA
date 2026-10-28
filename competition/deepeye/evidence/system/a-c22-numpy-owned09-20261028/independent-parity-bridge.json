@@ -1,0 +1,942 @@
+{
+  "schema": 1,
+  "parity_accepted": true,
+  "acceptance_scope": "numerical migration of fixed complete4916 model on N0/N1/N2 only",
+  "source_master": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-source-20261028-qualified-origin03\\manifest.json",
+    "bytes": 6408,
+    "sha256": "410088e33b3f9cb8d8555c1c89a74bbd9c73b5766739987926386febc02aa806"
+  },
+  "source_manifest": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-source-20261028-qualified-origin03\\source-manifest.json",
+    "bytes": 10983,
+    "sha256": "92df2fa67b69ac5b4e0dfb5591a1f0842cd6c0cbcd232dd009423350e82bc4de"
+  },
+  "source_plan": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-source-20261028-qualified-origin03\\plan.json",
+    "bytes": 7648,
+    "sha256": "13e7abc6c3f841c7e161d37b4ad625d4656843fc21008cdcd473fdcbf115a302"
+  },
+  "reference": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03\\reference.json",
+    "bytes": 195332,
+    "sha256": "ac3ba5cc420eaef920a6958f3fdb286a2384819eb12da2235ff4f200f0787d77"
+  },
+  "comparison": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03\\comparison.json",
+    "bytes": 178868,
+    "sha256": "476fef22776a1a36dbe696c2b2cc728e75b95787f6d4482d9dfdd1092f5638c2"
+  },
+  "metrics": {
+    "N0": {
+      "input": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-real-parity-root-control-20261028\\N0.float32le.raw",
+        "bytes": 4096,
+        "sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7"
+      },
+      "forward_calls_each": 1,
+      "logits_max_abs_error": 2.384185791015625e-07,
+      "probabilities_max_abs_error": 1.4901161193847656e-08,
+      "reference_probability_sum_error_fsum": 9.941868484020233e-08,
+      "numpy_probability_sum_error_fsum": 5.2852556109428406e-08,
+      "numpy_probability_sum_error_original_sum": 5.2852556109428406e-08,
+      "class_index": 3,
+      "class_code": 80000,
+      "layers": {
+        "conv1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 0.0,
+          "reference_raw_SHA": "727543f54c68fdd4f5bfed30ca2e7f0fd6205dd7c074be46104415dbd3413e53",
+          "numpy_raw_SHA": "727543f54c68fdd4f5bfed30ca2e7f0fd6205dd7c074be46104415dbd3413e53"
+        },
+        "relu1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 0.0,
+          "reference_raw_SHA": "cbc6eaed7e63208783cb4aed4cd519608b453e3f725082303b2faae0dd18bf5f",
+          "numpy_raw_SHA": "cbc6eaed7e63208783cb4aed4cd519608b453e3f725082303b2faae0dd18bf5f"
+        },
+        "pool1": {
+          "shape": [
+            1,
+            16,
+            32,
+            1
+          ],
+          "float32_elements_each": 512,
+          "max_abs_error_diagnostic_only": 0.0,
+          "reference_raw_SHA": "680330d60aa2db36df0e398da8519e7dfd44547710ac1f2d72b8e73110007cad",
+          "numpy_raw_SHA": "680330d60aa2db36df0e398da8519e7dfd44547710ac1f2d72b8e73110007cad"
+        },
+        "conv2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "24449f6d8f7de514d02e7c2f234172fbe9951fc84a4a62aaf621cf0a8f2e3c19",
+          "numpy_raw_SHA": "36098479a6816656f8b12cf35e04048ead8b316c99de25ded68fcc3ab22151bf"
+        },
+        "relu2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "d9336ee10554750c48e86a4b097442feb91e62675003f558918fe725db078c0f",
+          "numpy_raw_SHA": "8514d330222a3aa5f31aebc97c27738bbdfe008003f92411d4009e108770419f"
+        },
+        "pool2": {
+          "shape": [
+            1,
+            24,
+            8,
+            1
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "29c6ad0b5a483b202cc9bd10ebab1f119dd921d624ab71be6e281ef63a80a7e5",
+          "numpy_raw_SHA": "ee6233ae75a4a7d374d32d2c452d496439ea12b1ba74dbe40e5692bb72ea9589"
+        },
+        "flatten": {
+          "shape": [
+            1,
+            192
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "29c6ad0b5a483b202cc9bd10ebab1f119dd921d624ab71be6e281ef63a80a7e5",
+          "numpy_raw_SHA": "ee6233ae75a4a7d374d32d2c452d496439ea12b1ba74dbe40e5692bb72ea9589"
+        },
+        "head": {
+          "shape": [
+            1,
+            12
+          ],
+          "float32_elements_each": 12,
+          "max_abs_error_diagnostic_only": 2.384185791015625e-07,
+          "reference_raw_SHA": "ac65818f7d49485882ac02239dc84596a965aa397837daa190e5ac203ce3e5f5",
+          "numpy_raw_SHA": "7227439876b5ebb925847b07370656067a5bd1dcf4401a4386155fdcc4e283d4"
+        }
+      }
+    },
+    "N1": {
+      "input": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-real-parity-root-control-20261028\\N1.float32le.raw",
+        "bytes": 4096,
+        "sha256": "2cc9e728a49915e5c3a843b5c71fc3516bafc929f6193a69d4adaf2345236f65"
+      },
+      "forward_calls_each": 1,
+      "logits_max_abs_error": 8.940696716308594e-08,
+      "probabilities_max_abs_error": 4.470348358154297e-08,
+      "reference_probability_sum_error_fsum": 1.5133991837501526e-08,
+      "numpy_probability_sum_error_fsum": 1.0128132998943329e-07,
+      "numpy_probability_sum_error_original_sum": 1.0128132998943329e-07,
+      "class_index": 2,
+      "class_code": 65000,
+      "layers": {
+        "conv1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 1.1920928955078125e-07,
+          "reference_raw_SHA": "09e1028a9b39393f87871b8bc870746465e56105599ae84a1b7d60f2c80425f4",
+          "numpy_raw_SHA": "1f7a6ecce548bf5c84ca116821b657cb391ac65f827895acde999686acafc101"
+        },
+        "relu1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 1.1920928955078125e-07,
+          "reference_raw_SHA": "d3d5bd8b9f574b1f05c07685c9587463c9cddab618fa805bc41a754ceb64c525",
+          "numpy_raw_SHA": "56761935077a914335bd0c5e6bd1e1c582bac2e7994ae771a9d88b3019583b43"
+        },
+        "pool1": {
+          "shape": [
+            1,
+            16,
+            32,
+            1
+          ],
+          "float32_elements_each": 512,
+          "max_abs_error_diagnostic_only": 4.470348358154297e-08,
+          "reference_raw_SHA": "0efe9a0817b4315c3c0b82e43b9657134036dff0c6a5480aeb47ea64f46b561a",
+          "numpy_raw_SHA": "f237d05d3af5583ecdc2a6ffee14646f59f8e1d6340fe618d7bfc3d6f230499d"
+        },
+        "conv2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 8.940696716308594e-08,
+          "reference_raw_SHA": "5c0b0dfdba15e352c66bdc605a15f57500c8ca0122dc69e1507fdba3ea5ba60e",
+          "numpy_raw_SHA": "b62a4f6cc787d94dbdbd3f388b55b53ea407397185c9e75f5c4b204759c6d399"
+        },
+        "relu2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 5.960464477539063e-08,
+          "reference_raw_SHA": "28cd1b0e5dd2c91139bc48673490d13f8fc866a73be17a08d14d231161ccedee",
+          "numpy_raw_SHA": "b20882e7ead3b113f8e96608f636a94bbe562afe8963eeac798d2a83e9392ece"
+        },
+        "pool2": {
+          "shape": [
+            1,
+            24,
+            8,
+            1
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "9de093d0a70dce4412754e61dd422c4797e0021a0f7cfcf7727f91dec5241976",
+          "numpy_raw_SHA": "49ff561120eb6d726c9f7c24f216dab4285ec941ab7ac452b83d0a6cc8edc8ba"
+        },
+        "flatten": {
+          "shape": [
+            1,
+            192
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 2.9802322387695312e-08,
+          "reference_raw_SHA": "9de093d0a70dce4412754e61dd422c4797e0021a0f7cfcf7727f91dec5241976",
+          "numpy_raw_SHA": "49ff561120eb6d726c9f7c24f216dab4285ec941ab7ac452b83d0a6cc8edc8ba"
+        },
+        "head": {
+          "shape": [
+            1,
+            12
+          ],
+          "float32_elements_each": 12,
+          "max_abs_error_diagnostic_only": 8.940696716308594e-08,
+          "reference_raw_SHA": "a7f834c3b190bd4f7f04bdddc94d03bae8f4b9d0b876b0ec6fbb1feff085cdd9",
+          "numpy_raw_SHA": "a65bf849357d0d412a99d01b33e24c6dc2d5dc46efac7ddede55c1ddc556715e"
+        }
+      }
+    },
+    "N2": {
+      "input": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-real-parity-root-control-20261028\\N2.float32le.raw",
+        "bytes": 4096,
+        "sha256": "24f52ee3813e8e3644927c678592a5a9b45ab1c86b04c14a00b0b8a94ef792af"
+      },
+      "forward_calls_each": 1,
+      "logits_max_abs_error": 4.76837158203125e-07,
+      "probabilities_max_abs_error": 2.2351741790771484e-08,
+      "reference_probability_sum_error_fsum": 1.0806252248585224e-07,
+      "numpy_probability_sum_error_fsum": 2.7794158086180687e-08,
+      "numpy_probability_sum_error_original_sum": 2.7794158086180687e-08,
+      "class_index": 2,
+      "class_code": 65000,
+      "layers": {
+        "conv1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 4.76837158203125e-07,
+          "reference_raw_SHA": "c80d1eb7d44e931cb83085dee5b4b7e8630b7fb6a370798be5a03e267ef1c861",
+          "numpy_raw_SHA": "a520c22cfa48802999bd358a4386cbb847b8b340db6055552329a399cd0a7773"
+        },
+        "relu1": {
+          "shape": [
+            1,
+            16,
+            128,
+            1
+          ],
+          "float32_elements_each": 2048,
+          "max_abs_error_diagnostic_only": 4.76837158203125e-07,
+          "reference_raw_SHA": "9cb4e85a1524ffe28cebec0e6c0ac9b2409a2e22c4b1ca64ff12586cd80d875d",
+          "numpy_raw_SHA": "5719ed1343f88fefea1452d019353b0d46718fa8edbb44257582f55b74635eea"
+        },
+        "pool1": {
+          "shape": [
+            1,
+            16,
+            32,
+            1
+          ],
+          "float32_elements_each": 512,
+          "max_abs_error_diagnostic_only": 2.384185791015625e-07,
+          "reference_raw_SHA": "32e71f0fb2ceb06ed5f2098eeaf721535f8c0201cbd33ebb3dc100ecd647c6de",
+          "numpy_raw_SHA": "24c82a84a6efa65a08565fae120e2eb999a860fd72906e18fb5f4b739bc6d456"
+        },
+        "conv2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 5.960464477539062e-07,
+          "reference_raw_SHA": "2526a54f2cbe24ea1e1bbc6f7c346f7c065148123bc4df800a8df278cd36bcc3",
+          "numpy_raw_SHA": "aa04add663ab7a2a78e917a539b46f5eb8c99e619b628aa9bb33cf334a24ad44"
+        },
+        "relu2": {
+          "shape": [
+            1,
+            24,
+            32,
+            1
+          ],
+          "float32_elements_each": 768,
+          "max_abs_error_diagnostic_only": 2.682209014892578e-07,
+          "reference_raw_SHA": "48f9000c9ee6a33647935de4bd6d816ed9db5bdb064fde7d878899620c83ad7d",
+          "numpy_raw_SHA": "9ccf41bed44812ea6d003599023347c80f85dca3e2f07d84319cfe6b6071d8bb"
+        },
+        "pool2": {
+          "shape": [
+            1,
+            24,
+            8,
+            1
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 1.1920928955078125e-07,
+          "reference_raw_SHA": "d4455f47d9969e9e358dfcd4e6c2fef740e5f7396789035829a86bcc432a2675",
+          "numpy_raw_SHA": "3edc3d7ff4a4309c07667642b42957dd0cef1efae88536e351e90f238a611387"
+        },
+        "flatten": {
+          "shape": [
+            1,
+            192
+          ],
+          "float32_elements_each": 192,
+          "max_abs_error_diagnostic_only": 1.1920928955078125e-07,
+          "reference_raw_SHA": "d4455f47d9969e9e358dfcd4e6c2fef740e5f7396789035829a86bcc432a2675",
+          "numpy_raw_SHA": "3edc3d7ff4a4309c07667642b42957dd0cef1efae88536e351e90f238a611387"
+        },
+        "head": {
+          "shape": [
+            1,
+            12
+          ],
+          "float32_elements_each": 12,
+          "max_abs_error_diagnostic_only": 4.76837158203125e-07,
+          "reference_raw_SHA": "e02c775edc40325431a83f8e3afad01549d8d36ce590f22c6b04405701be4908",
+          "numpy_raw_SHA": "3ef4bd3e18eab2ac5dbe0e1b1d8b85b9fe215449eaaacd62f75611c72388c2e8"
+        }
+      }
+    }
+  },
+  "loaded_float32_tensors": {
+    "conv1.weight": {
+      "shape": [
+        16,
+        8,
+        5,
+        1
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 2560,
+      "sha256": "e109027b2772fe8c9442f4811aa52e1d222f3519eeea22a6229a1962a7faddff"
+    },
+    "conv1.bias": {
+      "shape": [
+        16
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 64,
+      "sha256": "c201d8fa84474cc9ad3a5931dfb1b33cb2a5b579b612079f379ee03e05437aee"
+    },
+    "conv2.weight": {
+      "shape": [
+        24,
+        16,
+        5,
+        1
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 7680,
+      "sha256": "0ddf246f6cb98ceab79171296e866682561166c928a7c90f47266aba7fdb4ac5"
+    },
+    "conv2.bias": {
+      "shape": [
+        24
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 96,
+      "sha256": "41c8e3686425a2a0bf75a1e795db203fa197171f23299f93f16d6fe74432a6cb"
+    },
+    "head.weight": {
+      "shape": [
+        12,
+        192
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 9216,
+      "sha256": "a6b34cba5b744a6603c605fa4d5c1021cd8ac41eb31861f5ae8bbca376a19044"
+    },
+    "head.bias": {
+      "shape": [
+        12
+      ],
+      "dtype": "float32",
+      "order": "C",
+      "bytes": 48,
+      "sha256": "37a32589c461204c0083b70461d75390ecac3a0d34ff8385a8631aafa8c33ec9"
+    }
+  },
+  "learned_parameters": 4916,
+  "learned_float32_bytes": 19664,
+  "layer_float32_elements_verified_both_backends": 39240,
+  "original_receipts": [
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03",
+      "pid": 34464,
+      "thread_id": 32268,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:42:44.490987+00:00",
+      "finished_utc": "2026-10-27T20:42:52.184033+00:00",
+      "elapsed_seconds": 7.688,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 296812544,
+        "job_bytes": 298041344
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03-original-process\\command.json",
+        "bytes": 139050,
+        "sha256": "c7a949b34c37da065ea86ecd1062c0cdfce496bd3dead1c67d28e17290462035"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03-original-process\\stdout.bin",
+        "bytes": 423,
+        "sha256": "e6116b2b238b0106fe2f44f95d8cce101394d1953a36492c37a04adf29915af2"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03-original-process\\stderr.bin",
+        "bytes": 429,
+        "sha256": "e98f019e03613d42ff48e4ab81509e857e76de7794b86d6ffeac397e2bac8975"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03",
+      "pid": 33820,
+      "thread_id": 36440,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:44:51.694074+00:00",
+      "finished_utc": "2026-10-27T20:44:53.882988+00:00",
+      "elapsed_seconds": 2.188,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 268435456,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 39383040,
+        "job_bytes": 41394176
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 44153,
+        "sha256": "b19fbd9f5b7fad8dd83be4bf4ea7000c55a32cf529d5f3cce9e41c2e0fb5fc06"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03-original-process\\stdout.bin",
+        "bytes": 512,
+        "sha256": "f5a94d9a5d3435521892fc2be1798203190de3e2ba70e89a5a48258bab0c8559"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03-original-process\\stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04",
+      "pid": 23056,
+      "thread_id": 36724,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:07:45.130597+00:00",
+      "finished_utc": "2026-10-27T20:07:53.231849+00:00",
+      "elapsed_seconds": 8.11,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 70230016,
+        "job_bytes": 71467008
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04-original-process\\command.json",
+        "bytes": 146082,
+        "sha256": "015c1045d76345c4ada16a9daf6e113b119500099c5665040a9dd0d56e203dac"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04-original-process\\stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04-original-process\\stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04",
+      "pid": 38364,
+      "thread_id": 29176,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:44:07.604276+00:00",
+      "finished_utc": "2026-10-27T20:44:16.188095+00:00",
+      "elapsed_seconds": 8.578,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 69967872,
+        "job_bytes": 71192576
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04-original-process\\command.json",
+        "bytes": 154525,
+        "sha256": "f271ea82fea14521e57faa54f537cb13a4ba8c0be725bca69ea02c2bf93c5901"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04-original-process\\stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04-original-process\\stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03",
+      "pid": 13504,
+      "thread_id": 32972,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:44:07.611612+00:00",
+      "finished_utc": "2026-10-27T20:44:10.017580+00:00",
+      "elapsed_seconds": 2.406,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 26877952,
+        "job_bytes": 28114944
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 48045,
+        "sha256": "b7910043049c74c92eb794975cbd7cab1861da47b44496163331e9140179e334"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03-original-process\\stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03-original-process\\stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03",
+      "pid": 21688,
+      "thread_id": 37520,
+      "target_exit": 0,
+      "wait_completed": true,
+      "started_utc": "2026-10-27T20:46:06.307031+00:00",
+      "finished_utc": "2026-10-27T20:46:08.531362+00:00",
+      "elapsed_seconds": 2.218,
+      "memory_limits": {
+        "flags": 8960,
+        "process_bytes": 536870912,
+        "job_bytes": 1073741824
+      },
+      "memory_peaks": {
+        "query_ok": true,
+        "process_bytes": 27295744,
+        "job_bytes": 28528640
+      },
+      "raw_receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03-original-process\\command.json",
+        "bytes": 44877,
+        "sha256": "c7ebb85f1b06ecf0dd6b7f8bf2e4ec2eb5213467da39cef6db2539d893a5edf3"
+      },
+      "raw_stdout": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03-original-process\\stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "raw_stderr": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03-original-process\\stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "six_close": true,
+      "Job_final": 0,
+      "normalized_config_verified": true
+    }
+  ],
+  "full_external_readbacks": {
+    "A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04": {
+      "result": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04\\result.json",
+        "bytes": 991,
+        "sha256": "cd02a3bb40341a33bcc011dbde8a21b11e127ac61eb245229c0c0581fac72d0e"
+      },
+      "inventory": {
+        "bytes": 4994331,
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-QUAL-20261028-04\\inventory.json",
+        "sha256": "e790c3f43821465b0ba434a8d9bf991eec67eddb5f4e2ac2aa9d54e2b2c8620c"
+      },
+      "files": 15637,
+      "no_import_no_forward": true
+    },
+    "A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04": {
+      "result": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04\\result.json",
+        "bytes": 989,
+        "sha256": "a9f5ad424721067508d979a45945ae4dd34df4f8546c52551c0a0eda51b5aa4f"
+      },
+      "inventory": {
+        "bytes": 4994331,
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-READBACK-AFTER-REF-20261028-04\\inventory.json",
+        "sha256": "e790c3f43821465b0ba434a8d9bf991eec67eddb5f4e2ac2aa9d54e2b2c8620c"
+      },
+      "files": 15637,
+      "no_import_no_forward": true
+    },
+    "A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03": {
+      "result": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-BEFORE-COMPARE-20261028-03\\result.json",
+        "bytes": 581,
+        "sha256": "868665202901deca6145fe10afc2119110cb31f3ae30590f9dda44ed0023f42d"
+      },
+      "files": 3252,
+      "runtime_rows_sha256": "27a679f1a16f75ce38190eba5f2af7e17f6cf46188951972c38f8509d7c65c5c",
+      "no_import_no_forward": true
+    },
+    "A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03": {
+      "result": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-NUMPY-READBACK-AFTER-COMPARE-20261028-03\\result.json",
+        "bytes": 580,
+        "sha256": "0ead75e339c07d9335dbcaa2f40c8e731f00700ad1cb5ff56fcbfbcf38a610a8"
+      },
+      "files": 3252,
+      "runtime_rows_sha256": "27a679f1a16f75ce38190eba5f2af7e17f6cf46188951972c38f8509d7c65c5c",
+      "no_import_no_forward": true
+    }
+  },
+  "chronology_verified": true,
+  "all_output_trees_each_le_1MiB": {
+    "A-C22-OFFICIAL-CPU-TORCH-REF-20261028-03": {
+      "bytes": 364210,
+      "files": 8
+    },
+    "A-C22-OFFICIAL-CPU-NUMPY-COMPARE-20261028-03": {
+      "bytes": 353700,
+      "files": 8
+    }
+  },
+  "accepted_for_new_root_owned_endpoint": false,
+  "source_transaction_semantics_review_accepted": false,
+  "actor_output": false,
+  "requires_new_explicit_Root_admission_schema": true,
+  "model_quality": "unchanged F1 0.1827348057438266 FAIL",
+  "physical_accuracy_lt_1_percent": "not_proven",
+  "100ms": "not_proven",
+  "H12": "not_run",
+  "G03": "not_run",
+  "R03": "not_run",
+  "all29": "not_run",
+  "reviewer_candidate_or_model_import_execution": 0,
+  "loaded_OS_DLL_closure_proven": false,
+  "fileless_source_proven": false,
+  "reviewer_full15637_or3252_runtime_rehash": false,
+  "runtime_full_integrity_evidence": "original independently bound file-only full-readback receipts, not fresh full inventory re-execution by reviewer",
+  "official_CPU_zero_forward_qualification": {
+    "result": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-QUALIFY-20261028-04\\qualification.json",
+      "bytes": 4128,
+      "sha256": "dda4acc303c08da71a4f9cf8cf8d953afb8c2bf5e1f45c0125cd4a3bb20e93a4"
+    },
+    "source_manifest": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-qualification-source-20261028-04\\source-manifest.json",
+      "bytes": 4952,
+      "sha256": "a412837c3dd9e15dd57d492cd11e616c26a8abd1b65c2209b3b282ab984f6d18"
+    },
+    "plan": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-qualification-source-20261028-04\\plan.json",
+      "bytes": 2431,
+      "sha256": "18d17bcfdc7e673fc49e4c743eddf4b475f46afb7a3c66f321771af78c5e5cd4"
+    },
+    "original_receipt": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\A-C22-OFFICIAL-CPU-QUALIFY-20261028-04-original-process\\command.json",
+      "bytes": 139718,
+      "sha256": "bd2041de479175e4999258bc3413f38485e87cf5db749962b74273f378cf2470"
+    },
+    "pid": 27496,
+    "target_exit": 0,
+    "Wait": true,
+    "Job_final": 0,
+    "six_close": true,
+    "actual_backend": {
+      "MKL_available": true,
+      "OpenMP_available": true,
+      "deterministic": true,
+      "interop_threads": 1,
+      "threads": 1,
+      "torch_version": "2.12.0+cpu"
+    },
+    "zero_forward": true,
+    "qualified_before_pre_reference_readback": true,
+    "source_independent_review": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-qualification04-independent-review-20261028\\review.json",
+      "bytes": 1601,
+      "sha256": "76de087403338cb004d293b1c2ac3598cb2ddb4448d7fac44573f1d3147d7715"
+    },
+    "Root_final_records_supplementary": [
+      {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-reference-root-control-20261028\\Root-runtime04-final-readback.json",
+        "bytes": 9913,
+        "sha256": "06366bb9288cf6df1253ce8e54e6faaafa956351ef0bba0074d6447af32c1ef6"
+      }
+    ]
+  },
+  "prior_metadata_failures": [
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-TORCH-REF-20261028-01",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-01-original-process\\command.json",
+        "bytes": 73934,
+        "sha256": "88e1d93b650cc3c27461ba5f6809f36544a981db378042dcba640be3dfbc696b"
+      },
+      "pid": 33844,
+      "exit": 1,
+      "Wait_Job0_six_close": true,
+      "failure": {
+        "message": "existing native namespace chain only",
+        "no_retry": true,
+        "status": "failed_or_unknown_preserved",
+        "type": "Refused"
+      },
+      "N0_started_marker_exists": false,
+      "preserved_not_replayed_by_review": true
+    },
+    {
+      "operation_id": "A-C22-OFFICIAL-CPU-TORCH-REF-20261028-02",
+      "receipt": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-real-parity-root-control-20261028\\A-C22-OFFICIAL-CPU-TORCH-REF-20261028-02-original-process\\command.json",
+        "bytes": 74999,
+        "sha256": "cbe7d1255ca30bff8eef3f5d2e6e7788ceb2ef263b394e2df8c1cae2d1682775"
+      },
+      "pid": 31596,
+      "exit": 1,
+      "Wait_Job0_six_close": true,
+      "failure": {
+        "message": "unknown fileless Torch module refused",
+        "no_retry": true,
+        "status": "failed_or_unknown_preserved",
+        "type": "Refused"
+      },
+      "N0_started_marker_exists": false,
+      "preserved_not_replayed_by_review": true
+    }
+  ],
+  "reference_stderr_warning_preserved": "429B actual Torch warning: NumPy unavailable; no fatal error, complete Torch tensors recorded using .tolist; not a NumPy dependency qualification",
+  "source04_origin_policy_scope": "Reuse actual qualified Source04 policy; real supplied origin checks retained, fileless metadata remains unproven/non-gating diagnostics; Root independent review raw bound",
+  "source_manifest_sha256": "92df2fa67b69ac5b4e0dfb5591a1f0842cd6c0cbcd232dd009423350e82bc4de",
+  "source_plan_sha256": "13e7abc6c3f841c7e161d37b4ad625d4656843fc21008cdcd473fdcbf115a302",
+  "original_actor_plan_sha256": "b9775eb5bc1952b0b3d68942854ef65ee04076a45fe8195c78f1e72c9eb6e32a",
+  "historical_parity_manifest_sha256": "b82a7eb0821c02d2cbc394812eefb1567f1fc823c5ff41e25918ff9afc13cf6b",
+  "numpy_leaf_source_sha256": "6547a7a5d1f6d480eec407b66dfbba21656209dff145c027f3e6385141e46ba9",
+  "numpy_model_source_sha256": "e2c152a2f2e1eafca11581cd17d142f4fc2eb062d8ec21de5640a6559bb4bdb1",
+  "numpy_core_source_sha256": "722e6d133266d255465a2d369e2c9b28b8b05c3db5155ba924a271206a9cafe0",
+  "model_manifest_sha256": "0b76bcd1b21b6b1e254eef0e2e5815a15121fdb8ac48c33710f2b2d85bdf2959",
+  "learned_weights_sha256": "8988f4bbcf425d9b48c9a62866ac350e6096ea43fabdd9b1e616b22ba4b6d187",
+  "real_checkpoint_evaluated": true,
+  "exact_input_tensor_and_weights": true,
+  "max_abs_probability_error": 4.470348358154297e-08,
+  "max_abs_logits_error": 4.76837158203125e-07,
+  "max_probability_sum_error": 1.0128132998943329e-07,
+  "max_reference_probability_sum_error": 1.0806252248585224e-07,
+  "class_order_and_first_maximum_equal": true,
+  "numeric_migration_blockers": [],
+  "numeric_migration_limitations": [
+    "three fixed synthetic tensor cases only, not live FORCE/source4 or model quality",
+    "whole original supervised operations7.688s/2.188s are not per-inference or100ms feedback timing",
+    "NumPy thread env1 is recorded; BLAS worker count was not measured",
+    "Torch fileless metadata remains source-unproven diagnostics; loaded OS DLL closure not established",
+    "file integrity closure relies on independently bound original full-readback receipts, not rerun by reviewer",
+    "production actor/session/IPC/authority/lease and transaction semantic acceptance remain separate"
+  ],
+  "independent_numpy3252_rows_digest_rebuilt": "27a679f1a16f75ce38190eba5f2af7e17f6cf46188951972c38f8509d7c65c5c",
+  "critical_runtime_raw_current_pins": [
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\__init__.py",
+      "bytes": 112357,
+      "sha256": "b508de5a66ebc368fc8fa2161b1e0e88ae0034d9d9540e7c020460237a5464a9"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\version.py",
+      "bytes": 323,
+      "sha256": "f215dd637506f42a1ec268c9a8d20cbb8c902a25ec0fcdc1ca7a09298f79e089"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\_C.cp312-win_amd64.pyd",
+      "bytes": 10752,
+      "sha256": "a2dab1a86b60e9a23ff103f902cbfbb49902de8f66941587670aa97ba75fe6c1"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\lib\\torch_cpu.dll",
+      "bytes": 307778048,
+      "sha256": "576b6df3455c4440f353141d81f10067c5297cc7dbfdd1b4188622308792a6e8"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\lib\\torch_python.dll",
+      "bytes": 18985984,
+      "sha256": "4f2c399c91411a73a5d013265dc1e7ac53171694b0c2ec4702de439f386e3cd9"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\lib\\libiomp5md.dll",
+      "bytes": 1617256,
+      "sha256": "2299b0460e8118e8187fd57a8d17df836c2a3d59f2639c3681582070da66b7be"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\_ops.py",
+      "bytes": 65456,
+      "sha256": "aed883c8a88051df15c7e8793f8dd1ff875e7b065c0f3ffede80113744e4104e"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-official-cpu-runtime-20261028-01\\site-packages\\torch\\_classes.py",
+      "bytes": 1842,
+      "sha256": "3ea58190980b19fdc478b60cf157ab74472c44b20cc4d53164cdcea98648b321"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Scripts\\python.exe",
+      "bytes": 277808,
+      "sha256": "f300ab436cde3f9ab69ade17bfb3e2adcb8f0fac085d3762064bb1d527a87c75"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\pyvenv.cfg",
+      "bytes": 459,
+      "sha256": "fd6844184609c1f6f03953aeeb0812554c285c39bd4643ffb8da88ca84e29344"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "bytes": 107312,
+      "sha256": "ceabb31054d429f57cb3825775677eeaf0db35fdabbc5ff6aef661c037154b00"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python312.dll",
+      "bytes": 6985520,
+      "sha256": "7e6decf2bf713fc4bdec8f08ff96517f79a481ac12a7aed4daeec55dfb414b3e"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy\\__init__.py",
+      "bytes": 26470,
+      "sha256": "a6958cb364663b7acce81ccfd58eeb65a2b34d5376157f924777b97211a73be4"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy\\__config__.py",
+      "bytes": 5638,
+      "sha256": "d5709521face334fddfd34232fba5aad2ef1edad1f35195e1aa1a066d8bc3db1"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy\\_core\\einsumfunc.py",
+      "bytes": 59481,
+      "sha256": "16e0c6ac0634ed3d9811428a476a82cbe88ffb454ac37413773f0624cec57563"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy\\_core\\_multiarray_umath.cp312-win_amd64.pyd",
+      "bytes": 3855872,
+      "sha256": "9c10617e66e992b5ac6d9f78fe7cedd0011618e1c2f89d09a185bb63073e2c90"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-ed4f167a5330424524f45258e7ca2c8d.dll",
+      "bytes": 20589056,
+      "sha256": "ed4f167a5330424524f45258e7ca2c8d7f03c0cba1f30ee4985553ac1f88ecf8"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.local\\deepeye-fdem-validation-20261020\\Lib\\site-packages\\numpy.libs\\msvcp140-a4c2229bdc2a2a630acdc095b4d86008.dll",
+      "bytes": 575056,
+      "sha256": "a4c2229bdc2a2a630acdc095b4d86008e5c3e3bc7773174354f3da4f5beb9cde"
+    }
+  ],
+  "strict_tensor_and_forward_scalar_types_verified": true
+}

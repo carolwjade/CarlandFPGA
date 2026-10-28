@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "utc": "2026-10-28T12:30:56.633593+00:00",
+  "status": "actual_real_C22_owned_serial_diagnostic_verified",
+  "operation_id": "A-C22-NUMPY-OWNED-20261028-09",
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "original_outer": {
+    "pid": 3224,
+    "thread_id": 7068,
+    "wait_completed": true,
+    "exit_code": 0,
+    "original_process_handle": 612,
+    "original_thread_handle": 616
+  },
+  "original_outer_receipt": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-root-control-20261028-09\\actual-original-process\\command.json",
+    "bytes": 878127,
+    "sha256": "53c9ca7a6fa42670c871ceb6b221dfe1f41f1d900611c2b8f3652832725107ca"
+  },
+  "original_actor": {
+    "hProcess": 14232,
+    "hThread": 14024,
+    "process_id": 31844,
+    "thread_id": 31012
+  },
+  "actor_receipt": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned-run-20261028-09\\evidence\\actor-ebcbfbc5aa704558a7b5f7124aee08c9\\receipt.json",
+    "bytes": 527998,
+    "sha256": "251b8e69161fe0e5b85953b51c328146c2352c037f969d1320f82f242b1a22fd"
+  },
+  "actual_actor_cleanup": {
+    "resources_complete": true,
+    "evidence_complete": true,
+    "success": true,
+    "cleanup_errors": []
+  },
+  "original_actor_stop": {
+    "attempted": true,
+    "returned": true,
+    "result": 1,
+    "error": 0,
+    "terminal": true,
+    "wait_result": 0,
+    "exit_code": 57005
+  },
+  "OS_limits": {
+    "flags": 8960,
+    "process_bytes": 536870912,
+    "job_bytes": 1073741824
+  },
+  "OS_peaks": {
+    "query_ok": true,
+    "process_bytes": 64319488,
+    "job_bytes": 72728576
+  },
+  "elapsed_outer_seconds": 50.719,
+  "Wait_Job0_sixclose": true,
+  "original_ready": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned-run-20261028-09\\evidence\\original-model-ready.json",
+    "bytes": 954,
+    "sha256": "c099af7aa586567bd0c509a4eb411034e31eca0cea08a9213388af440180a26b"
+  },
+  "AppContainer_capabilities": 0,
+  "actor_process_memory_bytes": 268435456,
+  "feedback_window_ns": 39819200,
+  "feedback_window_ms": 39.8192,
+  "observed_model_clock_reported": false,
+  "actual_serial_results": 2,
+  "session_state": "ENDED",
+  "one_actual_observation_and_forward": true,
+  "probability_max_abs_error_vs_frozen_encoded_reference": 4.470348358154297e-08,
+  "probability_max_abs_error_vs_independent_oracle": 2.9802322387695312e-08,
+  "private_stage_full_after_hash_files": 3267,
+  "private_stage_extra_files": 0,
+  "source_after_hash_match": true,
+  "invocations": [
+    {
+      "invocation": 1,
+      "raw_evidence": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned-run-20261028-09\\evidence\\actual-invocation-01.json",
+        "bytes": 26679,
+        "sha256": "389633817c20c10cafcf4348164adecab357fc34bec41e3d70630cca5df98872"
+      },
+      "identity": {
+        "actor_instance_id": "f947c5a443ad44cdb9d6d8104aa5f5e2:1",
+        "invocation_id": 1,
+        "operation_id": "A-C22-NUMPY-OWNED-20261028-09",
+        "package_manifest_sha256": "ab1c14cb158b2f6a4dd83270f6f2762d860d0ccedec3ecf94f8fef53c5e1622b",
+        "request_hash": "fd5562fa7ba8bef5225619758421effc36d4a510ff70c562c226868ad7b78732",
+        "run_id": "C22-NUMPY-A-NEW-20261028-09",
+        "tested_commit": "9a71c0f21ac952b32f783b5ca52310aa28150002"
+      },
+      "request_bytes": 879,
+      "response_bytes": 3247,
+      "payload_bytes": 2540,
+      "host_dispatch_to_complete_bytes_ns": 12123300,
+      "validation": {
+        "authority_completion_created": false,
+        "dispatch_to_complete_bytes_interval_ns": [
+          22031186203500,
+          22031198326800
+        ],
+        "invocation_id": 1,
+        "kind": "root_frame_validation",
+        "model_clock_not_reported": true,
+        "payload_sha256": "cb46d7a5b8b89d771436d68c55d8b09ccf883d0041815de9d633055e1a933660",
+        "request_sha256": "d5dd3087e8bfe498abc5582797af9c336f2dc984b554d7efcd18292472ce27ff",
+        "response_sha256": "6a2984578c77a7ad28007dbb7bdff3ab8df91fe1bf814ebfe9ac0263b44af46d",
+        "verdict": {
+          "diagnostic_tolerance": 1e-06,
+          "movement_authorized": false,
+          "probability_max_abs_error": 2.9802322387695312e-08
+        }
+      }
+    },
+    {
+      "invocation": 2,
+      "raw_evidence": {
+        "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\pc-ai-c22-numpy-owned-run-20261028-09\\evidence\\actual-invocation-02.json",
+        "bytes": 11523,
+        "sha256": "6a7a9004ecec8d213130b78049994f33eb9bf93606372388bf5b5981d71e8399"
+      },
+      "identity": {
+        "actor_instance_id": "f947c5a443ad44cdb9d6d8104aa5f5e2:1",
+        "invocation_id": 2,
+        "operation_id": "A-C22-NUMPY-OWNED-20261028-09",
+        "package_manifest_sha256": "ab1c14cb158b2f6a4dd83270f6f2762d860d0ccedec3ecf94f8fef53c5e1622b",
+        "request_hash": "fd5562fa7ba8bef5225619758421effc36d4a510ff70c562c226868ad7b78732",
+        "run_id": "C22-NUMPY-A-NEW-20261028-09",
+        "tested_commit": "9a71c0f21ac952b32f783b5ca52310aa28150002"
+      },
+      "request_bytes": 525,
+      "response_bytes": 965,
+      "payload_bytes": 258,
+      "host_dispatch_to_complete_bytes_ns": 11418100,
+      "validation": {
+        "authority_completion_created": false,
+        "dispatch_to_complete_bytes_interval_ns": [
+          22031209814600,
+          22031221232700
+        ],
+        "invocation_id": 2,
+        "kind": "root_frame_validation",
+        "model_clock_not_reported": true,
+        "payload_sha256": "572bfe947fba7ec2a2818ae2b149fdd9f360b1f37665af8124429926eec54e94",
+        "request_sha256": "57ef3d97909cd17db1c1dcfff3603277de785b3bfc25861b3f30846e79e94c2b",
+        "response_sha256": "ed6383b5fefc61ebd184bf2526e4b1ef0c4f1cf55626ec16eed2741815deca83",
+        "verdict": {
+          "movement_authorized": false,
+          "scope": "C local END only; not A STOP or BOOT"
+        }
+      }
+    }
+  ],
+  "full_model_parameters": 4916,
+  "fixture": "frozen geo_replay FORCE prefix, not live PL/ADC/sim_em",
+  "physical_accuracy_lt_1_percent": false,
+  "physical_STOP_deadline_proven": false,
+  "formal_AI_P95_100ms_1000_with_3D": "not_run",
+  "model_quality_macro_F1": 0.1827348057438266,
+  "model_quality": "FAIL unchanged",
+  "H12_G03_R03_all29": "not_run",
+  "admission_scope": "one new real CPU/NumPy owned endpoint diagnostic only; no movement or A authority completion",
+  "old_failures_and_unknown_profiles_preserved": true
+}

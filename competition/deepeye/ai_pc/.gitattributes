@@ -1,0 +1,4 @@
+# These frozen sources/assets are authenticated by raw-byte SHA256.
+cpu_package/*.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+model/*.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+cpu_model/force_v1/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
