@@ -131,8 +131,33 @@ def _cleanup_return_document(result,receipt,snapshot,*,expected_binding):
         processes=[row for row in resources if row['resource']['kind']=='process']
         need(len(processes)==1 and processes[0]['terminal_confirmed'] is True and processes[0]['resource']['identity']['native']==snapshot['original_process_native'],'same original terminal process summary required')
         need(type(overlap) is dict and overlap.keys()=={'process_acquisition','stop_claim','operations','errors','native_acquisitions_registered','process_pair_registered','private_acquisitions','invocation'},'original overlapped receipt fields missing or unknown')
-        need(overlap['process_acquisition']=='ACQUIRED' and overlap['errors']==[] and overlap['native_acquisitions_registered'] is True and overlap['process_pair_registered'] is True,'original acquisition registration required')
+        # This is a CLOSED, consumed cohort. The live pair lookup excludes
+        # attempted references, so its terminal value must be False. Verify the
+        # original pair from the retained PI and closed JSON summaries instead.
+        need(overlap['process_acquisition']=='ACQUIRED' and overlap['errors']==[] and overlap['native_acquisitions_registered'] is True and overlap['process_pair_registered'] is False,'terminal acquisition registration required')
         need(overlap['operations']==snapshot['operations'] and overlap['private_acquisitions']==snapshot['private_acquisitions'] and overlap['invocation']==snapshot['invocation'],'original terminal IO/invocation receipt mismatch')
+        private=overlap['private_acquisitions']
+        need(type(private) is dict and private.keys()=={'original_pi','native_returns'},'original private acquisition schema required')
+        pi=private['original_pi'];capsules=private['native_returns']
+        need(type(pi) is dict and pi.keys()=={'hProcess','hThread','process_id','thread_id'} and all(type(value) is int and value>0 for value in pi.values()),'strict positive original PI fields required')
+        need(type(snapshot['original_process_native']) is int and snapshot['original_process_native']==pi['hProcess'],'same original PI/process snapshot required')
+        threads=[row for row in resources if row['resource']['identity']['label']=='primary_thread']
+        need(len(threads)==1 and threads[0]['resource']['kind']=='handle' and threads[0]['terminal_confirmed'] is False,'unique original primary thread summary required')
+        pair_ids=set()
+        for label,row,native in (('process',processes[0],pi['hProcess']),('primary_thread',threads[0],pi['hThread'])):
+            summary=row['resource']['identity'];resource_id=row['resource']['resource_id']
+            need(summary['label']==label and re.fullmatch(label+r':[1-9][0-9]*',resource_id) is not None and summary['release']=='kernel' and type(summary['native']) is int and summary['native']==native,'original closed pair identity/release mismatch')
+            pair_ids.add(resource_id)
+        # Native capsules cover other acquisitions only: own_process registers
+        # process/thread as a pair from original_pi, not through capture_native.
+        need(type(capsules) is list and len(capsules)==len(resources)-2,'complete nonpair native acquisition list required')
+        summaries={row['resource']['resource_id']:row['resource']['identity'] for row in resources};registered=set()
+        for capsule in capsules:
+            need(type(capsule) is dict and capsule.keys()=={'label','native','release','registered_resource_id'} and all(type(capsule[key]) is str for key in ('label','release','registered_resource_id')) and type(capsule['native']) in (int,str),'strict native acquisition capsule required')
+            resource_id=capsule['registered_resource_id']
+            need(resource_id in summaries and resource_id not in pair_ids and resource_id not in registered and all(capsule[key]==summaries[resource_id][key] for key in ('label','native','release')),'original nonpair acquisition registration mismatch')
+            registered.add(resource_id)
+        need(registered==ids-pair_ids,'every original nonpair acquisition registered once required')
         stop=overlap['stop_claim']
         need(type(stop) is dict and stop.keys()=={'attempted','error','exit_code','result','returned','terminal','wait_result'} and stop==snapshot['stop_claim'] and stop['attempted'] is True and stop['returned'] is True and stop['terminal'] is True and type(stop['wait_result']) is int and stop['wait_result']==0 and type(stop['exit_code']) is int,'original terminal Wait/exit required')
         invocation=overlap['invocation'];identity=invocation.get('identity') if type(invocation) is dict else None
