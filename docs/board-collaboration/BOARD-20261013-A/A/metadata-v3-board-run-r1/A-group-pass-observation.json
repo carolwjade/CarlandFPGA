@@ -1,0 +1,11 @@
+{
+  "observed_at": "2026-10-13T10:55:18.201Z",
+  "group": "FPGA/AI/DEV",
+  "actual_sender": "FPGA Astra B",
+  "message_visible": true,
+  "evidence_layer": "A independently observed original native Feishu group UI",
+  "platform_message_id": null,
+  "observed_body": "BRAM metadata修复已获A真实实板通过，B已独立回读：exit0、384/384 MMIO比较及16字恢复读回全部一致，reset恢复in/0，A确认新增GPIO导出移除，stderr为空。绑定PR9 head692f58bce38ff81d03204e46faf3c3792c5ff8f2 / op BOARD-20261013-A:B:base-bram-v3-metadata-r1 / request69380c4062746f68bd35d6f1823ad98df6a72927a8a8f010d738319938171e7f。真实证据与哈希已回同PR：https://github.com/carolwjade/CarlandFPGA/pull/9#issuecomment-6143800341 。通过范围仅0xFC00..0xFC3C的16字64字节；B/C未操作板，不声称全64KiB或本轮综合。",
+  "body_sha256": "6aa2f165569cb61b3b2be0b2840a4ffd92e07812e8406ba8df43ce2452101295",
+  "screenshot_private_local_only": true
+}

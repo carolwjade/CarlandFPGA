@@ -1,0 +1,34 @@
+{
+  "operation_id": "BOARD-20261013-A:B:base-bram-v2-reset-origin-r1",
+  "request_hash": "ee52a9f5330b8a5a8a04367a5bd1f18b233d739b1b865941850846fef53dc28d",
+  "code_commit": "3f9e9a52c950c0bbac24675e7fb49c8fe46a50c7",
+  "tested_commit": "bb0d302331785defb59fc8d47eeea5d27fb33e81",
+  "submitted_pr": "https://github.com/carolwjade/CarlandFPGA/pull/9",
+  "feedback_chain_status": "passed_real_error_returned",
+  "functional_bram_status": "failed_metadata_compatibility",
+  "physical_overlay_load": "passed_base_overlay_loaded",
+  "comparisons_executed": 0,
+  "reset_or_bram_test_access": "not_reached",
+  "actual_error": {
+    "message": "'iop_pmoda/mb_bram_ctrl'",
+    "phase": "metadata",
+    "type": "KeyError"
+  },
+  "clock_note": "Board clock reported2022-10-22; authoritative reception/execution timestamps are A host2026-10-13, original board timestamps preserved. No clock adjustment performed.",
+  "execution": {
+    "operation_id": "BOARD-20261013-A:B:base-bram-v2-reset-origin-r1",
+    "request_hash": "ee52a9f5330b8a5a8a04367a5bd1f18b233d739b1b865941850846fef53dc28d",
+    "code_commit": "3f9e9a52c950c0bbac24675e7fb49c8fe46a50c7",
+    "tested_commit": "bb0d302331785defb59fc8d47eeea5d27fb33e81",
+    "script_sha256": "fde7bc99aca19ef32ff0137c5045e4262fa5a3eac1b080465f964105a7c6384f",
+    "started_utc": "2026-10-13T08:47:32.354690+00:00",
+    "finished_utc": "2026-10-13T08:48:09.445461+00:00",
+    "elapsed_seconds": 37.093,
+    "exit_code": 1,
+    "timed_out": false,
+    "stdout_sha256": "04ec4a09b95c7a68127c399e973ffeb5fdb69241b9eadb5b8f4a82ec98a62103",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_log": "stdout.log",
+    "stderr_log": "stderr.log"
+  }
+}
