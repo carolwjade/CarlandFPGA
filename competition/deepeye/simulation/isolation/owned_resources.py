@@ -48,6 +48,7 @@ class OwnedResources:
         self.profile = None
         self.profile_path = None
         self.errors = []
+        self._pending_io = None
 
     @property
     def references(self):
@@ -165,6 +166,8 @@ class OwnedResources:
             raise ValueError('foreign ownership reference')
         if ref.attempted:
             return ref.outcome
+        if self._pending_io is not None:
+            self._pending_io.before_release(ref)  # Veto before consuming an unissued close.
         if self._releaser is None:
             raise ValueError('release backend not bound')
         ref.attempted, ref.outcome = True, Outcome.UNKNOWN

@@ -128,7 +128,16 @@ def _persist(owner):
             evidence_complete=owner._cleanup_result.evidence_complete,
             success=owner._cleanup_result.success,
             cleanup_errors=[asdict(e) for e in owner._cleanup_result.cleanup_errors]),
-        evidence_complete=not owner._evidence_errors, cleanup_attempted=owner._cleanup_attempted)
+        evidence_complete=not owner._evidence_errors, cleanup_attempted=owner._cleanup_attempted,
+        overlapped=None if owner._pending_io is None else dict(
+            process_acquisition=owner._pending_io.process_state,
+            stop_claim=asdict(owner._pending_io.stop_claim),
+            operations=[op.diagnostic() for op in owner._pending_io.operations],
+            errors=[type(error).__name__ for error in owner._pending_io.errors],
+            native_acquisitions_registered=owner._pending_io.acquisitions_registered,
+            process_pair_registered=owner._pending_io.process_pair_registered,
+            private_acquisitions=owner._pending_io.private_acquisition_diagnostics(),
+            invocation=None if owner._invocation is None else owner._invocation.snapshot()))
     temporary = owner._root / ('receipt.' + uuid.uuid4().hex + '.pending')
     with temporary.open('x', encoding='utf-8', newline='\n') as stream:
         stream.write(json.dumps(document, ensure_ascii=False, indent=2) + '\n')
@@ -152,12 +161,15 @@ def _entry(method):
             raise ValueError('reentrant actor entry')
         self._busy = True
         try:
-            if self._foreign_call.is_set() and method.__name__ != 'close':
+            if self._foreign_call.is_set() and method.__name__ not in ('close', 'poll_teardown', 'invocation_snapshot'):
                 raise ValueError('foreign-thread entry pending')
             return method(self, *args, **kwargs)
         except BaseException as error:
             if self._primary_error is None: self._primary_error = error
             self._revoke('actor entry rejected')
+            if self._pending_io is not None and method.__name__ != '_launch':
+                try: self._close_internal('overlapped actor entry rejected')
+                except BaseException as cleanup_error: self._cleanup_error = cleanup_error
             if isinstance(error, TypeError) and error.__traceback__.tb_next is None:
                 raise ValueError('invalid actor call or dependency result') from error
             raise
@@ -170,6 +182,7 @@ class ActorRegistry:
     """Trusted same-thread composition root; retains live and quarantine owners."""
     def __init__(self, *, host_clock=None):
         binding = clocks._require_binding(host_clock)
+        self._clock_binding = binding
         self._api, self._clock = _native_api(), monotonic_ns if binding is None else binding
         self._thread = threading.get_ident()
         self._owners, self._used_sessions, self._generations = [], set(), {}
@@ -191,6 +204,31 @@ class ActorRegistry:
         self._ordinal += 1
         actor = ActorOwner(_FACTORY, self, policy, self._ordinal)
         self._owners.append(actor)  # Strong ownership before clock, disk or native acquisition.
+        self._launching = actor
+        try:
+            actor._launch()
+            return actor
+        finally:
+            self._launching = None
+
+
+    def launch_overlapped(self, /, *args, **kwargs):
+        """Fresh trusted-root acquisition, never an upgrade/adoption of an actor."""
+        if threading.get_ident() != self._thread:
+            for owner in self._owners: owner._foreign_call.set()
+            raise ValueError('authority owner thread required')
+        if self._launching is not None:
+            self._launching._revoke('reentrant launch')
+            raise ValueError('reentrant registry launch')
+        if len(args) != 1 or kwargs or type(args[0]) is not ActorPolicy:
+            raise ValueError('one original policy required; adoption forbidden')
+        policy = args[0]; policy._validate()
+        self._ordinal += 1
+        actor = ActorOwner(_FACTORY, self, policy, self._ordinal)
+        self._owners.append(actor)
+        from .actor_pipe_io import _new
+        actor._pending_io = _new(actor)
+        actor._resources._pending_io = actor._pending_io
         self._launching = actor
         try:
             actor._launch()
@@ -227,6 +265,10 @@ class ActorOwner:
         self._evidence_errors, self._callback_errors = [], []
         self._cleanup_attempted = False
         self._revoking = False
+        self._pending_io = self._invocation = None
+        self._invocation_claimed = False
+        self._model_ready_reference = self._model_ready_native = None
+        self._model_ready_launch_readback = None
 
     @property
     def instance_id(self): return self._instance
@@ -279,27 +321,63 @@ class ActorOwner:
             self._revoking = False
 
     def _stage_files(self):
+        # Only immutable file preparation is parallel. No native actor API,
+        # owner ledger, control IO or model call is reachable in a worker.
+        from concurrent.futures import ThreadPoolExecutor
         total = 0
+        checked_dirs = set()
+        tasks = []
+        def guard(part):
+            if part.is_symlink() or (hasattr(part, 'is_junction') and part.is_junction()) or getattr(part.lstat(), 'st_file_attributes', 0) & 0x400:
+                raise ValueError('stage aliases/reparse points forbidden')
         for name, expected in self._policy.files:
             source = self._policy.source_root / name
-            _no_alias(source)
-            stat = source.stat()
-            if not source.is_file() or stat.st_nlink != 1: raise ValueError('ordinary single-link source required')
-            total += stat.st_size
+            guard(source)
+            for directory in source.parents:
+                if directory not in checked_dirs:
+                    guard(directory)
+                    checked_dirs.add(directory)
+            info = source.stat()
+            if not source.is_file() or info.st_nlink != 1: raise ValueError('ordinary single-link source required')
+            total += info.st_size
             if total > self._policy.max_stage_bytes: raise ValueError('approved stage size budget exceeded')
+            tasks.append((source, self._stage / name, info.st_size, expected))
+        def copy_file(item):
+            source, target, size, expected = item
+            guard(source)
             with source.open('rb') as stream:
-                raw = stream.read(self._policy.max_stage_bytes - total + stat.st_size + 1)
-            if len(raw) != stat.st_size or hashlib.sha256(raw).hexdigest() != expected:
-                raise ValueError('approved stage hash mismatch')
-            target = self._stage / name
+                before = os.fstat(stream.fileno())
+                raw = stream.read(size + 1)
+                after = os.fstat(stream.fileno())
+            def identity(info):
+                return (info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns,info.st_ctime_ns,info.st_nlink,info.st_mode)
+            if before.st_size != size or before.st_nlink != 1 or identity(before) != identity(after) or len(raw) != size or hashlib.sha256(raw).hexdigest() != expected:
+                raise ValueError('approved stage hash or original fd identity mismatch')
             target.parent.mkdir(parents=True, exist_ok=True)
-            with target.open('xb') as stream: stream.write(raw)
-            self._checkpoint()
+            with target.open('xb') as stream:
+                if stream.write(raw) != len(raw): raise ValueError('short private stage write')
+            return size
+        pool = ThreadPoolExecutor(max_workers=8, thread_name_prefix='DeepEyeStage')
+        futures = []
+        try:
+            futures = [pool.submit(copy_file, item) for item in tasks]
+            copied = 0
+            for future in futures:
+                copied += future.result()
+                self._checkpoint()  # Authority thread only.
+            if copied != total: raise ValueError('private stage total mismatch')
+        except BaseException:
+            for future in futures: future.cancel()
+            raise
+        finally:
+            # Every worker is joined before return or original-owner cleanup.
+            pool.shutdown(wait=True, cancel_futures=True)
+        for directory in checked_dirs: guard(directory)
 
     @_entry
     def _launch(self):
-        from .actor_lifetime import _sample
         try:
+            from .actor_lifetime import _sample
             start = self._time()
             self._run_deadline = start + self._policy.lifetime_timeout_ns
             self._ready_deadline = start + self._policy.readiness_timeout_ns
@@ -315,9 +393,12 @@ class ActorOwner:
             self._stage = self._root / 'r'; self._stage.mkdir()
             self._api.set_new_object_acl(self._stage, self._root, user, sid, owner=self._resources)
             self._checkpoint(); self._stage_files()
-            inp, write = self._api.pipe(owner=self._resources, read_label='input_read', write_label='input_write')
-            self._checkpoint()
-            read, out = self._api.pipe(owner=self._resources, read_label='output_read', write_label='output_write')
+            if self._pending_io is None:
+                inp, write = self._api.pipe(owner=self._resources, read_label='input_read', write_label='input_write')
+                self._checkpoint()
+                read, out = self._api.pipe(owner=self._resources, read_label='output_read', write_label='output_write')
+            else:
+                inp, write, read, out = self._pending_io.acquire()
             self._checkpoint()
             for handle in (write, read):
                 self._api.check(self._api.SetHandleInformation(handle, 1, 0), 'parent endpoint flags')
@@ -329,11 +410,30 @@ class ActorOwner:
             self._checkpoint()
             job = self._api.create_job(owner=self._resources); self._checkpoint()
             environment = minimal_environment(path / 'Temp', self._policy.system_root, self._policy.local_appdata)
-            args = (*self._policy.arguments, str(inp), str(out))
+            # NEW fixed NumPy policy before child interpreter/BLAS import.
+            environment.update({name: '1' for name in ('OPENBLAS_NUM_THREADS', 'OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'VECLIB_MAXIMUM_THREADS', 'NUMEXPR_NUM_THREADS')})
+            # NEW: single inherited readiness event; not wire data or BOOT.
+            model_ready = self._api.model_ready_event(owner=self._resources)
+            self._model_ready_reference = self._resources.find('model_ready')
+            self._model_ready_native = model_ready
+            ready_flags = self._api.handle_flags(model_ready)
+            ready_wait = self._api.Wait(model_ready, 0)
+            self._model_ready_launch_readback = dict(original_event_native=model_ready, initial_flags=ready_flags, initial_wait=ready_wait)
+            if type(ready_flags) is not int or ready_flags != 1 or type(ready_wait) is not int or ready_wait != 258:
+                raise ValueError('fresh inheritable nonsignaled model-ready event required')
+            args = (*self._policy.arguments, str(model_ready), str(inp), str(out))
             pi = self._api.create_suspended(self._stage / self._policy.executable, args, self._stage,
                 environment, profile, inp, out, owner=self._resources)
+            self._api.check(self._api.SetHandleInformation(model_ready, 1, 0), 'parent model-ready inheritance off')
+            ready_parent_flags = self._api.handle_flags(model_ready)
+            self._model_ready_launch_readback['parent_flags_after_creation'] = ready_parent_flags
+            if type(ready_parent_flags) is not int or ready_parent_flags != 0:
+                raise ValueError('parent original model-ready event must be noninheritable')
             self._process = self._original_process = self._resources.find('process')
             self._original_native = self._process.native
+            if self._pending_io is not None:
+                if self._pending_io.resolve_process() is not self._process:
+                    raise ValueError('original overlapped process acquisition not retained')
             self._state = 'SUSPENDED' if self._state == 'ALLOCATING' else self._state
             self._checkpoint()
             self._api.check(self._api.AssignJob(job, self._process.native), 'AssignProcessToJobObject')
@@ -403,6 +503,8 @@ class ActorOwner:
         _sample(self)
 
     def _close_internal(self, reason):
+        if self._pending_io is not None:
+            return self._close_overlapped(reason)
         self._revoke(reason)
         if self._cleanup_attempted: return self._cleanup_result
         self._cleanup_attempted = True
@@ -432,6 +534,142 @@ class ActorOwner:
     def close(self, reason):
         if type(reason) is not str or not reason: raise ValueError('explicit teardown reason required')
         return self._close_internal(reason)
+
+    def _close_overlapped(self, reason):
+        io = self._pending_io
+        if io.cleanup_consumed or io.quarantined: return self._cleanup_result
+        if not io.teardown_started:
+            self._revoke(reason)
+            self._cleanup_attempted = True  # Admission/life veto, not generic cleanup consumption.
+        self._state = 'DRAINING'
+        try:
+            io.teardown()
+        except BaseException as error:
+            self._cleanup_error = error
+            io.quarantined = True
+        if io.cleanup_consumed:
+            complete = (self._cleanup_result is not None and self._cleanup_result.resources_complete and
+                self._cleanup_result.evidence_complete and not self._resources.errors and
+                not self._evidence_errors and not self._callback_errors and not io.errors and
+                self._cleanup_error is None)
+            self._state = 'CLOSED' if complete else 'QUARANTINED'
+        elif io.quarantined:
+            self._state = 'QUARANTINED'
+        try: self._report()
+        except BaseException:
+            self._state = 'QUARANTINED'
+            io.quarantined = True
+        return self._cleanup_result
+
+    def _invocation_check(self):
+        from .actor_lifetime import _sample
+        self._checkpoint()
+        if self._pending_io is None or self._state not in ('RUNNING_UNBOUND', 'BOUND_ACTIVE'):
+            raise ValueError('original fresh overlapped actor required')
+        self._pending_io.continuity()
+        if self._invocation is not None and self._invocation._failed:
+            raise ValueError('original invocation retired')
+        _sample(self)
+        now = self._time()
+        if self._invocation is not None and now >= self._invocation.deadline:
+            raise ValueError('original invocation deadline expired')
+        return now
+
+    @_entry
+    def prepare_invocation(self, identity, *, request_raw, journal_name,
+                           max_output_bytes, max_reads, read_size, io_deadline_ns):
+        if self._invocation_claimed: raise ValueError('original invocation slot consumed')
+        self._invocation_claimed = True  # Before clock, validation, journal or native event.
+        self._invocation_check()
+        from ...integration.cpu_invocation_transcript import _new_actor_record
+        self._invocation = _new_actor_record(self, identity, request_raw=request_raw,
+            journal_name=journal_name, max_output_bytes=max_output_bytes, max_reads=max_reads,
+            read_size=read_size, io_deadline_ns=io_deadline_ns)
+        self._invocation_check()
+        self._invocation.prepare()
+        self._invocation_check()
+
+    def _require_invocation(self):
+        if self._invocation is None: raise ValueError('original prepared invocation required')
+        return self._invocation
+
+    @_entry
+    def dispatch_invocation_once(self):
+        record = self._require_invocation()
+        if self._pending_io.write_reserved: raise ValueError('original write reserved; no replay')
+        self._pending_io.write_reserved = True
+        row = record.start_dispatch()
+        row['started_marker_ns'] = self._invocation_check()
+        record._append(row)  # fsync before the sole original request WriteFile.
+        op = self._pending_io.operation(self._pending_io.endpoints['input_write'][0],
+                                        'write', len(record.request), record.request)
+        op.row = row
+        row['raw_call_bracket_ns'][0] = self._invocation_check()
+        try:
+            self._pending_io.issue(op)
+        finally:
+            self._pending_io.account(op, journal=False)
+        if op.result_bool: self._pending_io.observe(op)
+        self._pending_io.account(op)
+        row['raw_call_bracket_ns'][1] = self._invocation_check()
+        if op.settled and (op.error != 0 or op.count != len(record.request)):
+            raise ValueError('original write failed/short; remainder prohibited')
+        record._append(row)
+        return record.snapshot()
+
+    @_entry
+    def read_invocation_once(self):
+        record = self._require_invocation()
+        self._invocation_check()
+        if record.dispatch is None or record.dispatch.get('bytes_written') != len(record.request):
+            raise ValueError('original completed recorded write required before read')
+        if any(op.kind == 'read' and op.issued and not op.settled for op in self._pending_io.operations):
+            return record.snapshot()  # Same reader remains pending; no second read/budget.
+        row = record.start_read()
+        record._append(row)
+        op = self._pending_io.operation(self._pending_io.endpoints['output_read'][0],
+                                        'read', row['requested_bytes'])
+        op.row = row
+        row['raw_call_bracket_ns'][0] = self._invocation_check()
+        try:
+            self._pending_io.issue(op)
+        finally:
+            self._pending_io.account(op, journal=False)
+        if op.result_bool: self._pending_io.observe(op)
+        self._pending_io.account(op)
+        row['raw_call_bracket_ns'][1] = self._invocation_check()
+        record._append(row)
+        if op.settled and op.error not in (0, 109): raise ValueError('original read failed')
+        if record._eof: self._close_internal('original output EOF')
+        elif record._zero_read_stop: self._close_internal('original zero-byte read, progress not proved')
+        return record.snapshot()
+
+    @_entry
+    def poll_invocation(self):
+        record = self._require_invocation()
+        self._invocation_check()
+        for op in self._pending_io.operations:
+            if op.kind == 'connect' or not op.issued or op.settled: continue
+            self._pending_io.observe(op)
+            self._pending_io.account(op)
+            if op.settled and ((op.error != 0 and not (op.kind == 'read' and op.error == 109)) or
+                               (op.kind == 'write' and op.count != len(record.request))):
+                raise ValueError('original asynchronous IO failed/short')
+        self._invocation_check()
+        if record._eof: self._close_internal('original output EOF')
+        elif record._zero_read_stop: self._close_internal('original zero-byte read, progress not proved')
+        return record.snapshot()
+
+    @_entry
+    def poll_teardown(self):
+        if self._pending_io is None or not self._cleanup_attempted:
+            raise ValueError('only retired original overlapped teardown can be observed')
+        return self._close_overlapped('observe original teardown only')
+
+    @_entry
+    def invocation_snapshot(self):
+        return (dict(schema=2, prepared=False, authenticated=False, completion_verified=False)
+                if self._invocation is None else self._invocation.snapshot())
 
     @_entry
     def diagnostics(self):

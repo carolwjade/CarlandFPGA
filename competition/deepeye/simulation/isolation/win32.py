@@ -54,14 +54,21 @@ def create_profile(name, *, owner):
     sid = P()
     check_hr(CreateProfile(name, name, 'Temporary DeepEye CPU boundary fixture', None, 0,
                            C.byref(sid)), 'CreateAppContainerProfile')
+    pending_io = getattr(owner, '_pending_io', None)
+    capsules = (None if pending_io is None else (
+        pending_io.capture_native('profile', name, 'profile'),
+        pending_io.capture_native('profile_sid', sid, 'sid')))
     owner.own_profile(name, sid)
+    if capsules is not None:
+        pending_io.registered_native(capsules[0], owner.find('profile'))
+        pending_io.registered_native(capsules[1], owner.find('profile_sid'))
     return sid
 
 
 def profile_path(sid, *, owner):
     raw = W.LPWSTR()
     check_hr(GetProfilePath(sid, C.byref(raw)), 'GetAppContainerFolderPath')
-    ref = owner.own_handle('profile_path_string', C.cast(raw, P), release='cotask')
+    ref = _own_fresh(owner, 'profile_path_string', C.cast(raw, P), release='cotask')
     try:
         if not raw.value:
             raise OSError('profile path was not returned')
@@ -114,7 +121,12 @@ def _release_temporary(owner, ref, release):
     """Do not replace an active primary error with a helper release failure."""
     primary_active = sys.exc_info()[0] is not None
     if owner is not None:
-        owner.release_checked(ref, preserve_primary=primary_active)
+        try:
+            owner.release_checked(ref, preserve_primary=primary_active)
+        except BaseException as error:
+            if not primary_active: raise
+            pending_io = getattr(owner, '_pending_io', None)
+            if pending_io is not None: pending_io.errors.append(error)
     else:
         # Legacy standalone callers get a checked local contract, without a
         # returned recovery registry. The launcher always supplies its owner.
@@ -125,10 +137,20 @@ def _release_temporary(owner, ref, release):
                 raise
 
 
+def _own_fresh(owner, label, native, **options):
+    """Retain a new raw native return before ledger registration may fail."""
+    pending_io = getattr(owner, '_pending_io', None)
+    capsule = (None if pending_io is None else pending_io.capture_native(
+        label, native, options.get('release', 'kernel'), options.get('keepalive')))
+    reference = owner.own_handle(label, native, **options)
+    if capsule is not None: pending_io.registered_native(capsule, reference)
+    return reference
+
+
 def sid_text(sid, *, owner=None):
     out = W.LPWSTR()
     check(ConvertSidToStringSidW(sid, C.byref(out)), 'ConvertSidToStringSidW')
-    ref = owner.own_handle('sid_string', C.cast(out, P), release='local') if owner else None
+    ref = _own_fresh(owner, 'sid_string', C.cast(out, P), release='local') if owner else None
     try:
         return out.value
     finally:
@@ -148,7 +170,7 @@ def token_buffer(token, kind):
 def user_sid(*, owner=None):
     token = W.HANDLE()
     check(OpenProcessToken(GetCurrentProcess(), 8, C.byref(token)), 'OpenProcessToken self')
-    ref = owner.own_handle('self_token', token) if owner else None
+    ref = _own_fresh(owner, 'self_token', token) if owner else None
     try:
         buf = token_buffer(token, 1)
         return sid_text(C.cast(buf, C.POINTER(P))[0], owner=owner)
@@ -184,7 +206,7 @@ def set_new_object_acl(path, run_root, user, package=None, *, owner=None):
     sd, dacl = P(), P()
     present, defaulted = W.BOOL(), W.BOOL()
     check(ConvertSD(acl, 1, C.byref(sd), None), 'ConvertStringSecurityDescriptor')
-    ref = owner.own_handle('security_descriptor', sd, release='local') if owner else None
+    ref = _own_fresh(owner, 'security_descriptor', sd, release='local') if owner else None
     try:
         check(GetSecurityDescriptorDacl(sd, C.byref(present), C.byref(dacl), C.byref(defaulted)), 'GetSecurityDescriptorDacl')
         err = SetNamedSecurityInfoW(str(path), 1, 4 | 0x80000000, None, None, dacl, None)
@@ -263,6 +285,124 @@ Wait = bind(K, 'WaitForSingleObject', [W.HANDLE, W.DWORD], W.DWORD)
 TerminateProcess = bind(K, 'TerminateProcess', [W.HANDLE, W.UINT])
 GetExitCodeProcess = bind(K, 'GetExitCodeProcess', [W.HANDLE, C.POINTER(W.DWORD)])
 GetProcessTimes = bind(K, 'GetProcessTimes', [W.HANDLE, C.POINTER(W.FILETIME), C.POINTER(W.FILETIME), C.POINTER(W.FILETIME), C.POINTER(W.FILETIME)])
+CreateNamedPipeW = bind(K, 'CreateNamedPipeW', [W.LPCWSTR, W.DWORD, W.DWORD, W.DWORD,
+    W.DWORD, W.DWORD, W.DWORD, C.POINTER(SA)], W.HANDLE)
+ConnectNamedPipe = bind(K, 'ConnectNamedPipe', [W.HANDLE, P])
+CreateEventW = bind(K, 'CreateEventW', [C.POINTER(SA), W.BOOL, W.BOOL, W.LPCWSTR], W.HANDLE)
+GetOverlappedResult = bind(K, 'GetOverlappedResult', [W.HANDLE, P, C.POINTER(W.DWORD), W.BOOL])
+CancelIoEx = bind(K, 'CancelIoEx', [W.HANDLE, P])
+
+
+def logon_sid(*, owner):
+    """Actual unique SE_GROUP_LOGON_ID from this original parent token."""
+    class SID_AND_ATTRIBUTES(C.Structure):
+        _fields_ = [('Sid', P), ('Attributes', W.DWORD)]
+    class TOKEN_GROUPS(C.Structure):
+        _fields_ = [('GroupCount', W.DWORD), ('Groups', SID_AND_ATTRIBUTES * 1)]
+    token = W.HANDLE()
+    check(OpenProcessToken(GetCurrentProcess(), 8, C.byref(token)), 'OpenProcessToken logon SID')
+    ref = _own_fresh(owner, 'logon_token', token)
+    try:
+        buf = token_buffer(token, 2)
+        count = C.cast(buf, C.POINTER(W.DWORD))[0]
+        if not 1 <= count <= 1024:
+            raise ValueError('bounded actual token group list required')
+        if TOKEN_GROUPS.Groups.offset + count * C.sizeof(SID_AND_ATTRIBUTES) > C.sizeof(buf):
+            raise ValueError('token group buffer truncated')
+        groups = (SID_AND_ATTRIBUTES * count).from_buffer(buf, TOKEN_GROUPS.Groups.offset)
+        matches = [group for group in groups if group.Attributes & 0xc0000000 == 0xc0000000]
+        if len(matches) != 1:
+            raise ValueError('one actual token logon SID required')
+        text = sid_text(matches[0].Sid, owner=owner)
+        if not text.startswith('S-1-5-5-'):
+            raise ValueError('actual logon SID shape rejected')
+        return text
+    finally:
+        _release_temporary(owner, ref, lambda: check(CloseHandle(token), 'CloseHandle logon token'))
+
+
+def overlapped_server(name, label, direction, logon, *, owner):
+    """One owned first-instance server; client pairing is done by the owner."""
+    sd = P()
+    check(ConvertSD('D:P(A;;GA;;;' + logon + ')', 1, C.byref(sd), None), 'ConvertStringSecurityDescriptor pipe')
+    descriptor = _own_fresh(owner, 'pipe_security_descriptor', sd, release='local')
+    try:
+        sa = SA(C.sizeof(SA), sd, False)
+        mode = {'inbound': 1, 'outbound': 2}[direction] | 0x40000000 | 0x00080000
+        handle = CreateNamedPipeW(name, mode, 0x8, 1, 16384, 16384, 0, C.byref(sa))
+        error = C.get_last_error() if handle == C.c_void_p(-1).value or handle is None else 0
+        if error or handle is None or handle == C.c_void_p(-1).value:
+            raise C.WinError(error, 'CreateNamedPipeW first instance')
+        _own_fresh(owner, label, handle)
+        return handle
+    finally:
+        _release_temporary(owner, descriptor, lambda: check(not LocalFree(sd), 'LocalFree pipe descriptor'))
+
+
+def synchronous_client(name, label, direction, *, owner):
+    sa = SA(C.sizeof(SA), None, True)
+    access = {'inbound': 0x40000000, 'outbound': 0x80000000}[direction]
+    handle = CreateFileW(name, access, 0, C.byref(sa), 3, 0x80, None)
+    error = C.get_last_error() if handle == C.c_void_p(-1).value or handle is None else 0
+    if error or handle is None or handle == C.c_void_p(-1).value:
+        raise C.WinError(error, 'CreateFileW original synchronous child endpoint')
+    _own_fresh(owner, label, handle)
+    return handle
+
+
+def overlapped_event(label, *, owner):
+    handle = CreateEventW(None, True, False, None)
+    error = C.get_last_error() if not handle else 0
+    if not handle: raise C.WinError(error, 'CreateEventW manual-reset original IO')
+    _own_fresh(owner, label, handle)
+    return handle
+
+
+def model_ready_event(*, owner):
+    # NEW unnamed inherited event, registered in the same original resource cohort.
+    sa = SA(C.sizeof(SA), None, True)
+    handle = CreateEventW(C.byref(sa), True, False, None)
+    error = C.get_last_error() if not handle else 0
+    if not handle: raise C.WinError(error, 'CreateEventW original model-ready')
+    _own_fresh(owner, 'model_ready', handle)
+    return handle
+
+
+def pipe_connect(op):
+    result = ConnectNamedPipe(op.native, C.byref(op.overlapped))
+    error = C.get_last_error() if not result else 0
+    return result, error
+
+
+def pipe_write(op):
+    result = WriteFile(op.native, op.buffer, op.size, None, C.byref(op.overlapped))
+    error = C.get_last_error() if not result else 0
+    return result, error
+
+
+def pipe_read(op):
+    result = ReadFile(op.native, op.buffer, op.size, None, C.byref(op.overlapped))
+    error = C.get_last_error() if not result else 0
+    return result, error
+
+
+def pipe_result(op):
+    count = W.DWORD()
+    result = GetOverlappedResult(op.native, C.byref(op.overlapped), C.byref(count), False)
+    error = C.get_last_error() if not result else 0
+    return result, error, count.value if result and op.kind != 'connect' else None
+
+
+def pipe_cancel(op):
+    result = CancelIoEx(op.native, C.byref(op.overlapped))
+    error = C.get_last_error() if not result else 0
+    return result, error
+
+
+def terminate_original(handle):
+    result = TerminateProcess(handle, 0xdead)
+    error = C.get_last_error() if not result else 0
+    return result, error
 
 
 def pipe(*, owner, read_label, write_label):
@@ -305,7 +445,7 @@ def available_output(handle):
 def create_job(*, owner):
     job = CreateJob(None, None)
     check(job, 'CreateJobObjectW')
-    owner.own_handle('job', job, recovery=True)
+    _own_fresh(owner, 'job', job, recovery=True)
     info = EXTENDED_LIMIT()
     info.BasicLimitInformation.LimitFlags = 0x2000 | 0x8 | 0x100  # kill, one child, 256 MiB
     info.BasicLimitInformation.ActiveProcessLimit = 1
@@ -318,14 +458,14 @@ def create_job(*, owner):
 
 def create_suspended(exe, argv, cwd, environment, sid, input_handle, output_handle, *, owner):
     values = [(0x20009, SECURITY_CAPABILITIES(sid, None, 0, 0)),
-              (0x20002, (W.HANDLE * 2)(input_handle, output_handle)),
+              (0x20002, (W.HANDLE * 3)(input_handle, output_handle, owner.find('model_ready').native)),
               (0x20007, C.c_ulonglong(1 << 28)),
               (0x2000e, W.DWORD(1))]
     size = SIZE()
     InitAttributes(None, len(values), 0, C.byref(size))
     buf = C.create_string_buffer(size.value)
     check(InitAttributes(buf, len(values), 0, C.byref(size)), 'InitializeProcThreadAttributeList')
-    attributes = owner.own_handle('attributes', C.cast(buf, P), release='attributes', keepalive=(buf, values))
+    attributes = _own_fresh(owner, 'attributes', C.cast(buf, P), release='attributes', keepalive=(buf, values))
     try:
         for key, value in values:
             check(UpdateAttribute(buf, 0, key, C.byref(value), C.sizeof(value), None, None), f'UpdateProcThreadAttribute 0x{key:x}')
@@ -341,7 +481,12 @@ def create_suspended(exe, argv, cwd, environment, sid, input_handle, output_hand
         # DETACHED_PROCESS avoids console initialization under Win32k lockdown.
         # CREATE_NO_WINDOW produced STATUS_DLL_INIT_FAILED on the target host.
         flags = 0x00080000 | 0x00000400 | 0x00000004 | 0x00000008
-        check(CreateProcess(str(exe), cmd, None, None, True, flags, env, str(cwd), C.byref(si), C.byref(pi)), 'CreateProcessW AppContainer suspended')
+        pending_io = owner._pending_io
+        if pending_io is not None: pending_io.process_started(pi)
+        created = CreateProcess(str(exe), cmd, None, None, True, flags, env, str(cwd), C.byref(si), C.byref(pi))
+        create_error = C.get_last_error() if not created else 0
+        if pending_io is not None: pending_io.process_returned(created, pi)
+        if not created: raise C.WinError(create_error, 'CreateProcessW AppContainer suspended')
         owner.own_process(pi)
         return pi
     finally:
@@ -351,7 +496,7 @@ def create_suspended(exe, argv, cwd, environment, sid, input_handle, output_hand
 def inspect_process(process, job, expected_sid, *, owner=None):
     token = W.HANDLE()
     check(OpenProcessToken(process, 8, C.byref(token)), 'OpenProcessToken child')
-    ref = owner.own_handle('child_token', token) if owner else None
+    ref = _own_fresh(owner, 'child_token', token) if owner else None
     try:
         is_ac = C.cast(token_buffer(token, 29), C.POINTER(W.DWORD))[0]
         sid_buf = token_buffer(token, 31)

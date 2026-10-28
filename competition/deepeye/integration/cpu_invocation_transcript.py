@@ -311,4 +311,106 @@ class InvocationTranscript:
             raise first
 
 
+_ACTOR_RECORD_KEY=object()
+
+
+class _ActorRecord:
+    """Private same-owner raw recording core; owns no endpoint or OS transport.
+
+    Legacy descriptor API/schema above is unchanged. The actor supplies only
+    original operations acquired inside its registry; rows never authenticate AI.
+    """
+    def __init__(self,key,owner,identity,*,request_raw,journal_name,
+                 max_output_bytes,max_reads,read_size,io_deadline_ns):
+        from ..simulation.isolation.actor_owner import ActorOwner
+        if (key is not _ACTOR_RECORD_KEY or type(owner) is not ActorOwner or
+                owner._pending_io is None or not owner._registry._contains(owner)):
+            raise ValueError('original retained overlapped actor required')
+        if type(identity) is not InvocationIdentity or identity.run_id!=owner._policy.run_id or identity.actor_instance_id!=owner.instance_id:
+            raise ValueError('exact original run/actor correlation required')
+        if type(request_raw) is not bytes or not 1<=len(request_raw)<=16384:
+            raise ValueError('original nonempty request up to16384 bytes required')
+        _integer(max_output_bytes,'max_output_bytes',1,16*1024*1024)
+        _integer(max_reads,'max_reads',1,65536)
+        _integer(read_size,'read_size',1,8192)
+        _integer(io_deadline_ns,'io_deadline_ns',1,_MAX_INT)
+        if (type(journal_name) is not str or re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,95}',journal_name) is None or
+                journal_name.endswith('.') or journal_name.split('.')[0].upper() in
+                {'CON','PRN','AUX','NUL',*(f'COM{i}' for i in range(10)),*(f'LPT{i}' for i in range(10))}):
+            raise ValueError('new strict single journal basename required')
+        if owner._root is None or not owner._acl_ready:
+            raise ValueError('original private ACL-established root required')
+        self.owner,self.identity,self.request=owner,identity,request_raw
+        self.path=owner._root/journal_name
+        self.max_bytes,self.max_reads,self.read_size=max_output_bytes,max_reads,read_size
+        limits=[io_deadline_ns,owner._run_deadline]
+        if owner.state=='RUNNING_UNBOUND':limits.append(owner._ready_deadline)
+        self.deadline=min(limits)
+        self.dispatch=None;self.reads=[];self._bytes=0;self._eof=False
+        self._zero_read_stop=False
+        self._unknown_consumption=self._failed=self._journal_failed=False
+        self._journal=None;self._close_attempted=False;self._close_error=None
+
+    def prepare(self):
+        # Retained by actor before exclusive open or fsync can fail.
+        self._journal=self.path.open('xb')
+        self._append(dict(kind='prepared',schema=2,identity=asdict(self.identity),
+            request_raw_hex=self.request.hex(),request_raw_sha256=hashlib.sha256(self.request).hexdigest(),
+            budgets=dict(max_output_bytes=self.max_bytes,max_reads=self.max_reads,read_size=self.read_size),
+            io_deadline_ns=self.deadline,host_clock=clocks._description(self.owner._registry._clock_binding),
+            authenticated=False,completion_verified=False,availability_interval_ns=None,
+            sample_interval_ns=None,completion_interval_ns=None))
+
+    def _append(self,row):
+        if self._journal_failed or self._journal is None:
+            raise ValueError('original journal unavailable; no replacement')
+        return InvocationTranscript._append(self,row)
+
+    def start_dispatch(self):
+        if self.dispatch is not None:
+            raise ValueError('original dispatch reserved; never replay or send remainder')
+        self.dispatch=dict(kind='dispatch',schema=2,outcome='started_unknown',
+            requested_bytes=len(self.request),bytes_written=None,raw_hex=self.request.hex(),
+            started_marker_ns=None,raw_call_bracket_ns=[None,None],
+            issued=False,pending=False,os_result_observed=False,cancel_attempted=False,
+            unknown_consumption=False)
+        return self.dispatch
+
+    def start_read(self):
+        if self._eof or self._zero_read_stop or self._bytes>=self.max_bytes or len(self.reads)>=self.max_reads:
+            raise ValueError('original read/byte budget or EOF exhausted')
+        row=dict(kind='read',schema=2,read_index=len(self.reads),stream_start=self._bytes,
+            requested_bytes=min(self.read_size,self.max_bytes-self._bytes),
+            returned_bytes=None,raw_hex=None,raw_call_bracket_ns=[None,None],
+            availability_interval_ns=None,sample_interval_ns=None,completion_interval_ns=None,
+            issued=False,pending=False,os_result_observed=False,cancel_attempted=False,
+            unknown_consumption=False)
+        self.reads.append(row)
+        return row
+
+    def close_journal(self):
+        if self._close_attempted:return
+        self._close_attempted=True
+        if self._journal is not None:
+            try:self._journal.close()
+            except BaseException as error:
+                self._close_error=type(error).__name__
+                raise
+
+    def snapshot(self):
+        pending_unknown=any(op.issued and not op.settled for op in self.owner._pending_io.operations)
+        return _detached(dict(schema=2,identity=asdict(self.identity),dispatch=self.dispatch,
+            reads=self.reads,bytes_read=self._bytes,eof=self._eof,
+            zero_read_stop=self._zero_read_stop,
+            unknown_consumption=self._unknown_consumption or pending_unknown,
+            io_deadline_ns=self.deadline,failed=self._failed,journal_failed=self._journal_failed,
+            journal_close_attempted=self._close_attempted,journal_close_error=self._close_error,
+            authenticated=False,completion_verified=False,availability_interval_ns=None,
+            sample_interval_ns=None,completion_interval_ns=None))
+
+
+def _new_actor_record(owner,identity,**options):
+    return _ActorRecord(_ACTOR_RECORD_KEY,owner,identity,**options)
+
+
 __all__=['InvocationIdentity','InvocationTranscript']

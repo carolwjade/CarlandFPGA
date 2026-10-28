@@ -1,0 +1,281 @@
+{
+  "files": [
+    {
+      "bytes": 1429,
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/graph.json",
+      "sha256": "6fd93fab7e65b56b1cd9473475c54b071b3e82ff09549ee447675988f07efee2"
+    },
+    {
+      "bytes": 3932,
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/model_manifest.json",
+      "sha256": "0b76bcd1b21b6b1e254eef0e2e5815a15121fdb8ac48c33710f2b2d85bdf2959"
+    },
+    {
+      "bytes": 102250,
+      "path": "competition/deepeye/ai_pc/cpu_model/force_v1/weights.json",
+      "sha256": "8988f4bbcf425d9b48c9a62866ac350e6096ea43fabdd9b1e616b22ba4b6d187"
+    },
+    {
+      "bytes": 68,
+      "path": "competition/deepeye/ai_pc/cpu_package/__init__.py",
+      "sha256": "bedb21fee166cf80aa42a75adee9199d915f332958c213c97eecbf248f8daa48"
+    },
+    {
+      "bytes": 6910,
+      "path": "competition/deepeye/ai_pc/cpu_package/endpoint_protocol.py",
+      "sha256": "1654f857a6cb17af734aa66e8f96f028551b15f4a7767f196e511104783de998"
+    },
+    {
+      "bytes": 3486,
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_leaf.py",
+      "sha256": "6547a7a5d1f6d480eec407b66dfbba21656209dff145c027f3e6385141e46ba9"
+    },
+    {
+      "bytes": 9709,
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_model.py",
+      "sha256": "e2c152a2f2e1eafca11581cd17d142f4fc2eb062d8ec21de5640a6559bb4bdb1"
+    },
+    {
+      "bytes": 10027,
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_process_endpoint.py",
+      "sha256": "9cb467dbdf7b3ce986b8604cd455c2ef613972fdfa8488a30b3e227ba0ac3a0a"
+    },
+    {
+      "bytes": 19677,
+      "path": "competition/deepeye/ai_pc/cpu_package/numpy_stream_core.py",
+      "sha256": "722e6d133266d255465a2d369e2c9b28b8b05c3db5155ba924a271206a9cafe0"
+    },
+    {
+      "bytes": 21133,
+      "path": "competition/deepeye/ai_pc/cpu_package/runner.py",
+      "sha256": "92114790259b7e35e8bf7b1a0519f0e3f68da52729d08b5b9862c992deae70af"
+    },
+    {
+      "bytes": 39152,
+      "path": "competition/deepeye/ai_pc/model/curve_input.py",
+      "sha256": "c017729a2d5717ff2bbf5a6c591320519c415ac10068b4cee19b3136913d848c"
+    },
+    {
+      "bytes": 10384,
+      "path": "competition/deepeye/ai_pc/model/force_cnn.py",
+      "sha256": "5003427e1ac01e50b612d8f4f9c674c7df352b3942a5cc39978e23bdfbdb1260"
+    },
+    {
+      "bytes": 84,
+      "path": "competition/deepeye/ai_pc/owned_numpy/__init__.py",
+      "sha256": "0ae99cb51c148bf9cf11a7bc644311bcc4671ab65033dcf934bac8e7fd61dedc"
+    },
+    {
+      "bytes": 25322,
+      "path": "competition/deepeye/ai_pc/owned_numpy/closure.py",
+      "sha256": "5e4cabcce3a0cd851e9706f0ef1fc7c174084d731282b504f05486ae1aeb641f"
+    },
+    {
+      "bytes": 51139,
+      "path": "competition/deepeye/ai_pc/owned_numpy/deployment.json",
+      "sha256": "979bc31b4d5a5dd9ead9a86a40d1e3c116da364d8878c66f2f74920033a961f6"
+    },
+    {
+      "bytes": 8670,
+      "path": "competition/deepeye/ai_pc/owned_numpy/endpoint_handles.py",
+      "sha256": "91575d672d1cd7bc62fb2d8b876c0803c3094e7df0562319ac08f3ffea21f17c"
+    },
+    {
+      "bytes": 258,
+      "path": "competition/deepeye/ai_pc/owned_numpy/fixtures/end.raw",
+      "sha256": "572bfe947fba7ec2a2818ae2b149fdd9f360b1f37665af8124429926eec54e94"
+    },
+    {
+      "bytes": 354,
+      "path": "competition/deepeye/ai_pc/owned_numpy/fixtures/first-prefix-input.raw",
+      "sha256": "9c9200453ca7feab036ee9e41b9b78f9b61df5d672792961379d5daa920d1eb8"
+    },
+    {
+      "bytes": 1426,
+      "path": "competition/deepeye/ai_pc/owned_numpy/fixtures/first-prefix-oracle.json",
+      "sha256": "bb25e76d81fd6770381ae83d7f8bdae7e9ef81f5521417936e5c375899d9c416"
+    },
+    {
+      "bytes": 2539,
+      "path": "competition/deepeye/ai_pc/owned_numpy/fixtures/numpy-expected-result-reference.raw",
+      "sha256": "ef5c9ae4440380914963dbc5a88ccf1bf5fd7560f136b29dde956b9c17fb5ff2"
+    },
+    {
+      "bytes": 6460,
+      "path": "competition/deepeye/ai_pc/owned_numpy/framing_contract.py",
+      "sha256": "ce1b247d7ce7ba6c829934f18905353c203c4875dba496608bbc372d1bfd1e32"
+    },
+    {
+      "bytes": 5197,
+      "path": "competition/deepeye/ai_pc/owned_numpy/native_readback.py",
+      "sha256": "86cc923dd76dfa312a2688df9e82270f0a3f7417ede4213b1ac59faf9b06f0c6"
+    },
+    {
+      "bytes": 17315,
+      "path": "competition/deepeye/ai_pc/owned_numpy/provider.py",
+      "sha256": "52d669ab39a622001eb4ae5fc1bf8a24b716c03beff2bc0bd5d05a7808fdbb96"
+    },
+    {
+      "bytes": 1601,
+      "path": "competition/deepeye/ai_pc/owned_numpy/qualification.py",
+      "sha256": "41c0d40409e84f49552d14c66f70a76a8669ee7065acd7aab80649c23dd2d52f"
+    },
+    {
+      "bytes": 20969,
+      "path": "competition/deepeye/ai_pc/owned_numpy/serial_session.py",
+      "sha256": "fa8d895edf9cf7438a2f65f445accf3d621823545b8af5a59f86ee038bd37ae5"
+    },
+    {
+      "bytes": 3594,
+      "path": "competition/deepeye/data/label_schema.json",
+      "sha256": "0913ff5a59085b47802a9902f23a836f4fa1129700de8e6593840416f4d7beed"
+    },
+    {
+      "bytes": 29849,
+      "path": "competition/deepeye/data/preprocessing.json",
+      "sha256": "cb66fd302165c86344f3b8d1af9d9c4e4e229621cef44cbfa6fb8cd121a63eef"
+    },
+    {
+      "bytes": 19892,
+      "path": "competition/deepeye/docs/host_contract.json",
+      "sha256": "a291d48a8791757bf0d612bdcc08d4c5c0d2a133b57990e803063619f8a88f28"
+    },
+    {
+      "bytes": 23031,
+      "path": "competition/deepeye/docs/interface.json",
+      "sha256": "0577cba5bfeda43171483abc73545e45806c44ea5546d1bcb1d581cd49b450cb"
+    },
+    {
+      "bytes": 20729,
+      "path": "competition/deepeye/integration/cpu_invocation_transcript.py",
+      "sha256": "9ef9925a4cb572a2cf3685a047000fe72b489b2c46c35b9325152208f2b3cff6"
+    },
+    {
+      "bytes": 3704,
+      "path": "competition/deepeye/integration/host_clock.py",
+      "sha256": "091accae52c376d259d0057f7b93b23dc5f4143508025beec88394c4b657e376"
+    },
+    {
+      "bytes": 26184,
+      "path": "competition/deepeye/integration/host_envelope.py",
+      "sha256": "025adf0eee851327f6492ac853b77bc6ebfbb26c17eb7960f01baf644de4b7fd"
+    },
+    {
+      "bytes": 3935,
+      "path": "competition/deepeye/integration/motion.py",
+      "sha256": "6f221f8a2c7180d615dfaad4080153a18bcf553417e764407c47dbedccb3df7e"
+    },
+    {
+      "bytes": 12255,
+      "path": "competition/deepeye/integration/pc_direct_watchdog.py",
+      "sha256": "7156d067f2c3629c527c0bd82bfdd9670409479e573c77ff077b3a030ccf98f1"
+    },
+    {
+      "bytes": 5459,
+      "path": "competition/deepeye/integration/wire.py",
+      "sha256": "31533439f1bab32ca71fae138bb988f51ce1d043b4e364a6c33a09eab1d5f5ec"
+    },
+    {
+      "bytes": 17268,
+      "path": "competition/deepeye/simulation/authority/motion/certified_path.py",
+      "sha256": "0660e303e97e3da958e830fc45d88f7a7294a515d27728b98e0f4a7db89bde6e"
+    },
+    {
+      "bytes": 11856,
+      "path": "competition/deepeye/simulation/authority/motion/gate_clearance.py",
+      "sha256": "035d26e45419208bdcc30d8640df89fd444836d8ce7f0d32e22fc3c0cd6f9977"
+    },
+    {
+      "bytes": 15309,
+      "path": "competition/deepeye/simulation/authority/motion/gate_geometry.py",
+      "sha256": "5e33a60927334cee4473d5f78afc248f04d3a5ef00db465b2bcdf14c1adc3839"
+    },
+    {
+      "bytes": 11016,
+      "path": "competition/deepeye/simulation/authority/motion/kinematics.py",
+      "sha256": "5cab98c7100385a4bf290fc74c6e7173f56f328272c278ea6ce8ecb37542e043"
+    },
+    {
+      "bytes": 15628,
+      "path": "competition/deepeye/simulation/authority/motion/passage_phase.py",
+      "sha256": "3032625c2a56e66c9593bc5206bc26fa9cf6c4b570e78204b15eee46b21f9478"
+    },
+    {
+      "bytes": 20063,
+      "path": "competition/deepeye/simulation/authority/motion/solid_clearance.py",
+      "sha256": "662b79a7b30828831d8555da988b5b013b86737d48614f648e43ec6d5b304484"
+    },
+    {
+      "bytes": 13605,
+      "path": "competition/deepeye/simulation/authority/motion/workspace_boundaries.py",
+      "sha256": "2d42019cce6b4ac360766470b20518dd6ac8e66e94abae0e9772c83705a75b75"
+    },
+    {
+      "bytes": 17156,
+      "path": "competition/deepeye/simulation/authority/motion_executor.py",
+      "sha256": "e897764801a57e0add376c8949e4c9bbec14663b092d75a82be739b7290dfd62"
+    },
+    {
+      "bytes": 24936,
+      "path": "competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "sha256": "1be7129834ea6f4892a1f527b173373e36325f88adabd44f443d95ad3ac1e461"
+    },
+    {
+      "bytes": 80,
+      "path": "competition/deepeye/simulation/isolation/__init__.py",
+      "sha256": "a85a2fd549870afb65b340bf306753aa9de052c7c5c187aa77518fe18b3da2d0"
+    },
+    {
+      "bytes": 2609,
+      "path": "competition/deepeye/simulation/isolation/actor_lifetime.py",
+      "sha256": "f73df762802e632d182e7de5c65ee2bbe2e9ed11660269c083dfbfa4d0e136b0"
+    },
+    {
+      "bytes": 35725,
+      "path": "competition/deepeye/simulation/isolation/actor_owner.py",
+      "sha256": "416fda0708fd16d58e98706b0102d604c201c1a919d65f38fe11d117077eb27d"
+    },
+    {
+      "bytes": 24070,
+      "path": "competition/deepeye/simulation/isolation/actor_pipe_io.py",
+      "sha256": "44235f3598e46166b8418a725164953896974fef0fc9469b17f8aeec3b1fc255"
+    },
+    {
+      "bytes": 9261,
+      "path": "competition/deepeye/simulation/isolation/owned_resources.py",
+      "sha256": "1084276f535033b288d1320f28606ad8e984d043a979263df46cb9c74498249e"
+    },
+    {
+      "bytes": 7119,
+      "path": "competition/deepeye/simulation/isolation/policy.py",
+      "sha256": "a1945451dd6324f3cce2768cff8127f1a3755c8856061bf24d954b9a844afa11"
+    },
+    {
+      "bytes": 11539,
+      "path": "competition/deepeye/simulation/isolation/resource_cleanup.py",
+      "sha256": "4e92844915c8e9e9e7e316a1844cb764c2c510f8d5158795de97b832204a235f"
+    },
+    {
+      "bytes": 24466,
+      "path": "competition/deepeye/simulation/isolation/win32.py",
+      "sha256": "e37e7590e92039b240bcbb2a45b10520bdef8d47298fb3143bf420f7c12ab148"
+    },
+    {
+      "bytes": 4562,
+      "path": "competition/deepeye/simulation/isolation/windows_cleanup.py",
+      "sha256": "3bf4ccb25329b915a5bf3b66347134ec840c2b79bce1a097c17a0bba2e6c30c0"
+    },
+    {
+      "bytes": 6684,
+      "path": "docs/competition/deepeye-2026/immutable_scope.json",
+      "sha256": "6a86000e97d1571c0b7b89b9d3cf7facb11d2b6a06455eb1d53e0637676b6bc4"
+    },
+    {
+      "bytes": 6139,
+      "path": "docs/competition/deepeye-2026/immutable_scope.md",
+      "sha256": "27c5bf0b194036cf4300dbec371b6abba42bc5fda604da0e6e06284e4c5a2ddd"
+    }
+  ],
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "schema": 1
+}

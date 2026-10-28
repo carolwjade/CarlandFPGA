@@ -10,3 +10,10 @@
 *.txt -text whitespace=cr-at-eol
 .gitattributes text eol=lf
 .gitignore text eol=lf
+ai_pc/owned_numpy/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+integration/cpu_invocation_transcript.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulation/isolation/actor_owner.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulation/isolation/actor_pipe_io.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulation/isolation/owned_resources.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulation/isolation/win32.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulation/isolation/windows_cleanup.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
