@@ -14,6 +14,42 @@ var _target: Node3D
 var _run_id := ""
 var _bound := false
 var _last: Dictionary = {}
+var _owner_bound_to_main := false
+var _owner_main: Node
+var _owner_main_id := 0
+var _owner_main_script: Script
+var _owner_parent: Node
+var _owner_retired := false
+
+func _find_presentation_main(target: Node) -> Node:
+	var ancestor: Node = target
+	while ancestor != null:
+		if ancestor.has_method("_authority_renderer_allowed"):
+			return ancestor
+		ancestor = ancestor.get_parent()
+	return null
+
+func _presentation_owner_current() -> bool:
+	if _owner_retired or not is_instance_valid(_target) or not _target.is_inside_tree():
+		return false
+	if not _owner_bound_to_main:
+		# An originally independent component may not adopt an original Main later.
+		if _find_presentation_main(_target) != null:
+			_owner_retired = true
+			return false
+		return true
+	if (not is_instance_valid(_owner_main) or not is_instance_valid(_owner_parent)
+			or _owner_main.get_instance_id() != _owner_main_id
+			or _owner_main.get_script() != _owner_main_script
+			or _target.get_parent() != _owner_parent
+			or not _owner_main.is_ancestor_of(_target)
+			or _find_presentation_main(_target) != _owner_main):
+		_owner_retired = true
+		return false
+	if not _owner_main._authority_renderer_allowed(_target):
+		_owner_retired = true
+		return false
+	return true
 
 func _valid_run(value: Variant) -> bool:
 	if typeof(value) != TYPE_STRING or value.length() < 1 or value.length() > 128:
@@ -26,7 +62,16 @@ func _valid_run(value: Variant) -> bool:
 func bind_target(target: Node3D, run_id: String) -> bool:
 	if _bound or not is_instance_valid(target) or not target.is_inside_tree() or not _valid_run(run_id):
 		return false
+	var owner: Node = _find_presentation_main(target)
+	if owner != null and not owner._authority_renderer_allowed(target):
+		return false
 	_target = target
+	_owner_bound_to_main = owner != null
+	_owner_main = owner
+	if _owner_bound_to_main:
+		_owner_main_id = owner.get_instance_id()
+		_owner_main_script = owner.get_script()
+		_owner_parent = target.get_parent()
 	_run_id = run_id
 	_bound = true
 	return true
@@ -51,6 +96,8 @@ func _reject(reason: String) -> Dictionary:
 func apply_frame(frame: Variant) -> Dictionary:
 	if not _bound or not is_instance_valid(_target) or not _target.is_inside_tree():
 		return _reject("target_unavailable")
+	if not _presentation_owner_current():
+		return _reject("presentation_owner_retired")
 	if typeof(frame) != TYPE_DICTIONARY or frame.size() != FIELDS.size():
 		return _reject("frame_whitelist")
 	for key in FIELDS:
@@ -92,6 +139,10 @@ func apply_frame(frame: Variant) -> Dictionary:
 		if not (parent_pose.affine_inverse() * native_pose).is_finite():
 			return _reject("local_pose_invalid")
 	var saved: Dictionary = frame.duplicate(true)
+	# Check the retained original Main again immediately before presentation.
+	# A true result is only a display-mode guard, never permission to move a world.
+	if not _presentation_owner_current():
+		return _reject("presentation_owner_retired")
 	# All input validation/allocation precedes this presentation update. This is
 	# not the Python motion commit or a cross-process transaction/authority ACK.
 	_target.global_transform = native_pose
@@ -103,7 +154,7 @@ func apply_frame(frame: Variant) -> Dictionary:
 	return {"accepted": true, "native": readback()}
 
 func readback() -> Dictionary:
-	if _last.is_empty() or not is_instance_valid(_target) or not _target.is_inside_tree():
+	if _last.is_empty() or not _presentation_owner_current():
 		return {}
 	var actual: Transform3D = _target.global_transform
 	var q := actual.basis.orthonormalized().get_rotation_quaternion()

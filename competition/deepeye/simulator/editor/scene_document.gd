@@ -28,6 +28,7 @@ signal state_changed(state: String)
 signal event_logged(event: Dictionary)
 signal stop_requested(source: String)
 signal selection_changed(object_id: int)
+signal owned_edit_requested(request_kind: String)
 
 const CUBE_HALF := 15.0
 const LayoutCodecScript = preload("res://editor/layout_codec.gd")
@@ -107,6 +108,12 @@ var _undo: Array = []
 var _redo: Array = []
 var _next_id := 1
 var _event_seq := 1
+var _owned_bridge: Object
+var _owned_geometry_token: RefCounted
+var _owned_document_generation := 0
+var _owned_edit_request_pending := false
+var _owned_source_raw := PackedByteArray()
+var _owned_source_raw_generation := -1
 
 func _init() -> void:
 	log_event("系统", "场景文档就绪：初始状态 编辑中（viewer 基线，控制未使能）")
@@ -116,9 +123,11 @@ func _init() -> void:
 # ---------------------------------------------------------------------------
 
 func can_edit() -> bool:
-	return EDITABLE_STATES.has(run_state)
+	return _owned_geometry_token == null and EDITABLE_STATES.has(run_state)
 
 func edit_block_reason() -> String:
+	if _owned_geometry_token != null:
+		return "原世界已冻结；先由原权威退休并处理待定发布，再解锁编辑"
 	match run_state:
 		"running":
 			return "运行中禁止编辑：先停止并生成新run_id"
@@ -165,7 +174,7 @@ func redo_depth() -> int:
 
 func add_obstacle(kind: String, position: Vector3 = Vector3.ZERO, rotation_deg: Vector3 = Vector3.ZERO,
 		size: Vector3 = Vector3.ZERO) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	if not KINDS.has(kind):
 		return _reject("未知地质体类型: " + kind)
@@ -196,7 +205,7 @@ func add_obstacle(kind: String, position: Vector3 = Vector3.ZERO, rotation_deg: 
 	return {"ok": true, "id": object_id, "reason": ""}
 
 func remove_obstacle(object_id: int) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	var index := _index_of(object_id)
 	if index < 0:
@@ -213,7 +222,7 @@ func remove_obstacle(object_id: int) -> Dictionary:
 	return {"ok": true, "reason": ""}
 
 func update_obstacle(object_id: int, changes: Dictionary, record_history: bool = true) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	var obstacle := obstacle_by_id(object_id)
 	if obstacle.is_empty():
@@ -244,7 +253,7 @@ func update_obstacle(object_id: int, changes: Dictionary, record_history: bool =
 	return {"ok": true, "reason": ""}
 
 func duplicate_obstacle(object_id: int) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	var obstacle := obstacle_by_id(object_id)
 	if obstacle.is_empty():
@@ -258,9 +267,10 @@ func duplicate_obstacle(object_id: int) -> Dictionary:
 	return add_obstacle(obstacle.kind, obstacle.position + offset, obstacle.rotation_deg, obstacle.size)
 
 func reset_layout() -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("reset"):
 		return _reject(edit_block_reason())
 	var previous := _snapshot()
+	_owned_document_generation += 1
 	obstacles = []
 	_next_id = 1
 	random_seed = 0
@@ -310,7 +320,7 @@ func select_object(object_id: int) -> void:
 # ---------------------------------------------------------------------------
 
 func randomize_layout(seed_value: int, count: int) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("randomize"):
 		return _reject(edit_block_reason())
 	if count < 1 or count > MAX_OBJECTS:
 		return _reject("对象数量须在 1..%d（当前 %d）" % [MAX_OBJECTS, count])
@@ -340,6 +350,7 @@ func randomize_layout(seed_value: int, count: int) -> Dictionary:
 			"size": size,
 			"priority": KIND_PRIORITY[kind],
 		})
+	_owned_document_generation += 1
 	obstacles = generated
 	_next_id = count + 1
 	random_seed = seed_value
@@ -375,7 +386,7 @@ func export_layout_text() -> Dictionary:
 ## one replacement of geometry only and clears history/selection for the new
 ## document. Run/link/AI state is never restored from the file.
 func apply_layout_text(text: String) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("load"):
 		return _reject(edit_block_reason())
 	var decoded: Dictionary = LayoutCodecScript.decode(text)
 	if not bool(decoded.get("ok", false)):
@@ -395,6 +406,9 @@ func apply_layout_text(text: String) -> Dictionary:
 			"priority": int(packed.priority),
 		})
 	var restored_gates: Dictionary = decoded.gates.duplicate(true)
+	_owned_document_generation += 1
+	_owned_source_raw = text.to_utf8_buffer()
+	_owned_source_raw_generation = _owned_document_generation
 	obstacles = restored
 	gates = restored_gates
 	_next_id = 1
@@ -447,7 +461,7 @@ func world_half_extent(size: Vector3, rotation_deg: Vector3) -> Vector3:
 # ---------------------------------------------------------------------------
 
 func set_gate(which: String, face: String, u: float, v: float) -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	if not gates.has(which):
 		return _reject("未知的门: " + which)
@@ -535,7 +549,7 @@ func face_tangents(face: String) -> Dictionary:
 # ---------------------------------------------------------------------------
 
 func undo() -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	if _undo.is_empty():
 		return {"ok": false, "reason": "没有可撤销的操作", "errors": ["没有可撤销的操作"]}
@@ -551,7 +565,7 @@ func undo() -> Dictionary:
 	return {"ok": true, "reason": ""}
 
 func redo() -> Dictionary:
-	if not can_edit():
+	if not _owned_allow_mutation("edit"):
 		return _reject(edit_block_reason())
 	if _redo.is_empty():
 		return {"ok": false, "reason": "没有可重做的操作", "errors": ["没有可重做的操作"]}
@@ -577,6 +591,8 @@ func push_undo_checkpoint() -> void:
 # ---------------------------------------------------------------------------
 
 func set_run_state_for_testing(state: String) -> bool:
+	if _owned_bridge != null:
+		return false
 	## Test hook only. It changes the state label and gating; it cannot start any
 	## motion, timeline or authority bridge, because none exists in this build.
 	if not ALL_STATES.has(state):
@@ -587,6 +603,8 @@ func set_run_state_for_testing(state: String) -> bool:
 	return true
 
 func lock_layout() -> Dictionary:
+	if _owned_geometry_token != null:
+		return _reject(edit_block_reason())
 	if run_state != "editing":
 		return _reject("仅编辑中可锁定布局")
 	run_state = "locked"
@@ -595,6 +613,9 @@ func lock_layout() -> Dictionary:
 	return {"ok": true, "reason": ""}
 
 func unlock_layout() -> Dictionary:
+	if _owned_geometry_token != null:
+		_owned_request_edit("unlock")
+		return {"ok": false, "requested": true, "reason": edit_block_reason()}
 	if run_state != "locked":
 		return _reject("仅布局锁定状态可解锁")
 	run_state = "editing"
@@ -612,6 +633,9 @@ func request_pause() -> Dictionary:
 	return _bridge_disabled("暂停")
 
 func _bridge_disabled(action: String) -> Dictionary:
+	if _owned_geometry_token != null and action == "暂停":
+		emit_signal("stop_requested", "human_ui")
+		return {"ok": false, "requested": true, "acknowledged": false}
 	var reason := "未连接控制权威/模式桥：%s保持禁用（viewer 无模拟运动、无时间线）" % action
 	log_event("警示", reason)
 	return {"ok": false, "reason": reason, "acknowledged": false}
@@ -619,6 +643,9 @@ func _bridge_disabled(action: String) -> Dictionary:
 ## Global Esc path: emits stop_requested only. It never fakes a board
 ## acknowledgement and never jumps the state ahead of the real authority.
 func request_stop(source: String) -> Dictionary:
+	if _owned_geometry_token != null:
+		emit_signal("stop_requested", source)
+		return {"ok": true, "requested": true, "acknowledged": false}
 	if run_state == "running" or run_state == "paused":
 		emit_signal("stop_requested", source)
 		log_event("警示", "已发出停止请求（来源: %s）；等待真实权威确认，未伪造板端确认" % source)
@@ -629,8 +656,8 @@ func request_stop(source: String) -> Dictionary:
 	return {"ok": false, "reason": reason, "acknowledged": false}
 
 func is_motion_active() -> bool:
-	## The viewer baseline has no drill motion at all; this is always false and
-	## exists so callers/tests can assert that no fake motion is displayed.
+	## No autonomous integration or production Run is active in this document.
+	## Private original-owner pose publications are separate retained effects.
 	return false
 
 ## Link labels may only be updated by a real authority/mode bridge handshake.
@@ -721,6 +748,7 @@ func _validate_position(position: Vector3) -> String:
 	return ""
 
 func _mark_geometry_edited() -> void:
+	_owned_document_generation += 1
 	seed_known = false
 	match layout_origin:
 		"初始默认", "空场":
@@ -768,6 +796,8 @@ func _snapshot() -> String:
 	})
 
 func _restore(snapshot: String) -> void:
+	if not _owned_allow_mutation("edit"):
+		return
 	var parsed = JSON.parse_string(snapshot)
 	if not (parsed is Dictionary):
 		return
@@ -782,6 +812,7 @@ func _restore(snapshot: String) -> void:
 			"size": _vec3(packed.size),
 			"priority": int(packed.priority),
 		})
+	_owned_document_generation += 1
 	obstacles = restored
 	_next_id = 1
 	for obstacle in obstacles:
@@ -838,3 +869,58 @@ func _canon(value) -> String:
 			return _canon({"x": vector.x, "y": vector.y, "z": vector.z})
 		_:
 			return JSON.stringify(str(value))
+
+
+# Original bridge identity and unexported lock token are same-process capabilities.
+# State labels, IDs and control_bridge_connected never satisfy these checks.
+func _owned_attach_bridge(bridge: Object) -> bool:
+	if bridge == null or _owned_bridge != null:
+		return false
+	_owned_bridge = bridge
+	return true
+
+func _owned_lock_geometry(bridge: Object, token: RefCounted) -> bool:
+	if bridge != _owned_bridge or token == null or _owned_geometry_token != null or not can_edit():
+		return false
+	_owned_geometry_token = token
+	_owned_edit_request_pending = false
+	run_state = "locked"
+	emit_signal("state_changed", run_state)
+	return true
+
+func _owned_unlock_geometry(bridge: Object, token: RefCounted) -> bool:
+	if bridge != _owned_bridge or token == null or token != _owned_geometry_token:
+		return false
+	_owned_geometry_token = null
+	_owned_edit_request_pending = false
+	run_state = "editing"
+	emit_signal("state_changed", run_state)
+	return true
+
+func _owned_generation(bridge: Object) -> int:
+	return _owned_document_generation if bridge == _owned_bridge else -1
+
+func _owned_is_locked(bridge: Object, token: RefCounted) -> bool:
+	return bridge == _owned_bridge and token != null and token == _owned_geometry_token
+
+func _owned_request_edit(kind: String) -> void:
+	if _owned_geometry_token != null and not _owned_edit_request_pending:
+		_owned_edit_request_pending = true
+		emit_signal("owned_edit_requested", kind)
+
+func _owned_allow_mutation(kind: String) -> bool:
+	if _owned_geometry_token != null:
+		_owned_request_edit(kind)
+		return false
+	return can_edit()
+
+func _owned_raw_layout(bridge: Object) -> PackedByteArray:
+	if bridge != _owned_bridge:
+		return PackedByteArray()
+	if _owned_source_raw_generation != _owned_document_generation:
+		var encoded: Dictionary = LayoutCodecScript.encode(_layout_dict())
+		if not encoded.get("ok", false) or not encoded.get("text") is String:
+			return PackedByteArray()
+		_owned_source_raw = String(encoded.text).to_utf8_buffer()
+		_owned_source_raw_generation = _owned_document_generation
+	return _owned_source_raw.duplicate()

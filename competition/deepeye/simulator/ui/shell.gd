@@ -111,6 +111,19 @@ func bind_editor(main_node: Node, document) -> void:
 		_append_event(event)
 	_refresh_all()
 
+func _owned_freeze_ready(main_node: Object, document: Object) -> Dictionary:
+	# Pure readiness: do not poll/reap a helper or consume its late results.
+	if main_node != _main or document != _document or not _initialized:
+		return {"ok": false, "code": "shell_binding"}
+	if _file_save_pending or not _dialog_action.is_empty() or (_file_dialog != null and _file_dialog.visible):
+		return {"ok": false, "code": "shell_io_busy"}
+	if _layout_store == null or _layout_store.get_script() != LayoutStoreScript:
+		return {"ok": false, "code": "shell_store"}
+	var owner: Object = _layout_store._bridge
+	if owner != null and owner.has_unresolved():
+		return {"ok": false, "code": "shell_worker_unresolved"}
+	return {"ok": true, "code": "ready"}
+
 func _process(_delta: float) -> void:
 	if _layout_store == null or _save_pending_label == null:
 		return

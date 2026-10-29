@@ -9,14 +9,72 @@ const KINDS := ["water", "hard_rock", "fault", "void", "casing"]
 var _factory: Script
 var _load_attempted := false
 var _diagnostics: Array[String] = []
-var _pending_creations := {}
+var _pending_creations: Dictionary = {}
 var _next_creation_id := 0
-var _nodes := {}
-var _kinds := {}
-var _failed_kinds := {}
-var _factory_calls := {"frame":0,"drill":0,"obstacle":0}
+var _nodes: Dictionary = {}
+var _kinds: Dictionary = {}
+var _failed_kinds: Dictionary = {}
+var _factory_calls: Dictionary = {"frame":0,"drill":0,"obstacle":0}
 var _frame: Node3D
 var _drill: Node3D
+var _owned_main: Node3D
+var _owned_bridge: Object
+var _owned_token: RefCounted
+var _owned_refusals: int = 0
+
+func _owned_bind_main(main: Node3D) -> bool:
+	if _owned_main != null or not is_instance_valid(main) or main.get_script() == null:
+		return false
+	if String(main.get_script().resource_path) != "res://viewer/main.gd" or not main.has_method("_owned_accept_presenter_binding"):
+		return false
+	if not main._owned_accept_presenter_binding(self):
+		return false
+	_owned_main = main
+	return true
+
+func _owned_bind_bridge(main: Node3D, bridge: Object) -> bool:
+	if main != _owned_main or bridge == null or _owned_bridge != null or not is_instance_valid(main):
+		return false
+	if not main._owned_presenter_binding_matches(self, bridge):
+		return false
+	_owned_bridge = bridge
+	return true
+
+func _owned_can_mutate() -> bool:
+	return _owned_token == null and is_instance_valid(_owned_main) and _owned_main._owned_presenter_mutation_allowed(self)
+
+func _owned_refuse() -> void:
+	_owned_refusals += 1
+
+func _owned_refusal_count() -> int:
+	return _owned_refusals
+
+func _owned_frozen_state(main: Node3D, bridge: Object, token: RefCounted) -> Dictionary:
+	if not _owned_is_frozen(main, bridge, token):
+		return {}
+	# Refusal telemetry is intentionally the only omitted Presenter state.
+	return {"main":_owned_main,"bridge":_owned_bridge,"token":_owned_token,
+		"next_creation_id":_next_creation_id,"load_attempted":_load_attempted,
+		"pending_creations":_pending_creations.duplicate(),"failed_kinds":_failed_kinds.duplicate(),
+		"nodes":_nodes.duplicate(),"kinds":_kinds.duplicate(),"frame":_frame,"drill":_drill,
+		"factory":_factory,"report":report()}
+
+func _owned_freeze(main: Node3D, bridge: Object, token: RefCounted) -> bool:
+	if main != _owned_main or bridge != _owned_bridge or token == null or _owned_token != null or not _pending_creations.is_empty():
+		return false
+	if not is_instance_valid(main) or not main._owned_presenter_lock_matches(self, bridge, token):
+		return false
+	_owned_token = token
+	return true
+
+func _owned_is_frozen(main: Node3D, bridge: Object, token: RefCounted) -> bool:
+	return main == _owned_main and bridge == _owned_bridge and token != null and token == _owned_token and is_instance_valid(main) and main._owned_presenter_lock_matches(self, bridge, token) and main.document._owned_is_locked(bridge, token) and _pending_creations.is_empty()
+
+func _owned_thaw(main: Node3D, bridge: Object, token: RefCounted) -> bool:
+	if not _owned_is_frozen(main, bridge, token):
+		return false
+	_owned_token = null
+	return true
 
 func _diagnose(message: String) -> void:
 	if not _diagnostics.has(message):
@@ -30,7 +88,7 @@ func _ensure_factory() -> bool:
 		if not FileAccess.file_exists(path):
 			_diagnose("资源加载失败·开发灰盒: 缺少固定资源 " + path)
 			return false
-	var resource = load(FACTORY_PATH)
+	var resource: Resource = load(FACTORY_PATH)
 	if not resource is Script or not resource.can_instantiate():
 		_diagnose("资源加载失败·开发灰盒: 固定工厂脚本不可用")
 		return false
@@ -56,28 +114,39 @@ func _ensure_factory() -> bool:
 	return true
 
 func create_frame() -> Node3D:
+	if not _owned_can_mutate():
+		_owned_refuse()
+		return null
 	if is_instance_valid(_frame):
 		return _frame
 	_frame = _create("frame")
 	return _frame
 
 func create_drill() -> Node3D:
+	if not _owned_can_mutate():
+		_owned_refuse()
+		return null
 	if is_instance_valid(_drill):
 		return _drill
 	_drill = _create("drill")
 	return _drill
 
 func _create(category: String, kind: String = "") -> Node3D:
+	if not _owned_can_mutate():
+		_owned_refuse()
+		return null
 	if not _ensure_factory():
 		return null
-	var tag := category + ("/"+kind if not kind.is_empty() else "")
+	if not ["frame", "drill", "obstacle"].has(category) or (category == "obstacle" and not KINDS.has(kind)):
+		return null
+	var tag: String = category + ("/"+kind if not kind.is_empty() else "")
 	# GDScript errors can abort a call before its following statement. Leave a
 	# visible pending failure until the entire returned asset is proven valid.
 	_next_creation_id += 1
 	var creation_id := _next_creation_id
 	_pending_creations[creation_id] = "资源加载失败·开发灰盒: " + tag + ": 工厂调用或验证未完成"
 	_factory_calls[category] += 1
-	var result = _factory.call("create_obstacle", kind) if category == "obstacle" else _factory.call("create_" + category)
+	var result: Variant = _factory.call("create_obstacle", kind) if category == "obstacle" else _factory.call("create_" + category)
 	var error := "工厂没有返回 Node3D"
 	if result is Node3D:
 		var validation: Dictionary = _validate_asset_result(result)
@@ -91,6 +160,12 @@ func _create(category: String, kind: String = "") -> Node3D:
 		_diagnose("资源加载失败·开发灰盒: " + tag + ": " + error)
 		_pending_creations.erase(creation_id)
 		if result is Node and result.get_parent() == null:
+			result.free()
+		return null
+	if not _owned_main._owned_register_fresh_subtree(result, "presenter_factory_return"):
+		_diagnose("资源加载失败·开发灰盒: fresh custody refused")
+		_pending_creations.erase(creation_id)
+		if result.get_parent() == null:
 			result.free()
 		return null
 	_pending_creations.erase(creation_id)
@@ -110,15 +185,15 @@ func _validate_asset_result(asset: Node3D) -> Dictionary:
 		return _invalid("资源已附着到其它父节点")
 	if not asset.get_node_or_null("Visual") is Node3D or not asset.get_node_or_null("Collision") is Node3D:
 		return _invalid("缺少 Visual/Collision 子节点")
-	var version = asset.get_meta("asset_contract_version",null)
-	var license = asset.get_meta("source_license",null)
-	var asset_id = asset.get_meta("asset_id",null)
+	var version: Variant = asset.get_meta("asset_contract_version",null)
+	var license: Variant = asset.get_meta("source_license",null)
+	var asset_id: Variant = asset.get_meta("asset_id",null)
 	if not version is int or version != 1 or not license is String or license.strip_edges().is_empty():
 		return _invalid("版本或来源许可类型错误或缺失")
 	if not asset_id is String or asset_id.is_empty():
 		return _invalid("资源种类标识类型错误或缺失")
-	var measured = asset.get_meta("geometry_bounds_m",null)
-	var declared = asset.get_meta("declared_envelope",null)
+	var measured: Variant = asset.get_meta("geometry_bounds_m",null)
+	var declared: Variant = asset.get_meta("declared_envelope",null)
 	if not measured is Dictionary or not declared is Dictionary:
 		return _invalid("局部边界或名义包络缺失")
 	for bounds in [measured, {"min":declared.get("bounds_min"),"max":declared.get("bounds_max")}]:
@@ -128,7 +203,7 @@ func _validate_asset_result(asset: Node3D) -> Dictionary:
 		var high: Vector3 = bounds.max
 		if not low.is_finite() or not high.is_finite() or not _positive(high-low):
 			return _invalid("边界非有限或没有正体积")
-	var radius = asset.get_meta("pivot_bound_radius_m",null)
+	var radius: Variant = asset.get_meta("pivot_bound_radius_m",null)
 	if not (radius is float or radius is int) or not is_finite(float(radius)) or float(radius) <= 0.0:
 		return _invalid("枢轴半径无效")
 	var tree: Dictionary = _validate_tree(asset)
@@ -201,14 +276,18 @@ func _obstacle_transform(obstacle: Dictionary, base_size: Vector3) -> Transform3
 	return Transform3D(Basis(rotation.x*scale.x, rotation.y*scale.y, rotation.z*scale.z), obstacle.position)
 
 func sync_obstacles(parent: Node3D, obstacles: Array) -> Dictionary:
+	if not _owned_can_mutate() or not _owned_main._owned_presenter_parent_matches(self, parent):
+		_owned_refuse()
+		return {"ok":false,"failed_ids":[],"refused":true,"diagnostics":[]}
 	var live := {}
 	var failed: Array[int] = []
 	for obstacle in obstacles:
-		var id := int(obstacle.object_id)
-		var kind := String(obstacle.kind)
+		var id: int = int(obstacle.object_id)
+		var kind: String = String(obstacle.kind)
 		live[id] = true
 		if _nodes.has(id) and _kinds[id] != kind:
-			_remove(id)
+			if not _remove_checked(id):
+				return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 		if _failed_kinds.has(id) and _failed_kinds[id] != kind:
 			_failed_kinds.erase(id)
 		if not _nodes.has(id) and not _failed_kinds.has(id):
@@ -218,39 +297,54 @@ func sync_obstacles(parent: Node3D, obstacles: Array) -> Dictionary:
 			else:
 				_diagnose("资源加载失败·开发灰盒: 未知障碍种类 " + kind)
 			if node != null:
+				if not _owned_main._owned_attach_managed(parent, node, "presenter_obstacle_attach"):
+					return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 				_nodes[id] = node
 				_kinds[id] = kind
-				parent.add_child(node)
 			else:
 				_failed_kinds[id] = kind
+				return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 		var asset: Node3D = obstacle_node(id)
-		if asset == null:
-			failed.append(id)
-			continue
+		if not is_instance_valid(asset) or asset.get_parent() != parent:
+			return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 		var envelope: Dictionary = asset.get_meta("declared_envelope")
 		var base_size: Vector3 = envelope.bounds_max-envelope.bounds_min
 		if not _positive(obstacle.size) or not obstacle.position.is_finite() or not obstacle.rotation_deg.is_finite():
 			_diagnose("资源加载失败·开发灰盒: 障碍 #%d 参数无效" % id)
-			_remove(id)
+			if not _remove_checked(id):
+				return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 			_failed_kinds[id] = kind
-			failed.append(id)
-			continue
+			return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 		asset.transform = _obstacle_transform(obstacle,base_size)
+		if not _owned_main._owned_commit_managed_subtree(asset):
+			return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 	for id in _nodes.keys():
 		if not live.has(id):
-			_remove(id)
+			if not _remove_checked(id):
+				return {"ok":false,"failed_ids":[id],"diagnostics":_diagnostics.duplicate()}
 	for id in _failed_kinds.keys():
 		if not live.has(id):
 			_failed_kinds.erase(id)
 	return {"ok":failed.is_empty(),"failed_ids":failed,"diagnostics":_diagnostics.duplicate()}
 
 func _remove(id: int) -> void:
+	_remove_checked(id)
+
+func _remove_checked(id: int) -> bool:
+	if not _owned_can_mutate():
+		_owned_refuse()
+		return false
+	if not _nodes.has(id):
+		return true
 	var node: Node3D = _nodes[id]
-	if is_instance_valid(node):
+	if not is_instance_valid(node) or not _owned_main._owned_forget_managed_subtree(node):
+		return false
+	if node.get_parent() != null:
 		node.get_parent().remove_child(node)
-		node.free()
+	node.free()
 	_nodes.erase(id)
 	_kinds.erase(id)
+	return true
 
 func obstacle_node(object_id: int) -> Node3D:
 	return _nodes.get(object_id,null)
