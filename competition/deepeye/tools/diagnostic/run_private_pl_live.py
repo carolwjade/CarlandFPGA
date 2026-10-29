@@ -306,7 +306,7 @@ def _exchange(owner,transport,codec,values,qualities,scans,out):
     save(out/'HOST_RESULT.json',result)
 
 
-def main(argv=None,*,_causal_source=None):
+def main(argv=None,*,_causal_source=None,_causal_feedback=None):
     parser=argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument('--template',type=Path,required=True);parser.add_argument('--template-sha256',required=True)
     parser.add_argument('--out',type=Path,required=True);parser.add_argument('--prepare-seconds',type=int,default=120)
@@ -323,7 +323,8 @@ def main(argv=None,*,_causal_source=None):
         return 0
     clock=host_clock.qpc_clock_for_new_run();template=read_json(args.template)
     causal=None;causal_paths={}
-    if _causal_source is not None or 'candidate_source_profile' in template:
+    if (_causal_source is not None or 'candidate_source_profile' in template or
+            _causal_feedback is not None or 'candidate_feedback_profile' in template):
         from competition.deepeye.tools.diagnostic import causal_pl_exchange as causal
         causal_paths=causal.source_paths()
     out=args.out.absolute();out.mkdir(exist_ok=False)
@@ -346,6 +347,12 @@ def main(argv=None,*,_causal_source=None):
                     'explicit Root-owned causal source missing; no fixed-input fallback')
             causal_mode=False
         else:causal_mode=causal.select_source_mode(template,request,activation,_causal_source)
+        if causal is None:
+            require(_causal_feedback is None and 'candidate_feedback_profile' not in request and
+                    'candidate_feedback_profile' not in activation,'explicit Root feedback source missing')
+            feedback=None
+        else:feedback=causal.select_feedback_mode(template,request,activation,_causal_feedback,
+                                                  causal_mode=causal_mode)
         if causal_mode:_causal_source.prepare()  # Static geometry before SSH/board START/idle.
         timing=codec.request_timing(request,activation)
         ctx=codec.context({**request['context'],'request_hash':request['request_hash']})
@@ -382,7 +389,8 @@ def main(argv=None,*,_causal_source=None):
         transport.send_once((private_value+'\n').encode());private_value=None
         if causal_mode:
             causal.exchange_causal(ctx,clock,transport,_causal_source,scans=activation['scans'],out=out,
-                                   functional_timing_profile=timing['functional_timing_profile'])
+                                   functional_timing_profile=timing['functional_timing_profile'],
+                                   on_candidate=feedback)
         else:_exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
     except BaseException as error:
         primary={'type':type(error).__name__,'message':str(error)[:512]}

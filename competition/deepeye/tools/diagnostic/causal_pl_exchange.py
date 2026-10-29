@@ -28,6 +28,33 @@ def _source_profile():
 SOURCE_PROFILE = _source_profile()  # Exported copy cannot change validation policy.
 
 
+def _feedback_profile():
+    return dict(name='root_causal_feedback_v1', max_calls=16,
+                movement_authority=False, CPU_completion_created=False)
+
+
+FEEDBACK_PROFILE = _feedback_profile()
+
+
+def select_feedback_mode(template, request, activation, callback, *, causal_mode):
+    """Select reviewed Root code only; correlation/profile is not authentication."""
+    records = (template, request, activation)
+    if any(type(record) is not dict for record in records):
+        raise ValueError('Root template/request/activation objects required')
+    declared = ['candidate_feedback_profile' in record for record in records]
+    if callback is None and not any(declared): return None
+    if causal_mode is not True or not callable(callback) or not all(declared):
+        raise ValueError('explicit causal source and Root feedback in all records required')
+    expected = _feedback_profile()
+    for record in records:
+        value = record['candidate_feedback_profile']
+        if (type(value) is not dict or value.keys() != expected.keys() or
+                any(type(value[key]) is not type(wanted) or value[key] != wanted
+                    for key, wanted in expected.items())):
+            raise ValueError('only exact root_causal_feedback_v1 policy allowed')
+    return callback
+
+
 def select_source_mode(template, request, activation, source):
     records = (template, request, activation)
     if any(type(record) is not dict for record in records):
@@ -155,11 +182,14 @@ def _terminal(raw, context, scans):
 
 
 def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans, out,
-                          _start=None, context=None):
+                          _start=None, context=None, on_candidate=None):
     if type(scans) is not int or not 1 <= scans <= 16:
         raise ValueError('finite causal scan count1..16 required')
+    if on_candidate is not None and not callable(on_candidate):
+        raise ValueError('trusted Root consumer must be callable')
     root = Path(out)/'causal-exchange'
     history = None; closed = False; total = 0; records = []; high = origin_ns
+    feedback_calls = []
     primary_error = None
     latest = False; request_deadline = None
     def budget(raw):
@@ -190,6 +220,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
         root.mkdir(exist_ok=False)
         history = (root/'source-history.jsonl').open('xb')
         write('intent.json', _raw(dict(source_profile=_source_profile(), scans=scans,
+            feedback_profile=None if on_candidate is None else _feedback_profile(),
             context=channel._owner.context if channel is not None else pl.context(context),
             origin_ns=origin_ns, source_started=_start is None,
             movement_authorized=False, production_authentication_created=False)))
@@ -212,8 +243,41 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
                 write('response-%02d.bin' % len(records), returned)
                 candidate = channel.accept_capture(returned)
                 records.append(candidate)
-                write('candidate-%02d.json' % (len(records)-1), _raw(candidate))
+                candidate_raw = _raw(candidate)
+                index = len(records)-1
+                write('candidate-%02d.json' % index, candidate_raw)
                 request_deadline = None
+                if on_candidate is not None:
+                    begin = clock(); pl.uint(begin, 63)
+                    if begin < high: raise ValueError('feedback owner clock regressed')
+                    if begin-origin_ns > _source_profile()['session_max_ns']:
+                        raise TimeoutError('source session expired before Root consumer')
+                    evidence = dict(invocation_index=index,
+                        candidate_sha256=hashlib.sha256(candidate_raw).hexdigest(),
+                        capture_sha256=candidate['observation_identity']['capture_sha256'],
+                        begin_qpc_ns=begin, CPU_completion_created=False,
+                        movement_authorized=False)
+                    write('feedback-%02d-started.json' % index, _raw(dict(evidence,
+                        state='started_unknown_before_root_consumer')))
+                    dispatch = clock(); pl.uint(dispatch, 63)
+                    if dispatch < begin: raise ValueError('feedback owner clock regressed')
+                    if dispatch-origin_ns > _source_profile()['session_max_ns']:
+                        write('feedback-%02d-not-called.json' % index, _raw(dict(evidence,
+                            state='not_called_expired_before_consumer', checked_qpc_ns=dispatch)))
+                        raise TimeoutError('source session expired during consumer intent publication')
+                    # A detached candidate contains only board-returned input.
+                    # Root package review must bind this trusted code/closure;
+                    # its return never becomes completion or movement evidence.
+                    result = on_candidate(json.loads(candidate_raw))
+                    if result is not None:
+                        raise ValueError('Root consumer returns None; no authority claims accepted')
+                    end = clock(); pl.uint(end, 63)
+                    if end < dispatch: raise ValueError('feedback owner clock regressed')
+                    high = now = end
+                    completed = dict(evidence, dispatch_qpc_ns=dispatch,
+                                     end_qpc_ns=end, state='returned')
+                    write('feedback-%02d-returned.json' % index, _raw(completed))
+                    feedback_calls.append(completed)
             if now-origin_ns > _source_profile()['session_max_ns']:
                 raise TimeoutError('bounded causal host session expired')
             if len(records) == scans: break
@@ -244,6 +308,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
         result = dict(context=channel._owner.context, captures=records,
             original_terminal=terminal, source_profile=_source_profile(),
             source_origin_ns=origin_ns,
+            root_feedback_calls=feedback_calls, CPU_completion_created=False,
             movement_authorized=False, formal_acceptance='not_run',
             complete_H12='not_run', compression_verified=False)
         write('HOST_CAUSAL_RESULT.json', _raw(result))
@@ -279,7 +344,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
 
 
 def exchange_causal(context, host_clock, transport, source, *, scans, out,
-                    functional_timing_profile=None):
+                    functional_timing_profile=None, on_candidate=None):
     """Run inside the original activated Root host; never create/adopt SSH here."""
     binding = clocks._require_binding(host_clock)
     if type(host_clock) is not clocks.QpcHostClock or type(source) is not CausalSourcePump:
@@ -298,7 +363,9 @@ def exchange_causal(context, host_clock, transport, source, *, scans, out,
         channel.accept_ready(ready)
         return channel, origin, first
     return _exchange_causal_core(None, transport, source, clock=binding,
-        origin_ns=None, scans=scans, out=out, _start=start, context=context)
+        origin_ns=None, scans=scans, out=out, _start=start, context=context,
+        on_candidate=on_candidate)
 
 
-__all__ = ['CausalSourcePump', 'exchange_causal', 'select_source_mode', 'SOURCE_PROFILE']
+__all__ = ['CausalSourcePump', 'exchange_causal', 'select_source_mode', 'SOURCE_PROFILE',
+           'select_feedback_mode', 'FEEDBACK_PROFILE']
