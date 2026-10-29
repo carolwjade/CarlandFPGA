@@ -184,6 +184,7 @@ class _RootWorldOwner:
         self._thread = threading.get_ident()
         self._foreign = threading.Event()
         self._busy = False
+        self._em_scope_active = None
         self._native = None
         self._high = 0
         self._number = 0
@@ -672,6 +673,285 @@ def _owner_for_test(boundary, clock):
     owner._state = 'WAIT_HELLO'
     _RETAINED.append(owner)
     return owner
+
+
+# One synchronous EM interval; no owner/native acquisition or lifecycle.
+_EM_SCOPE_PRODUCTION = object()
+_EM_SCOPE_SOFTWARE = object()
+
+
+class _EmScopeFactoryCore:
+    def __init__(self, key, owner, binding, field, source):
+        from types import MethodType
+        from ..sensors.owned_world_field import OwnedWorldField
+        from ...tools.diagnostic.causal_pl_exchange import CausalSourcePump
+        if hasattr(self, '_key') or key not in (_EM_SCOPE_PRODUCTION, _EM_SCOPE_SOFTWARE):
+            raise WorldRejected('private original acquisition factory required')
+        if key is _EM_SCOPE_PRODUCTION:
+            if (type(self) is not _OriginalEmScopeFactory
+                    or type(owner) is not _RootWorldOwner or owner._test is not False
+                    or not any(owner is original for original in _RETAINED)
+                    or not native.is_original_owner(owner._native)
+                    or type(owner._clock) is not clocks.QpcHostClock):
+                raise WorldRejected('retained production Root/native/QPC required')
+        elif (isinstance(owner, _RootWorldOwner)
+                or getattr(owner, 'software_fixture_only', None) is not True
+                or getattr(owner._clock, 'software_fixture_only', None) is not True
+                or native.is_original_owner(owner._native)):
+            raise WorldRejected('software factory cannot adopt real Root/native')
+        if (type(field) is not OwnedWorldField or type(source) is not CausalSourcePump
+                or type(source._pose_reader) is not MethodType
+                or type(source._sampler) is not MethodType
+                or source._pose_reader.__func__ is not OwnedWorldField.pose_reader
+                or source._sampler.__func__ is not OwnedWorldField.sample_sigma
+                or source._pose_reader.__self__ is not field
+                or source._sampler.__self__ is not field
+                or field._em_scope_factory is not None):
+            raise WorldRejected('fresh exact field/source association required')
+        self._key, self._owner, self._binding = key, owner, binding
+        self._field, self._source = field, source
+        self._clock, self._native = owner._clock, owner._native
+        self._profile = source._profile
+        self._scene, self._pieces = field._scene, field._pieces
+        self._background, self._epsilon = field._background, field._epsilon
+        self._deadline = self._native._containment_deadline
+        self._freeze = _raw(binding.epoch.identity)
+        self._thread = threading.get_ident()
+        self._fault = threading.Event()
+        self._active = None
+        self._last_tick = -1
+        self._high = 0
+        self._check(None)
+        if owner._em_scope_active is not None:
+            owner._em_scope_active._factory._fail()
+            raise WorldRejected('one original owner acquisition at a time')
+        field._em_scope_factory = self
+
+    def _fail(self):
+        self._fault.set()
+        # Foreign calls only contaminate. Original-thread exit performs retirement.
+        if threading.get_ident() == self._thread:
+            self._field._retired = True
+            self._source.state = 'FAILED'
+
+    def _check(self, tick):
+        from types import MethodType
+        from ..sensors.owned_world_field import OwnedWorldField
+        from ...tools.diagnostic.causal_pl_exchange import CausalSourcePump
+        if self._fault.is_set():
+            raise RuntimeError('acquisition association permanently failed')
+        if threading.get_ident() != self._thread:
+            raise WorldRejected('original acquisition thread required')
+        owner, source, field = self._owner, self._source, self._field
+        if self._key is _EM_SCOPE_PRODUCTION:
+            if (type(self) is not _OriginalEmScopeFactory
+                    or type(owner) is not _RootWorldOwner or owner._test is not False
+                    or not any(owner is original for original in _RETAINED)
+                    or not native.is_original_owner(self._native)
+                    or type(self._clock) is not clocks.QpcHostClock):
+                raise WorldRejected('original production factory custody lost')
+            clocks._require_binding(self._clock)
+        else:
+            if (isinstance(owner, _RootWorldOwner)
+                    or getattr(owner, 'software_fixture_only', None) is not True
+                    or getattr(self._clock, 'software_fixture_only', None) is not True
+                    or native.is_original_owner(owner._native)):
+                raise WorldRejected('software fixture custody lost')
+            self._clock._check()
+        if (owner._clock is not self._clock or owner._native is not self._native
+                or owner._thread != self._thread or owner._busy is not False
+                or owner._foreign.is_set() or owner._initialized is not True
+                or owner._vetoed is not False or self._native._retired is not False
+                or self._native.state != 'AUTHENTICATED'
+                or self._native.clock_binding is not self._clock
+                or self._native._containment_deadline != self._deadline
+                or owner._native_observation is None
+                or owner._native_observation.alive is not True
+                or (owner._publication is not None and not owner._publication.resolved)):
+            raise WorldRejected('healthy original world/native/containment required')
+        _RootWorldOwner._known_binding(owner, self._binding)
+        if (_raw(self._binding.epoch.identity) != self._freeze
+                or owner._status is None
+                or owner._status['identity'] != self._binding.epoch.identity
+                or owner._status['state'] not in ('FROZEN', 'BOUND_STOPPED')):
+            raise WorldRejected('original frozen world status required')
+        if (type(source) is not CausalSourcePump or source._profile is not self._profile
+                or source._thread != self._thread
+                or source.state not in (('NEW', 'RUNNING') if tick is None else ('RUNNING',))
+                or type(source._pose_reader) is not MethodType
+                or type(source._sampler) is not MethodType
+                or source._pose_reader.__func__ is not OwnedWorldField.pose_reader
+                or source._sampler.__func__ is not OwnedWorldField.sample_sigma
+                or source._pose_reader.__self__ is not field
+                or source._sampler.__self__ is not field
+                or field._executor is not self._binding.executor
+                or field._scene is not self._scene
+                or self._binding.world_values.scene is not self._scene
+                or field._pieces is not self._pieces
+                or field._background != self._background or field._epsilon != self._epsilon
+                or (field._em_scope_factory is not None and field._em_scope_factory is not self)):
+            raise WorldRejected('original complete field/profile/source required')
+        root = field._check()
+        view = self._binding.executor.renderer_view()
+        if (type(root) is not motion._Root or view.pose is not root.pose
+                or view.pose_revision != root.pose_revision
+                or self._binding.executor._busy
+                or solids._digest(self._scene) != field._scene_digest
+                or self._scene.digest != field._scene_digest):
+            raise WorldRejected('current root/pose and actual scene digest required')
+        now = _integer(self._clock())
+        if now < self._high or now >= self._deadline:
+            raise WorldRejected('original acquisition clock/containment expired')
+        self._high = now
+        if source.state == 'RUNNING':
+            if (source._clock is not self._clock or now < source._origin
+                    or now < source._high or now-source._origin > 10_000_000_000):
+                raise WorldRejected('original source clock/session required')
+        if tick is not None:
+            if (source._last_tick != tick or type(source._count) is not int
+                    or not 1 <= source._count <= 1001):
+                raise WorldRejected('already consumed current source slot required')
+        return (root, root.pose, root.revision, root.revoke_generation,
+                root.pose_revision, owner._veto_generation,
+                _raw(self._binding.epoch.identity), source._origin,
+                source._last_tick, source._count, source._high)
+
+    def _boundary(self, tick):
+        self._check(tick)
+        self._owner.poll()  # Explicit, never inside the clock or owner._busy.
+        return self._check(tick)
+
+    def begin(self, tick_ms):
+        try:
+            if self._fault.is_set():
+                raise RuntimeError('acquisition association permanently failed')
+            if threading.get_ident() != self._thread:
+                raise WorldRejected('original acquisition thread required')
+            if self._active is not None or self._owner._em_scope_active is not None:
+                raise RuntimeError('nested original acquisition refused')
+            if (type(tick_ms) is not int or tick_ms < 0 or tick_ms % 50
+                    or tick_ms <= self._last_tick):
+                raise WorldRejected('fresh already consumed EM tick required')
+            self._last_tick = tick_ms  # Reservation is never rolled back.
+            self._check(tick_ms)
+            scope = _EmAcquisitionScope(self, tick_ms)
+            self._active = self._owner._em_scope_active = scope
+            return scope
+        except BaseException:
+            self._fail()
+            raise
+
+
+class _OriginalEmScopeFactory(_EmScopeFactoryCore):
+    def __init__(self, key, owner, binding, field, source):
+        if key is not _EM_SCOPE_PRODUCTION or type(self) is not _OriginalEmScopeFactory:
+            raise WorldRejected('exact original acquisition factory required')
+        super().__init__(key, owner, binding, field, source)
+
+
+class _EmAcquisitionScope:
+    def __init__(self, factory, tick):
+        self._factory, self._tick = factory, tick
+        self._entered = self._ended = self._active = self._sampling = False
+        self._snapshot = None
+        self._secondary = []
+
+    @property
+    def sampler(self):
+        return self._sample_sigma
+
+    @property
+    def secondary_errors(self):
+        return tuple(self._secondary)
+
+    def __enter__(self):
+        factory = self._factory
+        if threading.get_ident() != factory._thread:
+            factory._fail()
+            raise RuntimeError('foreign scope entry refused')
+        try:
+            if (self._entered or self._ended or factory._active is not self
+                    or factory._owner._em_scope_active is not self):
+                raise RuntimeError('one-shot original acquisition scope required')
+            self._entered = True
+            self._snapshot = factory._boundary(self._tick)
+            self._active = True
+            return self
+        except BaseException:
+            factory._fail()
+            self._ended = True
+            self._snapshot = None
+            if factory._active is self:
+                factory._active = None
+            if factory._owner._em_scope_active is self:
+                factory._owner._em_scope_active = None
+            raise
+
+    def _sample_sigma(self, x, y, z):
+        factory = self._factory
+        sampling = False
+        try:
+            if (not self._active or self._ended or self._sampling
+                    or threading.get_ident() != factory._thread
+                    or factory._fault.is_set()):
+                raise RuntimeError('inactive, foreign or reentered scoped sampler')
+            if (factory._field._retired
+                    or factory._field._pieces is not factory._pieces
+                    or factory._field._background != factory._background
+                    or factory._field._epsilon != factory._epsilon):
+                raise WorldRejected('original scoped field/policy required')
+            self._sampling = True
+            sampling = True
+            return factory._field._sample_sigma_pure(x, y, z)
+        except BaseException:
+            factory._fail()
+            raise
+        finally:
+            if sampling:
+                self._sampling = False
+
+    def __exit__(self, exc_type, exc, traceback):
+        factory = self._factory
+        if threading.get_ident() != factory._thread:
+            factory._fail()
+            raise RuntimeError('foreign scope exit refused')
+        self._active = False  # Never usable during post-poll or afterward.
+        secondary = None
+        try:
+            if not self._entered or self._ended or self._snapshot is None:
+                raise RuntimeError('one-shot active scope exit required')
+            current = factory._boundary(self._tick)
+            previous = self._snapshot
+            if (current[0] is not previous[0] or current[1] is not previous[1]
+                    or current[2:] != previous[2:]):
+                raise WorldRejected('original acquisition root/generations changed')
+        except BaseException as error:
+            secondary = error
+            factory._fail()
+        finally:
+            self._ended = True
+            self._snapshot = None  # No root/pose cache survives an acquisition.
+            if factory._active is self:
+                factory._active = None
+            if factory._owner._em_scope_active is self:
+                factory._owner._em_scope_active = None
+        if exc is not None:
+            factory._fail()
+            if secondary is not None and len(self._secondary) < 2:
+                self._secondary.append(secondary)
+            return False  # Original body exception remains primary.
+        if secondary is not None:
+            raise secondary
+        return False
+
+
+def _make_original_em_scope_factory(owner, binding, field, source):
+    return _OriginalEmScopeFactory(_EM_SCOPE_PRODUCTION, owner, binding, field, source)
+
+
+def _make_software_em_scope_factory_for_test(owner, binding, field, source):
+    """Software-only controls; a distinct exact type, never a native capability."""
+    return _EmScopeFactoryCore(_EM_SCOPE_SOFTWARE, owner, binding, field, source)
 
 
 __all__ = []

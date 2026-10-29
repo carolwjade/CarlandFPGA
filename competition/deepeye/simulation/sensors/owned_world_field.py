@@ -43,7 +43,8 @@ class OwnedWorldField:
     omission means exact nominal boundaries are unknown, not zero physical error.
     """
     __slots__ = ('_executor', '_scene', '_scene_id', '_scene_digest', '_binding',
-                 '_run', '_epoch', '_retired', '_pieces', '_background', '_epsilon')
+                 '_run', '_epoch', '_retired', '_pieces', '_background', '_epsilon',
+                 '_em_scope_factory')
 
     def __init__(self, executor, *, material_sigma, background_sigma, max_pieces,
                  sample_epsilon_m=None):
@@ -91,6 +92,7 @@ class OwnedWorldField:
         self._run = root.phase.context.run_id
         self._epoch = root.phase.context.epoch
         self._retired = False
+        self._em_scope_factory = None
         self._pieces = tuple(pieces)  # Complete read-only compiled scalar tuples.
         self._background = background
         self._epsilon = epsilon
@@ -119,6 +121,10 @@ class OwnedWorldField:
     def sample_sigma(self, x, y, z):
         """Only numeric S/m or None; never a material/position/distance DTO."""
         self._check()
+        return self._sample_sigma_pure(x, y, z)
+
+    def _sample_sigma_pure(self, x, y, z):
+        """Root-private original scalar body; public sampling keeps full checks."""
         try:
             point = tuple(_number(v) for v in (x, y, z))
         except ValueError:

@@ -306,6 +306,123 @@ def _exchange(owner,transport,codec,values,qualities,scans,out):
     save(out/'HOST_RESULT.json',result)
 
 
+def _verify_claimed_sources(sources,causal=None):
+    """Re-read original files after delayed world setup, before SSH effects."""
+    from competition.deepeye.integration import host_clock,private_pl_stream as codec
+    paths={'driver':Path(__file__),'codec':Path(codec.__file__),
+           'host_clock':Path(host_clock.__file__),
+           'agent':Path(__file__).with_name('private_pl_live_agent.py'),
+           'collector':Path(__file__).with_name('a_b56_memory_safe_collector.py')}
+    if causal is not None:paths.update(causal.source_paths())
+    require(all(pin(path)==sources[name] for name,path in paths.items()),
+            'claimed original source drift before SSH')
+
+
+def _require_clock_domain(ctx,metadata):
+    require(ctx['clock_domain_id']==metadata['domain_id'],
+            'claimed context differs from original QPC domain')
+
+
+def _run_claimed(template,out,sources,released,clock,*,_causal_source=None,
+                 _causal_feedback=None,_world_service=None):
+    """Execute/clean only an already consumed activation on its original QPC."""
+    from competition.deepeye.integration import host_clock,private_pl_stream as codec
+    causal=None
+    transport=None;owner=None;primary=None;secondary_errors=()
+    try:
+        require(type(clock) is host_clock.QpcHostClock,'exact original QPC claimed owner required')
+        host_clock._require_binding(clock)
+        request=released['request'];activation=released['activation'];remote=released['remote']
+        if (_causal_source is not None or 'candidate_source_profile' in template or
+                _causal_feedback is not None or 'candidate_feedback_profile' in template or
+                _world_service is not None):
+            from competition.deepeye.tools.diagnostic import causal_pl_exchange as causal
+        if causal is None:
+            require('candidate_source_profile' not in request and 'candidate_source_profile' not in activation,
+                    'explicit Root-owned causal source missing; no fixed-input fallback')
+            causal_mode=False
+        else:causal_mode=causal.select_source_mode(template,request,activation,_causal_source)
+        if causal is None:
+            require(_causal_feedback is None and 'candidate_feedback_profile' not in request and
+                    'candidate_feedback_profile' not in activation,'explicit Root feedback source missing')
+            feedback=None
+        else:feedback=causal.select_feedback_mode(template,request,activation,_causal_feedback,
+                                                  causal_mode=causal_mode)
+        if causal is not None:
+            causal._require_world_service(_world_service,clock,_causal_source,causal_mode=causal_mode)
+        else:require(_world_service is None,'world service requires causal source mode')
+        if _world_service is not None:_world_service.poll()
+        if causal_mode:_causal_source.prepare()  # Static geometry before SSH/board START/idle.
+        timing=codec.request_timing(request,activation)
+        ctx=codec.context({**request['context'],'request_hash':request['request_hash']})
+        _require_clock_domain(ctx,clock.metadata)
+        if not causal_mode:
+            owner=codec.HostOwner(ctx,clock,max_age_ns=timing['max_age_ns'],
+                                  functional_timing_profile=timing['functional_timing_profile'])
+        require(type(activation['scans']) is int and 1<=activation['scans']<=request['max_scans']<=16 and
+                type(request['max_scans']) is int,'finite actual scan count required')
+        if not causal_mode:
+            for field,bits in (('values',16),('qualities',8)):
+                require(type(activation[field]) is list and len(activation[field])==4,'four original diagnostic inputs required')
+                for value in activation[field]:codec.uint(value,bits)
+        require(request['agent_sha256']==sources['agent']['sha256'] and request['codec_sha256']==sources['codec']['sha256'],
+                'prepared actual agent/codec bytes differ')
+        _verify_claimed_sources(sources,causal)
+        # Existing strict route/provider is read only after actual one-time activation.
+        root=Path(template['original_repository_root'])
+        prior=read_json(root/'.planning/deepeye-resume-20261018/board-preflight-20261021/started.private.json',65536)
+        base=prior['argv'][:-1];require(base[-1].startswith('xilinx@') and base[-1].endswith('%8') and
+                all(x in base for x in ('StrictHostKeyChecking=yes','BatchMode=yes','IdentitiesOnly=yes')),'original strict SSH route required')
+        require(pin_system_ssh(Path(base[0]))['sha256']==prior['ssh_sha256'],'original SSH binary changed')
+        known=next(x.split('=',1)[1] for x in base if x.startswith('UserKnownHostsFile='))
+        require(pin(Path(known))['sha256']==prior['pinned_known_hosts_sha256'],'knownhost bytes changed')
+        legacy=root/'.planning/deepeye-resume-20261018/board-baseline-20261021/run.py'
+        providers=[n for n in ast.parse(legacy.read_text('utf-8-sig')).body if isinstance(n,ast.Assign) and
+                   any(isinstance(t,ast.Name) and t.id=='credential' for t in n.targets)]
+        require(len(providers)==1 and ast.unparse(providers[0].value)=="base[-1].split('@', 1)[0]",'original provider recipe changed')
+        private_value=base[-1].split('@',1)[0]
+        command=('/usr/local/share/pynq-venv/bin/python3 -I -B '+shlex.quote(remote+'/private_pl_live_agent.py')+
+                 ' --relay-original --request '+shlex.quote(remote+'/LIVE_REQUEST.json')+
+                 ' --request-sha256 '+shlex.quote(activation['request_file_sha256']))
+        if _world_service is not None:_world_service.poll()
+        save(out/'SSH-started.json',{'original_argv':base+[command],'stdin_logged':False,'automatic_retry':False,
+             'prepared_sha256':activation['prepared_sha256'],'request_hash':request['request_hash'],'native_job_before_credential':True})
+        if _world_service is not None:_world_service.poll()
+        transport=_Transport(base+[command],out,clock)
+        if _world_service is not None:_world_service.poll()
+        transport.send_once((private_value+'\n').encode());private_value=None
+        if causal_mode:
+            causal.exchange_causal(ctx,clock,transport,_causal_source,scans=activation['scans'],out=out,
+                                   functional_timing_profile=timing['functional_timing_profile'],
+                                   on_candidate=feedback,_world_service=_world_service)
+        else:_exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
+    except BaseException as error:
+        primary={'type':type(error).__name__,'message':str(error)[:512]}
+        secondary_errors=(getattr(error,'_private_timing_save_errors',())+
+                          getattr(error,'_causal_exchange_secondary_errors',()))
+        if owner is not None:owner.retire()
+        if _causal_source is not None:
+            try:_causal_source.retire('original host failed; no source replay')
+            except BaseException as cleanup:
+                secondary_errors+=({'stage':'causal_source_retire','type':type(cleanup).__name__,
+                                    'message':str(cleanup)[:256]},)
+    finally:
+        process=None
+        if transport is not None:
+            try:
+                if not transport.process.stdin.closed:transport.close_input()
+                process=transport.finish()
+            except BaseException as error:
+                process={'local_cleanup_error':type(error).__name__,'remote_outcome':'unknown'}
+        terminal={'primary_error':primary,'original_process':process,
+             'SSH_started':transport is not None or (out/'SSH_CONSTRUCTOR_TERMINAL.json').exists(),
+             'remote_STOP_not_inferred_from_local_cleanup':True,'movement_authorized':False,'automatic_retry':False}
+        if secondary_errors:terminal['secondary_errors']=list(secondary_errors)
+        save(out/'HOST_TERMINAL.json',terminal)
+    return (0 if primary is None and process is not None and process.get('original_exit')==0 and not process.get('error') and not process.get('cleanup_errors') and
+            process.get('original_job_closed') and process.get('original_process_handle_closed') else 2)
+
+
 def main(argv=None,*,_causal_source=None,_causal_feedback=None):
     parser=argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument('--template',type=Path,required=True);parser.add_argument('--template-sha256',required=True)
@@ -333,7 +450,6 @@ def main(argv=None,*,_causal_source=None,_causal_feedback=None):
              'collector':pin(Path(__file__).with_name('a_b56_memory_safe_collector.py')),'template':pin(args.template)}
     sources.update({name:pin(path) for name,path in causal_paths.items()})
     prepared=_prepare(out,template,clock,sources,_original_process_identity())
-    transport=None;owner=None;primary=None;secondary_errors=()
     try:
         _wait_activation(out,args.prepare_seconds);clock()
         require(pin(Path(__file__))==sources['driver'] and pin(Path(codec.__file__))==sources['codec'] and
@@ -341,82 +457,25 @@ def main(argv=None,*,_causal_source=None,_causal_feedback=None):
                 pin(Path(__file__).with_name('private_pl_live_agent.py'))==sources['agent'] and
                 pin(Path(__file__).with_name('a_b56_memory_safe_collector.py'))==sources['collector'],'prepared original source drift')
         require(all(pin(path)==sources[name] for name,path in causal_paths.items()),'prepared causal source drift')
-        released=_claim(out,prepared);request=released['request'];activation=released['activation'];remote=released['remote']
-        if causal is None:
-            require('candidate_source_profile' not in request and 'candidate_source_profile' not in activation,
-                    'explicit Root-owned causal source missing; no fixed-input fallback')
-            causal_mode=False
-        else:causal_mode=causal.select_source_mode(template,request,activation,_causal_source)
-        if causal is None:
-            require(_causal_feedback is None and 'candidate_feedback_profile' not in request and
-                    'candidate_feedback_profile' not in activation,'explicit Root feedback source missing')
-            feedback=None
-        else:feedback=causal.select_feedback_mode(template,request,activation,_causal_feedback,
-                                                  causal_mode=causal_mode)
-        if causal_mode:_causal_source.prepare()  # Static geometry before SSH/board START/idle.
-        timing=codec.request_timing(request,activation)
-        ctx=codec.context({**request['context'],'request_hash':request['request_hash']})
-        if not causal_mode:
-            owner=codec.HostOwner(ctx,clock,max_age_ns=timing['max_age_ns'],
-                                  functional_timing_profile=timing['functional_timing_profile'])
-        require(type(activation['scans']) is int and 1<=activation['scans']<=request['max_scans']<=16 and
-                type(request['max_scans']) is int,'finite actual scan count required')
-        if not causal_mode:
-            for field,bits in (('values',16),('qualities',8)):
-                require(type(activation[field]) is list and len(activation[field])==4,'four original diagnostic inputs required')
-                for value in activation[field]:codec.uint(value,bits)
-        require(request['agent_sha256']==sources['agent']['sha256'] and request['codec_sha256']==sources['codec']['sha256'],
-                'prepared actual agent/codec bytes differ')
-        # Existing strict route/provider is read only after actual one-time activation.
-        root=Path(template['original_repository_root'])
-        prior=read_json(root/'.planning/deepeye-resume-20261018/board-preflight-20261021/started.private.json',65536)
-        base=prior['argv'][:-1];require(base[-1].startswith('xilinx@') and base[-1].endswith('%8') and
-                all(x in base for x in ('StrictHostKeyChecking=yes','BatchMode=yes','IdentitiesOnly=yes')),'original strict SSH route required')
-        require(pin_system_ssh(Path(base[0]))['sha256']==prior['ssh_sha256'],'original SSH binary changed')
-        known=next(x.split('=',1)[1] for x in base if x.startswith('UserKnownHostsFile='))
-        require(pin(Path(known))['sha256']==prior['pinned_known_hosts_sha256'],'knownhost bytes changed')
-        legacy=root/'.planning/deepeye-resume-20261018/board-baseline-20261021/run.py'
-        providers=[n for n in ast.parse(legacy.read_text('utf-8-sig')).body if isinstance(n,ast.Assign) and
-                   any(isinstance(t,ast.Name) and t.id=='credential' for t in n.targets)]
-        require(len(providers)==1 and ast.unparse(providers[0].value)=="base[-1].split('@', 1)[0]",'original provider recipe changed')
-        private_value=base[-1].split('@',1)[0]
-        command=('/usr/local/share/pynq-venv/bin/python3 -I -B '+shlex.quote(remote+'/private_pl_live_agent.py')+
-                 ' --relay-original --request '+shlex.quote(remote+'/LIVE_REQUEST.json')+
-                 ' --request-sha256 '+shlex.quote(activation['request_file_sha256']))
-        save(out/'SSH-started.json',{'original_argv':base+[command],'stdin_logged':False,'automatic_retry':False,
-             'prepared_sha256':activation['prepared_sha256'],'request_hash':request['request_hash'],'native_job_before_credential':True})
-        transport=_Transport(base+[command],out,clock)
-        transport.send_once((private_value+'\n').encode());private_value=None
-        if causal_mode:
-            causal.exchange_causal(ctx,clock,transport,_causal_source,scans=activation['scans'],out=out,
-                                   functional_timing_profile=timing['functional_timing_profile'],
-                                   on_candidate=feedback)
-        else:_exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
+        released=_claim(out,prepared)
     except BaseException as error:
         primary={'type':type(error).__name__,'message':str(error)[:512]}
         secondary_errors=(getattr(error,'_private_timing_save_errors',())+
                           getattr(error,'_causal_exchange_secondary_errors',()))
-        if owner is not None:owner.retire()
         if _causal_source is not None:
             try:_causal_source.retire('original host failed; no source replay')
             except BaseException as cleanup:
                 secondary_errors+=({'stage':'causal_source_retire','type':type(cleanup).__name__,
                                     'message':str(cleanup)[:256]},)
-    finally:
-        process=None
-        if transport is not None:
-            try:
-                if not transport.process.stdin.closed:transport.close_input()
-                process=transport.finish()
-            except BaseException as error:
-                process={'local_cleanup_error':type(error).__name__,'remote_outcome':'unknown'}
-        terminal={'primary_error':primary,'original_process':process,
-             'SSH_started':transport is not None or (out/'SSH_CONSTRUCTOR_TERMINAL.json').exists(),
+        terminal={'primary_error':primary,'original_process':None,
+             'SSH_started':(out/'SSH_CONSTRUCTOR_TERMINAL.json').exists(),
              'remote_STOP_not_inferred_from_local_cleanup':True,'movement_authorized':False,'automatic_retry':False}
         if secondary_errors:terminal['secondary_errors']=list(secondary_errors)
         save(out/'HOST_TERMINAL.json',terminal)
-    return (0 if primary is None and process is not None and process.get('original_exit')==0 and not process.get('error') and not process.get('cleanup_errors') and
-            process.get('original_job_closed') and process.get('original_process_handle_closed') else 2)
+        return 2
+    # Ownership transfers once. This frame never repeats claimed cleanup/terminal.
+    return _run_claimed(template,out,sources,released,clock,
+                        _causal_source=_causal_source,_causal_feedback=_causal_feedback)
 
 
 if __name__=='__main__':raise SystemExit(main())

@@ -36,6 +36,20 @@ def _feedback_profile():
 FEEDBACK_PROFILE = _feedback_profile()
 
 
+def select_em_scope_profile(plan):
+    """Exact opt-in local source profile, covered by the Root plan hash."""
+    if type(plan) is not dict:
+        raise ValueError('Root plan object required')
+    if 'source_acquisition_profile' not in plan:
+        return False
+    profile = plan['source_acquisition_profile']
+    if (type(profile) is not dict or set(profile) != {'name'}
+            or type(profile['name']) is not str
+            or profile['name'] != 'root_original_em_scope_v1'):
+        raise ValueError('exact root_original_em_scope_v1 profile required')
+    return True
+
+
 def select_feedback_mode(template, request, activation, callback, *, causal_mode):
     """Select reviewed Root code only; correlation/profile is not authentication."""
     records = (template, request, activation)
@@ -98,7 +112,23 @@ class _CausalSourcePump:
         self._thread = threading.get_ident()
         self._origin = self._clock = self._high = self._last_tick = None
         self._count = 0
+        self._em_scope_factory = None
+        self._polling = False
         self.state = 'NEW'
+
+    def _bind_software_em_scope_for_test(self, factory):
+        """Distinct software pump core only; cannot bind the public source."""
+        try:
+            if (type(self) is not _CausalSourcePump or self.state != 'NEW'
+                    or threading.get_ident() != self._thread
+                    or self._em_scope_factory is not None
+                    or getattr(factory, 'software_fixture_only', None) is not True
+                    or getattr(factory, '_source', None) is not self):
+                raise ValueError('fresh software-only pump/factory required')
+            self._em_scope_factory = factory
+        except BaseException:
+            self.state = 'FAILED'
+            raise
 
     def start(self, origin_ns, clock):
         if self.state != 'NEW' or threading.get_ident() != self._thread or not callable(clock):
@@ -108,9 +138,16 @@ class _CausalSourcePump:
         self.state = 'RUNNING'
 
     def poll(self):
+        entered = False
         try:
+            if self._polling:
+                raise ValueError('reentrant source acquisition refused')
+            self._polling = True
+            entered = True
             if self.state != 'RUNNING' or threading.get_ident() != self._thread:
                 raise ValueError('original running source owner required')
+            if self._em_scope_factory is not None and self._contact_reader is not None:
+                raise ValueError('EM-only scope profile does not admit contact callbacks')
             now = self._clock(); pl.uint(now, 63)
             if now < self._high or now < self._origin:
                 raise ValueError('original source clock regressed')
@@ -123,13 +160,26 @@ class _CausalSourcePump:
             self._last_tick = tick  # Consume before callbacks; no failed-slot replay.
             self._count += 1
             if tick % 50 == 0:
-                self._profile.acquire_em(tick, self._pose_reader(),
-                    context=self._medium, sampler=self._sampler)
+                if self._em_scope_factory is None:
+                    self._profile.acquire_em(tick, self._pose_reader(),
+                        context=self._medium, sampler=self._sampler)
+                else:
+                    with self._em_scope_factory.begin(tick) as scope:
+                        self._profile.acquire_em(tick, self._pose_reader(),
+                            context=self._medium, sampler=scope.sampler)
+            if self.state != 'RUNNING':
+                raise ValueError('source callback invalidated active acquisition')
             contact = None if self._contact_reader is None else self._contact_reader(tick)
-            return self._profile.sample_adc(tick, contact_accel_g=contact).to_payload()
+            payload = self._profile.sample_adc(tick, contact_accel_g=contact).to_payload()
+            if self.state != 'RUNNING':
+                raise ValueError('source callback invalidated active acquisition')
+            return payload
         except BaseException:
             self.state = 'FAILED'
             raise
+        finally:
+            if entered:
+                self._polling = False
 
     def retire(self, reason):
         if type(reason) is not str or not reason: raise ValueError('source retirement reason required')
@@ -145,6 +195,24 @@ class CausalSourcePump(_CausalSourcePump):
         super().__init__(forward.ForwardProfile(), pose_reader, sampler,
             contact_reader=contact_reader, medium_context=medium_context)
         self.prepared = False
+
+    def bind_original_em_scope(self, factory):
+        """Bind one already registered original-world factory before starting."""
+        from ...simulation.authority import _world_loop as world
+        try:
+            if (type(self) is not CausalSourcePump or self.state != 'NEW'
+                    or threading.get_ident() != self._thread
+                    or self._em_scope_factory is not None
+                    or self._contact_reader is not None
+                    or type(self._profile) is not forward.ForwardProfile
+                    or type(factory) is not world._OriginalEmScopeFactory
+                    or factory._source is not self):
+                raise ValueError('fresh original source/scope factory required')
+            factory._check(None)
+            self._em_scope_factory = factory
+        except BaseException:
+            self.state = 'FAILED'
+            raise
 
     def prepare(self):
         if self.state != 'NEW' or threading.get_ident() != self._thread:
@@ -181,12 +249,71 @@ def _terminal(raw, context, scans):
     return doc
 
 
+def _require_world_service(service, clock, source, *, causal_mode):
+    if service is None:
+        return None
+    # Lazy import: the service module itself imports CausalSourcePump.
+    from ...simulation.authority.root_world_service import RootWorldService
+    if (causal_mode is not True or type(service) is not RootWorldService
+            or type(clock) is not clocks.QpcHostClock
+            or service.clock is not clock or service.source is not source):
+        raise ValueError('exact causal original-world service/clock/source required')
+    clocks._require_binding(clock)
+    return service
+
+
+def _wait_world_line(transport, clock, service, seconds, *, retired_source=False):
+    """One original nonblocking wait, tightened to the original native cap."""
+    if service.clock is not clock or type(seconds) is not int or not 1 <= seconds <= 180:
+        raise ValueError('original world clock and bounded wait required')
+    started = clock(); pl.uint(started, 63)
+    cap = service.deadline_ns; pl.uint(cap, 63)
+    deadline = min(started+seconds*1_000_000_000, cap)
+    high = started
+    while True:
+        now = clock(); pl.uint(now, 63)
+        if now < high: raise ValueError('original world wait clock regressed')
+        high = now
+        if now >= deadline: raise TimeoutError('original world wait expired')
+        if retired_source: service.poll_retired_source()
+        else: service.poll()
+        now = clock(); pl.uint(now, 63)
+        if now < high: raise ValueError('original world wait clock regressed')
+        high = now
+        if now >= deadline: raise TimeoutError('original world wait expired')
+        raw, eof = transport.poll_line()
+        now = clock(); pl.uint(now, 63)
+        if now < high: raise ValueError('original world wait clock regressed')
+        high = now
+        if now >= deadline: raise TimeoutError('original world wait expired')
+        if raw is not None: return raw
+        if eof: return None
+        time.sleep(.001)
+
+
+def _require_pending_source_fresh(channel, request, now):
+    """Recheck original pending ADC/EM times, never the response-profile cap."""
+    pending = channel._pending
+    if channel.state != 'PENDING' or pending is None or pending.request_raw != request:
+        raise ValueError('original pending source/request association required before send')
+    record = pending.record
+    for tick in (record.adc_tick_ms, record.em_tick_ms):
+        if tick is not None and not 0 <= now-channel._source_ns(tick) <= sensor_source.TIMEOUT_NS:
+            raise ValueError('original pending source expired before send')
+
+
 def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans, out,
-                          _start=None, context=None, on_candidate=None):
+                          _start=None, context=None, on_candidate=None,
+                          _world_service=None):
     if type(scans) is not int or not 1 <= scans <= 16:
         raise ValueError('finite causal scan count1..16 required')
     if on_candidate is not None and not callable(on_candidate):
         raise ValueError('trusted Root consumer must be callable')
+    # Public admission is exact-type above. This private core also supports the
+    # distinct, explicitly software-only service used by bounded controls.
+    if (_world_service is not None and
+            (_world_service.clock is not clock or _world_service.source is not source)):
+        raise ValueError('same original service clock/source required')
     root = Path(out)/'causal-exchange'
     history = None; closed = False; total = 0; records = []; high = origin_ns
     feedback_calls = []
@@ -214,9 +341,11 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
         budget(raw)
         if history.write(raw) != len(raw): raise OSError('short causal source evidence')
         history.flush()
+        if _world_service is not None: _world_service.poll()
         channel.admit_sample(payload)
         latest = True
     try:
+        if _world_service is not None: _world_service.poll()
         root.mkdir(exist_ok=False)
         history = (root/'source-history.jsonl').open('xb')
         write('intent.json', _raw(dict(source_profile=_source_profile(), scans=scans,
@@ -227,6 +356,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
         if _start is not None:
             # All directory/open/intent sync work precedes the actual run origin.
             # First sample is taken immediately at that origin, never backfilled.
+            if _world_service is not None: _world_service.poll()
             channel, origin_ns, first = _start()
             high = origin_ns
             if first is None: raise ValueError('first actual source record absent')
@@ -234,6 +364,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
             write('source-origin.json', _raw(dict(origin_ns=origin_ns,
                 first_actual_adc_tick_ms=first['adc_tick_ms'])))
         for _ in range(10001):
+            if _world_service is not None: _world_service.poll()
             now = clock(); pl.uint(now, 63)
             if now < high: raise ValueError('exchange owner clock regressed')
             high = now
@@ -241,6 +372,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
             if returned is not None:
                 # Preserve original stale/malformed bytes before ANY admission.
                 write('response-%02d.bin' % len(records), returned)
+                if _world_service is not None: _world_service.poll()
                 candidate = channel.accept_capture(returned)
                 records.append(candidate)
                 candidate_raw = _raw(candidate)
@@ -259,6 +391,7 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
                         movement_authorized=False)
                     write('feedback-%02d-started.json' % index, _raw(dict(evidence,
                         state='started_unknown_before_root_consumer')))
+                    if _world_service is not None: _world_service.poll()
                     dispatch = clock(); pl.uint(dispatch, 63)
                     if dispatch < begin: raise ValueError('feedback owner clock regressed')
                     if dispatch-origin_ns > _source_profile()['session_max_ns']:
@@ -268,7 +401,18 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
                     # A detached candidate contains only board-returned input.
                     # Root package review must bind this trusted code/closure;
                     # its return never becomes completion or movement evidence.
-                    result = on_candidate(json.loads(candidate_raw))
+                    try:
+                        result = on_candidate(json.loads(candidate_raw))
+                    except BaseException as primary:
+                        if _world_service is not None:
+                            try: _world_service.poll()
+                            except BaseException as secondary:
+                                primary._causal_exchange_secondary_errors = (
+                                    getattr(primary, '_causal_exchange_secondary_errors', ())+
+                                    (dict(stage='world_after_consumer', type=type(secondary).__name__,
+                                          message=str(secondary)[:256]),))
+                        raise
+                    if _world_service is not None: _world_service.poll()
                     if result is not None:
                         raise ValueError('Root consumer returns None; no authority claims accepted')
                     end = clock(); pl.uint(end, 63)
@@ -282,10 +426,12 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
                 raise TimeoutError('bounded causal host session expired')
             if len(records) == scans: break
             if eof: raise ValueError('original transport ended before all causal responses')
+            if _world_service is not None: _world_service.poll()
             payload = source.poll()
             if payload is not None:
                 admit_payload(payload)
             if channel.state == 'READY' and latest:
+                if _world_service is not None: _world_service.poll()
                 request = channel.next_request()
                 write('request-%02d.json' % len(records), _raw(dict(
                     raw_hex=request.hex(), raw_sha256=hashlib.sha256(request).hexdigest(),
@@ -293,6 +439,14 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
                 request_deadline = pl.decode(request)['original_host_qpc_ns'][0]+channel._owner._age
                 latest = False
                 history.flush();os.fsync(history.fileno())
+                if _world_service is not None:
+                    _world_service.poll()
+                    checked = clock(); pl.uint(checked, 63)
+                    if checked < high: raise ValueError('exchange owner clock regressed')
+                    high = checked
+                    if checked > request_deadline:
+                        raise TimeoutError('original pending capture expired before send; no retry')
+                    _require_pending_source_fresh(channel, request, checked)
                 transport.send_once(request)
             if request_deadline is not None and clock() > request_deadline:
                 raise TimeoutError('original pending capture expired; no retry')
@@ -301,7 +455,8 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
             raise TimeoutError('finite causal polling budget exhausted')
         source.retire('causal scans completed')
         close_input()
-        stopped = transport.line(5)
+        stopped = (transport.line(5) if _world_service is None else
+                   _wait_world_line(transport, clock, _world_service, 5, retired_source=True))
         if stopped is None: raise ValueError('original causal terminal absent')
         write('terminal.raw', stopped)
         terminal = _terminal(stopped, channel._owner.context, scans)
@@ -321,7 +476,9 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
             try: action()
             except BaseException as error:
                 secondary.append(dict(type=type(error).__name__, message=str(error)[:256]))
-        if secondary: primary._causal_exchange_secondary_errors = tuple(secondary)
+        if secondary:
+            primary._causal_exchange_secondary_errors = (
+                getattr(primary, '_causal_exchange_secondary_errors', ())+tuple(secondary))
         raise
     finally:
         if history is not None:
@@ -344,19 +501,23 @@ def _exchange_causal_core(channel, transport, source, *, clock, origin_ns, scans
 
 
 def exchange_causal(context, host_clock, transport, source, *, scans, out,
-                    functional_timing_profile=None, on_candidate=None):
+                    functional_timing_profile=None, on_candidate=None,
+                    _world_service=None):
     """Run inside the original activated Root host; never create/adopt SSH here."""
     binding = clocks._require_binding(host_clock)
     if type(host_clock) is not clocks.QpcHostClock or type(source) is not CausalSourcePump:
         raise ValueError('original QPC and fresh Root candidate source required')
     if not source.prepared or source.state != 'NEW':
         raise ValueError('source geometry must be prepared before original SSH acquisition')
-    ready = transport.line(180)
+    _require_world_service(_world_service, host_clock, source, causal_mode=True)
+    ready = (transport.line(180) if _world_service is None else
+             _wait_world_line(transport, binding, _world_service, 180))
     if ready is None: raise ValueError('original causal READY absent')
     def start():
         origin = binding()
         source.start(origin, binding)
         first = source.poll()  # No file work or channel construction before it.
+        if _world_service is not None: _world_service.poll()
         channel = channels.LiveFourChannelChannel(context, binding,
             start_tick_ms=0, start_monotonic_ns=origin, max_scans=scans,
             functional_timing_profile=functional_timing_profile)
@@ -364,7 +525,7 @@ def exchange_causal(context, host_clock, transport, source, *, scans, out,
         return channel, origin, first
     return _exchange_causal_core(None, transport, source, clock=binding,
         origin_ns=None, scans=scans, out=out, _start=start, context=context,
-        on_candidate=on_candidate)
+        on_candidate=on_candidate, _world_service=_world_service)
 
 
 __all__ = ['CausalSourcePump', 'exchange_causal', 'select_source_mode', 'SOURCE_PROFILE',
