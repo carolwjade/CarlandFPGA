@@ -212,6 +212,19 @@ class _Transport:
                 self._drain();require(not self.buffer,'original SSH ended inside a record');return None
             if time.monotonic()>=end:raise TimeoutError('original SSH local wait expired; remote outcome unknown')
             time.sleep(0.001)
+    def poll_line(self):
+        """One nonblocking original observation; pending is distinct from EOF."""
+        self.clock();self._drain()
+        terminal=self.process.poll() is not None
+        if terminal:self._drain()  # Catch bytes published immediately before exit.
+        if b'\n' in self.buffer:
+            pos=self.buffer.index(10)+1;require(pos<=16384,'original diagnostic line too large')
+            raw=bytes(self.buffer[:pos]);del self.buffer[:pos];return raw,False
+        require(len(self.buffer)<=16384,'unterminated original diagnostic line exceeds bound')
+        if terminal:
+            require(not self.buffer,'original SSH ended inside a record')
+            return None,True
+        return None,False
     def send_once(self,raw):
         require(type(raw) is bytes and 0<len(raw)<=2048,'bounded original input required')
         # Nonblocking single original write. Any partial/error is unknown and is NEVER retried.
@@ -293,7 +306,7 @@ def _exchange(owner,transport,codec,values,qualities,scans,out):
     save(out/'HOST_RESULT.json',result)
 
 
-def main(argv=None):
+def main(argv=None,*,_causal_source=None):
     parser=argparse.ArgumentParser(allow_abbrev=False)
     parser.add_argument('--template',type=Path,required=True);parser.add_argument('--template-sha256',required=True)
     parser.add_argument('--out',type=Path,required=True);parser.add_argument('--prepare-seconds',type=int,default=120)
@@ -309,10 +322,15 @@ def main(argv=None):
                           'codec':pin(Path(codec.__file__)),'QPC_prepared':False,'SSH_started':False},sort_keys=True))
         return 0
     clock=host_clock.qpc_clock_for_new_run();template=read_json(args.template)
+    causal=None;causal_paths={}
+    if _causal_source is not None or 'candidate_source_profile' in template:
+        from competition.deepeye.tools.diagnostic import causal_pl_exchange as causal
+        causal_paths=causal.source_paths()
     out=args.out.absolute();out.mkdir(exist_ok=False)
     sources={'driver':pin(Path(__file__)),'codec':pin(Path(codec.__file__)),'host_clock':pin(Path(host_clock.__file__)),
              'agent':pin(Path(__file__).with_name('private_pl_live_agent.py')),
              'collector':pin(Path(__file__).with_name('a_b56_memory_safe_collector.py')),'template':pin(args.template)}
+    sources.update({name:pin(path) for name,path in causal_paths.items()})
     prepared=_prepare(out,template,clock,sources,_original_process_identity())
     transport=None;owner=None;primary=None;secondary_errors=()
     try:
@@ -321,16 +339,25 @@ def main(argv=None):
                 pin(Path(host_clock.__file__))==sources['host_clock'] and pin(args.template)==sources['template'] and
                 pin(Path(__file__).with_name('private_pl_live_agent.py'))==sources['agent'] and
                 pin(Path(__file__).with_name('a_b56_memory_safe_collector.py'))==sources['collector'],'prepared original source drift')
+        require(all(pin(path)==sources[name] for name,path in causal_paths.items()),'prepared causal source drift')
         released=_claim(out,prepared);request=released['request'];activation=released['activation'];remote=released['remote']
+        if causal is None:
+            require('candidate_source_profile' not in request and 'candidate_source_profile' not in activation,
+                    'explicit Root-owned causal source missing; no fixed-input fallback')
+            causal_mode=False
+        else:causal_mode=causal.select_source_mode(template,request,activation,_causal_source)
+        if causal_mode:_causal_source.prepare()  # Static geometry before SSH/board START/idle.
         timing=codec.request_timing(request,activation)
         ctx=codec.context({**request['context'],'request_hash':request['request_hash']})
-        owner=codec.HostOwner(ctx,clock,max_age_ns=timing['max_age_ns'],
-                              functional_timing_profile=timing['functional_timing_profile'])
+        if not causal_mode:
+            owner=codec.HostOwner(ctx,clock,max_age_ns=timing['max_age_ns'],
+                                  functional_timing_profile=timing['functional_timing_profile'])
         require(type(activation['scans']) is int and 1<=activation['scans']<=request['max_scans']<=16 and
                 type(request['max_scans']) is int,'finite actual scan count required')
-        for field,bits in (('values',16),('qualities',8)):
-            require(type(activation[field]) is list and len(activation[field])==4,'four original diagnostic inputs required')
-            for value in activation[field]:codec.uint(value,bits)
+        if not causal_mode:
+            for field,bits in (('values',16),('qualities',8)):
+                require(type(activation[field]) is list and len(activation[field])==4,'four original diagnostic inputs required')
+                for value in activation[field]:codec.uint(value,bits)
         require(request['agent_sha256']==sources['agent']['sha256'] and request['codec_sha256']==sources['codec']['sha256'],
                 'prepared actual agent/codec bytes differ')
         # Existing strict route/provider is read only after actual one-time activation.
@@ -353,11 +380,20 @@ def main(argv=None):
              'prepared_sha256':activation['prepared_sha256'],'request_hash':request['request_hash'],'native_job_before_credential':True})
         transport=_Transport(base+[command],out,clock)
         transport.send_once((private_value+'\n').encode());private_value=None
-        _exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
+        if causal_mode:
+            causal.exchange_causal(ctx,clock,transport,_causal_source,scans=activation['scans'],out=out,
+                                   functional_timing_profile=timing['functional_timing_profile'])
+        else:_exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
     except BaseException as error:
         primary={'type':type(error).__name__,'message':str(error)[:512]}
-        secondary_errors=getattr(error,'_private_timing_save_errors',())
+        secondary_errors=(getattr(error,'_private_timing_save_errors',())+
+                          getattr(error,'_causal_exchange_secondary_errors',()))
         if owner is not None:owner.retire()
+        if _causal_source is not None:
+            try:_causal_source.retire('original host failed; no source replay')
+            except BaseException as cleanup:
+                secondary_errors+=({'stage':'causal_source_retire','type':type(cleanup).__name__,
+                                    'message':str(cleanup)[:256]},)
     finally:
         process=None
         if transport is not None:

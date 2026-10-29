@@ -9,11 +9,13 @@ extends Node3D
 ##  - Camera: RMB orbit, MMB pan, wheel zoom, six views, isometric, focus. Mouse
 ##    input over any UI panel never moves the camera (_unhandled_input + hover check).
 ##  - B presentation collision bodies/shapes stay disabled; no authority physics,
-##    drill motion, timeline or fabricated link state.
+##    timeline or fabricated link state. Explicit trusted Root renderer frames
+##    may reflect already committed drill poses; they grant no control authority.
 ##    Run/continue remain disabled; Esc only emits stop_requested via the document.
 
 const DocScript = preload("res://editor/scene_document.gd")
 const PresenterScript = preload("res://viewer/asset_presenter.gd")
+const AuthorityPoseBridgeScript = preload("res://viewer/authority_pose_bridge.gd")
 
 var document
 var shell
@@ -24,6 +26,7 @@ var _obstacle_root: Node3D
 var _gate_root: Node3D
 var _ticks_root: Node3D
 var _drill_root: Node3D
+var _authority_pose_bridge = null
 var _selection_box: MeshInstance3D
 var _material_cache: Dictionary = {}
 var _asset_presenter
@@ -80,6 +83,27 @@ func _ready() -> void:
 	_sync_gates()
 	apply_camera()
 	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.30m；权威未连接、无运动（运行禁用）")
+
+# Presentation attachment only. Trusted Root initializes the run explicitly;
+# a first frame cannot bind a run, select a target or enable Run/continue.
+func bind_authority_renderer(run_id: String) -> bool:
+	if _authority_pose_bridge != null or not is_instance_valid(_drill_root):
+		return false
+	var bridge = AuthorityPoseBridgeScript.new()
+	if not bridge.bind_target(_drill_root, run_id):
+		return false
+	_authority_pose_bridge = bridge
+	return true
+
+func present_authority_frame(frame: Variant) -> Dictionary:
+	if _authority_pose_bridge == null:
+		return {"accepted": false, "error": "renderer_unbound"}
+	return _authority_pose_bridge.apply_frame(frame)
+
+func read_authority_presentation() -> Dictionary:
+	if _authority_pose_bridge == null:
+		return {}
+	return _authority_pose_bridge.readback()
 
 # ---------------------------------------------------------------------------
 # Input (camera + editing). Esc is global; everything else ignores UI hover.
