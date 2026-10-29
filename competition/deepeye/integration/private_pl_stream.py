@@ -5,6 +5,10 @@ import re
 
 MAX_LINE = 16384
 MAX_INT = (1 << 63) - 1
+TARGET_AGE_NS = 100_000_000
+FUNCTIONAL_PROFILE_NAME = 'functional_chain_v1'
+FUNCTIONAL_AGE_NS = 2_000_000_000
+FUNCTIONAL_IDLE_MS = 2000
 CONTEXT_FIELDS = {'operation_id','request_hash','tested_commit','build_manifest_sha256',
                   'boot_id','session_id','tag','clock_domain_id'}
 
@@ -16,6 +20,44 @@ def require(value, message):
 def uint(value, bits=64):
     require(type(value) is int and 0 <= value < (1 << bits), 'strict bounded integer required')
     return value
+
+
+def validate_functional_timing_profile(value):
+    """Exact diagnostic policy, not caller-selected timeouts or authority evidence."""
+    require(type(value) is dict and set(value)=={'name','max_age_ns','idle_timeout_ms'},
+            'complete fixed functional timing profile required')
+    require(type(value['name']) is str and value['name']==FUNCTIONAL_PROFILE_NAME and
+            type(value['max_age_ns']) is int and value['max_age_ns']==FUNCTIONAL_AGE_NS and
+            type(value['idle_timeout_ms']) is int and value['idle_timeout_ms']==FUNCTIONAL_IDLE_MS,
+            'only functional_chain_v1 exact bounded values allowed')
+    return {'name':FUNCTIONAL_PROFILE_NAME,'max_age_ns':FUNCTIONAL_AGE_NS,
+            'idle_timeout_ms':FUNCTIONAL_IDLE_MS}
+
+
+def request_timing(request, activation=None):
+    """Select from the hash-bound Root request; host also requires matching activation.
+
+    The agent receives the original request/file hashes, not a separate activation.
+    Absence retains legacy limits; explicit null is never absence.
+    """
+    require(type(request) is dict and (activation is None or type(activation) is dict),
+            'Root request/activation objects required')
+    idle=request.get('idle_timeout_ms')
+    if 'functional_timing_profile' not in request:
+        require(activation is None or 'functional_timing_profile' not in activation,
+                'functional profile missing from Root request')
+        require(type(idle) is int and 1<=idle<=100,'input idle cap100ms required')
+        age=TARGET_AGE_NS if activation is None else activation.get('max_age_ns',TARGET_AGE_NS)
+        require(0<uint(age,63)<=TARGET_AGE_NS,'diagnostic age bound cannot exceed100ms')
+        return {'functional_timing_profile':None,'max_age_ns':age,'idle_timeout_ms':idle}
+    profile=validate_functional_timing_profile(request['functional_timing_profile'])
+    require(type(idle) is int and idle==FUNCTIONAL_IDLE_MS,'functional request idle must match fixed profile')
+    if activation is not None:
+        require('functional_timing_profile' in activation,'explicit matching activation profile required')
+        require(validate_functional_timing_profile(activation['functional_timing_profile'])==profile and
+                type(activation.get('max_age_ns')) is int and activation['max_age_ns']==FUNCTIONAL_AGE_NS,
+                'activation profile/age differs from Root request')
+    return {'functional_timing_profile':profile,'max_age_ns':FUNCTIONAL_AGE_NS,'idle_timeout_ms':idle}
 
 
 def context(value):
@@ -75,11 +117,20 @@ def record(kind, ctx, **fields):
 
 class _HostOwner:
     """Component core; real production owner below requires the actual fixed QPC type."""
-    def __init__(self, ctx, clock, *, max_age_ns=100_000_000):
+    def __init__(self, ctx, clock, *, max_age_ns=100_000_000, functional_timing_profile=None):
         self.context=context(ctx);self._clock=clock;self._high=0;self._sequence=1
         self._pending=None;self._generation=None;self._trigger=None;self._baseline=None
         self._last_qpc=0;self.state='IDLE';self._age=uint(max_age_ns,63)
-        require(0<self._age<=100_000_000,'diagnostic age bound cannot exceed100ms');self._now()
+        self.functional_timing_profile=(None if functional_timing_profile is None else
+                                        validate_functional_timing_profile(functional_timing_profile))
+        if self.functional_timing_profile is None:
+            require(0<self._age<=TARGET_AGE_NS,'diagnostic age bound cannot exceed100ms')
+        else:require(self._age==FUNCTIONAL_AGE_NS,'functional owner age must match fixed profile')
+        self.last_response_timing=None;self._now()
+    @property
+    def response_timeout_seconds(self):
+        # Keep the historical transport wait even for a tighter legacy age bound.
+        return 0.1 if self.functional_timing_profile is None else 2.0
     def _fail(self,message):self.state='FAILED';raise ValueError(message)
     def _now(self):
         try:
@@ -116,9 +167,18 @@ class _HostOwner:
             return obj
         except BaseException:self.state='FAILED';raise
     def accept(self,raw):
+        self.last_response_timing=None  # This attempt has no receiver QPC yet.
         try:
             require(self.state=='STARTED_UNKNOWN' and self._pending is not None,'only original pending response allowed')
-            now=self._now();original,request=self._pending;obj=decode(raw)
+            now=self._now();original,request=self._pending
+            latency=now-request['original_host_qpc_ns'][0]
+            if self.functional_timing_profile is not None:
+                self.last_response_timing={'response_latency_ns':latency,
+                    'original_first_host_qpc_ns':request['original_host_qpc_ns'][0],
+                    'received_host_qpc_ns':now,'max_age_ns':self._age,
+                    'target100ms_met':0<=latency<=TARGET_AGE_NS,
+                    'functional_capture_accepted':False,'formal_100ms_acceptance':'not_run'}
+            obj=decode(raw)
             require(set(obj)=={'schema','kind','context','request_seq','request_sha256','generation','trigger_id','captures','final_counters'},
                     'exact diagnostic capture fields required')
             require(type(obj['schema']) is int and obj['schema']==1 and obj['kind']=='diagnostic_capture' and
@@ -128,7 +188,7 @@ class _HostOwner:
             uint(obj['generation'],32);uint(obj['trigger_id'],32)
             require(self._generation is not None and obj['generation']==self._generation and
                     obj['trigger_id']==self._trigger+1,'stable generation and next actual trigger required')
-            require(0 <= now-request['original_host_qpc_ns'][0] <= self._age,'diagnostic response expired; arrival cannot renew source')
+            require(0 <= latency <= self._age,'diagnostic response expired; arrival cannot renew source')
             captures=obj['captures'];require(type(captures) is list and len(captures)==4,'four actual lanes required')
             for channel,lane in enumerate(captures):
                 require(type(lane) is dict and set(lane)=={'channel','raw_words','pipeline_counters','ack_returned'},'exact original lane fields')
@@ -147,6 +207,7 @@ class _HostOwner:
             require(obj['final_counters']==[self._baseline[0]+4*self._sequence,self._baseline[1]+self._sequence,
                                            self._baseline[2]+4*self._sequence],'final counters mismatch')
             self._trigger=obj['trigger_id'];self._sequence+=1;self._pending=None;self.state='IDLE'
+            if self.last_response_timing is not None:self.last_response_timing['functional_capture_accepted']=True
             return obj
         except BaseException:self.state='FAILED';raise
     def retire(self):self.state='FAILED'
@@ -154,16 +215,17 @@ class _HostOwner:
 
 class HostOwner(_HostOwner):
     """Production owner: caller must retain one real, fixed fresh-run QPC binding."""
-    def __init__(self,ctx,host_clock,*,max_age_ns=100_000_000):
+    def __init__(self,ctx,host_clock,*,max_age_ns=100_000_000,functional_timing_profile=None):
         from . import host_clock as clocks
         require(type(host_clock) is clocks.QpcHostClock,'actual fixed QPC binding required; no component clock')
         clocks._require_binding(host_clock)
         require(context(ctx)['clock_domain_id']==host_clock.metadata['domain_id'],'original QPC domain required')
         self.host_clock=host_clock
-        super().__init__(ctx,host_clock,max_age_ns=max_age_ns)
+        super().__init__(ctx,host_clock,max_age_ns=max_age_ns,functional_timing_profile=functional_timing_profile)
     def next_request(self,values,qualities):
         require(self._generation is not None,'original READY required before new host input')
         return super().next_request(values,qualities)
 
 
-__all__=['HostOwner','encode','decode','decode_request','record']
+__all__=['HostOwner','encode','decode','decode_request','record',
+         'validate_functional_timing_profile','request_timing']

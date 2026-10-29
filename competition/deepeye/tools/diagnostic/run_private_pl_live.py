@@ -247,18 +247,34 @@ class _Transport:
         save(self.out/'SSH-process.json',value);return value
 
 
+def _save_response_timing(owner,out,timings):
+    if owner.last_response_timing is not None:
+        measured=dict(owner.last_response_timing);timings.append(measured)
+        save(out/('response-timing-%02d.json' % (len(timings)-1)),measured)
+
+
 def _exchange(owner,transport,codec,values,qualities,scans,out):
     ready=transport.line(180);require(ready is not None,'original READY absent');owner.accept_ready(ready)
-    records=[]
+    records=[];timings=[]
     for _ in range(scans):
         raw=owner.next_request(values,qualities)
         save(out/('request-%02d.json' % len(records)),{'raw_hex':raw.hex(),'raw_sha256':hashlib.sha256(raw).hexdigest(),
              'state':'started_unknown_before_write','clock':dict(owner.host_clock.metadata)})
         transport.send_once(raw)
-        returned=transport.line(0.1);require(returned is not None,'original capture absent')
+        returned=transport.line(owner.response_timeout_seconds);require(returned is not None,'original capture absent')
         # Retain exact stale/invalid bytes BEFORE freshness or correlation rejection.
         with (out/('response-%02d.bin' % len(records))).open('xb') as stream:stream.write(returned)
-        records.append(owner.accept(returned))
+        try:accepted=owner.accept(returned)
+        except BaseException as primary:
+            try:_save_response_timing(owner,out,timings)
+            except BaseException as secondary:
+                # Keep scalar evidence only; re-raise the exact original rejection.
+                primary._private_timing_save_errors=({'stage':'response_timing_save',
+                    'type':type(secondary).__name__,'message':str(secondary)[:512]},)
+            raise
+        else:
+            _save_response_timing(owner,out,timings)  # A save failure here remains primary.
+            records.append(accepted)
     transport.close_input();terminal_raw=transport.line(5)
     require(terminal_raw is not None,'original terminal absent');terminal=codec.decode(terminal_raw)
     require(set(terminal)=={'schema','kind','context','cleanup','error','frames_completed','movement_authorized'} and
@@ -269,8 +285,12 @@ def _exchange(owner,transport,codec,values,qualities,scans,out):
     cleanup=terminal['cleanup'];require(cleanup['attempted'] is True and cleanup['confirmed'] is True and
             type(cleanup['status']) is int and cleanup['status']==0 and type(cleanup['active_tag']) is int and cleanup['active_tag']==0 and
             not cleanup['secondary_errors'],'original raw final STOP/secondary error mismatch')
-    save(out/'HOST_RESULT.json',{'context':owner.context,'captures':records,'original_terminal':terminal,
-         'movement_authorized':False,'formal_acceptance':'not_run','100ms_physical_acceptance':False})
+    result={'context':owner.context,'captures':records,'original_terminal':terminal,
+         'movement_authorized':False,'formal_acceptance':'not_run','100ms_physical_acceptance':False}
+    if owner.functional_timing_profile is not None:
+        result.update(functional_timing_profile=dict(owner.functional_timing_profile),
+                      response_timing=timings,formal_100ms_acceptance='not_run')
+    save(out/'HOST_RESULT.json',result)
 
 
 def main(argv=None):
@@ -294,7 +314,7 @@ def main(argv=None):
              'agent':pin(Path(__file__).with_name('private_pl_live_agent.py')),
              'collector':pin(Path(__file__).with_name('a_b56_memory_safe_collector.py')),'template':pin(args.template)}
     prepared=_prepare(out,template,clock,sources,_original_process_identity())
-    transport=None;owner=None;primary=None
+    transport=None;owner=None;primary=None;secondary_errors=()
     try:
         _wait_activation(out,args.prepare_seconds);clock()
         require(pin(Path(__file__))==sources['driver'] and pin(Path(codec.__file__))==sources['codec'] and
@@ -302,8 +322,10 @@ def main(argv=None):
                 pin(Path(__file__).with_name('private_pl_live_agent.py'))==sources['agent'] and
                 pin(Path(__file__).with_name('a_b56_memory_safe_collector.py'))==sources['collector'],'prepared original source drift')
         released=_claim(out,prepared);request=released['request'];activation=released['activation'];remote=released['remote']
+        timing=codec.request_timing(request,activation)
         ctx=codec.context({**request['context'],'request_hash':request['request_hash']})
-        owner=codec.HostOwner(ctx,clock,max_age_ns=activation.get('max_age_ns',100_000_000))
+        owner=codec.HostOwner(ctx,clock,max_age_ns=timing['max_age_ns'],
+                              functional_timing_profile=timing['functional_timing_profile'])
         require(type(activation['scans']) is int and 1<=activation['scans']<=request['max_scans']<=16 and
                 type(request['max_scans']) is int,'finite actual scan count required')
         for field,bits in (('values',16),('qualities',8)):
@@ -334,6 +356,7 @@ def main(argv=None):
         _exchange(owner,transport,codec,activation['values'],activation['qualities'],activation['scans'],out)
     except BaseException as error:
         primary={'type':type(error).__name__,'message':str(error)[:512]}
+        secondary_errors=getattr(error,'_private_timing_save_errors',())
         if owner is not None:owner.retire()
     finally:
         process=None
@@ -343,9 +366,11 @@ def main(argv=None):
                 process=transport.finish()
             except BaseException as error:
                 process={'local_cleanup_error':type(error).__name__,'remote_outcome':'unknown'}
-        save(out/'HOST_TERMINAL.json',{'primary_error':primary,'original_process':process,
+        terminal={'primary_error':primary,'original_process':process,
              'SSH_started':transport is not None or (out/'SSH_CONSTRUCTOR_TERMINAL.json').exists(),
-             'remote_STOP_not_inferred_from_local_cleanup':True,'movement_authorized':False,'automatic_retry':False})
+             'remote_STOP_not_inferred_from_local_cleanup':True,'movement_authorized':False,'automatic_retry':False}
+        if secondary_errors:terminal['secondary_errors']=list(secondary_errors)
+        save(out/'HOST_TERMINAL.json',terminal)
     return (0 if primary is None and process is not None and process.get('original_exit')==0 and not process.get('error') and not process.get('cleanup_errors') and
             process.get('original_job_closed') and process.get('original_process_handle_closed') else 2)
 

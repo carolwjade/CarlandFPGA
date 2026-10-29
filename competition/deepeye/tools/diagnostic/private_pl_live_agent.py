@@ -331,6 +331,13 @@ def _session_limits(total_seconds,poll_seconds,max_scans,idle_timeout_ms=None):
         require(type(idle_timeout_ms) is int and 1<=idle_timeout_ms<=100,'input idle cap100ms required')
 
 
+def _validated_session_timing(request,codec):
+    """Pinned codec policy, before FIFO/runtime/image/MMIO; no physical side effects."""
+    timing=codec.request_timing(request)
+    _session_limits(request['total_seconds'],request['poll_seconds'],request['max_scans'])
+    return timing
+
+
 class _CleanupSignals:
     def __enter__(self):
         self.old={};self.errors=[]
@@ -785,6 +792,7 @@ def main(argv=None):
             'canonical logical request hash mismatch')
     profile_enabled=_arm_profile_enabled(request)
     if args.fifo_qualification:
+        require('functional_timing_profile' not in request,'functional profile only for private source4 live diagnostics')
         require(not args.execute_a and request['requirements_sha256']==CONTRACT and type(request['attempts']) is int and
                 request['attempts']==1 and request['expected_boot_id']==Path('/proc/sys/kernel/random/boot_id').read_text().strip() and
                 request['agent_sha256']==hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'fixed current-boot qualification request required')
@@ -792,10 +800,10 @@ def main(argv=None):
     require(request['requirements_sha256']==CONTRACT and request['attempts']==1 and
                                    type(request['attempts']) is int and request['phase']=='private_live' and request['execute_a'] is True,
                                    'distinct reviewed private live request required')
-    _session_limits(request['total_seconds'],request['poll_seconds'],request['max_scans'],request['idle_timeout_ms'])
     # Fixed relative paths cannot select alternate Python modules or runtime factories.
-    helper=_load('_private_live_pinned_collector',root/'a_b56_memory_safe_collector.py',COLLECTOR_SHA)
     codec=_load('_private_live_pinned_codec',root/'private_pl_stream.py',request['codec_sha256'])
+    timing=_validated_session_timing(request,codec)
+    helper=_load('_private_live_pinned_collector',root/'a_b56_memory_safe_collector.py',COLLECTOR_SHA)
     require(hashlib.sha256(Path(__file__).read_bytes()).hexdigest()==request['agent_sha256'],'agent source pin mismatch')
     helper.no_links(root);identities=set();total=0
     require(type(request['inputs']) is dict and len(request['inputs'])==25 and
@@ -822,7 +830,6 @@ def main(argv=None):
             ctx['build_manifest_sha256']==BUILD_SHA and request['inputs']['package/artifacts/private_diag.bit']['sha256']==BIT_SHA and
             request['inputs']['package/artifacts/private_diag.hwh']['sha256']==HWH_SHA,'source/build pins differ')
     require(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==ctx['boot_id'],'current boot mismatch')
-    require(type(request['idle_timeout_ms']) is int and 1<=request['idle_timeout_ms']<=100,'explicit bounded input idle budget required')
     profile=_ArmJournalProfile() if profile_enabled else None
     if profile is not None:_arm_profile_binding(profile,request,ctx,args.request_sha256)
     input_fd=_open_fifo(args,request)  # Separate data-only FIFO, before ANY runtime/image/MMIO/START.
@@ -849,8 +856,8 @@ def main(argv=None):
         bus=helper.Bus(runtime.mmio(verified.base,verified.span),journal)
         session=_LiveSession(bus,helper,ctx,time.monotonic,time.sleep,journal.append,
                              total_seconds=request['total_seconds'],poll_seconds=request['poll_seconds'],max_scans=request['max_scans'])
-        reader=_InputLines(input_fd,session,request['idle_timeout_ms']/1000,codec.MAX_LINE)
-        writer=_OutputLines(1,session,codec,min(request['idle_timeout_ms']/1000,0.1))
+        reader=_InputLines(input_fd,session,timing['idle_timeout_ms']/1000,codec.MAX_LINE)
+        writer=_OutputLines(1,session,codec,min(timing['idle_timeout_ms']/1000,0.1))
         code=_serve(session,reader,writer,codec,profile)
         return code
     except BaseException as error:
