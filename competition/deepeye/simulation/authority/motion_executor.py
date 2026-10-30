@@ -19,6 +19,7 @@ from .motion import passage_phase as p
 from .motion import workspace_boundaries as w
 from .motion import solid_clearance as s
 from .motion.kinematics import MAX_DT_NS
+from . import _offboard_motion_component as off
 
 
 @dataclass(frozen=True)
@@ -134,6 +135,16 @@ def _revoking_entry(method):
     return call
 
 
+def _offboard_entry(method):
+    # Reject Root custody before _entry can revoke or alter its executor.
+    transaction = _entry(method)
+    @wraps(method)
+    def call(self, /, *args, **kwargs):
+        off._require_unbound(self)
+        return transaction(self, *args, **kwargs)
+    return call
+
+
 def _integer(value,minimum=0):
     if type(value) is not int or value<minimum:raise ValueError('strict nonnegative integer required')
     return value
@@ -161,6 +172,7 @@ class OwnedMotionExecutor:
         self._max_slices=max_slices
         self._owner=threading.get_ident();self._busy=False;self._pending={}
         self._generation=0;self._used_sessions=set()
+        self._offboard_owner=None
         self._world_binding=w.digest((initial_state.context,scene.digest,model,budget))
         self._root=_Root(0,0,initial_state.pose,initial_state.pose_revision,initial_state,None,
             None,None,True,False,False,initial_state.monotonic_ns)
@@ -182,7 +194,7 @@ class OwnedMotionExecutor:
     @property
     def admitted_raw(self):
         self._owner_check()
-        if self._root.command is None:raise ValueError('no admitted command')
+        if type(self._root.command) is not _Command:raise ValueError('no admitted production command')
         return self._root.command.raw
 
     def passage_state(self):
@@ -233,7 +245,7 @@ class OwnedMotionExecutor:
     @_entry
     def activate_boot(self,boot):
         root=self._root
-        if (type(boot) is not BootBinding or type(boot.run_id) is not str
+        if (self._offboard_owner is not None or type(boot) is not BootBinding or type(boot.run_id) is not str
                 or boot.run_id!=root.phase.context.run_id or type(boot.context_json) is not bytes
                 or type(boot.ai_instance) is not str or not boot.ai_instance):
             raise ValueError('independently verified exact BOOT required')
@@ -255,7 +267,7 @@ class OwnedMotionExecutor:
         the final fence. Structural parsing here cannot establish those facts.
         """
         root=self._root
-        if root.stopped or root.world_invalid or root.trial_failed or boot is not root.boot:
+        if root.stopped or root.world_invalid or root.trial_failed or type(boot) is not BootBinding or boot is not root.boot:
             raise ValueError('inactive owner BOOT')
         if type(command_raw) is not bytes:raise ValueError('immutable original command bytes required')
         doc=envelope._parse_message(command_raw)
@@ -290,11 +302,19 @@ class OwnedMotionExecutor:
     def prepare_step(self,boot,command_raw,expected_pose_revision,dt_ns):
         root=self._root;_integer(expected_pose_revision);_integer(dt_ns,1)
         if dt_ns>MAX_DT_NS:raise ValueError('canonical duration exceeds 10ms')
-        if (root.stopped or root.trial_failed or root.world_invalid or root.command is None
-                or boot is not root.boot or type(command_raw) is not bytes
+        if (root.stopped or root.trial_failed or root.world_invalid or type(root.command) is not _Command
+                or type(boot) is not BootBinding or boot is not root.boot or type(command_raw) is not bytes
                 or command_raw!=root.command.raw or expected_pose_revision!=root.pose_revision):
             raise ValueError('owner/admitted original command/current revision mismatch')
-        phase=self.passage_state();command=root.command
+        return self._prepare_geometry(root,root.command,False,dt_ns)
+
+    def _prepare_geometry(self,root,command,fixture,dt_ns=None):
+        # Private fixed body; callers have already checked their exact authority.
+        if fixture:
+            off._require_unbound(self)
+        if dt_ns is None:
+            raise ValueError('duration required')
+        phase=self.passage_state()
         path=cp.CanonicalPath(root.pose,command.profile,command.speed_code,command.yaw_q,command.pitch_q,dt_ns,
             inherited_errors=p.required_inherited_errors(phase,dt_ns),error_budget_reference=phase.error_budget_reference)
         relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices)
@@ -313,10 +333,15 @@ class OwnedMotionExecutor:
             if result.status!='CLEAR':raise PreparationRejected(result.status,index+1)
             elapsed=record.end.elapsed_ns
         if elapsed!=dt_ns or self._root is not root:raise PreparationRejected('UNKNOWN')
-        binding=w.digest((self._world_binding,root.revision,root.revoke_generation,
-            hashlib.sha256(command.raw).hexdigest(),command.boot.generation,
-            hashlib.sha256(command.boot.context_json).hexdigest(),relative,tuple(sweeps),tuple(solids)))
-        handle=w._create(_Prepared,root=root,path=path,relative=relative,sweeps=tuple(sweeps),solids=tuple(solids),proof_binding=binding)
+        if fixture:
+            binding=w.digest(('offboard-numeric-v1',self._world_binding,root.revision,root.revoke_generation,
+                command.sequence,command.issue_ns,command.deadline_ns,command.profile,command.speed_code,
+                command.yaw_q,command.pitch_q,relative,tuple(sweeps),tuple(solids)))
+        else:
+            binding=w.digest((self._world_binding,root.revision,root.revoke_generation,
+                hashlib.sha256(command.raw).hexdigest(),command.boot.generation,
+                hashlib.sha256(command.boot.context_json).hexdigest(),relative,tuple(sweeps),tuple(solids)))
+        handle=w._create(off.Prepared if fixture else _Prepared,root=root,path=path,relative=relative,sweeps=tuple(sweeps),solids=tuple(solids),proof_binding=binding)
         # Runtime has one synchronous step in flight. A later preparation
         # retires the previous handle, bounding retained pending proof memory.
         self._pending={id(handle):handle}
@@ -324,29 +349,38 @@ class OwnedMotionExecutor:
 
     @_entry
     def commit_step(self,prepared,before_commit):
+        if type(self._root.command) is not _Command or type(self._root.boot) is not BootBinding:
+            raise ValueError('production command and boot required')
+        return self._commit_numeric(prepared,before_commit,False,None)
+
+    def _commit_numeric(self,prepared,before_commit,fixture,owner):
+        if fixture:
+            off._require_unbound(self)
         # Consume identity first, including stale-root or failed-fence attempts.
         known=self._pending.pop(id(prepared),None)
         root=self._root
-        if known is not prepared or type(prepared) is not _Prepared or prepared.root is not root:
+        if known is not prepared or type(prepared) is not (off.Prepared if fixture else _Prepared) or prepared.root is not root:
             raise ValueError('consumed/foreign/stale prepared handle')
-        if root.stopped or root.trial_failed or root.world_invalid or not callable(before_commit):
+        if root.stopped or root.trial_failed or root.world_invalid or (not fixture and not callable(before_commit)):
             raise ValueError('motion owner stopped or missing final fence')
         command=root.command;relative=prepared.relative;candidate=relative.preview.candidate
         # Allocate constant-size publication containers before calling the fence.
         # They remain unreachable outside this stack until the one root swap.
-        receipt=CommitReceipt(command.boot,command.sequence,root.pose_revision+1,0,0)
+        receipt=(off.Receipt(owner,command.sequence,root.pose_revision+1,0,0) if fixture else
+                 CommitReceipt(command.boot,command.sequence,root.pose_revision+1,0,0))
         frame=_CommitFrame(relative,prepared.proof_binding,prepared.sweeps,prepared.solids,root.frame,None)
         new_root=replace(root,revision=root.revision+1,pose=candidate.pose,pose_revision=root.pose_revision+1,
             phase=relative.previous,frame=frame,executed_until_ns=0)
-        fence=before_commit()  # exactly once, inside the owner transaction
+        fence=before_commit if fixture else before_commit()  # production callback exactly once
         # From here to publication: bounded strict field tests and bindings only.
         # No geometry, hash, clock, I/O, provider or user callbacks.
-        if self._root is not root or type(fence) is not StepFence:
+        if self._root is not root or type(fence) is not (off.Fence if fixture else StepFence):
             raise ValueError('owner root revoked or invalid final fence')
-        if (fence.boot is not command.boot
+        if ((fence.owner is not owner if fixture else fence.boot is not command.boot)
                 or type(fence.command_seq) is not int or fence.command_seq!=command.sequence
                 or type(fence.checked_ns) is not int or type(fence.step_end_ns) is not int
                 or type(fence.deadline_ns) is not int
+                or (fixture and (fence.checked_ns > (1<<63)-1 or fence.step_end_ns > (1<<63)-1 or fence.deadline_ns > (1<<63)-1))
                 or fence.checked_ns<root.executed_until_ns or fence.checked_ns<command.issue_ns
                 or fence.step_end_ns-fence.checked_ns!=relative.duration_ns
                 or fence.step_end_ns>=fence.deadline_ns or fence.deadline_ns>command.deadline_ns):
@@ -357,6 +391,49 @@ class OwnedMotionExecutor:
         object.__setattr__(receipt,'end_ns',fence.step_end_ns)
         self._root=new_root  # the single owner-root CAS/publication point
         return receipt
+
+    @_offboard_entry
+    def _offboard_activate(self,owner):
+        root=self._root
+        if (type(owner) is not off.Component or owner._executor is not self or self._offboard_owner is not None
+                or root.boot is not None or root.command is not None or not root.stopped
+                or root.world_invalid or root.trial_failed or self._generation != 0):
+            raise ValueError('fresh exclusively owned numeric fixture required')
+        self._offboard_owner=owner
+        self._root=replace(root,revision=root.revision+1,revoke_generation=root.revoke_generation+1,stopped=False)
+
+    @_offboard_entry
+    def _offboard_command(self,owner,command):
+        from .motion.kinematics import validate
+        root=self._root
+        if (owner is not self._offboard_owner or type(owner) is not off.Component
+                or type(command) is not off.Command or command.owner is not owner
+                or root.boot is not None or root.stopped or root.world_invalid or root.trial_failed):
+            raise ValueError('active exclusive fixture required')
+        for x in (command.sequence,command.issue_ns,command.deadline_ns): _integer(x)
+        if (command.sequence>(1<<63)-1 or command.deadline_ns>(1<<63)-1
+                or command.deadline_ns<=command.issue_ns or (root.command is not None and command.sequence<=root.command.sequence)):
+            raise ValueError('fixture deadline/sequence invalid')
+        validate(command.profile,command.speed_code,command.yaw_q,command.pitch_q)
+        self._pending.clear()
+        self._root=replace(root,revision=root.revision+1,command=command)
+
+    @_offboard_entry
+    def _offboard_prepare(self,owner,expected_pose_revision,dt_ns):
+        root=self._root;_integer(expected_pose_revision);_integer(dt_ns,1)
+        if (dt_ns>MAX_DT_NS or owner is not self._offboard_owner or type(owner) is not off.Component
+                or root.boot is not None or type(root.command) is not off.Command or root.command.owner is not owner
+                or root.stopped or root.world_invalid or root.trial_failed or expected_pose_revision!=root.pose_revision):
+            raise ValueError('current offboard command required')
+        return self._prepare_geometry(root,root.command,True,dt_ns)
+
+    @_offboard_entry
+    def _offboard_commit(self,owner,prepared,fence):
+        root=self._root
+        if (owner is not self._offboard_owner or type(owner) is not off.Component or root.boot is not None
+                or type(root.command) is not off.Command or root.command.owner is not owner):
+            raise ValueError('current offboard authority required')
+        return self._commit_numeric(prepared,fence,True,owner)
 
 
 __all__=['OwnedMotionExecutor','GeometryBudget','RendererView','ControllerView','PreparationRejected']
