@@ -55,6 +55,7 @@ class _Operation:
         self.cancel_bool = self.cancel_error = None
         self.accounted = False
         self.row = None
+        self.record = None  # Fixed original invocation, never inferred from current slot.
 
     def diagnostic(self):
         return dict(operation_id_local=self.ordinal, kind=self.kind,
@@ -444,7 +445,10 @@ class _ActorPipeIO:
         return self.stop_claim.terminal
 
     def account(self, op, *, journal=True):
-        record = self.actor._invocation
+        record = op.record if op.record is not None else self.actor._invocation
+        if (self.actor._invocation_series is not None and op.row is not None
+                and op.record is None):
+            raise ValueError('serial operation lost its original record association')
         if record is None or op.row is None: return
         row = op.row
         row.update(op.diagnostic())
