@@ -21,6 +21,8 @@ IDENTITY = {0:0x54353046,4:1,8:4,12:50000000,16:1000000,20:4096}
 VLNVS = {'g05_50_0':'carlandfpga.local:diagnostic:deepeye_g05_axi_50:1.0',
          'trace50_0':'carlandfpga.local:diagnostic:deepeye_trace50_axi:1.0'}
 MAX_FILE=16*1024*1024
+VENDOR_STATE_DIR=Path('/usr/local/share/pynq-venv/lib/python3.10/site-packages/pynq/pl_server')
+MAX_VENDOR_METADATA=24*1024*1024
 
 
 def need(ok, text):
@@ -156,6 +158,55 @@ def _ps(clock):
             'other':tuple(int(z._slcr_mmio.read(x)) for x in (0x180,0x190,0x1a0))}
 
 
+def _require_no_global_state(vendor):
+    try:
+        (vendor/'global_pl_state.json').lstat()
+    except FileNotFoundError:
+        return
+    raise ValueError('existing vendor global state refused')
+
+
+def _vendor_identity(st):
+    return (st.st_dev,st.st_ino,st.st_mode,st.st_size,st.st_mtime_ns,st.st_ctime_ns)
+
+
+def _preserve_vendor_state(directory, vendor):
+    _require_no_global_state(vendor)
+    before_dir=directory/'vendor-before';before_dir.mkdir(mode=0o700)
+    source=vendor/'_current_metadata.pkl'
+    try:
+        before=source.lstat()
+    except FileNotFoundError:
+        _require_no_global_state(vendor)
+        _record(before_dir,'receipt.json',{'global_state_absent':True,'metadata_exists':False})
+        return None
+    need(stat.S_ISREG(before.st_mode) and before.st_size<=MAX_VENDOR_METADATA,'vendor metadata refused')
+    fd=os.open(str(source),os.O_RDONLY|getattr(os,'O_NOFOLLOW',0)|getattr(os,'O_NONBLOCK',0))
+    with os.fdopen(fd,'rb') as f:
+        opened=os.fstat(f.fileno())
+        need((before.st_dev,before.st_ino,before.st_size)==(opened.st_dev,opened.st_ino,opened.st_size) and stat.S_ISREG(opened.st_mode),'vendor metadata changed')
+        data=f.read(MAX_VENDOR_METADATA+1);after=os.fstat(f.fileno())
+    need(len(data)==before.st_size and _vendor_identity(opened)==_vendor_identity(after) and _vendor_identity(before)==_vendor_identity(source.lstat()),'vendor metadata changed')
+    target=before_dir/'_current_metadata.pkl'
+    fd=os.open(str(target),os.O_CREAT|os.O_EXCL|os.O_WRONLY|getattr(os,'O_NOFOLLOW',0),0o600)
+    with os.fdopen(fd,'wb') as f:f.write(data);f.flush();os.fsync(f.fileno())
+    saved=target.read_bytes()
+    need(len(saved)==len(data) and _hash(saved)==_hash(data),'vendor metadata backup mismatch')
+    _require_no_global_state(vendor)
+    _record(before_dir,'receipt.json',{'global_state_absent':True,'metadata_exists':True,'metadata_bytes':len(data),'metadata_sha256':_hash(data)})
+    return _vendor_identity(before)
+
+
+def _check_vendor_metadata(vendor, expected):
+    source=vendor/'_current_metadata.pkl'
+    try:
+        current=source.lstat()
+    except FileNotFoundError:
+        need(expected is None,'vendor metadata changed after backup')
+        return
+    need(expected is not None and stat.S_ISREG(current.st_mode) and _vendor_identity(current)==expected,'vendor metadata changed after backup')
+
+
 _KEY=object()
 class _TracePort:
     def __init__(self,key,mmio,directory,boot):
@@ -206,10 +257,14 @@ def open_from_plan(plan_path):
     directory=parent/operation;directory.mkdir(mode=0o700)
     _record(directory,'operation-started.json',{'operation_id':operation,'request_sha256':request,'build_id':plan['build_id'],'boot_id':plan['boot_id'],'source_commit':plan['source_commit'],'pid':os.getpid(),'monotonic_ns':time.monotonic_ns()})
     try:
+        _record(directory,'vendor-preservation-started.json',{'monotonic_ns':time.monotonic_ns()})
+        vendor_identity=_preserve_vendor_state(directory,VENDOR_STATE_DIR)
         stem='functional50_'+request[:24];bit=directory/(stem+'.bit');hwh=directory/(stem+'.hwh')
         for p,b in ((bit,blobs[0]),(hwh,blobs[1])):
             fd=os.open(str(p),os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600)
             with os.fdopen(fd,'wb') as f:f.write(b);f.flush();os.fsync(f.fileno())
+        _require_no_global_state(VENDOR_STATE_DIR)
+        _check_vendor_metadata(VENDOR_STATE_DIR,vendor_identity)
         from pynq import Bitstream, Clocks, MMIO, Device
         from pynqmetadata.frontends import Metadata
         from pynq.metadata.runtime_metadata_parser import RuntimeMetadataParser
@@ -241,6 +296,8 @@ def open_from_plan(plan_path):
         after=_ps(Clocks);_record(directory,'clock-readback.json',after)
         need(after['source']==0 and after['pll_fdiv']==20 and after['div0']==10 and after['div1']==2 and after['other']==before['other'],'clock readback mismatch')
         _record(directory,'load-started.json',{'bit_sha256':plan['bit_sha256'],'hwh_sha256':plan['hwh_sha256'],'build_id':plan['build_id']})
+        _require_no_global_state(VENDOR_STATE_DIR)
+        _check_vendor_metadata(VENDOR_STATE_DIR,vendor_identity)
         bs.download(parser=parser)
         _record(directory,'load-returned.json',{'monotonic_ns':time.monotonic_ns()})
         ps_after=_ps(Clocks);need(ps_after==after,'PS clocks changed during load')
