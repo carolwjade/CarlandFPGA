@@ -1472,10 +1472,6 @@ def late_candidate_action(doc, name, ready_ms, deadline_ms,
         raise ProfileError("ready_ms must not be negative")
     start = Fraction(slot_start_ms(doc, name, slot))
     clean = {"slot": slot, "ready_ms": ready, "deadline_ms": deadline}
-    if ready <= start:
-        action = dict(clean)
-        action.update({"action": "send", "start_ms": start})
-        return action
     if ready >= deadline:
         action = dict(clean)
         action.update({
@@ -1483,6 +1479,16 @@ def late_candidate_action(doc, name, ready_ms, deadline_ms,
             "reason": "deadline reached; the candidate stops and slots are "
                       "never shifted",
         })
+        return action
+    if start >= deadline:
+        action = dict(clean)
+        action.update({"action": "stop",
+                       "reason": "the allocated slot would arrive at or after "
+                                 "the deadline; slots are never shifted"})
+        return action
+    if ready <= start:
+        action = dict(clean)
+        action.update({"action": "send", "start_ms": start})
         return action
     window = Fraction(_profile(doc, name)["window_ms"])
     offset = ready - start
