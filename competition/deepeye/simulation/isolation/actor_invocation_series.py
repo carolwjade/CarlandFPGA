@@ -45,7 +45,7 @@ def _settled(row):
     return a,b
 
 
-def _raw_frame_from_snapshot(snapshot, request_raw):
+def _raw_from_snapshot(snapshot, request_raw, mode):
     """Pure consistency check. A caller dictionary authenticates nothing."""
     _frame(request_raw, request=True)
     if (type(snapshot) is not dict or type(snapshot.get('schema')) is not int or snapshot['schema'] != 2
@@ -75,12 +75,35 @@ def _raw_frame_from_snapshot(snapshot, request_raw):
                 or any(x not in '0123456789abcdef' for x in row['raw_hex'])):
             raise ValueError('original read bytes/offsets disagree')
         offset += count
-        if offset > 16388:
-            raise ValueError('one frame byte limit exceeded')
+        if offset > (16388 if mode == 'single_frame_v1' else 18440):
+            raise ValueError('response byte limit exceeded')
         chunks.append(bytes.fromhex(row['raw_hex']))
     if type(snapshot.get('bytes_read')) is not int or snapshot['bytes_read'] != offset:
         raise ValueError('original total output count disagrees')
-    return _frame(b''.join(chunks))
+    raw = b''.join(chunks)
+    if mode == 'single_frame_v1':
+        return _frame(raw)
+    if mode != 'ready_result_frames_v1':
+        raise ValueError('unknown response mode')
+    frames=[]; at=0
+    for limit in (2048,16384):
+        if len(raw)-at < 4:
+            raise ValueError('incomplete response frame prefix')
+        size=int.from_bytes(raw[at:at+4],'little')
+        if not 1 <= size <= limit or at+4+size > len(raw):
+            raise ValueError('invalid or incomplete response frame')
+        frames.append(raw[at:at+4+size]);at+=4+size
+    if at != len(raw):
+        raise ValueError('trailing response bytes forbidden')
+    return tuple(frames)
+
+
+def _raw_frame_from_snapshot(snapshot, request_raw):
+    return _raw_from_snapshot(snapshot, request_raw, 'single_frame_v1')
+
+
+def _raw_pair_from_snapshot(snapshot, request_raw):
+    return _raw_from_snapshot(snapshot, request_raw, 'ready_result_frames_v1')
 
 
 @dataclass(frozen=True)
@@ -90,19 +113,22 @@ class SerialInvocationLimits:
     max_total_request_bytes: int
     max_total_output_bytes: int
     max_total_reads: int
+    response_mode: str = 'single_frame_v1'
 
     def __post_init__(self):
         _uint(self.max_invocations, 2, 32)
         _uint(self.max_total_request_bytes, 1, 32*16384)
         _uint(self.max_total_output_bytes, 1, _MAX_OUTPUT)
         _uint(self.max_total_reads, 1, 65536)
+        if type(self.response_mode) is not str or self.response_mode not in ('single_frame_v1','ready_result_frames_v1'):
+            raise ValueError('fixed supported response mode required')
 
 
 class _Ticket:
     def __init__(self, identity, request_raw, journal_name, options, stream_start):
         self.identity,self.request_raw,self.journal_name = identity,request_raw,journal_name
         self.options,self.stream_start = options,stream_start
-        self.record = self.sealed_frame = None
+        self.record = self.sealed_frame = self.sealed_pair = None
         self.write_reserved = self.sealing = False
         self.observed_qpc_ns = None
 
@@ -169,12 +195,26 @@ class _SerialLedger:
         ticket.write_reserved=True
 
     def seal(self, ticket, raw):
-        self._current(ticket);_frame(raw)
+        self._current(ticket)
+        if self.limits.response_mode == 'single_frame_v1':
+            _frame(raw)
+        else:
+            # Reuse the same exact frame parser without inventing OS evidence.
+            if type(raw) is not bytes: raise ValueError('exact response bytes required')
+            parts=[];at=0
+            for limit in (2048,16384):
+                if len(raw)-at<4: raise ValueError('missing response prefix')
+                n=int.from_bytes(raw[at:at+4],'little')
+                if not 1<=n<=limit or at+4+n>len(raw): raise ValueError('invalid response frame')
+                parts.append(raw[at:at+4+n]);at+=4+n
+            if at!=len(raw) or len(raw)>18440: raise ValueError('extra response bytes')
         if (not ticket.write_reserved or ticket.sealed_frame is not None
                 or len(raw)>ticket.options['max_output_bytes']):
             self.failed=True
             raise ValueError('original written request and bounded new response frame required')
         ticket.sealed_frame=raw
+        if self.limits.response_mode == 'ready_result_frames_v1':
+            ticket.sealed_pair=tuple(parts)
         self.observed_bytes+=len(raw)
 
 
@@ -235,25 +275,36 @@ class _OriginalSerialSeries:
             raise ValueError('original serial record changed')
         self.ledger.claim_write(ticket)
 
-    def seal_current(self):
+    def seal_current(self, mode='single_frame_v1'):
         self._check();owner=self.owner;ticket=self.ledger.tickets[-1]
+        if self.ledger.limits.response_mode != mode:
+            raise ValueError('response sealing API does not match fixed mode')
         record=owner._invocation
         if (ticket.record is not record or ticket.sealing or ticket.sealed_frame is not None
                 or record._failed or record._journal_failed or record._close_attempted):
             raise ValueError('one open original response frame required')
         self._known_io(record)
-        raw=_raw_frame_from_snapshot(record.snapshot(),record.request)
+        response=_raw_from_snapshot(record.snapshot(),record.request,mode)
+        raw=response if mode == 'single_frame_v1' else b''.join(response)
         observed=owner._invocation_check()  # Real observation, never max() of old stamps.
         ticket.sealing=True  # Consumed before journal/flush/close can fail.
-        record._append(dict(kind='original_serial_frame_observed',invocation_id=ticket.identity.invocation_id,
+        event = dict(kind=('original_serial_frame_observed' if mode == 'single_frame_v1' else 'original_serial_response_pair_observed'),invocation_id=ticket.identity.invocation_id,
             raw_sha256=hashlib.sha256(raw).hexdigest(),bytes=len(raw),
-            frame_observed_qpc_ns=observed,authenticated=False,completion_verified=False))
+            frame_observed_qpc_ns=observed,authenticated=False,completion_verified=False)
+        if mode != 'single_frame_v1':
+            event['frame_sha256']=[hashlib.sha256(x).hexdigest() for x in response]
+        record._append(event)
         record.close_journal()
         owner._invocation_check()
         self.ledger.seal(ticket,raw);ticket.observed_qpc_ns=observed
-        return dict(invocation_id=ticket.identity.invocation_id,raw_frame_hex=raw.hex(),
-            payload_hex=raw[4:].hex(),frame_observed_qpc_ns=observed,
-            claim='original_raw_transport_frame_only',authenticated=False,completion_verified=False)
+        if mode == 'single_frame_v1':
+            return dict(invocation_id=ticket.identity.invocation_id,raw_frame_hex=raw.hex(),
+                payload_hex=raw[4:].hex(),frame_observed_qpc_ns=observed,
+                claim='original_raw_transport_frame_only',authenticated=False,completion_verified=False)
+        return dict(invocation_id=ticket.identity.invocation_id,raw_wire_hex=raw.hex(),
+            raw_frames_hex=[x.hex() for x in response],payloads_hex=[x[4:].hex() for x in response],
+            response_observed_qpc_ns=observed,claim='original_raw_transport_pair_only',
+            authenticated=False,completion_verified=False)
 
     def summary(self):
         return dict(protocol='DEEPEYE-PRIVATE-FRAMES/1',limits=asdict(self.ledger.limits),
@@ -262,7 +313,8 @@ class _OriginalSerialSeries:
             output_bytes_observed=self.ledger.observed_bytes,
             invocations=[dict(invocation_id=t.identity.invocation_id,journal_name=t.journal_name,
                 record_retained=t.record is not None,write_reserved=t.write_reserved,
-                raw_frame_sealed=t.sealed_frame is not None,frame_observed_qpc_ns=t.observed_qpc_ns,
+                raw_frame_sealed=t.sealed_frame is not None and t.sealed_pair is None,
+                raw_pair_sealed=t.sealed_pair is not None,frame_observed_qpc_ns=t.observed_qpc_ns,
                 stream_start=t.stream_start,stream_end=(None if t.sealed_frame is None
                     else t.stream_start+len(t.sealed_frame))) for t in self.ledger.tickets],
             authenticated=False,completion_verified=False)

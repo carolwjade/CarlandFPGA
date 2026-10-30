@@ -634,6 +634,14 @@ class ActorOwner:
         self._invocation_check()
         return self._invocation_series.seal_current()
 
+    @_entry
+    def seal_serial_invocation_response_pair(self):
+        """Observe an original two-frame raw response, not an AI completion."""
+        if self._invocation_series is None:
+            raise ValueError('explicit original serial framing policy required')
+        self._invocation_check()
+        return self._invocation_series.seal_current('ready_result_frames_v1')
+
     def _require_invocation(self):
         if self._invocation is None: raise ValueError('original prepared invocation required')
         return self._invocation
