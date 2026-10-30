@@ -586,7 +586,8 @@ _KIND_CHECKS = {
 }
 
 
-def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None):
+def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
+                     enable_completion_interval=False, completion_bounds=None):
     """Validate one bounded envelope; raise ValueError on any rejection.
 
     ``producer`` and ``context`` are caller-asserted (authenticated upstream);
@@ -597,6 +598,21 @@ def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None):
     capture, request and observation history and deadlines before any grant,
     and stale grants stay the caller's responsibility to reject.
     """
+    if type(enable_completion_interval) is not bool:
+        raise ValueError('enable_completion_interval must be bool')
+    if enable_completion_interval:
+        if __package__:
+            adapter = importlib.import_module('.completion_interval', __package__)
+            sys.modules.setdefault('deepeye_completion_interval', adapter)
+        else:
+            adapter = sys.modules.get('deepeye_completion_interval')
+            if adapter is None:
+                adapter = _load_sibling('deepeye_completion_interval', 'completion_interval.py')
+        return adapter.validate_message(raw_bytes, legacy=sys.modules[__name__],
+            producer=producer, context=context, now_ns=now_ns, consumer=consumer,
+            enable_interval=True, bounds=completion_bounds)
+    if completion_bounds is not None:
+        raise ValueError('completion_bounds require explicit interval opt-in')
     schema = _sealed_schema()
     message_validator, context_validator = _validators()
     _check_producer_argument(producer, schema)
