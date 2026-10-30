@@ -59,8 +59,12 @@ def select_source_book_profile(plan):
     profile = plan['source_book_profile']
     if (type(profile) is not dict or set(profile) != {'name'}
             or type(profile['name']) is not str
-            or profile['name'] != 'root_original_source_time_book_v1'):
-        raise ValueError('exact root_original_source_time_book_v1 profile required')
+            or profile['name'] not in ('root_original_source_time_book_v1',
+                'root_original_source_time_book_em_receipts_v2')):
+        raise ValueError('exact original source book profile required')
+    if (profile['name'] == 'root_original_source_time_book_em_receipts_v2'
+            and not select_em_scope_profile(plan)):
+        raise ValueError('scoped EM receipt profile requires original EM scope')
     return True
 
 
@@ -255,6 +259,8 @@ class _CausalSourcePump:
                         pose = self._pose_reader() if book is None else book.read_pose(token, kind='em')
                         if self.state != 'RUNNING':
                             raise ValueError('pose read invalidated active acquisition')
+                        em_receipt_book = book if book is not None and book.scoped_em_receipts else None
+                        em_handle = None if em_receipt_book is None else em_receipt_book.begin_em(token, scope)
                         if self._jit_backend is None:
                             self._profile.acquire_em(tick, pose,
                                 context=self._medium, sampler=scope.sampler)
@@ -263,6 +269,10 @@ class _CausalSourcePump:
                             if not root_jit._valid_backend_association(self, self._jit_backend):
                                 raise ValueError('original JIT backend association lost')
                             self._jit_backend.acquire(tick, pose, self._medium, scope)
+                        if em_receipt_book is not None:
+                            em_receipt_book.end_em(token, em_handle)
+                    if em_receipt_book is not None:
+                        em_receipt_book.close_em(token, em_handle, scope)
             if self.state != 'RUNNING':
                 raise ValueError('source callback invalidated active acquisition')
             contact = None if self._contact_reader is None else self._contact_reader(tick)

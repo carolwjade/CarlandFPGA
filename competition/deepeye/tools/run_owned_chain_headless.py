@@ -318,12 +318,14 @@ def run(plan_path, release_path):
             owner.poll()  # No callback or invented clock; preserve native checks.
             factory._check(None)
         if select_source_book_profile(plan):
-            book = RootSourceBook(owner, binding, field, source)
+            book = RootSourceBook(owner, binding, field, source,
+                scoped_em_receipts=(plan['source_book_profile']['name'] ==
+                    'root_original_source_time_book_em_receipts_v2'))
             source.bind_original_source_book(book)
         result['source_acquisition_profile'] = (
             'root_original_em_scope_v1' if scoped else 'legacy_per_point_owner_checks')
         result['source_book_profile'] = (
-            'root_original_source_time_book_v1' if book is not None else None)
+            plan['source_book_profile']['name'] if book is not None else None)
         if jit_runtime is not None:
             result['source_kernel_profile'] = 'root_strict_jit_ordered_kernel_v1'
         source.prepare()
