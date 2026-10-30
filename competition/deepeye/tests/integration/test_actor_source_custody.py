@@ -21,6 +21,15 @@ class ActorSourceCustodyTests(unittest.TestCase):
     def specimen(self):
         f = em_fixtures.ScopedEmReceiptTests()
         f.fixture(); token = f.open(0); f.em(token); f.finish(token, 0)
+        # Script distinct observations for the stricter NEW transition gap.
+        # Real production continues to use its original QPC object unchanged.
+        original_clock_call = type(f.clock).__call__
+        def advancing_clock(clock):
+            observed = original_clock_call(clock)
+            if clock is f.clock: clock.now += 1
+            return observed
+        clock_patch = patch.object(type(f.clock), '__call__', advancing_clock)
+        clock_patch.start(); self.addCleanup(clock_patch.stop)
         book = f.book
         link = NS(book=book, source=f.source, owner=f.world, executor=f.world.executor,
                   claimed=True, slot=None, _registered=lambda: None)
@@ -111,8 +120,9 @@ class ActorSourceCustodyTests(unittest.TestCase):
                                                   readback_ns=t.lower+3000))
         link.slot = slot
         f.clock.now = end+1000
+        expected = f.clock.now
         observed = custody.finish_step(slot)
-        self.assertEqual(f.clock.now, observed)
+        self.assertEqual(expected, observed)
         self.assertGreaterEqual(observed, end)
         evidence = f.book.evidence()
         self.assertEqual(observed, evidence['current_pose_interval']['from_qpc_ns'])

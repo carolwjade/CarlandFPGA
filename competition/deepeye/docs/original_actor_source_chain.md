@@ -72,3 +72,31 @@ EM after recorded nonspatial lineage, foreign owner argument refusal before
 property access, rejection of a foreign custody object, and abort evidence
 retaining an observed effect without manufacturing a returned receipt. Earlier
 ten/six groups were not rerun against this final candidate.
+
+## C38 follow-up corrections108
+
+C's preliminary exact-source review of e794 identified two concrete blockers.
+Root independently confirmed them. The old span now ends at a real observation
+followed by a separately observed strictly later transition lower bound. A clock
+tie refuses before the transition; no timestamp is incremented or span cropped.
+Each transition retains its actual `old_pose_span`. The actual current pose
+still comes from `book.current_pose_interval()`, with its pose/read/span; the
+interval-only evidence field cannot substitute for that read.
+
+Getter admission now retains the exact immutable original readback frame, its
+payload digest and observation time in both publication and action slot. Every
+later progress/source gate rechecks that binding. A different incoming readback
+after admission refuses before replacing any admitted fields. Re-observing the
+same original frame returns without renewing time. Failures retain the original
+numerical/publication evidence and retire future admission.
+
+Only new counterexamples and changed-path controls were used: the span boundary
+failed then its strict/tie controls passed; the first readback fixture lacked
+an epoch field (two fixture errors plus one real failure retained), its corrected
+three counterexamples all failed, then those three passed after the fix. Two
+additional new controls cover a complete software BOOT/COMMAND/current-read
+sequence with distinct actual scripted observations and valid/changed-time
+admission bindings. Prior actor/source/model/PDE/native/board groups were not
+replayed. Software clocks, ownership and received-frame boundaries in these
+controls are explicit fixtures. Independent final C38/correction review and
+actual production integration remain pending.

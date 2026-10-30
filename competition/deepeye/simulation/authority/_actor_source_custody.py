@@ -44,7 +44,7 @@ def _nonspatial_lineage(before, after, kind, boot, raw=None):
 
 
 class _Transition:
-    def __init__(self, key, custody, composition, kind, before, lower):
+    def __init__(self, key, custody, composition, kind, before, lower, old_span):
         if key is not _KEY:
             raise ValueError('fixed original transition issue path required')
         self.custody, self.composition, self.kind = custody, composition, kind
@@ -52,6 +52,7 @@ class _Transition:
         self.closed = False
         self.record = dict(kind=kind, state='RESERVED', before_root_revision=before.revision,
             from_pose_revision=before.pose_revision, lower_observed_qpc_ns=lower,
+            old_pose_span=old_span,
             completion_observed_qpc_ns=None, exact_commit_qpc_ns=None)
 
 
@@ -114,9 +115,13 @@ class _ActorSourceCustody:
             raise ValueError('idle original source and genuine serialized actor required')
         book._poll()
         link._registered()
-        lower = book._time()
-        span = book._span(lower)
-        transition = _Transition(_KEY, self, composition, kind, book._root, lower)
+        old_end = book._time()
+        span = book._span(old_end)
+        lower = book._time()  # A separate real observation, never old_end+1.
+        book._check()
+        if lower <= old_end:
+            raise ValueError('old pose span must end before actual transition lower bound')
+        transition = _Transition(_KEY, self, composition, kind, book._root, lower, span)
         self.closed_spans.append(span)
         self.transitions.append(transition)
         self.pending = transition  # Retained before any actor Root effect.
