@@ -6,6 +6,7 @@ const PAYLOAD_MAX := 65536
 const SNAPSHOT_MAX := 134217728
 const CHUNK_MAX := 45056
 const CHUNKS_MAX := 3072
+const PUBLICATION_MAX := 16
 const IO_MAX := 65536
 const FRAMES_MAX := 8
 const NODE_MAX := 4096
@@ -86,7 +87,8 @@ var _freeze_operation := ""
 var _geometry_identity := ""
 var _stop_received := false
 var _admission_stopped := false
-var _publish_claimed := false
+var _publication_count := 0
+var _publication_operations: Dictionary = {}
 var _queried_publications: Dictionary = {}
 var _fixture := {"withhold_first_publish_ack": false, "edit_once_after_unlock": false}
 var _fixture_ack_consumed := false
@@ -1648,7 +1650,6 @@ func _begin_freeze(message: Dictionary) -> void:
 	_geometry_identity = ""
 	_stop_received = false
 	_admission_stopped = false
-	_publish_claimed = false
 	_queried_publications = {}
 	if _controls != null:
 		var stages: Dictionary = _controls.status()
@@ -1678,6 +1679,9 @@ func _begin_freeze(message: Dictionary) -> void:
 		local_fault("over_budget")
 		return
 	_snapshot_cursor = -2
+	# Only a fully captured, audited new frozen epoch receives a fresh quota.
+	_publication_count = 0
+	_publication_operations = {}
 	_state = "FROZEN"
 
 func _feed_snapshot() -> void:
@@ -1719,6 +1723,38 @@ func _publish(message: Dictionary, raw: PackedByteArray) -> void:
 	_publish_diag_core(message, raw)
 	_diag_timing_mark(16, initial_kind)
 
+func _publication_resolved() -> bool:
+	if _publication.get("state", "") != "APPLIED" or not _publication.get("readback_validated", false) or not _publication.get("readback") is Dictionary:
+		return false
+	var actual: Dictionary = _publication.readback
+	return actual.get("state", "") == "APPLIED" and actual.get("freeze_identity", {}) == _freeze and actual.get("publication_operation_id", "") == _publication.operation_id and actual.get("pose_revision", "") == _pose_revision and _publication.intent_revision == _pose_revision and actual.get("drill_root_instance_id", "") == _object_id(_refs.drill)
+
+func _reserve_noninitial_publication(message: Dictionary) -> bool:
+	var body: Dictionary = message.body
+	if _publication_operations.has(message.operation_id):
+		_refuse(message.operation_id, "duplicate_publish")
+		return false
+	if not _publication.is_empty() and not _publication_resolved():
+		_refuse(message.operation_id, "unknown_effect")
+		return false
+	if not _initialized or body.geometry_identity != _geometry_identity or body.expected_previous_revision != _pose_revision or body.pose_revision != _next_decimal(_pose_revision) or not _hex(body.numerical_receipt_digest,64):
+		_refuse(message.operation_id, "stale_revision")
+		return false
+	if _publication_count >= PUBLICATION_MAX:
+		_refuse(message.operation_id, "over_budget")
+		return false
+	# Reserve before pose/transform decoding, allocation, hashing or native write.
+	# A failed reservation remains APPLYING; it is never cleared for another try.
+	# First poison the existing record, before any new dictionary allocation.
+	_publication["state"] = "APPLYING"
+	_publication["readback_validated"] = false
+	_publication_count += 1
+	_publication["operation_id"] = message.operation_id
+	_publication["payload_digest"] = ""
+	_publication["intent_revision"] = body.pose_revision
+	_publication_operations[message.operation_id] = true
+	return true
+
 func _publish_diag_core(message: Dictionary, raw: PackedByteArray) -> void:
 	var body: Dictionary = message.body
 	var initial: bool = message.type == "INITIAL_VIEW"
@@ -1728,7 +1764,10 @@ func _publish_diag_core(message: Dictionary, raw: PackedByteArray) -> void:
 	if _state != "FROZEN" and _state != "BOUND_STOPPED":
 		_refuse(message.operation_id, "unknown_effect")
 		return
-	if body.freeze_id != _freeze.freeze_id or not _hex(body.geometry_identity,64) or not _u64(body.pose_revision) or not _valid_desired_pose(body.desired_pose):
+	if body.freeze_id != _freeze.freeze_id or not _hex(body.geometry_identity,64) or not _u64(body.pose_revision):
+		_refuse(message.operation_id, "malformed")
+		return
+	if initial and not _valid_desired_pose(body.desired_pose):
 		_refuse(message.operation_id, "malformed")
 		return
 	if _publication.get("state", "") == "APPLYING":
@@ -1739,19 +1778,24 @@ func _publish_diag_core(message: Dictionary, raw: PackedByteArray) -> void:
 			_refuse(message.operation_id, "duplicate_publish")
 			return
 	else:
-		if _publish_claimed or not _initialized or body.geometry_identity != _geometry_identity or body.expected_previous_revision != _pose_revision or body.pose_revision != _next_decimal(_pose_revision) or not _hex(body.numerical_receipt_digest,64):
-			_refuse(message.operation_id, "stale_revision")
+		if not _reserve_noninitial_publication(message):
 			return
-		_publish_claimed = true
+		if not _valid_desired_pose(body.desired_pose):
+			_refuse(message.operation_id, "malformed")
+			return
 	var decoded := _decode_transform(body.desired_transform)
 	if not decoded.ok or body.desired_transform.origin != body.desired_pose.position_m:
 		_refuse(message.operation_id, "malformed")
 		return
 	# Persist in retained memory BEFORE the only fallible original node write.
 	# A script/runtime/allocation failure leaves APPLYING, never a false ACK.
-	_publication = {"state": "APPLYING", "operation_id": message.operation_id,
-		"payload_digest": sha256(raw), "intent_revision": body.pose_revision,
-		"desired_pose": body.desired_pose.duplicate(true), "desired_transform": body.desired_transform.duplicate(true)}
+	if initial:
+		_publication_operations[message.operation_id] = true
+		_publication = {"state": "APPLYING", "operation_id": message.operation_id,
+			"payload_digest": "", "intent_revision": body.pose_revision, "readback_validated": false}
+	_publication["payload_digest"] = sha256(raw)
+	_publication["desired_pose"] = body.desired_pose.duplicate(true)
+	_publication["desired_transform"] = body.desired_transform.duplicate(true)
 	_query_consumed = false
 	if not _main._owned_apply_drill_global(self, _token, decoded.value, body.pose_revision):
 		_refuse(message.operation_id, "unknown_effect")
@@ -1769,6 +1813,7 @@ func _publish_diag_core(message: Dictionary, raw: PackedByteArray) -> void:
 	_publication["state"] = "APPLIED"
 	_state = "BOUND_STOPPED"
 	if audit_frame():
+		_publication["readback_validated"] = true
 		if not initial and _fixture.withhold_first_publish_ack and not _fixture_ack_consumed:
 			_fixture_ack_consumed = true
 		else:
@@ -1786,6 +1831,11 @@ func _query(message: Dictionary) -> void:
 	if _query_consumed or body.freeze_id != _freeze.freeze_id or not _label(body.publication_operation_id) or not _hex(body.payload_digest,64) or not _u64(body.expected_pose_revision):
 		_refuse(message.operation_id, "unknown_effect")
 		return
+	if _publication_operations.has(body.publication_operation_id) and body.publication_operation_id != _publication.get("operation_id", ""):
+		# It was seen in this epoch, but is no longer the current publication.
+		# Never turn an old known effect into a false NOT_SEEN answer or replay it.
+		_refuse(message.operation_id, "unknown_effect")
+		return
 	_query_consumed = true
 	_queried_publications[body.publication_operation_id] = true
 	var actual: Dictionary = _main._owned_drill_readback(self, _token)
@@ -1796,7 +1846,7 @@ func _query(message: Dictionary) -> void:
 		if body.payload_digest != _publication.payload_digest or body.expected_pose_revision != _publication.intent_revision:
 			_refuse(message.operation_id, "unknown_effect")
 			return
-		observed = "APPLIED" if _publication.state == "APPLIED" else "APPLYING_UNKNOWN"
+		observed = "APPLIED" if _publication_resolved() else "APPLYING_UNKNOWN"
 	_queue("VIEW_READBACK", _freeze.world_epoch, message.operation_id,
 		_view_body(body.publication_operation_id, body.payload_digest, observed, actual))
 
@@ -1820,14 +1870,14 @@ func _stop(message: Dictionary) -> void:
 		return
 	_queue("STOPPED", _freeze.world_epoch, message.operation_id, {"freeze_identity": _freeze.duplicate(true),
 		"pose_revision": _pose_revision, "last_publication_operation_id": _publication.get("operation_id", "none"),
-		"publication_state": "NONE" if _publication.is_empty() else ("APPLIED" if _publication.state == "APPLIED" else "APPLYING_UNKNOWN")})
+		"publication_state": "NONE" if _publication.is_empty() else ("APPLIED" if _publication_resolved() else "APPLYING_UNKNOWN")})
 
 func _unlock(message: Dictionary) -> void:
 	var body: Dictionary = message.body
 	if not _stop_received or not _admission_stopped or _state != "BOUND_STOPPED" or _snapshot_cursor != -1 or body.retired_freeze_id != _freeze.freeze_id or body.retired_epoch != _freeze.world_epoch or body.expected_pose_revision != _pose_revision or not _hex(body.retirement_record_digest,64):
 		_refuse(message.operation_id, "stale_epoch")
 		return
-	if _publication.get("state", "") == "APPLYING":
+	if not _publication.is_empty() and not _publication_resolved():
 		_refuse(message.operation_id, "unknown_effect")
 		return
 	var retired: String = _freeze.freeze_id

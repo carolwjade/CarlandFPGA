@@ -136,6 +136,7 @@ class _Publication:
     readback: object = None
     readback_ns: int | None = None
     differences: object = None
+    getter_admitted: bool = False
     query_attempted: bool = False
     query_tx: object = None
     resolved: bool = False
@@ -191,6 +192,8 @@ class _RootWorldOwner:
         self._serial = 0
         self._epochs = {}
         self._bindings = {}
+        self._actor_links = {}
+        self._actor_link = None
         self._epoch = None
         self._binding = None
         self._hello = None
@@ -240,6 +243,18 @@ class _RootWorldOwner:
         self._vetoed = True
         if self._reason is None:
             self._reason = reason
+        link = self._actor_link
+        if link is not None and self._actor_links.get(id(link)) is link:
+            actor = link.composition
+            if actor is not None and actor._world_action_link is link and not actor._retired:
+                actor._veto += 1
+                actor._retired = True
+                if actor._state not in ('CLOSED', 'QUARANTINED'):
+                    actor._state = 'RETIRED'
+                if actor._progress is not None:
+                    actor._progress.generation += 1
+                    actor._progress.revoked = True
+                actor._world_pending_stop = True
         if self._binding is not None:
             if world:
                 self._binding.executor.invalidate_world(reason)
@@ -553,20 +568,38 @@ class _RootWorldOwner:
             raise WorldRejected('original initializer stale before publication')
         return self._publish(binding, 'INITIAL_VIEW', binding.executor.renderer_view())
 
-    def _fence(self, slot, generation):
-        if slot.fence_used:
-            self._veto('repeated_final_fence')
-            raise WorldRejected('final fence already consumed')
-        slot.fence_used = True
-        now = self._time()
-        binding = self._known_binding(slot.binding)
-        if (self._vetoed or self._foreign.is_set() or self._veto_generation != generation or
-                self._native_observation is None or not self._native_observation.alive or
-                self._status is None or self._status['identity'] != binding.epoch.identity or
-                self._status['state'] not in ('FROZEN','BOUND_STOPPED') or
-                now+STEP_NS >= slot.deadline_ns):
-            raise WorldRejected('original world/fixed deadline final fence rejected')
-        return StepFence(binding.executor.authority_snapshot().boot, 1, now, now+STEP_NS, slot.deadline_ns)
+    def require_source_pose_current(self):
+        """Gate every original source acquisition after any numerical action.
+
+        Initial stopped diagnostics remain available. APPLIED alone is not
+        getter admission; no tolerance or admission is installed here.
+        """
+        self._check_thread()
+        link = self._actor_link
+        slot = None if link is None else link.slot
+        if slot is not None and not slot.committed:
+            raise WorldRejected('original numeric action is pending or uncertain')
+        if any(item.uncertainty is not None for item in self._commits):
+            raise WorldRejected('original numeric effect remains uncertain')
+        if not any(item.committed for item in self._commits):
+            return
+        publication = self._publication
+        binding = self._binding
+        if (binding is None or publication is None or publication.kind != 'PUBLISH_VIEW'
+                or not publication.resolved or publication.state != 'APPLIED'
+                or publication.getter_admitted is not True
+                or publication.revision != self._renderer_revision
+                or binding.executor._root.pose_revision != self._renderer_revision):
+            raise WorldRejected('actual published getter pose has not been admitted')
+
+    def actor_link(self, service):
+        from .original_world_actor_link import _issue
+        return _issue(self, service)
+
+    @_entry
+    def publish_actor_commit_once(self, capability):
+        from .original_world_actor_link import _publish_once
+        return _publish_once(self, capability)
 
     def diagnostic_step_once(self, binding):
         """Disabled before any owner/BOOT/command/executor effect."""
@@ -640,7 +673,7 @@ class _RootWorldOwner:
             publications=[dict(kind=x.kind,operation_id=x.operation_id,payload_digest=x.digest,
                 revision=x.revision,state=x.state,resolved=x.resolved,query_attempted=x.query_attempted,
                 readback_ns=x.readback_ns,deadline_ns=x.deadline_ns,
-                actual_getter_differences=x.differences) for x in self._publications],
+                actual_getter_differences=x.differences,getter_admitted=x.getter_admitted) for x in self._publications],
             native=self._native.diagnostics(),close_result=self._close_result,
             genuine_PC_DIRECT=False,board=False,AI_provider=False,GPU_frame=False)
 

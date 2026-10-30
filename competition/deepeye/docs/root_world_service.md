@@ -44,3 +44,8 @@ The H01–H15 contract remains
 `c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804`.
 This helper does not establish FORCE8, ADC, BOOT, motion permission, physical
 calibration, the 1%/100 ms gates, H12, G03, R03 or all29 acceptance.
+Fresh-source validation also invokes the fixed original world's
+`require_source_pose_current()` gate. Numerical commit, pending/unknown
+publication and unadmitted getter states block new source work. The separate
+retired-source terminal drain does not acquire observations and may continue
+without fresh-source pose admission; it cannot revive a failed service.

@@ -115,6 +115,11 @@ class _ServiceCore:
             raise ValueError('original healthy world/clock/containment required')
         # Existing registry checks include the original current, unretired epoch.
         loop._RootWorldOwner._known_binding(owner, self._binding)
+        if not retired_source:
+            # Every fresh source operation must wait for original numerical
+            # commit/publication/getter closure. Terminal drain acquires no
+            # observation and must remain possible without fresh-source proof.
+            loop._RootWorldOwner.require_source_pose_current(owner)
         source = self._source
         allowed = ('RETIRED',) if retired_source else ('NEW', 'RUNNING')
         if (source.state not in allowed or source._thread != self._thread

@@ -182,6 +182,8 @@ def _entry(method):
             raise error
         self._busy = True
         terminal = method.__name__ in ('close', 'stop', 'status')
+        step_link = self._world_action_link if method.__name__ == 'step' else None
+        previous_step_slot = None if step_link is None else step_link.slot
         try:
             if self._foreign.is_set():
                 if not terminal: raise CompositionRejected('foreign-thread veto pending')
@@ -206,14 +208,34 @@ def _entry(method):
             return result
         except BaseException as error:
             self._remember(error)
-            self._retire('composition entry rejected')
+            try:
+                self._retire('composition entry rejected')
+            except BaseException as retirement_error:
+                self._errors.append(retirement_error)
+                self._retired = True
+                self._world_pending_stop = True
             if method.__name__ == 'step':
+                link = self._world_action_link
+                slot = None if link is None else link.slot
+                if (link is step_link and slot is not previous_step_slot
+                        and slot is not None and slot.committed and slot.receipt is not None):
+                    return StepOutcome(True, slot.receipt.pose_revision)
                 return StepOutcome(False, None)
             raise CompositionRejected('composition rejected; admission retired') from None
         finally:
             self._input_transaction = None
             self._busy = False
             if self._retired:
+                if self._world_pending_stop:
+                    self._world_pending_stop = False
+                    try:
+                        if self._candidates is not None:
+                            self._candidates.retire()
+                        if self._progress is not None and not self._progress.revoked:
+                            self._progress.revoke()
+                    except BaseException as retirement_error:
+                        self._errors.append(retirement_error)
+                    self._dispatch_stop('original world veto')
                 self._cleanup()
     return call
 
@@ -314,9 +336,13 @@ class _Dependencies(AuthorityDependencies):
         return result
 
     def commit_step(self, prepared, before_commit):
-        self._owner._active()
-        # No work is inserted between executor's final callback and its CAS.
-        return self._owner._executor.commit_step(prepared, before_commit)
+        owner = self._owner
+        owner._active()
+        link = owner._world_action_link
+        if link is None:
+            return owner._executor.commit_step(prepared, before_commit)
+        from .original_world_actor_link import _commit_once
+        return _commit_once(link, owner, prepared, before_commit)
 
 
 class ActorComposition:
@@ -335,6 +361,8 @@ class ActorComposition:
         self._state, self._busy, self._retired = 'STARTING', False, False
         self._veto, self._revoking, self._cleanup_attempted = 0, False, False
         self._registry = self._actor = self._runtime = self._executor = None
+        self._world_action_link = None
+        self._world_pending_stop = False
         self._runtime_activation = self._executor_activation = None
         self._boot = self._boot_event = self._command_record = None
         self._progress = None
@@ -378,6 +406,11 @@ class ActorComposition:
         self._veto += 1
         self._retired = True  # Gate first, before callbacks or cleanup.
         self._input_transaction = None
+        link = self._world_action_link
+        if (link is not None and link.owner._actor_links.get(id(link)) is link
+                and link.owner._actor_link is link and not link.owner._vetoed):
+            link.owner._veto('original actor retired')
+        self._world_pending_stop = False
         if self._candidates is not None:
             self._candidates.retire()
         if self._progress is not None:
@@ -404,14 +437,20 @@ class ActorComposition:
         config = self._config
         self._registry = ActorRegistry(host_clock=self._host_clock)
         self._checkpoint()
-        self._executor = OwnedMotionExecutor(initial_state=config.initial_state, scene=config.scene,
-            model=config.model, budget=config.budget, max_slices=config.max_slices)
+        if self._world_action_link is None:
+            self._executor = OwnedMotionExecutor(initial_state=config.initial_state, scene=config.scene,
+                model=config.model, budget=config.budget, max_slices=config.max_slices)
+        else:
+            self._world_action_link._registered()
+            self._executor = self._world_action_link.executor
         self._runtime = PcDirectRuntime(run_id=config.actor_policy.run_id,
             dependencies=_Dependencies(self), clock=self._clock,
             heartbeat_timeout_ns=config.heartbeat_timeout_ns)
         self._checkpoint()
         self._actor = self._registry.launch(config.actor_policy)
         self._checkpoint()
+        if self._world_action_link is not None:
+            self._world_action_link._registered()
         self._state = 'RUNNING_UNBOUND'
 
     @_entry
@@ -522,11 +561,18 @@ class ActorComposition:
 
     @_entry
     def step(self, *, expected_pose_revision, dt_ns):
+        original_link = self._world_action_link
+        previous_slot = None if original_link is None else original_link.slot
         self._active(); self._channel_health()
         result = self._runtime.step(expected_pose_revision=expected_pose_revision, dt_ns=dt_ns)
         self._last_step = result  # Private; raw geometry failure is never public.
         if not result.committed:
+            link = self._world_action_link
+            slot = None if link is None else link.slot
             self._retire('runtime step did not commit')
+            if (link is original_link and slot is not previous_slot
+                    and slot is not None and slot.committed and slot.receipt is not None):
+                return StepOutcome(True, slot.receipt.pose_revision)
             return StepOutcome(False, None)
         return StepOutcome(True, result.receipt.pose_revision)
 
@@ -585,3 +631,28 @@ def create_authority(config, *, host_clock=None):
 
 __all__ = ['AuthorityConfig', 'CompositionStatus', 'StepOutcome', 'create_authority',
            'ActivationUnavailable', 'CompositionRejected']
+
+
+def _create_authority_for_original_world(config, capability, *, host_clock=None):
+    """Fixed production channel first; consume only the exact registered world."""
+    binding = clocks._require_binding(host_clock)
+    channels = _production_channels(config, host_clock=binding)
+    from .original_world_actor_link import _OriginalWorldActorLink
+    if (type(config) is not AuthorityConfig or type(config.actor_policy) is not ActorPolicy
+            or type(capability) is not _OriginalWorldActorLink):
+        raise CompositionRejected('original registered world capability required')
+    _bounded(config.progress_max_age_ns, 1)
+    if (type(config.ai_model_sha256) is not str or len(config.ai_model_sha256) != 64
+            or any(c not in '0123456789abcdef' for c in config.ai_model_sha256)):
+        raise CompositionRejected('explicit approved inference model hash required')
+    if config.pc_direct_window_v2 is not None:
+        if type(config.pc_direct_window_v2) is not PcDirectWindowV2:
+            raise CompositionRejected('explicit PC_DIRECT v2 policy required')
+        _bounded(config.pc_direct_window_v2.consume_window_ns, 1)
+    capability._claim(config, binding)
+    owner = ActorComposition(_FACTORY, config, channels, host_clock=binding)
+    owner._world_action_link = capability
+    capability.composition = owner
+    _RETAINED.append(owner)
+    owner._start()
+    return owner

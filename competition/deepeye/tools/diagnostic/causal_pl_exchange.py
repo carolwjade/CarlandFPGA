@@ -50,6 +50,20 @@ def select_em_scope_profile(plan):
     return True
 
 
+def select_source_book_profile(plan):
+    """Exact opt-in for original nominal/actual source timing observations."""
+    if type(plan) is not dict:
+        raise ValueError('Root plan object required')
+    if 'source_book_profile' not in plan:
+        return False
+    profile = plan['source_book_profile']
+    if (type(profile) is not dict or set(profile) != {'name'}
+            or type(profile['name']) is not str
+            or profile['name'] != 'root_original_source_time_book_v1'):
+        raise ValueError('exact root_original_source_time_book_v1 profile required')
+    return True
+
+
 def select_feedback_mode(template, request, activation, callback, *, causal_mode):
     """Select reviewed Root code only; correlation/profile is not authentication."""
     records = (template, request, activation)
@@ -93,10 +107,12 @@ def select_source_mode(template, request, activation, source):
 
 
 def source_paths():
+    from ...simulation.authority import root_source_book
     return dict(causal_exchange=Path(__file__),
                 candidate_channel=Path(channels.__file__),
                 sensor_source=Path(sensor_source.__file__),
-                forward_profile=Path(forward.__file__))
+                forward_profile=Path(forward.__file__),
+                original_source_book=Path(root_source_book.__file__))
 
 
 class _CausalSourcePump:
@@ -113,8 +129,40 @@ class _CausalSourcePump:
         self._origin = self._clock = self._high = self._last_tick = None
         self._count = 0
         self._em_scope_factory = None
+        self._source_book = None
         self._polling = False
         self.state = 'NEW'
+
+    def _bind_software_source_book_for_test(self, book):
+        """Marked software stub only; never binds the public candidate source."""
+        try:
+            if (type(self) is not _CausalSourcePump or self.state != 'NEW'
+                    or threading.get_ident() != self._thread
+                    or self._source_book is not None
+                    or getattr(book, 'software_fixture_only', None) is not True
+                    or book.source is not self):
+                raise ValueError('fresh software-only pump/book required')
+            self._source_book = book
+        except BaseException:
+            self.state = 'FAILED'
+            raise
+
+    def _book_failed(self, primary):
+        if self._source_book is not None:
+            try:
+                self._source_book.fail('original source acquisition failed')
+            except BaseException as secondary:
+                # Keep the original instrument/source error and finite evidence.
+                # The production fail() is pure/nonthrowing; this also covers
+                # the distinct software stub and unexpected secondary failures.
+                try:
+                    previous = getattr(primary, '_causal_exchange_secondary_errors', ())
+                    primary._causal_exchange_secondary_errors = (previous+(
+                        dict(stage='source_book_fail', type=type(secondary).__name__,
+                             message=str(secondary)[:256]),))[-8:]
+                except BaseException:
+                    # Reporting a secondary failure cannot replace the first.
+                    pass
 
     def _bind_software_em_scope_for_test(self, factory):
         """Distinct software pump core only; cannot bind the public source."""
@@ -136,6 +184,13 @@ class _CausalSourcePump:
         pl.uint(origin_ns, 63)
         self._origin, self._high, self._clock = origin_ns, origin_ns, clock
         self.state = 'RUNNING'
+        if self._source_book is not None:
+            try:
+                self._source_book.start()
+            except BaseException as primary:
+                self.state = 'FAILED'
+                self._book_failed(primary)
+                raise
 
     def poll(self):
         entered = False
@@ -159,23 +214,49 @@ class _CausalSourcePump:
             if self._count >= 1001: raise ValueError('source record cap exhausted')
             self._last_tick = tick  # Consume before callbacks; no failed-slot replay.
             self._count += 1
+            book = self._source_book
+            token = None if book is None else book.open_sample(tick, now)
+            if self.state != 'RUNNING':
+                raise ValueError('source book invalidated active acquisition')
             if tick % 50 == 0:
                 if self._em_scope_factory is None:
-                    self._profile.acquire_em(tick, self._pose_reader(),
+                    pose = self._pose_reader() if book is None else book.read_pose(token, kind='em')
+                    if self.state != 'RUNNING':
+                        raise ValueError('pose read invalidated active acquisition')
+                    self._profile.acquire_em(tick, pose,
                         context=self._medium, sampler=self._sampler)
                 else:
                     with self._em_scope_factory.begin(tick) as scope:
-                        self._profile.acquire_em(tick, self._pose_reader(),
+                        pose = self._pose_reader() if book is None else book.read_pose(token, kind='em')
+                        if self.state != 'RUNNING':
+                            raise ValueError('pose read invalidated active acquisition')
+                        self._profile.acquire_em(tick, pose,
                             context=self._medium, sampler=scope.sampler)
             if self.state != 'RUNNING':
                 raise ValueError('source callback invalidated active acquisition')
             contact = None if self._contact_reader is None else self._contact_reader(tick)
-            payload = self._profile.sample_adc(tick, contact_accel_g=contact).to_payload()
+            if book is None:
+                payload = self._profile.sample_adc(tick, contact_accel_g=contact).to_payload()
+            else:
+                book.read_pose(token, kind='adc')
+                if self.state != 'RUNNING':
+                    raise ValueError('ADC pose read invalidated active acquisition')
+                handle = book.begin_adc(token)
+                if self.state != 'RUNNING':
+                    raise ValueError('ADC intent invalidated active acquisition')
+                sample = self._profile.sample_adc(tick, contact_accel_g=contact)
+                book.end_adc(token, handle)
+                payload = sample.to_payload()
             if self.state != 'RUNNING':
                 raise ValueError('source callback invalidated active acquisition')
+            if book is not None:
+                book.finish_sample(token, payload)
+                if self.state != 'RUNNING':
+                    raise ValueError('source book invalidated completed acquisition')
             return payload
-        except BaseException:
+        except BaseException as primary:
             self.state = 'FAILED'
+            self._book_failed(primary)
             raise
         finally:
             if entered:
@@ -184,6 +265,8 @@ class _CausalSourcePump:
     def retire(self, reason):
         if type(reason) is not str or not reason: raise ValueError('source retirement reason required')
         self.state = 'RETIRED'
+        if self._source_book is not None:
+            self._source_book.retire(reason)
 
 
 class CausalSourcePump(_CausalSourcePump):
@@ -195,6 +278,21 @@ class CausalSourcePump(_CausalSourcePump):
         super().__init__(forward.ForwardProfile(), pose_reader, sampler,
             contact_reader=contact_reader, medium_context=medium_context)
         self.prepared = False
+
+    def bind_original_source_book(self, book):
+        """One exact original-owner book; no caller callback/provider seam."""
+        from ...simulation.authority.root_source_book import RootSourceBook
+        try:
+            if (type(self) is not CausalSourcePump or self.state != 'NEW'
+                    or threading.get_ident() != self._thread
+                    or self._source_book is not None
+                    or type(book) is not RootSourceBook or book.source is not self
+                    or type(self._profile) is not forward.ForwardProfile):
+                raise ValueError('fresh exact original source/book required')
+            self._source_book = book
+        except BaseException:
+            self.state = 'FAILED'
+            raise
 
     def bind_original_em_scope(self, factory):
         """Bind one already registered original-world factory before starting."""

@@ -20,7 +20,9 @@ from ..simulation.authority.motion import gate_geometry as gates
 from ..simulation.authority.motion import workspace_boundaries as workspace
 from ..simulation.authority.world_initial_pose import initial_pose_for_layout
 from ..simulation.sensors.owned_world_field import OwnedWorldField
-from .diagnostic.causal_pl_exchange import CausalSourcePump, select_em_scope_profile
+from ..simulation.authority.root_source_book import RootSourceBook
+from .diagnostic.causal_pl_exchange import (CausalSourcePump, select_em_scope_profile,
+                                          select_source_book_profile)
 
 WORK = 'A-GEN4-OWNED-WORLD-SOURCE-20261029-05'
 REQUIREMENTS = 'c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
@@ -128,9 +130,12 @@ def _approved(plan_path, release_path):
         'initial_standoff_m', 'field_policy', 'sample_records'}
     if 'source_acquisition_profile' in plan:
         required.add('source_acquisition_profile')
+    if 'source_book_profile' in plan:
+        required.add('source_book_profile')
     if set(plan) != required:
         raise ValueError('exact source-only invocation plan required')
     select_em_scope_profile(plan)
+    select_source_book_profile(plan)
     root = Path(plan['root_path']).resolve()
     unit = _inside(plan['artifact_root'], root/'.planning/deepeye-resume-20261018')
     _inside(plan_path, unit); _inside(release_path, unit)
@@ -231,7 +236,7 @@ def run(plan_path, release_path):
     output = Path(plan['output_path']).resolve()
     output.mkdir(parents=True, exist_ok=False)
     clock = host_clock.qpc_clock_for_new_run()
-    owner = source = initial = failed_native = factory = None
+    owner = source = initial = failed_native = factory = book = None
     records, timings = [], []
     start = clock()
     overall_deadline = start+45_000_000_000
@@ -274,8 +279,13 @@ def run(plan_path, release_path):
         if scoped:
             factory = loop._make_original_em_scope_factory(owner, binding, field, source)
             source.bind_original_em_scope(factory)
+        if select_source_book_profile(plan):
+            book = RootSourceBook(owner, binding, field, source)
+            source.bind_original_source_book(book)
         result['source_acquisition_profile'] = (
             'root_original_em_scope_v1' if scoped else 'legacy_per_point_owner_checks')
+        result['source_book_profile'] = (
+            'root_original_source_time_book_v1' if book is not None else None)
         source.prepare()
         origin = clock()
         source.start(origin, clock)
@@ -329,6 +339,11 @@ def run(plan_path, release_path):
                 source.retire('new world/source operation failed')
             except BaseException as error:
                 result['source_retire_error'] = type(error).__name__
+        if book is not None:
+            try:
+                result['original_source_book'] = book.evidence()
+            except BaseException as error:
+                result['source_book_diagnostic_error'] = type(error).__name__
         if owner is not None:
             try:
                 result['close_history'] = _close(owner, clock)
