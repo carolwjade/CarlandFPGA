@@ -14,6 +14,8 @@ from ..integration import host_clock
 from ..simulation.sensors.owned_world_field import OwnedWorldField
 from ..simulation.authority import _world_loop, _root_jit_kernel, actor_composition
 from ..simulation.authority import _owned_godot, _world_values
+from ..simulation.authority.pc_direct_runtime import BootBinding
+from ..simulation.isolation.actor_owner import ActorRegistry, ActorOwner
 from ..simulation.authority.motion import gate_geometry, workspace_boundaries
 from ..simulation.authority.world_initial_pose import initial_pose_for_layout
 from ..simulation.authority.root_world_service import RootWorldService
@@ -28,6 +30,54 @@ def required_external_bindings():
 
 _SNAPSHOT_LIMITS = dict(nodes=4096, objects=30, surfaces=64, unique_vertices=1000000,
                         indices=3000000, snapshot_bytes=134217728, chunks=3072, depth=32)
+_REGISTRY_OBSERVATION_KEY = object()
+
+
+class _RegistryView:
+    __slots__ = ('_refs', '_state', '_sealed')
+    def __init__(self, key, refs, state):
+        if key is not _REGISTRY_OBSERVATION_KEY:
+            raise ValueError('fixed original registry observation required')
+        object.__setattr__(self, '_refs', refs)
+        object.__setattr__(self, '_state', state)
+        object.__setattr__(self, '_sealed', True)
+    def __setattr__(self, name, value):
+        raise AttributeError('original observation is immutable')
+
+
+class _RegistryHold:
+    __slots__ = ('view', 'lower_qpc_ns', 'upper_qpc_ns', 'getter_end_qpc_ns',
+                 'context_attached', 'unavailable_reason')
+    def __init__(self, key, view, lower, upper, getter_end):
+        if key is not _REGISTRY_OBSERVATION_KEY:
+            raise ValueError('fixed original registry hold required')
+        for name, value in (('view', view), ('lower_qpc_ns', lower), ('upper_qpc_ns', upper),
+                            ('getter_end_qpc_ns', getter_end), ('context_attached', False),
+                            ('unavailable_reason', 'original_boot_to_c42_context_binding_unavailable')):
+            object.__setattr__(self, name, value)
+    def __setattr__(self, name, value):
+        raise AttributeError('original hold is immutable')
+
+
+def _check_registry_stable(before, after):
+    before_refs, before_state = before
+    after_refs, after_state = after
+    if (len(before_refs) != len(after_refs)
+            or any(a is not b for a, b in zip(before_refs, after_refs))
+            or before_state != after_state):
+        raise ValueError('original registry or transition changed during getter')
+
+
+def _check_registry_interval(current, lower, upper):
+    if type(current) is not dict or type(current.get('pose_read')) is not dict:
+        raise ValueError('actual original getter interval required')
+    begin = current['pose_read'].get('begin_qpc_ns')
+    end = current['pose_read'].get('end_qpc_ns')
+    at = current.get('at_qpc_ns')
+    if (any(type(x) is not int for x in (lower, upper, begin, end, at))
+            or not 0 <= lower <= begin <= end == at <= upper):
+        raise ValueError('actual getter lies outside original registry hold')
+    return end
 
 
 def _native_closed(record):
@@ -231,6 +281,7 @@ class FunctionalSource:
         self.session = ProjectionSession.attach_original(owner, self.link, self.book)
         self._pending = None
         self._retained_samples = []
+        self._registry_observations = []
         self._last_transition = None
         self.composition = None
         self._activation_attempted = False
@@ -344,6 +395,86 @@ class FunctionalSource:
         self._check_thread()
         self.session.attach_registry(original_view, context, generation,
                                      as_of_qpc_ns=as_of_qpc_ns, observation_ref=observation_ref)
+
+    def _registry_snapshot(self):
+        """Observe fixed original identities, with strong references and no callbacks."""
+        self._check_thread()
+        self.session._check()
+        self.book._check()
+        owner, link, book, comp = self.owner, self.link, self.book, self.composition
+        custody = book._actor_custody
+        if type(comp) is not actor_composition.ActorComposition:
+            raise ValueError('active original composition required')
+        registry, actor, boot, runtime, executor = (comp._registry, comp._actor, comp._boot,
+                                                    comp._runtime, comp._executor)
+        if (type(registry) is not ActorRegistry or type(actor) is not ActorOwner
+                or type(boot) is not BootBinding or comp._state != 'ACTIVE' or comp._retired
+                or comp._busy or comp._foreign.is_set() or actor._foreign_call.is_set()
+                or registry._thread != self._thread or registry._clock_binding is not self.clock
+                or registry._launching is not None or not any(item is actor for item in registry._owners)
+                or actor._registry is not registry or actor._boot is not boot
+                or actor._thread != self._thread or comp._thread != self._thread
+                or comp._host_clock is not self.clock or comp._clock is not self.clock
+                or boot.run_id != actor._policy.run_id or boot.ai_instance != actor.instance_id
+                or registry._generations.get(boot.run_id) != boot.generation
+                or actor._runtime_owner is not runtime or actor._executor_owner is not executor
+                or actor._runtime_activation is not boot or actor._executor_activation is not boot
+                or comp._runtime_activation is not boot or comp._executor_activation is not boot
+                or actor._state != 'BOUND_ACTIVE' or runtime is None or runtime._boot is not boot
+                or runtime._latched or runtime._generation != boot.generation
+                or executor is not link.executor or executor._root.boot is not boot
+                or comp._world_action_link is not link or link.composition is not comp or not link.claimed
+                or link.owner is not owner or link.book is not book or link.source is not self.source
+                or owner._actor_link is not link or owner._actor_links.get(id(link)) is not link
+                or book._source is not self.source or self.source._source_book is not book
+                or custody is None or custody.book is not book or custody.link is not link
+                or custody.pending is not None or book._root is not executor._root):
+            raise ValueError('live original actor registry and book association required')
+        legacy_context = actor_composition.host_envelope._parse_message(boot.context_json)
+        if ((boot.run_id, legacy_context.get('session')) not in registry._used_sessions
+                or legacy_context.get('topology_id') != 2):
+            raise ValueError('original BOOT registry session/topology required')
+        config = self.session._producer._config
+        config_ref, config_fields = (None, None) if config is None else config
+        config_bytes = None if config_fields is None else json.dumps(
+            config_fields, sort_keys=True, separators=(',', ':'), ensure_ascii=False,
+            allow_nan=False).encode('utf8')
+        transitions = tuple(custody.transitions)
+        transition_bytes = tuple(json.dumps(item.record, sort_keys=True, separators=(',', ':'),
+            ensure_ascii=False, allow_nan=False).encode('utf8') for item in transitions)
+        link_items = tuple(sorted(owner._actor_links.items()))
+        actor_owners = tuple(registry._owners)
+        refs = (owner, link, book, comp, registry, actor, boot, runtime, executor, executor._root,
+                custody, self.clock, self.source, self.session, self.session._producer,
+                config_ref, config_fields, comp._boot_event, link.slot, owner._publication,
+                *transitions, *(item[1] for item in link_items), *actor_owners)
+        state = (tuple(item[0] for item in link_items), len(transitions), len(actor_owners),
+                 transition_bytes, config_bytes, boot.context_json, boot.generation,
+                 owner._veto_generation, comp._veto, runtime._veto_generation, runtime._generation,
+                 registry._ordinal, tuple(sorted(registry._generations.items())),
+                 frozenset(registry._used_sessions), actor._state)
+        return refs, state
+
+    def read_current_with_registry(self):
+        """Return a real getter and fixed registry hold, with C42 context unbound.
+
+        The original BOOT context and C42's extended context have no fixed
+        authenticated mapping. A later real board provider must bind that context.
+        """
+        self._check_thread()
+        if len(self._registry_observations) >= 32:
+            raise ValueError('original registry observation cap exhausted')
+        before = self._registry_snapshot()
+        lower = self.clock()
+        current = self.session.read_current()
+        after = self._registry_snapshot()
+        upper = self.clock()
+        _check_registry_stable(before, after)
+        end = _check_registry_interval(current, lower, upper)
+        view = _RegistryView(_REGISTRY_OBSERVATION_KEY, after[0], after[1])
+        hold = _RegistryHold(_REGISTRY_OBSERVATION_KEY, view, lower, upper, end)
+        self._registry_observations.append((current, view, hold))
+        return current, view, hold
 
     def read_current(self):
         self._check_thread(); return self.session.read_current()
