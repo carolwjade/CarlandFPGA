@@ -10,6 +10,7 @@ import re
 import stat
 import sys
 import time
+import threading
 import uuid
 import xml.etree.ElementTree as ET
 from decimal import Decimal, InvalidOperation
@@ -208,6 +209,10 @@ def _check_vendor_metadata(vendor, expected):
 
 
 _KEY=object()
+# Original same-process load custody; populated only after ready readback.
+_G05_LOADS={}
+_G05_CLAIMED=set()
+_G05_PORTS={}
 class _TracePort:
     def __init__(self,key,mmio,directory,boot):
         need(key is _KEY,'internal port only');self._mmio=mmio;self._dir=directory;self._boot=boot;self._pid=os.getpid();self._count=0;self._failed=False;self._ids=set();self._commands={1:0,2:0,3:0,4:0,5:0,8:0}
@@ -305,6 +310,8 @@ def open_from_plan(plan_path):
         for off,expected in IDENTITY.items():need(port.read32(off,'identity-%x'%off)==expected,'TRACE identity mismatch')
         for i,word in enumerate(identity_words(plan['build_id'])):need(port.read32(0x60+4*i,'build-%d'%i)==word,'TRACE build mismatch')
         _record(directory,'ready.json',{'build_id':plan['build_id'],'trace_base':spans[1][0],'g05_writes':0,'clock':ps_after,'pid':os.getpid()})
+        binding=tuple((k,plan[k]) for k in ('operation_id','request_sha256','boot_id','source_commit','build_id'))
+        _G05_LOADS[port]=(device,MMIO,tuple(spans),binding,parser,blobs[1],os.getpid(),port._mmio,threading.get_ident())
         return port
     except BaseException as error:
         try:_record(directory,'failed.json',{'type':type(error).__name__,'message':str(error),'unknown_if_started_without_return':True})
