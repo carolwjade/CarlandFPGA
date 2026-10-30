@@ -213,18 +213,40 @@ _KEY=object()
 _G05_LOADS={}
 _G05_CLAIMED=set()
 _G05_PORTS={}
+class _TraceCyclePolicy:
+    __slots__=()
+    def __init__(self,key):need(key is _KEY,'fixed cycle selection required')
+
+
+def select_trace_cycle_v2():
+    """Prospectively select at most two scans on one original load."""
+    return _TraceCyclePolicy(_KEY)
+
+
 class _TracePort:
-    def __init__(self,key,mmio,directory,boot):
+    def __init__(self,key,mmio,directory,boot,cycle_policy=None):
         need(key is _KEY,'internal port only');self._mmio=mmio;self._dir=directory;self._boot=boot;self._pid=os.getpid();self._count=0;self._failed=False;self._ids=set();self._commands={1:0,2:0,3:0,4:0,5:0,8:0}
-    def _call(self,kind,offset,value,request_id):
+        need(cycle_policy is None or type(cycle_policy) is _TraceCyclePolicy,'exact prospective cycle policy required')
+        self._cycle_policy=cycle_policy;self._cycle_owner=None;self._cycle_ready=False;self._cycle_active=False;self._cycle_commands=None;self._cycle_thread=threading.get_ident();self._cycle_deadline=None
+    def _call(self,kind,offset,value,request_id,*,_cycle_owner=None):
         validate_io(kind,offset,value)
         need(not self._failed and os.getpid()==self._pid and Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._boot,'owner/boot changed')
+        if self._cycle_policy is not None and self._cycle_ready:
+            need(_cycle_owner is not None and _cycle_owner is self._cycle_owner and self._cycle_active and threading.get_ident()==self._cycle_thread,'original active cycle required')
         need(type(request_id) is str and re.fullmatch('[A-Za-z0-9_-]{1,64}',request_id) is not None and request_id not in self._ids and self._count<5000,'one-use request/limit')
         if kind=='write' and offset==0x80:
-            limits={1:1,2:4,3:4,4:4,5:1,8:4096};need(self._commands[value]<limits[value] and (value==1 or self._commands[1]==1),'command quota/ARM')
+            limits={1:1,2:4,3:4,4:4,5:1,8:4096}
+            counts=self._cycle_commands if self._cycle_policy is not None and self._cycle_ready else self._commands
+            need(counts[value]<limits[value] and (value==1 or counts[1]==1),'command quota/ARM')
+            need(value!=8 or self._commands[8]<4096,'global POP limit')
         self._count+=1;n=self._count;self._ids.add(request_id)
         _record(self._dir,'io-%05d-started.json'%n,{'id':request_id,'kind':kind,'offset':offset,'value':value,'pid':self._pid,'monotonic_ns':time.monotonic_ns()})
-        if kind=='write' and offset==0x80:self._commands[value]+=1
+        if self._cycle_policy is not None and self._cycle_ready and time.monotonic_ns()>=self._cycle_deadline:
+            _record(self._dir,'io-%05d-not-attempted.json'%n,{'id':request_id,'monotonic_ns':time.monotonic_ns()})
+            self._failed=True;raise TimeoutError('cycle deadline passed before MMIO')
+        if kind=='write' and offset==0x80:
+            self._commands[value]+=1
+            if self._cycle_policy is not None and self._cycle_ready:self._cycle_commands[value]+=1
         try:
             output=self._mmio.read(offset) if kind=='read' else self._mmio.write(offset,value)
             _record(self._dir,'io-%05d-returned.json'%n,{'id':request_id,'kind':kind,'value':output,'monotonic_ns':time.monotonic_ns()})
@@ -237,12 +259,13 @@ class _TracePort:
     def write32(self,offset,value,request_id):return self._call('write',offset,value,request_id)
 
 
-def open_from_plan(plan_path):
+def open_from_plan(plan_path, *, trace_cycle_v2=None):
     """One new owner operation: reconfigures PL and FCLK0, no G05 writes.
 
     Caller/Root must separately prove exclusive ownership, old SDK termination,
     same-build provenance, and approve exact plan before entering this function.
     """
+    need(trace_cycle_v2 is None or type(trace_cycle_v2) is _TraceCyclePolicy,'exact prospective cycle policy required')
     data,_=_bytes(plan_path,131072);plan=_json(data)
     keys={'operation_id','request_sha256','build_id','source_commit','boot_id','bit_path','hwh_path','mapping_path','bit_sha256','hwh_sha256','mapping_sha256','operation_parent'}
     need(type(plan) is dict and set(plan)==keys,'exact plan keys')
@@ -306,12 +329,13 @@ def open_from_plan(plan_path):
         bs.download(parser=parser)
         _record(directory,'load-returned.json',{'monotonic_ns':time.monotonic_ns()})
         ps_after=_ps(Clocks);need(ps_after==after,'PS clocks changed during load')
-        port=_TracePort(_KEY,MMIO(spans[1][0],4096,device=device),directory,plan['boot_id'])
+        port=_TracePort(_KEY,MMIO(spans[1][0],4096,device=device),directory,plan['boot_id'],trace_cycle_v2)
         for off,expected in IDENTITY.items():need(port.read32(off,'identity-%x'%off)==expected,'TRACE identity mismatch')
         for i,word in enumerate(identity_words(plan['build_id'])):need(port.read32(0x60+4*i,'build-%d'%i)==word,'TRACE build mismatch')
         _record(directory,'ready.json',{'build_id':plan['build_id'],'trace_base':spans[1][0],'g05_writes':0,'clock':ps_after,'pid':os.getpid()})
         binding=tuple((k,plan[k]) for k in ('operation_id','request_sha256','boot_id','source_commit','build_id'))
         _G05_LOADS[port]=(device,MMIO,tuple(spans),binding,parser,blobs[1],os.getpid(),port._mmio,threading.get_ident())
+        if trace_cycle_v2 is not None:port._cycle_ready=True
         return port
     except BaseException as error:
         try:_record(directory,'failed.json',{'type':type(error).__name__,'message':str(error),'unknown_if_started_without_return':True})
