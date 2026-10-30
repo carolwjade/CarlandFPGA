@@ -371,6 +371,9 @@ class OwnedMotionExecutor:
         frame=_CommitFrame(relative,prepared.proof_binding,prepared.sweeps,prepared.solids,root.frame,None)
         new_root=replace(root,revision=root.revision+1,pose=candidate.pose,pose_revision=root.pose_revision+1,
             phase=relative.previous,frame=frame,executed_until_ns=0)
+        if not fixture and getattr(self,'_original_world_witness',None) is not None:
+            from .original_world_actor_link import _stage_original_commit_witness
+            _stage_original_commit_witness(self,prepared,root,new_root,frame,receipt)
         fence=before_commit if fixture else before_commit()  # production callback exactly once
         # From here to publication: bounded strict field tests and bindings only.
         # No geometry, hash, clock, I/O, provider or user callbacks.
