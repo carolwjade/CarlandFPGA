@@ -63,3 +63,41 @@ initial world with no numerical action remains available for diagnostics.
 Retirement while a book operation is busy fails permanently; a later return from
 that operation cannot restore RUNNING. Endpoint observations still do not prove
 an interval-atomic native getter or an executed action.
+
+## Fixed-root numerical interval
+
+The book records a conservative `from_qpc_ns` from the original clock after the
+original custody/root check and before baseline pose read. A matching root and
+custody check after that bracket establishes the baseline. Completed sample and
+`current_pose_interval()` checkpoints advance `through_qpc_ns` only to an
+actual non-regressing clock reading, followed by the existing original checks.
+The current view brackets its own original pose read and `at_qpc_ns` is its real
+read end; it is not a C30 receipt or action. No time or polling is done by
+`evidence()`, including after retirement or failure.
+
+A completed sample gets a fixed-root numerical span only when its nominal time
+and all its recorded EM/ADC pose-read and ADC-call endpoints are within the
+actual span. Otherwise the association is explicitly unavailable; payload and
+nominal time are not changed. The full held-EM native read/call association is
+not implemented and remains unavailable. A 473319100 ns actual prior source
+age is still a failure of the 100 ms production gate. No source admission is
+implied. The fixed root cannot migrate to another revision, and no action,
+getter admission, or physical board evidence is produced.
+
+This interval relies on trusted-process custody, not an OS security boundary:
+`OwnedMotionExecutor` is exact and owned by one thread; `_Root` and `RigidState`
+are frozen, with immutable pose tuples. In the current executor, constructor
+creates the initial root; `_revoke`, `invalidate_world`, `activate_boot`, and
+`admit_command` install newly allocated `replace` roots; `commit_step` installs
+one freshly allocated `replace` root. `invalidate_world` first revokes and then
+replaces again. No legitimate writer reinstalls an earlier root object. Most
+writes increment root revision; invalidate's second replacement retains the
+already incremented revision, so identity and writer-path audit are essential,
+not a claim that every individual assignment increments revision. Exact field
+executor, bound methods, frozen epoch, foreign-thread, owner reentry, veto,
+source and native custody checks remain mandatory. This proof assumes trusted
+code does not directly mutate private attributes or frozen objects and must be
+re-audited if writer paths change. Equality at two endpoints alone would not
+prove continuity without these assumptions. The claim is numerical committed
+Root lifetime only; it is not an atomic native getter interval, GPU proof,
+physical trajectory, H12 or final acceptance.

@@ -117,6 +117,7 @@ class _SourceBookCore:
         self._samples, self._partials = [], []
         self._root = self._baseline = self._base_pose = self._pose_values = None
         self._veto_generation = None
+        self._span_from = self._span_through = None
         try:
             if (source.state != 'NEW' or source._count != 0
                     or source._last_tick is not None or source._polling
@@ -139,6 +140,9 @@ class _SourceBookCore:
                 pose=self._pose_doc(pose), root_revision=root.revision,
                 pose_revision=root.pose_revision, revoke_generation=root.revoke_generation)
             self._check()
+            # begin was read after custody/root check; the post-read check proves
+            # the same immutable root survived this initial bracket.
+            self._span_from, self._span_through = begin, end
         except BaseException as error:
             self.fail(type(error).__name__)
             raise
@@ -264,6 +268,36 @@ class _SourceBookCore:
         self._check()
         self._owner.poll()  # Explicit; never inside clock() or owner._busy.
         self._check()
+
+    def _span(self, through):
+        """Advance only after a real clock sample and a successful custody check."""
+        self._check()
+        if (self._span_from is None or through < self._span_through
+                or through > self._high):
+            raise ValueError('invalid fixed root interval checkpoint')
+        self._span_through = through
+        return dict(from_qpc_ns=self._span_from, through_qpc_ns=through,
+                    root_revision=self._root.revision,
+                    pose_revision=self._root.pose_revision)
+
+    @_operation
+    def current_pose_interval(self):
+        """Read the actual fixed numerical pose; never a native/board receipt."""
+        if self._state not in ('NEW', 'RUNNING') or self._active is not None:
+            raise ValueError('idle original book required')
+        self._poll()
+        begin = self._time()
+        pose = self._pose_reader()
+        end = self._time()
+        self._poll()
+        span = self._span(end)
+        return dict(pose=self._pose_doc(pose),
+                    pose_revision=self._root.pose_revision,
+                    at_qpc_ns=end,
+                    pose_read=dict(begin_qpc_ns=begin, end_qpc_ns=end),
+                    valid_span=span,
+                    claim='numerical_immutable_committed_root_only',
+                    native_interval_atomic=False)
 
     def _sample(self, token):
         if (type(token) is not _Sample or token._book is not self
@@ -399,7 +433,18 @@ class _SourceBookCore:
         self._poll()
         end = self._time()
         self._check()
+        span = self._span(end)
+        points = [draft['nominal_qpc_ns'], draft['adc']['begin_qpc_ns'],
+                  draft['adc']['end_qpc_ns']]
+        for read in draft['pose_reads'].values():
+            points.extend((read['begin_qpc_ns'], read['end_qpc_ns']))
+        covered = all(span['from_qpc_ns'] <= t <= span['through_qpc_ns']
+                      for t in points)
         draft.update(status='complete',
+            numerical_pose_span=span if covered else None,
+            numerical_pose_span_status=('available;fixed_numerical_root_only' if covered
+                else 'unavailable;nominal_or_actual_outside_fixed_root_span'),
+            held_em_association='unavailable;original_native_em_association_not_implemented',
             finish_qpc_ns=end, actual_adc_end_minus_nominal_ns=(
                 draft['adc']['end_qpc_ns']-draft['nominal_qpc_ns']),
             baseline_span=dict(begin_qpc_ns=self._baseline['begin_qpc_ns'],
@@ -449,6 +494,11 @@ class _SourceBookCore:
             start_observed_qpc_ns=self._start_observed, baseline=self._baseline,
             samples=self._samples, partial_samples=self._partials,
             active_sample=self._active._draft if self._active is not None else None,
+            fixed_root_interval=(None if self._span_from is None else dict(
+                from_qpc_ns=self._span_from, through_qpc_ns=self._span_through,
+                root_revision=self._baseline['root_revision'],
+                pose_revision=self._baseline['pose_revision'],
+                claim='numerical_immutable_committed_root_only')),
             action_association='unavailable;fixed_revision_only',
             native_interval_atomic=False, source_scope='Root private candidate observations',
             adc_call_evidence='trusted caller bracket and retained profile tick progression')))
