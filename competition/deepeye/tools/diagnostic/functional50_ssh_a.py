@@ -36,6 +36,7 @@ class SessionSpec:
     protocol: str = 'scalar_v1'
     remote_manifest: str | None = None
     remote_manifest_sha256: str | None = None
+    remote_g05_policy: str | None = None
 
 def _need(ok, message):
     if not ok: raise ValueError(message)
@@ -89,23 +90,27 @@ def _remote_command(spec):
     for path in (spec.remote_python, spec.remote_script, spec.remote_plan):
         _remote_path(path)
     need_batch = spec.protocol == 'trace_batch_v1'
-    _need(spec.protocol in ('scalar_v1','trace_batch_v1'),'explicit fixed protocol required')
-    if need_batch:
+    need_chain = spec.protocol == 'functional50_chain_v1'
+    _need(spec.protocol in ('scalar_v1','trace_batch_v1','functional50_chain_v1'),'explicit fixed protocol required')
+    if need_batch or need_chain:
         _remote_path(spec.remote_manifest)
-        _need(PurePosixPath(spec.remote_script).name=='functional50_board_trace_batch_a.py'
-              and PurePosixPath(spec.remote_manifest).name=='trace-batch-manifest.json'
+        _need(PurePosixPath(spec.remote_script).name==('functional50_chain_board_a.py' if need_chain else 'functional50_board_trace_batch_a.py')
+              and PurePosixPath(spec.remote_manifest).name==('chain-board-manifest.json' if need_chain else 'trace-batch-manifest.json')
               and type(spec.remote_manifest_sha256) is str
               and re.fullmatch('[0-9a-f]{64}',spec.remote_manifest_sha256) is not None,
               'fixed batch entry and manifest required')
     else:
         _need(spec.remote_manifest is None and spec.remote_manifest_sha256 is None,
               'scalar protocol has no batch manifest')
+    if need_chain:_remote_path(spec.remote_g05_policy)
+    else:_need(spec.remote_g05_policy is None,'G05 policy only for chain')
     command = ('/usr/bin/sudo -S -p ' + shlex.quote('') +
             ' /usr/bin/env BOARD=Pynq-Z2 XILINX_XRT=/usr ' +
             shlex.quote(spec.remote_python) + ' -I -B ' +
-            shlex.quote(spec.remote_script) + ' ' + shlex.quote(spec.remote_plan))
-    if need_batch:
+            shlex.quote(spec.remote_script) + (' chain_v1 ' if need_chain else ' ') + shlex.quote(spec.remote_plan))
+    if need_batch or need_chain:
         command += ' ' + shlex.quote(spec.remote_manifest) + ' ' + shlex.quote(spec.remote_manifest_sha256)
+    if need_chain:command += ' ' + shlex.quote(spec.remote_g05_policy)
     return command
 
 def _write_once(pipe, raw):
@@ -148,7 +153,7 @@ class Session:
         def io():
             try:
                 if wire is not None:_write_once(self._proc.stdin,wire)
-                raw=self._proc.stdout.readline(4097)
+                raw=self._proc.stdout.readline(1048577 if self._protocol=='functional50_chain_v1' else 4097)
                 result['raw']=raw
             except BaseException as e:result['error']=type(e).__name__
             finally:done.set()
@@ -233,8 +238,9 @@ def open_session(spec,clock,*,sudo_input,timeout_ns):
     directory=parent/spec.operation_id;directory.mkdir(mode=0o700)
     command=_remote_command(spec)
     start=dict(operation_id=spec.operation_id,local_script_sha256=spec.local_script_sha256,remote_script=spec.remote_script,remote_plan=spec.remote_plan,remote_hash_verified=False,lower_qpc_ns=clock())
-    if spec.protocol=='trace_batch_v1':
+    if spec.protocol in ('trace_batch_v1','functional50_chain_v1'):
         start.update(protocol=spec.protocol,remote_manifest=spec.remote_manifest,remote_manifest_sha256=spec.remote_manifest_sha256)
+    if spec.protocol=='functional50_chain_v1':start['remote_g05_policy']=spec.remote_g05_policy
     _record(directory,'ssh-started.json',start)
     proc=subprocess.Popen([*spec.route,command],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,bufsize=0,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
     s=Session(_SESSION_KEY,proc,clock,directory,spec.protocol)
@@ -242,7 +248,12 @@ def open_session(spec,clock,*,sudo_input,timeout_ns):
         _record(directory,'ssh-created.json',dict(pid=proc.pid))
         raw=s._call(sudo_input,timeout_ns);upper=clock()
         _record(directory,'ready-returned.json',dict(raw_hex=raw.hex(),upper_qpc_ns=upper))
-        _parse_response(raw,None,'ready')
+        if spec.protocol=='functional50_chain_v1':
+            _need(type(raw) is bytes and 0<len(raw)<=4096 and raw.endswith(b'\n') and raw.count(b'\n')==1,'bounded chain ready required')
+            x=_json(raw)
+            _need(type(x) is dict and set(x)=={'schema','state','operation_id','plan_sha256','load_request_hash','build_id','source_commit','policy_file_sha256','manifest_sha256'} and x['schema']=='chain_board_v1' and x['state']=='ready' and x['operation_id']==spec.operation_id and x['manifest_sha256']==spec.remote_manifest_sha256,'chain ready identity')
+            _need(all(type(x[k]) is str and 0<len(x[k])<=192 for k in ('plan_sha256','load_request_hash','build_id','source_commit','policy_file_sha256')),'chain ready fields')
+        else:_parse_response(raw,None,'ready')
         return s
     except BaseException as error:
         s._unknown=True

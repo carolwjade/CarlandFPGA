@@ -15,6 +15,7 @@ _ROM=((0,128234,512938,1154111,2051753,3205865,4616446,6283496,8207015,10387004,
 _MAX={'begin':1,'commit':16,'stop':1,'latch':16,'release':16,'total_io':2048}
 _READ=frozenset((0,4,8,0x10,0x14,0x18,0x1c,0x20,0x24,0x28,0x40,0x44,0x48,0x4c,*range(0x100,0x134,4),*range(0x200,0x21c,4),*range(0x300,0x380,4)))
 _KEY=object()
+_DEADLINE_KEY=object()
 
 def _need(ok,msg):
     if not ok:raise ValueError(msg)
@@ -58,11 +59,23 @@ class G05Port:
         self._trace,self._reg,self._mmio,self._dir=trace,reg,mmio,directory
         self._policy=MappingProxyType({'binding':MappingProxyType(dict(policy['binding'])),'limits':MappingProxyType(dict(policy['limits'])),'policy_sha256':policy['policy_sha256']})
         self._thread=threading.get_ident();self._pid=os.getpid();self._failed=False;self._count=0;self._ids=set();self._seq=0;self._profile=None;self._identity=None;self._staged=None;self._bound=False;self._stopped=False
-        self._used={k:0 for k in _MAX if k!='total_io'}
+        self._used={k:0 for k in _MAX if k!='total_io'};self._deadline_ns=None
     def _check(self):
         _need(threading.get_ident()==self._thread and os.getpid()==self._pid and not self._failed,'original owner or failed G05')
         _need(board._G05_LOADS.get(self._trace) is self._reg and self._trace in board._G05_CLAIMED and not self._trace._failed and self._trace._mmio is self._reg[7] and self._trace._mmio.device is self._reg[0],'original same-load association changed')
         _need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._trace._boot,'boot changed')
+    def _bind_deadline(self,key,deadline_ns):
+        """Issuer-only, fixed one-use board monotonic deadline; no renewal."""
+        self._check()
+        _need(key is _DEADLINE_KEY and self._deadline_ns is None,'one original deadline binding required')
+        now=time.monotonic_ns()
+        _need(type(deadline_ns) is int and now<deadline_ns<=now+10_000_000_000,'future deadline within 10 seconds required')
+        self._deadline_ns=deadline_ns
+        try:
+            board._record(self._dir,'g05-deadline-bound.json',dict(lower_monotonic_ns=now,deadline_monotonic_ns=deadline_ns))
+            if time.monotonic_ns()>=deadline_ns:raise TimeoutError('deadline expired during binding')
+        except BaseException:
+            self._failed=True;raise
     def _claim(self,request_id):
         self._check();_need(type(request_id) is str and re.fullmatch('[A-Za-z0-9_-]{1,64}',request_id) is not None and request_id not in self._ids,'fresh request ID required')
         self._ids.add(request_id)
@@ -75,6 +88,11 @@ class G05Port:
         _need(self._count<self._policy['limits']['total_io'],'G05 total I/O cap');self._count+=1;n=self._count
         try:
             board._record(self._dir,'g05-%05d-started.json'%n,dict(request_id=request_id,io=n,kind=kind,offset=offset,value=value,pid=self._pid,monotonic_ns=time.monotonic_ns()))
+            if self._deadline_ns is not None:
+                checked=time.monotonic_ns()
+                if checked>=self._deadline_ns:
+                    board._record(self._dir,'g05-%05d-not-attempted.json'%n,dict(request_id=request_id,io=n,monotonic_ns=checked))
+                    raise TimeoutError('G05 deadline passed before MMIO; not attempted')
             result=self._mmio.read(offset) if kind=='read' else self._mmio.write(offset,value)
             if kind=='read':_need(type(result) is int and 0<=result<=0xffffffff,'actual read word required')
             else:_need(result is None,'actual write result invalid')
