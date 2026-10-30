@@ -108,6 +108,18 @@ class _FrozenEpoch:
     snapshot_raw: bytes
     snapshot: object
     completed_ns: int
+    model_policy_sha256: str = None
+
+
+def _require_epoch_policy(owner, epoch, policy):
+    """Bind the current retained freeze's own request to canonical policy."""
+    _RootWorldOwner._known_epoch(owner, epoch)
+    expected = epoch.model_policy_sha256
+    if (type(expected) is not str or len(expected) != 64
+            or any(c not in '0123456789abcdef' for c in expected)
+            or type(policy) is not values.ValuePolicy
+            or values._digest(policy) != expected):
+        raise WorldRejected('frozen original request model policy mismatch')
 
 
 @dataclass(frozen=True, eq=False)
@@ -173,6 +185,27 @@ def _entry(method):
             raise
         finally:
             self._busy = False
+    return call
+
+
+def _freeze_policy_precheck(method):
+    @wraps(method)
+    def call(self, *, snapshot_limits_sha256, model_policy_sha256):
+        self._check_thread()
+        if (type(model_policy_sha256) is not str or len(model_policy_sha256) != 64
+                or any(c not in '0123456789abcdef' for c in model_policy_sha256)):
+            raise WorldRejected('canonical model policy SHA-256 required before freeze')
+        return method(self, snapshot_limits_sha256=snapshot_limits_sha256,
+                      model_policy_sha256=model_policy_sha256)
+    return call
+
+
+def _construct_policy_precheck(method):
+    @wraps(method)
+    def call(self, epoch, policy, *, initial_pose):
+        self._check_thread()
+        _require_epoch_policy(self, epoch, policy)
+        return method(self, epoch, policy, initial_pose=initial_pose)
     return call
 
 
@@ -364,7 +397,7 @@ class _RootWorldOwner:
                 if self._time() >= request['deadline_ns']:
                     raise WorldRejected('original freeze deadline expired during complete conversion')
                 epoch = _FrozenEpoch(self, self._number, request['operation_id'], identity,
-                                     raw, snapshot, self._time())
+                                     raw, snapshot, self._time(), request['body']['model_policy_sha256'])
                 if self._epoch is not None:
                     if self._epoch.number not in self._retired_epochs:
                         raise WorldRejected('previous original epoch not retired')
@@ -485,6 +518,7 @@ class _RootWorldOwner:
     def poll(self):
         return self._poll_once()
 
+    @_freeze_policy_precheck
     @_entry
     def request_freeze(self, *, snapshot_limits_sha256, model_policy_sha256):
         if (self._state != 'EDITABLE' or self._editable is None or self._freeze_request is not None or
@@ -506,6 +540,7 @@ class _RootWorldOwner:
     def frozen_epoch(self):
         return self._known_epoch(self._epoch)
 
+    @_construct_policy_precheck
     @_entry
     def construct_and_bind(self, epoch, policy, *, initial_pose):
         self._known_epoch(epoch)

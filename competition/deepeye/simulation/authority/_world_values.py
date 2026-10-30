@@ -267,6 +267,7 @@ class ValuePolicy:
     allowed_script_sha256: tuple
     run_id: str = 'diagnostic-world-component'
     guard_m: F = GUARD
+    getter_endpoint_cap_m: F = F(0)
 
 
 @dataclass(frozen=True)
@@ -293,6 +294,7 @@ class BudgetDerivation:
     source_pins_digest: str
     parent_getter_differences: tuple
     outside_domain: tuple
+    getter_endpoint_cap_m: F = F(0)
 
 
 @dataclass(frozen=True)
@@ -321,6 +323,14 @@ class WorldValues:
     motion_grant: bool = field(default=False,init=False)
 
 
+def _getter_endpoint_cap(policy):
+    cap = policy.getter_endpoint_cap_m
+    if (type(cap) is not F or cap.numerator.bit_length() > 256
+            or cap.denominator.bit_length() > 256 or cap < 0 or cap > F(1,100)):
+        raise ConstructionRefusal('endpoint getter cap must be an exact bounded Fraction in [0, 1/100] m')
+    return cap
+
+
 def _pack(value, work=None):
     """Reject mutable/foreign DTOs and bound canonical identity material size."""
     if work is None:
@@ -343,8 +353,18 @@ def _pack(value, work=None):
         work[0] += 2+len(value)
         result = [_pack(x,work) for x in value]
     elif is_dataclass(value) and t.__module__ == __name__:
-        work[0] += 128+sum(len(f.name)*6 for f in fields(value))
-        result = {f.name:_pack(getattr(value,f.name),work) for f in fields(value) if f.init}
+        # Preserve the original canonical ValuePolicy bytes and resource count
+        # for the default; nonzero policies are explicitly domain-separated.
+        cap = _getter_endpoint_cap(value) if t is ValuePolicy else None
+        fs = tuple(f for f in fields(value) if not
+                   (t is ValuePolicy and f.name == 'getter_endpoint_cap_m'
+                    and cap == F(0)))
+        work[0] += 128+sum(len(f.name)*6 for f in fs)
+        result = {f.name:_pack(getattr(value,f.name),work) for f in fs if f.init}
+        if t is ValuePolicy and cap:
+            key = '__getter_endpoint_cap_domain__'
+            work[0] += len(key)*6
+            result[key] = _pack('DEEPEYE-ENDPOINT-AFFINE-SET-GETTER-CAP-V1',work)
     else:
         raise ConstructionRefusal('only immutable internal value DTOs accepted')
     if work[0] > _MAX_BYTES:
@@ -1055,6 +1075,7 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
     _int(initial_monotonic_ns); _label(policy.run_id)
     if type(policy.guard_m) is not F or policy.guard_m != GUARD:
         raise ConstructionRefusal('selected positive private policy guard required')
+    cap = _getter_endpoint_cap(policy)
     if type(policy.allowed_script_sha256) is not tuple:
         raise ConstructionRefusal('immutable approved script inventory required')
     for name in ('document_source_sha256','canonical_source_sha256','catalog_source_sha256',
@@ -1215,10 +1236,13 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
     body=(model.half_segment,model.radius,F(0))
     drill_upper=max((_part_bound(p,drill.root_affine,'capsule',body) for p in drill.parts),default=F(0))
     obstacle_upper=max((x.total_upper_m for x in bounds),default=F(0))
-    numeric=GUARD; asset=GUARD+drill_upper; obstacle=GUARD+obstacle_upper
+    numeric=GUARD+cap; asset=GUARD+drill_upper; obstacle=GUARD+obstacle_upper
     total=numeric+asset+obstacle
     additional=_upper_float(total)
-    budget=GeometryBudget(numeric,asset,obstacle,geometry_identity+':'+policy_digest)
+    source=geometry_identity+':'+policy_digest
+    if cap:
+        source += ':endpoint-affine-set-v1:'+str(cap.numerator)+'/'+str(cap.denominator)
+    budget=GeometryBudget(numeric,asset,obstacle,source)
     scene=s.Scene(geometry_identity,VERSION,tuple(scene_manifest),tuple(scene_objects))
     corridors=_corridor_proofs(scene,layout,total,geometry_identity)
     sweep=s.Sweep(model,initial_pose.position_m,initial_pose.position_m,initial_pose.orientation_xyzw,
@@ -1239,7 +1263,8 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
          'later CPU/GPU evaluation beyond recorded getter values has no invented zero bound',
          'ADC/causal sensors and AI/model/provider qualification remain separate acceptance evidence',
          'mesh topology/closed visual solids and active physics shape-margin semantics remain unqualified',
-         'initial position/angle errors0 describe exactly encoded numerical initial pose only; CP carries later numerical export errors'))
+         'initial position/angle errors0 describe exactly encoded numerical initial pose only; CP carries later numerical export errors'),
+        getter_endpoint_cap_m=cap)
     return WorldValues(snapshot_digest,geometry_identity,scene,model,layout,envelope,budget,
         initialized.state,derivation,corridors,initial_scene)
 

@@ -22,7 +22,8 @@ from ..simulation.authority.world_initial_pose import initial_pose_for_layout
 from ..simulation.sensors.owned_world_field import OwnedWorldField
 from ..simulation.authority.root_source_book import RootSourceBook
 from .diagnostic.causal_pl_exchange import (CausalSourcePump, select_em_scope_profile,
-                                          select_source_book_profile)
+                                          select_source_book_profile,
+                                          select_jit_kernel_profile)
 
 WORK = 'A-GEN4-OWNED-WORLD-SOURCE-20261029-05'
 REQUIREMENTS = 'c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
@@ -117,6 +118,14 @@ def _policy(project, catalog, pins, bundle, run_id):
         tuple(digest(name) for name in catalog['allowed_script_paths']), run_id=run_id)
 
 
+def _source_record_budget(plan):
+    maximum = 20 if select_jit_kernel_profile(plan) else 16
+    records = plan.get('sample_records')
+    if type(records) is not int or not 2 <= records <= maximum:
+        raise ValueError('new causal source record count outside explicit profile budget')
+    return records
+
+
 def _approved(plan_path, release_path):
     plan_raw, release_raw = plan_path.read_bytes(), release_path.read_bytes()
     plan, release = _json(plan_raw), _json(release_raw)
@@ -132,6 +141,10 @@ def _approved(plan_path, release_path):
         required.add('source_acquisition_profile')
     if 'source_book_profile' in plan:
         required.add('source_book_profile')
+    if select_jit_kernel_profile(plan):
+        required.update(('source_kernel_profile', 'source_kernel_dependencies'))
+        if not select_em_scope_profile(plan) or not select_source_book_profile(plan):
+            raise ValueError('JIT requires original EM scope and source book')
     if set(plan) != required:
         raise ValueError('exact source-only invocation plan required')
     select_em_scope_profile(plan)
@@ -173,8 +186,7 @@ def _approved(plan_path, release_path):
         raise ValueError('synthetic action/edit fixture refused')
     if _file(project, 'owned-input/managed-writer-controls.json').exists():
         raise ValueError('managed actor fixture refused')
-    if type(plan['sample_records']) is not int or not 2 <= plan['sample_records'] <= 16:
-        raise ValueError('new causal source record count2..16 required')
+    _source_record_budget(plan)
     policy = _policy(project, _json(catalog_raw), pins, plan['source_bundle_sha256'], plan['run_id'])
     spec = native.ApprovedLaunchSpec(engine, ENGINE, project,
         tuple(tuple(pair) for pair in ordered), plan['source_bundle_sha256'],
@@ -229,6 +241,18 @@ def _close(owner, clock):
 
 def run(plan_path, release_path):
     unit, plan, release, spec, policy, plan_sha, release_sha = _approved(plan_path, release_path)
+    jit_runtime = jit_warmup = None
+    if select_jit_kernel_profile(plan):
+        pins = dict(plan['python_files'])
+        for name in ('competition/deepeye/simulation/authority/_root_jit_kernel.py',
+                     'competition/deepeye/simulation/sensors/_jit_ordered_kernel.py'):
+            if name not in pins:
+                raise ValueError('JIT helper and core source pins required')
+        from ..simulation.authority import _root_jit_kernel
+        jit_runtime = _root_jit_kernel.verify_dependencies(
+            plan['source_kernel_dependencies'], plan['root_path'], plan['worktree_path'])
+        _root_jit_kernel.load_verified(jit_runtime)
+        jit_warmup = _root_jit_kernel.warm(jit_runtime)  # Before Root, baseline and origin.
     quota = unit/'native-launches'
     quota.mkdir(exist_ok=True)
     _save(quota/'slot-1.json', dict(operation_id=plan['operation_id'],
@@ -245,6 +269,15 @@ def run(plan_path, release_path):
         release_sha256=release_sha, component_complete=False, board=False, ADC=False,
         CPU_AI=False, movement_authorized=False, behavioral_STOP_proven=False,
         complete_H12='not_run', G03='not_run', R03='not_run', all29='not_run')
+    if jit_warmup is not None:
+        result['jit_readonly_signature'] = jit_warmup
+        deps = plan['source_kernel_dependencies']
+        result['jit_dependency_provenance'] = dict(
+            dependency_path=deps['dependency_path'], numpy_path=deps['numpy_path'],
+            dependency_manifest_sha256=_sha(_raw(deps['dependency_files'])),
+            numpy_manifest_sha256=_sha(_raw(deps['numpy_files'])),
+            dependency_file_count=len(deps['dependency_files']),
+            numpy_file_count=len(deps['numpy_files']))
     try:
         owner = loop._acquire_root_world(spec, clock)
         _pump(owner, lambda: owner._hello is not None, min(overall_deadline, clock()+spec.startup_timeout_ns))
@@ -279,6 +312,11 @@ def run(plan_path, release_path):
         if scoped:
             factory = loop._make_original_em_scope_factory(owner, binding, field, source)
             source.bind_original_em_scope(factory)
+        if jit_runtime is not None:
+            backend = _root_jit_kernel._make_original_backend(factory, jit_runtime)
+            source.bind_original_jit_backend(backend)
+            owner.poll()  # No callback or invented clock; preserve native checks.
+            factory._check(None)
         if select_source_book_profile(plan):
             book = RootSourceBook(owner, binding, field, source)
             source.bind_original_source_book(book)
@@ -286,6 +324,8 @@ def run(plan_path, release_path):
             'root_original_em_scope_v1' if scoped else 'legacy_per_point_owner_checks')
         result['source_book_profile'] = (
             'root_original_source_time_book_v1' if book is not None else None)
+        if jit_runtime is not None:
+            result['source_kernel_profile'] = 'root_strict_jit_ordered_kernel_v1'
         source.prepare()
         origin = clock()
         source.start(origin, clock)

@@ -64,6 +64,19 @@ def select_source_book_profile(plan):
     return True
 
 
+def select_jit_kernel_profile(plan):
+    if type(plan) is not dict:
+        raise ValueError('Root plan object required')
+    if 'source_kernel_profile' not in plan:
+        return False
+    profile = plan['source_kernel_profile']
+    if (type(profile) is not dict or set(profile) != {'name'}
+            or type(profile['name']) is not str
+            or profile['name'] != 'root_strict_jit_ordered_kernel_v1'):
+        raise ValueError('exact Root JIT kernel profile required')
+    return True
+
+
 def select_feedback_mode(template, request, activation, callback, *, causal_mode):
     """Select reviewed Root code only; correlation/profile is not authentication."""
     records = (template, request, activation)
@@ -106,13 +119,24 @@ def select_source_mode(template, request, activation, source):
     return True
 
 
-def source_paths():
+def source_paths(jit_enabled=False, dependency_config=None):
     from ...simulation.authority import root_source_book
-    return dict(causal_exchange=Path(__file__),
+    paths = dict(causal_exchange=Path(__file__),
                 candidate_channel=Path(channels.__file__),
                 sensor_source=Path(sensor_source.__file__),
                 forward_profile=Path(forward.__file__),
                 original_source_book=Path(root_source_book.__file__))
+    if jit_enabled:
+        if (type(dependency_config) is not dict or
+                set(dependency_config) != {'dependency_path','dependency_files','numpy_path','numpy_files'}):
+            raise ValueError('verified dependency manifest required')
+        paths.update(root_jit_kernel=Path(forward.__file__).parent.parent / 'authority' / '_root_jit_kernel.py',
+                     ordered_jit_kernel=Path(forward.__file__).with_name('_jit_ordered_kernel.py'))
+        for area, records, prefix in ((dependency_config['dependency_path'], dependency_config['dependency_files'], 'jitdep:'),
+                                      (dependency_config['numpy_path'], dependency_config['numpy_files'], 'numpydep:')):
+            for name, _digest in records:
+                paths[prefix+name] = Path(area) / name
+    return paths
 
 
 class _CausalSourcePump:
@@ -129,6 +153,7 @@ class _CausalSourcePump:
         self._origin = self._clock = self._high = self._last_tick = None
         self._count = 0
         self._em_scope_factory = None
+        self._jit_backend = None
         self._source_book = None
         self._polling = False
         self.state = 'NEW'
@@ -230,8 +255,14 @@ class _CausalSourcePump:
                         pose = self._pose_reader() if book is None else book.read_pose(token, kind='em')
                         if self.state != 'RUNNING':
                             raise ValueError('pose read invalidated active acquisition')
-                        self._profile.acquire_em(tick, pose,
-                            context=self._medium, sampler=scope.sampler)
+                        if self._jit_backend is None:
+                            self._profile.acquire_em(tick, pose,
+                                context=self._medium, sampler=scope.sampler)
+                        else:
+                            from ...simulation.authority import _root_jit_kernel as root_jit
+                            if not root_jit._valid_backend_association(self, self._jit_backend):
+                                raise ValueError('original JIT backend association lost')
+                            self._jit_backend.acquire(tick, pose, self._medium, scope)
             if self.state != 'RUNNING':
                 raise ValueError('source callback invalidated active acquisition')
             contact = None if self._contact_reader is None else self._contact_reader(tick)
@@ -308,6 +339,21 @@ class CausalSourcePump(_CausalSourcePump):
                 raise ValueError('fresh original source/scope factory required')
             factory._check(None)
             self._em_scope_factory = factory
+        except BaseException:
+            self.state = 'FAILED'
+            raise
+
+    def bind_original_jit_backend(self, backend):
+        from ...simulation.authority import _root_jit_kernel as root_jit
+        try:
+            if (type(self) is not CausalSourcePump or self.state != 'NEW'
+                    or threading.get_ident() != self._thread
+                    or self._jit_backend is not None
+                    or type(backend) is not root_jit._OriginalBackend
+                    or backend._source is not self
+                    or backend._factory is not self._em_scope_factory):
+                raise ValueError('fresh exact original JIT association required')
+            self._jit_backend = backend
         except BaseException:
             self.state = 'FAILED'
             raise
