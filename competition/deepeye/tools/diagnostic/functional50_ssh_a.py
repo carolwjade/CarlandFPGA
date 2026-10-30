@@ -158,12 +158,47 @@ class Session:
                 result['raw']=raw
             except BaseException as e:result['error']=type(e).__name__
             finally:done.set()
+        pump=getattr(self,'_source_pump',None)
+        _need(self not in _SESSION_PUMPS or _SESSION_PUMPS[self] is pump,
+              'original source pump cannot be removed or replaced')
+        if pump is not None:
+            from .original_chain_source_pump_a import OriginalChainSourcePump
+            _need(self._protocol=='functional50_chain_v2' and type(pump) is OriginalChainSourcePump
+                  and _SESSION_PUMPS.get(self) is pump and pump.session is self
+                  and pump.clock is self._clock and threading.get_ident()==self._thread,
+                  'original fixed source pump binding required')
+        if pump is not None and pump.failed:
+            self._unknown=True;raise ValueError('original source pump failed; no replay')
         thread=threading.Thread(target=io,daemon=True);self._threads.append(thread);thread.start()
-        if not done.wait(timeout_ns/1_000_000_000):
-            self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+        if pump is None or not pump.enabled:
+            if not done.wait(timeout_ns/1_000_000_000):
+                self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+        else:
+            end=time.monotonic_ns()+timeout_ns
+            try:
+                while True:
+                    remaining=end-time.monotonic_ns()
+                    if remaining<=0:
+                        self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+                    if done.wait(min(remaining,1_000_000)/1_000_000_000):break
+                    OriginalChainSourcePump.poll_once(pump,self)
+                    if time.monotonic_ns()>=end:
+                        self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+            except BaseException:
+                self._unknown=True;raise
         if 'error' in result:
             self._unknown=True;raise OSError('original SSH I/O unknown: '+result['error'])
         return result['raw']
+    def bind_source_pump(self,pump):
+        """Bind only the fixed same-session owner-thread pump, once."""
+        from .original_chain_source_pump_a import OriginalChainSourcePump
+        self._check()
+        _need(self._protocol=='functional50_chain_v2' and type(pump) is OriginalChainSourcePump
+              and pump.session is self and pump.clock is self._clock
+              and not pump.enabled and not pump.failed and getattr(self,'_source_pump',None) is None
+              and self not in _SESSION_PUMPS,
+              'fixed original disabled source pump required')
+        self._source_pump=pump;_SESSION_PUMPS[self]=pump
     def request(self,request_id,kind,offset,value,*,timeout_ns):
         _need(self._protocol=='scalar_v1','scalar requests refused by batch session')
         self._check();self._quota.check(request_id,kind,offset,value)
@@ -226,6 +261,25 @@ class StartupUnknown(RuntimeError):
         self.session=session
 
 _SESSION_KEY=object()
+_SESSION_ORIGINS={}
+_SESSION_PUMPS={}
+def _original_session_origin(session):
+    """Factory-retained origin; no credential is retained by this registry."""
+    _need(type(session) is Session and session in _SESSION_ORIGINS,'original ready session required')
+    origin=_SESSION_ORIGINS[session]
+    spec,proc,clock,ready,parsed,lower,upper,stdin,stdout,stderr=origin
+    _need(type(spec) is SessionSpec and spec.protocol=='functional50_chain_v2'
+          and session._protocol==spec.protocol and session._proc is proc and session._clock is clock
+          and session._dir.name==spec.operation_id and proc.stdin is stdin
+          and proc.stdout is stdout and proc.stderr is stderr
+          and type(clock) is QpcHostClock and type(ready) is bytes
+          and type(lower) is int and type(upper) is int and 0<=lower<=upper,
+          'original session factory binding changed')
+    _need(type(parsed) is dict and _json(ready)==parsed and parsed.get('schema')=='chain_board_v2'
+          and parsed.get('state')=='ready' and parsed.get('operation_id')==spec.operation_id
+          and parsed.get('manifest_sha256')==spec.remote_manifest_sha256,
+          'original ready changed')
+    return origin
 def open_session(spec,clock,*,sudo_input,timeout_ns):
     _need(type(spec) is SessionSpec and type(clock) is QpcHostClock,'exact spec and QPC required')
     _need(type(timeout_ns) is int and 0<timeout_ns<=_MAX_NS,'timeout bound')
@@ -255,6 +309,8 @@ def open_session(spec,clock,*,sudo_input,timeout_ns):
             _need(type(x) is dict and set(x)=={'schema','state','operation_id','plan_sha256','load_request_hash','build_id','source_commit','policy_file_sha256','manifest_sha256'} and x['schema']==('chain_board_v2' if spec.protocol=='functional50_chain_v2' else 'chain_board_v1') and x['state']=='ready' and x['operation_id']==spec.operation_id and x['manifest_sha256']==spec.remote_manifest_sha256,'chain ready identity')
             _need(all(type(x[k]) is str and 0<len(x[k])<=192 for k in ('plan_sha256','load_request_hash','build_id','source_commit','policy_file_sha256')),'chain ready fields')
         else:_parse_response(raw,None,'ready')
+        if spec.protocol=='functional50_chain_v2':
+            _SESSION_ORIGINS[s]=(spec,proc,clock,raw,x,start['lower_qpc_ns'],upper,proc.stdin,proc.stdout,proc.stderr)
         return s
     except BaseException as error:
         s._unknown=True

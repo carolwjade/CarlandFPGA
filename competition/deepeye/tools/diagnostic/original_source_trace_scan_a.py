@@ -124,8 +124,9 @@ def _check_bundle(bundle):
 
 
 class OriginalSourceTraceScan:
-    """One original source history and at most one frozen B113/B131 scan."""
-    def __init__(self, functional_source, bundle):
+    """One original source history; default one scan, explicit v2 at most two."""
+    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False):
+        _need(type(source_scan_cycle_v2) is bool, 'strict source cycle selection required')
         f = functional_source
         _need(type(f) is FunctionalSource and type(f.book) is root_source_book.RootSourceBook
               and type(f.clock) is host_clock.QpcHostClock and f.source.state == 'RUNNING'
@@ -144,9 +145,16 @@ class OriginalSourceTraceScan:
         self._admitted = []
         self._failed = self._prepared = False
         self._attempt = self._result = None
+        self._source_scan_cycle_v2 = source_scan_cycle_v2
+        self._prepare_count = 0
+        self._last_prepared_index = None
+        self._last_prepared_tick = None
+        self._attempts = []
+        self._results = []
 
     def _check(self):
-        _need(threading.get_ident() == self._thread and not self._failed and not self._prepared,
+        available = self._source_scan_cycle_v2 or not self._prepared
+        _need(threading.get_ident() == self._thread and not self._failed and available,
               'one live original producer on its original thread required')
         f = self._functional
         _need(f.book is self._book and f.source is self._source and f.clock is self._clock
@@ -185,9 +193,20 @@ class OriginalSourceTraceScan:
 
     def prepare(self, payload, *, facts, build_binding):
         self._check()
-        self._prepared = True  # One attempt, including all refused inputs.
+        if self._source_scan_cycle_v2 and self._prepare_count >= 2:
+            self._failed = True
+            raise ValueError('source cycle preparation cap exhausted')
+        self._prepared = True  # Never reset; default mode remains strictly one-shot.
+        self._prepare_count += 1  # Each attempted preparation is consumed, including refusals.
+        if self._source_scan_cycle_v2:
+            self._failed = True  # No retry or new admission after a refused/unknown attempt.
         _need(len(self._admitted) == len(self._functional._retained_samples),
               'entire original source history must be admitted first')
+        if self._source_scan_cycle_v2:
+            _need(len(self._book._samples) == len(self._admitted)
+                  and self._source._count == len(self._admitted)
+                  and self._book._active is None,
+                  'entire original Book history must be admitted first')
         for index, previous in enumerate(self._admitted):
             _need(self._functional._retained_samples[index] is previous['entry']
                   and self._book._samples[index] is previous['draft']
@@ -198,9 +217,22 @@ class OriginalSourceTraceScan:
                   and self._source._handoff_bytes(previous['entry']['payload']) == previous['payload_bytes']
                   and previous['entry']['raw'] == previous['payload_bytes'],
                   'previous original source history changed')
+            if self._source_scan_cycle_v2:
+                _need(previous['token']._ended is True
+                      and previous['draft'].get('status') == 'complete'
+                      and previous['draft'].get('source_count') == index+1,
+                      'original completed history token changed')
         matches = [item for item in self._admitted if item['entry']['payload'] is payload]
         _need(len(matches) == 1, 'original admitted payload object required')
         item = matches[0]
+        if self._source_scan_cycle_v2:
+            index = len(self._admitted)-1
+            _need(index >= 0 and self._admitted[index] is item,
+                  'latest original source sample required')
+            _need(self._last_prepared_index is None or index > self._last_prepared_index,
+                  'strictly newer original source slot required')
+            _need(self._last_prepared_tick is None or item['admission'].record.adc_tick_ms > self._last_prepared_tick,
+                  'strictly newer original source tick required')
         _need(self._functional._retained_sample(payload) is item['entry']
               and item['token']._draft is item['draft'] and item['token']._book is self._book
               and _raw(item['draft']) == item['draft_bytes']
@@ -208,13 +240,32 @@ class OriginalSourceTraceScan:
               'original admitted source or Book bytes changed')
         _check_bundle(self._bundle)
         evaluated = self._clock()
+        if self._source_scan_cycle_v2:
+            self._ledger._observe_time(evaluated, 'evaluation_monotonic_ns')
+            rec = item['admission'].record
+            adc_ns = self._origin + rec.adc_tick_ms*1_000_000
+            _need(0 <= evaluated-adc_ns <= sensor_source.TIMEOUT_NS,
+                  'nominal ADC expired or future at preparation')
+            if rec.em_tick_ms is not None:
+                em_ns = self._origin + rec.em_tick_ms*1_000_000
+                _need(0 <= evaluated-em_ns <= sensor_source.TIMEOUT_NS,
+                      'nominal EM expired or future at preparation')
         request, source, companions = _construct_bytes(payload, item['payload_bytes'], item['draft'],
             self._origin, self._domain, item['received'], evaluated, facts, 'NEW_ORIGINAL_LIVE_ROOT',
             clock_metadata=dict(self._clock.metadata))
         self._attempt = (request, source, companions)
+        if self._source_scan_cycle_v2:
+            _need(all(request != prior[0] and source != prior[1] for prior in self._attempts),
+                  'new original request and source bytes required')
+            self._attempts.append(self._attempt)
         result = self._bundle.adapter.prepare_bytes(request, source, companions,
                                                     build_binding=build_binding)
         self._result = result
         _need(result.status == 'TRACE94_PLAN_PREPARED' and result.plan is not None,
               'original B113/B131 refused: '+str(result.reason))
+        if self._source_scan_cycle_v2:
+            self._last_prepared_index = index
+            self._last_prepared_tick = item['admission'].record.adc_tick_ms
+            self._results.append(result)
+            self._failed = False
         return result
