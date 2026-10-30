@@ -61,6 +61,8 @@ class _InputTransaction:
     observation_record: object = None
     selected_proof: object = None
     request_raw: bytes | None = None
+    original_event: object = None
+    owned_association: object = None
 
 
 class _CandidateOwner:
