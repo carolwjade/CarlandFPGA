@@ -160,6 +160,8 @@ class _CausalSourcePump:
         self._jit_backend = None
         self._source_book = None
         self._polling = False
+        self._completed_enabled = False
+        self._completed_handoff = None
         self.state = 'NEW'
 
     def _bind_software_source_book_for_test(self, book):
@@ -175,6 +177,47 @@ class _CausalSourcePump:
         except BaseException:
             self.state = 'FAILED'
             raise
+
+    def enable_completed_sample_handoff(self):
+        """Opt in once before start, with the already-bound original book."""
+        from ...simulation.authority.root_source_book import RootSourceBook
+        book = self._source_book
+        valid = ((type(self) is CausalSourcePump and type(book) is RootSourceBook)
+                 or (type(self) is _CausalSourcePump
+                     and getattr(book, 'software_fixture_only', None) is True))
+        if (not valid or book.source is not self or self.state != 'NEW'
+                or threading.get_ident() != self._thread or self._completed_enabled):
+            raise ValueError('fresh bound original or distinct software book required')
+        self._completed_enabled = True
+
+    @staticmethod
+    def _handoff_bytes(payload):
+        raw = json.dumps(payload, sort_keys=True, separators=(',', ':'),
+                         ensure_ascii=False, allow_nan=False).encode('utf-8')
+        if len(raw) > 4096:
+            raise ValueError('completed payload exceeds bound')
+        return raw
+
+    def _handoff_check(self, payload, claimed):
+        entry = self._completed_handoff
+        if (not self._completed_enabled or self.state != 'RUNNING' or self._polling
+                or threading.get_ident() != self._thread or entry is None
+                or entry[0] is not self._source_book or entry[2] is not payload
+                or entry[4] is not claimed or self._handoff_bytes(payload) != entry[3]):
+            raise ValueError('unchanged original completed handoff required')
+        from ...simulation.authority.root_source_book import RootSourceBook
+        if type(entry[0]) is RootSourceBook:
+            entry[0]._check()
+        return entry
+
+    def claim_completed_sample(self, payload):
+        entry = self._handoff_check(payload, False)
+        self._completed_handoff = (*entry[:4], True)
+        return entry[1]
+
+    def release_completed_sample(self, payload):
+        self._handoff_check(payload, True)
+        self._completed_handoff = None
 
     def _book_failed(self, primary):
         if self._source_book is not None:
@@ -222,6 +265,8 @@ class _CausalSourcePump:
                 raise
 
     def poll(self):
+        if self._completed_handoff is not None:
+            raise ValueError('completed sample must be claimed and released first')
         entered = False
         try:
             if self._polling:
@@ -294,6 +339,8 @@ class _CausalSourcePump:
                 book.finish_sample(token, payload)
                 if self.state != 'RUNNING':
                     raise ValueError('source book invalidated completed acquisition')
+                if self._completed_enabled:
+                    self._completed_handoff = (book, token, payload, self._handoff_bytes(payload), False)
             return payload
         except BaseException as primary:
             self.state = 'FAILED'
