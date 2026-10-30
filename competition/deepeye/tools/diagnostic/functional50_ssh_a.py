@@ -33,6 +33,9 @@ class SessionSpec:
     local_script_sha256: str
     evidence_parent: str
     operation_id: str
+    protocol: str = 'scalar_v1'
+    remote_manifest: str | None = None
+    remote_manifest_sha256: str | None = None
 
 def _need(ok, message):
     if not ok: raise ValueError(message)
@@ -85,10 +88,25 @@ def _parse_response(raw, request_id, kind):
 def _remote_command(spec):
     for path in (spec.remote_python, spec.remote_script, spec.remote_plan):
         _remote_path(path)
-    return ('/usr/bin/sudo -S -p ' + shlex.quote('') +
+    need_batch = spec.protocol == 'trace_batch_v1'
+    _need(spec.protocol in ('scalar_v1','trace_batch_v1'),'explicit fixed protocol required')
+    if need_batch:
+        _remote_path(spec.remote_manifest)
+        _need(PurePosixPath(spec.remote_script).name=='functional50_board_trace_batch_a.py'
+              and PurePosixPath(spec.remote_manifest).name=='trace-batch-manifest.json'
+              and type(spec.remote_manifest_sha256) is str
+              and re.fullmatch('[0-9a-f]{64}',spec.remote_manifest_sha256) is not None,
+              'fixed batch entry and manifest required')
+    else:
+        _need(spec.remote_manifest is None and spec.remote_manifest_sha256 is None,
+              'scalar protocol has no batch manifest')
+    command = ('/usr/bin/sudo -S -p ' + shlex.quote('') +
             ' /usr/bin/env BOARD=Pynq-Z2 XILINX_XRT=/usr ' +
             shlex.quote(spec.remote_python) + ' -I -B ' +
             shlex.quote(spec.remote_script) + ' ' + shlex.quote(spec.remote_plan))
+    if need_batch:
+        command += ' ' + shlex.quote(spec.remote_manifest) + ' ' + shlex.quote(spec.remote_manifest_sha256)
+    return command
 
 def _write_once(pipe, raw):
     count = pipe.write(raw)
@@ -110,9 +128,9 @@ def _record(directory,name,obj):
     with (directory/name).open('xb') as f:f.write(data);f.flush();os.fsync(f.fileno())
 
 class Session:
-    def __init__(self,key,proc,clock,directory):
+    def __init__(self,key,proc,clock,directory,protocol='scalar_v1'):
         _need(key is _SESSION_KEY,'original session factory required')
-        self._proc=proc;self._clock=clock;self._dir=directory;self._thread=threading.get_ident();self._quota=_Quota();self._unknown=False;self._closed=False;self._stderr=bytearray();self._stderr_overflow=False;self._threads=[];self._cleanup_attempted=False
+        self._proc=proc;self._clock=clock;self._dir=directory;self._thread=threading.get_ident();self._quota=_Quota();self._unknown=False;self._closed=False;self._stderr=bytearray();self._stderr_overflow=False;self._threads=[];self._cleanup_attempted=False;self._protocol=protocol;self._batch_consumed=False
         def drain():
             while True:
                 chunk=proc.stderr.read(1024)
@@ -141,6 +159,7 @@ class Session:
             self._unknown=True;raise OSError('original SSH I/O unknown: '+result['error'])
         return result['raw']
     def request(self,request_id,kind,offset,value,*,timeout_ns):
+        _need(self._protocol=='scalar_v1','scalar requests refused by batch session')
         self._check();self._quota.check(request_id,kind,offset,value)
         raw=(json.dumps(dict(id=request_id,kind=kind,offset=offset,value=value),separators=(',',':'))+'\n').encode('ascii')
         n=self._quota.count
@@ -213,9 +232,12 @@ def open_session(spec,clock,*,sudo_input,timeout_ns):
     parent=Path(spec.evidence_parent);_need(parent.is_absolute() and parent.is_dir() and not parent.is_symlink(),'existing evidence parent')
     directory=parent/spec.operation_id;directory.mkdir(mode=0o700)
     command=_remote_command(spec)
-    _record(directory,'ssh-started.json',dict(operation_id=spec.operation_id,local_script_sha256=spec.local_script_sha256,remote_script=spec.remote_script,remote_plan=spec.remote_plan,remote_hash_verified=False,lower_qpc_ns=clock()))
+    start=dict(operation_id=spec.operation_id,local_script_sha256=spec.local_script_sha256,remote_script=spec.remote_script,remote_plan=spec.remote_plan,remote_hash_verified=False,lower_qpc_ns=clock())
+    if spec.protocol=='trace_batch_v1':
+        start.update(protocol=spec.protocol,remote_manifest=spec.remote_manifest,remote_manifest_sha256=spec.remote_manifest_sha256)
+    _record(directory,'ssh-started.json',start)
     proc=subprocess.Popen([*spec.route,command],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE,bufsize=0,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
-    s=Session(_SESSION_KEY,proc,clock,directory)
+    s=Session(_SESSION_KEY,proc,clock,directory,spec.protocol)
     try:
         _record(directory,'ssh-created.json',dict(pid=proc.pid))
         raw=s._call(sudo_input,timeout_ns);upper=clock()
