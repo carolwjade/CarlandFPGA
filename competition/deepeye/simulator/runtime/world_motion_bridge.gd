@@ -2,6 +2,7 @@ extends RefCounted
 ## Private same-original-Main bridge. Hashes/IDs/labels never create authority.
 const MAGIC := "DEYWRL01"
 const CONTROL_MAX := 16384
+const UI_STATUS_MAX := 8192
 const PAYLOAD_MAX := 65536
 const SNAPSHOT_MAX := 134217728
 const CHUNK_MAX := 45056
@@ -39,6 +40,7 @@ var _socket: StreamPeerTCP
 var _connected_once := false
 var _hello_sent := false
 var _faulted := false
+var _ui_status_display_records := 0 # Observation only; never reset on freeze/edit.
 var _state := "ACQUIRING"
 var _in_seq := PackedByteArray([0,0,0,0,0,0,0,0])
 var _out_seq := PackedByteArray([0,0,0,0,0,0,0,0])
@@ -1573,24 +1575,36 @@ func _handle(raw: PackedByteArray) -> void:
 		"INITIAL_VIEW": ["freeze_id","geometry_identity","pose_revision","desired_pose","desired_transform"],
 		"PUBLISH_VIEW": ["freeze_id","geometry_identity","expected_previous_revision","pose_revision","desired_pose","desired_transform","numerical_receipt_digest"],
 		"QUERY_VIEW": ["freeze_id","publication_operation_id","payload_digest","expected_pose_revision"],
+		"UI_STATUS": ["freeze_id","status_base64"],
 		"STOP": ["freeze_id","reason_code","expected_pose_revision"],
 		"UNLOCK_FOR_EDIT": ["retired_freeze_id","retired_epoch","expected_pose_revision","retirement_record_digest"]}
 	if not bodies.has(message.type) or not _exact(message.body, bodies[message.type]):
-		_refuse(message.operation_id, "malformed")
+		if message.type == "UI_STATUS":
+			local_fault("malformed")
+		else:
+			_refuse(message.operation_id, "malformed")
 		return
 	if _seen_operations.has(message.operation_id) or _seen_operations.size() >= 8192:
-		_refuse(message.operation_id, "duplicate_publish")
+		if message.type == "UI_STATUS":
+			local_fault("malformed")
+		else:
+			_refuse(message.operation_id, "duplicate_publish")
 		return
 	_seen_operations[message.operation_id] = true
 	if message.type == "FREEZE_REQUEST":
 		_begin_freeze(message)
 		return
 	if _freeze.is_empty() or message.world_epoch != _freeze.world_epoch:
-		_refuse(message.operation_id, "stale_epoch")
+		if message.type == "UI_STATUS":
+			local_fault("malformed")
+		else:
+			_refuse(message.operation_id, "stale_epoch")
 		return
 	if not audit_frame():
 		return
 	match message.type:
+		"UI_STATUS":
+			_ui_status(message)
 		"INITIAL_VIEW", "PUBLISH_VIEW":
 			_publish(message, raw)
 		"QUERY_VIEW":
@@ -1599,6 +1613,69 @@ func _handle(raw: PackedByteArray) -> void:
 			_stop(message)
 		"UNLOCK_FOR_EDIT":
 			_unlock(message)
+
+func _ui_status(message: Dictionary) -> void:
+	# The original authenticated run/sequence/operation/epoch/audit gates ran.
+	# This record can only update the already-owned fixed display controls.
+	var body: Dictionary = message.body
+	if not _label(body.freeze_id) or body.freeze_id != _freeze.freeze_id or not body.status_base64 is String or body.status_base64.length() > 10924:
+		local_fault("malformed")
+		return
+	var encoded: String = body.status_base64
+	var raw := Marshalls.base64_to_raw(encoded)
+	if raw.size() < 1 or raw.size() > UI_STATUS_MAX or Marshalls.raw_to_base64(raw) != encoded:
+		local_fault("malformed")
+		return
+	var parsed := _strict_json(raw)
+	if not parsed.ok or not _exact(parsed.value, ["connection","coordinator_ready","stages","data"]):
+		local_fault("malformed")
+		return
+	var status: Dictionary = parsed.value
+	if not status.connection is String or not ["disconnected","pending","connected","failed"].has(status.connection) or typeof(status.coordinator_ready) != TYPE_BOOL or not _exact(status.stages, ["sensor","board_compression","upload_decode","ai_decision","board_readback","motion"]) or not status.data is Dictionary:
+		local_fault("malformed")
+		return
+	for stage in status.stages.values():
+		if not stage is String or not ["pending","observed","failed","disconnected"].has(stage):
+			local_fault("malformed")
+			return
+	var data_keys := ["raw","encoded","decoded","source_time","reconstruction_error","compression_ratio","quality_note","board","build","latency","codec_mode","e0_match"]
+	for key in status.data:
+		var value: Variant = status.data[key]
+		if not data_keys.has(key) or not [TYPE_NIL,TYPE_BOOL,TYPE_INT,TYPE_FLOAT,TYPE_STRING].has(typeof(value)):
+			local_fault("malformed")
+			return
+		if typeof(value) == TYPE_FLOAT and not is_finite(value):
+			local_fault("malformed")
+			return
+		if typeof(value) == TYPE_STRING:
+			if value.length() > 160:
+				local_fault("malformed")
+				return
+			for index in range(value.length()):
+				if value.unicode_at(index) < 32:
+					local_fault("malformed")
+					return
+	status["coordinator_ready"] = false
+	var applied: bool = _main.present_demo30h_status(status)
+	if _ui_status_display_records >= 32:
+		return
+	_ui_status_display_records += 1
+	var labels: Dictionary = _refs.shell._demo_data_labels
+	var display := {"schema": 1, "operation_id": message.operation_id,
+		"status_sha256": sha256(raw), "applied": applied,
+		"connection_label": _ui_status_display_label(_refs.shell._demo_connection),
+		"raw_label": _ui_status_display_label(labels.get("raw")),
+		"decoded_label": _ui_status_display_label(labels.get("decoded")),
+		"reconstruction_label": _ui_status_display_label(labels.get("reconstruction_error"))}
+	var record := JSON.stringify(display)
+	if record.to_utf8_buffer().size() <= 8192:
+		print("DEEPEYE_UI_STATUS_DISPLAY " + record)
+
+func _ui_status_display_label(value: Variant) -> Variant:
+	if not value is Label or not is_instance_valid(value):
+		return null
+	var label: Label = value
+	return label.text.substr(0, 200)
 
 func _begin_freeze(message: Dictionary) -> void:
 	var body: Dictionary = message.body

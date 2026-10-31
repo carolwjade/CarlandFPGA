@@ -11,6 +11,7 @@ from types import MappingProxyType
 MAGIC=b'DEYWRL01'
 MAX_PAYLOAD=65536
 MAX_CONTROL=16384
+MAX_UI_STATUS=8192
 MAX_CHUNK=45056
 MAX_SNAPSHOT=134217728
 MAX_CHUNKS=3072
@@ -115,6 +116,7 @@ _BODIES={
  'PUBLISH_VIEW':('R',dict(freeze_id='Label',geometry_identity='SHA',expected_previous_revision='U64',pose_revision='U64',desired_pose='Pose',desired_transform='F64Transform',numerical_receipt_digest='SHA')),
  'VIEW_READBACK':('G',dict(freeze_identity='Freeze',publication_operation_id='Label',payload_digest='SHA',state=('APPLIED','APPLYING_UNKNOWN','NOT_SEEN'),pose_revision='U64',drill_root_instance_id='U64',local_transform='RealTransform',global_transform='RealTransform',engine_tick='U64',geometry_audit_digest='SHA')),
  'QUERY_VIEW':('R',dict(freeze_id='Label',publication_operation_id='Label',payload_digest='SHA',expected_pose_revision='U64')),
+ 'UI_STATUS':('R',dict(freeze_id='Label',status_base64='Base64')),
  'WORLD_STATUS':('G',dict(freeze_identity='Freeze',state=('FROZEN','BOUND_STOPPED','INVALIDATED'),pose_revision='U64',geometry_audit_digest='SHA',engine_tick='U64')),
  'EDIT_REQUEST':('G',dict(freeze_id='Label',request_kind=('edit','load','randomize','reset','unlock'),document_generation='U64')),
  'STOP_NOTICE':('G',dict(freeze_id='Label',source=('human_escape','human_ui','local_fault','channel_fault'),pose_revision='U64')),
@@ -133,6 +135,8 @@ def validate_message(message):
     _label(message['run_id']);_label(message['operation_id']);epoch=_u64(message['world_epoch'])
     direction,fields=_BODIES[name];body=message['body'];_keys(body,fields)
     for key,kind in fields.items():_validate(body[key],kind)
+    if name=='UI_STATUS' and not 1<=len(base64.b64decode(body['status_base64'],validate=True))<=MAX_UI_STATUS:
+        raise WireFault('UI status decoded bytes over budget')
     if name=='HELLO' and epoch!=0:raise WireFault('HELLO epoch must be zero')
     if name=='INITIAL_VIEW' and body['pose_revision']!='0':raise WireFault('initial revision must be zero')
     if name=='PUBLISH_VIEW' and _u64(body['pose_revision'])!=_u64(body['expected_previous_revision'])+1:raise WireFault('publication revision must increase once')
