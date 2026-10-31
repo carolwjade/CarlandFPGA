@@ -172,7 +172,15 @@ class SourceLedger:
     monotonic domain. Do not recreate this ledger to hide faults or replay.
     """
 
-    def __init__(self, *, start_tick_ms, start_monotonic_ns):
+    def __init__(self, *, start_tick_ms, start_monotonic_ns, _demo_age_budget=None, _scanner=None):
+        self._demo_age_budget = _demo_age_budget
+        self._demo_scanner = _scanner
+        self._demo_age_observations = []
+        if _demo_age_budget is not None:
+            from ..tools.diagnostic import demo30h_age_budget_a as demo
+            demo._bind_ledger(_demo_age_budget, _scanner, self)
+        elif _scanner is not None:
+            raise ValueError("demo scanner requires original age selection")
         self._start_tick = _tick(start_tick_ms, 'start_tick_ms', 10)
         self._start_ns = _integer(start_monotonic_ns, 'start_monotonic_ns')
         self._clock_high_water_ns = self._start_ns
@@ -199,6 +207,16 @@ class SourceLedger:
     def _time_ns(self, tick):
         return self._start_ns + (tick - self._start_tick) * NS_PER_MS
 
+    @property
+    def demo_age_observations(self):
+        return tuple(dict(item) for item in self._demo_age_observations)
+
+    def _acceptance_age_limit(self):
+        if self._demo_age_budget is None:
+            return TIMEOUT_NS
+        from ..tools.diagnostic import demo30h_age_budget_a as demo
+        return demo._ledger_limit(self._demo_age_budget, self._demo_scanner, self)
+
     def accept_json(self, raw, *, received_monotonic_ns):
         now = self._observe_time(received_monotonic_ns, 'received_monotonic_ns')
         return self.accept(_decode(raw), received_monotonic_ns=now)
@@ -211,7 +229,12 @@ class SourceLedger:
         if rec.adc_tick_ms < self._start_tick:
             raise ValueError('record predates run origin')
         lag = now - self._time_ns(rec.adc_tick_ms)
-        if not 0 <= lag <= TIMEOUT_NS:
+        limit = self._acceptance_age_limit()
+        if self._demo_age_budget is not None:
+            if len(self._demo_age_observations) >= 1001: raise ValueError('demo age observation cap')
+            em_age = None if rec.em_tick_ms is None else now - self._time_ns(rec.em_tick_ms)
+            self._demo_age_observations.append(dict(operation_id=self._demo_age_budget.operation_id, clock_domain_id=self._demo_age_budget.clock_domain_id, receiver_qpc_ns=now, adc_age_ns=lag, em_age_ns=em_age, selected_budget_ns=limit, target_100ms_met=(0 <= lag <= TIMEOUT_NS and (em_age is not None and 0 <= em_age <= TIMEOUT_NS))))
+        if not 0 <= lag <= limit:
             raise ValueError('ADC record is future or older than source timeout')
         previous = state.last_record
         if previous is None:
@@ -242,7 +265,7 @@ class SourceLedger:
         healthy_received = state.last_healthy_received_ns
         if rec.em_tick_ms is not None:
             # Delayed delivery cannot turn an expired EM timestamp fresh.
-            if now - self._time_ns(rec.em_tick_ms) > TIMEOUT_NS:
+            if now - self._time_ns(rec.em_tick_ms) > limit:
                 raise ValueError('EM already expired at receiver')
             healthy_received = now
         self._snapshot = LedgerSnapshot(

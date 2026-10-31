@@ -91,6 +91,23 @@ var _action_status_label: Label
 var _ratio_label: Label
 var _ticks_check: CheckButton
 
+# Display only: the coordinator owns readiness, receipts and all motion.
+var _demo_root: VBoxContainer
+var _demo_run: Button
+var _demo_connection: Label
+var _demo_stage_labels: Dictionary = {}
+var _demo_data_labels: Dictionary = {}
+var _demo_ready := false
+const DEMO_STAGES := [
+    ["sensor", "传感"], ["board_compression", "板端压缩"],
+    ["upload_decode", "上传 / 解压"], ["ai_decision", "AI 决策"],
+    ["board_readback", "板端回读"], ["motion", "模拟器实际运动"]]
+const DEMO_DATA := [
+    ["raw", "原始值"], ["encoded", "编码数据"], ["decoded", "解压值"],
+    ["source_time", "源时间"], ["reconstruction_error", "还原差异 / 模式"],
+    ["compression_ratio", "压缩比"], ["quality_note", "质量说明"],
+    ["board", "板卡"], ["build", "构建"], ["latency", "延迟"]]
+
 func _ready() -> void:
 	if _initialized:
 		return
@@ -496,6 +513,7 @@ func _build_right(box: VBoxContainer) -> void:
 	box.add_child(stop_row)
 	_stop_button = _button("停止（等同 Esc）", _on_stop_pressed)
 	stop_row.add_child(_stop_button)
+	_build_demo30h_panel(box)
 	box.add_child(_title("布局锁定"))
 	var lock_row := HBoxContainer.new()
 	box.add_child(lock_row)
@@ -517,6 +535,99 @@ func _build_right(box: VBoxContainer) -> void:
 	greybox_note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	greybox_note.text = "开发灰盒：临时图元替换件，非最终画质、非最终资产（B 交付前可见标注）。"
 	box.add_child(greybox_note)
+
+# This panel sends requests only. It never creates board or movement evidence.
+func _build_demo30h_panel(box: VBoxContainer) -> void:
+	_demo_root = VBoxContainer.new()
+	_demo_root.name = "Demo30hPanel"
+	box.add_child(_demo_root)
+	_demo_root.add_child(_title("30h 闭环演示"))
+	_demo_connection = Label.new()
+	_demo_connection.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_demo_connection.text = "协调程序: 未连接"
+	_demo_root.add_child(_demo_connection)
+	var row := HBoxContainer.new()
+	_demo_root.add_child(row)
+	_demo_run = _button("请求运行", _on_demo30h_run_pressed)
+	_demo_run.disabled = true
+	_demo_run.tooltip_text = "等待协调程序明确就绪"
+	row.add_child(_demo_run)
+	row.add_child(_button("停止（等同 Esc）", _on_stop_pressed))
+	for item: Array in DEMO_STAGES:
+		var label := Label.new()
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.text = String(item[1]) + ": 待连接"
+		_demo_root.add_child(label)
+		_demo_stage_labels[item[0]] = label
+	for item: Array in DEMO_DATA:
+		var label := Label.new()
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		label.text = String(item[1]) + ": —"
+		_demo_root.add_child(label)
+		_demo_data_labels[item[0]] = label
+
+func _demo30h_text(value: Variant) -> String:
+	if value == null:
+		return "—"
+	if typeof(value) not in [TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
+		return "—"
+	var result := str(value)
+	return result.substr(0, 160) if result.length() > 160 else result
+
+# Snapshot schema is documented in the A290 handoff; missing fields clear.
+func present_demo30h_status(status: Variant) -> bool:
+	if _demo_root == null or _demo_run == null:
+		return false
+	_demo_ready = false
+	_demo_run.disabled = true
+	if typeof(status) != TYPE_DICTIONARY:
+		_demo_connection.text = "协调程序: 状态无效"
+		for item: Array in DEMO_STAGES:
+			_demo_stage_labels[item[0]].text = String(item[1]) + ": 未连接"
+		for item: Array in DEMO_DATA:
+			_demo_data_labels[item[0]].text = String(item[1]) + ": —"
+		return false
+	var connection: Variant = status.get("connection", "disconnected")
+	var ready: Variant = status.get("coordinator_ready", false)
+	var stages: Variant = status.get("stages", {})
+	var data: Variant = status.get("data", {})
+	if typeof(connection) != TYPE_STRING or not ["disconnected", "pending", "connected", "failed"].has(connection) or typeof(ready) != TYPE_BOOL or typeof(stages) != TYPE_DICTIONARY or typeof(data) != TYPE_DICTIONARY:
+		_demo_connection.text = "协调程序: 状态无效"
+		for item: Array in DEMO_STAGES:
+			_demo_stage_labels[item[0]].text = String(item[1]) + ": 未连接"
+		for item: Array in DEMO_DATA:
+			_demo_data_labels[item[0]].text = String(item[1]) + ": —"
+		return false
+	var text := {"disconnected": "未连接", "pending": "等待中", "connected": "已连接", "failed": "失败"}
+	_demo_connection.text = "协调程序: " + text[connection]
+	var failed := false
+	for item: Array in DEMO_STAGES:
+		var state: Variant = stages.get(item[0], "pending")
+		if typeof(state) != TYPE_STRING or not ["pending", "observed", "failed", "disconnected"].has(state):
+			state = "failed"
+		var shown := {"pending": "等待中", "observed": "已报告", "failed": "失败", "disconnected": "未连接"}
+		_demo_stage_labels[item[0]].text = String(item[1]) + ": " + shown[state]
+		failed = failed or state == "failed"
+	for item: Array in DEMO_DATA:
+		_demo_data_labels[item[0]].text = String(item[1]) + ": " + _demo30h_text(data.get(item[0], null))
+	var difference := _demo30h_text(data.get("reconstruction_error", null))
+	var mode := _demo30h_text(data.get("codec_mode", null))
+	var legacy: Variant = data.get("e0_match", null)
+	var legacy_text := "未知"
+	if typeof(legacy) == TYPE_BOOL:
+		legacy_text = "一致" if legacy else "不一致"
+	_demo_data_labels["reconstruction_error"].text = "还原差异 / 模式: %s / %s · E=0 比对: %s" % [difference, mode, legacy_text]
+	_demo_ready = ready and connection == "connected" and not failed
+	_demo_run.disabled = not _demo_ready
+	_demo_run.tooltip_text = "发送运行请求" if _demo_ready else "等待协调程序明确就绪"
+	return true
+
+func _on_demo30h_run_pressed() -> void:
+	if not _demo_ready or _main == null or not _main.has_method("_request_demo30h_run"):
+		return
+	_demo_ready = false
+	_demo_run.disabled = true
+	_main._request_demo30h_run()
 
 func _build_file_dialog() -> void:
 	_file_dialog = FileDialog.new()

@@ -18,6 +18,8 @@ const DocScript = preload("res://editor/scene_document.gd")
 const PresenterScript = preload("res://viewer/asset_presenter.gd")
 const AuthorityPoseBridgeScript = preload("res://viewer/authority_pose_bridge.gd")
 
+signal demo30h_run_requested
+
 var document: RefCounted
 var shell: CanvasLayer
 
@@ -107,6 +109,8 @@ func _ready() -> void:
 	if not _owned_attach_managed(_world, _selection_box, "main_source_attach"):
 		return
 	shell.bind_editor(self, document)
+	if not _owned_register_demo_ui():
+		return
 	document.layout_changed.connect(_sync_obstacles)
 	document.gates_changed.connect(_sync_gates)
 	document.selection_changed.connect(_on_selection_changed)
@@ -115,6 +119,28 @@ func _ready() -> void:
 	apply_camera()
 	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.30m；权威未连接、无运动（运行禁用）")
 	_owned_ready_completed = true
+
+# Only shell-owned, scriptless Control observers are registered here.
+func _owned_register_demo_ui() -> bool:
+	var root: Node = shell._demo_root
+	if not is_instance_valid(root) or not shell.is_ancestor_of(root):
+		return _owned_fail("custody", "demo_ui_parent_refused")
+	var nodes: Array = []
+	_owned_walk(root, nodes)
+	for item: Node in nodes:
+		if not item is Control or item.get_script() != null or _owned_custody_contains(item):
+			return _owned_fail("custody", "demo_ui_node_refused")
+	for item: Node in nodes:
+		_owned_record_fixed(item, "demo_ui_observer")
+	return true
+
+func present_demo30h_status(status: Variant) -> bool:
+	if not _owned_ready_completed or not is_instance_valid(shell):
+		return false
+	return shell.present_demo30h_status(status)
+
+func _request_demo30h_run() -> void:
+	demo30h_run_requested.emit()
 
 # Presentation is a separate entry mode, never permission to move a world.
 # Retained direct bridges call this same narrow original-target guard.

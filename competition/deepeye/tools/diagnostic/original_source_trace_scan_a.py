@@ -126,7 +126,7 @@ def _check_bundle(bundle):
 
 class OriginalSourceTraceScan:
     """One original source history; default one scan, explicit v2 at most two."""
-    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False, defer_start=False):
+    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False, defer_start=False, demo_age_budget=None):
         _need(type(source_scan_cycle_v2) is bool, 'strict source cycle selection required')
         _need(type(defer_start) is bool and (not defer_start or source_scan_cycle_v2),
               'deferred start requires explicit source cycle v2')
@@ -152,6 +152,12 @@ class OriginalSourceTraceScan:
         self._origin = f.source._origin
         self._domain = f.clock.metadata['domain_id']
         self._bundle = bundle
+        self._demo_age_budget = demo_age_budget
+        self._demo_age_observations = []
+        if demo_age_budget is not None:
+            _need(source_scan_cycle_v2 and defer_start, 'demo age requires deferred v2 source')
+            from . import demo30h_age_budget_a as demo
+            demo._bind_scanner(demo_age_budget, self)
         self._defer_start = defer_start
         self._activated = not defer_start
         self._activation_attempted = not defer_start
@@ -192,7 +198,7 @@ class OriginalSourceTraceScan:
               and self._ledger is None and self._origin is None,
               'fresh once-started original source and Book required')
         self._origin = self._source._origin
-        self._ledger = sensor_source.SourceLedger(start_tick_ms=0, start_monotonic_ns=self._origin)
+        self._ledger = sensor_source.SourceLedger(start_tick_ms=0, start_monotonic_ns=self._origin, _demo_age_budget=self._demo_age_budget, _scanner=self if self._demo_age_budget is not None else None)
         self._activated = True
         self._failed = False
 
@@ -289,13 +295,7 @@ class OriginalSourceTraceScan:
         if self._source_scan_cycle_v2:
             self._ledger._observe_time(evaluated, 'evaluation_monotonic_ns')
             rec = item['admission'].record
-            adc_ns = self._origin + rec.adc_tick_ms*1_000_000
-            _need(0 <= evaluated-adc_ns <= sensor_source.TIMEOUT_NS,
-                  'nominal ADC expired or future at preparation')
-            if rec.em_tick_ms is not None:
-                em_ns = self._origin + rec.em_tick_ms*1_000_000
-                _need(0 <= evaluated-em_ns <= sensor_source.TIMEOUT_NS,
-                      'nominal EM expired or future at preparation')
+            self._work_fresh(rec.adc_tick_ms, rec.em_tick_ms, evaluated, phase='prepare')
         request, source, companions = _construct_bytes(payload, item['payload_bytes'], item['draft'],
             self._origin, self._domain, item['received'], evaluated, facts, 'NEW_ORIGINAL_LIVE_ROOT',
             clock_metadata=dict(self._clock.metadata))
@@ -345,12 +345,25 @@ class OriginalSourceTraceScan:
         _need(len(self._admitted)==len(f._retained_samples)==len(self._book._samples)==self._source._count
               and self._book._active is None,'original complete ordered history required')
 
-    def _work_fresh(self, adc_tick, em_tick, now):
+    @property
+    def demo_age_observations(self):
+        return tuple(dict(item) for item in getattr(self,'_demo_age_observations',()))
+
+    def _work_fresh(self, adc_tick, em_tick, now, *, phase='check'):
         adc=self._origin+adc_tick*1_000_000
-        _need(0<=now-adc<=sensor_source.TIMEOUT_NS,'nominal ADC expired or future')
+        limit=sensor_source.TIMEOUT_NS
+        token=getattr(self,'_demo_age_budget',None)
+        if token is not None:
+            from . import demo30h_age_budget_a as demo
+            limit=demo._verify(token,self)
+            if not hasattr(self,'_demo_age_observations'):self._demo_age_observations=[]
+            _need(len(self._demo_age_observations)<4096,'demo age observation cap')
+            em_age=None if em_tick is None else now-(self._origin+em_tick*1_000_000)
+            self._demo_age_observations.append(dict(operation_id=token.operation_id,clock_domain_id=token.clock_domain_id,phase=phase,observed_qpc_ns=now,adc_age_ns=now-adc,em_age_ns=em_age,selected_budget_ns=limit,target_100ms_met=(0<=now-adc<=sensor_source.TIMEOUT_NS and (em_age is not None and 0<=em_age<=sensor_source.TIMEOUT_NS))))
+        _need(0<=now-adc<=limit,'nominal ADC expired or future')
         if em_tick is not None:
             em=self._origin+em_tick*1_000_000
-            _need(0<=now-em<=sensor_source.TIMEOUT_NS,'nominal EM expired or future')
+            _need(0<=now-em<=limit,'nominal EM expired or future')
 
     def _work_original_pump(self, pump):
         from .original_chain_source_pump_a import OriginalChainSourcePump
@@ -401,7 +414,7 @@ class OriginalSourceTraceScan:
             _need(self._functional._retained_sample(payload) is item['entry'],'original selected payload changed')
             self._work_pump(pump,end)
             evaluated=self._clock();_need(evaluated<end,'preparation deadline expired')
-            self._ledger._observe_time(evaluated,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,evaluated)
+            self._ledger._observe_time(evaluated,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,evaluated,phase='prepare')
             self._work_pump(pump,end);facts_bytes=_raw(facts)
             self._work_pump(pump,end);binding_bytes=_raw(build_binding)
             self._work_pump(pump,end);metadata_bytes=_raw(dict(self._clock.metadata));self._work_pump(pump,end)
@@ -434,7 +447,7 @@ class OriginalSourceTraceScan:
             self._work_pump(pump,end);_need(_raw(facts)==facts_bytes,'root facts changed')
             self._work_pump(pump,end);_need(_raw(build_binding)==binding_bytes,'root binding changed')
             self._work_pump(pump,end)
-            current=self._clock();_need(current<end,'preparation deadline expired');self._ledger._observe_time(current,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,current)
+            current=self._clock();_need(current<end,'preparation deadline expired');self._ledger._observe_time(current,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,current,phase='commit')
             self._last_prepared_index=index;self._last_prepared_tick=adc_tick;self._results.append(result)
             if not hasattr(self,'_prepared_work'):self._prepared_work={}
             self._prepared_work[id(result)]=dict(result=result,original=result.original,attempt=job.attempt,job=job,prefix=prefix,item=item,pump=pump,end=end,record=rec,adc_tick=adc_tick,em_tick=em_tick,used=False)
@@ -470,6 +483,6 @@ class OriginalSourceTraceScan:
             rec=record['item']['admission'].record
             _need(rec is record['record'] and rec.adc_tick_ms==record['adc_tick'] and rec.em_tick_ms==record['em_tick'],'original selected timestamps changed')
             now=self._clock();_need(now<record['end'],'original preparation deadline expired')
-            self._ledger._observe_time(now,'evaluation_monotonic_ns');self._work_fresh(record['adc_tick'],record['em_tick'],now)
+            self._ledger._observe_time(now,'evaluation_monotonic_ns');self._work_fresh(record['adc_tick'],record['em_tick'],now,phase='dispatch')
             return record['end']
         except BaseException:self._failed=True;raise
