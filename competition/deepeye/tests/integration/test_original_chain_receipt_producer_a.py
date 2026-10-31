@@ -10,19 +10,29 @@ class Tests(unittest.TestCase):
  def fixture(self,tmp):
   clock=object.__new__(QpcHostClock);world=object.__new__(FunctionalWorld);source=object.__new__(FunctionalSource)
   world.clock=clock;world._thread=threading.get_ident();world.operation_id='op';world.source=source;world.owner=object();world.binding=object()
-  source.clock=clock;source.owner=world.owner;source.binding=world.binding;source._thread=threading.get_ident();source.book=object();source.source=types.SimpleNamespace(state='RUNNING',_count=0);source._retained_samples=[]
-  bundle=object.__new__(loader._Bundle);scanner=object.__new__(scan.OriginalSourceTraceScan);scanner._functional=source;scanner._clock=clock;scanner._bundle=bundle;scanner._source=source.source;scanner._book=source.book;scanner._thread=threading.get_ident();scanner._source_scan_cycle_v2=True;scanner._admitted=[];scanner._prepared=False;scanner._failed=False;scanner._prepare_count=0
-  s=object.__new__(ssh.Session);s._protocol='functional50_chain_v2';s._clock=clock;s._proc=types.SimpleNamespace(stdin=object(),stdout=object(),stderr=object());s._dir=Path(tmp)/'op';s._unknown=False;s._closed=False;s._thread=threading.get_ident()
-  chain=object.__new__(client.ChainSessionV2);chain.s=s;chain.clock=clock;chain.bundle=bundle;chain.thread=threading.get_ident();chain.sequence=protocol.Sequence()
+  source.clock=clock;source.owner=world.owner;source.binding=world.binding;source._thread=threading.get_ident();source.book=types.SimpleNamespace(_origin=100);source.source=types.SimpleNamespace(state='RUNNING',_count=0,_origin=100);source._retained_samples=[];source._start_attempted=True
+  bundle=object.__new__(loader._Bundle);scanner=object.__new__(scan.OriginalSourceTraceScan);scanner._functional=source;scanner._clock=clock;scanner._bundle=bundle;scanner._source=source.source;scanner._book=source.book;scanner._thread=threading.get_ident();scanner._source_scan_cycle_v2=True;scanner._admitted=[];scanner._prepared=False;scanner._failed=False;scanner._prepare_count=0;scanner._activated=True;scanner._origin=100;scanner._ledger=object()
+  s=object.__new__(ssh.Session);s._protocol='functional50_chain_v2';s._clock=clock;s._proc=types.SimpleNamespace(stdin=object(),stdout=object(),stderr=object());s._dir=Path(tmp)/'op';s._dir.mkdir();s._unknown=False;s._closed=False;s._thread=threading.get_ident();s._check=lambda:None
+  spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy');ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+  origin_patch=patch.dict(ssh._SESSION_ORIGINS,{s:origin});origin_patch.start();self.addCleanup(origin_patch.stop)
+  ticks=iter(range(10,10000));clock_patch=patch.object(QpcHostClock,'__call__',lambda _:next(ticks));clock_patch.start();self.addCleanup(clock_patch.stop)
+  chain=client.ChainSessionV2(s,bundle,clock)
   return world,source,bundle,scanner,s,chain,clock
+ def issue(self,chain,ident,kind,status='COMPLETE',correlation=None):
+  """Synthetic transport, but phase is allocated by the real _send path."""
+  doc=dict(schema='functional50_chain_v2',id=ident,operation_id='op',kind=kind,status=status,result={} if status=='COMPLETE' else None,error=None if status=='COMPLETE' else 'OSError',unknown=status=='UNKNOWN')
+  chain.s._call=lambda *_:(json.dumps(doc)+'\n').encode()
+  payload=({'identity_words':[1]*13,'max_commands':2,'max_polls':64,'duration_ns':1000,'max_io':450} if kind=='init' else {'request_hex':'00','source_hex':'01','companions_hex':['02']*4,'build_binding':{},'max_io':2000} if kind=='trace_scan' else {})
+  out=chain._send(ident,kind,payload,100);out['correlation']=correlation;return out
  def test_opaque_one_use_original_event_and_swap_refused(self):
   from competition.deepeye.tools.diagnostic import original_chain_receipt_producer_a as producer
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp)
    spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+   origin=ssh._SESSION_ORIGINS[s]
    doc=dict(schema='functional50_chain_v2',id='x',operation_id='op',kind='init',status='COMPLETE',result={},error=None,unknown=False);raw=(json.dumps(doc)+'\n').encode()
-   def fake_init(self,ident,*a,**k):self.sequence.ids.add(ident);return dict(response=doc,raw_response=raw,lower_qpc_ns=10,upper_qpc_ns=20)
+   test=self
+   def fake_init(chain,ident,*a,**k):return test.issue(chain,ident,'init')
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(client.ChainSessionV2,'init',fake_init):
     p=producer.OriginalChainReceiptProducer(world,chain,scanner);event=p.init('x',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
     self.assertNotIsInstance(event,dict)
@@ -40,10 +50,11 @@ class Tests(unittest.TestCase):
   from competition.deepeye.tools.diagnostic import original_chain_receipt_producer_a as producer
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp);spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+   origin=ssh._SESSION_ORIGINS[s]
    doc=dict(schema='functional50_chain_v2',id='x',operation_id='op',kind='init',status='UNKNOWN',result=None,error='OSError',unknown=True);raw=(json.dumps(doc)+'\n').encode()
    calls=[]
-   def fake_init(self,ident,*a,**k):calls.append(ident);self.sequence.ids.add(ident);return dict(response=doc,raw_response=raw,lower_qpc_ns=10,upper_qpc_ns=20)
+   test=self
+   def fake_init(chain,ident,*a,**k):calls.append(ident);return test.issue(chain,ident,'init','UNKNOWN')
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(client.ChainSessionV2,'init',fake_init):
     p=producer.OriginalChainReceiptProducer(world,chain,scanner);event=p.init('x',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
     self.assertTrue(producer.consume_original_receipt(event)[0]['response']['unknown'])
@@ -54,16 +65,17 @@ class Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp)
    spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+   origin=ssh._SESSION_ORIGINS[s]
    class Preparation:pass
    bundle.adapter=types.SimpleNamespace(Preparation=Preparation)
    payload=object();draft={'status':'complete'};token=types.SimpleNamespace(_draft=draft,_handle=object(),_em_handle=None);admission=object();item={'entry':{'payload':payload},'token':token,'draft':draft,'payload_bytes':b'source','received':15,'admission':admission}
    prepared=Preparation();prepared.original=types.SimpleNamespace(request=b'request',source=b'source',companions=(b'a',b'b',b'c',b'd'))
    def admit(self,value):self._admitted.append(item);return admission
    def prepare(self,value,*,facts,build_binding):self._result=prepared;return prepared
-   def result(self,ident,*a,**k):
-    self.sequence.ids.add(ident);kind='trace_scan' if ident=='scan' else 'init';doc=dict(schema='functional50_chain_v2',id=ident,operation_id='op',kind=kind,status='COMPLETE',result={},error=None,unknown=False)
-    return dict(response=doc,raw_response=(json.dumps(doc)+'\n').encode(),lower_qpc_ns=20,upper_qpc_ns=30,correlation={'status':'FOUR_FRAME_CORRELATION_CONSISTENT'} if kind=='trace_scan' else None)
+   test=self
+   def result(chain,ident,*a,**k):
+    kind='trace_scan' if ident=='scan' else 'init'
+    return test.issue(chain,ident,kind,correlation={'status':'FOUR_FRAME_CORRELATION_CONSISTENT'} if kind=='trace_scan' else None)
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(client.ChainSessionV2,'init',result),patch.object(client.ChainSessionV2,'trace_scan',result),patch.object(scan.OriginalSourceTraceScan,'admit',admit),patch.object(scan.OriginalSourceTraceScan,'prepare',prepare):
     p=producer.OriginalChainReceiptProducer(world,chain,scanner)
     first=p.init('init',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
@@ -78,8 +90,10 @@ class Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp)
    spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
-   def bad(self,ident,*a,**k):self.sequence.ids.add(ident);return dict(response={},raw_response=b'{bad}\n',lower_qpc_ns=10,upper_qpc_ns=20)
+   origin=ssh._SESSION_ORIGINS[s]
+   def bad(chain,ident,*a,**k):
+    chain.s._call=lambda *_:b'{bad}\n'
+    return chain._send(ident,'init',dict(identity_words=[1]*13,max_commands=2,max_polls=64,duration_ns=1000,max_io=450),100)
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(client.ChainSessionV2,'init',bad):
     p=producer.OriginalChainReceiptProducer(world,chain,scanner)
     with self.assertRaises(ValueError):p.init('x',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
@@ -89,9 +103,10 @@ class Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp)
    spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+   origin=ssh._SESSION_ORIGINS[s]
    doc=dict(schema='functional50_chain_v2',id='x',operation_id='op',kind='init',status='COMPLETE',result={},error=None,unknown=False)
-   def init(self,ident,*a,**k):self.sequence.ids.add(ident);return dict(response=doc,raw_response=(json.dumps(doc)+'\n').encode(),lower_qpc_ns=10,upper_qpc_ns=20)
+   test=self
+   def init(chain,ident,*a,**k):return test.issue(chain,ident,'init')
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(client.ChainSessionV2,'init',init):
     p=producer.OriginalChainReceiptProducer(world,chain);event=p.init('x',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
     p.bind_scanner(scanner);self.assertIs(producer.consume_original_receipt(event)[1]['scanner'],None)
@@ -121,16 +136,15 @@ class Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    world,source,bundle,scanner,s,chain,clock=self.fixture(tmp);s._check=lambda:None
    spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
-   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,clock,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
+   origin=ssh._SESSION_ORIGINS[s]
    pump=object.__new__(pm.OriginalChainSourcePump);pump._session=s;pump._source=source;pump._scanner=scanner;pump._clock=clock;pump._enabled=False;pump._failed=False;pump._history=[];pump._pending=None
    token=types.SimpleNamespace(_handle=object(),_em_handle=None);draft={'status':'complete'};token._draft=draft;payload=object();admission=object();entry={'payload':payload};item=dict(entry=entry,token=token,draft=draft,admission=admission,payload_bytes=b'payload',received=15)
    def fake_enable(self):self._enabled=True
    def fake_poll(self,session):scanner._admitted.append(item);self._history.append(pm.PumpRecord(payload,token,entry,draft,admission,15,True))
-   def response(self,ident,*args,**kwargs):
-    self.sequence.ids.add(ident)
+   test=self
+   def response(chain,ident,*args,**kwargs):
     if ident=='status':pm.OriginalChainSourcePump.poll_once(pump,s)
-    doc=dict(schema='functional50_chain_v2',id=ident,operation_id='op',kind='init' if ident=='init' else 'status',status='COMPLETE',result={},error=None,unknown=False)
-    return dict(response=doc,raw_response=(json.dumps(doc)+'\n').encode(),lower_qpc_ns=20,upper_qpc_ns=30)
+    return test.issue(chain,ident,'init' if ident=='init' else 'status')
    with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.dict(ssh._SESSION_PUMPS,{}),patch.object(client.ChainSessionV2,'init',response),patch.object(client.ChainSessionV2,'status',response),patch.object(pm.OriginalChainSourcePump,'enable',fake_enable),patch.object(pm.OriginalChainSourcePump,'poll_once',fake_poll):
     p=producer.OriginalChainReceiptProducer(world,chain);initial=p.init('init',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
     p.bind_scanner(scanner);p.bind_pump(pump);p.enable_pump();response_event=p.status('status',timeout_ns=100);pending=p.take_pending_events()

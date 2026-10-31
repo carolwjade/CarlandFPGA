@@ -125,23 +125,37 @@ def _check_bundle(bundle):
 
 class OriginalSourceTraceScan:
     """One original source history; default one scan, explicit v2 at most two."""
-    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False):
+    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False, defer_start=False):
         _need(type(source_scan_cycle_v2) is bool, 'strict source cycle selection required')
+        _need(type(defer_start) is bool and (not defer_start or source_scan_cycle_v2),
+              'deferred start requires explicit source cycle v2')
         f = functional_source
         _need(type(f) is FunctionalSource and type(f.book) is root_source_book.RootSourceBook
-              and type(f.clock) is host_clock.QpcHostClock and f.source.state == 'RUNNING'
-              and f.source._clock is f.clock and f.book._clock is f.clock
+              and type(f.clock) is host_clock.QpcHostClock and f.book._clock is f.clock
               and f.source._source_book is f.book and f.book._source is f.source
-              and f.book._origin == f.source._origin and f.source._origin is not None
               and f.source._count == 0 and not f.book._samples and not f._retained_samples,
-              'fresh started original functional source before first sample required')
+              'fresh original functional source before first sample required')
+        if defer_start:
+            _need(f.source.state == 'NEW' and f.source._origin is None and f.source._clock is None
+                  and f.book._origin is None and f.book._state == 'NEW' and f.book._active is None
+                  and f.source._last_tick is None and not f.source._polling
+                  and not f._start_attempted and f._pending is None,
+                  'fresh prepared original source before start required')
+        else:
+            _need(f.source.state == 'RUNNING' and f.source._clock is f.clock
+                  and f.book._origin == f.source._origin and f.source._origin is not None,
+                  'fresh started original functional source required')
         f._check_thread(); f.book._check(); _check_bundle(bundle)
         self._thread = threading.get_ident()
         self._functional, self._book, self._source, self._clock = f, f.book, f.source, f.clock
         self._origin = f.source._origin
         self._domain = f.clock.metadata['domain_id']
         self._bundle = bundle
-        self._ledger = sensor_source.SourceLedger(start_tick_ms=0, start_monotonic_ns=self._origin)
+        self._defer_start = defer_start
+        self._activated = not defer_start
+        self._activation_attempted = not defer_start
+        self._ledger = (None if defer_start else sensor_source.SourceLedger(
+            start_tick_ms=0, start_monotonic_ns=self._origin))
         self._admitted = []
         self._failed = self._prepared = False
         self._attempt = self._result = None
@@ -152,9 +166,36 @@ class OriginalSourceTraceScan:
         self._attempts = []
         self._results = []
 
+    def activate_started_source(self):
+        """Bind the actual once-started origin without rehashing or starting it."""
+        already_attempted = self._activation_attempted
+        previously_failed = self._failed
+        self._activation_attempted = True
+        self._failed = True
+        f = self._functional
+        _need(not already_attempted and not previously_failed and self._defer_start and not self._activated
+              and threading.get_ident() == self._thread and f.book is self._book
+              and f.source is self._source and f.clock is self._clock
+              and f._start_attempted and self._source.state == 'RUNNING'
+              and self._source._source_book is self._book and self._book._source is self._source
+              and self._source._clock is self._clock and self._book._clock is self._clock
+              and type(self._source._origin) is int and 0 <= self._source._origin < (1 << 63)
+              and self._book._origin == self._source._origin and self._book._state == 'RUNNING'
+              and self._source._count == 0 and self._source._last_tick is None and not self._source._polling
+              and not self._book._samples and self._book._active is None
+              and not f._retained_samples and f._pending is None
+              and not self._admitted and not self._prepared and self._prepare_count == 0
+              and self._ledger is None and self._origin is None,
+              'fresh once-started original source and Book required')
+        self._origin = self._source._origin
+        self._ledger = sensor_source.SourceLedger(start_tick_ms=0, start_monotonic_ns=self._origin)
+        self._activated = True
+        self._failed = False
+
     def _check(self):
         available = self._source_scan_cycle_v2 or not self._prepared
-        _need(threading.get_ident() == self._thread and not self._failed and available,
+        _need(threading.get_ident() == self._thread and not self._failed and self._activated
+              and self._ledger is not None and available,
               'one live original producer on its original thread required')
         f = self._functional
         _need(f.book is self._book and f.source is self._source and f.clock is self._clock

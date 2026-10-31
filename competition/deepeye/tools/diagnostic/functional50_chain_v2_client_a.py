@@ -5,13 +5,31 @@ from . import functional50_b131_loader as loader
 from . import functional50_board_trace_batch_a as batch
 from . import functional50_trace_batch_client_a as trace
 from . import functional50_g05_a as g05
+from . import functional50_ssh_a as ssh
 from . import functional50_chain_v2_board_a as protocol
-from .functional50_ssh_a import Session, _record
+from .functional50_ssh_a import Session, _record, _original_session_origin
 from ...integration.host_clock import QpcHostClock
 
 def need(ok,msg):
  if not ok:raise ValueError(msg)
 def _hex(v):return type(v) is str and len(v)%2==0 and re.fullmatch('[0-9a-f]*',v) is not None
+
+_PHASE_KEY=object()
+_PHASE_LEDGERS={}
+_CHAIN_BINDINGS={}
+class OriginalPhaseReceipt:
+ """One exact host request/reply observation; never an authority decision."""
+ __slots__=('owner','phase_index','request_id','kind','operation_id','request_raw','response_raw',
+            'lower_qpc_ns','upper_qpc_ns','session','process','stdin','stdout','stderr','clock',
+            'session_origin','spec','ready_raw','ready_lower_qpc_ns','ready_upper_qpc_ns','source_pump','status','unknown')
+ def __new__(cls,key,*args):
+  need(key is _PHASE_KEY,'private original phase factory required');return super().__new__(cls)
+ def __init__(self,key,owner,phase_index,request_id,kind,operation,request_raw,response_raw,lower,upper,origin,status,unknown):
+  spec,process,clock,ready,parsed,ready_lower,ready_upper,stdin,stdout,stderr=origin
+  values=(owner,phase_index,request_id,kind,operation,request_raw,response_raw,lower,upper,owner.s,process,stdin,stdout,stderr,clock,origin,spec,ready,ready_lower,ready_upper,getattr(owner.s,'_source_pump',None),status,unknown)
+  for name,value in zip(self.__slots__,values):object.__setattr__(self,name,value)
+ def __setattr__(self,name,value):raise AttributeError('original phase is immutable')
+ def __reduce__(self):raise TypeError('original phase cannot be serialized')
 def _response(data,ident,operation,kind):
  need(type(data) is bytes and 0<len(data)<=1048576 and data.endswith(b'\n') and data.count(b'\n')==1,'bounded reply')
  x=batch._json(data);need(type(x) is dict and set(x)=={'schema','id','operation_id','kind','status','result','error','unknown'} and x['schema']==protocol.SCHEMA and x['id']==ident and x['operation_id']==operation and x['kind']==kind,'reply identity')
@@ -51,19 +69,34 @@ def _facts(x,kind,operation,identity,deadline):
 class ChainSessionV2:
  def __init__(self,session,bundle,clock):
   need(type(session) is Session and session._protocol==protocol.SCHEMA and type(bundle) is loader._Bundle and type(clock) is QpcHostClock and session._clock is clock,'original session/bundle/QPC')
+  origin=_original_session_origin(session);need(origin[2] is clock,'original factory origin required')
   session._check();need(not getattr(session,'_chain_claimed',False),'original session claimed');session._chain_claimed=True
   self.s=session;self.bundle=bundle;self.clock=clock;self.thread=threading.get_ident();self.sequence=protocol.Sequence();self.identity=None;self.deadline=None;self.duration=None;self.policy_sha=None;self.receipts=[];self.folder=session._dir/'chain-v2-host';self.folder.mkdir(mode=0o700)
+  _PHASE_LEDGERS[self]=[];_CHAIN_BINDINGS[self]=(session,clock,bundle,session._proc,self.sequence,origin)
+ def _phase_binding(self):
+  need(self in _CHAIN_BINDINGS and self in _PHASE_LEDGERS,'original chain custody required')
+  session,clock,bundle,process,sequence,origin=_CHAIN_BINDINGS[self]
+  need(self.s is session and self.clock is clock and self.bundle is bundle and session._proc is process and self.sequence is sequence and _original_session_origin(session) is origin,'original chain custody changed')
+  return origin
+ @property
+ def phase_receipts(self):
+  self._phase_binding();return tuple(_PHASE_LEDGERS[self])
  def _send(self,ident,kind,payload,timeout_ns):
   s=self.s;need(threading.get_ident()==self.thread and not s._unknown,'owner or unknown');s._check();need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded timeout')
+  origin=self._phase_binding();pump=getattr(s,'_source_pump',None)
+  need(origin[2] is self.clock and self in _PHASE_LEDGERS and (pump is None and s not in ssh._SESSION_PUMPS or pump is not None and ssh._SESSION_PUMPS.get(s) is pump),'original session, pump and phase ledger required')
   wire=protocol.raw(dict(schema=protocol.SCHEMA,id=ident,operation_id=s._dir.name,kind=kind,payload=payload))+b'\n';x=protocol.decode_request(wire,s._dir.name,g05,self.sequence)
   self.sequence.consume(x);n=len(self.sequence.ids)
   try:
    lower=self.clock();_record(self.folder,f'{n:02d}-started.json',dict(id=ident,kind=kind,raw_hex=wire.hex(),lower_qpc_ns=lower))
    response=s._call(wire,timeout_ns);upper=self.clock();trace.put(self.folder/f'{n:02d}-response.bin',response);_record(self.folder,f'{n:02d}-returned.json',dict(upper_qpc_ns=upper,response_sha256=protocol.digest(response)))
    doc=_response(response,ident,s._dir.name,kind)
+   need(_original_session_origin(s) is origin and getattr(s,'_source_pump',None) is pump and (pump is None and s not in ssh._SESSION_PUMPS or pump is not None and ssh._SESSION_PUMPS.get(s) is pump) and len(_PHASE_LEDGERS[self])==n-1,'original phase ordering changed')
+   receipt=OriginalPhaseReceipt(_PHASE_KEY,self,n,ident,kind,s._dir.name,wire,response,lower,upper,origin,doc['status'],doc['unknown'])
+   _PHASE_LEDGERS[self].append(receipt)
    if doc['status']!='COMPLETE':s._unknown=True
    if doc['status']=='UNKNOWN' and doc['result'] is not None:_failure_facts(doc['result'],s._dir.name)
-   return dict(response=doc,raw_response=response,lower_qpc_ns=lower,upper_qpc_ns=upper,authority='not_evaluated')
+   return dict(response=doc,raw_response=response,lower_qpc_ns=lower,upper_qpc_ns=upper,authority='not_evaluated',phase_receipt=receipt)
   except BaseException:s._unknown=True;raise
  def _g05(self,ident,kind,payload,timeout_ns):
   out=self._send(ident,kind,payload,timeout_ns)

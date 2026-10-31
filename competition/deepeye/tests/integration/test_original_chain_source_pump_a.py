@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
     f=Source();f.clock=c;f._thread=s._thread;f.calls=f.releases=0;f.fail=False;f._start_attempted=True
     f.source=types.SimpleNamespace(state='RUNNING',_clock=c);f.book=object();f.owner=World();f.owner._clock=c;f.binding=object();f.owner._binding=f.binding;worldmod._RETAINED.append(f.owner)
     tok=types.SimpleNamespace(_draft={'source_count':1});p=object();f.pair=(p,tok);f.entry={'payload':p,'token':tok,'raw':b'raw','book':f.book}
-    a=Scanner();a._functional=f;a._source=f.source;a._book=f.book;a._clock=c;a._thread=s._thread;a._source_scan_cycle_v2=True;a._admitted=[];a.fail=False;a.admission=object()
+    a=Scanner();a._functional=f;a._source=f.source;a._book=f.book;a._clock=c;a._thread=s._thread;a._source_scan_cycle_v2=True;a._activated=True;a._ledger=object();a._admitted=[];a.fail=False;a.admission=object()
     return s,f,a,OriginalChainSourcePump(s,f,a)
  def test_disabled_and_success(self):
     s,f,a,p=self.fixture();self.assertIsNone(p.poll_once(s));self.assertEqual(f.calls,0);p.enable();self.assertIs(p.poll_once(s),a.admission);self.assertEqual(f.releases,1);h=p.history[0];self.assertIs(h.payload,f.pair[0]);self.assertIs(h.token,f.pair[1]);self.assertIs(h.draft,f.pair[1]._draft);self.assertIs(h.admission,a.admission);self.assertEqual(h.received_qpc_ns,5);self.assertTrue(h.released)

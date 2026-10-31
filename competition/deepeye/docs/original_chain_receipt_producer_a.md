@@ -8,10 +8,15 @@ path. Its factory retains the original immutable spec, process, stream objects,
 ready bytes and QPC brackets; no sudo input is retained by this registration.
 Construction itself sends nothing and does not acquire a world or board.
 
-Call `init` before source start, then start the actual source and attach the
-fresh v2 scanner once with `bind_scanner(scanner)`. Bind the exact original
-`OriginalChainSourcePump` once with `bind_pump(pump)`, and explicitly invoke
-`enable_pump()`; neither construction nor binding starts the source. `pump_once()`
+Call `init` before source start. Construct the fresh v2 scanner with its
+explicit `defer_start=True` selection and attach it once with
+`bind_scanner(scanner)` while the original source is NEW and has no origin or
+samples. Bind the exact original `OriginalChainSourcePump` once with
+`bind_pump(pump)` while it is disabled. Root then calls the original source's
+`start()` once, calls that scanner's `activate_started_source()` once, and
+explicitly invokes `enable_pump()` followed immediately by `pump_once()`.
+Neither producer construction nor binding starts or activates the source.
+The earlier already-RUNNING scanner binding remains supported. `pump_once()`
 services the original source on the owner thread when Root is not awaiting a
 board reply. During a v2 reply wait the original session uses <=1 ms wait
 fragments to invoke that same fixed enabled pump; the I/O worker touches only
@@ -42,6 +47,9 @@ Root facts and build binding. `refs` carries exact original world, source,
 Book, scanner, bundle, chain, session, factory origin, process, streams, QPC,
 and, where applicable, original sample payload/token/draft/ADC and EM handles,
 Preparation, source/request bytes, four companion objects and client result.
+Board-phase event references also contain `phase_receipt`, the exact original
+`OriginalPhaseReceipt` allocated by the chain's request/reply path and retained
+in that chain's `phase_receipts` ledger.
 These references are for trusted Root-side independent validation and may
 contain private state. They are not a public serialization or an AI prompt.
 

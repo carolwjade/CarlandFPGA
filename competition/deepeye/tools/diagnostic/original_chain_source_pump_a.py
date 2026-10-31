@@ -28,7 +28,22 @@ class OriginalChainSourcePump:
         self._owner=functional_source.owner;self._binding=functional_source.binding
         self._enabled=False;self._failed=False;self._ever_enabled=False
         self._history=[];self._pending=None
-        self._check(True)
+        if self._causal.state == 'NEW':
+            self._check(False)
+            a=self._scanner;f=self._source;b=self._book
+            if (a._defer_start is not True or a._activated is not False
+                or a._activation_attempted is not False or a._ledger is not None
+                or a._origin is not None or a._failed or f._start_attempted
+                or self._causal._origin is not None or self._causal._clock is not None
+                or self._causal._count != 0 or self._causal._last_tick is not None
+                or self._causal._polling is not False or self._causal._source_book is not b
+                or b._source is not self._causal or b._clock is not self._clock
+                or b._state != 'NEW' or b._origin is not None or b._samples or b._active is not None
+                or f._retained_samples or f._pending is not None or a._admitted
+                or a._prepared is not False or a._prepare_count != 0):
+                raise ValueError('prepared deferred original source required')
+        else:
+            self._check(True)
     @property
     def session(self): return self._session
     @property
@@ -63,7 +78,8 @@ class OriginalChainSourcePump:
             raise ValueError('original source/session/clock/thread association required')
         s._check();f._check_thread()
         if live:
-            if not f._start_attempted or self._causal.state!='RUNNING' or self._causal._clock is not self._clock:
+            if (not f._start_attempted or self._causal.state!='RUNNING' or self._causal._clock is not self._clock
+                or a._activated is not True or a._ledger is None):
                 raise ValueError('running original source required')
             a._check()
     def enable(self):

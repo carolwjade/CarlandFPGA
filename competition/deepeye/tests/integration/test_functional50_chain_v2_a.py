@@ -1,5 +1,5 @@
 """New v2-only software controls, no SSH or board."""
-import io,json,tempfile,unittest
+import io,json,tempfile,unittest,types,threading
 from pathlib import Path
 from unittest.mock import patch
 from competition.deepeye.integration.host_clock import QpcHostClock
@@ -28,13 +28,15 @@ class Tests(unittest.TestCase):
  def test_unknown_reply_stops_host(self):
   from competition.deepeye.tools.diagnostic import functional50_chain_v2_client_a as client
   with tempfile.TemporaryDirectory() as tmp:
-   s=object.__new__(ssh.Session);s._protocol='functional50_chain_v2';s._unknown=False;s._dir=Path(tmp)/'op';s._dir.mkdir();s._check=lambda:None
+   s=object.__new__(ssh.Session);s._protocol='functional50_chain_v2';s._unknown=False;s._closed=False;s._dir=Path(tmp)/'op';s._dir.mkdir();s._check=lambda:None;s._thread=threading.get_ident();s._proc=types.SimpleNamespace(stdin=object(),stdout=object(),stderr=object())
    c=object.__new__(QpcHostClock);s._clock=c;sent=[]
+   spec=ssh.SessionSpec((),'/python','/script','/plan','C:/script','a'*64,tmp,'op','functional50_chain_v2','/manifest','b'*64,'/policy')
+   ready=dict(schema='chain_board_v2',state='ready',operation_id='op',manifest_sha256='b'*64);origin=(spec,s._proc,c,(json.dumps(ready)+'\n').encode(),ready,1,2,s._proc.stdin,s._proc.stdout,s._proc.stderr)
    def call(wire,timeout):
     x=json.loads(wire);sent.append(x)
     return (json.dumps(dict(schema=x['schema'],id=x['id'],operation_id='op',kind=x['kind'],status='UNKNOWN',result=None,error='OSError',unknown=True))+'\n').encode()
    s._call=call
-   with patch.object(QpcHostClock,'__call__',side_effect=[10,20]):
+   with patch.dict(ssh._SESSION_ORIGINS,{s:origin}),patch.object(QpcHostClock,'__call__',side_effect=[10,20]):
     session=client.ChainSessionV2(s,object.__new__(loader._Bundle),c)
     out=session.init('init',tuple([1]*13),max_commands=2,max_polls=64,duration_ns=1000,max_io=450,timeout_ns=100)
    self.assertTrue(s._unknown);self.assertEqual((out['lower_qpc_ns'],out['upper_qpc_ns']),(10,20))

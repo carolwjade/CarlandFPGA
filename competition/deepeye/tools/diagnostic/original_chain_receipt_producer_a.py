@@ -50,14 +50,27 @@ class OriginalChainReceiptProducer:
   self._check();need(self._scanner is None and type(scanner) is scanner_module.OriginalSourceTraceScan and scanner not in _SCANNERS,'one original scanner binding required')
   need(scanner._clock is self._clock and scanner._bundle is self._bundle and scanner._functional is self._source and scanner._source is self._pump and scanner._book is self._book and scanner._thread==self._thread and scanner._source_scan_cycle_v2 is True,'same original v2 source scanner required')
   need(not scanner._admitted and not scanner._prepared and not scanner._failed and scanner._prepare_count==0,'fresh source history required')
-  need(self._pump.state=='RUNNING' and self._pump._count==0 and not self._source._retained_samples,'original started source before first sample required')
+  started=(self._pump.state=='RUNNING' and self._pump._count==0 and not self._source._retained_samples)
+  deferred=(self._pump.state=='NEW' and self._pump._count==0 and self._pump._origin is None
+            and not self._source._start_attempted and not self._source._retained_samples
+            and self._pump._source_book is self._book and self._book._source is self._pump
+            and self._book._origin is None and not self._book._samples and self._book._active is None
+            and getattr(scanner,'_defer_start',False) is True and getattr(scanner,'_activated',True) is False
+            and getattr(scanner,'_activation_attempted',True) is False and scanner._origin is None and scanner._ledger is None)
+  need(started or deferred,'fresh started or deferred original source required')
   self._scanner=scanner;_SCANNERS[scanner]=self
+ def _source_ready(self):
+  scanner=self._scanner
+  need(scanner is not None and self._source._start_attempted and self._pump.state=='RUNNING'
+       and self._pump._origin is not None and self._book._origin==self._pump._origin
+       and getattr(scanner,'_activated',True) is True and scanner._origin==self._pump._origin
+       and scanner._ledger is not None,'activated original source and scanner required')
  def bind_pump(self,pump):
   from .original_chain_source_pump_a import OriginalChainSourcePump
   self._check();need(self._scanner is not None and self._source_pump is None and type(pump) is OriginalChainSourcePump and pump.session is self._session and pump.source is self._source and pump.scanner is self._scanner and pump.clock is self._clock and not pump.enabled and not pump.failed,'one original disabled source pump required')
   self._session.bind_source_pump(pump);self._source_pump=pump
  def enable_pump(self):
-  self._check();need(self._source_pump is not None,'original pump required')
+  self._check();need(self._source_pump is not None,'original pump required');self._source_ready()
   from .original_chain_source_pump_a import OriginalChainSourcePump
   try:OriginalChainSourcePump.enable(self._source_pump)
   except BaseException:self._session._unknown=True;self._failed=True;raise
@@ -112,6 +125,13 @@ class OriginalChainReceiptProducer:
   detached=dict(kind=kind,sequence=seq,operation_id=self._operation,**facts)
   saved=copy.deepcopy(detached);_EVENTS[event]=(self,seq,saved,refs);self._events.append(event);self._history.append((event,saved,refs))
   return event
+ def _phase(self,out,ident,kind):
+  phase=out.get('phase_receipt');ledger=self._chain.phase_receipts
+  need(type(phase) is client.OriginalPhaseReceipt and phase.owner is self._chain and phase.phase_index==self._operation_count and len(ledger)==self._operation_count and ledger[-1] is phase,'actual original phase ledger identity required')
+  need(phase.request_id==ident and phase.kind==kind and phase.operation_id==self._operation and phase.session is self._session and phase.process is self._process and phase.clock is self._clock and phase.session_origin is self._origin and phase.stdin is self._stdin and phase.stdout is self._stdout and phase.stderr is self._stderr,'original phase binding changed')
+  need(phase.source_pump is self._source_pump,'original phase source pump changed')
+  need(phase.response_raw is out['raw_response'] and phase.lower_qpc_ns==out['lower_qpc_ns'] and phase.upper_qpc_ns==out['upper_qpc_ns'] and phase.status==out['response']['status'] and phase.unknown is out['response']['unknown'],'original phase response changed')
+  return phase
  def _call(self,kind,method,ident,*args,**kwargs):
   self._check()
   try:
@@ -121,8 +141,9 @@ class OriginalChainReceiptProducer:
    need(type(out) is dict and type(out.get('raw_response')) is bytes and type(out.get('lower_qpc_ns')) is int and type(out.get('upper_qpc_ns')) is int and 0<=out['lower_qpc_ns']<=out['upper_qpc_ns'],'original client response brackets')
    doc=client._response(out['raw_response'],ident,self._operation,kind)
    need(doc==out['response'],'raw original reply mismatch')
+   phase=self._phase(out,ident,kind)
    if doc['status']!='COMPLETE':self._failed=True
-   return self._event(kind,dict(raw_response=out['raw_response'],response=doc,lower_qpc_ns=out['lower_qpc_ns'],upper_qpc_ns=out['upper_qpc_ns'],correlation=copy.deepcopy(out.get('correlation'))),dict(client_result=out))
+   return self._event(kind,dict(raw_response=out['raw_response'],response=doc,lower_qpc_ns=out['lower_qpc_ns'],upper_qpc_ns=out['upper_qpc_ns'],correlation=copy.deepcopy(out.get('correlation'))),dict(client_result=out,phase_receipt=phase))
   except BaseException:
    if len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids:self._operation_count+=1
    try:self._flush_pump()
@@ -131,7 +152,7 @@ class OriginalChainReceiptProducer:
  def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns):
   return self._call('init',client.ChainSessionV2.init,ident,identity_words,max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io,timeout_ns=timeout_ns)
  def admit_source(self,payload):
-  self._check()
+  self._check();self._source_ready()
   try:
    need(self._scanner is not None,'original scanner required')
    admission=scanner_module.OriginalSourceTraceScan.admit(self._scanner,payload);item=self._scanner._admitted[-1]
@@ -140,7 +161,7 @@ class OriginalChainReceiptProducer:
    return self._event('source_admission',dict(payload_bytes=item['payload_bytes'],draft=copy.deepcopy(item['draft']),received_qpc_ns=item['received']),dict(payload=payload,admitted=item,token=item['token'],draft=item['draft'],adc_handle=item['token']._handle,em_handle=item['token']._em_handle,admission=admission))
   except BaseException:self._failed=True;raise
  def scan_actual(self,ident,payload,*,facts,build_binding,max_io,timeout_ns):
-  self._check()
+  self._check();self._source_ready()
   try:
    need(self._scanner is not None,'original scanner required')
    need(self._scanner._admitted and self._scanner._admitted[-1]['entry']['payload'] is payload,'latest admitted original payload required')
@@ -154,11 +175,12 @@ class OriginalChainReceiptProducer:
    self._flush_pump()
    need(type(out) is dict and type(out.get('raw_response')) is bytes and type(out.get('lower_qpc_ns')) is int and type(out.get('upper_qpc_ns')) is int and 0<=out['lower_qpc_ns']<=out['upper_qpc_ns'],'original trace response brackets')
    doc=client._response(out['raw_response'],ident,self._operation,'trace_scan');need(doc==out['response'],'original trace reply mismatch')
+   phase=self._phase(out,ident,'trace_scan')
    need(facts==facts_snapshot and build_binding==binding_snapshot,'root facts or binding changed during original call')
    if doc['status']=='COMPLETE':need(type(out.get('correlation')) is dict and out['correlation'].get('status')=='FOUR_FRAME_CORRELATION_CONSISTENT','actual original correlation required')
    else:self._failed=True
    original=preparation.original
-   return self._event('trace_scan',dict(raw_response=out['raw_response'],response=doc,lower_qpc_ns=out['lower_qpc_ns'],upper_qpc_ns=out['upper_qpc_ns'],correlation=copy.deepcopy(out.get('correlation')),root_facts=facts_snapshot,build_binding=binding_snapshot),dict(client_result=out,payload=payload,admitted=item,admission=item['admission'],token=item['token'],draft=item['draft'],adc_handle=item['token']._handle,em_handle=item['token']._em_handle,preparation=preparation,request=original.request,source_bytes=original.source,companions=original.companions,build_binding=build_binding,root_facts=facts))
+   return self._event('trace_scan',dict(raw_response=out['raw_response'],response=doc,lower_qpc_ns=out['lower_qpc_ns'],upper_qpc_ns=out['upper_qpc_ns'],correlation=copy.deepcopy(out.get('correlation')),root_facts=facts_snapshot,build_binding=binding_snapshot),dict(client_result=out,phase_receipt=phase,payload=payload,admitted=item,admission=item['admission'],token=item['token'],draft=item['draft'],adc_handle=item['token']._handle,em_handle=item['token']._em_handle,preparation=preparation,request=original.request,source_bytes=original.source,companions=original.companions,build_binding=build_binding,root_facts=facts))
   except BaseException:
    if len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids:self._operation_count+=1
    try:self._flush_pump()
