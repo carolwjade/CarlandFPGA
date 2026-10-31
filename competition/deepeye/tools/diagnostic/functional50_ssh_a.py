@@ -148,6 +148,9 @@ class Session:
         _need(threading.get_ident()==self._thread and not self._unknown and not self._closed,'owner/unknown/closed')
         _need(self._proc.poll() is None,'original SSH already exited')
         _need(not self._stderr_overflow,'stderr budget exceeded')
+    def _check_closing(self,context):
+        from . import original_chain_client_work_a as work
+        work._verify_closing(self,context)
     def _call(self,wire,timeout_ns):
         _need(type(timeout_ns) is int and 0<timeout_ns<=_MAX_NS,'timeout bound')
         done=threading.Event();result={}
@@ -200,6 +203,7 @@ class Session:
         from .original_chain_source_pump_a import OriginalChainSourcePump
         self._check()
         end=work._consume(self,wire,permit)
+        closing=work._closing_for(self)
         pump=getattr(self,'_source_pump',None)
         _need(type(pump) is OriginalChainSourcePump and _SESSION_PUMPS.get(self) is pump
               and pump.session is self and pump.clock is self._clock and pump.enabled,
@@ -219,11 +223,15 @@ class Session:
             while True:
                 if self._clock()>=end:raise TimeoutError('original SSH effect unknown; no replay')
                 if done.is_set():break
-                OriginalChainSourcePump.poll_once(pump,self)
+                if closing is None:OriginalChainSourcePump.poll_once(pump,self)
+                else:OriginalChainSourcePump.poll_once(pump,self,_closing=closing)
                 remaining=end-self._clock()
                 if remaining<=0:raise TimeoutError('original SSH effect unknown; no replay')
                 if not done.is_set():time.sleep(min(remaining,1_000_000)/1_000_000_000)
             if 'error' in result:raise OSError('original SSH I/O unknown: '+result['error'])
+            if closing is not None:
+                closing.raw=result['raw']
+                self._check_closing(closing)
             return result['raw']
         except BaseException:
             self._unknown=True;raise

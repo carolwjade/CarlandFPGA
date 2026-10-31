@@ -86,12 +86,13 @@ class ChainSessionV2:
  def select_owner_work_v1(self):
   origin=self._phase_binding();need(threading.get_ident()==self.thread and not self.sequence.initialized and not self.sequence.ids and self not in _OWNER_WORK_SELECTION,'one pre-init owner work selection required')
   self.s._check();_OWNER_WORK_SELECTION[self]=_CHAIN_BINDINGS[self]
- def _work_pump(self):
+ def _work_pump(self,*,_closing=None):
   from .original_chain_source_pump_a import OriginalChainSourcePump
   from .original_source_trace_scan_a import OriginalSourceTraceScan
   pump=getattr(self.s,'_source_pump',None)
   need(type(pump) is OriginalChainSourcePump and ssh._SESSION_PUMPS.get(self.s) is pump and pump.session is self.s and pump.clock is self.clock and type(pump.scanner) is OriginalSourceTraceScan and pump.enabled and not pump.failed,'exact enabled original source pump required')
-  OriginalChainSourcePump._check(pump,True)
+  if _closing is None:OriginalChainSourcePump._check(pump,True)
+  else:OriginalChainSourcePump._check(pump,True,_closing=_closing)
   return pump
  def _selected_active(self,kind):
   if self not in _OWNER_WORK_SELECTION:return False
@@ -157,13 +158,17 @@ class ChainSessionV2:
    return dict(response=doc,raw_response=response,lower_qpc_ns=lower,upper_qpc_ns=upper,authority='not_evaluated',phase_receipt=receipt)
   except BaseException:s._unknown=True;raise
  def _g05(self,ident,kind,payload,timeout_ns):
-  out=self._send(ident,kind,payload,timeout_ns)
   try:
+   out=self._send(ident,kind,payload,timeout_ns)
    if out['response']['status']=='COMPLETE':
     result=out['response']['result']
     if '_owner_work_end' in out:
      self.deadline=self._run_work('g05_post',(result,kind,self.s._dir.name,self.identity,self.deadline,self.duration,self.policy_sha,self.receipts,payload),out['_owner_work_end'])
-     self.policy_sha=result['policy_sha256'];self.receipts=result['receipts'];return out
+     self.policy_sha=result['policy_sha256'];self.receipts=result['receipts']
+     if kind=='close':
+      from . import original_chain_client_work_a as work
+      work._await_close_exit(self.s)
+     return out
     self.deadline=_facts(result,kind,self.s._dir.name,self.identity,self.deadline)
     need(self.deadline[1]-self.deadline[0]==self.duration and (self.policy_sha is None or self.policy_sha==result['policy_sha256']),'fixed duration and policy')
     need(result['receipts'][:len(self.receipts)]==self.receipts,'original cumulative receipts changed')
@@ -171,6 +176,10 @@ class ChainSessionV2:
     if kind=='apply':need(result['capture']['words32'][1:3]==payload['command_words'][5:7],'capture command association')
    return out
   except BaseException:self.s._unknown=True;raise
+  finally:
+   if kind=='close':
+    from . import original_chain_client_work_a as work
+    work._finish_closing(self.s)
  def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns):
   need(not self.sequence.initialized and type(identity_words) is tuple,'one immutable identity required');g05._identity(identity_words);self.identity=identity_words;self.duration=duration_ns
   return self._g05(ident,'init',dict(identity_words=list(identity_words),max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io),timeout_ns)

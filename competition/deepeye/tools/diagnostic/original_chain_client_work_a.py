@@ -5,6 +5,7 @@ import time
 
 _JOBS={}
 _PERMITS={}
+_CLOSING={}
 _KEY=object()
 
 class _Job:
@@ -77,13 +78,21 @@ def _start(chain,kind,args,end):
         or type(args) is not tuple or type(end) is not int or not 0<end<(1<<63) or not chain.owner_work_v1
         or chain.s._unknown or chain.s._closed or any(old.thread.is_alive() or not old.done.is_set() for old in _JOBS.get(chain,()))):
         raise ValueError('original fixed owner work required')
-    ChainSessionV2._phase_binding(chain);ChainSessionV2._work_pump(chain)
+    ChainSessionV2._phase_binding(chain)
+    closing=_closing_for(chain.s)
+    if closing is not None and (kind not in ('reply','failure_post','g05_post') or end!=closing.end):raise ValueError('only original close post-work permitted')
+    if closing is not None and kind=='reply' and (closing.reply_started or len(args)!=7 or args[2] is not closing.raw or args[4]!=closing.ident or args[6]!='close' or args[1]!=closing.index):raise ValueError('original close reply job required')
+    if closing is not None and kind in ('failure_post','g05_post') and (closing.post_started or type(closing.parsed) is not dict or args[0] is not closing.parsed.get('result') or (kind=='failure_post' and closing.parsed.get('status')!='UNKNOWN') or (kind=='g05_post' and (len(args)!=9 or args[1]!='close' or closing.parsed.get('status')!='COMPLETE'))):raise ValueError('original close semantic job required')
+    ChainSessionV2._work_pump(chain,_closing=closing)
     if kind in ('intent','reply') and (not args or args[0] is not chain.folder):raise ValueError('original evidence directory required')
     if kind=='trace_prepare' and (len(args)!=10 or args[0] is not chain.bundle or args[8] is not chain.folder):raise ValueError('original trace preparation scope required')
     if kind=='trace_post' and (len(args)!=11 or args[0] is not chain.bundle):raise ValueError('original trace correlation scope required')
     if kind=='encode' and (len(args)!=5 or args[3]!=chain.s._dir.name):raise ValueError('original operation scope required')
     if kind=='failure_post' and (len(args)!=2 or args[1]!=chain.s._dir.name):raise ValueError('original failure operation scope required')
     if kind=='g05_post' and (len(args)!=9 or args[2]!=chain.s._dir.name):raise ValueError('original G05 operation scope required')
+    if closing is not None:
+        if kind=='reply':closing.reply_started=True
+        elif kind in ('failure_post','g05_post'):closing.post_started=True
     job=_Job(_KEY,chain,kind,args,end);_JOBS.setdefault(chain,[]).append(job);job.thread.start();return job
 
 def _wait(chain,job,end):
@@ -99,19 +108,24 @@ def _wait(chain,job,end):
         while True:
             if chain.clock()>=end:raise TimeoutError('fixed owner work deadline expired')
             if job.done.is_set() and not job.thread.is_alive():break
-            OriginalChainSourcePump.poll_once(pump,session)
+            closing=_closing_for(session)
+            if closing is None:OriginalChainSourcePump.poll_once(pump,session)
+            else:OriginalChainSourcePump.poll_once(pump,session,_closing=closing)
             remaining=end-chain.clock()
             if remaining<=0:raise TimeoutError('fixed owner work deadline expired')
             if not job.done.is_set() or job.thread.is_alive():time.sleep(min(remaining,1_000_000)/1_000_000_000)
         if job.error is not None:raise job.error
+        closing=_closing_for(session)
+        if closing is not None and job.kind=='reply':closing.parsed=job.value
         return job.value
     except BaseException:session._unknown=True;raise
 
 class _Permit:
-    __slots__=('chain','session','end','wire','used','owner')
-    def __init__(self,key,chain,end,wire):
+    __slots__=('chain','session','end','wire','used','owner','kind','ident','index')
+    def __init__(self,key,chain,end,wire,intent):
         if key is not _KEY:raise ValueError('fixed permit required')
         self.chain=chain;self.session=chain.s;self.end=end;self.wire=wire;self.used=False;self.owner=threading.get_ident()
+        self.index=intent.args[1];self.ident=intent.args[2];self.kind=intent.args[3]
 
 def _permit(chain,end,wire,intent_job,prepared=None):
     if (threading.get_ident()!=chain.thread or type(end) is not int or type(wire) is not bytes
@@ -129,7 +143,7 @@ def _permit(chain,end,wire,intent_job,prepared=None):
         if OriginalSourceTraceScan._check_prepared_dispatch(scanner,prepared)!=expected or end>expected:raise ValueError('original selected dispatch guard failed')
     elif prepared is not None:raise ValueError('unexpected trace guard')
     if chain.clock()>=end:raise TimeoutError('original phase expired before transport')
-    p=_Permit(_KEY,chain,end,wire);_PERMITS[p]=p;return p
+    p=_Permit(_KEY,chain,end,wire,intent_job);_PERMITS[p]=p;return p
 
 def _consume(session,wire,permit):
     if (type(permit) is not _Permit or _PERMITS.get(permit) is not permit or permit.used
@@ -138,4 +152,59 @@ def _consume(session,wire,permit):
         raise ValueError('exact original one-use owner permit required')
     from .functional50_chain_v2_client_a import ChainSessionV2
     ChainSessionV2._phase_binding(permit.chain)
-    permit.used=True;return permit.end
+    permit.used=True
+    if permit.kind=='close':
+        if not permit.chain.sequence.closed or permit.ident not in permit.chain.sequence.ids or session in _CLOSING:raise ValueError('one original close phase required')
+        _CLOSING[session]=_Closing(_KEY,permit)
+    return permit.end
+
+class _Closing:
+    __slots__=('chain','session','process','stdin','stdout','clock','owner','end','wire','ident','index','active','raw','origin','parsed','reply_started','post_started')
+    def __init__(self,key,permit):
+        if key is not _KEY:raise ValueError('private original close required')
+        self.chain=permit.chain;self.session=permit.session;self.process=self.session._proc
+        from .functional50_chain_v2_client_a import ChainSessionV2
+        self.origin=ChainSessionV2._phase_binding(self.chain)
+        if self.process is not self.origin[1] or self.process.stdin is not self.origin[7] or self.process.stdout is not self.origin[8]:raise ValueError('original close pipes changed')
+        self.stdin=self.process.stdin;self.stdout=self.process.stdout;self.clock=self.chain.clock
+        self.owner=permit.owner;self.end=permit.end;self.wire=permit.wire;self.ident=permit.ident;self.index=permit.index
+        self.active=True;self.raw=None;self.parsed=None;self.reply_started=False;self.post_started=False
+
+def _closing_for(session):
+    context=_CLOSING.get(session)
+    return context if context is not None and context.active else None
+
+def _verify_closing(session,context):
+    from .functional50_chain_v2_client_a import ChainSessionV2
+    if (type(context) is not _Closing or _CLOSING.get(session) is not context or not context.active
+        or context.session is not session or context.chain.s is not session or context.owner!=threading.get_ident()
+        or context.chain.thread!=context.owner or session._thread!=context.owner or session._unknown or session._closed
+        or session._proc is not context.process or context.process.stdin is not context.stdin or context.process.stdout is not context.stdout
+        or session._clock is not context.clock or context.chain.clock is not context.clock or not context.chain.sequence.closed
+        or context.ident not in context.chain.sequence.ids or context.clock()>=context.end):
+        raise ValueError('original close context invalid or expired')
+    if ChainSessionV2._phase_binding(context.chain) is not context.origin or context.origin[1] is not context.process or context.origin[2] is not context.clock or context.origin[7] is not context.stdin or context.origin[8] is not context.stdout:raise ValueError('original close origin changed')
+    state=context.process.poll()
+    if state is not None and (type(state) is not int or state!=0):raise ValueError('original close process failed')
+    if session._stderr_overflow:raise ValueError('stderr budget exceeded')
+
+def _finish_closing(session):
+    context=_CLOSING.get(session)
+    if context is not None:context.active=False
+
+
+def _await_close_exit(session):
+    from .original_chain_source_pump_a import OriginalChainSourcePump
+    context=_closing_for(session)
+    if context is None:return
+    pump=getattr(session,'_source_pump',None)
+    try:
+        while True:
+            _verify_closing(session,context)
+            state=context.process.poll()
+            if state is not None:return
+            OriginalChainSourcePump.poll_once(pump,session,_closing=context)
+            remaining=context.end-context.clock()
+            if remaining<=0:raise TimeoutError('original close exit deadline expired')
+            time.sleep(min(remaining,1_000_000)/1_000_000_000)
+    except BaseException:session._unknown=True;raise

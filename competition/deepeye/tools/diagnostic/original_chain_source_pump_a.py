@@ -60,7 +60,7 @@ class OriginalChainSourcePump:
     def history(self): return tuple(self._history)
     @property
     def pending(self): return self._pending
-    def _check(self, live):
+    def _check(self, live, *, _closing=None):
         f=self._source;s=self._session;a=self._scanner
         if (self._failed or threading.get_ident()!=self._thread or s._thread!=self._thread
             or f._thread!=self._thread or a._thread!=self._thread
@@ -76,7 +76,9 @@ class OriginalChainSourcePump:
             or a._book is not self._book or a._clock is not self._clock
             or a._source_scan_cycle_v2 is not True):
             raise ValueError('original source/session/clock/thread association required')
-        s._check();f._check_thread()
+        if _closing is None:s._check()
+        else:s._check_closing(_closing)
+        f._check_thread()
         if live:
             if (not f._start_attempted or self._causal.state!='RUNNING' or self._causal._clock is not self._clock
                 or a._activated is not True or a._ledger is None):
@@ -89,10 +91,11 @@ class OriginalChainSourcePump:
         except BaseException:
             self._failed=True;raise
         self._enabled=True
-    def poll_once(self, session):
+    def poll_once(self, session, *, _closing=None):
         if session is not self._session: raise ValueError('same original session required')
         try:
-            self._check(self._enabled)
+            if _closing is None:self._check(self._enabled)
+            else:self._check(self._enabled,_closing=_closing)
             if not self._enabled:return None
             pair=self._source.poll_sample()
             if pair is None:return None
