@@ -363,13 +363,19 @@ class OriginalSourceTraceScan:
               and ssh._SESSION_PUMPS.get(pump.session) is pump,'same original enabled v2 pump required')
         pump.session._check()
 
-    def prepare_with_pump(self, payload, *, facts, build_binding, pump, timeout_ns):
+    def prepare_with_pump(self, payload, *, facts, build_binding, pump, timeout_ns, deadline_qpc_ns=None):
         """Explicit v2 one-use fixed-worker preparation while the owner pumps."""
+        _need(threading.get_ident()==self._thread and type(self._clock) is host_clock.QpcHostClock,
+              'original owner and QPC required')
+        _need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded original QPC deadline required')
+        _need(deadline_qpc_ns is None or (type(deadline_qpc_ns) is int and 0<=deadline_qpc_ns<(1<<63)),
+              'bounded absolute QPC deadline required')
+        started=self._clock()
+        if deadline_qpc_ns is not None:_need(started<deadline_qpc_ns,'absolute QPC deadline already expired')
+        end=started+timeout_ns if deadline_qpc_ns is None else min(started+timeout_ns,deadline_qpc_ns)
         from . import original_chain_prepare_work_a as work
         self._check();self._work_original_pump(pump)
         _need(self._source_scan_cycle_v2 is True and not getattr(self,'_preparing',False), 'fresh v2 preparation required')
-        _need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded original QPC deadline required')
-        end=self._clock()+timeout_ns
         if self._prepare_count>=2:
             self._failed=True;raise ValueError('source cycle preparation cap exhausted')
         self._prepared=True;self._prepare_count+=1;self._preparing=True

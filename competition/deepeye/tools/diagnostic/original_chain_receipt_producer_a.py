@@ -165,6 +165,11 @@ class OriginalChainReceiptProducer:
   selected=False
   try:
    selected=self._chain.owner_work_v1
+   phase_end=None
+   if selected:
+    need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded original QPC deadline required')
+    phase_end=self._clock()+timeout_ns
+    need(phase_end<(1<<63),'bounded absolute QPC deadline required')
    need(self._scanner is not None,'original scanner required')
    need(self._scanner._admitted and self._scanner._admitted[-1]['entry']['payload'] is payload,'latest admitted original payload required')
    item=self._scanner._admitted[-1]
@@ -178,7 +183,7 @@ class OriginalChainReceiptProducer:
          and getattr(self._session,'_source_pump',None) is pump and ssh._SESSION_PUMPS.get(self._session) is pump
          and pump.session is self._session and pump.scanner is self._scanner and pump.clock is self._clock,
          'same enabled original source pump required')
-    preparation=scanner_module.OriginalSourceTraceScan.prepare_with_pump(self._scanner,payload,facts=facts,build_binding=build_binding,pump=pump,timeout_ns=timeout_ns)
+    preparation=scanner_module.OriginalSourceTraceScan.prepare_with_pump(self._scanner,payload,facts=facts,build_binding=build_binding,pump=pump,timeout_ns=timeout_ns,deadline_qpc_ns=phase_end)
     self._flush_pump()
     need(len(self._scanner._admitted)==self._admission_count and any(candidate is item for candidate in self._scanner._admitted) and item['entry'] is selected_entry and selected_entry['payload'] is payload and item['token'] is selected_token and item['draft'] is selected_draft and item['admission'] is selected_admission and selected_token._draft is selected_draft,'original selected sample and complete ordered source history required')
     need(facts==facts_snapshot and build_binding==binding_snapshot,'root facts or binding changed during preparation')
