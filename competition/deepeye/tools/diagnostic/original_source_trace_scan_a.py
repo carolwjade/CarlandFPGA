@@ -3,6 +3,7 @@ import hashlib
 import json
 import sys
 import threading
+import time
 
 from ...integration import host_clock, sensor_source
 from ...simulation.authority import root_source_book
@@ -165,6 +166,9 @@ class OriginalSourceTraceScan:
         self._last_prepared_tick = None
         self._attempts = []
         self._results = []
+        self._preparing = False
+        self._prepare_job = None
+        self._prepared_work = {}
 
     def activate_started_source(self):
         """Bind the actual once-started origin without rehashing or starting it."""
@@ -233,6 +237,7 @@ class OriginalSourceTraceScan:
         return admission
 
     def prepare(self, payload, *, facts, build_binding):
+        _need(not getattr(self, '_preparing', False), 'original preparation already pending')
         self._check()
         if self._source_scan_cycle_v2 and self._prepare_count >= 2:
             self._failed = True
@@ -310,3 +315,155 @@ class OriginalSourceTraceScan:
             self._results.append(result)
             self._failed = False
         return result
+
+    def _work_pump(self, pump, end):
+        from .original_chain_source_pump_a import OriginalChainSourcePump
+        if self._clock() >= end:raise TimeoutError('original preparation deadline expired')
+        OriginalChainSourcePump.poll_once(pump, pump.session)
+        if self._clock() >= end:raise TimeoutError('original preparation deadline expired')
+
+    def _work_prefix_check(self, prefix, pump, end):
+        """Check current original content on owner, with fixed-pump checkpoints."""
+        f=self._functional
+        for index, saved in enumerate(prefix):
+            self._work_pump(pump,end)
+            item,entry,token,draft,payload,draft_bytes,payload_bytes,admission,received=saved
+            _need(index<len(self._admitted) and self._admitted[index] is item
+                  and index<len(f._retained_samples) and f._retained_samples[index] is entry
+                  and index<len(self._book._samples) and self._book._samples[index] is draft
+                  and item['entry'] is entry and item['token'] is token and item['draft'] is draft
+                  and item['draft_bytes']==draft_bytes and item['payload_bytes']==payload_bytes
+                  and item['admission'] is admission and item['received']==received and type(received) is int and entry['book'] is self._book
+                  and entry['payload'] is payload and entry['raw']==payload_bytes
+                  and type(token) is root_source_book._Sample and token._book is self._book and token._draft is draft and token._ended is True
+                  and draft.get('status')=='complete' and draft.get('source_count')==index+1,
+                  'original current prefix content or identity changed')
+            _need(_raw(draft)==draft_bytes,'original current draft bytes changed')
+            self._work_pump(pump,end)
+            _need(self._source._handoff_bytes(payload)==payload_bytes,'original current payload bytes changed')
+            self._work_pump(pump,end)
+        _need(len(self._admitted)==len(f._retained_samples)==len(self._book._samples)==self._source._count
+              and self._book._active is None,'original complete ordered history required')
+
+    def _work_fresh(self, adc_tick, em_tick, now):
+        adc=self._origin+adc_tick*1_000_000
+        _need(0<=now-adc<=sensor_source.TIMEOUT_NS,'nominal ADC expired or future')
+        if em_tick is not None:
+            em=self._origin+em_tick*1_000_000
+            _need(0<=now-em<=sensor_source.TIMEOUT_NS,'nominal EM expired or future')
+
+    def _work_original_pump(self, pump):
+        from .original_chain_source_pump_a import OriginalChainSourcePump
+        from . import functional50_ssh_a as ssh
+        _need(type(pump) is OriginalChainSourcePump and type(pump.session) is ssh.Session
+              and pump.scanner is self and pump.source is self._functional and pump.clock is self._clock
+              and pump.enabled and not pump.failed and pump.session._clock is self._clock
+              and pump.session._thread==self._thread and pump.session._protocol=='functional50_chain_v2'
+              and getattr(pump.session,'_source_pump',None) is pump
+              and ssh._SESSION_PUMPS.get(pump.session) is pump,'same original enabled v2 pump required')
+        pump.session._check()
+
+    def prepare_with_pump(self, payload, *, facts, build_binding, pump, timeout_ns):
+        """Explicit v2 one-use fixed-worker preparation while the owner pumps."""
+        from . import original_chain_prepare_work_a as work
+        self._check();self._work_original_pump(pump)
+        _need(self._source_scan_cycle_v2 is True and not getattr(self,'_preparing',False), 'fresh v2 preparation required')
+        _need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded original QPC deadline required')
+        end=self._clock()+timeout_ns
+        if self._prepare_count>=2:
+            self._failed=True;raise ValueError('source cycle preparation cap exhausted')
+        self._prepared=True;self._prepare_count+=1;self._preparing=True
+        self._prepare_job=None
+        try:
+            _need(type(facts) is dict and type(build_binding) is dict,'exact root facts and binding required')
+            _need(len(self._admitted)==len(self._functional._retained_samples)==len(self._book._samples)==self._source._count
+                  and self._book._active is None and 1<=len(self._admitted)<=1001,'bounded complete original history required')
+            index=len(self._admitted)-1;item=self._admitted[index]
+            _need(item['entry']['payload'] is payload,'latest original sample at reservation required')
+            rec=item['admission'].record;adc_tick=rec.adc_tick_ms;em_tick=rec.em_tick_ms
+            _need((self._last_prepared_index is None or index>self._last_prepared_index)
+                  and (self._last_prepared_tick is None or adc_tick>self._last_prepared_tick),'strictly newer original sample required')
+            n=index+1;prefix=[]
+            for i in range(n):
+                self._work_pump(pump,end)
+                previous=self._admitted[i];entry=previous['entry']
+                prefix.append((previous,entry,previous['token'],previous['draft'],entry['payload'],previous['draft_bytes'],previous['payload_bytes'],previous['admission'],previous['received']))
+                self._work_pump(pump,end)
+            prefix=tuple(prefix)
+            self._work_prefix_check(prefix,pump,end)
+            self._work_pump(pump,end)
+            _need(self._functional._retained_sample(payload) is item['entry'],'original selected payload changed')
+            self._work_pump(pump,end)
+            evaluated=self._clock();_need(evaluated<end,'preparation deadline expired')
+            self._ledger._observe_time(evaluated,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,evaluated)
+            self._work_pump(pump,end);facts_bytes=_raw(facts)
+            self._work_pump(pump,end);binding_bytes=_raw(build_binding)
+            self._work_pump(pump,end);metadata_bytes=_raw(dict(self._clock.metadata));self._work_pump(pump,end)
+            _need(len(facts_bytes)<=8192 and len(binding_bytes)<=8192 and len(metadata_bytes)<=8192,'bounded detached context required')
+            job=work._PrepareJob(work._KEY,self._bundle,item['payload_bytes'],item['draft_bytes'],facts_bytes,binding_bytes,metadata_bytes,self._origin,self._domain,item['received'],evaluated)
+            self._prepare_job=job;job.start(work._KEY)
+            while not job.done.is_set() or job.thread.is_alive():
+                if self._clock()>=end:raise TimeoutError('original preparation deadline expired')
+                self._work_pump(pump,end)
+                remaining=end-self._clock()
+                if remaining<=0:raise TimeoutError('original preparation deadline expired')
+                if not job.done.is_set() or job.thread.is_alive():time.sleep(min(remaining,1_000_000)/1_000_000_000)
+            self._attempt=job.attempt
+            if job.error is not None:raise job.error
+            _need(self._bundle is job._bundle and self._bundle.adapter is job._adapter
+                  and self._bundle.reducer is job._reducer,'original B131 bundle changed')
+            _need(type(job.attempt) is tuple and len(job.attempt)==3,'actual original attempt required')
+            request,source,companions=job.attempt
+            _need(all(request!=prior[0] and source!=prior[1] for prior in self._attempts),'new original request and source required')
+            self._attempts.append(job.attempt);result=job.result;self._result=result
+            _need(type(result) is self._bundle.adapter.Preparation and result.status=='TRACE94_PLAN_PREPARED' and result.plan is not None,'original B113/B131 refused')
+            _need(type(request) is bytes and type(source) is bytes and type(companions) is tuple and len(companions)==4
+                  and all(type(value) is bytes for value in companions) and result.original.request==request
+                  and result.original.source==source and result.original.companions==companions,'original prepared bytes changed')
+            self._work_prefix_check(prefix,pump,end)
+            self._work_pump(pump,end)
+            _need(self._functional._retained_sample(payload) is item['entry'],'original selected payload changed during work')
+            self._work_pump(pump,end)
+            _need(item['admission'].record is rec and rec.adc_tick_ms==adc_tick and rec.em_tick_ms==em_tick,'original selected timestamps changed')
+            self._work_pump(pump,end);_need(_raw(facts)==facts_bytes,'root facts changed')
+            self._work_pump(pump,end);_need(_raw(build_binding)==binding_bytes,'root binding changed')
+            self._work_pump(pump,end)
+            current=self._clock();_need(current<end,'preparation deadline expired');self._ledger._observe_time(current,'evaluation_monotonic_ns');self._work_fresh(adc_tick,em_tick,current)
+            self._last_prepared_index=index;self._last_prepared_tick=adc_tick;self._results.append(result)
+            if not hasattr(self,'_prepared_work'):self._prepared_work={}
+            self._prepared_work[id(result)]=dict(result=result,original=result.original,attempt=job.attempt,job=job,prefix=prefix,item=item,pump=pump,end=end,record=rec,adc_tick=adc_tick,em_tick=em_tick,used=False)
+            self._preparing=False
+            return result
+        except BaseException:
+            if self._prepare_job is not None and self._prepare_job.attempt is not None:self._attempt=self._prepare_job.attempt
+            self._failed=True;raise
+
+    def _prepared_work_deadline(self, prepared):
+        self._check()
+        record=getattr(self,'_prepared_work',{}).get(id(prepared))
+        _need(record is not None and record['result'] is prepared and type(prepared) is self._bundle.adapter.Preparation,'original prepared work required')
+        job=record['job'];_need(self._bundle is job._bundle and self._bundle.adapter is job._adapter and self._bundle.reducer is job._reducer,'original B131 bundle changed')
+        self._work_original_pump(record['pump'])
+        return record['end']
+
+    def _check_prepared_dispatch(self, prepared):
+        self._check()
+        record=getattr(self,'_prepared_work',{}).get(id(prepared))
+        _need(record is not None and record['result'] is prepared and type(prepared) is self._bundle.adapter.Preparation and not record['used'],'unused original prepared work required')
+        record['used']=True
+        try:
+            pump=record['pump'];self._work_original_pump(pump);self._work_prefix_check(record['prefix'],pump,record['end'])
+            job=record['job'];_need(self._bundle is job._bundle and self._bundle.adapter is job._adapter and self._bundle.reducer is job._reducer,'original B131 bundle changed')
+            self._work_pump(pump,record['end'])
+            _need(self._functional._retained_sample(record['item']['entry']['payload']) is record['item']['entry'],'original selected payload changed before dispatch')
+            self._work_pump(pump,record['end'])
+            request,source,companions=record['attempt']
+            _need(prepared.original is record['original'] and prepared.original.request==request
+                  and prepared.original.source==source and prepared.original.companions==companions
+                  and record['job'].result is prepared,'original prepared work changed')
+            rec=record['item']['admission'].record
+            _need(rec is record['record'] and rec.adc_tick_ms==record['adc_tick'] and rec.em_tick_ms==record['em_tick'],'original selected timestamps changed')
+            now=self._clock();_need(now<record['end'],'original preparation deadline expired')
+            self._ledger._observe_time(now,'evaluation_monotonic_ns');self._work_fresh(record['adc_tick'],record['em_tick'],now)
+            return record['end']
+        except BaseException:self._failed=True;raise

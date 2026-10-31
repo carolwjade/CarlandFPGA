@@ -17,6 +17,7 @@ def _hex(v):return type(v) is str and len(v)%2==0 and re.fullmatch('[0-9a-f]*',v
 _PHASE_KEY=object()
 _PHASE_LEDGERS={}
 _CHAIN_BINDINGS={}
+_OWNER_WORK_SELECTION={}
 class OriginalPhaseReceipt:
  """One exact host request/reply observation; never an authority decision."""
  __slots__=('owner','phase_index','request_id','kind','operation_id','request_raw','response_raw',
@@ -79,10 +80,67 @@ class ChainSessionV2:
   need(self.s is session and self.clock is clock and self.bundle is bundle and session._proc is process and self.sequence is sequence and _original_session_origin(session) is origin,'original chain custody changed')
   return origin
  @property
+ def owner_work_v1(self):
+  self._phase_binding()
+  return _OWNER_WORK_SELECTION.get(self) is _CHAIN_BINDINGS[self]
+ def select_owner_work_v1(self):
+  origin=self._phase_binding();need(threading.get_ident()==self.thread and not self.sequence.initialized and not self.sequence.ids and self not in _OWNER_WORK_SELECTION,'one pre-init owner work selection required')
+  self.s._check();_OWNER_WORK_SELECTION[self]=_CHAIN_BINDINGS[self]
+ def _work_pump(self):
+  from .original_chain_source_pump_a import OriginalChainSourcePump
+  from .original_source_trace_scan_a import OriginalSourceTraceScan
+  pump=getattr(self.s,'_source_pump',None)
+  need(type(pump) is OriginalChainSourcePump and ssh._SESSION_PUMPS.get(self.s) is pump and pump.session is self.s and pump.clock is self.clock and type(pump.scanner) is OriginalSourceTraceScan and pump.enabled and not pump.failed,'exact enabled original source pump required')
+  OriginalChainSourcePump._check(pump,True)
+  return pump
+ def _selected_active(self,kind):
+  if self not in _OWNER_WORK_SELECTION:return False
+  need(self.owner_work_v1,'original owner work selection changed')
+  pump=getattr(self.s,'_source_pump',None)
+  if pump is not None and pump.failed:
+   self.s._unknown=True;raise ValueError('original source pump failed')
+  if kind=='init' and (pump is None or not pump.enabled):return False
+  try:self._work_pump();return True
+  except BaseException:self.s._unknown=True;raise
+ def _sequence_snapshot(self):
+  q=self.sequence
+  return (q.initialized,q.closed,tuple(sorted(q.counts.items())),frozenset(q.ids),q.max_commands,q.last,q.profile)
+ def _run_work(self,kind,args,end):
+  from . import original_chain_client_work_a as work
+  return work._wait(self,work._start(self,kind,args,end),end)
+ def _send_selected(self,ident,kind,payload,end,*,prepared=None,trace_args=None):
+  from . import original_chain_client_work_a as work
+  s=self.s;need(threading.get_ident()==self.thread and not s._unknown,'owner or unknown');s._check();origin=self._phase_binding();pump=self._work_pump()
+  try:
+   snapshot=self._sequence_snapshot();wire,x=self._run_work('encode',(ident,kind,payload,s._dir.name,snapshot),end)
+   need(self._sequence_snapshot()==snapshot,'original sequence changed during fixed work')
+   self.sequence.consume(x);n=len(self.sequence.ids)
+   lower=self.clock();job=work._start(self,'intent',(self.folder,n,ident,kind,wire,lower),end);work._wait(self,job,end)
+   permit=work._permit(self,end,wire,job,prepared)
+   response=s._call_until(wire,permit);upper=self.clock()
+   doc=self._run_work('reply',(self.folder,n,response,upper,ident,s._dir.name,kind),end)
+   need(_original_session_origin(s) is origin and getattr(s,'_source_pump',None) is pump and ssh._SESSION_PUMPS.get(s) is pump and len(_PHASE_LEDGERS[self])==n-1,'original phase ordering changed')
+   receipt=OriginalPhaseReceipt(_PHASE_KEY,self,n,ident,kind,s._dir.name,wire,response,lower,upper,origin,doc['status'],doc['unknown']);_PHASE_LEDGERS[self].append(receipt)
+   correlation=None
+   if doc['status']=='UNKNOWN' and doc['result'] is not None:
+    self._run_work('failure_post',(doc['result'],s._dir.name),end)
+    need(_original_session_origin(s) is origin and getattr(s,'_source_pump',None) is pump and ssh._SESSION_PUMPS.get(s) is pump and len(_PHASE_LEDGERS[self])==n and _PHASE_LEDGERS[self][-1] is receipt,'original phase changed after failure validation')
+   if trace_args is not None and doc['status']=='COMPLETE':
+    observed,correlation=self._run_work('trace_post',(*trace_args,response),end);need(observed==doc,'trace reply changed')
+    need(_original_session_origin(s) is origin and getattr(s,'_source_pump',None) is pump and ssh._SESSION_PUMPS.get(s) is pump and len(_PHASE_LEDGERS[self])==n and _PHASE_LEDGERS[self][-1] is receipt,'original phase changed after correlation')
+   if doc['status']!='COMPLETE':s._unknown=True
+   out=dict(response=doc,raw_response=response,lower_qpc_ns=lower,upper_qpc_ns=upper,authority='not_evaluated',phase_receipt=receipt,_owner_work_end=end)
+   if trace_args is not None:out['correlation']=correlation
+   return out
+  except BaseException:s._unknown=True;raise
+ @property
  def phase_receipts(self):
   self._phase_binding();return tuple(_PHASE_LEDGERS[self])
  def _send(self,ident,kind,payload,timeout_ns):
   s=self.s;need(threading.get_ident()==self.thread and not s._unknown,'owner or unknown');s._check();need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded timeout')
+  if self in _OWNER_WORK_SELECTION:
+   phase_started=self.clock()
+   if self._selected_active(kind):return self._send_selected(ident,kind,payload,phase_started+timeout_ns)
   origin=self._phase_binding();pump=getattr(s,'_source_pump',None)
   need(origin[2] is self.clock and self in _PHASE_LEDGERS and (pump is None and s not in ssh._SESSION_PUMPS or pump is not None and ssh._SESSION_PUMPS.get(s) is pump),'original session, pump and phase ledger required')
   wire=protocol.raw(dict(schema=protocol.SCHEMA,id=ident,operation_id=s._dir.name,kind=kind,payload=payload))+b'\n';x=protocol.decode_request(wire,s._dir.name,g05,self.sequence)
@@ -102,7 +160,11 @@ class ChainSessionV2:
   out=self._send(ident,kind,payload,timeout_ns)
   try:
    if out['response']['status']=='COMPLETE':
-    result=out['response']['result'];self.deadline=_facts(result,kind,self.s._dir.name,self.identity,self.deadline)
+    result=out['response']['result']
+    if '_owner_work_end' in out:
+     self.deadline=self._run_work('g05_post',(result,kind,self.s._dir.name,self.identity,self.deadline,self.duration,self.policy_sha,self.receipts,payload),out['_owner_work_end'])
+     self.policy_sha=result['policy_sha256'];self.receipts=result['receipts'];return out
+    self.deadline=_facts(result,kind,self.s._dir.name,self.identity,self.deadline)
     need(self.deadline[1]-self.deadline[0]==self.duration and (self.policy_sha is None or self.policy_sha==result['policy_sha256']),'fixed duration and policy')
     need(result['receipts'][:len(self.receipts)]==self.receipts,'original cumulative receipts changed')
     self.policy_sha=result['policy_sha256'];self.receipts=result['receipts']
@@ -116,7 +178,25 @@ class ChainSessionV2:
   need(type(command_words) is tuple,'immutable command required');return self._g05(ident,'apply',dict(command_words=list(command_words)),timeout_ns)
  def status(self,ident,*,timeout_ns):return self._g05(ident,'status',{},timeout_ns)
  def close(self,ident,*,stop=False,timeout_ns):return self._g05(ident,'close',dict(stop=stop),timeout_ns)
+ def _trace_selected(self,ident,prepared,build_binding,max_io,timeout_ns,start):
+  need(type(timeout_ns) is int and 0<timeout_ns<=60_000_000_000,'bounded timeout')
+  try:
+   pump=self._work_pump();scanner=pump.scanner
+   from .original_source_trace_scan_a import OriginalSourceTraceScan
+   original_end=OriginalSourceTraceScan._prepared_work_deadline(scanner,prepared);end=min(original_end,start+timeout_ns)
+   need(type(prepared) is self.bundle.adapter.Preparation and prepared.status=='TRACE94_PLAN_PREPARED' and prepared.plan is not None,'original preparation required')
+   original=prepared.original;request=original.request;source=original.source;companions=original.companions
+   need(type(request) is bytes and type(source) is bytes and type(companions) is tuple and len(companions)==4 and all(type(x) is bytes for x in companions),'immutable original trace bytes required')
+   need(type(build_binding) is dict and all(type(k) is str and type(v) is str for k,v in build_binding.items()),'fixed trace binding required');binding=dict(build_binding)
+   index=self.sequence.counts['trace_scan']+1
+   fixed,payload=self._run_work('trace_prepare',(self.bundle,request,source,companions,binding,ident,self.s._dir.name,max_io,self.folder,index),end)
+   trace_args=(self.bundle,fixed,request,source,companions,binding,ident,self.s._dir.name,index,max_io)
+   return self._send_selected(ident,'trace_scan',payload,end,prepared=prepared,trace_args=trace_args)
+  except BaseException:self.s._unknown=True;raise
  def trace_scan(self,ident,prepared,*,build_binding,max_io,timeout_ns):
+  if self in _OWNER_WORK_SELECTION:
+   phase_started=self.clock()
+   if self._selected_active('trace_scan'):return self._trace_selected(ident,prepared,build_binding,max_io,timeout_ns,phase_started)
   need(type(prepared) is self.bundle.adapter.Preparation and prepared.status=='TRACE94_PLAN_PREPARED' and prepared.plan is not None,'original preparation required')
   original=prepared.original;fixed=self.bundle.adapter.prepare_bytes(original.request,original.source,original.companions,build_binding=build_binding)
   need(fixed.status=='TRACE94_PLAN_PREPARED' and fixed.plan is not None and fixed.plan.facts()['lineage']['operation_id']==self.s._dir.name,'original inputs and operation')

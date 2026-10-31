@@ -194,6 +194,39 @@ class Session:
         if 'error' in result:
             self._unknown=True;raise OSError('original SSH I/O unknown: '+result['error'])
         return result['raw']
+    def _call_until(self,wire,permit):
+        """One exact owner-selected phase; deadline cannot be renewed."""
+        from . import original_chain_client_work_a as work
+        from .original_chain_source_pump_a import OriginalChainSourcePump
+        self._check()
+        end=work._consume(self,wire,permit)
+        pump=getattr(self,'_source_pump',None)
+        _need(type(pump) is OriginalChainSourcePump and _SESSION_PUMPS.get(self) is pump
+              and pump.session is self and pump.clock is self._clock and pump.enabled,
+              'exact enabled original pump required')
+        if self._clock()>=end:
+            self._unknown=True;raise TimeoutError('original phase expired before I/O')
+        original_process=self._proc;original_input=original_process.stdin;original_output=original_process.stdout
+        done=threading.Event();result={}
+        def io():
+            try:
+                _write_once(original_input,wire)
+                result['raw']=original_output.readline(1048577)
+            except BaseException as e:result['error']=type(e).__name__
+            finally:done.set()
+        thread=threading.Thread(target=io,daemon=True);self._threads.append(thread);thread.start()
+        try:
+            while True:
+                if self._clock()>=end:raise TimeoutError('original SSH effect unknown; no replay')
+                if done.is_set():break
+                OriginalChainSourcePump.poll_once(pump,self)
+                remaining=end-self._clock()
+                if remaining<=0:raise TimeoutError('original SSH effect unknown; no replay')
+                if not done.is_set():time.sleep(min(remaining,1_000_000)/1_000_000_000)
+            if 'error' in result:raise OSError('original SSH I/O unknown: '+result['error'])
+            return result['raw']
+        except BaseException:
+            self._unknown=True;raise
     def bind_source_pump(self,pump):
         """Bind only the fixed same-session owner-thread pump, once."""
         from .original_chain_source_pump_a import OriginalChainSourcePump

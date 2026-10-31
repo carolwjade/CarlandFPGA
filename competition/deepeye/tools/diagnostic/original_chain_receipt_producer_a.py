@@ -162,13 +162,28 @@ class OriginalChainReceiptProducer:
   except BaseException:self._failed=True;raise
  def scan_actual(self,ident,payload,*,facts,build_binding,max_io,timeout_ns):
   self._check();self._source_ready()
+  selected=False
   try:
+   selected=self._chain.owner_work_v1
    need(self._scanner is not None,'original scanner required')
    need(self._scanner._admitted and self._scanner._admitted[-1]['entry']['payload'] is payload,'latest admitted original payload required')
    item=self._scanner._admitted[-1]
    need(type(facts) is dict and type(build_binding) is dict,'explicit root facts and binding required')
    facts_snapshot=copy.deepcopy(facts);binding_snapshot=copy.deepcopy(build_binding)
-   preparation=scanner_module.OriginalSourceTraceScan.prepare(self._scanner,payload,facts=facts,build_binding=build_binding)
+   if selected:
+    selected_entry=item['entry'];selected_token=item['token'];selected_draft=item['draft'];selected_admission=item['admission']
+    from .original_chain_source_pump_a import OriginalChainSourcePump
+    pump=self._source_pump
+    need(type(pump) is OriginalChainSourcePump and pump.enabled and not pump.failed
+         and getattr(self._session,'_source_pump',None) is pump and ssh._SESSION_PUMPS.get(self._session) is pump
+         and pump.session is self._session and pump.scanner is self._scanner and pump.clock is self._clock,
+         'same enabled original source pump required')
+    preparation=scanner_module.OriginalSourceTraceScan.prepare_with_pump(self._scanner,payload,facts=facts,build_binding=build_binding,pump=pump,timeout_ns=timeout_ns)
+    self._flush_pump()
+    need(len(self._scanner._admitted)==self._admission_count and any(candidate is item for candidate in self._scanner._admitted) and item['entry'] is selected_entry and selected_entry['payload'] is payload and item['token'] is selected_token and item['draft'] is selected_draft and item['admission'] is selected_admission and selected_token._draft is selected_draft,'original selected sample and complete ordered source history required')
+    need(facts==facts_snapshot and build_binding==binding_snapshot,'root facts or binding changed during preparation')
+   else:
+    preparation=scanner_module.OriginalSourceTraceScan.prepare(self._scanner,payload,facts=facts,build_binding=build_binding)
    need(type(preparation) is self._bundle.adapter.Preparation and preparation is self._scanner._result,'actual B131 preparation required')
    out=client.ChainSessionV2.trace_scan(self._chain,ident,preparation,build_binding=build_binding,max_io=max_io,timeout_ns=timeout_ns)
    need(len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids,'original one-use trace operation required');self._operation_count+=1
@@ -185,6 +200,7 @@ class OriginalChainReceiptProducer:
    if len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids:self._operation_count+=1
    try:self._flush_pump()
    except BaseException:pass
+   if selected:self._session._unknown=True
    self._failed=True;raise
  def apply(self,ident,command_words,*,timeout_ns):return self._call('apply',client.ChainSessionV2.apply,ident,command_words,timeout_ns=timeout_ns)
  def status(self,ident,*,timeout_ns):return self._call('status',client.ChainSessionV2.status,ident,timeout_ns=timeout_ns)
