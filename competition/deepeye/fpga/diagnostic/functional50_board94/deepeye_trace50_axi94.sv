@@ -16,27 +16,27 @@
 module deepeye_trace50_axi94 #(
     parameter logic [127:0] BUILD_ID = 128'd0
 ) (
-    input wire logic s_axi_aclk,
-    input wire logic s_axi_aresetn,
-    input wire logic [11:0] s_axi_awaddr,
-    input wire logic [2:0] s_axi_awprot,
-    input wire logic s_axi_awvalid,
+    input wire s_axi_aclk,
+    input wire s_axi_aresetn,
+    input wire [11:0] s_axi_awaddr,
+    input wire [2:0] s_axi_awprot,
+    input wire s_axi_awvalid,
     output logic s_axi_awready,
-    input wire logic [31:0] s_axi_wdata,
-    input wire logic [3:0] s_axi_wstrb,
-    input wire logic s_axi_wvalid,
+    input wire [31:0] s_axi_wdata,
+    input wire [3:0] s_axi_wstrb,
+    input wire s_axi_wvalid,
     output logic s_axi_wready,
     output logic [1:0] s_axi_bresp,
     output logic s_axi_bvalid,
-    input wire logic s_axi_bready,
-    input wire logic [11:0] s_axi_araddr,
-    input wire logic [2:0] s_axi_arprot,
-    input wire logic s_axi_arvalid,
+    input wire s_axi_bready,
+    input wire [11:0] s_axi_araddr,
+    input wire [2:0] s_axi_arprot,
+    input wire s_axi_arvalid,
     output logic s_axi_arready,
     output logic [31:0] s_axi_rdata,
     output logic [1:0] s_axi_rresp,
     output logic s_axi_rvalid,
-    input wire logic s_axi_rready
+    input wire s_axi_rready
 );
     localparam logic [31:0] MAGIC = 32'h54353046;
     localparam logic [31:0] LAYOUT = 32'd1;
