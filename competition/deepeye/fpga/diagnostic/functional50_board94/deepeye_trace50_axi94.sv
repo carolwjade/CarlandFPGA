@@ -489,7 +489,7 @@ module deepeye_trace50_axi94 #(
     // FIFO write/pop are specified together so a full FIFO may replace exactly
     // one simultaneously popped item but can never overwrite without that pop.
     always_ff @(posedge s_axi_aclk or negedge rst_n_sync) begin
-        if (rst) begin
+        if (!rst_n_sync) begin
             fifo_wr_q <= 12'd0;
             fifo_rd_q <= 12'd0;
             fifo_count_q <= 13'd0;
@@ -522,7 +522,7 @@ module deepeye_trace50_axi94 #(
 
     // State, retained fixture identity, command consumption, result and fault.
     always_ff @(posedge s_axi_aclk or negedge rst_n_sync) begin
-        if (rst) begin
+        if (!rst_n_sync) begin
             aw_full_q <= 1'b0;
             w_full_q <= 1'b0;
             aw_addr_q <= 12'd0;
