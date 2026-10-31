@@ -99,14 +99,17 @@ var _demo_stage_labels: Dictionary = {}
 var _demo_data_labels: Dictionary = {}
 var _demo_ready := false
 const DEMO_STAGES := [
-    ["sensor", "传感"], ["board_compression", "板端压缩"],
+    ["sensor", "传感"], ["board_compression", "板端编码 / 压缩"],
     ["upload_decode", "上传 / 解压"], ["ai_decision", "AI 决策"],
     ["board_readback", "板端回读"], ["motion", "模拟器实际运动"]]
 const DEMO_DATA := [
     ["raw", "原始值"], ["encoded", "编码数据"], ["decoded", "解压值"],
     ["source_time", "源时间"], ["reconstruction_error", "还原差异 / 模式"],
     ["compression_ratio", "压缩比"], ["quality_note", "质量说明"],
-    ["board", "板卡"], ["build", "构建"], ["latency", "延迟"]]
+    ["board", "板卡"], ["build", "构建"], ["latency", "延迟"],
+    ["ai_decision", "AI 判断"], ["control_command", "控制指令"],
+    ["board_output", "板端输出 / 回读值"], ["drill_pose", "钻头姿态（读回）"],
+    ["cycle", "周期"], ["scenario", "场景 / 任务"]]
 
 func _ready() -> void:
 	if _initialized:
@@ -562,16 +565,20 @@ func _build_demo30h_panel(box: VBoxContainer) -> void:
 	for item: Array in DEMO_DATA:
 		var label := Label.new()
 		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		label.text = String(item[1]) + ": —"
+		label.text = String(item[1]) + ": 未知"
 		_demo_root.add_child(label)
 		_demo_data_labels[item[0]] = label
 
 func _demo30h_text(value: Variant) -> String:
 	if value == null:
-		return "—"
+		return "未知"
 	if typeof(value) not in [TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_BOOL]:
-		return "—"
+		return "未知"
+	if typeof(value) == TYPE_FLOAT and not is_finite(value):
+		return "未知"
 	var result := str(value)
+	if result.strip_edges().is_empty():
+		return "未知"
 	return result.substr(0, 160) if result.length() > 160 else result
 
 # Snapshot schema is documented in the A290 handoff; missing fields clear.
@@ -585,7 +592,7 @@ func present_demo30h_status(status: Variant) -> bool:
 		for item: Array in DEMO_STAGES:
 			_demo_stage_labels[item[0]].text = String(item[1]) + ": 未连接"
 		for item: Array in DEMO_DATA:
-			_demo_data_labels[item[0]].text = String(item[1]) + ": —"
+			_demo_data_labels[item[0]].text = String(item[1]) + ": 未知"
 		return false
 	var connection: Variant = status.get("connection", "disconnected")
 	var ready: Variant = status.get("coordinator_ready", false)
@@ -596,7 +603,7 @@ func present_demo30h_status(status: Variant) -> bool:
 		for item: Array in DEMO_STAGES:
 			_demo_stage_labels[item[0]].text = String(item[1]) + ": 未连接"
 		for item: Array in DEMO_DATA:
-			_demo_data_labels[item[0]].text = String(item[1]) + ": —"
+			_demo_data_labels[item[0]].text = String(item[1]) + ": 未知"
 		return false
 	var text := {"disconnected": "未连接", "pending": "等待中", "connected": "已连接", "failed": "失败"}
 	_demo_connection.text = "协调程序: " + text[connection]
@@ -612,6 +619,10 @@ func present_demo30h_status(status: Variant) -> bool:
 		_demo_data_labels[item[0]].text = String(item[1]) + ": " + _demo30h_text(data.get(item[0], null))
 	var difference := _demo30h_text(data.get("reconstruction_error", null))
 	var mode := _demo30h_text(data.get("codec_mode", null))
+	var mode_value: Variant = data.get("codec_mode", null)
+	if typeof(mode_value) == TYPE_STRING and mode_value.to_upper() == "RAW":
+		mode = "RAW（原始传输，未压缩）"
+		_demo_data_labels["compression_ratio"].text = "数据尺寸比: %s · RAW 原始传输（未压缩）" % _demo30h_text(data.get("compression_ratio", null))
 	var legacy: Variant = data.get("e0_match", null)
 	var legacy_text := "未知"
 	if typeof(legacy) == TYPE_BOOL:

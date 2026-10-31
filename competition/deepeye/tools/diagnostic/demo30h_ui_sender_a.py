@@ -21,7 +21,8 @@ MAX_TRANSPORT_NS = 2_000_000_000  # Transport bound, unrelated to final 100ms me
 _RESERVED_TRANSMISSIONS = 16
 _STAGES = ('sensor','board_compression','upload_decode','ai_decision','board_readback','motion')
 _DATA = frozenset(('raw','encoded','decoded','source_time','reconstruction_error',
-                  'compression_ratio','quality_note','board','build','latency','codec_mode','e0_match'))
+                  'compression_ratio','quality_note','board','build','latency','codec_mode','e0_match',
+                  'ai_decision','control_command','board_output','drill_pose','cycle','scenario'))
 _KEY = object()
 _RETAINED = []  # Original attempts stay available after unknown side effects.
 
