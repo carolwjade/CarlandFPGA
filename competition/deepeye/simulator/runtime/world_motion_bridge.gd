@@ -1638,7 +1638,7 @@ func _ui_status(message: Dictionary) -> void:
 		if not stage is String or not ["pending","observed","failed","disconnected"].has(stage):
 			local_fault("malformed")
 			return
-	var data_keys := ["raw","encoded","decoded","source_time","reconstruction_error","compression_ratio","quality_note","board","build","latency","codec_mode","e0_match"]
+	var data_keys := ["raw","encoded","decoded","source_time","reconstruction_error","compression_ratio","quality_note","board","build","latency","codec_mode","e0_match","ai_decision","control_command","board_output","drill_pose","cycle","scenario"]
 	for key in status.data:
 		var value: Variant = status.data[key]
 		if not data_keys.has(key) or not [TYPE_NIL,TYPE_BOOL,TYPE_INT,TYPE_FLOAT,TYPE_STRING].has(typeof(value)):
