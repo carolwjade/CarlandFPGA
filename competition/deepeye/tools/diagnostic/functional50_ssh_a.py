@@ -169,21 +169,26 @@ class Session:
                   'original fixed source pump binding required')
         if pump is not None and pump.failed:
             self._unknown=True;raise ValueError('original source pump failed; no replay')
+        enabled=pump is not None and pump.enabled
+        if enabled:
+            try:end=self._clock()+timeout_ns
+            except BaseException:self._unknown=True;raise
         thread=threading.Thread(target=io,daemon=True);self._threads.append(thread);thread.start()
-        if pump is None or not pump.enabled:
+        if not enabled:
             if not done.wait(timeout_ns/1_000_000_000):
                 self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
         else:
-            end=time.monotonic_ns()+timeout_ns
             try:
                 while True:
-                    remaining=end-time.monotonic_ns()
+                    if self._clock()>=end:
+                        self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+                    if done.is_set():break
+                    OriginalChainSourcePump.poll_once(pump,self)
+                    remaining=end-self._clock()
                     if remaining<=0:
                         self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
-                    if done.wait(min(remaining,1_000_000)/1_000_000_000):break
-                    OriginalChainSourcePump.poll_once(pump,self)
-                    if time.monotonic_ns()>=end:
-                        self._unknown=True;raise TimeoutError('original SSH effect unknown; no replay')
+                    if done.is_set():break
+                    time.sleep(min(remaining,1_000_000)/1_000_000_000)
             except BaseException:
                 self._unknown=True;raise
         if 'error' in result:
