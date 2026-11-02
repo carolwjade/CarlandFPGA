@@ -68,11 +68,11 @@ class FiniteActionCandidate:
     authority: str='none'
 
 
-def _validity(bounds,lower,now):
+def _validity(bounds,lower,now,*,age_cap=MAX_CANDIDATE_AGE_NS):
     _need(type(bounds) is dict and set(bounds)=={'max_age_ns','source_deadline_ns','dispatch_deadline_ns','previous_deadline_ns'},'exact four explicit bounds required')
     # No unspecified previous sentinel: first candidate must explicitly pass None.
     age=_uint(bounds['max_age_ns'],'max_age_ns')
-    _need(0<age<=MAX_CANDIDATE_AGE_NS,'max_age_ns must be 1..100000000')
+    _need(0<age<=age_cap,'max_age_ns exceeds the selected original/profile bound')
     source=bounds['source_deadline_ns'];dispatch=bounds['dispatch_deadline_ns'];previous=bounds['previous_deadline_ns']
     if source is not None:_uint(source,'source_deadline_ns')
     if dispatch is not None:_uint(dispatch,'dispatch_deadline_ns')
@@ -87,13 +87,21 @@ def _validity(bounds,lower,now):
 
 
 def validate_message(raw_bytes,*,legacy,producer,context,now_ns,consumer=None,
-                     enable_interval=False,bounds=None):
+                     enable_interval=False,bounds=None,g05_policy=None):
     """v1 default; explicit v2 interval and original finite bounds required.
 
     No call fabricates completed_monotonic_ns. Returns original v1 result when
     disabled, IntervalCandidate when enabled. No registration or new authority.
     """
     _need(type(enable_interval) is bool,'enable_interval must be bool')
+    age_cap=MAX_CANDIDATE_AGE_NS
+    if g05_policy is not None:
+        from ..simulation.authority.g05_csr_channels_v1 import G05CsrPolicy
+        _need(type(g05_policy) is G05CsrPolicy and g05_policy.demo_ai_profile is not None,
+              'fixed explicitly selected G05 demo policy required')
+        g05_policy.check()
+        _need(enable_interval,'G05 policy requires the original interval branch')
+        age_cap=g05_policy.max_source_age_ns
     if not enable_interval:
         _need(bounds is None,'bounds require explicit interval opt-in')
         return legacy.validate_message(raw_bytes,producer=producer,context=context,now_ns=now_ns,consumer=consumer)
@@ -118,7 +126,7 @@ def validate_message(raw_bytes,*,legacy,producer,context,now_ns,consumer=None,
     lower=_uint(span['lower_ns'],'lower_ns');upper=_uint(span['upper_ns'],'upper_ns')
     _need(lower<=upper<=now_ns,'ordered interval must end by now')
     if bounds is None:raise Unavailable('original completion bounds missing')
-    deadline=_validity(bounds,lower,now_ns)
+    deadline=_validity(bounds,lower,now_ns,age_cap=age_cap)
     return IntervalCandidate(kind,producer,consumer,False,_freeze(document),deadline,now_ns,_freeze(bounds))
 
 

@@ -67,7 +67,13 @@ def _validate_interval_candidate(record, context, now, max_age=None):
     bounds = record.observed_interval_v2
     if type(bounds) is not ObservedIntervalBoundsV2:
         raise ValueError('original observed-interval bounds required')
-    age = _integer(bounds.max_age_ns, 'max_age_ns', 1, 100_000_000)
+    g05_policy = None
+    if __package__:
+        from ..simulation.authority.g05_csr_channels_v1 import G05CsrChannels
+        if type(record.source) is G05CsrChannels:
+            g05_policy = record.source.policy
+    cap = 100_000_000 if g05_policy is None else g05_policy.max_source_age_ns
+    age = _integer(bounds.max_age_ns, 'max_age_ns', 1, cap)
     if max_age is not None and age != max_age:
         raise ValueError('original configured progress age differs')
     _integer(bounds.source_deadline_ns, 'source_deadline_ns')
@@ -79,12 +85,17 @@ def _validate_interval_candidate(record, context, now, max_age=None):
     upper = _integer(record.completion_upper_ns, 'completion_upper_ns')
     if not dispatch <= lower <= upper <= now:
         raise ValueError('original observed interval is not ordered')
-    parsed = envelope.validate_message(record.candidate_raw, producer='ai_controller',
-        consumer='control_broker', context=context, now_ns=now,
-        enable_completion_interval=True, completion_bounds=dict(max_age_ns=age,
-            source_deadline_ns=bounds.source_deadline_ns,
-            dispatch_deadline_ns=bounds.dispatch_deadline_ns,
-            previous_deadline_ns=bounds.previous_deadline_ns))
+    selected_bounds = dict(max_age_ns=age,source_deadline_ns=bounds.source_deadline_ns,
+        dispatch_deadline_ns=bounds.dispatch_deadline_ns,previous_deadline_ns=bounds.previous_deadline_ns)
+    if g05_policy is None:
+        parsed = envelope.validate_message(record.candidate_raw, producer='ai_controller',
+            consumer='control_broker', context=context, now_ns=now,
+            enable_completion_interval=True, completion_bounds=selected_bounds)
+    else:
+        from . import completion_interval
+        parsed = completion_interval.validate_message(record.candidate_raw,legacy=envelope,
+            producer='ai_controller',consumer='control_broker',context=context,now_ns=now,
+            enable_interval=True,bounds=selected_bounds,g05_policy=g05_policy)
     doc = parsed.document
     if (doc['basis'] != 'host_dispatch_to_complete_result_observed_v1' or
             doc['completion_observed_interval_ns']['lower_ns'] != dispatch or
@@ -194,7 +205,7 @@ class LatestCompletedMailbox:
     @_entry
     def activate(self, context_raw, *, generation, slot_origin_ns, source,
                  clock_domain, bounds, now_ns, pc_direct_window_v2=None,
-                 enable_completion_interval_v2=False):
+                  enable_completion_interval_v2=False, g05_source_age_ns=None):
         self._halt('activation_replaced')
         if type(enable_completion_interval_v2) is not bool:
             raise ValueError('strict interval opt-in required')
@@ -237,6 +248,9 @@ class LatestCompletedMailbox:
         self._profile = 'fast_9600' if context['transport_profile_id'] == 1 else 'stress_300'
         self._mode = 'HIL_PC_FPGA' if context['topology_id'] == 1 else 'PC_DIRECT'
         self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
+        self._g05_raw4 = g05_source_age_ns is not None
+        if self._g05_raw4:
+            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 5_000_000_000)
         self._observations.clear()
         self._last_observed = None
         self._pending = self._completed = None
@@ -276,6 +290,32 @@ class LatestCompletedMailbox:
                 raise ValueError('old, half-range or wrapped observation sequence')
         self._observations[seq] = observation
         self._last_observed = seq
+        if len(self._observations) > MAX_OBSERVATIONS:
+            self._observations.popitem(last=False)
+        return True
+
+    @_entry
+    def observe_raw4(self, raw, *, sample_lower_ns, now_ns):
+        """Explicit CSR raw4 path; never reinterpret E4 as legacy TELEM/EVENT."""
+        from ..simulation.authority.g05_csr_channels_v1 import validate_raw4_observation
+        now = self._time(now_ns); self._active()
+        if not self._g05_raw4:
+            raise ValueError('raw4 requires explicit G05 activation')
+        doc = validate_raw4_observation(raw, context=self._context, now_ns=now)
+        sample = _integer(sample_lower_ns, 'original raw4 source lower')
+        mapped, native, receipt = doc['adc_interval_ns'], doc['native_em_interval_ns'], doc['receipt_interval_ns']
+        if (sample > mapped['lower_ns'] or sample > now
+                or (native is not None and sample > native['lower_ns'])
+                or receipt['lower_ns'] < self._started or receipt['upper_ns'] > now):
+            raise ValueError('unknown/nonconservative raw4 source or receipt time')
+        seq = doc['observed_seq']; observation = _Observation(raw, sample, receipt['upper_ns'])
+        if seq in self._observations:
+            if self._observations[seq] != observation:
+                raise ValueError('changed duplicate raw4 observation')
+            return False
+        if self._last_observed is not None and not 0 < seq-self._last_observed < 32768:
+            raise ValueError('old/half-range raw4 observation')
+        self._observations[seq] = observation; self._last_observed = seq
         if len(self._observations) > MAX_OBSERVATIONS:
             self._observations.popitem(last=False)
         return True

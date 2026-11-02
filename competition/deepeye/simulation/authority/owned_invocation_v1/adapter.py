@@ -21,6 +21,19 @@ MANIFEST='cb971d321bcdd3dcb6a7b85fdd9e08171c995feb62fab3f995bc7f50fdf97a8a'
 FILES={'c37_entry.py':'899b843111a1b9278e4c5ee16b11d4493c35c1cb0bca328a57f164c3f0c11c74','c37_package.py':'60e26bc8ae9ee0ba1fba8bcea358b4bfad8be2f3a58ccb360e767b6886d62f16','frozen_c28.py':'70b317681fee8c9182c342fe8d2f94eaecc957c62231a74a080d213bb5e0eab4','package-manifest.json':MANIFEST}
 _KEY=object()
 
+def _selected_ai_profile(config):
+    """Fixed selected identity; never infer/update package hashes at runtime."""
+    policy=getattr(config,'g05_csr_v1',None)
+    if policy is not None and policy.demo_ai_profile is not None:
+        from ..demo30h_ai_profile_v1 import selected_profile
+        result=selected_profile(policy.max_source_age_ns)
+        need(result==policy.demo_ai_profile,'explicit fixed demo AI descriptor')
+        return result
+    from types import SimpleNamespace
+    return SimpleNamespace(manifest_sha256=MANIFEST,files=FILES,
+                           model_sha256=FILES['frozen_c28.py'],projection=projection,
+                           verifier=verifier,max_source_age_ns=100_000_000)
+
 @dataclass(frozen=True)
 class OwnedInvocationPolicy:
     operation_id:str
@@ -30,12 +43,15 @@ class OwnedInvocationPolicy:
     max_reads:int
     max_polls:int
     duration_ms:int
+    demo_duration_v1:bool=False
     def check(self):
         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
         need(type(self.max_invocations) is int and 2<=self.max_invocations<=16,'original serial K2..16')
         need(type(self.max_reads) is int and 1<=self.max_reads<=256,'finite reads1..256')
         need(type(self.max_polls) is int and 1<=self.max_polls<=65536,'finite polls1..65536')
-        need(type(self.duration_ms) is int and 1<=self.duration_ms<=100,'prospective duration1..100ms')
+        need(type(self.demo_duration_v1) is bool,'strict prospective demo duration selection')
+        maximum=1000 if self.demo_duration_v1 else 100
+        need(type(self.duration_ms) is int and 1<=self.duration_ms<=maximum,'bounded prospective command validity')
         InvocationIdentity(self.operation_id,self.request_hash,self.tested_commit,MANIFEST,'check',1,'check')
 
 class _Association:
@@ -62,7 +78,7 @@ def _same_root(owner,association,guard):
 def _retain_original_association(owner,event,record,*,session,capture_ref,sample_ref,
         current_read,registry_ref,history_refs,mapping_receipt,source_bound_receipt,
         dispatch_bound_receipt,source_deadline_ns,dispatch_deadline_ns,
-        previous_action,previous_deadline_ns):
+        previous_action,previous_deadline_ns,g05_mapping=None):
     """Original hardware/provider admission hook ONLY; not a verifier API.
 
     Root must already possess the actual cross-format mapping and bound receipts
@@ -75,6 +91,11 @@ def _retain_original_association(owner,event,record,*,session,capture_ref,sample
     tx=owner._input_transaction
     need(type(tx) is _InputTransaction and tx.kind=='observation' and tx.original_event is event and tx.owned_association is None,'original active observation allocation')
     need(type(record) is VerifiedObservation and record.boot is owner._boot,'exact original verified observation')
+    if g05_mapping is not None:
+        from ..g05_csr_channels_v1 import _Mapping, G05CsrChannels, _OBSERVATIONS
+        need(type(g05_mapping) is _Mapping and type(owner._channels) is G05CsrChannels
+             and g05_mapping.channels is owner._channels and _OBSERVATIONS.get(event) is g05_mapping
+             and g05_mapping.used and g05_mapping.raw==record.raw,'original typed G05 mapping')
     need(type(session) is ProjectionSession and type(session._producer) is Producer,'original C42 session/producer')
     session._check();need(session._link is owner._world_action_link and session._link.composition is owner,'same original world link')
     rows=[r for r in session._producer._captures if r[0] is capture_ref]
@@ -102,7 +123,7 @@ def _retain_original_association(owner,event,record,*,session,capture_ref,sample
         previous_action=previous_action,previous_deadline_ns=previous_deadline_ns,
         candidate_bytes=encode(candidate),capture_bytes=capture_raw.encode(),observation_bytes=record.raw,
         observation_key=encode({'context':observation['context'],'observed_seq':observation['observed_seq']}),
-        source=owner._channels,clock=owner._clock,boot=owner._boot,used=False)
+        source=owner._channels,clock=owner._clock,boot=owner._boot,used=False,g05_mapping=g05_mapping)
 
 class _OwnedInvocationAdapter:
     def __init__(self,key,owner):
@@ -110,7 +131,9 @@ class _OwnedInvocationAdapter:
         need(key is _KEY and type(owner) is ActorComposition,'composition private factory')
         self.owner=owner;self.actor=owner._actor;self.source=owner._channels;self.clock=owner._clock
         self.policy=owner._config.owned_invocation_v1;self.policy.check()
+        self.ai_profile=_selected_ai_profile(owner._config)
         self.pending=None;self.ready=None;self._retained=None;self.records=[];self.associations=[];self.failed=False
+        self.quality_reports=[]
         self.thread=threading.get_ident();self._check()
         actor=self.actor
         need(actor._invocation is None and actor._invocation_series is None,'fresh original serial actor only')
@@ -125,16 +148,17 @@ class _OwnedInvocationAdapter:
         need(o._actor is a and type(a) is ActorOwner and a._registry is o._registry and a._registry._contains(a),'original composition actor')
         need(o._channels is self.source and o._clock is self.clock and type(self.clock) is host_clock.QpcHostClock and o._host_clock is self.clock and a._registry._clock_binding is self.clock,'same fixed QPC/source')
         need(a._boot is o._boot and a._runtime_owner is o._runtime and a._executor_owner is o._executor,'same original boot/runtime/executor')
-        need(o._config.enable_completion_interval_v2 is True and o._config.ai_model_sha256==FILES['frozen_c28.py'],'explicit fixed interval/core identity')
+        need(o._config.enable_completion_interval_v2 is True and o._config.ai_model_sha256==self.ai_profile.model_sha256,'explicit fixed interval/core identity')
         need(o._config.owned_invocation_v1 is self.policy,'policy replacement')
         need(a._policy is o._config.actor_policy and a._policy.executable=='runtime/python.exe','fixed original executable')
         need(a._policy.arguments==('-I','-B','c37_entry.py','--actor-stdio-v2','--max-invocations',str(self.policy.max_invocations),'--request-bytes','16384'),'fixed finite original entry')
-        staged=dict(a._policy.files);need(all(staged.get(k)==v for k,v in FILES.items()),'fixed C44 package bytes')
+        staged=dict(a._policy.files);need(all(staged.get(k)==v for k,v in self.ai_profile.files.items()),'fixed selected package bytes')
         o._active();o._checkpoint();self.clock._check()
         return o._progress_time()
 
     def begin(self,tx):
         try:
+            verifier=self.ai_profile.verifier
             now=self._check();o=self.owner
             need(self.pending is None and self.ready is None and len(self.records)<self.policy.max_invocations,'one bounded serial invocation')
             need(type(tx) is _InputTransaction and o._input_transaction is tx and tx.kind=='observation','active original transaction')
@@ -147,10 +171,16 @@ class _OwnedInvocationAdapter:
             a.session._check();rows=[r for r in a.session._producer._captures if r[0] is a.capture_ref]
             need(len(rows)==1 and rows[0][1] is a.sample_ref and encode(rows[0][2])==a.candidate_bytes and rows[0][3]['capture_raw'].encode()==a.capture_bytes,'original selected capture changed')
             guard=_root_guard(o,a)
-            assembled=a.session.export(current_read=a.current_read,registry_ref=a.registry_ref,candidate_ref=a.capture_ref,history_refs=a.history_refs,enabled=True)
-            need(assembled['status']=='ASSEMBLED_UNVALIDATED' and assembled['proof'] is not None,'original full proof unavailable')
-            full=assembled['proof'];need(encode(full['candidate'])==a.candidate_bytes,'unrelated selected projection')
-            projected=json.loads(projection.project_interval_json(encode(full)))
+            if a.g05_mapping is None:
+                assembled=a.session.export(current_read=a.current_read,registry_ref=a.registry_ref,candidate_ref=a.capture_ref,history_refs=a.history_refs,enabled=True)
+                need(assembled['status']=='ASSEMBLED_UNVALIDATED' and assembled['proof'] is not None,'original full proof unavailable')
+                full=assembled['proof'];need(encode(full['candidate'])==a.candidate_bytes,'unrelated selected projection')
+                projected=json.loads(projection.project_interval_json(encode(full)))
+            else:
+                need(getattr(o._config,'g05_csr_v1',None) is not None and o._config.g05_csr_v1.demo_ai_profile is not None,'explicit new G05 demo projection required')
+                projected=self.ai_profile.projection.project_original_g05(a,max_source_age_ns=self.ai_profile.max_source_age_ns)
+                full=dict(schema='g05_csr_original_projection_v1',candidate=json.loads(a.candidate_bytes),
+                          actual_frame_format='ABI3_E4_PAYLOAD_REV2',target100ms_met=projected['target100ms_met'])
             need(projected['input_status']=='PROJECTED' and projected['core_ran'] is False and projected['authorization']=='none','no complete host projection')
             _same_root(o,a,guard)
             public=projected['public_input'];verifier.validate_public(public)
@@ -160,7 +190,7 @@ class _OwnedInvocationAdapter:
             need(now<a.source_deadline_ns<=a.record.sample_lower_ns+o._runtime._age_cap and now<a.dispatch_deadline_ns<=self.actor._run_deadline,'original finite source/dispatch bounds')
             need(a.previous_deadline_ns is None or (a.previous_action is o._progress.bound and a.previous_action.deadline_ns==a.previous_deadline_ns and now<a.previous_deadline_ns),'same action cap changed/expired')
             index=len(self.records)+1
-            ident=InvocationIdentity(self.policy.operation_id,self.policy.request_hash,self.policy.tested_commit,MANIFEST,o._boot.run_id,index,self.actor.instance_id)
+            ident=InvocationIdentity(self.policy.operation_id,self.policy.request_hash,self.policy.tested_commit,self.ai_profile.manifest_sha256,o._boot.run_id,index,self.actor.instance_id)
             ids={k:getattr(ident,k) for k in ('operation_id','run_id','actor_instance_id','invocation_id','tested_commit','package_manifest_sha256')}
             wire=verifier.fixed_request(encode(dict(abi=verifier.ABI,kind='recommend',echo_ids=ids,enabled=True,input=public)))
             # Consume association before journal/write; no failed-operation replay.
@@ -177,6 +207,7 @@ class _OwnedInvocationAdapter:
 
     def advance(self):
         try:
+            verifier=self.ai_profile.verifier
             now=self._check();p=self.pending
             need(p is not None and self.ready is None,'original pending invocation required')
             a,r=p['association'],p['record'];p['polls']+=1
@@ -201,10 +232,19 @@ class _OwnedInvocationAdapter:
             need(pair.result['status']=='RESULT' and pair.result['core_ran'] is True,'child has no usable candidate')
             lower=uint(r.dispatch['raw_call_bracket_ns'][0]);read_lower=uint(r.reads[0]['raw_call_bracket_ns'][0]);upper=uint(ticket.observed_qpc_ns)
             now=self._check();need(lower<=read_lower<=upper<=now,'actual original ordered observation interval')
-            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion)
-            doc=dict(schema_version=2,kind='model_candidate',context=json.loads(self.owner._boot.context_json),candidate_id=r.identity.invocation_id,model_sha256=FILES['frozen_c28.py'],observation=json.loads(a.observation_key),target=target,basis=BASIS,completion_observed_interval_ns=dict(lower_ns=lower,upper_ns=upper))
+            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion,max_duration_ms=1000 if self.policy.demo_duration_v1 else 100)
+            if a.g05_mapping is not None:
+                result_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=upper)
+                admitted_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=now)
+                self.quality_reports.append(dict(invocation_id=r.identity.invocation_id,
+                    actual_RESULT_observed_upper_qpc_ns=upper,completion_admission_qpc_ns=now,
+                    public_input=public,result_age_quality=dict(result_quality),
+                    admission_age_quality=dict(admitted_quality),
+                    pair_dispatch_age_quality=dict(pair.age_quality)))
+            doc=dict(schema_version=2,kind='model_candidate',context=json.loads(self.owner._boot.context_json),candidate_id=r.identity.invocation_id,model_sha256=self.ai_profile.model_sha256,observation=json.loads(a.observation_key),target=target,basis=BASIS,completion_observed_interval_ns=dict(lower_ns=lower,upper_ns=upper))
             candidate_raw=encode(doc);caps=dict(max_age_ns=self.owner._config.progress_max_age_ns,source_deadline_ns=p['caps'][0],dispatch_deadline_ns=p['caps'][1],previous_deadline_ns=p['caps'][2])
-            validated=completion_interval.validate_message(candidate_raw,legacy=host_envelope,producer='ai_controller',consumer='control_broker',context=doc['context'],now_ns=now,enable_interval=True,bounds=caps)
+            g05_policy=getattr(self.owner._config,'g05_csr_v1',None)
+            validated=completion_interval.validate_message(candidate_raw,legacy=host_envelope,producer='ai_controller',consumer='control_broker',context=doc['context'],now_ns=now,enable_interval=True,bounds=caps,g05_policy=g05_policy)
             issue=self._check();finite=completion_interval.adapt_action_candidate(validated,host_issue_ns=issue,now_ns=issue,previous_deadline_ns=p['caps'][2])
             bounds=candidate_mailbox.ObservedIntervalBoundsV2(**caps)
             proof=_CompletedInference(self.owner._boot,self.source,self.clock,candidate_raw,r.identity.invocation_id,lower,read_lower,upper,bounds)
@@ -250,8 +290,12 @@ def _validate_config(config,binding):
     policy=config.owned_invocation_v1
     need(type(policy) is OwnedInvocationPolicy,'exact default-off owned policy')
     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
-    need(config.enable_completion_interval_v2 is True and 0<config.progress_max_age_ns<=100_000_000,'explicit C45 interval policy')
-    need(config.ai_model_sha256==FILES['frozen_c28.py'],'fixed C28 model identity')
+    selected=_selected_ai_profile(config)
+    if policy.demo_duration_v1:
+        need(getattr(config,'g05_csr_v1',None) is not None and config.g05_csr_v1.demo_ai_profile is not None,
+             'longer command validity requires explicit typed demo profile')
+    need(config.enable_completion_interval_v2 is True and 0<config.progress_max_age_ns<=selected.max_source_age_ns,'explicit selected interval policy')
+    need(config.ai_model_sha256==selected.model_sha256,'fixed selected C28 model identity')
     staged=dict(config.actor_policy.files)
-    need(all(staged.get(k)==v for k,v in FILES.items()),'fixed C44 manifest/package/core required')
+    need(all(staged.get(k)==v for k,v in selected.files.items()),'fixed selected manifest/package/core required')
     need(config.actor_policy.executable=='runtime/python.exe' and config.actor_policy.arguments==('-I','-B','c37_entry.py','--actor-stdio-v2','--max-invocations',str(policy.max_invocations),'--request-bytes','16384'),'fixed original package entry')

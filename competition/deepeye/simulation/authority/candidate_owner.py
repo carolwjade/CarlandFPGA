@@ -84,6 +84,8 @@ class _CandidateOwner:
         bounds = mailbox.TransferBounds(_bounded(activation.usb_upper_ns),
                                         _bounded(activation.packing_upper_ns))
         self._context = host_envelope._parse_message(boot.context_json)
+        from .g05_csr_channels_v1 import G05CsrChannels
+        self._g05_raw4 = type(source) is G05CsrChannels
         if self._context['topology_id'] != 2:
             raise ValueError('candidate owner is PC_DIRECT only; no HIL capture authority')
         document = boot_profile.load_document(Path(__file__).resolve().parents[2] / 'docs/boot_profiles.json')
@@ -91,7 +93,8 @@ class _CandidateOwner:
         self._mailbox.activate(boot.context_json,generation=boot.generation,slot_origin_ns=origin,
             source=source,clock_domain=clock_domain,bounds=bounds,now_ns=_bounded(now),
             pc_direct_window_v2=pc_direct_window_v2,
-            enable_completion_interval_v2=enable_completion_interval_v2)
+            enable_completion_interval_v2=enable_completion_interval_v2,
+            g05_source_age_ns=source.policy.max_source_age_ns if self._g05_raw4 else None)
         self._pc_direct_window_v2 = pc_direct_window_v2
 
     def _active(self):
@@ -107,7 +110,8 @@ class _CandidateOwner:
         self._active()
         if record.boot is not self._boot:
             raise ValueError('original runtime-admitted observation required')
-        return self._mailbox.observe(record.raw,sample_lower_ns=record.sample_lower_ns,now_ns=now)
+        observe = self._mailbox.observe_raw4 if self._g05_raw4 else self._mailbox.observe
+        return observe(record.raw,sample_lower_ns=record.sample_lower_ns,now_ns=now)
 
     def offer(self, proof, now):
         self._active()

@@ -13,7 +13,7 @@ from ..isolation.actor_owner import ActorPolicy, ActorRegistry
 from .motion_executor import OwnedMotionExecutor
 from .candidate_owner import _CandidateOwner, _CompletedInference, _InputTransaction
 from .pc_direct_runtime import (AiLease, AuthorityDependencies, BootBinding, PcDirectRuntime,
-                                VerifiedEnvelope, VerifiedObservation)
+                                VerifiedEnvelope, VerifiedObservation, VerifiedG05Health)
 from ...integration import host_envelope
 from ...integration.candidate_mailbox import PcDirectWindowV2, _validate_interval_candidate
 from ...integration import host_clock as clocks
@@ -42,6 +42,7 @@ class AuthorityConfig:
     pc_direct_window_v2: PcDirectWindowV2 | None = None
     enable_completion_interval_v2: bool = False
     owned_invocation_v1: object = None
+    g05_csr_v1: object = None
 
 
 @dataclass(frozen=True)
@@ -180,8 +181,11 @@ class _ProgressGate:
         return self.bound.deadline_ns
 
 
-def _production_channels(config, *, host_clock=None):
+def _production_channels(config, *, host_clock=None, capability=None):
     # No callable/provider supplied by a caller can bypass this gate.
+    if type(config) is AuthorityConfig and config.g05_csr_v1 is not None:
+        from .g05_csr_channels_v1 import _create_channels
+        return _create_channels(config, capability, host_clock)
     raise ActivationUnavailable('original authenticated AI/channel/package unavailable')
 
 
@@ -299,7 +303,8 @@ class _Dependencies(AuthorityDependencies):
         return record
 
     def verify_board(self, event, boot):
-        return self._verify('verify_board', event, boot, VerifiedEnvelope)
+        kind = VerifiedEnvelope if self._owner._config.g05_csr_v1 is None else VerifiedG05Health
+        return self._verify('verify_board', event, boot, kind)
 
     def verify_observation(self, event, boot):
         record = self._verify('verify_observation', event, boot, VerifiedObservation)
@@ -481,7 +486,8 @@ class ActorComposition:
             self._executor = self._world_action_link.executor
         self._runtime = PcDirectRuntime(run_id=config.actor_policy.run_id,
             dependencies=_Dependencies(self), clock=self._clock,
-            heartbeat_timeout_ns=config.heartbeat_timeout_ns)
+            heartbeat_timeout_ns=config.heartbeat_timeout_ns,
+            g05_channels=None if config.g05_csr_v1 is None else self._channels)
         self._checkpoint()
         launch = (self._registry.launch if config.owned_invocation_v1 is None
                   else self._registry.launch_overlapped)
@@ -705,7 +711,7 @@ def _create_authority_for_original_world(config, capability, *, host_clock=None)
     if config.owned_invocation_v1 is not None:
         from .owned_invocation_v1.adapter import _validate_config
         _validate_config(config, binding)
-    channels = _production_channels(config, host_clock=binding)
+    channels = _production_channels(config, host_clock=binding, capability=capability)
     from .original_world_actor_link import _OriginalWorldActorLink
     if (type(config) is not AuthorityConfig or type(config.actor_policy) is not ActorPolicy
             or type(capability) is not _OriginalWorldActorLink):
@@ -724,6 +730,8 @@ def _create_authority_for_original_world(config, capability, *, host_clock=None)
     owner = ActorComposition(_FACTORY, config, channels, host_clock=binding)
     owner._world_action_link = capability
     capability.composition = owner
+    if config.g05_csr_v1 is not None:
+        channels._attach_composition(owner)
     _RETAINED.append(owner)
     owner._start()
     return owner

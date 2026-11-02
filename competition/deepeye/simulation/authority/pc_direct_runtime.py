@@ -75,6 +75,15 @@ class VerifiedObservation:
 
 
 @dataclass(frozen=True)
+class VerifiedG05Health:
+    """Local result of genuine CSR verification; never a UART STATE8 frame."""
+    boot: BootBinding
+    raw: bytes
+    source: object
+    deadline_ns: int
+
+
+@dataclass(frozen=True)
 class AiLease:
     boot: BootBinding
     instance_id: str
@@ -180,12 +189,17 @@ class PcDirectRuntime:
     Ordinary command expiration clears only that action; a newer command may
     run against still-fresh evidence. There are no untrusted grant setters.
     """
-    def __init__(self, *, run_id, dependencies, clock, heartbeat_timeout_ns):
+    def __init__(self, *, run_id, dependencies, clock, heartbeat_timeout_ns, g05_channels=None):
         if type(run_id) is not str or not run_id:
             raise ValueError('nonempty run_id required')
         if not isinstance(dependencies, AuthorityDependencies) or not callable(clock):
             raise ValueError('trusted authority dependencies and monotonic clock required')
         self._timeout = _integer(heartbeat_timeout_ns, 'heartbeat_timeout_ns', 1)
+        if g05_channels is not None:
+            from .g05_csr_channels_v1 import G05CsrChannels
+            if type(g05_channels) is not G05CsrChannels:
+                raise ValueError('fixed original G05 CSR channel required')
+        self._g05_channels = g05_channels
         self._run_id, self._deps, self._clock = run_id, dependencies, clock
         self._owner = threading.get_ident()
         self._now = _integer(clock(), 'clock')
@@ -289,7 +303,9 @@ class PcDirectRuntime:
             self._used_sessions.add(context['session'])
             self._generation = proposed.generation
             now = self._advance()
-            guard = watchdog.PcDirectWatchdog(context=context, heartbeat_timeout_ns=self._timeout, now_ns=now)
+            guard = (watchdog.PcDirectWatchdog(context=context, heartbeat_timeout_ns=self._timeout, now_ns=now)
+                     if self._g05_channels is None else
+                     self._g05_channels.make_health_guard(proposed, now_ns=now))
             new_context = guard.context
             if self._veto_generation != veto_generation:
                 raise ValueError('BOOT activation invalidated by an intervening veto')
@@ -308,6 +324,14 @@ class PcDirectRuntime:
     @_runtime_entry
     def board(self, event):
         def receive():
+            if self._g05_channels is not None:
+                record = self._record(self._deps.verify_board(event, self._boot), VerifiedG05Health)
+                now = self._advance(); self._active()
+                if (record.source is not self._g05_channels or type(record.deadline_ns) is not int
+                        or record.deadline_ns != self._g05_channels._health_deadline
+                        or now >= record.deadline_ns):
+                    raise ValueError('original actual CSR health binding required')
+                return 'G05_CSR_HEALTH'
             record = self._record(self._deps.verify_board(event, self._boot), VerifiedEnvelope)
             now = self._advance(); self._active()
             parsed = envelope.validate_message(record.raw, producer='hardware_bridge',
@@ -337,12 +361,17 @@ class PcDirectRuntime:
         def admit():
             record = self._record(self._deps.verify_observation(event, self._boot), VerifiedObservation)
             now = self._advance(); self._active()
-            parsed = envelope.validate_message(record.raw, producer='hardware_bridge',
-                consumer='world_authority', context=self._context, now_ns=now)
-            if parsed.kind not in ('telem_observation', 'event_observation'):
-                raise ValueError('observation channel requires TELEM/EVENT')
-            doc = parsed.document
-            mapped = doc['adc_last_interval_ns'] if parsed.kind == 'telem_observation' else doc['trigger_sample_interval_ns']
+            if self._g05_channels is None:
+                parsed = envelope.validate_message(record.raw, producer='hardware_bridge',
+                    consumer='world_authority', context=self._context, now_ns=now)
+                if parsed.kind not in ('telem_observation', 'event_observation'):
+                    raise ValueError('observation channel requires TELEM/EVENT')
+                doc = parsed.document
+                mapped = doc['adc_last_interval_ns'] if parsed.kind == 'telem_observation' else doc['trigger_sample_interval_ns']
+            else:
+                from .g05_csr_channels_v1 import validate_raw4_observation
+                doc = validate_raw4_observation(record.raw, context=self._context, now_ns=now)
+                mapped = doc['adc_interval_ns']
             sample = _integer(record.sample_lower_ns, 'verified sample lower bound')
             if mapped is None or sample > mapped['lower_ns'] or sample > now:
                 raise ValueError('unknown/nonconservative acquisition mapping')
@@ -365,6 +394,8 @@ class PcDirectRuntime:
 
     @property
     def _age_cap(self):
+        if self._g05_channels is not None:
+            return self._g05_channels.policy.max_source_age_ns
         return 1_500_000_000 if self._context['transport_profile_id'] == 1 else 12_000_000_000
 
     def _ai(self, now, end_ns):
