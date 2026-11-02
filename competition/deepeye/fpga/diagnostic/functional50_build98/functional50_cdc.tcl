@@ -1,4 +1,4 @@
-# NEW99S source-only implementation of main amendment1. NOT EXECUTED.
+# A364 CDC entry repair. Source-only; actual netlist discovery NOT EXECUTED.
 # Actual connectivity discovery happens inside the ONE future authorized build.
 # No guessed hierarchy, manual fallback or second discovery synthesis exists.
 proc f50_require {condition message} {
@@ -7,6 +7,20 @@ proc f50_require {condition message} {
 proc f50_same_one {actual expected} {
     return [expr {[llength $actual] == 1 && [llength $expected] == 1 &&
         [get_property NAME [lindex $actual 0]] eq [get_property NAME [lindex $expected 0]]}]
+}
+proc f50_scalar_input {port_name} {
+    set port [get_ports -quiet $port_name]
+    f50_require {[llength $port] == 1} "one exact scalar input required: $port_name"
+    f50_require {[get_property NAME $port] eq $port_name &&
+        [get_property DIRECTION $port] eq "IN"} "exact input name/direction required: $port_name"
+    # Vivado 2026.1 scalar PORTs expose these properties with empty values.
+    # Missing metadata must not be mistaken for the empty scalar values.
+    set properties [list_property $port]
+    f50_require {{BUS_NAME} in $properties && {BUS_WIDTH} in $properties} \
+        "scalar BUS_NAME/BUS_WIDTH metadata missing: $port_name"
+    f50_require {[get_property BUS_NAME $port] eq "" &&
+        [get_property BUS_WIDTH $port] eq ""} "vector input forbidden: $port_name"
+    return $port
 }
 proc f50_ff {pin} {
     f50_require {[get_property REF_PIN_NAME $pin] eq "D"} {CDC endpoint must be one FF D pin}
@@ -24,9 +38,7 @@ proc f50_ff {pin} {
 proc discover_functional50_cdc {} {
     set bindings [dict create]
     foreach port_name {yaw_capture_i pitch_capture_i speed_capture_i} {
-        set port [get_ports -quiet $port_name]
-        f50_require {[llength $port] == 1 && [get_property DIRECTION $port] eq "IN" &&
-            [get_property IS_BUS $port] == 0} "one exact scalar input required: $port_name"
+        set port [f50_scalar_input $port_name]
         set endpoints [all_fanout -flat -endpoints_only -from $port]
         f50_require {[llength $endpoints] == 1} "external input must drive one first FF D: $port_name"
         set pin [lindex $endpoints 0]
@@ -81,9 +93,7 @@ proc apply_functional50_cdc {bindings report_path {apply_exceptions 1}} {
             lappend used_cells $cell_name
             lappend pins $pin
         }
-        set port [get_ports -quiet $port_name]
-        f50_require {[llength $port] == 1 && [get_property DIRECTION $port] eq "IN" &&
-            [get_property IS_BUS $port] == 0} "CDC exact scalar external input missing: $port_name"
+        set port [f50_scalar_input $port_name]
         set first [lindex $pins 0]
         set roots [all_fanin -flat -startpoints_only -to $first]
         f50_require {[f50_same_one $roots $port]} "first CDC stage is not driven solely by $port_name"
@@ -121,12 +131,15 @@ proc apply_functional50_cdc {bindings report_path {apply_exceptions 1}} {
         f50_require {$false_paths_applied == 3} {exactly three external-to-first-D false paths required}
     }
     set f [open $report_path {WRONLY CREAT EXCL}]
+    puts $f "common_clock: [get_property NAME $common_clock]; period_ns: [get_property PERIOD $common_clock]; false_paths_applied: $false_paths_applied"
     puts $f [join $report \n]
     close $f
+    # Return names only. No live design handles cross implementation sessions.
+    return [dict create clock_name [get_property NAME $common_clock]]
 }
 proc write_functional50_cdc_json {path bindings run_id build_id stage} {
     f50_require {[regexp {^[A-Za-z0-9._-]{1,96}$} $run_id] && [regexp {^[0-9a-f]{32}$} $build_id]} {safe exact CDC run/build identity required}
-    f50_require {$stage in {synth routed}} {known actual CDC stage required}
+    f50_require {$stage in {pre_opt routed}} {known actual linked CDC stage required}
     set rows {}
     foreach port_name {yaw_capture_i pitch_capture_i speed_capture_i} {
         set names {}
@@ -138,4 +151,59 @@ proc write_functional50_cdc_json {path bindings run_id build_id stage} {
     }
     set data [format {{"schema":"FUNCTIONAL50_CDC_BINDINGS_V1","mode":"ACTUAL_NETLIST_THREE_FF_V1","run_id":"%s","build_id":"%s","stage":"%s","bindings":{%s}}} $run_id $build_id $stage [join $rows ,]]
     set f [open $path {WRONLY CREAT EXCL}]; puts $f $data; close $f
+}
+proc f50_run_pre_opt_hook {context} {
+    # Project implementation initializes/links the original XCI/OOC products
+    # before OPT_DESIGN.TCL.PRE. This hook runs in that separate Vivado session.
+    f50_require {[lsort [dict keys $context]] eq
+        {build_id implementation_directory project_directory run_id run_root}} {exact CDC hook context required}
+    set run_root [dict get $context run_root]
+    set run_id [dict get $context run_id]
+    set build_id [dict get $context build_id]
+    f50_require {[file pathtype $run_root] eq "absolute" &&
+        [file normalize $run_root] eq $run_root} {absolute normalized current output required}
+    f50_require {[regexp {^[A-Za-z0-9._-]{1,96}$} $run_id] &&
+        [regexp {^[0-9a-f]{32}$} $build_id] && $build_id ne [string repeat 0 32]} {exact hook run/build identity required}
+    f50_require {[version -short] eq "2026.1"} {CDC hook requires Vivado 2026.1}
+    f50_require {[info exists ::ACTIVE_STEP] && [string equal -nocase $::ACTIVE_STEP opt_design]} \
+        {CDC hook must run immediately before opt_design}
+    set design [current_design]
+    f50_require {[llength $design] == 1 && [get_property NAME $design] eq "functional50_diag_wrapper" &&
+        [get_property PART $design] eq "xc7z020clg400-1"} {CDC hook current linked design/top/part mismatch}
+    set project [current_project]
+    set run [current_run -implementation]
+    f50_require {[llength $project] == 1 && [llength $run] == 1 &&
+        [get_property NAME $run] eq "impl_1" && [get_property IS_IMPLEMENTATION $run] == 1} \
+        {CDC hook must execute in the current implementation run}
+    f50_require {[file normalize [get_property DIRECTORY $project]] eq [dict get $context project_directory] &&
+        [file normalize [get_property DIRECTORY $run]] eq [dict get $context implementation_directory] &&
+        [file normalize [pwd]] eq [dict get $context implementation_directory]} \
+        {CDC hook project/run directory is outside this invocation}
+    set bindings [discover_functional50_cdc]
+    set graph [apply_functional50_cdc $bindings [file join $run_root reports cdc_exact_bindings.txt] 1]
+    write_functional50_cdc_json [file join $run_root CDC_BINDINGS_ACTUAL.json] $bindings $run_id $build_id pre_opt
+    set names [dict create schema FUNCTIONAL50_CDC_NAMES_V1 run_id $run_id build_id $build_id \
+        stage pre_opt clock_name [dict get $graph clock_name] bindings $bindings]
+    set f [open [file join $run_root CDC_PRE_OPT_NAMES.tcldict] {WRONLY CREAT EXCL}]
+    puts $f $names
+    close $f
+    report_exceptions -file [file join $run_root reports pre_opt_exceptions.txt]
+    set checkpoint [file join $run_root artifacts functional50_diag_pre_opt.dcp]
+    f50_require {![file exists $checkpoint]} {pre-opt checkpoint already exists; no overwrite/replay}
+    write_checkpoint $checkpoint
+    puts "FUNCTIONAL50_CDC_PRE_OPT_COMPLETE|$run_id|$build_id"
+}
+proc read_functional50_cdc_names {path run_id build_id} {
+    # Data-only read: never source/eval a prior session's names or live objects.
+    set f [open $path r]
+    set names [read $f]
+    close $f
+    f50_require {[lsort [dict keys $names]] eq {bindings build_id clock_name run_id schema stage} &&
+        [dict get $names schema] eq "FUNCTIONAL50_CDC_NAMES_V1" &&
+        [dict get $names run_id] eq $run_id && [dict get $names build_id] eq $build_id &&
+        [dict get $names stage] eq "pre_opt" && [dict get $names clock_name] ne ""} \
+        {same-run pre-opt CDC names/identity required}
+    f50_require {[lsort [dict keys [dict get $names bindings]]] eq
+        {pitch_capture_i speed_capture_i yaw_capture_i}} {exact pre-opt CDC names required}
+    return $names
 }

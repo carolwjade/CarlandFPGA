@@ -9,6 +9,21 @@ proc putfile {path data} {
     puts $f $data
     close $f
 }
+proc write_functional50_pre_opt_hook {root run_id build_id project_directory implementation_directory} {
+    # The independent implementation session gets only this run's absolute
+    # paths/identities and the already frozen canonical CDC tooling input.
+    set root [file normalize $root]
+    set cdc_source [file join $root inputs functional50_cdc.tcl]
+    require {[file isfile $cdc_source]} {frozen CDC tooling input missing}
+    set context [dict create run_root $root run_id $run_id build_id $build_id \
+        project_directory [file normalize $project_directory] \
+        implementation_directory [file normalize $implementation_directory]]
+    set hook [file join $root inputs functional50_pre_opt_hook.tcl]
+    set script [join [list [list set f50_hook_context $context] \
+        [list source $cdc_source] {f50_run_pre_opt_hook $f50_hook_context}] \n]
+    putfile $hook $script
+    return $hook
+}
 proc one {objects description} {
     require {[llength $objects] == 1} "expected exactly one $description: $objects"
     return [lindex $objects 0]
@@ -449,17 +464,26 @@ proc full_build {config} {
         lappend synthesis_inventory "[get_property NAME $run]\t[file normalize [get_property DIRECTORY $run]]\t[get_property STATUS $run]"
     }
     putfile [file join $run_root SYNTHESIS_RUNS.tsv] [join $synthesis_inventory \n]
-    open_run synth_1
+    # Let implementation init_design link the original XCI/OOC hierarchy.
+    # No hand-read child checkpoint or black-box top-synth CDC discovery.
+    set implementation [one [get_runs impl_1] {current implementation run}]
+    set hook [write_functional50_pre_opt_hook $run_root $run_id $build_id \
+        $project_dir [get_property DIRECTORY $implementation]]
+    set_property STEPS.OPT_DESIGN.TCL.PRE $hook $implementation
+    set_property STEPS.PHYS_OPT_DESIGN.IS_ENABLED true $implementation
+    set_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE AggressiveExplore $implementation
+    require {[get_property STEPS.OPT_DESIGN.TCL.PRE $implementation] eq $hook &&
+        [get_property STEPS.PHYS_OPT_DESIGN.IS_ENABLED $implementation] == 1 &&
+        [get_property STEPS.PHYS_OPT_DESIGN.ARGS.DIRECTIVE $implementation] eq "AggressiveExplore"} \
+        {exact pre-opt CDC hook/physical optimization configuration required}
+    launch_runs impl_1 -to_step route_design -jobs 2
+    wait_on_run impl_1
+    require {[get_property STATUS $implementation] eq "route_design Complete!"} {implementation route did not complete}
+    open_run impl_1
     check_functional50_ports [file join $run_root reports exact_functional50_package_pins.tsv]
     source [file join $run_root inputs functional50_cdc.tcl]
-    set cdc_bindings [discover_functional50_cdc]
-    apply_functional50_cdc $cdc_bindings [file join $run_root reports cdc_exact_bindings.txt] 1
-    write_functional50_cdc_json [file join $run_root CDC_BINDINGS_ACTUAL.json] $cdc_bindings $run_id $build_id synth
-    write_checkpoint [file join $run_root artifacts functional50_diag_synth.dcp]
-    opt_design
-    place_design
-    phys_opt_design -directive AggressiveExplore
-    route_design
+    set pre_opt_names [read_functional50_cdc_names [file join $run_root CDC_PRE_OPT_NAMES.tcldict] $run_id $build_id]
+    set cdc_bindings [dict get $pre_opt_names bindings]
     write_checkpoint [file join $run_root artifacts functional50_diag_routed.dcp]
     report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -file [file join $run_root reports route_timing_summary.txt]
     check_timing -verbose -file [file join $run_root reports route_check_timing.txt]
@@ -478,7 +502,9 @@ proc full_build {config} {
     foreach port_name {yaw_capture_i pitch_capture_i speed_capture_i} {
         require {[dict get $routed_bindings $port_name] eq [dict get $cdc_bindings $port_name]} {CDC names changed after route; no automatic retarget/retry}
     }
-    apply_functional50_cdc $routed_bindings [file join $run_root reports cdc_route_exact_bindings.txt] 0
+    set routed_graph [apply_functional50_cdc $routed_bindings [file join $run_root reports cdc_route_exact_bindings.txt] 0]
+    require {[dict get $routed_graph clock_name] eq [dict get $pre_opt_names clock_name]} \
+        {CDC clock changed after route; no automatic retarget/retry}
     write_functional50_cdc_json [file join $run_root CDC_BINDINGS_ROUTED.json] $routed_bindings $run_id $build_id routed
     # Aggregate metrics come only from the ONE same-run routed summary row.
     # TNS/THS are not assumed to be TIMING_PATH properties. No default zeros.

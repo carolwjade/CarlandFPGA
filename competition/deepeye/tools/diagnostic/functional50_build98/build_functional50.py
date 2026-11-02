@@ -452,6 +452,7 @@ def verify_unconstrained(path):
 
 
 def verify_actual_cdc(path, state, stage):
+    require(stage in {"pre_opt", "routed"}, "actual linked pre_opt/routed CDC stage required")
     data = load_json(path)
     require(isinstance(data, dict) and set(data) == {"schema", "mode", "run_id", "build_id", "stage", "bindings"}, "exact actual CDC record fields")
     require(data["schema"] == "FUNCTIONAL50_CDC_BINDINGS_V1" and data["mode"] == c.CDC_MODE, "actual CDC schema/policy")
@@ -543,15 +544,15 @@ def verify_outputs(out, closure, state):
     require(int(gate["has_20ns_clock"]) == 1, "20ns/50MHz clock missing")
     require(int(gate["has_10ns_clock"]) == 0, "10ns/100MHz clock present in the new BD")
     unconstrained = verify_unconstrained(out / "reports" / "route_check_timing.txt")
-    cdc_synth = verify_actual_cdc(out / "CDC_BINDINGS_ACTUAL.json", state, "synth")
+    cdc_pre_opt = verify_actual_cdc(out / "CDC_BINDINGS_ACTUAL.json", state, "pre_opt")
     cdc_route = verify_actual_cdc(out / "CDC_BINDINGS_ROUTED.json", state, "routed")
-    require(cdc_synth["bindings"] == cdc_route["bindings"], "actual CDC graph names changed after route")
-    false_paths = verify_false_paths(out / "constraints" / "implemented.xdc", cdc_synth["bindings"])
+    require(cdc_pre_opt["bindings"] == cdc_route["bindings"], "actual CDC graph names changed after route")
+    false_paths = verify_false_paths(out / "constraints" / "implemented.xdc", cdc_pre_opt["bindings"])
     mapping = verify_mapping(load_json(out / "BD_MAPPING.json"), state["build_id"])
     hwh = load_module(out / "inputs" / "tooling" / "verify_functional50_hwh.py", "functional50_hwh_verifier")
     identity = hwh.verify_hwh(out / "artifacts" / "functional50_diag.hwh", mapping, expected_build_id=state["build_id"])
     timing = hwh.verify_timing_gate(out / "reports" / "timing_gate.json", out / "reports" / "route_check_timing.txt")
-    for name in ("functional50_diag.bit", "functional50_diag.hwh", "functional50_diag_routed.dcp", "functional50_diag_synth.dcp"):
+    for name in ("functional50_diag.bit", "functional50_diag.hwh", "functional50_diag_routed.dcp", "functional50_diag_pre_opt.dcp"):
         artifact = out / "artifacts" / name
         require(artifact.is_file() and artifact.stat().st_size > 0, "empty/missing paired artifact: " + name)
     inventory = (out / "SYNTHESIS_RUNS.tsv").read_text(encoding="utf-8").splitlines()
@@ -572,7 +573,7 @@ def verify_outputs(out, closure, state):
                 "source_commit": state["source_commit"], "build_id": state["build_id"],
                 "source_closure_sha256": state["source_closure_sha256"], "requirements_sha256": c.REQUIREMENTS_SHA256,
                 "hwh_identity": identity, "mapping": mapping, "timing_gate": timing, "false_paths": false_paths,
-                "actual_cdc_synth": cdc_synth, "actual_cdc_routed": cdc_route,
+                "actual_cdc_pre_opt": cdc_pre_opt, "actual_cdc_routed": cdc_route,
                 "unconstrained": unconstrained, "raw_synthesis_runs": inventory,
                 "board": "not_run; A-only", "physical_validation": "not_claimed",
                 "source_snapshot_before": before, "source_snapshot_after": after,
