@@ -142,16 +142,18 @@ def run_batch(port,bundle,line,board,plan):
   reducer=bundle.reducer.Reducer(prepared.plan);used={'work':len(request)+len(source)+sum(map(len,companions))+4096,'cleanup':0}
   work=time.monotonic_ns();reducer.begin();_drive(port,reducer,'work',work,directory,used)
   snap=reducer.snapshot()
-  if snap['completed'] and not snap['failed'] and snap['outstanding_intent'] is None:
-   reducer.begin_collect();_drive(port,reducer,'work',work,directory,used)
-  snap=reducer.snapshot()
+  # COMPLETE still owns an armed source. Cancel once and observe quiescence
+  # before collecting the retained FIFO and already acknowledged results.
   if snap['arm_attempt_owned'] and not snap['unknown_effects'] and not port._failed and snap['outstanding_intent'] is None:
    cleanup=time.monotonic_ns();prior_errors=len(snap['errors']);reducer.begin_cleanup();_drive(port,reducer,'cleanup',cleanup,directory,used)
    cleaned=reducer.snapshot()
    result['cleanup_observed']=bool(cleaned['cancel_consumed'] and cleaned['quiescent'] and not cleaned['unknown_effects'] and cleaned['outstanding_intent'] is None and len(cleaned['errors'])==prior_errors and reducer.generator is None)
   snap=reducer.snapshot()
   if (not snap['collect_consumed'] and result['cleanup_observed'] and not snap['unknown_effects'] and not port._failed and snap['outstanding_intent'] is None):
-   reducer.begin_collect();_drive(port,reducer,'cleanup',cleanup,directory,used)
+   reducer.begin_collect();phase=reducer.phase
+   # Successful completed work retains its original partition and deadline;
+   # only failed-work residual collection spends the cleanup partition.
+   _drive(port,reducer,phase,work if phase=='work' else cleanup,directory,used)
   snap=reducer.snapshot();wire=snap['confirmed_wire_prefix'];_put(directory/'wire.bin',wire)
   complete=bool(snap['completed'] and snap['collect_consumed'] and result['cleanup_observed'] and not snap['failed'] and not snap['unknown_effects'])
   result.update(status=('UNKNOWN' if snap['unknown_effects'] else 'COMPLETE' if complete else 'FAILED'),

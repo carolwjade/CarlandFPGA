@@ -68,7 +68,7 @@ class Tests(unittest.TestCase):
      if offset in identity:out=identity[offset]
      elif 0x60<=offset<=0x6c:out=(int('c'*32,16)>>(32*((offset-0x60)//4)))&0xffffffff
      elif offset==0x18:out=self.state
-     elif offset==0x20:out=0x10 if self.state==7 else (0x22 if self.state==0 else 2)
+     elif offset==0x20:out=0x10 if self.state==7 else ((0x22 if self.current<0 or self.pos==len(self.fifo) else 2) if self.state==0 else 0)
      elif offset in (0x1c,0x34,0x44,0x4c):out=0
      elif offset==0x2c:out=self.tag
      elif offset==0x24:out=self.push
@@ -77,7 +77,7 @@ class Tests(unittest.TestCase):
      elif offset==0x48:out=len(frames[self.current])
      elif offset==0x50:out=sum(map(len,frames[:self.current]))
      elif offset==0x7c:out=sum(map(len,frames[:self.current+1]))
-     elif offset==0x30:out=0 if self.state==0 and self.pos==0 else len(self.fifo)-self.pos
+     elif offset==0x30:out=sum(map(len,frames[:self.current+1]))-self.pos
      elif offset==0x38:out=self.pos
      elif offset==0x70:out=0x100+self.fifo[self.pos]
      else:raise AssertionError(hex(offset))
