@@ -153,11 +153,13 @@ class Session:
         work._verify_closing(self,context)
     def _call(self,wire,timeout_ns):
         _need(type(timeout_ns) is int and 0<timeout_ns<=_MAX_NS,'timeout bound')
+        from . import functional50_demo_four_cycle_profile_a as demo
+        reply_limit=demo.reply_cap(getattr(self,'_chain_reply_profile',None)) if self._protocol=='functional50_chain_v2' else 1048576
         done=threading.Event();result={}
         def io():
             try:
                 if wire is not None:_write_once(self._proc.stdin,wire)
-                raw=self._proc.stdout.readline(1048577 if self._protocol in ('functional50_chain_v1','functional50_chain_v2') else 4097)
+                raw=self._proc.stdout.readline(reply_limit+1 if self._protocol in ('functional50_chain_v1','functional50_chain_v2') else 4097)
                 result['raw']=raw
             except BaseException as e:result['error']=type(e).__name__
             finally:done.set()
@@ -211,11 +213,13 @@ class Session:
         if self._clock()>=end:
             self._unknown=True;raise TimeoutError('original phase expired before I/O')
         original_process=self._proc;original_input=original_process.stdin;original_output=original_process.stdout
+        from . import functional50_demo_four_cycle_profile_a as demo
+        reply_limit=demo.reply_cap(getattr(self,'_chain_reply_profile',None))
         done=threading.Event();result={}
         def io():
             try:
                 _write_once(original_input,wire)
-                result['raw']=original_output.readline(1048577)
+                result['raw']=original_output.readline(reply_limit+1)
             except BaseException as e:result['error']=type(e).__name__
             finally:done.set()
         thread=threading.Thread(target=io,daemon=True);self._threads.append(thread);thread.start()

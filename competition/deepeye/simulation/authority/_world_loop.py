@@ -19,6 +19,7 @@ from . import _owned_godot as native
 from . import _world_values as values
 from . import _world_wire as wire
 from . import motion_executor as motion
+from . import navigation_session_profile as navigation
 from .pc_direct_runtime import StepFence
 from .motion.kinematics import RigidState
 from .motion import solid_clearance as solids
@@ -833,6 +834,7 @@ class _EmScopeFactoryCore:
         self._field, self._source = field, source
         self._clock, self._native = owner._clock, owner._native
         self._profile = source._profile
+        self._navigation_profile = navigation.validate_profile(source._navigation_profile)
         self._scene, self._pieces = field._scene, field._pieces
         self._background, self._epsilon = field._background, field._epsilon
         self._deadline = self._native._containment_deadline
@@ -864,6 +866,9 @@ class _EmScopeFactoryCore:
         if threading.get_ident() != self._thread:
             raise WorldRejected('original acquisition thread required')
         owner, source, field = self._owner, self._source, self._field
+        navigation.validate_profile(self._navigation_profile)
+        if source._navigation_profile is not self._navigation_profile:
+            raise WorldRejected('original selected navigation revision changed')
         if self._key is _EM_SCOPE_PRODUCTION:
             if (type(self) is not _OriginalEmScopeFactory
                     or type(owner) is not _RootWorldOwner or owner._test is not False
@@ -926,7 +931,7 @@ class _EmScopeFactoryCore:
         self._high = now
         if source.state == 'RUNNING':
             if (source._clock is not self._clock or now < source._origin
-                    or now < source._high or now-source._origin > 10_000_000_000):
+                    or now < source._high or now-source._origin > navigation.duration_ns(self._navigation_profile)):
                 raise WorldRejected('original source clock/session required')
         if tick is not None:
             if (source._last_tick != tick or type(source._count) is not int

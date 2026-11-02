@@ -6,9 +6,35 @@ Only counts/quality from actual board-returned frames, public poses/gates and
 actual executed actions leave this module; scene truth never enters the view.
 """
 import copy
+import math
+from fractions import Fraction
 
 from .g05_csr_channels_v1 import (_Mapping, _need, _raw, _sha, _uint,
                                  validate_raw4_observation)
+
+
+def _nav_exit_goal(center,normal,half_segment,radius,numeric,asset,margin):
+    """Public red-gate/body clearance target; never arrival or aperture proof."""
+    _need(type(center) in (tuple,list) and len(center)==3 and
+          type(normal) in (tuple,list) and len(normal)==3,'public gate geometry required')
+    def exact(value):
+        _need(type(value) in (int,float,Fraction) and
+              (type(value) is not float or math.isfinite(value)),'finite public geometry bound')
+        return Fraction(value)
+    c=tuple(exact(x) for x in center);n=tuple(exact(x) for x in normal)
+    _need(all(x in (-1,0,1) for x in n) and sum(abs(x) for x in n)==1,
+          'public cube-face outward unit normal required')
+    half,r,nb,ab=(exact(x) for x in (half_segment,radius,numeric,asset))
+    _need(half>=0 and r>0 and nb>=0 and ab>=0 and
+          type(margin) is float and margin==.05,'fixed declared public clearance bounds')
+    offset=half+r+nb+ab+exact(margin)
+    goal=[float(x) for x in c]
+    for i,component in enumerate(n):
+        if component:
+            goal[i]=math.nextafter(float(c[i]+component*offset),
+                                  math.inf if component>0 else -math.inf)
+    _need(all(math.isfinite(x) and abs(x)<=1000 for x in goal),'existing public goal coordinate bound')
+    return goal
 
 
 def _original_mapping(mapping):
@@ -164,13 +190,31 @@ def project_original_g05(association, *, max_source_age_ns):
           and view._refs[9] is c.refs.book._root is c.refs.link.executor._root,
           'original Root changed after the actual getter/registry hold')
     selected=[x for x in c._mappings if x is not m]+[m]
+    transitions=tuple(t for t in c.refs.book._actor_custody.transitions
+                      if t.kind=='STEP' and t.closed)
+    from . import navigation_session_profile as navigation
+    navigation_profile=c.refs.source.source._navigation_profile
+    navigation.validate_profile(navigation_profile)
+    if navigation_profile is not None:
+        selected,transitions=navigation.rolling_refs(navigation_profile,
+            tuple((x.sample_lower_ns,x) for x in selected),
+            tuple((t.record['completion_observed_qpc_ns'],t) for t in transitions),m)
+        selected=[x for x in selected if x is not m]+[m]
     observations=[_public_observation(x) for x in selected]
     observation=observations[-1]
     _need(actual_now-m.sample_lower_ns<max_source_age_ns, 'actual demo source age expired')
-    goal=list(c.refs.world.binding.world_values.layout.red.center_m)
+    values=c.refs.world.binding.world_values
+    goal=list(values.layout.red.center_m)
+    if navigation_profile is not None:
+        declared=values.budget_derivation
+        _need(declared.numeric_m>=declared.policy_guard_m+declared.getter_endpoint_cap_m
+              and declared.asset_m>=declared.policy_guard_m+declared.full_drill_containment_upper_m,
+              'declared public numeric/getter/drill-asset coverage required')
+        goal=_nav_exit_goal(values.layout.red.center_m,values.layout.red.normal,
+            values.envelope.half_segment_m,values.envelope.radius_m,
+            declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)
     actions=[]
-    for transition in c.refs.book._actor_custody.transitions:
-        if transition.kind!='STEP' or not transition.closed: continue
+    for transition in transitions:
         before=transition.before; after=c.refs.book._root
         slots=[s for s in c.refs.world.owner._commits if s.book_transition is transition and s.committed]
         _need(len(slots)==1 and slots[0].post_root is not None, 'actual executed action receipt missing')
@@ -179,7 +223,8 @@ def project_original_g05(association, *, max_source_age_ns):
                                     orientation_xyzw=[float(x) for x in value.orientation_xyzw])
         actions.append(dict(action_id=c.refs.projection.bind_observed(slots[0]),
                             from_pose=pose(before.pose),to_pose=pose(after.pose)))
-    _need(len(observations)+len(actions)<=32, 'finite public evidence history exceeded')
+    public_limit=32 if navigation_profile is None else navigation_profile.max_public_items
+    _need(len(observations)+len(actions)<=public_limit, 'finite public evidence history exceeded')
     public=dict(schema_version=1,projection_id='g05_csr_c28_demo_view_v1',enabled=True,
                 now_qpc_ns=actual_now,pose=copy.deepcopy(current['pose']),goal_m=goal,
                 observation=observation,history=observations[:-1],executed_actions=actions)

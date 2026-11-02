@@ -67,8 +67,13 @@ class G05CsrPolicy:
         _uint(self.usb_upper_ns, 0, 5_000_000_000)
         _uint(self.packing_upper_ns, 0, 5_000_000_000)
         if self.demo_ai_profile is not None:
-            from .demo30h_ai_profile_v1 import selected_profile
-            selected = selected_profile(self.max_source_age_ns)
+            from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, selected_profile as selected_em3_profile
+            if type(self.demo_ai_profile) is DemoEM3AIProfile:
+                selected = selected_em3_profile(self.max_source_age_ns,navigation_profile=self.demo_ai_profile.navigation_profile)
+                _need(self.demo_ai_profile.projection is selected.projection and type(self.demo_ai_profile.verifier) is type(selected.verifier) and self.demo_ai_profile.verifier==selected.verifier, 'fixed EM3 projection/verifier identities required')
+            else:
+                from .demo30h_ai_profile_v1 import selected_profile
+                selected = selected_profile(self.max_source_age_ns)
             _need(self.demo_ai_profile == selected, 'fixed explicit demo AI profile required')
 
 
@@ -120,7 +125,7 @@ def channels_for(config):
     return row[3]
 
 
-def validate_csr_facts(facts, *, identity_words, operation_id, previous=()):
+def validate_csr_facts(facts, *, identity_words, operation_id, previous=(),demo_cycle_profile=None):
     """Pure byte-level CSR consistency check; successful parsing grants nothing."""
     from ...tools.diagnostic import functional50_chain_v2_client_a as client
     from ...tools.diagnostic import functional50_g05_a as g05
@@ -128,7 +133,7 @@ def validate_csr_facts(facts, *, identity_words, operation_id, previous=()):
     _need(type(facts) is dict and facts.get('kind') in ('init', 'status', 'apply'),
           'live G05 CSR phase required')
     kind = facts['kind']
-    deadline = client._facts(facts, kind, operation_id, identity_words, None)
+    deadline = client._facts(facts, kind, operation_id, identity_words, None,demo_cycle_profile)
     g05._status_check(facts['status'], facts['fault'], 'bound')
     rows = facts['receipts']
     _need(tuple(rows[:len(previous)]) == tuple(previous), 'cumulative original CSR prefix changed')
@@ -251,6 +256,38 @@ class _Mapping:
     def __reduce__(self): raise TypeError('original mapping is not serializable')
 
 
+def _fresh_action_previous(previous,current,old,*,profile,source_origin):
+    """Decision only, after original mapping/proof verification by the caller.
+
+    JSON names, GPIO capture sequence and numerical counts alone grant nothing.
+    Same sample/held EM always retains the old action's minimum deadline.
+    """
+    from ...tools.diagnostic import functional50_demo_four_cycle_profile_a as demo
+    if previous is None or not demo.is_navigation(profile):return previous
+    if type(current) is not _Mapping or type(old) is not _Mapping or current.channels is not old.channels:return previous
+    try:
+        n,o=current.refs,old.refs;nt,ot=n['token'],o['token'];nd,od=n['draft'],o['draft']
+        ne=nd['held_em_association']['original_em'];oe=od['held_em_association']['original_em']
+        numbers=(nd['source_count'],od['source_count'],nd['tick_ms'],od['tick_ms'],
+                 ne['tick_ms'],oe['tick_ms'],ne['source_count'],oe['source_count'],
+                 n['phase_receipt'].phase_index,o['phase_receipt'].phase_index,source_origin)
+        if not all(type(x) is int and x>=0 for x in numbers):return previous
+        fresh=(nt is not ot and nd is not od and ne is not oe
+            and nt._draft is nd and ot._draft is od and nt._ended is True and ot._ended is True
+            and nd['status']==od['status']=='complete'
+            and ne['kind']==oe['kind']=='original_scoped_em_call_v1'
+            and ne['source_origin_qpc_ns']==oe['source_origin_qpc_ns']==source_origin
+            and nd['held_em_association']['held'] is False
+            and nd['source_count']>od['source_count'] and ne['source_count']==nd['source_count']
+            and ne['tick_ms']==nd['tick_ms']>oe['tick_ms']
+            and current.candidate['source_time']['adc_tick_ms']==current.candidate['source_time']['em_tick_ms']==ne['tick_ms']
+            and current.candidate['quality']&7==7
+            and n['phase_receipt'].phase_index>o['phase_receipt'].phase_index
+            and current.sample_lower_ns>old.sample_lower_ns)
+        return None if fresh else previous
+    except (KeyError,AttributeError,TypeError):return previous
+
+
 class G05CsrChannels:
     def __init__(self,key,config,binding,refs):
         _need(key is _KEY, 'fixed original factory required')
@@ -263,6 +300,7 @@ class G05CsrChannels:
         self._admissions = []; self._command_seq = 0; self._command_pending = None
         self._observation_events = set()
         self.command_quality_reports = []
+        self._nav_new_actions = []  # Strong original refs; no progress/clock reset.
         self._source_attached = False
 
     def _binding_checkpoint(self):
@@ -359,6 +397,20 @@ class G05CsrChannels:
         self._events.append((event,facts,refs))
         return facts,refs
 
+    def _cycle_profile(self):
+        """Use only the bound original chain/source/book/invocation selection."""
+        from ...tools.diagnostic import functional50_demo_four_cycle_profile_a as demo
+        selected=demo.validate_profile(self.refs.chain.sequence.demo_cycle_profile)
+        navigation=selected if demo.is_navigation(selected) else None
+        source=self.refs.source.source;book=self.refs.book
+        _need(self.refs.source.book is book and book._source is source
+              and source._source_book is book
+              and getattr(source,'_navigation_profile',None) is navigation
+              and getattr(book,'_navigation_profile',None) is navigation
+              and getattr(getattr(self.config,'owned_invocation_v1',None),'navigation_profile',None) is navigation,
+              'same original source/book/invocation cycle profile required')
+        return selected
+
     def _health(self,facts,refs):
         from ...tools.diagnostic.functional50_chain_v2_client_a import OriginalPhaseReceipt
         phase=refs['phase_receipt']
@@ -367,7 +419,8 @@ class G05CsrChannels:
               and phase.lower_qpc_ns == facts['lower_qpc_ns'] and phase.upper_qpc_ns == facts['upper_qpc_ns']
               and phase.status == 'COMPLETE' and phase.unknown is False, 'actual complete CSR phase required')
         parsed=validate_csr_facts(facts['response']['result'],identity_words=self.refs.chain.identity,
-                                  operation_id=self.refs.world.operation_id,previous=self._csr_receipts)
+                                  operation_id=self.refs.world.operation_id,previous=self._csr_receipts,
+                                  demo_cycle_profile=self._cycle_profile())
         self._csr_receipts=parsed['receipts']
         duration=parsed['deadline_board_ns'][1]-parsed['deadline_board_ns'][0]
         if self._global_deadline is None:
@@ -467,6 +520,46 @@ class G05CsrChannels:
         self._mappings.append(mapping)
         return result
 
+    def _previous_for_observation(self,m,previous):
+        from ...tools.diagnostic import functional50_demo_four_cycle_profile_a as demo
+        selected=self._cycle_profile()
+        if previous is None or not demo.is_navigation(selected):return previous
+        from .g05_csr_projection_v1 import _original_mapping
+        from .candidate_owner import _CompletedInference
+        from ...integration.cpu_invocation_transcript import _ActorRecord
+        _original_mapping(m)  # Original token/book/scoped source/E4 CRC/B131/phase chain.
+        current=self.owner._candidates._current
+        _need(type(current) is tuple and len(current)==2 and current[0]==previous.request_raw,
+              'original committed command/progress association required')
+        proof=current[1]
+        _need(type(proof) is _CompletedInference and proof.boot is self.boot and proof.source is self
+              and proof.clock_domain is self.refs.clock and proof.candidate_raw==previous.candidate_raw
+              and proof.invocation_id==previous.invocation_id
+              and proof.observed_interval_v2 is previous.observed_interval_v2,
+              'original committed inference/progress identity required')
+        adapter=self.owner._owned_invocations
+        _need(not adapter.failed and adapter.pending is None and adapter.ready is None
+              and len(adapter.records)==len(adapter.associations),'original settled invocation association required')
+        pairs=[(r,a) for r,a in zip(adapter.records,adapter.associations)
+               if r.identity.invocation_id==proof.invocation_id]
+        _need(len(pairs)==1,'unique original committed invocation required')
+        record,association=pairs[0];old=association.g05_mapping
+        _need(type(record) is _ActorRecord and record.owner is self.owner._actor
+              and record._close_attempted and record._close_error is None
+              and type(old) is _Mapping and old.channels is self
+              and _OBSERVATIONS.get(association.event) is old and old.used
+              and association.source is self and association.clock is self.refs.clock and association.boot is self.boot
+              and association.sample_ref is old.refs['draft'] and association.source_bound_receipt is old.refs['token']
+              and association.record.raw==old.raw==association.observation_bytes
+              and json.loads(association.observation_key)==host_envelope._parse_message(proof.candidate_raw)['observation'],
+              'original private old sample/mapping/invocation binding required')
+        _original_mapping(old)
+        chosen=_fresh_action_previous(previous,m,old,profile=selected,source_origin=self.refs.source.source._origin)
+        if chosen is None:
+            _need(len(self._nav_new_actions)<selected.max_commands,'finite new navigation action evidence budget')
+            self._nav_new_actions.append((m,old,previous,proof,record))
+        return chosen
+
     def verify_observation(self,event,boot):
         from .pc_direct_runtime import VerifiedObservation
         from .owned_invocation_v1.adapter import _retain_original_association
@@ -478,7 +571,7 @@ class G05CsrChannels:
         record=VerifiedObservation(boot,m.raw,m.sample_lower_ns)
         deadline=min(m.sample_lower_ns+self.policy.max_source_age_ns,self._global_deadline)
         dispatch=min(deadline,self.owner._actor._run_deadline)
-        previous=self.owner._progress.bound
+        previous=self._previous_for_observation(m,self.owner._progress.bound)
         _retain_original_association(self.owner,event,record,session=self.refs.projection,
             capture_ref=m.capture_ref,sample_ref=m.refs['draft'],current_read=m.current_read,
             registry_ref=m.registry_ref,history_refs=tuple(x.capture_ref for x in self._mappings if x is not m),

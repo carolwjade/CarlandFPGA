@@ -7,6 +7,7 @@ from . import functional50_trace_batch_client_a as trace
 from . import functional50_g05_a as g05
 from . import functional50_ssh_a as ssh
 from . import functional50_chain_v2_board_a as protocol
+from . import functional50_demo_four_cycle_profile_a as demo
 from .functional50_ssh_a import Session, _record, _original_session_origin
 from ...integration.host_clock import QpcHostClock
 
@@ -31,30 +32,35 @@ class OriginalPhaseReceipt:
   for name,value in zip(self.__slots__,values):object.__setattr__(self,name,value)
  def __setattr__(self,name,value):raise AttributeError('original phase is immutable')
  def __reduce__(self):raise TypeError('original phase cannot be serialized')
-def _response(data,ident,operation,kind):
- need(type(data) is bytes and 0<len(data)<=1048576 and data.endswith(b'\n') and data.count(b'\n')==1,'bounded reply')
+def _response(data,ident,operation,kind,demo_cycle_profile=None):
+ need(type(data) is bytes and 0<len(data)<=demo.reply_cap(demo_cycle_profile) and data.endswith(b'\n') and data.count(b'\n')==1,'bounded reply')
  x=batch._json(data);need(type(x) is dict and set(x)=={'schema','id','operation_id','kind','status','result','error','unknown'} and x['schema']==protocol.SCHEMA and x['id']==ident and x['operation_id']==operation and x['kind']==kind,'reply identity')
  need(x['status'] in ('COMPLETE','REJECTED','UNKNOWN') and type(x['unknown']) is bool and x['unknown']==(x['status']=='UNKNOWN'),'reply status')
  if x['status']=='COMPLETE':need(type(x['result']) is dict and x['error'] is None,'result required')
  else:need((x['result'] is None or (x['status']=='UNKNOWN' and type(x['result']) is dict)) and type(x['error']) is str and 0<len(x['error'])<=96,'bounded failure')
  return x
-def _failure_facts(x,operation):
+def _failure_facts(x,operation,demo_cycle_profile=None,deadline=None):
  keys={'schema','kind','operation_id','policy_sha256','deadline_selected_lower_board_monotonic_ns','deadline_board_monotonic_ns','phase_io_first','phase_io_last','identity_words','status','fault','capture','receipts','unresolved_receipts','state','authority'}
  need(type(x) is dict and set(x)==keys and x['schema']=='g05_csr_session_v2' and x['kind']=='close' and x['operation_id']==operation and x['state']=='CLOSED_AFTER_FAILURE' and x['authority']=='not_evaluated','partial failure facts')
+ if demo.is_navigation(demo_cycle_profile):
+  a=x['deadline_selected_lower_board_monotonic_ns'];b=x['deadline_board_monotonic_ns']
+  need(type(a) is int and type(b) is int and 0<=a<b and b-a==demo_cycle_profile.duration_ns
+       and (deadline is None or deadline==(a,b)),'original selected failure deadline')
  need(type(x['receipts']) is list and type(x['unresolved_receipts']) is list,'original partial records');indices=[]
  for r in x['receipts']:
   need(type(r) is dict and set(r)=={'index','started_raw_hex','returned_raw_hex'} and all(_hex(r[k]) and 0<len(r[k])<=1024 for k in ('started_raw_hex','returned_raw_hex')),'complete raw records');indices.append(r['index'])
  for r in x['unresolved_receipts']:
   keys={'index','started_raw_hex','returned_raw_hex','not_attempted_raw_hex'};need(type(r) is dict and set(r)==keys,'partial raw records')
   values=[r[k] for k in keys if k!='index'];need(sum(v is not None for v in values)<=2 and all(v is None or (_hex(v) and 0<len(v)<=1024) for v in values),'partial original bytes');indices.append(r['index'])
- need(len(indices)<=450 and len(indices)==len(set(indices)) and all(type(i) is int and 1<=i<=450 for i in indices),'distinct original indices')
-def _facts(x,kind,operation,identity,deadline):
+ cap=demo.io_cap(demo_cycle_profile)
+ need(len(indices)<=cap and len(indices)==len(set(indices)) and all(type(i) is int and 1<=i<=cap for i in indices),'distinct original indices')
+def _facts(x,kind,operation,identity,deadline,demo_cycle_profile=None):
  keys={'schema','kind','operation_id','policy_sha256','deadline_selected_lower_board_monotonic_ns','deadline_board_monotonic_ns','phase_io_first','phase_io_last','identity_words','status','fault','capture','receipts','unresolved_receipts','state','authority'}
  need(type(x) is dict and set(x)==keys and x['schema']=='g05_csr_session_v2' and x['kind']==kind and x['operation_id']==operation and x['authority']=='not_evaluated' and x['identity_words']==list(identity) and x['unresolved_receipts']==[],'original session facts')
  need(type(x['policy_sha256']) is str and re.fullmatch('[0-9a-f]{64}',x['policy_sha256']) is not None,'policy hash')
- a=x['deadline_selected_lower_board_monotonic_ns'];b=x['deadline_board_monotonic_ns'];need(type(a) is int and type(b) is int and 0<=a<b and b-a<=10_000_000_000 and (deadline is None or deadline==(a,b)),'original board deadline')
+ a=x['deadline_selected_lower_board_monotonic_ns'];b=x['deadline_board_monotonic_ns'];need(type(a) is int and type(b) is int and 0<=a<b and b-a<=demo.duration_cap(demo_cycle_profile) and (deadline is None or deadline==(a,b)),'original board deadline')
  need(x['state']==('CLOSED' if kind=='close' else 'ACTIVE'),'session state')
- need(type(x['receipts']) is list and 0<len(x['receipts'])<=450,'original receipts')
+ need(type(x['receipts']) is list and 0<len(x['receipts'])<=demo.io_cap(demo_cycle_profile),'original receipts')
  for i,r in enumerate(x['receipts'],1):
   need(type(r) is dict and set(r)=={'index','started_raw_hex','returned_raw_hex'} and r['index']==i,'receipt index')
   need(all(_hex(r[k]) and 0<len(r[k])<=1024 for k in ('started_raw_hex','returned_raw_hex')),'original receipt bytes')
@@ -78,6 +84,7 @@ class ChainSessionV2:
   need(self in _CHAIN_BINDINGS and self in _PHASE_LEDGERS,'original chain custody required')
   session,clock,bundle,process,sequence,origin=_CHAIN_BINDINGS[self]
   need(self.s is session and self.clock is clock and self.bundle is bundle and session._proc is process and self.sequence is sequence and _original_session_origin(session) is origin,'original chain custody changed')
+  if sequence.initialized:need(getattr(session,'_chain_reply_profile',None)==sequence.demo_cycle_profile,'same selected transport/session profile required')
   return origin
  @property
  def owner_work_v1(self):
@@ -105,7 +112,8 @@ class ChainSessionV2:
   except BaseException:self.s._unknown=True;raise
  def _sequence_snapshot(self):
   q=self.sequence
-  return (q.initialized,q.closed,tuple(sorted(q.counts.items())),frozenset(q.ids),q.max_commands,q.last,q.profile)
+  values=(q.initialized,q.closed,tuple(sorted(q.counts.items())),frozenset(q.ids),q.max_commands,q.last,q.profile)
+  return values if q.demo_cycle_profile is None else values+(q.demo_cycle_profile,)
  def _run_work(self,kind,args,end):
   from . import original_chain_client_work_a as work
   return work._wait(self,work._start(self,kind,args,end),end)
@@ -149,12 +157,12 @@ class ChainSessionV2:
   try:
    lower=self.clock();_record(self.folder,f'{n:02d}-started.json',dict(id=ident,kind=kind,raw_hex=wire.hex(),lower_qpc_ns=lower))
    response=s._call(wire,timeout_ns);upper=self.clock();trace.put(self.folder/f'{n:02d}-response.bin',response);_record(self.folder,f'{n:02d}-returned.json',dict(upper_qpc_ns=upper,response_sha256=protocol.digest(response)))
-   doc=_response(response,ident,s._dir.name,kind)
+   doc=_response(response,ident,s._dir.name,kind,self.sequence.demo_cycle_profile)
    need(_original_session_origin(s) is origin and getattr(s,'_source_pump',None) is pump and (pump is None and s not in ssh._SESSION_PUMPS or pump is not None and ssh._SESSION_PUMPS.get(s) is pump) and len(_PHASE_LEDGERS[self])==n-1,'original phase ordering changed')
    receipt=OriginalPhaseReceipt(_PHASE_KEY,self,n,ident,kind,s._dir.name,wire,response,lower,upper,origin,doc['status'],doc['unknown'])
    _PHASE_LEDGERS[self].append(receipt)
    if doc['status']!='COMPLETE':s._unknown=True
-   if doc['status']=='UNKNOWN' and doc['result'] is not None:_failure_facts(doc['result'],s._dir.name)
+   if doc['status']=='UNKNOWN' and doc['result'] is not None:_failure_facts(doc['result'],s._dir.name,self.sequence.demo_cycle_profile,self.deadline)
    return dict(response=doc,raw_response=response,lower_qpc_ns=lower,upper_qpc_ns=upper,authority='not_evaluated',phase_receipt=receipt)
   except BaseException:s._unknown=True;raise
  def _g05(self,ident,kind,payload,timeout_ns):
@@ -169,7 +177,7 @@ class ChainSessionV2:
       from . import original_chain_client_work_a as work
       work._await_close_exit(self.s)
      return out
-    self.deadline=_facts(result,kind,self.s._dir.name,self.identity,self.deadline)
+    self.deadline=_facts(result,kind,self.s._dir.name,self.identity,self.deadline,self.sequence.demo_cycle_profile)
     need(self.deadline[1]-self.deadline[0]==self.duration and (self.policy_sha is None or self.policy_sha==result['policy_sha256']),'fixed duration and policy')
     need(result['receipts'][:len(self.receipts)]==self.receipts,'original cumulative receipts changed')
     self.policy_sha=result['policy_sha256'];self.receipts=result['receipts']
@@ -180,9 +188,15 @@ class ChainSessionV2:
    if kind=='close':
     from . import original_chain_client_work_a as work
     work._finish_closing(self.s)
- def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns):
+ def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns,demo_cycle_profile=None):
   need(not self.sequence.initialized and type(identity_words) is tuple,'one immutable identity required');g05._identity(identity_words);self.identity=identity_words;self.duration=duration_ns
-  return self._g05(ident,'init',dict(identity_words=list(identity_words),max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io),timeout_ns)
+  demo.validate_profile(demo_cycle_profile)
+  self.s._chain_reply_profile=demo_cycle_profile
+  payload=dict(identity_words=list(identity_words),max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io)
+  if demo_cycle_profile is not None:
+   demo.validate_caps(demo_cycle_profile,max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io)
+   payload['demo_cycle_profile']=demo.to_wire(demo_cycle_profile)
+  return self._g05(ident,'init',payload,timeout_ns)
  def apply(self,ident,command_words,*,timeout_ns):
   need(type(command_words) is tuple,'immutable command required');return self._g05(ident,'apply',dict(command_words=list(command_words)),timeout_ns)
  def status(self,ident,*,timeout_ns):return self._g05(ident,'status',{},timeout_ns)
@@ -219,7 +233,7 @@ class ChainSessionV2:
     result=out['response']['result'];keys={'schema','index','request_sha256','source_sha256','response','phase_io_first','phase_io_last','correlation_status','directory','evidence_manifest_sha256','authority'}
     need(type(result) is dict and set(result)==keys and result['schema']=='trace_cycle_v2' and result['index']==self.sequence.counts['trace_scan'] and result['authority']=='not_evaluated' and result['request_sha256']==protocol.digest(original.request) and result['source_sha256']==protocol.digest(original.source),'original trace result')
     need(result['correlation_status']=='FOUR_FRAME_CORRELATION_CONSISTENT' and type(result['directory']) is str and result['directory'].startswith('/') and len(result['directory'])<=1024 and type(result['evidence_manifest_sha256']) is str and re.fullmatch('[0-9a-f]{64}',result['evidence_manifest_sha256']) is not None,'board evidence manifest reference')
-    first=result['phase_io_first'];last=result['phase_io_last'];need(type(first) is int and type(last) is int and 1<=first<=last<=5000 and last-first+1<=max_io,'actual TRACE phase')
+    first=result['phase_io_first'];last=result['phase_io_last'];need(type(first) is int and type(last) is int and 1<=first<=last<=demo.trace_io_cap(self.sequence.demo_cycle_profile) and last-first+1<=max_io,'actual TRACE phase')
     doc,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,self.s._dir.name,protocol.digest(original.request),build_binding['request_hash']);need(doc['status']=='COMPLETE','complete trace required')
     out['correlation']=self.bundle.adapter.correlate_collected(fixed.plan,wire,original.companions,doc['results']);need(out['correlation']['status']=='FOUR_FRAME_CORRELATION_CONSISTENT','host correlation required')
    return out

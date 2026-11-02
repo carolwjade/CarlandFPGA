@@ -23,6 +23,7 @@ from .motion import gate_clearance as gc
 from .motion import workspace_boundaries as w
 from .motion import passage_phase as passage
 from .motion.kinematics import RigidState
+from .motion import demo_motion_profile as horizon
 from .motion_executor import GeometryBudget
 from . import _solid_pair as pair
 
@@ -268,6 +269,7 @@ class ValuePolicy:
     run_id: str = 'diagnostic-world-component'
     guard_m: F = GUARD
     getter_endpoint_cap_m: F = F(0)
+    motion_profile: horizon.MotionHorizonProfile | None = None
 
 
 @dataclass(frozen=True)
@@ -356,15 +358,22 @@ def _pack(value, work=None):
         # Preserve the original canonical ValuePolicy bytes and resource count
         # for the default; nonzero policies are explicitly domain-separated.
         cap = _getter_endpoint_cap(value) if t is ValuePolicy else None
+        profile = horizon.validate_profile(value.motion_profile) if t is ValuePolicy else None
         fs = tuple(f for f in fields(value) if not
                    (t is ValuePolicy and f.name == 'getter_endpoint_cap_m'
-                    and cap == F(0)))
+                    and cap == F(0)) and not
+                   (t is ValuePolicy and f.name == 'motion_profile' and profile is None))
         work[0] += 128+sum(len(f.name)*6 for f in fs)
-        result = {f.name:_pack(getattr(value,f.name),work) for f in fs if f.init}
+        result = {f.name:_pack(horizon.commitment(profile) if t is ValuePolicy
+                  and f.name == 'motion_profile' else getattr(value,f.name),work) for f in fs if f.init}
         if t is ValuePolicy and cap:
             key = '__getter_endpoint_cap_domain__'
             work[0] += len(key)*6
             result[key] = _pack('DEEPEYE-ENDPOINT-AFFINE-SET-GETTER-CAP-V1',work)
+        if t is ValuePolicy and profile is not None:
+            key = '__motion_horizon_domain__'
+            work[0] += len(key)*6
+            result[key] = _pack(horizon.DOMAIN,work)
     else:
         raise ConstructionRefusal('only immutable internal value DTOs accepted')
     if work[0] > _MAX_BYTES:
@@ -1076,6 +1085,7 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
     if type(policy.guard_m) is not F or policy.guard_m != GUARD:
         raise ConstructionRefusal('selected positive private policy guard required')
     cap = _getter_endpoint_cap(policy)
+    motion_profile = horizon.validate_profile(policy.motion_profile)
     if type(policy.allowed_script_sha256) is not tuple:
         raise ConstructionRefusal('immutable approved script inventory required')
     for name in ('document_source_sha256','canonical_source_sha256','catalog_source_sha256',
@@ -1242,7 +1252,7 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
     source=geometry_identity+':'+policy_digest
     if cap:
         source += ':endpoint-affine-set-v1:'+str(cap.numerator)+'/'+str(cap.denominator)
-    budget=GeometryBudget(numeric,asset,obstacle,source)
+    budget=GeometryBudget(numeric,asset,obstacle,source,motion_profile=motion_profile)
     scene=s.Scene(geometry_identity,VERSION,tuple(scene_manifest),tuple(scene_objects))
     corridors=_corridor_proofs(scene,layout,total,geometry_identity)
     sweep=s.Sweep(model,initial_pose.position_m,initial_pose.position_m,initial_pose.orientation_xyzw,
@@ -1252,7 +1262,8 @@ def _construct(snapshot,policy,initial_pose,initial_monotonic_ns):
     context=passage.RunContext(policy.run_id,geometry_identity,ident.world_epoch,layout,envelope,
         'value-only:'+ident.freeze_id)
     initialized=passage.initialize(context,initial_pose,gc.ErrorBounds(0.,0.,additional),
-        pose_revision=0,monotonic_ns=initial_monotonic_ns,error_budget_reference=budget.source)
+        pose_revision=0,monotonic_ns=initial_monotonic_ns,error_budget_reference=budget.source,
+        motion_profile=motion_profile)
     if initialized.status!='SAFE' or initialized.state is None:
         raise ConstructionRefusal('strict whole-body legal outside-blue initializer not certified')
     if F(initialized.state.errors.additional_margin_m)<total:

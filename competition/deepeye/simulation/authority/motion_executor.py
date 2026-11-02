@@ -5,7 +5,7 @@ one final fence. This module is not registered as a provider or a Run path.
 Scene, asset containment and budgets are explicit authority assertions, never
 facts established by frozen dataclasses. See docs/motion_executor.md.
 """
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from fractions import Fraction as F
 from functools import wraps
 import hashlib
@@ -18,19 +18,29 @@ from .motion import certified_path as cp
 from .motion import passage_phase as p
 from .motion import workspace_boundaries as w
 from .motion import solid_clearance as s
-from .motion.kinematics import MAX_DT_NS
+from .motion import demo_motion_profile as horizon
 from . import _offboard_motion_component as off
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True,init=False)
 class GeometryBudget:
     numeric: F
     asset: F
     obstacle: F
     source: str
+    # Excluded from legacy init-field hashing; nondefault SHA is in source.
+    motion_profile: horizon.MotionHorizonProfile | None = field(default=None,init=False,repr=False)
+
+    def __init__(self,numeric,asset,obstacle,source,*,motion_profile=None):
+        horizon.validate_profile(motion_profile)
+        for name,value in (('numeric',numeric),('asset',asset),('obstacle',obstacle),
+                           ('source',horizon.bind_reference(source,motion_profile)),('motion_profile',motion_profile)):
+            object.__setattr__(self,name,value)
+        self.__post_init__()
 
     def __post_init__(self):
         s._label(self.source)
+        horizon.require_reference(self.source,self.motion_profile)
         for name in ('numeric','asset','obstacle'):
             value=s._scalar(getattr(self,name))
             if value<0:raise ValueError('explicit nonnegative upper budgets required')
@@ -168,6 +178,7 @@ class OwnedMotionExecutor:
             raise ValueError('workspace and solid body bounds must agree exactly')
         if F(initial_state.errors.additional_margin_m)<budget.numeric+budget.asset+budget.obstacle:
             raise ValueError('workspace margin omits explicit engine/asset/obstacle budgets')
+        horizon.require_reference(initial_state.error_budget_reference,budget.motion_profile)
         self._scene,self._model,self._budget,self._limits=scene,model,budget,limits
         self._max_slices=max_slices
         self._owner=threading.get_ident();self._busy=False;self._pending={}
@@ -301,7 +312,7 @@ class OwnedMotionExecutor:
     @_entry
     def prepare_step(self,boot,command_raw,expected_pose_revision,dt_ns):
         root=self._root;_integer(expected_pose_revision);_integer(dt_ns,1)
-        if dt_ns>MAX_DT_NS:raise ValueError('canonical duration exceeds 10ms')
+        if dt_ns>horizon.max_dt_ns(self._budget.motion_profile):raise ValueError('canonical duration exceeds selected horizon')
         if (root.stopped or root.trial_failed or root.world_invalid or type(root.command) is not _Command
                 or type(boot) is not BootBinding or boot is not root.boot or type(command_raw) is not bytes
                 or command_raw!=root.command.raw or expected_pose_revision!=root.pose_revision):
@@ -316,7 +327,8 @@ class OwnedMotionExecutor:
             raise ValueError('duration required')
         phase=self.passage_state()
         path=cp.CanonicalPath(root.pose,command.profile,command.speed_code,command.yaw_q,command.pitch_q,dt_ns,
-            inherited_errors=p.required_inherited_errors(phase,dt_ns),error_budget_reference=phase.error_budget_reference)
+            inherited_errors=p.required_inherited_errors(phase,dt_ns,motion_profile=self._budget.motion_profile),
+            error_budget_reference=phase.error_budget_reference,motion_profile=self._budget.motion_profile)
         relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices)
         preview=relative.preview
         if preview.status!='SAFE':
@@ -424,7 +436,7 @@ class OwnedMotionExecutor:
     @_offboard_entry
     def _offboard_prepare(self,owner,expected_pose_revision,dt_ns):
         root=self._root;_integer(expected_pose_revision);_integer(dt_ns,1)
-        if (dt_ns>MAX_DT_NS or owner is not self._offboard_owner or type(owner) is not off.Component
+        if (dt_ns>horizon.max_dt_ns(self._budget.motion_profile) or owner is not self._offboard_owner or type(owner) is not off.Component
                 or root.boot is not None or type(root.command) is not off.Command or root.command.owner is not owner
                 or root.stopped or root.world_invalid or root.trial_failed or expected_pose_revision!=root.pose_revision):
             raise ValueError('current offboard command required')

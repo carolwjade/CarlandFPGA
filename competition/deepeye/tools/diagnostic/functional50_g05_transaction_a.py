@@ -7,6 +7,7 @@ import time
 import uuid
 from . import functional50_board_a as board
 from . import functional50_g05_a as g05
+from . import functional50_demo_four_cycle_profile_a as demo
 
 _SCHEMA='g05_csr_transaction_v1'
 _ISSUERS={}
@@ -19,10 +20,12 @@ class Limits:
     max_commands:int
     max_polls:int
     duration_ns:int
+    demo_cycle_profile:object=None
     def __post_init__(self):
         _need(type(self.max_commands) is int and 1<=self.max_commands<=16,'1..16 commands required')
         _need(type(self.max_polls) is int and 1<=self.max_polls<=1024,'bounded polls required')
-        _need(type(self.duration_ns) is int and 0<self.duration_ns<=10_000_000_000,'bounded duration required')
+        demo.validate_profile(self.demo_cycle_profile)
+        _need(type(self.duration_ns) is int and 0<self.duration_ns<=demo.duration_cap(self.demo_cycle_profile),'bounded selected duration required')
 
 @dataclass(frozen=True)
 class IOReceipt:

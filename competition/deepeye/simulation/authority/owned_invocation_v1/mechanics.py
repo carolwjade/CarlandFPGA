@@ -27,14 +27,22 @@ def _body_direction(q,v):
     tx,ty,tz=2*(y*c-z*b),2*(z*a-x*c),2*(x*b-y*a)
     return (a+w*tx+y*tz-z*ty,b+w*ty+z*tx-x*tz,c+w*tz+x*ty-y*tx)
 
-def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=100):
+def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=100,
+                    navigation_profile=None):
     """Explicit fixed-duration candidate, not authority or a trajectory oracle.
 
     Angular error is pursued over that duration then clipped to the original
     combined curvature ROM. Truncation is toward zero, never a larger speed.
     Saturation/quantization can leave heading error; no accuracy claim is made.
     """
-    uint(max_duration_ms,1);need(max_duration_ms in (100,1000),'explicit original or typed demo command cap')
+    from .. import navigation_session_profile as navigation
+    navigation.validate_profile(navigation_profile)
+    uint(max_duration_ms,1)
+    if navigation_profile is None:
+        need(max_duration_ms in (100,1000),'explicit original or typed demo command cap')
+    else:
+        need(max_duration_ms==navigation_profile.max_command_ttl_ms and profile=='fast_9600',
+             'typed navigation requires unchanged FAST ROM and3000ms cap')
     uint(duration_ms,1);need(duration_ms<=max_duration_ms,'prospective command duration exceeds selected cap')
     stop=dict(action=0,yaw_q=0,pitch_q=0,speed_code=0,duration_ms=0)
     if advice['status']=='STOP':return stop

@@ -9,10 +9,12 @@ _CLOSING={}
 _KEY=object()
 
 class _Job:
-    __slots__=('kind','args','end','consumed','thread','done','value','error')
+    __slots__=('kind','args','end','consumed','thread','done','value','error','demo_cycle_profile','deadline')
     def __init__(self,key,chain,kind,args,end):
         if key is not _KEY:raise ValueError('fixed work factory required')
         self.kind=kind;self.args=args;self.end=end;self.consumed=False;self.done=threading.Event();self.value=None;self.error=None
+        self.demo_cycle_profile=chain.sequence.demo_cycle_profile
+        self.deadline=chain.deadline
         self.thread=threading.Thread(target=_execute,args=(self,),daemon=True)
 
 def _execute(job):
@@ -26,7 +28,13 @@ def _execute(job):
         a=job.args
         if job.kind=='encode':
             ident,kind,payload,operation,snapshot=a
-            seq=protocol.Sequence();seq.initialized,seq.closed,counts,ids,seq.max_commands,seq.last,seq.profile=snapshot
+            seq=protocol.Sequence()
+            if len(snapshot)==8:
+                from . import functional50_demo_four_cycle_profile_a as demo
+                seq.demo_cycle_profile=demo.validate_profile(snapshot[7])
+                if seq.demo_cycle_profile is None:raise ValueError('explicit typed work profile required')
+                snapshot=snapshot[:7]
+            seq.initialized,seq.closed,counts,ids,seq.max_commands,seq.last,seq.profile=snapshot
             seq.counts=dict(counts);seq.ids=set(ids)
             wire=protocol.raw(dict(schema=protocol.SCHEMA,id=ident,operation_id=operation,kind=kind,payload=payload))+b'\n'
             doc=protocol.decode_request(wire,operation,g05,seq);job.value=(wire,doc)
@@ -36,10 +44,10 @@ def _execute(job):
         elif job.kind=='reply':
             folder,n,response,upper,ident,operation,kind=a
             trace.put(folder/f'{n:02d}-response.bin',response);_record(folder,f'{n:02d}-returned.json',dict(upper_qpc_ns=upper,response_sha256=protocol.digest(response)))
-            doc=client._response(response,ident,operation,kind)
+            doc=client._response(response,ident,operation,kind,getattr(job,'demo_cycle_profile',None))
             job.value=doc
         elif job.kind=='failure_post':
-            result,operation=a;client._failure_facts(result,operation);job.value=True
+            result,operation=a;client._failure_facts(result,operation,getattr(job,'demo_cycle_profile',None),getattr(job,'deadline',None));job.value=True
         elif job.kind=='trace_prepare':
             bundle,request,source,companions,binding,ident,operation,max_io,folder,index=a
             fixed=bundle.adapter.prepare_bytes(request,source,companions,build_binding=binding)
@@ -57,13 +65,13 @@ def _execute(job):
                 result=doc['result'];keys={'schema','index','request_sha256','source_sha256','response','phase_io_first','phase_io_last','correlation_status','directory','evidence_manifest_sha256','authority'}
                 client.need(type(result) is dict and set(result)==keys and result['schema']=='trace_cycle_v2' and result['index']==index and result['authority']=='not_evaluated' and result['request_sha256']==protocol.digest(request) and result['source_sha256']==protocol.digest(source),'original trace result')
                 client.need(result['correlation_status']=='FOUR_FRAME_CORRELATION_CONSISTENT' and type(result['directory']) is str and result['directory'].startswith('/') and len(result['directory'])<=1024 and type(result['evidence_manifest_sha256']) is str and client.re.fullmatch('[0-9a-f]{64}',result['evidence_manifest_sha256']) is not None,'board evidence manifest reference')
-                first=result['phase_io_first'];last=result['phase_io_last'];client.need(type(first) is int and type(last) is int and 1<=first<=last<=5000 and last-first+1<=max_io,'actual TRACE phase')
+                first=result['phase_io_first'];last=result['phase_io_last'];client.need(type(first) is int and type(last) is int and 1<=first<=last<=client.demo.trace_io_cap(getattr(job,'demo_cycle_profile',None)) and last-first+1<=max_io,'actual TRACE phase')
                 observed,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,operation,protocol.digest(request),binding['request_hash']);client.need(observed['status']=='COMPLETE','complete trace required')
                 correlation=bundle.adapter.correlate_collected(fixed.plan,wire,companions,observed['results']);client.need(correlation['status']=='FOUR_FRAME_CORRELATION_CONSISTENT','host correlation required')
             job.value=(doc,correlation)
         elif job.kind=='g05_post':
             result,kind,operation,identity,deadline,duration,policy_sha,receipts,payload=a
-            new=client._facts(result,kind,operation,identity,deadline)
+            new=client._facts(result,kind,operation,identity,deadline,getattr(job,'demo_cycle_profile',None))
             client.need(new[1]-new[0]==duration and (policy_sha is None or policy_sha==result['policy_sha256']),'fixed duration and policy')
             client.need(result['receipts'][:len(receipts)]==receipts,'original cumulative receipts changed')
             if kind=='apply':client.need(result['capture']['words32'][1:3]==payload['command_words'][5:7],'capture command association')

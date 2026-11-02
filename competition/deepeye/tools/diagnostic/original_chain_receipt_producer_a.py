@@ -49,6 +49,7 @@ class OriginalChainReceiptProducer:
  def bind_scanner(self,scanner):
   self._check();need(self._scanner is None and type(scanner) is scanner_module.OriginalSourceTraceScan and scanner not in _SCANNERS,'one original scanner binding required')
   need(scanner._clock is self._clock and scanner._bundle is self._bundle and scanner._functional is self._source and scanner._source is self._pump and scanner._book is self._book and scanner._thread==self._thread and scanner._source_scan_cycle_v2 is True,'same original v2 source scanner required')
+  need(scanner._demo_cycle_profile==self._chain.sequence.demo_cycle_profile,'same typed source/chain cycle policy required')
   need(not scanner._admitted and not scanner._prepared and not scanner._failed and scanner._prepare_count==0,'fresh source history required')
   started=(self._pump.state=='RUNNING' and self._pump._count==0 and not self._source._retained_samples)
   deferred=(self._pump.state=='NEW' and self._pump._count==0 and self._pump._origin is None
@@ -116,6 +117,7 @@ class OriginalChainReceiptProducer:
   need(len(self._chain.sequence.ids)==self._operation_count,'unowned chain operation detected')
   need(self._world._thread==self._source._thread==self._thread and self._world.source is self._source and self._world.owner is self._world_owner and self._world.binding is self._binding and self._world.clock is self._clock and self._world.operation_id==self._operation and self._source.owner is self._world_owner and self._source.binding is self._binding and self._source.clock is self._clock and self._source.book is self._book and self._source.source is self._pump,'original world/source association changed')
   if self._scanner is not None:
+   need(self._scanner._demo_cycle_profile==self._chain.sequence.demo_cycle_profile,'original typed cycle policy changed')
    need(self._scanner._thread==self._thread and self._scanner._functional is self._source and self._scanner._clock is self._clock and self._scanner._bundle is self._bundle and self._scanner._book is self._book and self._scanner._source is self._pump,'original scanner association changed')
   if self._source_pump is not None:
    need(getattr(self._session,'_source_pump',None) is self._source_pump and self._source_pump.session is self._session and self._source_pump.source is self._source and self._source_pump.scanner is self._scanner and self._source_pump.clock is self._clock,'original fixed source pump changed')
@@ -149,8 +151,8 @@ class OriginalChainReceiptProducer:
    try:self._flush_pump()
    except BaseException:pass
    self._failed=True;raise
- def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns):
-  return self._call('init',client.ChainSessionV2.init,ident,identity_words,max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io,timeout_ns=timeout_ns)
+ def init(self,ident,identity_words,*,max_commands,max_polls,duration_ns,max_io,timeout_ns,demo_cycle_profile=None):
+  return self._call('init',client.ChainSessionV2.init,ident,identity_words,max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io,timeout_ns=timeout_ns,demo_cycle_profile=demo_cycle_profile)
  def admit_source(self,payload):
   self._check();self._source_ready()
   try:

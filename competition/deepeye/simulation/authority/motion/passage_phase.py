@@ -10,7 +10,8 @@ from . import certified_path as cp
 from . import gate_geometry as g
 from . import gate_clearance as gc
 from . import workspace_boundaries as w
-from .kinematics import RigidState, MAX_DT_NS
+from .kinematics import RigidState
+from . import demo_motion_profile as horizon
 
 
 @dataclass(frozen=True)
@@ -68,13 +69,14 @@ class Initialization:
     motion_grant: bool = field(default=False,init=False)
 
 
-def initialize(context,pose,errors,*,pose_revision,monotonic_ns,error_budget_reference):
+def initialize(context,pose,errors,*,pose_revision,monotonic_ns,error_budget_reference,motion_profile=None):
     if type(context) is not RunContext or type(pose) is not RigidState or type(errors) is not gc.ErrorBounds:
         raise TypeError('immutable context, current pose and explicit errors required')
     for value in (pose_revision,monotonic_ns):
         if type(value) is not int or value<0:raise ValueError('nonnegative revision/timestamp required')
     w._label(error_budget_reference)
-    path=cp.CanonicalPath(pose,'fast_9600',0,0,0,1,inherited_errors=errors,error_budget_reference=error_budget_reference)
+    path=cp.CanonicalPath(pose,'fast_9600',0,0,0,1,inherited_errors=errors,
+        error_budget_reference=error_budget_reference,motion_profile=motion_profile)
     sample=path.sample(0);sides=w.point_sides(sample,context.envelope)
     blue=context.layout.blue
     capsule=g.Capsule(pose.position_m,sample.axis,context.envelope.half_segment_m,context.envelope.radius_m)
@@ -108,9 +110,10 @@ def _valid(state):
             and all(a.end_ns<=b.end_ns for a,b in zip(state.history,state.history[1:])))
 
 
-def required_inherited_errors(state,dt_ns):
+def required_inherited_errors(state,dt_ns,*,motion_profile=None):
     if not _valid(state):raise ValueError('valid internal passage history required')
-    if type(dt_ns) is not int or not 1<=dt_ns<=MAX_DT_NS:raise ValueError('canonical step duration required')
+    if type(dt_ns) is not int or not 1<=dt_ns<=horizon.max_dt_ns(motion_profile):raise ValueError('canonical step duration required')
+    horizon.require_reference(state.error_budget_reference,motion_profile)
     # Speed law is 1-Lipschitz in v0. Difference in arc <= e_v*dt, pose <= K*e_v*dt.
     drift=state.speed_error_upper*Fraction(dt_ns,10**9)
     position=Fraction(state.errors.position_error_m)+drift
@@ -162,7 +165,8 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
     plan=prepared.plan
     if not plan.covered_ns or state.phase=='ARRIVED':
         return Preview('HELD',state,(),plan.reason if not plan.covered_ns else 'ARRIVED_FROZEN')
-    required=required_inherited_errors(state,path.provenance.requested_dt_ns)
+    required=required_inherited_errors(state,path.provenance.requested_dt_ns,
+        motion_profile=path.provenance.motion_profile)
     actual=path.provenance.inherited_errors
     if any(getattr(actual,name)<getattr(required,name) for name in ('position_error_m','angle_error_rad','additional_margin_m')):
         return Preview('UNKNOWN',state,(),'inherited pose/numeric/speed carry budget reset')

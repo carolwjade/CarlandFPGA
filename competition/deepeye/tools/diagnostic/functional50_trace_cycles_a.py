@@ -1,4 +1,4 @@
-"""Prospective two-scan TRACE coordinator, fixed to one original loaded port.
+"""Default two-scan TRACE coordinator; typed demo allows four on the same port.
 
 No callbacks, caller-selected CSR values, replacement device or authority grant.
 """
@@ -9,6 +9,7 @@ import time
 from . import functional50_board_a as board
 from . import functional50_board_trace_batch_a as batch
 from . import functional50_b131_loader as loader
+from . import functional50_demo_four_cycle_profile_a as demo
 
 _OWNERS={}
 _KEY=object()
@@ -48,7 +49,7 @@ class _Facade:
  _TracePort=_CyclePort
 
 class TraceCycles:
- """Retain one fixed bundle/port and up to two nonrenewable scan attempts."""
+ """Retain one fixed bundle/port and finite nonrenewable scan attempts."""
  def __init__(self,port,bundle):
   need(type(port) is board._TracePort and type(bundle) is loader._Bundle,'original TRACE port and fixed B131 bundle required')
   need(type(port._cycle_policy) is board._TraceCyclePolicy and port._cycle_ready and port._cycle_owner is None and not port._failed,'prospectively bound fresh cycle required')
@@ -56,18 +57,27 @@ class TraceCycles:
   self._port=port;self._bundle=bundle;self._reg=reg;self._thread=threading.get_ident();self._records=[];self._failed=False;self._used_requests=set();self._used_sources=set();self._deadline=None;self._scan_io_start=None;self._scan_max_io=None
   self._directory=port._dir/'trace-cycles-v2';self._directory.mkdir(mode=0o700)
   port._cycle_owner=self;_OWNERS[port]=self
+  self._demo_cycle_profile=None
+ def select_demo_cycle_profile(self,profile):
+  self._check();demo.validate_profile(profile)
+  need(profile is not None and self._demo_cycle_profile is None and self._deadline is None
+       and not self._records and not self._used_requests and not self._used_sources,'one pre-deadline four-cycle selection required')
+  self._demo_cycle_profile=profile
+  if demo.is_navigation(profile):self._port._bind_navigation_trace_profile(self,profile)
  def _check(self):
   p=self._port
   need(threading.get_ident()==self._thread and _OWNERS.get(p) is self and p._cycle_owner is self and board._G05_LOADS.get(p) is self._reg and p._mmio is self._reg[7] and not self._failed and not p._failed,'original active cycle owner required')
+  if demo.is_navigation(self._demo_cycle_profile):
+   need(p._navigation_trace_profile is self._demo_cycle_profile,'original navigation TRACE selection changed')
  def bind_deadline(self,deadline_ns):
   self._check();need(self._deadline is None,'cycle deadline cannot be renewed')
-  now=time.monotonic_ns();need(type(deadline_ns) is int and 0<=now<deadline_ns<=min(now+10000000000,(1<<63)-1),'original bounded board deadline required')
+  now=time.monotonic_ns();need(type(deadline_ns) is int and 0<=now<deadline_ns<=min(now+demo.duration_cap(self._demo_cycle_profile),(1<<63)-1),'original bounded board deadline required')
   need(0<=self._port._pid<=0xffffffff,'bounded journal process id required')
   self._deadline=deadline_ns;self._port._cycle_deadline=deadline_ns
  def _check_deadline(self):
   need(self._deadline is not None and 0<=time.monotonic_ns()<self._deadline,'cycle deadline expired')
  def scan(self,line,*,max_io):
-  self._check();need(len(self._records)<2,'two scan quota consumed')
+  self._check();need(len(self._records)<demo.scan_cap(self._demo_cycle_profile),'selected scan quota consumed')
   p=self._port
   try:
    self._check_deadline();need(type(max_io) is int and 1<=max_io<=2000,'explicit bounded scan I/O required')

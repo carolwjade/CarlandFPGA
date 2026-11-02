@@ -18,6 +18,7 @@ from ..sensors.owned_world_field import OwnedWorldField
 from . import _owned_godot as native
 from . import _world_loop as loop
 from . import motion_executor as motion
+from . import navigation_session_profile as navigation
 from .motion import solid_clearance as geometry
 
 _PRODUCTION, _SOFTWARE, _TOKEN = object(), object(), object()
@@ -114,6 +115,7 @@ class _SourceBookCore:
         self._field, self._source = field, source
         self._clock, self._native = owner._clock, owner._native
         self._profile = source._profile
+        self._navigation_profile = navigation.validate_profile(source._navigation_profile)
         self._pose_reader, self._sampler = source._pose_reader, source._sampler
         self._scope = source._em_scope_factory
         self._scene, self._pieces = field._scene, field._pieces
@@ -188,6 +190,9 @@ class _SourceBookCore:
         if threading.get_ident() != self._thread:
             raise ValueError('original book thread required')
         owner, source, field = self._owner, self._source, self._field
+        navigation.validate_profile(self._navigation_profile)
+        if source._navigation_profile is not self._navigation_profile:
+            raise ValueError('original selected navigation revision changed')
         if self._actor_custody is not None:
             from ._actor_source_custody import _ActorSourceCustody
             if type(self._actor_custody) is not _ActorSourceCustody:
@@ -294,7 +299,7 @@ class _SourceBookCore:
         now = _integer(self._clock())
         if now < self._high or now >= self._deadline:
             raise ValueError('original clock regressed or containment expired')
-        if self._origin is not None and not 0 <= now-self._origin <= 10_000_000_000:
+        if self._origin is not None and not 0 <= now-self._origin <= navigation.duration_ns(self._navigation_profile):
             raise ValueError('original source session expired')
         self._high = now
         return now
@@ -356,7 +361,7 @@ class _SourceBookCore:
         origin = _integer(self._source._origin)
         now = self._time()
         if (not self._baseline['end_qpc_ns'] <= origin <= now
-                or now-origin > 10_000_000_000
+                or now-origin > navigation.duration_ns(self._navigation_profile)
                 or self._source._high != origin):
             raise ValueError('original origin must follow actual baseline read')
         self._origin, self._start_observed = origin, now
@@ -657,6 +662,8 @@ class _SourceBookCore:
                 through_qpc_ns=self._span_through, root_revision=self._root.revision,
                 pose_revision=self._root.pose_revision)
             document['action_association'] = 'unavailable;requires_explicit_interval_aware_projection'
+        if self._navigation_profile is not None:
+            document['navigation_profile']=navigation.to_wire(self._navigation_profile)
         return json.loads(_raw(document))
 
 

@@ -15,14 +15,21 @@ from ...integration import host_clock as clocks, private_pl_stream as pl
 from ...integration import sensor_source
 from ...simulation.sensors import forward_profile as forward
 from ...simulation.authority import live_chain_channels as channels
+from ...simulation.authority import navigation_session_profile as navigation
 
 
-def _source_profile():
-    return dict(name='candidate_causal_source_v1',
+def _source_profile(navigation_profile=None):
+    navigation.validate_profile(navigation_profile)
+    result = dict(name='candidate_causal_source_v1',
         signal_profile='deepeye_forward_profile_candidate_v1',
         quality_encoding='candidate_four_channel_quality_v1',
         source_age_cap_ns=100_000_000, session_max_ns=10_000_000_000,
         max_source_records=1001)
+    if navigation_profile is not None:
+        result.update(name='candidate_causal_source_navigation_v1',
+                      session_max_ns=navigation_profile.duration_ns,
+                      navigation_profile=navigation.to_wire(navigation_profile))
+    return result
 
 
 SOURCE_PROFILE = _source_profile()  # Exported copy cannot change validation policy.
@@ -111,7 +118,7 @@ def select_source_mode(template, request, activation, source):
     if (type(source) is not CausalSourcePump or source.state != 'NEW' or
             source._thread != threading.get_ident() or not all(declared)):
         raise ValueError('one fresh Root source and all three profile declarations required')
-    expected = _source_profile()
+    expected = _source_profile(source._navigation_profile)
     for record in records:
         value = record['candidate_source_profile']
         if (type(value) is not dict or value.keys() != expected.keys() or
@@ -129,7 +136,8 @@ def source_paths(jit_enabled=False, dependency_config=None):
                 candidate_channel=Path(channels.__file__),
                 sensor_source=Path(sensor_source.__file__),
                 forward_profile=Path(forward.__file__),
-                original_source_book=Path(root_source_book.__file__))
+                original_source_book=Path(root_source_book.__file__),
+                navigation_session_profile=Path(navigation.__file__))
     if jit_enabled:
         if (type(dependency_config) is not dict or
                 set(dependency_config) != {'dependency_path','dependency_files','numpy_path','numpy_files'}):
@@ -146,12 +154,15 @@ def source_paths(jit_enabled=False, dependency_config=None):
 class _CausalSourcePump:
     """Single-use schedule core. Missed native slots are never backfilled."""
     def __init__(self, profile, pose_reader, sampler, *, contact_reader=None,
-                 medium_context='formation'):
+                 medium_context='formation', navigation_profile=None):
+        navigation.validate_profile(navigation_profile)
         if not callable(pose_reader) or not callable(sampler):
             raise ValueError('trusted world pose/conductivity readers required')
         if contact_reader is not None and not callable(contact_reader):
             raise ValueError('already-occurred contact reader must be callable')
         self._profile, self._pose_reader, self._sampler = profile, pose_reader, sampler
+        self._navigation_profile = navigation_profile
+        self._selected_navigation_profile = navigation_profile
         self._contact_reader, self._medium = contact_reader, medium_context
         self._thread = threading.get_ident()
         self._origin = self._clock = self._high = self._last_tick = None
@@ -254,6 +265,9 @@ class _CausalSourcePump:
         if self.state != 'NEW' or threading.get_ident() != self._thread or not callable(clock):
             raise ValueError('fresh original source owner required; no restart')
         pl.uint(origin_ns, 63)
+        navigation.validate_profile(self._navigation_profile)
+        if self._navigation_profile is not self._selected_navigation_profile:
+            raise ValueError('selected navigation revision cannot be rebound')
         self._origin, self._high, self._clock = origin_ns, origin_ns, clock
         self.state = 'RUNNING'
         if self._source_book is not None:
@@ -275,16 +289,23 @@ class _CausalSourcePump:
             entered = True
             if self.state != 'RUNNING' or threading.get_ident() != self._thread:
                 raise ValueError('original running source owner required')
+            navigation.validate_profile(self._navigation_profile)
+            if self._navigation_profile is not self._selected_navigation_profile:
+                raise ValueError('selected navigation revision cannot be rebound')
             if self._em_scope_factory is not None and self._contact_reader is not None:
                 raise ValueError('EM-only scope profile does not admit contact callbacks')
             now = self._clock(); pl.uint(now, 63)
             if now < self._high or now < self._origin:
                 raise ValueError('original source clock regressed')
             self._high = now
-            if now-self._origin > _source_profile()['session_max_ns']:
+            if now-self._origin > navigation.duration_ns(self._navigation_profile):
                 raise TimeoutError('source session expired')
             tick = (now-self._origin)//10_000_000*10
             if tick == self._last_tick: return None
+            # Gate before reserving/counting an acquisition. Missed native bins
+            # are skipped; a later poll never invents the earlier observation.
+            if self._navigation_profile is not None and tick % 1000:
+                return None
             if self._count >= 1001: raise ValueError('source record cap exhausted')
             self._last_tick = tick  # Consume before callbacks; no failed-slot replay.
             self._count += 1
@@ -360,11 +381,12 @@ class _CausalSourcePump:
 class CausalSourcePump(_CausalSourcePump):
     """Fresh real candidate ForwardProfile; callbacks stay in the Root authority."""
     def __init__(self, pose_reader, sampler, *, contact_reader=None,
-                 medium_context='formation'):
+                 medium_context='formation', navigation_profile=None):
         if medium_context not in forward.KNOWN_CONTEXTS:
             raise ValueError('explicit supported candidate medium context required')
         super().__init__(forward.ForwardProfile(), pose_reader, sampler,
-            contact_reader=contact_reader, medium_context=medium_context)
+            contact_reader=contact_reader, medium_context=medium_context,
+            navigation_profile=navigation_profile)
         self.prepared = False
 
     def bind_original_source_book(self, book):

@@ -125,8 +125,13 @@ def _check_bundle(bundle):
 
 
 class OriginalSourceTraceScan:
-    """One original source history; default one scan, explicit v2 at most two."""
-    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False, defer_start=False, demo_age_budget=None):
+    """One original source history; default one, v2 two, typed demo four scans."""
+    def __init__(self, functional_source, bundle, *, source_scan_cycle_v2=False, defer_start=False, demo_age_budget=None,
+                 demo_cycle_profile=None):
+        from . import functional50_demo_four_cycle_profile_a as demo
+        demo.validate_profile(demo_cycle_profile)
+        _need(demo_cycle_profile is None or (source_scan_cycle_v2 is True and defer_start is True),
+              'four-cycle demo requires explicit deferred source cycle v2')
         _need(type(source_scan_cycle_v2) is bool, 'strict source cycle selection required')
         _need(type(defer_start) is bool and (not defer_start or source_scan_cycle_v2),
               'deferred start requires explicit source cycle v2')
@@ -167,6 +172,7 @@ class OriginalSourceTraceScan:
         self._failed = self._prepared = False
         self._attempt = self._result = None
         self._source_scan_cycle_v2 = source_scan_cycle_v2
+        self._demo_cycle_profile = demo_cycle_profile
         self._prepare_count = 0
         self._last_prepared_index = None
         self._last_prepared_tick = None
@@ -245,7 +251,8 @@ class OriginalSourceTraceScan:
     def prepare(self, payload, *, facts, build_binding):
         _need(not getattr(self, '_preparing', False), 'original preparation already pending')
         self._check()
-        if self._source_scan_cycle_v2 and self._prepare_count >= 2:
+        from . import functional50_demo_four_cycle_profile_a as demo
+        if self._source_scan_cycle_v2 and self._prepare_count >= demo.scan_cap(self._demo_cycle_profile):
             self._failed = True
             raise ValueError('source cycle preparation cap exhausted')
         self._prepared = True  # Never reset; default mode remains strictly one-shot.
@@ -389,7 +396,8 @@ class OriginalSourceTraceScan:
         from . import original_chain_prepare_work_a as work
         self._check();self._work_original_pump(pump)
         _need(self._source_scan_cycle_v2 is True and not getattr(self,'_preparing',False), 'fresh v2 preparation required')
-        if self._prepare_count>=2:
+        from . import functional50_demo_four_cycle_profile_a as demo
+        if self._prepare_count>=demo.scan_cap(self._demo_cycle_profile):
             self._failed=True;raise ValueError('source cycle preparation cap exhausted')
         self._prepared=True;self._prepare_count+=1;self._preparing=True
         self._prepare_job=None

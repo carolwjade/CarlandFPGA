@@ -13,6 +13,8 @@ import types
 
 BASE='competition/deepeye/tools/diagnostic/'
 FILES=frozenset((BASE+'functional50_chain_v2_board_a.py',BASE+'functional50_board_a.py',
+ BASE+'functional50_demo_four_cycle_profile_a.py',
+ 'competition/deepeye/simulation/authority/navigation_session_profile.py',
  BASE+'functional50_g05_session_a.py',BASE+'functional50_trace_cycles_a.py',
  BASE+'functional50_board_trace_batch_a.py',BASE+'functional50_b131_loader.py',
  BASE+'functional50_g05_a.py',BASE+'functional50_g05_transaction_a.py',
@@ -54,7 +56,8 @@ def verify_manifest(path,expected):
   need(type(entry) is dict and set(entry)=={'bytes','sha256'} and type(entry['bytes']) is int and 0<entry['bytes']<=2097152 and type(entry['sha256']) is str and re.fullmatch('[0-9a-f]{64}',entry['sha256']),'manifest pin')
   value,_=read_fixed(root/name,2097152);need(len(value)==entry['bytes'] and digest(value)==entry['sha256'],'source pin mismatch')
  need(Path(__file__).resolve()==(root/(BASE+'functional50_chain_v2_board_a.py')).resolve(),'original entry required')
- for part in ('competition','competition/deepeye','competition/deepeye/tools','competition/deepeye/tools/diagnostic'):
+ for part in ('competition','competition/deepeye','competition/deepeye/tools','competition/deepeye/tools/diagnostic',
+              'competition/deepeye/simulation','competition/deepeye/simulation/authority'):
   try:(root/part/'__init__.py').lstat()
   except FileNotFoundError:pass
   else:raise ValueError('unexpected executable namespace initializer')
@@ -90,11 +93,15 @@ def load_modules(root):
  return board,batch,loader,g05,tx,session,cycles
 
 SCHEMA='functional50_chain_v2'
+def _demo():
+ return importlib.import_module('competition.deepeye.tools.diagnostic.functional50_demo_four_cycle_profile_a')
 class Sequence:
- def __init__(self):self.initialized=False;self.closed=False;self.counts={'trace_scan':0,'apply':0,'status':0};self.ids=set();self.max_commands=0;self.last=0;self.profile=None
+ def __init__(self):self.initialized=False;self.closed=False;self.counts={'trace_scan':0,'apply':0,'status':0};self.ids=set();self.max_commands=0;self.last=0;self.profile=None;self.demo_cycle_profile=None
  def consume(self,x):
   kind=x['kind'];self.ids.add(x['id'])
-  if kind=='init':self.initialized=True;self.max_commands=x['payload']['max_commands']
+  if kind=='init':
+   self.initialized=True;self.max_commands=x['payload']['max_commands']
+   self.demo_cycle_profile=(_demo().from_wire(x['payload']['demo_cycle_profile']) if 'demo_cycle_profile' in x['payload'] else None)
   elif kind=='close':self.closed=True
   else:
    self.counts[kind]+=1
@@ -106,25 +113,28 @@ def decode_request(line,operation,g05,state):
  need(type(x['id']) is str and ID.fullmatch(x['id']) and x['id'] not in state.ids and x['operation_id']==operation and not state.closed,'one use request identity')
  k=x['kind'];p=x['payload'];need(type(p) is dict,'payload object')
  if k=='init':
-  need(not state.initialized and set(p)=={'identity_words','max_commands','max_polls','duration_ns','max_io'},'one init payload')
+  keys={'identity_words','max_commands','max_polls','duration_ns','max_io'}
+  need(not state.initialized and set(p) in (keys,keys|{'demo_cycle_profile'}),'one init payload')
   need(type(p['identity_words']) is list,'identity words');g05._identity(tuple(p['identity_words']))
-  need(type(p['max_commands']) is int and 1<=p['max_commands']<=2 and type(p['max_polls']) is int and 4<=p['max_polls']<=64 and type(p['duration_ns']) is int and 0<p['duration_ns']<=MAX_TIME and type(p['max_io']) is int and 1<=p['max_io']<=450,'explicit session caps')
+  selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
+  _demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
  else:
   need(state.initialized,'init required')
   if k=='trace_scan':
-   need(state.counts[k]<2 and set(p)=={'request_hex','source_hex','companions_hex','build_binding','max_io'} and type(p['max_io']) is int and 1<=p['max_io']<=2000,'trace cap/payload')
+   need(state.counts[k]<_demo().scan_cap(state.demo_cycle_profile) and set(p)=={'request_hex','source_hex','companions_hex','build_binding','max_io'} and type(p['max_io']) is int and 1<=p['max_io']<=2000,'trace cap/payload')
   elif k=='apply':
    need(state.counts[k]<state.max_commands and set(p)=={'command_words'} and type(p['command_words']) is list,'apply cap/payload');g05._command(tuple(p['command_words']),state.last,state.profile)
-  elif k=='status':need(state.counts[k]<4 and not p,'status cap/payload')
+   if _demo().is_navigation(state.demo_cycle_profile):need(p['command_words'][2]==1,'navigation uses unchanged FAST TTL/ROM')
+  elif k=='status':need(state.counts[k]<_demo().status_phase_cap(state.demo_cycle_profile) and not p,'status cap/payload')
   elif k=='close':need(set(p)=={'stop'} and type(p['stop']) is bool,'explicit close')
   else:raise ValueError('unknown kind')
  return x
 
 def put(path,value):
  with path.open('xb') as f:f.write(value);f.flush();os.fsync(f.fileno())
-def write_line(value):
- need(type(value) is bytes and len(value)<=MAX_REPLY and value.endswith(b'\n'),'reply bound');sys.stdout.buffer.write(value);sys.stdout.buffer.flush()
-def facts_json(facts,session,tx):
+def write_line(value,demo_cycle_profile=None):
+ need(type(value) is bytes and len(value)<=_demo().reply_cap(demo_cycle_profile) and value.endswith(b'\n'),'reply bound');sys.stdout.buffer.write(value);sys.stdout.buffer.flush()
+def facts_json(facts,session,tx,demo_cycle_profile=None):
  need(type(facts) is session.SessionFacts and facts.schema=='g05_csr_session_v2' and facts.authority=='not_evaluated','original facts required')
  cap=facts.capture
  capture=None if cap is None else dict(status_before_latch=cap.status_before_latch,fault_before_latch=cap.fault_before_latch,words32=list(cap.words32),status_before_snapshot=cap.status_before_snapshot,status_after_snapshot=cap.status_after_snapshot,result_seq=cap.result_seq,tick_unit=cap.tick_unit)
@@ -138,7 +148,8 @@ def facts_json(facts,session,tx):
   values=(r.started_raw,r.returned_raw,r.not_attempted_raw)
   need(sum(v is not None for v in values)<=2 and all(v is None or (type(v) is bytes and 0<len(v)<=512) for v in values),'bounded partial originals')
   indices.append(r.index);unresolved.append(dict(index=r.index,started_raw_hex=None if values[0] is None else values[0].hex(),returned_raw_hex=None if values[1] is None else values[1].hex(),not_attempted_raw_hex=None if values[2] is None else values[2].hex()))
- need(len(indices)<=450 and len(set(indices))==len(indices) and all(type(i) is int and 1<=i<=450 for i in indices),'distinct bounded receipt indices')
+ cap_io=_demo().io_cap(demo_cycle_profile)
+ need(len(indices)<=cap_io and len(set(indices))==len(indices) and all(type(i) is int and 1<=i<=cap_io for i in indices),'distinct bounded receipt indices')
  need(facts.state=='CLOSED_AFTER_FAILURE' or not unresolved,'complete facts have no unresolved I/O')
  return dict(schema=facts.schema,kind=facts.kind,operation_id=facts.operation_id,policy_sha256=facts.policy_sha256,deadline_selected_lower_board_monotonic_ns=facts.deadline_selected_lower_board_monotonic_ns,deadline_board_monotonic_ns=facts.deadline_board_monotonic_ns,phase_io_first=facts.phase_io_first,phase_io_last=facts.phase_io_last,identity_words=None if facts.identity_words is None else list(facts.identity_words),status=facts.status,fault=facts.fault,capture=capture,receipts=receipts,unresolved_receipts=unresolved,state=facts.state,authority=facts.authority)
 
@@ -155,7 +166,8 @@ def main(argv=None):
  put(port._dir/'chain-v2-load-plan.json',plan_raw);put(port._dir/'chain-v2-g05-policy.json',policy_raw)
  ready=dict(schema='chain_board_v2',state='ready',operation_id=plan['operation_id'],plan_sha256=digest(plan_raw),load_request_hash=plan['request_sha256'],build_id=plan['build_id'],source_commit=plan['source_commit'],policy_file_sha256=digest(policy_raw),manifest_sha256=argv[3]);put(port._dir/'chain-v2-ready.json',raw(ready)+b'\n');write_line(raw(ready)+b'\n')
  sequence=Sequence();owner=cycles.TraceCycles(port,bundle);gs=None
- for step in range(10):
+ step=0
+ while step<_demo().request_cap(sequence.demo_cycle_profile):
   line=sys.stdin.buffer.readline(MAX_REQUEST+1)
   if not line:return
   started=False;request_id=kind=None
@@ -164,19 +176,25 @@ def main(argv=None):
    if kind=='init':
     # Factory 4 + init 35, each command <=76 plus two I/Os per
     # selected status poll, four fresh statuses <=60, optional STOP <=3.
-    prospective_io=102+76*p['max_commands']+2*p['max_polls']
+    selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
+    prospective_io=_demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
     need(prospective_io<=policy['limits']['total_io']<=p['max_io'],'G05 policy cannot cover selected session or exceeds budget')
     need(policy['limits']['begin']>=1 and all(policy['limits'][k]>=p['max_commands'] for k in ('commit','latch','release')),'G05 selected command quotas')
-    need(os.getpid()<=0xffffffff and 0<=time.monotonic_ns()<=MAX_U63-MAX_TIME and 40960+p['max_io']*2176<=MAX_REPLY,'prospective complete receipt budget')
+    receipt_bound=prospective_io if _demo().is_navigation(selected) else p['max_io']
+    need(os.getpid()<=0xffffffff and 0<=time.monotonic_ns()<=MAX_U63-_demo().duration_cap(selected) and 40960+receipt_bound*2176<=_demo().reply_cap(selected),'prospective complete receipt budget')
     again,again_id=board._bytes(argv[4],131072);need(again==policy_raw and again_id==policy_id,'policy changed')
     sequence.consume(x);started=True
-    gp=g05.open_g05(port,argv[4]);issuer=tx.TransactionIssuer(port,gp,tx.Limits(p['max_commands'],p['max_polls'],p['duration_ns']));gs=session.G05SessionV2(issuer)
-    facts=gs.init(tuple(p['identity_words']));owner.bind_deadline(issuer._deadline);result=facts_json(facts,session,tx)
+    gp=g05.open_g05(port,argv[4]);issuer=tx.TransactionIssuer(port,gp,tx.Limits(p['max_commands'],p['max_polls'],p['duration_ns'],demo_cycle_profile=sequence.demo_cycle_profile))
+    if sequence.demo_cycle_profile is None:gs=session.G05SessionV2(issuer)
+    else:
+     owner.select_demo_cycle_profile(sequence.demo_cycle_profile)
+     gs=session.G05SessionV2(issuer,demo_cycle_profile=sequence.demo_cycle_profile)
+    facts=gs.init(tuple(p['identity_words']));owner.bind_deadline(issuer._deadline);result=facts_json(facts,session,tx,sequence.demo_cycle_profile)
    elif kind=='trace_scan':
     data={k:p[k] for k in ('request_hex','source_hex','companions_hex','build_binding')}
     trace_line=raw(dict(schema=batch.SCHEMA,id=request_id,operation_id=plan['operation_id'],**data))+b'\n';batch.decode_batch_request(trace_line)
     sequence.consume(x);started=True;before=port._count;record=owner.scan(trace_line,max_io=p['max_io']);after=port._count
-    need(type(before) is int and type(after) is int and 0<=before<after<=5000 and after-before<=p['max_io'],'original TRACE phase boundaries')
+    need(type(before) is int and type(after) is int and 0<=before<after<=_demo().trace_io_cap(sequence.demo_cycle_profile) and after-before<=p['max_io'],'original TRACE phase boundaries')
     result=dict(schema='trace_cycle_v2',index=record['index'],request_sha256=record['request_sha256'],source_sha256=record['source_sha256'],response=batch._json(record['response']),phase_io_first=before+1,phase_io_last=after,correlation_status=record['correlation']['status'],directory=str(record['directory']),evidence_manifest_sha256=record['evidence_manifest_sha256'],authority='not_evaluated')
    else:
     need(gs is not None and time.monotonic_ns()<gs.issuer._deadline,'session deadline')
@@ -184,17 +202,18 @@ def main(argv=None):
     if kind=='apply':facts=gs.apply_one(tuple(p['command_words']))
     elif kind=='status':facts=gs.observe_status()
     else:facts=gs.close(stop=p['stop'])
-    result=facts_json(facts,session,tx)
-   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=MAX_REPLY,'bounded response violated');put(port._dir/('chain-v2-%02d-response.json'%(step+1)),response);write_line(response)
+    result=facts_json(facts,session,tx,sequence.demo_cycle_profile)
+   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');put(port._dir/('chain-v2-%02d-response.json'%(step+1)),response);write_line(response,sequence.demo_cycle_profile)
+   step+=1
    if kind=='close':return
   except BaseException as e:
    partial=None
    if started and kind in ('init','apply','status','close') and gs is not None and gs._state=='FAILED':
     try:
-     captured=gs.close(stop=False);need(captured.state=='CLOSED_AFTER_FAILURE','failed evidence state');partial=facts_json(captured,session,tx)
+     captured=gs.close(stop=False);need(captured.state=='CLOSED_AFTER_FAILURE','failed evidence state');partial=facts_json(captured,session,tx,sequence.demo_cycle_profile)
     except BaseException:partial=None
    failure=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='UNKNOWN' if started else 'REJECTED',result=partial,error=type(e).__name__,unknown=started))+b'\n'
-   if len(failure)>MAX_REPLY:failure=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='UNKNOWN' if started else 'REJECTED',result=None,error=type(e).__name__,unknown=started))+b'\n'
-   write_line(failure);return
+   if len(failure)>_demo().reply_cap(sequence.demo_cycle_profile):failure=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='UNKNOWN' if started else 'REJECTED',result=None,error=type(e).__name__,unknown=started))+b'\n'
+   write_line(failure,sequence.demo_cycle_profile);return
 
 if __name__=='__main__':main()

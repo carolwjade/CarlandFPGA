@@ -228,18 +228,41 @@ class _TracePort:
         need(key is _KEY,'internal port only');self._mmio=mmio;self._dir=directory;self._boot=boot;self._pid=os.getpid();self._count=0;self._failed=False;self._ids=set();self._commands={1:0,2:0,3:0,4:0,5:0,8:0}
         need(cycle_policy is None or type(cycle_policy) is _TraceCyclePolicy,'exact prospective cycle policy required')
         self._cycle_policy=cycle_policy;self._cycle_owner=None;self._cycle_ready=False;self._cycle_active=False;self._cycle_commands=None;self._cycle_thread=threading.get_ident();self._cycle_deadline=None
+        self._navigation_trace_profile=None;self._cycle_work_started=False
+    def _bind_navigation_trace_profile(self,owner,profile):
+        """One typed selection before TRACE work; retains the original counter."""
+        from . import functional50_demo_four_cycle_profile_a as demo
+        from .functional50_trace_cycles_a import TraceCycles,_OWNERS
+        need(demo.is_navigation(profile),'exact typed navigation TRACE profile required')
+        need(type(owner) is TraceCycles and _OWNERS.get(self) is owner and owner._port is self
+             and self._cycle_owner is owner and owner._demo_cycle_profile is profile
+             and self._cycle_policy is not None and self._cycle_ready
+             and not self._cycle_active and not self._cycle_work_started
+             and self._navigation_trace_profile is None and self._cycle_deadline is None
+             and owner._deadline is None and not owner._records and not owner._used_requests
+             and not owner._used_sources and not self._failed,
+             'one original pre-work navigation TRACE selection required')
+        self._navigation_trace_profile=profile
     def _call(self,kind,offset,value,request_id,*,_cycle_owner=None):
         validate_io(kind,offset,value)
         need(not self._failed and os.getpid()==self._pid and Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._boot,'owner/boot changed')
         if self._cycle_policy is not None and self._cycle_ready:
             need(_cycle_owner is not None and _cycle_owner is self._cycle_owner and self._cycle_active and threading.get_ident()==self._cycle_thread,'original active cycle required')
-        need(type(request_id) is str and re.fullmatch('[A-Za-z0-9_-]{1,64}',request_id) is not None and request_id not in self._ids and self._count<5000,'one-use request/limit')
+        limit=5000
+        selected=getattr(self,'_navigation_trace_profile',None)
+        if selected is not None:
+            from . import functional50_demo_four_cycle_profile_a as demo
+            need(demo.is_navigation(selected) and self._cycle_owner is _cycle_owner
+                 and _cycle_owner._demo_cycle_profile is selected,'original typed navigation TRACE binding changed')
+            limit=demo.trace_io_cap(selected)
+        need(type(request_id) is str and re.fullmatch('[A-Za-z0-9_-]{1,64}',request_id) is not None and request_id not in self._ids and self._count<limit,'one-use request/limit')
         if kind=='write' and offset==0x80:
             limits={1:1,2:4,3:4,4:4,5:1,8:4096}
             counts=self._cycle_commands if self._cycle_policy is not None and self._cycle_ready else self._commands
             need(counts[value]<limits[value] and (value==1 or counts[1]==1),'command quota/ARM')
             need(value!=8 or self._commands[8]<4096,'global POP limit')
         self._count+=1;n=self._count;self._ids.add(request_id)
+        if self._cycle_active:self._cycle_work_started=True
         _record(self._dir,'io-%05d-started.json'%n,{'id':request_id,'kind':kind,'offset':offset,'value':value,'pid':self._pid,'monotonic_ns':time.monotonic_ns()})
         if self._cycle_policy is not None and self._cycle_ready and time.monotonic_ns()>=self._cycle_deadline:
             _record(self._dir,'io-%05d-not-attempted.json'%n,{'id':request_id,'monotonic_ns':time.monotonic_ns()})

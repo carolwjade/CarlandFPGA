@@ -8,6 +8,7 @@ import threading
 import time
 from types import MappingProxyType
 from . import functional50_board_a as board
+from . import functional50_demo_four_cycle_profile_a as demo
 
 # Exact G05P mapper ROM d462859e6893cd90fb33ad9ddd481aaa7ee46937ba3d197431f81b602357a83c.
 _ROM=((0,128234,512938,1154111,2051753,3205865,4616446,6283496,8207015,10387004,12823462,15516389,18465785,21671651,25133986,28852790,32828063,37059806,41548017,46292698,51293849),
@@ -64,12 +65,13 @@ class G05Port:
         _need(threading.get_ident()==self._thread and os.getpid()==self._pid and not self._failed,'original owner or failed G05')
         _need(board._G05_LOADS.get(self._trace) is self._reg and self._trace in board._G05_CLAIMED and not self._trace._failed and self._trace._mmio is self._reg[7] and self._trace._mmio.device is self._reg[0],'original same-load association changed')
         _need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._trace._boot,'boot changed')
-    def _bind_deadline(self,key,deadline_ns):
+    def _bind_deadline(self,key,deadline_ns,*,demo_cycle_profile=None):
         """Issuer-only, fixed one-use board monotonic deadline; no renewal."""
         self._check()
         _need(key is _DEADLINE_KEY and self._deadline_ns is None,'one original deadline binding required')
         now=time.monotonic_ns()
-        _need(type(deadline_ns) is int and now<deadline_ns<=now+10_000_000_000,'future deadline within 10 seconds required')
+        demo.validate_profile(demo_cycle_profile)
+        _need(type(deadline_ns) is int and now<deadline_ns<=now+demo.duration_cap(demo_cycle_profile),'future deadline within selected finite session required')
         self._deadline_ns=deadline_ns
         try:
             board._record(self._dir,'g05-deadline-bound.json',dict(lower_monotonic_ns=now,deadline_monotonic_ns=deadline_ns))

@@ -16,6 +16,7 @@ from ..candidate_owner import _InputTransaction,_CompletedInference
 from ..pc_direct_runtime import VerifiedObservation
 from ..source_projection_v1.provider import ProjectionSession
 from ..source_projection_v1.assembler import Producer,_root
+from .. import navigation_session_profile as navigation
 
 MANIFEST='cb971d321bcdd3dcb6a7b85fdd9e08171c995feb62fab3f995bc7f50fdf97a8a'
 FILES={'c37_entry.py':'899b843111a1b9278e4c5ee16b11d4493c35c1cb0bca328a57f164c3f0c11c74','c37_package.py':'60e26bc8ae9ee0ba1fba8bcea358b4bfad8be2f3a58ccb360e767b6886d62f16','frozen_c28.py':'70b317681fee8c9182c342fe8d2f94eaecc957c62231a74a080d213bb5e0eab4','package-manifest.json':MANIFEST}
@@ -25,8 +26,13 @@ def _selected_ai_profile(config):
     """Fixed selected identity; never infer/update package hashes at runtime."""
     policy=getattr(config,'g05_csr_v1',None)
     if policy is not None and policy.demo_ai_profile is not None:
-        from ..demo30h_ai_profile_v1 import selected_profile
-        result=selected_profile(policy.max_source_age_ns)
+        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, selected_profile as selected_em3_profile
+        if type(policy.demo_ai_profile) is DemoEM3AIProfile:
+            result=selected_em3_profile(policy.max_source_age_ns,navigation_profile=policy.demo_ai_profile.navigation_profile)
+            need(policy.demo_ai_profile.projection is result.projection and type(policy.demo_ai_profile.verifier) is type(result.verifier) and policy.demo_ai_profile.verifier==result.verifier,'fixed EM3 projection/verifier identities required')
+        else:
+            from ..demo30h_ai_profile_v1 import selected_profile
+            result=selected_profile(policy.max_source_age_ns)
         need(result==policy.demo_ai_profile,'explicit fixed demo AI descriptor')
         return result
     from types import SimpleNamespace
@@ -44,13 +50,18 @@ class OwnedInvocationPolicy:
     max_polls:int
     duration_ms:int
     demo_duration_v1:bool=False
+    navigation_profile:object=None
     def check(self):
         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
         need(type(self.max_invocations) is int and 2<=self.max_invocations<=16,'original serial K2..16')
         need(type(self.max_reads) is int and 1<=self.max_reads<=256,'finite reads1..256')
         need(type(self.max_polls) is int and 1<=self.max_polls<=65536,'finite polls1..65536')
         need(type(self.demo_duration_v1) is bool,'strict prospective demo duration selection')
-        maximum=1000 if self.demo_duration_v1 else 100
+        navigation.validate_profile(self.navigation_profile)
+        if self.navigation_profile is not None:
+            need(self.demo_duration_v1 is False,'navigation revision and legacy duration flag cannot be mixed')
+        maximum=(self.navigation_profile.max_command_ttl_ms if self.navigation_profile is not None
+                 else 1000 if self.demo_duration_v1 else 100)
         need(type(self.duration_ms) is int and 1<=self.duration_ms<=maximum,'bounded prospective command validity')
         InvocationIdentity(self.operation_id,self.request_hash,self.tested_commit,MANIFEST,'check',1,'check')
 
@@ -68,6 +79,10 @@ def _root_guard(owner,association):
     link=session._link;book=session._book;executor=link.executor;root=executor._root
     need(link is owner._world_action_link and link.composition is owner and executor is owner._executor,'original Root/link/executor')
     need(book._root is root and root is not None,'original current Root required')
+    selected=owner._config.owned_invocation_v1.navigation_profile
+    navigation.validate_profile(selected)
+    need(book._navigation_profile==selected and book.source._navigation_profile==selected,
+         'same typed source/book/invocation navigation revision required')
     return (link,book,executor,root,encode(_root(root)))
 
 def _same_root(owner,association,guard):
@@ -232,7 +247,9 @@ class _OwnedInvocationAdapter:
             need(pair.result['status']=='RESULT' and pair.result['core_ran'] is True,'child has no usable candidate')
             lower=uint(r.dispatch['raw_call_bracket_ns'][0]);read_lower=uint(r.reads[0]['raw_call_bracket_ns'][0]);upper=uint(ticket.observed_qpc_ns)
             now=self._check();need(lower<=read_lower<=upper<=now,'actual original ordered observation interval')
-            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion,max_duration_ms=1000 if self.policy.demo_duration_v1 else 100)
+            maximum=(self.policy.navigation_profile.max_command_ttl_ms if self.policy.navigation_profile is not None
+                     else 1000 if self.policy.demo_duration_v1 else 100)
+            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion,max_duration_ms=maximum,navigation_profile=self.policy.navigation_profile)
             if a.g05_mapping is not None:
                 result_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=upper)
                 admitted_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=now)
@@ -291,6 +308,11 @@ def _validate_config(config,binding):
     need(type(policy) is OwnedInvocationPolicy,'exact default-off owned policy')
     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
     selected=_selected_ai_profile(config)
+    if policy.navigation_profile is not None:
+        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1
+        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile==NAV_FAST_V1
+             and selected.prospective_command_max_ns==3_000_000_000,
+             'navigation requires explicit fixed EM3 FAST descriptor with3s validity')
     if policy.demo_duration_v1:
         need(getattr(config,'g05_csr_v1',None) is not None and config.g05_csr_v1.demo_ai_profile is not None,
              'longer command validity requires explicit typed demo profile')

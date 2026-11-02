@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 import sys
 import threading
+from .. import navigation_session_profile as navigation
 
 ADAPTER='c42_a108_proof_assembler_v1'
 SOURCE='51c48e106c76f3e4d18000da61be17dd8a4b6623'
@@ -218,11 +219,15 @@ class Producer:
  def __init__(self,key,owner,link,book,modules):
   need(key is _KEY,'ORIGINAL_FACTORY_REQUIRED');self._owner=owner;self._link=link;self._book=book;self._modules=modules;self._thread=threading.get_ident();self._failed=False
   self._ids=[];self._config=None;self._registry=[];self._admissions=[];self._captures=[];self._actions=[];self._readings=[]
+  self._navigation_profile=navigation.validate_profile(getattr(book,'_navigation_profile',None))
  def _check(self):
   if self._failed:raise Unavailable('PRODUCER_LATCHED')
   need(threading.get_ident()==self._thread,'OWNER_THREAD_REQUIRED')
   o,l,b=self._owner,self._link,self._book
   need(l.owner is o and l.book is b and b._owner is o and b._actor_custody.link is l and b._actor_custody.book is b and l.source._source_book is b,'ORIGINAL_BINDING_CHANGED')
+  navigation.validate_profile(self._navigation_profile)
+  need(b._source is l.source and getattr(b,'_navigation_profile',None)is self._navigation_profile
+       and getattr(l.source,'_navigation_profile',None)is self._navigation_profile,'ORIGINAL_NAVIGATION_PROFILE_CHANGED')
   l._registered();b._actor_custody._context()
  def bind_id(self,original,opaque_id):
   self._check();need(original is not None and type(opaque_id)is str and 0<len(opaque_id)<=192 and opaque_id.isascii(),'OPAQUE_ID_REQUIRED')
@@ -240,7 +245,9 @@ class Producer:
  def attach_capture(self,original,sample,*,candidate,fields):
   self._check();need(original is not None and any(sample is s for s in self._book._samples),'ORIGINAL_SAMPLE_REQUIRED');need(not any(r is original for r,*_ in self._captures),'DUPLICATE_ATTACHMENT');need(len(self._captures)<32,'BUDGET_EXCEEDED');self._captures.append((original,sample,clone(candidate),clone(fields)))
  def attach_transition(self,transition,*,successor_root,slot=None,fields):
-  self._check();need(any(transition is t for t in self._book._actor_custody.transitions),'ORIGINAL_TRANSITION_REQUIRED');need(not any(t is transition for t,*_ in self._actions),'DUPLICATE_ATTACHMENT');need(len(self._actions)<32,'BUDGET_EXCEEDED')
+  self._check();need(any(transition is t for t in self._book._actor_custody.transitions),'ORIGINAL_TRANSITION_REQUIRED');need(not any(t is transition for t,*_ in self._actions),'DUPLICATE_ATTACHMENT')
+  capacity=32 if self._navigation_profile is None else self._navigation_profile.max_book_records
+  need(len(self._actions)<capacity,'BUDGET_EXCEEDED')
   if successor_root is not None:need(transition.closed and successor_root is self._book._root and successor_root is self._link.executor._root,'RETAIN_SUCCESSOR_AT_ORIGINAL_COMPLETION')
   if slot is not None:need(any(slot is x for x in self._owner._commits)and slot.book_transition is transition and slot.original_witness.link is self._link,'ORIGINAL_SLOT_REQUIRED')
   self._actions.append((transition,successor_root,slot,clone(fields)))
@@ -307,13 +314,24 @@ class Producer:
   except Exception:
    self._failed=True;raise
 
-def attach_original(owner,link,book):
- """Call only inside A's original already-loaded owner process; never starts it."""
+def _checked_original_modules(book):
+ """Check the exact selected source revision; this alone grants no authority."""
+ profile=navigation.validate_profile(getattr(book,'_navigation_profile',None))
+ pins=_PINS
+ if profile is not None:
+  need(book._source._source_book is book and book._source._navigation_profile is profile,
+       'ORIGINAL_NAVIGATION_PROFILE_CHANGED')
+  pins=dict(profile.source_pins)
  modules={}
- for name,pin in _PINS.items():
+ for name,pin in pins.items():
   module=sys.modules.get(_PREFIX+name)
   if module is None:raise Unavailable('ORIGINAL_MODULE_NOT_LOADED')
   need(hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest()==pin,'ORIGINAL_SOURCE_PIN_MISMATCH');modules[name]=module
+ return modules
+
+def attach_original(owner,link,book):
+ """Call only inside A's original already-loaded owner process; never starts it."""
+ modules=_checked_original_modules(book)
  need(type(owner)is modules['_world_loop']._RootWorldOwner and type(link)is modules['original_world_actor_link']._OriginalWorldActorLink and type(book)is modules['root_source_book'].RootSourceBook,'EXACT_ORIGINAL_TYPES_REQUIRED')
  need(owner._test is False and type(book._actor_custody)is modules['_actor_source_custody']._ActorSourceCustody,'PRODUCTION_OWNER_REQUIRED')
  producer=Producer(_KEY,owner,link,book,modules);producer._check();return producer

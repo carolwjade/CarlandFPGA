@@ -11,7 +11,8 @@ from fractions import Fraction
 import math
 
 from competition.deepeye.integration.motion import MotionCommand, validate
-from .kinematics import RigidState, MAX_DT_NS
+from .kinematics import RigidState
+from . import demo_motion_profile as horizon
 from . import gate_geometry as g
 from . import gate_clearance as gc
 
@@ -126,6 +127,8 @@ class PathProvenance:
     requested_dt_ns: int
     inherited_errors: gc.ErrorBounds
     error_budget_reference: str
+    # Default serialized provenance is unchanged; selected SHA is in reference.
+    motion_profile: horizon.MotionHorizonProfile | None = field(default=None,init=False,repr=False)
     derivation_version: str = field(default=DERIVATION_VERSION, init=False)
     command_semantics: str = field(default=COMMAND_SEMANTICS, init=False)
 
@@ -189,10 +192,10 @@ class CanonicalPath:
     _q0: tuple = field(repr=False)
 
     def __init__(self, state, profile, speed_code, yaw_q, pitch_q, dt_ns, *,
-                 inherited_errors, error_budget_reference):
+                 inherited_errors, error_budget_reference, motion_profile=None):
         if type(state) is not RigidState:
             raise TypeError('exact immutable RigidState required')
-        _integer(dt_ns, 1, MAX_DT_NS, 'dt_ns')
+        _integer(dt_ns, 1, horizon.max_dt_ns(motion_profile), 'dt_ns')
         if type(profile) is not str:
             raise TypeError('profile must be a string')
         if type(inherited_errors) is not gc.ErrorBounds:
@@ -200,6 +203,7 @@ class CanonicalPath:
         if (type(error_budget_reference) is not str or not error_budget_reference.strip()
                 or len(error_budget_reference) > 4096):
             raise ValueError('explicit nonempty error budget reference required')
+        horizon.require_reference(error_budget_reference,motion_profile)
         command = validate(profile, speed_code, yaw_q, pitch_q)
         if state.speed_m_s > command.max_speed_m_s:
             raise ValueError('actual speed exceeds selected profile')
@@ -211,9 +215,11 @@ class CanonicalPath:
         curvature = k2.sqrt_nonnegative()
         if curvature.hi > Decimal('.5'):
             raise ValueError('validated binary64 curvature not proved <= .5 / m')
+        provenance = PathProvenance((profile, speed_code, yaw_q, pitch_q), command, state,
+                                   dt_ns, inherited_errors, error_budget_reference)
+        object.__setattr__(provenance,'motion_profile',motion_profile)
         values = {
-            'provenance': PathProvenance((profile, speed_code, yaw_q, pitch_q), command, state,
-                                         dt_ns, inherited_errors, error_budget_reference),
+            'provenance': provenance,
             '_v0': v0, '_target': target,
             '_acceleration': Fraction(1 if delta > 0 else -1 if delta < 0 else 0, 4),
             '_ramp_seconds': 4*abs(delta), '_yaw': yaw, '_pitch': pitch,

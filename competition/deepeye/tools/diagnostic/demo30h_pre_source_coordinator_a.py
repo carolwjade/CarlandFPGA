@@ -22,6 +22,7 @@ from ...simulation.authority.root_source_book import RootSourceBook
 from ...simulation.authority.source_projection_v1.provider import ProjectionSession
 from . import functional50_ssh_a as ssh
 from . import functional50_g05_a as g05
+from . import functional50_demo_four_cycle_profile_a as demo
 from . import demo30h_age_budget_a as age_module
 from . import original_chain_receipt_producer_a as receipt_module
 from .functional50_chain_v2_client_a import ChainSessionV2, OriginalPhaseReceipt
@@ -62,6 +63,7 @@ class ValidatedPlan:
     timeout_ns: int
     max_source_age_ns: int | None
     select_owner_work_v1: bool
+    demo_cycle_profile: demo.DemoFourCycleProfile | demo.navigation.NavigationSessionProfile | None
     _key: object = field(repr=False)
     _thread: int = field(repr=False)
     _legacy_raw: bytes = field(repr=False)
@@ -121,13 +123,16 @@ def _validate_world_config(world, config):
 
 def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
                      g05_policy_raw, ident, identity_words, max_commands, max_polls,
-                     duration_ns, max_io, timeout_ns, max_source_age_ns, select_owner_work_v1):
+                     duration_ns, max_io, timeout_ns, max_source_age_ns, select_owner_work_v1,
+                     demo_cycle_profile=None):
     # Refuse all cheap protocol/configuration errors before preparation can init.
     from .functional50_chain_v2_board_a import ID
     _need(type(ident) is str and ID.fullmatch(ident) is not None, 'bounded protocol request ID required')
     g05._identity(identity_words)
-    for value, low, high, name in ((max_commands,1,2,'commands'), (max_polls,4,64,'polls'),
-            (duration_ns,1,10_000_000_000,'duration'), (max_io,1,450,'I/O cap'),
+    demo.validate_caps(demo_cycle_profile,max_commands=max_commands,max_polls=max_polls,
+                       duration_ns=duration_ns,max_io=max_io)
+    for value, low, high, name in ((max_commands,1,demo.command_cap(demo_cycle_profile),'commands'), (max_polls,4,demo.poll_cap(demo_cycle_profile),'polls'),
+            (duration_ns,1,demo.duration_cap(demo_cycle_profile),'duration'), (max_io,1,demo.io_cap(demo_cycle_profile),'I/O cap'),
             (timeout_ns,1,60_000_000_000,'timeout')):
         _integer(value, low, high, name)
     _need(type(select_owner_work_v1) is bool, 'strict owner work selection required')
@@ -138,6 +143,11 @@ def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
     _validate_context(legacy_context, c42_context)
     legacy_raw, c42_raw = _canonical(legacy_context), _canonical(c42_context)
     refs = _validate_world_config(world, authority_config)
+    selected_navigation = demo_cycle_profile if demo.is_navigation(demo_cycle_profile) else None
+    _need(world.source.source._navigation_profile is selected_navigation
+          and world.source.book._navigation_profile is selected_navigation
+          and getattr(authority_config.owned_invocation_v1,'navigation_profile',None) is selected_navigation,
+          'same typed source/book/board navigation revision required')
     _need(c42_context['operation_id'] == world.operation_id
           and c42_context['clock_domain_id'] == world.clock.metadata['domain_id'], 'same operation and QPC domain required')
     _need(type(g05_policy_raw) is bytes and 0 < len(g05_policy_raw) <= 131072, 'actual bounded G05 policy bytes required')
@@ -153,7 +163,9 @@ def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
           'actual same-operation G05 policy/context required')
     policy = g05._policy(g05_policy_raw, binding)
     limits = policy['limits']
-    _need(102 + 76*max_commands + 2*max_polls <= limits['total_io'] <= max_io
+    prospective = demo.validate_caps(demo_cycle_profile,max_commands=max_commands,max_polls=max_polls,
+                                    duration_ns=duration_ns,max_io=max_io)
+    _need(prospective <= limits['total_io'] <= max_io
           and limits['begin'] >= 1 and all(limits[k] >= max_commands for k in ('commit','latch','release')),
           'actual G05 policy cannot cover selected session or exceeds budget')
     return refs, legacy_raw, c42_raw, policy
@@ -161,7 +173,7 @@ def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
 
 def validate_pre_source_plan(*, world, authority_config, legacy_context, c42_context,
         g05_policy_raw, ident, identity_words, max_commands, max_polls, duration_ns,
-        max_io, timeout_ns, max_source_age_ns=None, select_owner_work_v1=False):
+        max_io, timeout_ns, max_source_age_ns=None, select_owner_work_v1=False,demo_cycle_profile=None):
     """Validate/freeze trusted original refs without init, source start or acquisition.
 
     Contexts retain their original identity; their canonical bytes detect later
@@ -171,7 +183,8 @@ def validate_pre_source_plan(*, world, authority_config, legacy_context, c42_con
     inputs = dict(world=world, authority_config=authority_config, legacy_context=legacy_context,
         c42_context=c42_context, g05_policy_raw=g05_policy_raw, ident=ident, identity_words=identity_words,
         max_commands=max_commands,max_polls=max_polls,duration_ns=duration_ns,max_io=max_io,
-        timeout_ns=timeout_ns,max_source_age_ns=max_source_age_ns,select_owner_work_v1=select_owner_work_v1)
+        timeout_ns=timeout_ns,max_source_age_ns=max_source_age_ns,select_owner_work_v1=select_owner_work_v1,
+        demo_cycle_profile=demo_cycle_profile)
     refs, legacy_raw, c42_raw, _ = _validate_inputs(**inputs)
     return ValidatedPlan(**inputs, _key=_PLAN_KEY, _thread=threading.get_ident(),
                          _legacy_raw=legacy_raw, _c42_raw=c42_raw, _refs=refs)
@@ -249,7 +262,7 @@ def prepare_pre_source_cycle(plan, chain):
     try:
         inputs = {name:getattr(plan,name) for name in (
             'world','authority_config','legacy_context','c42_context','g05_policy_raw','ident','identity_words',
-            'max_commands','max_polls','duration_ns','max_io','timeout_ns','max_source_age_ns','select_owner_work_v1')}
+            'max_commands','max_polls','duration_ns','max_io','timeout_ns','max_source_age_ns','select_owner_work_v1','demo_cycle_profile')}
         refs, legacy_raw, c42_raw, policy = _validate_inputs(**inputs)
         _need(all(a is b for a,b in zip(refs,plan._refs)) and len(refs) == len(plan._refs)
               and legacy_raw == plan._legacy_raw and c42_raw == plan._c42_raw, 'validated original plan changed')
@@ -283,8 +296,9 @@ def prepare_pre_source_cycle(plan, chain):
         cycle.stage = 'init'
         cycle.init_event = cycle.producer.init(plan.ident,plan.identity_words,
             max_commands=plan.max_commands,max_polls=plan.max_polls,duration_ns=plan.duration_ns,
-            max_io=plan.max_io,timeout_ns=plan.timeout_ns)
+            max_io=plan.max_io,timeout_ns=plan.timeout_ns,demo_cycle_profile=plan.demo_cycle_profile)
         _capture_phases(cycle)
+        _need(chain.sequence.demo_cycle_profile==plan.demo_cycle_profile,'same init and prepared typed cycle policy required')
         _need(len(cycle.phase_receipts) == 1, 'exactly one original init phase required')
         phase = cycle.phase_receipts[0]
         cycle.init_receipt = phase
@@ -301,7 +315,8 @@ def prepare_pre_source_cycle(plan, chain):
                             legacy_context=plan.legacy_context,c42_context=plan.c42_context)
         cycle.stage = 'scanner'
         cycle.scanner = OriginalSourceTraceScan(plan.world.source,chain.bundle,source_scan_cycle_v2=True,
-                                               defer_start=True,demo_age_budget=cycle.demo_age_budget)
+                                               defer_start=True,demo_age_budget=cycle.demo_age_budget,
+                                               demo_cycle_profile=plan.demo_cycle_profile)
         cycle.stage = 'bind_scanner'
         cycle.producer.bind_scanner(cycle.scanner)
         cycle.stage = 'pump'

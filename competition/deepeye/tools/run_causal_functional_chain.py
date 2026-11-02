@@ -182,7 +182,8 @@ class FunctionalWorld:
 
 
 def acquire_functional_world(spec, policy, initial_standoff_m, *, operation_id,
-                             output_dir, field_policy, jit_runtime=None, clock=None):
+                             output_dir, field_policy, jit_runtime=None, clock=None,
+                             navigation_profile=None):
     """Acquire one original world and prepare, but do not start, its source."""
     if (type(spec) is not _owned_godot.ApprovedLaunchSpec
             or type(policy) is not _world_values.ValuePolicy
@@ -192,6 +193,8 @@ def acquire_functional_world(spec, policy, initial_standoff_m, *, operation_id,
             or type(field_policy) is not dict or type(initial_standoff_m) not in (int, float)
             or not math.isfinite(initial_standoff_m) or initial_standoff_m <= 0):
         raise ValueError('exact original launch, policy, private output and standoff required')
+    from ..simulation.authority import navigation_session_profile as navigation
+    navigation.validate_profile(navigation_profile)
     output = output_dir.resolve()
     for target in (spec.stdout_path, spec.stderr_path):
         if not isinstance(target, Path) or target.resolve().parent != output:
@@ -209,9 +212,12 @@ def acquire_functional_world(spec, policy, initial_standoff_m, *, operation_id,
     retained_before = len(_world_loop._RETAINED)
     try:
         with (output / 'operation.json').open('xb') as stream:
-            stream.write(json.dumps(dict(operation_id=operation_id, run_id=spec.run_id,
+            operation=dict(operation_id=operation_id, run_id=spec.run_id,
                 source_bundle_sha256=spec.source_bundle_sha256,
-                raw_layout_sha256=spec.raw_layout_sha256), sort_keys=True,
+                raw_layout_sha256=spec.raw_layout_sha256)
+            if navigation_profile is not None:
+                operation['navigation_profile']=navigation.to_wire(navigation_profile)
+            stream.write(json.dumps(operation, sort_keys=True,
                 separators=(',', ':'), allow_nan=False).encode('utf8'))
         start = clock()
         deadline = start + spec.containment_timeout_ns
@@ -236,7 +242,8 @@ def acquire_functional_world(spec, policy, initial_standoff_m, *, operation_id,
         _pump_world(owner, lambda: owner._initialized, min(deadline, view.deadline_ns))
         _check_initial_view(owner, view)
         lifecycle.source = FunctionalSource(owner, binding, field_policy=field_policy,
-                                            jit_runtime=jit_runtime)
+                                            jit_runtime=jit_runtime,
+                                            navigation_profile=navigation_profile)
         return lifecycle
     except BaseException as error:
         if lifecycle.owner is None and len(_world_loop._RETAINED) == retained_before + 1:
@@ -249,7 +256,10 @@ def acquire_functional_world(spec, policy, initial_standoff_m, *, operation_id,
 
 class FunctionalSource:
     """One original world/source/book association, confined to its owner thread."""
-    def __init__(self, owner, binding, *, field_policy, jit_runtime=None):
+    def __init__(self, owner, binding, *, field_policy, jit_runtime=None,
+                 navigation_profile=None):
+        from ..simulation.authority import navigation_session_profile as navigation
+        navigation.validate_profile(navigation_profile)
         if (type(owner) is not _world_loop._RootWorldOwner or owner._test is not False
                 or not any(owner is item for item in _world_loop._RETAINED)
                 or owner._binding is not binding or type(owner._clock) is not host_clock.QpcHostClock
@@ -263,7 +273,8 @@ class FunctionalSource:
         self._thread = threading.get_ident()
         self.owner, self.binding, self.clock = owner, binding, owner._clock
         self.field = OwnedWorldField(binding.executor, **field_policy)
-        self.source = CausalSourcePump(self.field.pose_reader, self.field.sample_sigma)
+        self.source = CausalSourcePump(self.field.pose_reader, self.field.sample_sigma,
+                                      navigation_profile=navigation_profile)
         self.scope = _world_loop._make_original_em_scope_factory(owner, binding, self.field, self.source)
         self.source.bind_original_em_scope(self.scope)
         self.backend = None

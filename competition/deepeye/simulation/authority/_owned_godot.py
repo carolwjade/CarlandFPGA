@@ -37,6 +37,7 @@ class ApprovedLaunchSpec:
     run_id:str
     startup_timeout_ns:int=120_000_000_000
     containment_timeout_ns:int=600_000_000_000
+    visible_demo_v1:bool=False
 
 
 class AcquisitionFailure(RuntimeError):
@@ -87,6 +88,7 @@ def _digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
 def _validate_spec(spec):
     if type(spec) is not ApprovedLaunchSpec:raise ValueError('exact Root-approved launch values required')
+    if type(spec.visible_demo_v1) is not bool:raise ValueError('strict explicit visible demo selector required')
     from ._world_wire import _sha,_label
     _label(spec.run_id)
     for digest in (spec.engine_sha256,spec.source_bundle_sha256,spec.raw_layout_sha256):_sha(digest)
@@ -123,6 +125,18 @@ def _validate_spec(spec):
     for timeout in (spec.startup_timeout_ns,spec.containment_timeout_ns):
         if type(timeout) is not int or not 0<timeout<=600_000_000_000:raise ValueError('bounded original duration required')
     if spec.startup_timeout_ns>spec.containment_timeout_ns:raise ValueError('startup exceeds containment')
+
+
+def _launch_options(spec):
+    """Pure, explicit visibility choice; all original containment flags remain."""
+    if type(spec) is not ApprovedLaunchSpec or type(spec.visible_demo_v1) is not bool:
+        raise ValueError('exact launch spec and strict visible demo selector required')
+    argv=[str(spec.engine_path)]
+    if not spec.visible_demo_v1:argv.append('--headless')
+    argv.extend(['--path',str(spec.project_path),'--script','res://runtime/owned_world_start.gd'])
+    creation_flags=0x80000|0x400|4  # EXTENDED_STARTUPINFO_PRESENT | UNICODE_ENVIRONMENT | SUSPENDED.
+    if not spec.visible_demo_v1:creation_flags|=0x08000000  # Original CREATE_NO_WINDOW.
+    return argv,creation_flags,5 if spec.visible_demo_v1 else 0  # SW_SHOW or original zero-initialized SW_HIDE.
 
 
 class _OwnedGodot:
@@ -460,6 +474,7 @@ class _Windows:
         self.check(self.SetJob(slot.native,9,C.byref(limits),C.sizeof(limits)),'original Job kill-on-close')
 
     def process(self,owner):
+        argv,creation_flags,show_window=_launch_options(owner.spec)
         attr=owner._slots['attributes'];size=C.c_size_t()
         self.InitAttrs(None,1,0,C.byref(size))
         if not 0<size.value<=65536:raise ValueError('bounded actual attribute-list allocation required')
@@ -470,14 +485,14 @@ class _Windows:
         self.check(self.InitAttrs(buffer,1,0,C.byref(size)),'original attribute list init');attr.state='ACQUIRED'
         self.check(self.UpdateAttr(buffer,0,0x20002,C.byref(handles),C.sizeof(handles),None,None),'exact inherited HANDLE_LIST')
         si=_SIEX();si.StartupInfo.cb=C.sizeof(si);si.StartupInfo.dwFlags=0x100|1
+        si.StartupInfo.wShowWindow=show_window
         si.StartupInfo.hStdInput=handles[0];si.StartupInfo.hStdOutput=handles[1];si.StartupInfo.hStdError=handles[2]
         si.lpAttributeList=C.cast(buffer,C.c_void_p)
-        argv=[str(owner.spec.engine_path),'--headless','--path',str(owner.spec.project_path),'--script','res://runtime/owned_world_start.gd']
         command=C.create_unicode_buffer(subprocess.list2cmdline(argv))
         environment=C.create_unicode_buffer('\0'.join(key+'='+value for key,value in sorted(owner.spec.environment))+'\0\0')
         process,thread=owner._slots['process'],owner._slots['thread'];process.begin();thread.begin()
         owner._process_call_storage=(si,command,environment)
-        ok=self.CreateProcess(str(owner.spec.engine_path),command,None,None,True,0x08000000|0x80000|0x400|4,
+        ok=self.CreateProcess(str(owner.spec.engine_path),command,None,None,True,creation_flags,
             environment,str(owner.spec.project_path),C.byref(si),C.byref(owner._pi))
         process.native,thread.native=owner._pi.hProcess,owner._pi.hThread
         process.original_native,thread.original_native=process.native,thread.native
