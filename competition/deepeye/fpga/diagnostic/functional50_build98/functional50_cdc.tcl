@@ -152,7 +152,7 @@ proc write_functional50_cdc_json {path bindings run_id build_id stage} {
     set data [format {{"schema":"FUNCTIONAL50_CDC_BINDINGS_V1","mode":"ACTUAL_NETLIST_THREE_FF_V1","run_id":"%s","build_id":"%s","stage":"%s","bindings":{%s}}} $run_id $build_id $stage [join $rows ,]]
     set f [open $path {WRONLY CREAT EXCL}]; puts $f $data; close $f
 }
-proc f50_run_pre_opt_hook {context} {
+proc f50_pre_opt_context {context} {
     # Project implementation initializes/links the original XCI/OOC products
     # before OPT_DESIGN.TCL.PRE. This hook runs in that separate Vivado session.
     f50_require {[lsort [dict keys $context]] eq
@@ -168,17 +168,48 @@ proc f50_run_pre_opt_hook {context} {
     f50_require {[info exists ::ACTIVE_STEP] && [string equal -nocase $::ACTIVE_STEP opt_design]} \
         {CDC hook must run immediately before opt_design}
     set design [current_design]
-    f50_require {[llength $design] == 1 && [get_property NAME $design] eq "functional50_diag_wrapper" &&
+    f50_require {[llength $design] == 1} {CDC hook requires one linked design}
+    set design_properties [list_property $design]
+    f50_require {{TOP} in $design_properties && {PART} in $design_properties} \
+        {CDC hook linked design TOP/PART metadata missing}
+    # In an independent implementation session NAME is the generic design_1.
+    # TOP identifies the linked HDL top; it must be actually present and exact.
+    f50_require {[get_property TOP $design] eq "functional50_diag_wrapper" &&
         [get_property PART $design] eq "xc7z020clg400-1"} {CDC hook current linked design/top/part mismatch}
     set project [current_project]
     set run [current_run -implementation]
     f50_require {[llength $project] == 1 && [llength $run] == 1 &&
         [get_property NAME $run] eq "impl_1" && [get_property IS_IMPLEMENTATION $run] == 1} \
         {CDC hook must execute in the current implementation run}
-    f50_require {[file normalize [get_property DIRECTORY $project]] eq [dict get $context project_directory] &&
-        [file normalize [get_property DIRECTORY $run]] eq [dict get $context implementation_directory] &&
-        [file normalize [pwd]] eq [dict get $context implementation_directory]} \
-        {CDC hook project/run directory is outside this invocation}
+    set project_properties [list_property $project]
+    f50_require {{PARENT.PROJECT_PATH} in $project_properties} {CDC hook parent project path metadata missing}
+    set parent_path [get_property PARENT.PROJECT_PATH $project]
+    set expected_parent [file join [dict get $context project_directory] functional50_diag.xpr]
+    set cwd [file normalize [pwd]]
+    f50_require {[file pathtype $parent_path] eq "absolute" &&
+        [file pathtype $expected_parent] eq "absolute" &&
+        [file normalize $parent_path] eq [file normalize $expected_parent] &&
+        $cwd eq [dict get $context implementation_directory]} \
+        {CDC hook parent project/actual run cwd is outside this invocation}
+    # Project/DIRECTORY and run/DIRECTORY belong to the temporary Project in
+    # this session. Retain their actual values without equating them to p/.
+    return [dict create run_id $run_id build_id $build_id stage pre_opt \
+        active_step $::ACTIVE_STEP tool_version [version -short] \
+        design_name [get_property NAME $design] design_top [get_property TOP $design] \
+        design_part [get_property PART $design] temporary_project_name [get_property NAME $project] \
+        temporary_project_directory [get_property DIRECTORY $project] \
+        parent_project_path $parent_path expected_parent_project_path [file normalize $expected_parent] \
+        run_name [get_property NAME $run] temporary_run_directory [get_property DIRECTORY $run] \
+        actual_cwd $cwd expected_implementation_directory [dict get $context implementation_directory]]
+}
+proc f50_run_pre_opt_hook {context} {
+    set origin [f50_pre_opt_context $context]
+    set run_root [dict get $context run_root]
+    set run_id [dict get $context run_id]
+    set build_id [dict get $context build_id]
+    set f [open [file join $run_root reports cdc_pre_opt_context.tcldict] {WRONLY CREAT EXCL}]
+    puts $f $origin
+    close $f
     set bindings [discover_functional50_cdc]
     set graph [apply_functional50_cdc $bindings [file join $run_root reports cdc_exact_bindings.txt] 1]
     write_functional50_cdc_json [file join $run_root CDC_BINDINGS_ACTUAL.json] $bindings $run_id $build_id pre_opt
