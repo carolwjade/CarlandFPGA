@@ -483,7 +483,7 @@ def verify_false_paths(xdc_path, bindings):
             lines.append(line)
     require(len(lines) == 3, "exactly three false paths required in implemented.xdc")
     literal = r"(\{[^{}\r\n]+\}|[^\s\[\]{};$\"\\]+)"
-    pattern = r"^set_false_path\s+-from\s+\[get_ports\s+" + literal + r"\]\s+-to\s+\[get_pins\s+" + literal + r"\]\s*$"
+    pattern = r"^set_false_path\s+-from\s+\[get_ports\s+(?:-quiet\s+)?" + literal + r"\]\s+-to\s+\[get_pins\s+(?:-quiet\s+)?" + literal + r"\]\s*$"
     observed = []
     for line in lines:
         match = re.fullmatch(pattern, line)
