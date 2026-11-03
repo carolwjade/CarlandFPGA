@@ -189,8 +189,8 @@ def _route_migrate_files(source,destination,files,journal,key,checkpoint,*,remov
 
 class _RouteEvidenceArchive:
  def __init__(self,owner,operation,sink_parent=Path('/home/xilinx/deepeye-route-evidence-634')):
-  from . import functional50_trace_cycles_a as cycles
-  from ...simulation.authority import navigation_session_profile as navigation
+  from competition.deepeye.tools.diagnostic import functional50_trace_cycles_a as cycles
+  from competition.deepeye.simulation.authority import navigation_session_profile as navigation
   need(type(owner) is cycles.TraceCycles and owner._demo_cycle_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1,'exact route archive owner/profile')
   self.owner=owner;self.operation=operation;self.done=set()
   self._checkpoint()
@@ -260,6 +260,7 @@ def main(argv=None):
  argv=sys.argv[1:] if argv is None else argv
  need(len(argv)==5 and argv[0]=='chain_v2','explicit chain_v2 PLAN MANIFEST SHA G05_POLICY required')
  root=verify_manifest(argv[2],argv[3]);board,batch,loader,g05,tx,session,cycles=load_modules(root);bundle=loader.load_selected(root)
+ from competition.deepeye.simulation.authority.navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
  plan_raw,plan_id=board._bytes(argv[1],131072);plan=board._json(plan_raw);policy_raw,policy_id=board._bytes(argv[4],131072)
  binding={k:plan[k] for k in ('operation_id','request_sha256','boot_id','source_commit','build_id')};policy=g05._policy(policy_raw,binding)
  verify_manifest(argv[2],argv[3]);port=board.open_from_plan(argv[1],trace_cycle_v2=board.select_trace_cycle_v2())
@@ -273,7 +274,7 @@ def main(argv=None):
  while step<_demo().request_cap(sequence.demo_cycle_profile):
   line=sys.stdin.buffer.readline(MAX_REQUEST+1)
   if not line:return
-  started=False;request_id=kind=None
+  started=False;reply_attempted=False;request_id=kind=None
   try:
    x=decode_request(line,plan['operation_id'],g05,sequence);request_id=x['id'];kind=x['kind'];p=x['payload']
    if kind=='init':
@@ -310,9 +311,9 @@ def main(argv=None):
     elif kind=='status':facts=gs.observe_status()
     else:facts=gs.close(stop=p['stop'])
     result=facts_json(facts,session,tx,sequence.demo_cycle_profile)
-   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');response_path=port._dir/('chain-v2-%02d-response.json'%(step+1));put(response_path,response);write_line(response,sequence.demo_cycle_profile)
+   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');response_path=port._dir/('chain-v2-%02d-response.json'%(step+1));put(response_path,response)
+   reply_attempted=True;write_line(response,sequence.demo_cycle_profile)
    step+=1
-   from ...simulation.authority.navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
    if sequence.demo_cycle_profile is NAV_ROUTE_LONGTTL_600S_V1:
     sent_response_paths.append(response_path)
     if kind=='apply':
@@ -326,6 +327,11 @@ def main(argv=None):
       return
    if kind=='close':return
   except BaseException as e:
+   if reply_attempted:
+    # A partial or complete write is never replayable, including post-reply work.
+    try:put(port._dir/('chain-v2-%02d-post-reply-failed.json'%(step+1)),raw(dict(operation_id=plan['operation_id'],request_id=request_id,kind=kind,error=type(e).__name__,message=str(e)[:512],reply_attempted=True,automatic_retry=False))+b'\n')
+    except BaseException:pass
+    return
    partial=None
    if started and kind in ('init','apply','status','close') and gs is not None and gs._state=='FAILED':
     try:

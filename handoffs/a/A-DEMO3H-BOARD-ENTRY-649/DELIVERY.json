@@ -1,0 +1,31 @@
+{
+  "core_package_hostIO_unchanged": true,
+  "baseline_expected_failure_exit": 1,
+  "model": false,
+  "CPU_actor_qualification_rerun": false,
+  "network": false,
+  "actual_board_followup": "Root-only new unique attempt after own recovery/readiness; no replay648",
+  "UI": false,
+  "board": false,
+  "changed_files": [
+    "competition/deepeye/tools/diagnostic/functional50_chain_v2_board_a.py"
+  ],
+  "focused_controls": 5,
+  "old_profiles_normal_path_preserved": true,
+  "test_command": "python.exe -I -S -B -X utf8 test_reply_boundary649.py functional50_chain_v2_board_a.py",
+  "failed648_preserved": true,
+  "source_count": 184,
+  "files": {
+    "SOURCE_MANIFEST.json": "38591c2dbb7b63e184f72bdcb00848e15bc73c5d7dce9a8a4d806722ec94bdd6",
+    "FOCUSED_RESULT.txt": "22e51608c4f2893895cdf82f941f9f59731b8cbfe91916b4810b1137e16fa851",
+    "functional50_chain_v2_board_a.py": "2263933521769948099570df6e1e7ed400bed0409b61ee6167cf9a2336c76564",
+    "candidate.patch": "250a3b32855e955a1c42499a9ad40702feee74e259eb255a618eb021e0be1264",
+    "BASELINE_CONFIRMED_FAILURE.txt": "d8c342603abc2e1da1abc8b87d0f507aeee5aa2c29c3c9a47506444fc2bdddd7",
+    "test_reply_boundary649.py": "87c76150a8be796cbdcee5125de5d464d7d132a82a63697db1cf79441a62e404"
+  },
+  "scope": "canonical entry imports + reply-attempted no duplicate response boundary only",
+  "all29": "not_run",
+  "frozen": true,
+  "MMIO": false,
+  "focused_tests_passed": true
+}
