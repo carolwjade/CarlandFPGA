@@ -331,6 +331,14 @@ def _unit_interval(value):
     need(value >= 0, 'OUTPUT_NUMBER_BOUND')
 
 
+def _direction(value, *, unit=True):
+    # Quaternion rotation can put a normalized component one ULP outside +/-1.
+    # This output-only tolerance leaves the existing unit-norm test unchanged.
+    vector(value,3,1+1e-12)
+    if unit:
+        need(abs(sum(x*x for x in value)-1) <= 1e-10, 'DIRECTION_NORM')
+
+
 def _advice(value,public,*,max_source_age_ns=MAX_SOURCE_AGE_NS):
     max_source_age_ns=min(max_source_age_ns,MAX_SOURCE_AGE_NS if public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE else LEGACY_MAX_SOURCE_AGE_NS)
     exact(value,_ADVICE)
@@ -340,7 +348,7 @@ def _advice(value,public,*,max_source_age_ns=MAX_SOURCE_AGE_NS):
     need(value['status'] in ('STOP','ADVISE'), 'ADVICE_STATUS')
     need(type(value['reason']) is str, 'ADVICE_REASON')
     _unit_interval(value['risk']);_unit_interval(value['uncertainty'])
-    vector(value['direction_world'],3,1);_number(value['speed_limit_m_s'],0.25)
+    _direction(value['direction_world'],unit=value['status']=='ADVISE');_number(value['speed_limit_m_s'],0.25)
     need(value['speed_limit_m_s'] >= 0, 'SPEED_BOUND')
     # JSON tree + exact grammar checks prevent bool/int equality disguises.
     exact(value['observation'],_OBS)
@@ -357,7 +365,6 @@ def _advice(value,public,*,max_source_age_ns=MAX_SOURCE_AGE_NS):
         need(value['direction_world']==[0,0,0] and value['speed_limit_m_s']==0, 'STOP_ACTION')
     else:
         need(reason=='bounded_observation_goal_search', 'ADVISE_REASON')
-        need(abs(sum(x*x for x in value['direction_world'])-1) <= 1e-10, 'DIRECTION_NORM')
         need(value['risk'] < 0.8 and 0 < value['speed_limit_m_s'] <= 0.25, 'ADVISE_BOUND')
         # Global speed cap from the supplied risk/uncertainty, not a second search.
         attenuation=1.0 if navigation_fast else 1-value['uncertainty']
