@@ -1,0 +1,67 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "verdict": "no_additional_main_wiring_blocker_found_with_required_config",
+  "source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-initial-controller-832\\controller833.py",
+  "source_sha256": "6900970c8e49b5a1691ef8aab466eb6c5a481a3f93c05dec3ca3882a701cf79f",
+  "scope": "main-to-RunControl/config/telemetry/firstAPPLY seam only; prior RunControl controls not repeated",
+  "checks": {
+    "Python310_AST": "passed",
+    "legacy_bare_control_name_loads": [],
+    "all_display_calls_use_one_publish_boundary": true,
+    "PermissionError_caught_at_nonessential_display_only": true,
+    "reserve_before_actual_apply_submit": true,
+    "reserved_value_preserved_in_board_meta": true,
+    "consume_only_original_apply_future_result": true,
+    "critical_RESULT_write_not_swallowed": true
+  },
+  "references": {
+    "board_stage=": [
+      111,
+      112
+    ],
+    "publish_display(status": [
+      125
+    ],
+    "board.plan['operation_id']": [
+      137
+    ],
+    "display(stage=": [
+      144,
+      170,
+      252,
+      268
+    ],
+    "control.consume_initial": [
+      183
+    ],
+    "reserved=control.reserve_initial": [
+      240
+    ],
+    "board_pool.submit(board.apply": [
+      242
+    ],
+    "except BaseException as e:": [
+      251,
+      258,
+      261,
+      265
+    ],
+    "atomic(run/'RESULT.json'": [
+      268
+    ]
+  },
+  "configuration_contract": [
+    "Copy candidate to O7/Root_live_controller833.py before invoking so O-relative helper imports resolve correctly",
+    "cfg.operation_id must equal new834 loader-plan.operation_id; UI directory/world_epoch835 may be distinct identities",
+    "cfg.board_stage_directory is required; no implicit fallback to old800 stage; old800/source import is generic code only"
+  ],
+  "815_cli": "run-dir and WGCsession are arguments; no808/800 mission binding. Can audit835 unchanged once complete. Original codec/791/794 ABI checks remain intentionally fixed protocol identities.",
+  "815_source_sha256": "64491ea26726c04fb594394dd0fa13354b165b663b01fb37a05abb38f59732a6",
+  "tests": "AST/read only; no previous controls rerun",
+  "board": false,
+  "UI": false,
+  "network": false,
+  "source_model": false,
+  "formal_acceptance": "not_run"
+}

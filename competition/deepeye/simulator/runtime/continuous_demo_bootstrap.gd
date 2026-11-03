@@ -38,6 +38,8 @@ var _gate_setup_seen := false
 var _left_held := false
 var _mouse_travel := 0.0
 var _requested_speed := 0.1
+var _latched_initial_speed := 0.1
+var _initial_speed_latched := false
 var _requested_paused := true
 var _stop_latched := false
 var _intent_seq := 0
@@ -89,6 +91,15 @@ func _boot() -> void:
 	if document == null or not document.can_edit():
 		_fail_startup("initial_document_not_editable")
 		return
+	# Restore geometry only; fresh mouse interaction is still required below.
+	if _config.has("initial_layout_file"):
+		var prior := FileAccess.get_file_as_string(_config.initial_layout_file)
+		var imported: Dictionary = document.apply_layout_text(prior)
+		if not imported.get("ok",false):
+			_fail_startup("initial_geometry_import_refused")
+			return
+	_requested_speed = float(_config.get("initial_speed_m_s",0.1))
+	_latched_initial_speed = _requested_speed
 	# Sibling of Main: never claim or register these controls as old custody.
 	_build_panel()
 	document.layout_changed.connect(_on_layout_changed)
@@ -159,6 +170,10 @@ static func validate_config(config: Dictionary) -> Dictionary:
 		return {"ok":false,"reason":"host_status_output_collision"}
 	if config.has("require_box_only") and not config.require_box_only is bool:
 		return {"ok":false,"reason":"config_box_policy"}
+	if config.has("initial_layout_file") and (not ordinary_absolute_path(config.initial_layout_file,false) or not FileAccess.file_exists(config.initial_layout_file)):
+		return {"ok":false,"reason":"config_initial_layout"}
+	if config.has("initial_speed_m_s") and (not finite_number(config.initial_speed_m_s) or config.initial_speed_m_s<0.0 or config.initial_speed_m_s>0.25):
+		return {"ok":false,"reason":"config_initial_speed"}
 	if config.has("camera"):
 		var camera: Variant = config.camera
 		if not camera is Dictionary or not camera.get("focus_m") is Array or camera.focus_m.size() != 3:
@@ -191,8 +206,9 @@ static func read_json_file(path: String, maximum_bytes: int) -> Dictionary:
 	if file == null or file.get_length() > maximum_bytes:
 		return {"ok":false}
 	var parser := JSON.new()
-	var error := parser.parse(file.get_as_text())
+	var contents := file.get_as_text()
 	file.close()
+	var error := parser.parse(contents)
 	return {"ok":error == OK,"value":parser.data if error == OK else null}
 
 static func write_json_atomic(output: String, name: String, data: Dictionary, replace: bool) -> Dictionary:
@@ -387,7 +403,7 @@ func request_speed(value: float) -> void:
 		return
 	_requested_speed = value
 	if _bound:
-		_emit_intent("set_speed")
+		_emit_intent("next_initial_speed" if _initial_speed_latched else "set_initial_speed")
 	_refresh_status()
 
 func request_pause() -> void:
@@ -502,13 +518,14 @@ func _build_panel() -> void:
 	var speed_row := HBoxContainer.new()
 	_body.add_child(speed_row)
 	var speed_title := Label.new()
-	speed_title.text = "请求速度"
+	speed_title.text = "初始速度"
+	_labels.speed_title = speed_title
 	speed_row.add_child(speed_title)
 	_speed = HSlider.new()
 	_speed.min_value = 0.0
 	_speed.max_value = 0.25
 	_speed.step = 0.005
-	_speed.value = 0.1
+	_speed.value = _requested_speed
 	_speed.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_speed.custom_minimum_size.x = 230
 	speed_row.add_child(_speed)
@@ -554,12 +571,12 @@ func _fit_panel() -> void:
 	if _panel == null:
 		return
 	var viewport_size := root.get_visible_rect().size
-	var width := minf(780.0,maxf(320.0,viewport_size.x-32.0))
-	_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-	_panel.offset_left = -width*0.5
-	_panel.offset_right = width*0.5
-	_panel.offset_bottom = -16.0
-	_panel.offset_top = -16.0-maxf(_panel.get_combined_minimum_size().y,46.0)
+	var width := minf(560.0,maxf(320.0,viewport_size.x-32.0))
+	_panel.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	_panel.offset_left = -width-16.0
+	_panel.offset_right = -16.0
+	_panel.offset_top = 82.0
+	_panel.offset_bottom = 82.0+maxf(_panel.get_combined_minimum_size().y,46.0)
 
 func _safe_text(value: Variant) -> String:
 	if value == null or not typeof(value) in [TYPE_STRING,TYPE_INT,TYPE_FLOAT,TYPE_BOOL]:
@@ -594,6 +611,11 @@ func _refresh_status() -> void:
 	var native: Dictionary = _main.read_continuous_live_state() if _bound else {}
 	var host := _host_status()
 	var fresh: bool = not host.is_empty() and host.get("connected",false) == true
+	if fresh and host.get("initial_speed_latched",false) == true:
+		_initial_speed_latched = true
+		if finite_number(host.get("latched_initial_speed_m_s")):
+			_latched_initial_speed = float(host.latched_initial_speed_m_s)
+	_labels.speed_title.text = "下次初始" if _initial_speed_latched else "初始速度"
 	var board: Dictionary = host.get("board",{}) if fresh and host.get("board") is Dictionary else {}
 	_labels.connection.text = "Root：%s  |  实板：%s" % ["已连接" if fresh else "未连接 / 等待新状态","已连接" if board.get("connected",false) == true else "未连接 / 等待"]
 	var actual := "等待原生就绪"
@@ -602,7 +624,7 @@ func _refresh_status() -> void:
 		if finite_number(native.get("speed_m_s")):
 			actual = "%.4f m/s" % float(native.speed_m_s)
 		phase = _safe_text(native.get("phase"))
-	_labels.motion.text = "请求：%.3f m/s%s  |  实际：%s  |  阶段：%s" % [_requested_speed,"（暂停）" if _requested_paused else "",actual,phase]
+	_labels.motion.text = "本次初始设置：%.3f m/s%s\n当前：%s（PC AI / 实板）  |  阶段：%s" % [_latched_initial_speed if _initial_speed_latched else _requested_speed,"（暂停）" if _requested_paused else "",actual,phase]
 	var source: Dictionary = host.get("source",{}) if fresh and host.get("source") is Dictionary else {}
 	var counts := "等待"
 	if source.get("channel_counts") is Array and source.channel_counts.size() == 4:
@@ -621,6 +643,8 @@ func _refresh_status() -> void:
 	if integer_number(operator.get("ack_seq")) and int(operator.ack_seq) == _intent_seq and _intent_seq > 0:
 		if operator.get("state") == "applied":
 			pending = "Root 已确认请求 #%d；实际速度见原生读数。" % _intent_seq
+		elif operator.get("state") in ["preference_saved","next_initial_stored"]:
+			pending = "下次初始速度已保存；本次继续由 PC AI / 实板控制。"
 		elif operator.get("state") == "failed":
 			pending = "Root 报告请求 #%d 失败：%s" % [_intent_seq,_safe_text(operator.get("detail"))]
 	if _stop_latched:

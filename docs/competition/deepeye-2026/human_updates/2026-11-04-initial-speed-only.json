@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-04",
+  "kind": "explicit_human_implementation_refinement",
+  "requirements_revision": 2,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "verbatim": "下拉框我可以调整的请求速度仅作为初始速度，后续实际执行速度由pc ai和板子决策并执行，一旦钻头开始运动，再拖动速度条就无法生效，只能在下一次重新开始运动时对下一次的初始速度生效。",
+  "implementation": "Initial value may update before first APPLY reservation; first actual APPLY consumes it, including zero. Later speed-only intents store next NEW RUN preference, never alter current cap/advice/generation. Same-run pause/resume remains independent. Actual measured speed stays separate from requested initial value.",
+  "contract_note": "Compatible existing H10; no H01-H15 requirements edits or new acceptance claims",
+  "original808": "preserved failed real run; no replay",
+  "telemetry": "display PermissionError skips only publication, never retries physical command"
+}

@@ -1,0 +1,74 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "scope": "narrow initial/next-preference UI and832 candidate policy; no actual controller execution",
+  "files": {
+    "C:\\Users\\CarlJade\\.codex\\worktrees\\a-demo-production-channel\\FPGA多机协作开发\\competition\\deepeye\\simulator\\runtime\\continuous_demo_bootstrap.gd": "259ae1c580e305f82c2e0ac2e1baf03619249dc1502febc5aa4e2ab68ba92c4c",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-initial-controller-832\\controller833.py": "6900970c8e49b5a1691ef8aab466eb6c5a481a3f93c05dec3ca3882a701cf79f"
+  },
+  "finding": {
+    "id": "preference-status-enum",
+    "original_observation": "bootstrap recognized preference_saved only;832 status_fields emits next_initial_stored, leaving saved preference falsely looking pending",
+    "minimum_change": "bootstrap accept both preference_saved and next_initial_stored, or unify publisher vocabulary",
+    "Root_accepted": true,
+    "both_names_present_in_current_ui_source": true
+  },
+  "ui_references": [
+    {
+      "line": 521,
+      "text": "speed_title.text = \"初始速度\""
+    },
+    {
+      "line": 618,
+      "text": "_labels.speed_title.text = \"下次初始\" if _initial_speed_latched else \"初始速度\""
+    },
+    {
+      "line": 646,
+      "text": "elif operator.get(\"state\") in [\"preference_saved\",\"next_initial_stored\"]:"
+    }
+  ],
+  "controller_references": [
+    {
+      "line": 38,
+      "text": "def reserve_initial(self):"
+    },
+    {
+      "line": 42,
+      "text": "def consume_initial(self,reserved):"
+    },
+    {
+      "line": 64,
+      "text": "if kind in ('start','set_initial_speed','next_initial_speed','set_speed'):"
+    },
+    {
+      "line": 66,
+      "text": "if kind=='next_initial_speed' or self.initial_speed_latched or self.reserved_initial_speed is not None:"
+    },
+    {
+      "line": 71,
+      "text": "elif kind=='pause':self.paused=True"
+    },
+    {
+      "line": 72,
+      "text": "elif kind=='resume':self.paused=False"
+    },
+    {
+      "line": 92,
+      "text": "operator_state='next_initial_stored' if stored else self.control_state,"
+    }
+  ],
+  "clarified_human_semantics": {
+    "boundary": "first actual motion/APPLY reservation and consumption, not Start button",
+    "before_first_apply_reservation": "current initial request may still change during load/inference",
+    "after_reservation_or_consumption": "slider stores only next initial preference; no current advice/cap/generation/pause mutation",
+    "first_actual_zero_apply": "consumes initial too; subsequent AI may autonomously accelerate",
+    "pause_resume": "separate current control; must not consume next initial preference"
+  },
+  "review_assessment": "832 reserve/consume/next-preference early return and pause/resume separation fit this clarified policy; no Start-gap blocker asserted",
+  "tests": "no runtime or old suite executed; one narrow source-vocabulary check only",
+  "board": false,
+  "UI": false,
+  "network": false,
+  "source_model": false,
+  "formal_acceptance": "not_run"
+}

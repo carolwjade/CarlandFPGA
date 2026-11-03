@@ -1,0 +1,21 @@
+{
+  "source": "..\\Root_live_controller808.py",
+  "source_sha256": "68e08c8f6384329cf6ee9bb8dda3cef23106a706302412f7c5a8571a33ec0bbe",
+  "ast": "passed",
+  "controls": [
+    {
+      "name": "test_slider_after_latch_preserves_current_control",
+      "passed": false,
+      "error": "AssertionError: slider invalidated current advice"
+    },
+    {
+      "name": "test_display_permission_error_does_not_escape_control",
+      "passed": false,
+      "error": "PermissionError: [Errno 13] injected Godot read/share-delete race"
+    }
+  ],
+  "passed": 0,
+  "total": 2,
+  "actual_controller_execution": false,
+  "board_native_model_sensor_network_execution": false
+}
