@@ -1,7 +1,7 @@
 """Explicit numerical demo horizon; no clock, motion or authority grant.
 
 None preserves the original 10ms domain. Only the fixed typed/hash-committed
-100ms profile is accepted; collision, budget and final real-time fences remain
+100ms profile and explicit500ms profile are accepted; collision, budget and final real-time fences remain
 the caller's existing obligations.
 """
 from dataclasses import dataclass
@@ -15,6 +15,9 @@ _ID = 'DEEPEYE-DEMO-100MS-HORIZON-V1'
 _MAX = 100_000_000
 _SHA = hashlib.sha256(json.dumps((DOMAIN,_ID,_MAX),ensure_ascii=False,
     separators=(',',':')).encode('utf-8')).hexdigest()
+_ID500 = 'DEEPEYE-DEMO-500MS-HORIZON-V1'
+_MAX500 = 500_000_000
+_SHA500 = '6dd2a1cb71f89915c3576be84a585771c701ca6e63501f93a64658d557dc8960'
 _MARKER = ':motion-horizon-v1:'
 
 
@@ -25,13 +28,15 @@ class MotionHorizonProfile:
     sha256: str
 
     def __post_init__(self):
-        if (type(self.profile_id) is not str or self.profile_id != _ID
-                or type(self.max_dt_ns) is not int or self.max_dt_ns != _MAX
-                or type(self.sha256) is not str or self.sha256 != _SHA):
-            raise ValueError('only the exact typed/hash-bound 100ms demo horizon is supported')
+        if (type(self.profile_id) is not str or type(self.max_dt_ns) is not int
+                or type(self.sha256) is not str or
+                (self.profile_id,self.max_dt_ns,self.sha256) not in
+                ((_ID,_MAX,_SHA),(_ID500,_MAX500,_SHA500))):
+            raise ValueError('only exact typed/hash-bound100ms or500ms demo horizons are supported')
 
 
 DEMO_100MS = MotionHorizonProfile(_ID,_MAX,_SHA)
+DEMO_500MS = MotionHorizonProfile(_ID500,_MAX500,_SHA500)
 
 
 def validate_profile(profile):
@@ -39,6 +44,8 @@ def validate_profile(profile):
         if type(profile) is not MotionHorizonProfile:
             raise TypeError('explicit immutable MotionHorizonProfile or default None required')
         profile.__post_init__()
+        if profile.profile_id == _ID500 and profile is not DEMO_500MS:
+            raise ValueError('exact selected500ms singleton required')
     return profile
 
 

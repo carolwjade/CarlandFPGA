@@ -46,6 +46,16 @@ def _pi_interval():
 
 _PI = _pi_interval()
 _MAX_SLICE_ROTATION = _PI.divide(_I.exact(Decimal(3600)))
+_MAX_DEMO500_SLICE_ROTATION = _PI.divide(_I.exact(Decimal(720)))
+
+
+def _slice_rotation_limit(motion_profile=None):
+    if motion_profile is None:return _MAX_SLICE_ROTATION
+    from . import demo_motion_profile as horizon
+    horizon.validate_profile(motion_profile)
+    return (_MAX_DEMO500_SLICE_ROTATION if motion_profile is horizon.DEMO_500MS
+            else _MAX_SLICE_ROTATION)
+
 
 
 @lru_cache(maxsize=128)
@@ -88,7 +98,8 @@ class SliceBounds:
 
     Endpoint uses world metres; L is arc length, kappa is curvature magnitude,
     theta bounds the whole rotation path. Domain L/kappa [0,1000], theta [0,1].
-    A certificate additionally requires theta <= .05 degrees.
+    A certificate additionally requires theta <= .05 degrees by default;
+    only an explicit500ms canonical profile may select .25 degree slices.
     """
     end_position_m: tuple
     arc_length_upper_m: float
@@ -196,7 +207,7 @@ def section_clearance(capsule, gate, *, direction, errors):
     return _result(inputs, status, upper, beta.hi, nonempty, True, False, reason)
 
 
-def sweep_clearance(capsule, gate, *, direction, errors, bounds):
+def sweep_clearance(capsule, gate, *, direction, errors, bounds, motion_profile=None):
     """Return SAFE_IF_INTERSECTING or UNKNOWN for a whole bounded slice.
 
     Covers a fixed-start-axis capsule translated along the endpoint chord and
@@ -219,9 +230,12 @@ def sweep_clearance(capsule, gate, *, direction, errors, bounds):
     rotation = max(_MIN_ROTATION_INFLATION, (rb*theta).hi)
     chord = (g._exact(bounds.curvature_upper_per_m)*length.square()).divide(_I.exact(Decimal(8)))
     rho = g._UP.add(g._UP.add(rotation, chord.hi), beta.hi)
-    if theta.hi > _MAX_SLICE_ROTATION.lo:
+    rotation_limit=_slice_rotation_limit(motion_profile)
+    if theta.hi > rotation_limit.lo:
         return _result(inputs, 'UNKNOWN', None, rho, False, False, False,
-                       'Whole-slice rotation bound exceeds certified .05 degree limit.')
+                       ('Whole-slice rotation bound exceeds certified .25 degree demo limit.'
+                        if rotation_limit is _MAX_DEMO500_SLICE_ROTATION else
+                        'Whole-slice rotation bound exceeds certified .05 degree limit.'))
     plane = gate.plane
     low, high, s0, un, offset = g._support_intervals(capsule, plane)
     end_offset = tuple(g._exact(x)-g._exact(y) for x, y in zip(bounds.end_position_m, plane.point_m))

@@ -158,7 +158,9 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
     if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
     if type(entry_inward_clearance_v1) is not bool:raise TypeError('explicit internal entry-clearance selection required')
-    if entry_inward_clearance_v1 and (path.provenance.motion_profile is not horizon.DEMO_100MS
+    if entry_inward_clearance_v1 and (not (path.provenance.motion_profile is horizon.DEMO_100MS
+            or path.provenance.motion_profile is horizon.DEMO_500MS)
+            or path.provenance.requested_dt_ns>100_000_000
             or path.provenance.raw_command!=('fast_9600',1,0,0)):
         raise ValueError('retained entry clearance is only the selected100ms minimum-speed straight command')
     retained_entered=(next((e for e in reversed(state.history) if e.kind=='ENTERED'),None)

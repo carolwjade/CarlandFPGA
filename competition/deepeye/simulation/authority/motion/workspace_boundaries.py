@@ -214,7 +214,8 @@ def check_slice(prepared,index,role,*,max_gate_checks=1):
                 method='EXACT_FIXTURE_RIM_WITNESS';violation=True
             elif max_gate_checks:
                 cert=gc.sweep_clearance(capsule,gate,direction=-1 if role=='entry' else 1,
-                    errors=adjusted,bounds=record.gate_bounds)
+                    errors=adjusted,bounds=record.gate_bounds,
+                    motion_profile=prepared.path.provenance.motion_profile)
                 # Same canonical motion, not arbitrary jitter between side bounds.
                 monotone=g._DOWN.subtract(_COS5_LOWER,(g._exact(envelope.pivot_radius_m)*g._exact(record.gate_bounds.curvature_upper_per_m)).hi)>0
                 if cert.status=='SAFE_IF_INTERSECTING' and monotone:

@@ -303,7 +303,8 @@ class OwnedMotionExecutor:
         """Only an original route command may request the retained-entry proof."""
         from .navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
         if (self._admitted_navigation_profile is not NAV_ROUTE_LONGTTL_600S_V1
-                or self._budget.motion_profile is not horizon.DEMO_100MS
+                or not (self._budget.motion_profile is horizon.DEMO_100MS
+                    or self._budget.motion_profile is horizon.DEMO_500MS)
                 or type(command) is not _Command or self._root.command is not command
                 or phase.phase!='INSIDE' or phase.entered is not True
                 or not any(e.kind=='ENTERED' for e in phase.history)

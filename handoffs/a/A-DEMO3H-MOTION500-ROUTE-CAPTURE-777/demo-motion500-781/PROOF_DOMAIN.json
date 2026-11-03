@@ -1,0 +1,45 @@
+{
+  "profile_id": "DEEPEYE-DEMO-500MS-HORIZON-V1",
+  "profile_sha256": "6dd2a1cb71f89915c3576be84a585771c701ca6e63501f93a64658d557dc8960",
+  "maximum_dt_ns": 500000000,
+  "trig": {
+    "square_domain": "0 <= z <= (.5/m*.25m/s*.5s)^2=.00390625",
+    "alternating_series": "Unchanged directedj=0..4 polynomial with unchangedj5 next-term remainder; first cosine term ratio z/2<=.001953125<1 and subsequent ratios decrease. Uniform alternating remainder applies.",
+    "reference": "New tests compare enclosures with independent exactFraction20-term true-function bracket at0/interior/endpoint; plus-domain refusal retained.",
+    "old_domains": "None .0000015626 andDEMO100 .00015626 exact constants and interval outputs retained."
+  },
+  "slice": {
+    "default_and100_degrees": 0.05,
+    "new500_degrees": 0.25,
+    "typed_selection": "Only exact new singleton; selected once from canonical provenance for segmentation and passed from PreparedPath.path.provenance to aperture certificate. Whole SliceProof is bound to prepared.binding including the profile-committed error-budget reference.",
+    "safety_argument": [
+      "Rotation envelope Rb*theta remains valid since2Rb*sin(theta/2)<=Rb*theta. No rotation or body extent is omitted.",
+      "Continuous chord deviation kappa*L^2/8 is the standard bounded-second-derivative interpolation error in arclength; original canonical path supplies the whole-interval curvature and length.",
+      "Original declared position/asset/obstacle/numeric errors and minimum0.5mm rotation inflation remain added.",
+      "Original exit/entry directed angle test still uses strictly less than5deg after full slice rotation theta plus inherited angle uncertainty. Coarser segmentation reduces available angle slack, never increases it.",
+      "Original finite section/ellipse radial bound and all6workspace faces and every solid scene check remain required. Any UNKNOWN still refuses."
+    ],
+    "domain": ".25deg=.004363323rad lies within original SliceBounds theta<=1rad and directed cosine proof limit0<5deg-budget<.09rad.",
+    "work": "Original16-slice budget retained; worst-full-speed500ms test produces15 complete slices. No claim all possible ramp boundary patterns always fit16; excess remains UNKNOWN.",
+    "old_proof_outputs": "Default/100 selected angle limit is original exact object/constant; old failure reason retained. No dataclass fields or old commitments changed."
+  },
+  "entry_bridge": "Exact new500 numerical profile can use original minimum-speed retained-entry bridge only when actual requested dt<=100ms; same route/command/wholeENTERED/aperture/otherfivefaces/uniforminward/4checks. A200ms bridge request is explicitly rejected.",
+  "WorldBudget": {
+    "binding": "Original ValuePolicy/GeometryBudget carry the new distinct profile SHA in budget reference, provenance and Root bindings. Old10/100 commitments remain unchanged.",
+    "risk": "Larger elapsed interval increases physical path/inflation and may produce legitimate UNKNOWN/collision. No endpoint-only/tunneling shortcut; each complete segment is certified. No1percent/100ms final quality claim.",
+    "runtime": "Original real host/source/health/actor/board deadlines and executed_until non-overlap fence still apply. Root private driver must actually wait until the prior executed_until after closed getter before source/nextSTEP if closure faster than500ms."
+  },
+  "source4pins_unchanged": {
+    "competition/deepeye/simulation/authority/original_world_actor_link.py": "38e731c392f41b0b9d3b1852bea49c081f8398501cab996544ae36adbac108fb",
+    "competition/deepeye/simulation/authority/root_source_book.py": "c83f35ad9b6985f8949e899b195898832b88cbd4ff8a314979c08a412b271e4e",
+    "competition/deepeye/simulation/authority/_actor_source_custody.py": "0cb3438533a7fec25ac4dc7c0072de7c6de7e3acff5a84ecaf7d1636614ed671",
+    "competition/deepeye/simulation/authority/_world_loop.py": "ac9d07ea8941665d8cb1bfb83425941d98215a53bfcfed78c3d6836fc092a763"
+  },
+  "AI_package4_unchanged": {
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_entry.py": "c21a977c25ac30bb940e5f25ea7b83daeadd0e3f13aac66062615e21de8854f1",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_package.py": "7461262f34880d0d3d342557c7580f75e1506f93a1996729b0b9e9f9314398b8",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py": "fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/package-manifest.json": "2f374d73d2719e31c407d88e5717b938ad311f6fa744016358125fac0c00aef3"
+  },
+  "scope": "Pure math/new-domain and actual-public geometry preview; no PDE/AI/native/board/UI execution; no source authority minted."
+}

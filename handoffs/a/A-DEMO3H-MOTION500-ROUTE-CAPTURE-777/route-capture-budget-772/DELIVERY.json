@@ -1,0 +1,44 @@
+{
+  "frozen": true,
+  "ownership_returned_to_Root": true,
+  "requirements_sha256": "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804",
+  "base_source": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\public-exit-fraction-integration-763\\python-source",
+  "file_count": 184,
+  "changes": {
+    "competition/deepeye/simulation/authority/source_projection_v1/assembler.py": {
+      "new": "5d1c3f8388360172a08e877f9eb3376b9bd3c61079cb43d8b57b1a8db07b6be6",
+      "old": "1cd605cbe79197e5732606c0b79d153f4233a3ff47dfd1f77e8f3d59a5446925"
+    },
+    "competition/deepeye/tools/run_causal_functional_chain.py": {
+      "new": "fce1a2b7b00355cd8617ae0820a004e9e765d83b9a65e8c54c0c05bea8953780",
+      "old": "0d190543c3d91df870553c82c9d3ee59959e91416456d9244b495dcb05f9fc91"
+    }
+  },
+  "source_manifest_sha256": "16e083336f90dfeb43ce062e575e04ac0e524275c2f04bbfa7f0f6d14f43933e",
+  "patch_sha256": "26a70af8c04bba9101901a15b4f6062753cd7d801775520e8195617b76aba688",
+  "call_chain_audit_sha256": "87e7ae4a93695cb843e193df981b7608225ee4466ad0c2299c7aeb1abcd7650a",
+  "focused_controls_passed": true,
+  "focused_controls": 8,
+  "test_command": "host_python -I -S -B -X utf8 C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\route-capture-budget-772\\test772.py",
+  "red_ref": "RED.txt",
+  "harness_failure_preserved": "HARNESS_FAILURE.txt",
+  "source4pins": {
+    "competition/deepeye/simulation/authority/_actor_source_custody.py": "0cb3438533a7fec25ac4dc7c0072de7c6de7e3acff5a84ecaf7d1636614ed671",
+    "competition/deepeye/simulation/authority/_world_loop.py": "ac9d07ea8941665d8cb1bfb83425941d98215a53bfcfed78c3d6836fc092a763",
+    "competition/deepeye/simulation/authority/original_world_actor_link.py": "38e731c392f41b0b9d3b1852bea49c081f8398501cab996544ae36adbac108fb",
+    "competition/deepeye/simulation/authority/root_source_book.py": "c83f35ad9b6985f8949e899b195898832b88cbd4ff8a314979c08a412b271e4e"
+  },
+  "model_package_four_unchanged": {
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_entry.py": "c21a977c25ac30bb940e5f25ea7b83daeadd0e3f13aac66062615e21de8854f1",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_package.py": "7461262f34880d0d3d342557c7580f75e1506f93a1996729b0b9e9f9314398b8",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py": "fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/package-manifest.json": "2f374d73d2719e31c407d88e5717b938ad311f6fa744016358125fac0c00aef3"
+  },
+  "scope": "Typed route capture/registry/read-current/opaque-ID finite budgets only; no source4pin/model/package/physics/gate changes and no model/PDE/native/board/UI run.",
+  "Root_integration": "Update source manifest/pins for new unique operation; private773 is separately reviewed and not part of this source candidate.",
+  "final_gates": {
+    "all29": "not_run",
+    "G03": "not_run",
+    "R03": "not_run"
+  }
+}

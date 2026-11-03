@@ -76,13 +76,15 @@ def _trig_from_square(square, *, cosine=False, motion_profile=None):
 
     Default10ms retains z <= .00125**2 < .0000015626. The exact typed
     DEMO_100MS permits z <= (.5/m * .25m/s * .1s)**2 < .00015626.
-    In both domains alternating terms strictly decrease: even the largest
-    first cosine ratio is z/2 < .000079. Ending at j=4 is above the
+    DEMO_500MS permits z <= (.5*.25*.5)**2 = .00390625.
+    In all domains alternating terms strictly decrease: even the largest
+    first cosine ratio is z/2 <= .001953125 < .002. Ending at j=4 is above the
     function; subtracting the magnitude of j=5 is below it. Directed
     arithmetic encloses the polynomial and remainder without changing them.
     """
     horizon.validate_profile(motion_profile)
     maximum=Decimal('.0000015626') if motion_profile is None else Decimal('.00015626')
+    if motion_profile is horizon.DEMO_500MS:maximum=Decimal('.00390625')
     if square.lo < 0 or square.hi > maximum:
         raise ValueError('trigonometric argument outside proved domain')
     total = term = _ONE
@@ -310,6 +312,7 @@ class CanonicalPath:
         ceil = -(-target_ns.numerator//target_ns.denominator)
         mandatory = sorted({0, duration, *[v for v in (floor, ceil) if 0 < v < duration]})
         edges = [0]
+        rotation_limit=gc._slice_rotation_limit(self.provenance.motion_profile)
         for end in mandatory[1:]:
             while edges[-1] < end:
                 start = edges[-1]
@@ -319,7 +322,7 @@ class CanonicalPath:
                     s1, _ = self.distance_speed(candidate)
                     theta = _upper_float((self._curvature*_fraction_interval(s1-s0)).hi)
                     # Check the exported upper bound, not only its Decimal precursor.
-                    return Decimal.from_float(theta) <= gc._MAX_SLICE_ROTATION.lo
+                    return Decimal.from_float(theta) <= rotation_limit.lo
 
                 if safe(end):
                     edges.append(end)

@@ -1,0 +1,60 @@
+--- competition/deepeye/simulation/authority/source_projection_v1/assembler.py
++++ competition/deepeye/simulation/authority/source_projection_v1/assembler.py
+@@ -214,6 +214,16 @@
+  need(len(raw(partial))<=_MAX,'BUDGET_EXCEEDED')
+  return dict(adapter=ADAPTER,status='INPUT_UNAVAILABLE'if missing else'ASSEMBLED_UNVALIDATED',proof=None if missing else partial,partial=partial,missing_paths=sorted(missing),dropped_paths=sorted(dropped),source_authenticated=False,dispatch_authorized=False,core_ran=False)
+ 
++def _observation_capacity(profile):
++ navigation.validate_profile(profile)
++ return profile.max_scans if profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else 32
++
++
++def _binding_capacity(profile):
++ navigation.validate_profile(profile)
++ return profile.max_book_records*16 if profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else 8192
++
++
+ class Producer:
+  """Owner-thread attachment collector. Trusted-process identity checks, not an OS boundary."""
+  def __init__(self,key,owner,link,book,modules):
+@@ -234,16 +244,16 @@
+   for ref,label in self._ids:
+    if ref is original:need(label==opaque_id,'ID_REBIND');return label
+    need(label!=opaque_id,'ID_COLLISION')
+-  need(len(self._ids)<8192,'BUDGET_EXCEEDED');self._ids.append((original,opaque_id));return opaque_id
++  need(len(self._ids)<_binding_capacity(self._navigation_profile),'BUDGET_EXCEEDED');self._ids.append((original,opaque_id));return opaque_id
+  def _id(self,ref):return next((v for r,v in self._ids if r is ref),None)if ref is not None else None
+  def attach_config(self,original,fields):
+   self._check();need(original is not None and self._config is None,'CONFIG_REBIND');self._config=(original,clone(fields))
+  def attach_registry(self,original,context,generation,*,as_of_qpc_ns):
+-  self._check();need(original is not None and not any(r[0]is original for r in self._registry),'REGISTRY_REBIND');need(len(self._registry)<32,'BUDGET_EXCEEDED');self._registry.append((original,clone(context),generation,as_of_qpc_ns))
++  self._check();need(original is not None and not any(r[0]is original for r in self._registry),'REGISTRY_REBIND');need(len(self._registry)<_observation_capacity(self._navigation_profile),'BUDGET_EXCEEDED');self._registry.append((original,clone(context),generation,as_of_qpc_ns))
+  def attach_admission(self,original,fields):
+   self._check();need(original is not None and not any(r is original for r,_ in self._admissions),'DUPLICATE_ATTACHMENT');need(len(self._admissions)<1001,'BUDGET_EXCEEDED');self._admissions.append((original,clone(fields)))
+  def attach_capture(self,original,sample,*,candidate,fields):
+-  self._check();need(original is not None and any(sample is s for s in self._book._samples),'ORIGINAL_SAMPLE_REQUIRED');need(not any(r is original for r,*_ in self._captures),'DUPLICATE_ATTACHMENT');need(len(self._captures)<32,'BUDGET_EXCEEDED');self._captures.append((original,sample,clone(candidate),clone(fields)))
++  self._check();need(original is not None and any(sample is s for s in self._book._samples),'ORIGINAL_SAMPLE_REQUIRED');need(not any(r is original for r,*_ in self._captures),'DUPLICATE_ATTACHMENT');need(len(self._captures)<_observation_capacity(self._navigation_profile),'BUDGET_EXCEEDED');self._captures.append((original,sample,clone(candidate),clone(fields)))
+  def attach_transition(self,transition,*,successor_root,slot=None,fields):
+   self._check();need(any(transition is t for t in self._book._actor_custody.transitions),'ORIGINAL_TRANSITION_REQUIRED');need(not any(t is transition for t,*_ in self._actions),'DUPLICATE_ATTACHMENT')
+   capacity=32 if self._navigation_profile is None else self._navigation_profile.max_book_records
+@@ -292,7 +302,7 @@
+    actual['nonspatial_receipt']=merge(dict(receipt_id=self._id(transition),boot_receipt_id=self._id(after.boot),command_receipt_id=self._id(command),command_seq=None if command is None else command.sequence,command_sha256=None if command is None else hashlib.sha256(command.raw).hexdigest(),duplicate_command=after is transition.before),fields.get('nonspatial_receipt'))
+   return merge(actual,fields)
+  def read_current(self):
+-  self._check();need(len(self._readings)<32,'BUDGET_EXCEEDED')
++  self._check();need(len(self._readings)<_observation_capacity(self._navigation_profile),'BUDGET_EXCEEDED')
+   try:
+    current,evidence=_collect_original_reads(self._book);self._check();self._readings.append((current,evidence,raw(current),raw(evidence),current.get('valid_span')));return current
+   except Exception:self._failed=True;raise
+--- competition/deepeye/tools/run_causal_functional_chain.py
++++ competition/deepeye/tools/run_causal_functional_chain.py
+@@ -473,7 +473,8 @@
+         authenticated mapping. A later real board provider must bind that context.
+         """
+         self._check_thread()
+-        if len(self._registry_observations) >= 32:
++        from ..simulation.authority.source_projection_v1.assembler import _observation_capacity
++        if len(self._registry_observations) >= _observation_capacity(getattr(self.book,'_navigation_profile',None)):
+             raise ValueError('original registry observation cap exhausted')
+         before = self._registry_snapshot()
+         lower = self.clock()

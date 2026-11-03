@@ -1,0 +1,401 @@
+{
+  "passed": true,
+  "original_actual690_closed_prefix_reconstructed": true,
+  "entry_clearance_extra_steps": 8,
+  "original_704_target_pose_unchanged": [
+    11.799999999999999,
+    14.468526388750007,
+    5.797000000000007e-60
+  ],
+  "initial_entry500_preview": "SAFE",
+  "initial_entry500_solid_checks": [
+    "CLEAR"
+  ],
+  "pose_revision": 115,
+  "source_authority_minted": false,
+  "board": false,
+  "native": false,
+  "AI_model": false,
+  "PDE": false,
+  "scope": "Pure exact actual snapshot/retained-prefix reconstruction and two new500ms previews at original entry40mm point; no execution authority",
+  "tests": [
+    {
+      "name": "new_pure_yaw5013",
+      "speed_code": 14,
+      "yaw_q": 5013,
+      "pitch_q": 0,
+      "dt_ns": 500000000,
+      "preview_status": "SAFE",
+      "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+      "face_proofs": [
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ]
+      ],
+      "solid_scene_checks": [
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        }
+      ],
+      "bridges": 0
+    },
+    {
+      "name": "new_actual_diagonal3638_3448",
+      "speed_code": 14,
+      "yaw_q": 3638,
+      "pitch_q": 3448,
+      "dt_ns": 500000000,
+      "preview_status": "SAFE",
+      "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+      "face_proofs": [
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        [
+          {
+            "face": "top",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "bottom",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "cast_status": "SAFE",
+            "method": "STRICT_INSIDE"
+          }
+        ]
+      ],
+      "solid_scene_checks": [
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        },
+        {
+          "status": "CLEAR"
+        }
+      ],
+      "bridges": 0
+    }
+  ]
+}

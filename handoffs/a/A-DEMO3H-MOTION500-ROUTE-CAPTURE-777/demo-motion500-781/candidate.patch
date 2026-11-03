@@ -1,0 +1,177 @@
+--- competition/deepeye/simulation/authority/motion/certified_path.py
++++ competition/deepeye/simulation/authority/motion/certified_path.py
+@@ -76,13 +76,15 @@
+ 
+     Default10ms retains z <= .00125**2 < .0000015626. The exact typed
+     DEMO_100MS permits z <= (.5/m * .25m/s * .1s)**2 < .00015626.
+-    In both domains alternating terms strictly decrease: even the largest
+-    first cosine ratio is z/2 < .000079. Ending at j=4 is above the
++    DEMO_500MS permits z <= (.5*.25*.5)**2 = .00390625.
++    In all domains alternating terms strictly decrease: even the largest
++    first cosine ratio is z/2 <= .001953125 < .002. Ending at j=4 is above the
+     function; subtracting the magnitude of j=5 is below it. Directed
+     arithmetic encloses the polynomial and remainder without changing them.
+     """
+     horizon.validate_profile(motion_profile)
+     maximum=Decimal('.0000015626') if motion_profile is None else Decimal('.00015626')
++    if motion_profile is horizon.DEMO_500MS:maximum=Decimal('.00390625')
+     if square.lo < 0 or square.hi > maximum:
+         raise ValueError('trigonometric argument outside proved domain')
+     total = term = _ONE
+@@ -310,6 +312,7 @@
+         ceil = -(-target_ns.numerator//target_ns.denominator)
+         mandatory = sorted({0, duration, *[v for v in (floor, ceil) if 0 < v < duration]})
+         edges = [0]
++        rotation_limit=gc._slice_rotation_limit(self.provenance.motion_profile)
+         for end in mandatory[1:]:
+             while edges[-1] < end:
+                 start = edges[-1]
+@@ -319,7 +322,7 @@
+                     s1, _ = self.distance_speed(candidate)
+                     theta = _upper_float((self._curvature*_fraction_interval(s1-s0)).hi)
+                     # Check the exported upper bound, not only its Decimal precursor.
+-                    return Decimal.from_float(theta) <= gc._MAX_SLICE_ROTATION.lo
++                    return Decimal.from_float(theta) <= rotation_limit.lo
+ 
+                 if safe(end):
+                     edges.append(end)
+--- competition/deepeye/simulation/authority/motion/demo_motion_profile.py
++++ competition/deepeye/simulation/authority/motion/demo_motion_profile.py
+@@ -1,7 +1,7 @@
+ """Explicit numerical demo horizon; no clock, motion or authority grant.
+ 
+ None preserves the original 10ms domain. Only the fixed typed/hash-committed
+-100ms profile is accepted; collision, budget and final real-time fences remain
++100ms profile and explicit500ms profile are accepted; collision, budget and final real-time fences remain
+ the caller's existing obligations.
+ """
+ from dataclasses import dataclass
+@@ -15,6 +15,9 @@
+ _MAX = 100_000_000
+ _SHA = hashlib.sha256(json.dumps((DOMAIN,_ID,_MAX),ensure_ascii=False,
+     separators=(',',':')).encode('utf-8')).hexdigest()
++_ID500 = 'DEEPEYE-DEMO-500MS-HORIZON-V1'
++_MAX500 = 500_000_000
++_SHA500 = '6dd2a1cb71f89915c3576be84a585771c701ca6e63501f93a64658d557dc8960'
+ _MARKER = ':motion-horizon-v1:'
+ 
+ 
+@@ -25,13 +28,15 @@
+     sha256: str
+ 
+     def __post_init__(self):
+-        if (type(self.profile_id) is not str or self.profile_id != _ID
+-                or type(self.max_dt_ns) is not int or self.max_dt_ns != _MAX
+-                or type(self.sha256) is not str or self.sha256 != _SHA):
+-            raise ValueError('only the exact typed/hash-bound 100ms demo horizon is supported')
++        if (type(self.profile_id) is not str or type(self.max_dt_ns) is not int
++                or type(self.sha256) is not str or
++                (self.profile_id,self.max_dt_ns,self.sha256) not in
++                ((_ID,_MAX,_SHA),(_ID500,_MAX500,_SHA500))):
++            raise ValueError('only exact typed/hash-bound100ms or500ms demo horizons are supported')
+ 
+ 
+ DEMO_100MS = MotionHorizonProfile(_ID,_MAX,_SHA)
++DEMO_500MS = MotionHorizonProfile(_ID500,_MAX500,_SHA500)
+ 
+ 
+ def validate_profile(profile):
+@@ -39,6 +44,8 @@
+         if type(profile) is not MotionHorizonProfile:
+             raise TypeError('explicit immutable MotionHorizonProfile or default None required')
+         profile.__post_init__()
++        if profile.profile_id == _ID500 and profile is not DEMO_500MS:
++            raise ValueError('exact selected500ms singleton required')
+     return profile
+ 
+ 
+--- competition/deepeye/simulation/authority/motion/gate_clearance.py
++++ competition/deepeye/simulation/authority/motion/gate_clearance.py
+@@ -46,6 +46,16 @@
+ 
+ _PI = _pi_interval()
+ _MAX_SLICE_ROTATION = _PI.divide(_I.exact(Decimal(3600)))
++_MAX_DEMO500_SLICE_ROTATION = _PI.divide(_I.exact(Decimal(720)))
++
++
++def _slice_rotation_limit(motion_profile=None):
++    if motion_profile is None:return _MAX_SLICE_ROTATION
++    from . import demo_motion_profile as horizon
++    horizon.validate_profile(motion_profile)
++    return (_MAX_DEMO500_SLICE_ROTATION if motion_profile is horizon.DEMO_500MS
++            else _MAX_SLICE_ROTATION)
++
+ 
+ 
+ @lru_cache(maxsize=128)
+@@ -88,7 +98,8 @@
+ 
+     Endpoint uses world metres; L is arc length, kappa is curvature magnitude,
+     theta bounds the whole rotation path. Domain L/kappa [0,1000], theta [0,1].
+-    A certificate additionally requires theta <= .05 degrees.
++    A certificate additionally requires theta <= .05 degrees by default;
++    only an explicit500ms canonical profile may select .25 degree slices.
+     """
+     end_position_m: tuple
+     arc_length_upper_m: float
+@@ -196,7 +207,7 @@
+     return _result(inputs, status, upper, beta.hi, nonempty, True, False, reason)
+ 
+ 
+-def sweep_clearance(capsule, gate, *, direction, errors, bounds):
++def sweep_clearance(capsule, gate, *, direction, errors, bounds, motion_profile=None):
+     """Return SAFE_IF_INTERSECTING or UNKNOWN for a whole bounded slice.
+ 
+     Covers a fixed-start-axis capsule translated along the endpoint chord and
+@@ -219,9 +230,12 @@
+     rotation = max(_MIN_ROTATION_INFLATION, (rb*theta).hi)
+     chord = (g._exact(bounds.curvature_upper_per_m)*length.square()).divide(_I.exact(Decimal(8)))
+     rho = g._UP.add(g._UP.add(rotation, chord.hi), beta.hi)
+-    if theta.hi > _MAX_SLICE_ROTATION.lo:
++    rotation_limit=_slice_rotation_limit(motion_profile)
++    if theta.hi > rotation_limit.lo:
+         return _result(inputs, 'UNKNOWN', None, rho, False, False, False,
+-                       'Whole-slice rotation bound exceeds certified .05 degree limit.')
++                       ('Whole-slice rotation bound exceeds certified .25 degree demo limit.'
++                        if rotation_limit is _MAX_DEMO500_SLICE_ROTATION else
++                        'Whole-slice rotation bound exceeds certified .05 degree limit.'))
+     plane = gate.plane
+     low, high, s0, un, offset = g._support_intervals(capsule, plane)
+     end_offset = tuple(g._exact(x)-g._exact(y) for x, y in zip(bounds.end_position_m, plane.point_m))
+--- competition/deepeye/simulation/authority/motion/passage_phase.py
++++ competition/deepeye/simulation/authority/motion/passage_phase.py
+@@ -158,7 +158,9 @@
+     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
+     if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
+     if type(entry_inward_clearance_v1) is not bool:raise TypeError('explicit internal entry-clearance selection required')
+-    if entry_inward_clearance_v1 and (path.provenance.motion_profile is not horizon.DEMO_100MS
++    if entry_inward_clearance_v1 and (not (path.provenance.motion_profile is horizon.DEMO_100MS
++            or path.provenance.motion_profile is horizon.DEMO_500MS)
++            or path.provenance.requested_dt_ns>100_000_000
+             or path.provenance.raw_command!=('fast_9600',1,0,0)):
+         raise ValueError('retained entry clearance is only the selected100ms minimum-speed straight command')
+     retained_entered=(next((e for e in reversed(state.history) if e.kind=='ENTERED'),None)
+--- competition/deepeye/simulation/authority/motion/workspace_boundaries.py
++++ competition/deepeye/simulation/authority/motion/workspace_boundaries.py
+@@ -214,7 +214,8 @@
+                 method='EXACT_FIXTURE_RIM_WITNESS';violation=True
+             elif max_gate_checks:
+                 cert=gc.sweep_clearance(capsule,gate,direction=-1 if role=='entry' else 1,
+-                    errors=adjusted,bounds=record.gate_bounds)
++                    errors=adjusted,bounds=record.gate_bounds,
++                    motion_profile=prepared.path.provenance.motion_profile)
+                 # Same canonical motion, not arbitrary jitter between side bounds.
+                 monotone=g._DOWN.subtract(_COS5_LOWER,(g._exact(envelope.pivot_radius_m)*g._exact(record.gate_bounds.curvature_upper_per_m)).hi)>0
+                 if cert.status=='SAFE_IF_INTERSECTING' and monotone:
+--- competition/deepeye/simulation/authority/motion_executor.py
++++ competition/deepeye/simulation/authority/motion_executor.py
+@@ -303,7 +303,8 @@
+         """Only an original route command may request the retained-entry proof."""
+         from .navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
+         if (self._admitted_navigation_profile is not NAV_ROUTE_LONGTTL_600S_V1
+-                or self._budget.motion_profile is not horizon.DEMO_100MS
++                or not (self._budget.motion_profile is horizon.DEMO_100MS
++                    or self._budget.motion_profile is horizon.DEMO_500MS)
+                 or type(command) is not _Command or self._root.command is not command
+                 or phase.phase!='INSIDE' or phase.entered is not True
+                 or not any(e.kind=='ENTERED' for e in phase.history)

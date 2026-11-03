@@ -1,0 +1,38 @@
+{
+  "call_chain": "G05 prepare_observation -> OwnedFunctionalSource.capture -> ProjectionSession.observe_capture -> Producer.attach_capture -> OwnedFunctionalSource.read_current_with_registry -> ProjectionSession.read_current -> Producer.read_current -> source registry hold -> ProjectionSession.attach_registry -> Producer.attach_registry",
+  "changed_quotas": {
+    "Producer._captures": [
+      32,
+      64
+    ],
+    "Producer._readings": [
+      32,
+      64
+    ],
+    "Producer._registry": [
+      32,
+      64
+    ],
+    "OwnedFunctionalSource._registry_observations": [
+      32,
+      64
+    ],
+    "Producer._ids": [
+      8192,
+      65536
+    ]
+  },
+  "selection": "Only exact NAV_ROUTE_LONGTTL_600S_V1 singleton; existing Producer._check verifies book/source/profile pointer identity before all attachments, and outer registry read immediately verifies original snapshot before getter. Foreign-equal descriptors get original bounds.",
+  "unchanged_limits": {
+    "Producer._actions": "already typed max_book_records4096; no new change",
+    "admissions_and_samples": "1001, enough selected600s at1s; unchanged",
+    "Producer.export history_refs and assemble_snapshot history": "old32 diagnostic export windows; normal G05 route path uses direct verified mapping/current/registry, never this export",
+    "G05 EM3 public items": "24 original explicit route wire window, not total observations",
+    "renderer publication": "2048 original finite controller selected limit; unchanged",
+    "STEP": "100ms original explicit selected; no500ms implementation",
+    "old_profiles": "32 observations/8192IDs unchanged"
+  },
+  "ids_derivation": "65536=selected max_book_records4096*16, finite for original64*32STEP ownership records and per-record receipts; no IDs removed/reset/reused.",
+  "provider_changes": "No provider source change: its existing attachment flow directly calls the now-selected assembler methods; no separate32 counter.",
+  "formal_gates": "not_run"
+}

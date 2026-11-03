@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "controls": [
+    "exact_new500_default10_old100_and_foreign_rejection",
+    "old_trig_outputs_exact_same_intervals",
+    "new_square_domain_endpoint_true_sinc_cos_bounds_plus1_rejection",
+    "new500_slice250millideg_only_old50millideg_unchanged",
+    "worst_speed_ROM500ms_contiguous_complete_plan_fits16_slices",
+    "new500ms_exact_upper_and_plus1_refusal",
+    "new_slice_domain_preserves_strict5deg_radial_and250millideg_failure"
+  ],
+  "profile_commitment": [
+    "DEEPEYE-DEMO-500MS-HORIZON-V1",
+    500000000,
+    "6dd2a1cb71f89915c3576be84a585771c701ca6e63501f93a64658d557dc8960"
+  ],
+  "worst_plan_slices": 15,
+  "new_domain": ".00390625",
+  "proof": "Alternating decreasing directedTaylorj4 with unchangedj5 remainder; exactFraction20-term bracket reference",
+  "model": false,
+  "PDE": false,
+  "board": false,
+  "native": false,
+  "UI": false,
+  "source_authority_minted": false
+}

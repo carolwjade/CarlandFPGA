@@ -473,7 +473,8 @@ class FunctionalSource:
         authenticated mapping. A later real board provider must bind that context.
         """
         self._check_thread()
-        if len(self._registry_observations) >= 32:
+        from ..simulation.authority.source_projection_v1.assembler import _observation_capacity
+        if len(self._registry_observations) >= _observation_capacity(getattr(self.book,'_navigation_profile',None)):
             raise ValueError('original registry observation cap exhausted')
         before = self._registry_snapshot()
         lower = self.clock()
