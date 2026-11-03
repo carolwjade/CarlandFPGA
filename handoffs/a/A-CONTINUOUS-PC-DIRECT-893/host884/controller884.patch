@@ -1,0 +1,137 @@
+--- frozen847/controller847.py
++++ candidate884/controller884.py
+@@ -1,4 +1,4 @@
+-"""Root's candidate 847 continuous live demo coordinator. Explicit entry only.
++"""Root's candidate884 BOARD_PWM/PC_DIRECT continuous live demo coordinator. Explicit entry only.
+ 
+ Native owns guarded per-physics-frame motion; source/AI/real board IO are separate
+ workers. No precomputed route, private scene in AI, total mission cap or replay.
+@@ -7,7 +7,8 @@
+ O=pathlib.Path(__file__).parent;R=pathlib.Path('C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发');W=pathlib.Path('C:/Users/CarlJade/.codex/worktrees/a-demo-production-channel/FPGA多机协作开发')
+ sys.path[:0]=[str(W),str(O/'continuous-board-session-800/source'),str(O/'continuous-B-review-fix-822'),str(O/'continuous-command-map-810')]
+ from host_board_session import BoardSession
+-from native_client import NativeClient
++from competition.deepeye.integration.continuous_native_client import NativeClient
++from competition.deepeye.integration.live_pc_direct import PcDirectClient,advice_applicable as pc_advice_applicable,SOURCE_AGE_NS
+ from competition.deepeye.simulation.sensors.live_sensor_worker import LiveSensorWorker,SnapshotPose
+ from competition.deepeye.ai_pc.continuous_live_advice import LiveAIWorker,LiveProfile
+ 
+@@ -130,6 +131,9 @@
+ def main(run):
+  from command_map import command_for_advice
+  cfg=load(run/'config.json');status=pathlib.Path(cfg['host_status_file']);epoch=cfg['world_epoch']
++ mode=cfg.get('admission_mode','BOARD_PWM')
++ if mode not in ('BOARD_PWM','PC_DIRECT'):raise ValueError('EXPLICIT_ADMISSION_MODE')
++ direct=mode=='PC_DIRECT'
+  operation_id=cfg['operation_id'];board_stage=pathlib.Path(cfg['board_stage_directory'])
+  if not board_stage.is_absolute():board_stage=O/board_stage
+  control=RunControl()
+@@ -150,8 +154,10 @@
+  frozen_path=run/'frozen.json'
+  while not frozen_path.exists():time.sleep(.05)
+  frozen=load(frozen_path);assert frozen['world_epoch']==epoch and frozen['native_install_result']['ok'] is True
++ if frozen.get('admission_mode','BOARD_PWM')!=mode:raise ValueError('FROZEN_ADMISSION_MODE')
+  gates=frozen['public_gates'];public_goal=dict(exit_center_m=gates['exit']['center'],exit_outward_normal_world=gates['exit']['normal'],gate_radius_m=.25,entry_center_m=gates['entry']['center'],entry_inward_normal_world=[-v for v in gates['entry']['normal']],exit_clearance_m=.65)
+- native=NativeClient.connect(cfg['port'],cfg['token']);source=None;ai=None;board=None
++ native=(PcDirectClient.connect(cfg['port'],cfg['token'],world_epoch=epoch) if direct else NativeClient.connect(cfg['port'],cfg['token']));source=None;ai=None;board=None
++ result['admission_mode']=mode;visible['admission_mode']=mode;visible['action_source']='pc_direct_host' if direct else 'board_capture'
+  board_pool=concurrent.futures.ThreadPoolExecutor(max_workers=1,thread_name_prefix=operation_id)
+  def start_board():
+   nonlocal board
+@@ -161,6 +167,7 @@
+   return board.start()
+  board_future=board_pool.submit(start_board);board_kind='init';board_meta={}
+  source_future=ai_future=None;source_pending=observation=advice=None
++ source_future_snapshot=source_pending_snapshot=None;last_pc_advice_hash=None
+  held=None;held_advice=None;grant=0;last_apply=0;last_source=-1;last_native_poll=0.;last_status=0.;source_seq=0;ai_generation=0;want_stop=False;last_snapshot_at=-1;source_origin=None;native_pause_seen=False
+  try:
+   display(stage='加载一次实板固件，建立持续连接',board='连接与真实初始化中')
+@@ -191,7 +198,7 @@
+     if kind=='init':
+      result['board_started']=True;binding={k:actual[k] for k in ['boot_id','build_id','request_hash']};native.bind_board(binding)
+      source=LiveSensorWorker(source_root=W,world_epoch=epoch,private_pieces=frozen['private_pieces'],background_sigma=.005,material_sigma={'water':.1,'hard_rock':.01,'casing':None,'fault':.02,'void':None},boundary_policy='known_box_closed_candidate')
+-     ai=LiveAIWorker(source_root=W,world_epoch=epoch,profile=LiveProfile(background_c0=2.3,initial_speed_cap_m_s=.1))
++     ai=LiveAIWorker(source_root=W,world_epoch=epoch,profile=LiveProfile(background_c0=2.3,initial_speed_cap_m_s=.1,max_source_age_s=1.5 if direct else 5.0))
+      display(stage='等待真实模拟传感器→FPGA E4→PC AI首轮结果',board_connected=True)
+      log('actual-board-init',response=actual)
+     elif kind=='sense':
+@@ -200,6 +207,11 @@
+      decoded=[row['points'][0]['value'] for row in r['decoded']]
+      assert decoded==list(original.channel_counts) and r['quality']==original.quality
+      observation={k:payload[k] for k in ['world_epoch','segment_id','at_qpc_ns','completed_qpc_ns','position_m','orientation_xyzw','speed_m_s','quality']}
++     if direct and not want_stop:
++      if now-int(payload['at_qpc_ns'])>=SOURCE_AGE_NS:
++       log('pc-source-expired-before-observe',source=payload,actual_board=actual);continue
++      registered=native.observe_pc(meta['native_snapshot'],payload,actual,source_seq=meta['source_seq'])
++      log('pc-real-observation-native-registered',source=payload,actual_board=actual,native=registered)
+      observation.update(channel_counts=decoded,board_frame_sha256=hashlib.sha256(bytes.fromhex(r['wire_hex'])).hexdigest(),source_record_sha256=digest(payload),board_return_qpc_ns=str(actual['host_returned_ns']))
+      display(counts=decoded,quality=r['quality'],wire_bytes=len(bytes.fromhex(r['wire_hex'])),lossless_match=True,sample_count=meta['source_seq'],codec='FPGA E4无损还原，允许RAW回退')
+      log('source-e4-correlated',source=payload,actual_board=actual,public_observation=observation)
+@@ -226,12 +238,15 @@
+      else:break
+     time.sleep(.02);continue
+    if source is not None and state['ready']:
+-    if source_future is not None and source_future.done():source_pending=source_future.result();source_future=None
++    if source_future is not None and source_future.done():
++     source_pending=source_future.result();source_future=None
++     source_pending_snapshot=source_future_snapshot;source_future_snapshot=None
+     at=int(sample['host']['accepted_tick_qpc_interval_ns'][0])
+     if source_future is None and source_pending is None and at>last_snapshot_at:
+      last_snapshot_at=at
+      snap=SnapshotPose('native-'+state['revision'],epoch,at,tuple(state['position_m']),tuple(state['orientation_xyzw']),float(state['speed_m_s']))
+      source_future=source.submit(snap)
++     if source_future is not None:source_future_snapshot=json.loads(raw(sample))
+    if ai_future is not None and ai_future.done():
+     produced=ai_future.result();ai_future=None
+     if ai_generation==control.operator_generation:
+@@ -242,7 +257,40 @@
+     current={k:state[k] for k in ['position_m','orientation_xyzw','speed_m_s']};current['at_qpc_ns']=str(sample['host']['accepted_tick_qpc_interval_ns'][0])
+     request=dict(world_epoch=epoch,paused=control.paused,user_speed_cap_m_s=control.speed_limit(),observation=observation,current_pose=current,public_goal=public_goal,executed_actions=[])
+     ai_future=ai.submit(request);ai_generation=control.operator_generation;last_source=int(observation['at_qpc_ns'])
+-   if board is not None and board.client is not None and board.client.ready and board_future is None:
++   if direct and board is not None and board.client is not None and board.client.ready:
++    # Only native admission here: all physical board requests remain one IO worker.
++    chosen=control.advice
++    if control.paused and chosen is None:chosen=held_advice
++    if chosen is not None and pc_advice_applicable(chosen,sample,epoch,now):
++     command=command_for_advice(chosen,state,control.speed_limit(),control.paused)
++     chosen_hash=digest(chosen)
++     if held is None or command!=held or chosen_hash!=last_pc_advice_hash:
++      reserved=control.reserve_initial()
++      accepted=native.apply_advice(chosen,sample,command,paused=control.paused,
++                                   operator_cap_m_s=control.speed_limit())
++      control.consume_initial(reserved)
++      control.acknowledge_apply(control.operator_generation,control.control_seq,command,
++                               control_ack_allowed=not control.awaiting_resume_ai)
++      control.current_speed_source='actual_pc_ai_direct_host_command'
++      held=command;held_advice=chosen;last_pc_advice_hash=chosen_hash
++      grant=native.last_pc_command['host_deadline_qpc_ns'];control.desired=None
++      display(stage='PC直控：真实板观测→AI→连续运动',actual_speed_m_s=command['speed_code']*.0125,
++              paused=command['speed_code']==0,pc_command_seq=native.pc_seq,
++              pc_command_sha256=native.last_pc_command['command_sha256'])
++      log('actual-pc-direct-native-accepted',advice=chosen,host_command=native.last_pc_command,
++          native=accepted,command=command,initial_speed_latched=control.initial_speed_latched,
++          latched_initial_speed_m_s=control.latched_initial_speed)
++    # Stale sources/AI cannot renew a host lease. Native enforces its own1500ms.
++   if direct and board is not None and board.client is not None and board.client.ready and board_future is None:
++    if source_pending is not None and ai_future is None:
++     candidate=source_pending;original_snapshot=source_pending_snapshot
++     source_pending=source_pending_snapshot=None;source_seq+=1
++     if source_origin is None:source_origin=candidate.snapshot.at_qpc_ns-1_000_000_000
++     tick=(candidate.snapshot.at_qpc_ns-source_origin)//1_000_000
++     board_future=board_pool.submit(board.sense,source_seq=source_seq,adc_tick_ms=tick,em_tick_ms=tick,
++        counts=list(candidate.channel_counts),quality=candidate.quality,source_digest=digest(candidate.to_payload()))
++     board_kind='sense';board_meta=dict(source=candidate,source_seq=source_seq,native_snapshot=original_snapshot)
++   if not direct and board is not None and board.client is not None and board.client.ready and board_future is None:
+     if observation is not None and now-int(observation['at_qpc_ns'])>5_000_000_000:
+      control.desired=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='actual_source_stale')
+     command=None;command_advice=None
+@@ -285,6 +333,8 @@
+    time.sleep(.015)
+  except BaseException as e:
+   stop_native_once(native,result,'controller_failure')
++  if direct and native.broken:
++   native.close();result['native_disconnect_after_unknown']=True
+   result['failure']=dict(type=type(e).__name__,message=str(e),traceback=traceback.format_exc());log('failed',failure=result['failure']);display(stage='已停止：'+str(e)[:160])
+  finally:
+   stop_native_once(native,result,'controller_finally')

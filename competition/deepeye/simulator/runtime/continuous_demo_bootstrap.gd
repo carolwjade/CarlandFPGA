@@ -29,6 +29,7 @@ var _resume: Button
 var _stop: Button
 var _speed: HSlider
 var _confirm: CheckBox
+var _mode_choice: OptionButton
 var _claimed := false
 var _start_attempted := false
 var _bind_called := false
@@ -171,6 +172,8 @@ static func validate_config(config: Dictionary) -> Dictionary:
 		return {"ok":false,"reason":"host_status_output_collision"}
 	if config.has("require_box_only") and not config.require_box_only is bool:
 		return {"ok":false,"reason":"config_box_policy"}
+	if config.has("admission_mode") and not config.admission_mode in ["BOARD_PWM","PC_DIRECT"]:
+		return {"ok":false,"reason":"config_admission_mode"}
 	if config.has("initial_layout_file") and (not ordinary_absolute_path(config.initial_layout_file,false) or not FileAccess.file_exists(config.initial_layout_file)):
 		return {"ok":false,"reason":"config_initial_layout"}
 	if config.has("initial_speed_m_s") and (not finite_number(config.initial_speed_m_s) or config.initial_speed_m_s<0.0 or config.initial_speed_m_s>0.25):
@@ -348,19 +351,21 @@ func _on_start() -> void:
 	_start_attempted = true
 	_refresh_setup()
 	_confirm.disabled = true
+	_mode_choice.disabled = true
+	var admission_mode := _selected_admission_mode()
 	var snapshot := capture_private(_main,bool(_config.get("require_box_only",false)))
 	if not snapshot.ok:
 		_latch_error(snapshot.reason)
 		return
 	snapshot.erase("ok")
-	snapshot.merge({"abi":ABI,"world_epoch":_config.world_epoch,"contract":CONTRACT,"requirements_sha256":REQUIREMENTS_SHA256,"stage":"prepared_not_installed","formal_acceptance":"not_run","G03":"not_run","all29":"not_run","operator_setup":{"mouse_drag_change_observed":_drag_seen,"gate_change_observed":_gate_setup_seen,"human_confirmation":true,"note":"UI event observation, not a hardware-input attestation"}})
+	snapshot.merge({"abi":ABI,"world_epoch":_config.world_epoch,"admission_mode":admission_mode,"contract":CONTRACT,"requirements_sha256":REQUIREMENTS_SHA256,"stage":"prepared_not_installed","formal_acceptance":"not_run","G03":"not_run","all29":"not_run","operator_setup":{"mouse_drag_change_observed":_drag_seen,"gate_change_observed":_gate_setup_seen,"human_confirmation":true,"note":"UI event observation, not a hardware-input attestation"}})
 	var prepared := write_json_atomic(_config.output_directory,".frozen.private.prepared.json",snapshot,false)
 	if not prepared.ok:
 		_latch_error(prepared.reason)
 		return
 	# The sole call site. No retry, automatic freeze, target, pose or RPC write.
 	_bind_called = true
-	var installed: Dictionary = _main.bind_continuous_live(int(_config.port),_config.token)
+	var installed: Dictionary = _main.bind_continuous_live(int(_config.port),_config.token,admission_mode,_config.world_epoch)
 	var clean: Dictionary = {"ok":installed.get("ok",false),"formal_acceptance":"not_run"}
 	for key in ["abi","port","reason"]:
 		if installed.has(key):
@@ -381,7 +386,7 @@ func _on_start() -> void:
 	_pause.disabled = false
 	_resume.disabled = false
 	_stop.disabled = false
-	_pending_text = "已冻结原生场景；等待 Root 的真实板卡回执。尚未开始前进。"
+	_pending_text = "已冻结PC直控模式；等待真实板观测与PC命令。尚未开始前进。" if admission_mode=="PC_DIRECT" else "已冻结原生场景；等待 Root 的真实板卡回执。尚未开始前进。"
 	_emit_intent("start")
 	_refresh_status()
 
@@ -510,6 +515,12 @@ func _build_panel() -> void:
 	collapse.pressed.connect(func(): _body.visible = not _body.visible; _fit_panel())
 	_add_label("connection","Root：未连接  |  实板：等待")
 	_add_label("setup","")
+	_mode_choice = OptionButton.new()
+	_mode_choice.add_item("实板输出执行 · PC AI → FPGA → 钻头")
+	_mode_choice.add_item("PC 直接控制 · 真实板观测 → PC AI → 钻头")
+	_mode_choice.select(1 if _config.get("admission_mode","BOARD_PWM")=="PC_DIRECT" else 0)
+	_body.add_child(_mode_choice)
+	_mode_choice.item_selected.connect(func(_index: int): _refresh_status())
 	_confirm = CheckBox.new()
 	_confirm.text = "已完成鼠标摆放和蓝红圈设置，确认开始"
 	_body.add_child(_confirm)
@@ -605,12 +616,16 @@ func _host_status() -> Dictionary:
 	_host_seq = int(host.status_seq)
 	return host
 
+func _selected_admission_mode() -> String:
+	return "PC_DIRECT" if _mode_choice!=null and _mode_choice.selected==1 else "BOARD_PWM"
+
 func _refresh_status() -> void:
 	if _labels.is_empty():
 		return
 	_labels.speed_request.text = "%.3f m/s" % _requested_speed
 	var native: Dictionary = _main.read_continuous_live_state() if _bound else {}
 	var host := _host_status()
+	var direct := _selected_admission_mode()=="PC_DIRECT"
 	var fresh: bool = not host.is_empty() and host.get("connected",false) == true
 	if fresh and host.get("initial_speed_latched",false) == true:
 		_initial_speed_latched = true
@@ -618,7 +633,7 @@ func _refresh_status() -> void:
 			_latched_initial_speed = float(host.latched_initial_speed_m_s)
 	_labels.speed_title.text = "下次初始" if _initial_speed_latched else "初始速度"
 	var board: Dictionary = host.get("board",{}) if fresh and host.get("board") is Dictionary else {}
-	_labels.connection.text = "Root：%s  |  实板：%s" % ["已连接" if fresh else "未连接 / 等待新状态","已连接" if board.get("connected",false) == true else "未连接 / 等待"]
+	_labels.connection.text = "模式：%s\nRoot：%s  |  实板观测：%s" % ["PC 直接控制" if direct else "FPGA 输出执行","已连接" if fresh else "未连接 / 等待新状态","已连接" if board.get("connected",false) == true else "未连接 / 等待"]
 	var actual := "等待原生就绪"
 	var phase := "等待开始"
 	# ready=false after a planned STOP does not erase actual terminal readback.
@@ -626,7 +641,7 @@ func _refresh_status() -> void:
 		if finite_number(native.get("speed_m_s")):
 			actual = "%.4f m/s" % float(native.speed_m_s)
 		phase = _safe_text(native.get("phase"))
-	_labels.motion.text = "本次初始设置：%.3f m/s%s\n当前：%s（PC AI / 实板）  |  阶段：%s" % [_latched_initial_speed if _initial_speed_latched else _requested_speed,"（暂停）" if _requested_paused else "",actual,phase]
+	_labels.motion.text = "本次初始设置：%.3f m/s%s\n当前：%s（%s）  |  阶段：%s" % [_latched_initial_speed if _initial_speed_latched else _requested_speed,"（暂停）" if _requested_paused else "",actual,"PC AI 直控" if direct else "PC AI / 实板",phase]
 	var source: Dictionary = host.get("source",{}) if fresh and host.get("source") is Dictionary else {}
 	var counts := "等待"
 	if source.get("channel_counts") is Array and source.channel_counts.size() == 4:
@@ -639,7 +654,8 @@ func _refresh_status() -> void:
 		if valid: counts = " / ".join(values)
 	_labels.source.text = "源采样：%s  |  C0 / C1 / C2 / C3：%s\n编码上传：%s B  /  还原：%s  /  模式：%s" % [_safe_text(source.get("sample_count")),counts,_safe_text(source.get("e4_bytes")),_safe_text(source.get("raw_bytes")),_safe_text(source.get("compressed_bytes"))]
 	var ai: Dictionary = host.get("ai",{}) if fresh and host.get("ai") is Dictionary else {}
-	_labels.board.text = "板卡 PWM：%s  |  AI 风险：%s  /  方向：%s" % [_safe_text(board.get("pwm")) if board.get("connected",false) == true else "等待",_safe_text(ai.get("risk")),_safe_text(ai.get("direction"))]
+	var actuator := "PC 指令 #%s" % _safe_text(host.get("pc_command_seq")) if direct else "板卡 PWM：%s" % (_safe_text(board.get("pwm")) if board.get("connected",false) == true else "等待")
+	_labels.board.text = "%s  |  AI 风险：%s  /  方向：%s" % [actuator,_safe_text(ai.get("risk")),_safe_text(ai.get("direction"))]
 	var pending := _pending_text
 	var operator: Dictionary = host.get("operator",{}) if fresh and host.get("operator") is Dictionary else {}
 	if integer_number(operator.get("ack_seq")) and int(operator.ack_seq) == _intent_seq and _intent_seq > 0:
@@ -667,5 +683,6 @@ func _refresh_status() -> void:
 	if not _fatal.is_empty():
 		pending = "交接失败：%s。保留现场，由 Root 处理。" % _safe_text(_fatal)
 	_labels.pending.text = pending
-	_labels.note.text = "模拟传感器 → 实板编码上传 → PC AI → 实板控制 → 虚拟钻头（%d 障碍 / %d 源体）" % [_source_objects,_source_pieces] if _bound else "布局未冻结；源几何为名义工程包络，非精确网格 / PDE 合格结果。G03 / all29：not_run"
+	var pipeline := "模拟传感器 → 实板编码上传 → PC AI → PC直控钻头" if direct else "模拟传感器 → 实板编码上传 → PC AI → 实板控制 → 虚拟钻头"
+	_labels.note.text = (pipeline+"（%d 障碍 / %d 源体）" % [_source_objects,_source_pieces]) if _bound else "布局未冻结；源几何为名义工程包络，非精确网格 / PDE 合格结果。G03 / all29：not_run"
 	_fit_panel()

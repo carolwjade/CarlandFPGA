@@ -1469,7 +1469,7 @@ func _owned_frozen_fingerprint(bridge: Object, token: RefCounted) -> Dictionary:
 	return {"nodes":nodes,"resources":resources,"document_generation":document._owned_generation(bridge),"geometry_generation":_owned_geometry_generation,"presenter":_asset_presenter._owned_frozen_state(self, bridge, token)}
 
 # Explicit opt-in live demo; old owned publication/renderer entry remains exclusive.
-func bind_continuous_live(port: int, token: String) -> Dictionary:
+func bind_continuous_live(port: int, token: String, admission_mode: String="BOARD_PWM", world_epoch: String="") -> Dictionary:
 	if _continuous_live != null or _owned_world_bridge != null or _owned_geometry_token != null or _authority_pose_bridge != null or not _owned_startup_status().ok:
 		return {"ok":false,"reason":"exclusive_live_owner_required"}
 	if not document.can_edit():return {"ok":false,"reason":"editable_layout_required"}
@@ -1483,7 +1483,11 @@ func bind_continuous_live(port: int, token: String) -> Dictionary:
 	# Do not bypass its validation or present this as an old managed publication.
 	_continuous_live=runner
 	add_child(runner)
-	return runner.install(self,_drill_root,shapes,{"center":document.gate_position("entry"),"normal":document.gate_normal("entry")},{"center":document.gate_position("exit"),"normal":document.gate_normal("exit")},port,token)
+	var installed: Dictionary=runner.install(self,_drill_root,shapes,{"center":document.gate_position("entry"),"normal":document.gate_normal("entry")},{"center":document.gate_position("exit"),"normal":document.gate_normal("exit")},port,token,admission_mode,world_epoch)
+	if installed.get("ok",false):
+		for child in _drill_root.get_children():
+			if child is Label3D:child.text="实体钻头·PC直控模式" if admission_mode=="PC_DIRECT" else "实体钻头·实板输出模式"
+	return installed
 
 func _continuous_collect_shapes(node: Node, result: Array) -> void:
 	if node is CollisionShape3D and node.shape!=null:

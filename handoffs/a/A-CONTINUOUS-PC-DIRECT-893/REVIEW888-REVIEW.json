@@ -1,0 +1,45 @@
+{
+  "read_only": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "files": {
+    "competition/deepeye/simulator/runtime/live_pc_direct_admission.gd": {
+      "sha256": "6d873601ce028015343eea490b0a8ca5177d2242a026d39e9d5853dd38853750",
+      "bytes": 8644
+    },
+    "competition/deepeye/simulator/runtime/continuous_live_runner.gd": {
+      "sha256": "3ab9f8487f9ecd3a709540b51c6f0f0e9b9b8c6b193c51c5d64948bd4edd2f94",
+      "bytes": 14790
+    },
+    "competition/deepeye/simulator/viewer/main.gd": {
+      "sha256": "bb9395e9e1d53fff7fd14c43b2d319d06b4966550903a14623ed77146c31df13",
+      "bytes": 63510
+    },
+    "competition/deepeye/simulator/runtime/continuous_demo_bootstrap.gd": {
+      "sha256": "b675bf50a50708ec7086e6d0bfa2adcf89eb054f5fed23fcb3e440a9e138e044",
+      "bytes": 32846
+    },
+    "competition/deepeye/simulator/tests/test_live_pc_direct_admission.gd": {
+      "sha256": "a09c56ab7b05764b4559f421ce3d3eb193eb5d120e8a9f5e09faa4f21c1add8b",
+      "bytes": 6095
+    }
+  },
+  "report_sha256": "115d228572f752a73f41df5f8725a42a42ea114444a44f84ae498250e7bd6e70",
+  "operational_findings": [
+    {
+      "id": "ARRIVED_RPC_RACE",
+      "file": "competition/deepeye/simulator/runtime/continuous_live_runner.gd",
+      "lines": [
+        207,
+        219
+      ],
+      "status": "reported_to_Root_no_patch_by_reviewer"
+    }
+  ],
+  "host_reference": {
+    "client884": "24e698653aa0a43dba775e20fcc42cf88abb805033ef509861f09d0b91188280",
+    "controller887": "1774954908d14494c4db77e468ac6e91da7293e68f70ae7dbf47db069c378312"
+  },
+  "tests_run": 0,
+  "effects": false,
+  "formal_all29": "not_run"
+}

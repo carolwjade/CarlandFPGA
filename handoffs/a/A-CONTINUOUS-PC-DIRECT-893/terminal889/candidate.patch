@@ -1,0 +1,65 @@
+--- frozen887/controller887.py
++++ terminal889/controller889.py
+@@ -7,7 +7,7 @@
+ O=pathlib.Path(__file__).parent;R=pathlib.Path('C:/Users/CarlJade/Documents/ChatGPT/FPGA多机协作开发');W=pathlib.Path('C:/Users/CarlJade/.codex/worktrees/a-demo-production-channel/FPGA多机协作开发')
+ sys.path[:0]=[str(W),str(O/'continuous-board-session-800/source'),str(O/'continuous-B-review-fix-822'),str(O/'continuous-command-map-810')]
+ from host_board_session import BoardSession
+-from competition.deepeye.integration.continuous_native_client import NativeClient
++from competition.deepeye.integration.continuous_native_client import NativeClient,NativeRejected
+ from competition.deepeye.integration.live_pc_direct import PcDirectClient,advice_applicable as pc_advice_applicable,SOURCE_AGE_NS
+ from competition.deepeye.simulation.sensors.live_sensor_worker import LiveSensorWorker,SnapshotPose
+ from competition.deepeye.ai_pc.continuous_live_advice import LiveAIWorker,LiveProfile
+@@ -140,6 +140,26 @@
+    raise ValueError('REQUIRED_ADMISSION_MODE')
+  return mode
+ 
++def pc_rpc_or_arrived(native,result,log,operation,*args,**kwargs):
++ """Consume ONLY an explicit known PC terminal rejection; never resend IO."""
++ try:
++  return operation(*args,**kwargs)
++ except NativeRejected as error:
++  response=error.response
++  if response.get('ok') is not False or response.get('reason')!='already_arrived':raise
++  state=response.get('state');native._validate_state(state)
++  if state['admission_mode']!='PC_DIRECT' or state['phase']!='ARRIVED' or state['fault']!='':
++   raise ValueError('PC_TERMINAL_REJECTION_STATE') from error
++  # This precedes the confirmation read, log, source/AI close and all board waits.
++  stop_native_once(native,result,'pc_already_arrived_known_rejection')
++  confirmed=native.state();native._validate_state(confirmed['native'])
++  if confirmed['native']['phase']!='ARRIVED' or confirmed['native']['fault']!='operator_stop':
++   raise ValueError('PC_TERMINAL_STOP_CONFIRMATION') from error
++  result['arrival']=True;result['arrival_native']=confirmed
++  log('pc-known-terminal-not-admitted',operation=operation.__name__,
++      rejection=response,confirmed_native=confirmed,no_retry=True)
++  return None
++
+ def main(run):
+  from command_map import command_for_advice
+  cfg=load(run/'config.json');status=pathlib.Path(cfg['host_status_file']);epoch=cfg['world_epoch']
+@@ -215,12 +235,13 @@
+      assert r['source_digest']==digest(payload) and r['source_seq']==meta['source_seq'] and r['correlation']=='FOUR_FRAME_CRC_SOURCE_CONSISTENT'
+      decoded=[row['points'][0]['value'] for row in r['decoded']]
+      assert decoded==list(original.channel_counts) and r['quality']==original.quality
+-     observation={k:payload[k] for k in ['world_epoch','segment_id','at_qpc_ns','completed_qpc_ns','position_m','orientation_xyzw','speed_m_s','quality']}
+      if direct and not want_stop:
+       if now-int(payload['at_qpc_ns'])>=SOURCE_AGE_NS:
+        log('pc-source-expired-before-observe',source=payload,actual_board=actual);continue
+-      registered=native.observe_pc(meta['native_snapshot'],payload,actual,source_seq=meta['source_seq'])
++      registered=pc_rpc_or_arrived(native,result,log,native.observe_pc,meta['native_snapshot'],payload,actual,source_seq=meta['source_seq'])
++      if registered is None:want_stop=True;continue
+       log('pc-real-observation-native-registered',source=payload,actual_board=actual,native=registered)
++     observation={k:payload[k] for k in ['world_epoch','segment_id','at_qpc_ns','completed_qpc_ns','position_m','orientation_xyzw','speed_m_s','quality']}
+      observation.update(channel_counts=decoded,board_frame_sha256=hashlib.sha256(bytes.fromhex(r['wire_hex'])).hexdigest(),source_record_sha256=digest(payload),board_return_qpc_ns=str(actual['host_returned_ns']))
+      display(counts=decoded,quality=r['quality'],wire_bytes=len(bytes.fromhex(r['wire_hex'])),lossless_match=True,sample_count=meta['source_seq'],codec='FPGA E4无损还原，允许RAW回退')
+      log('source-e4-correlated',source=payload,actual_board=actual,public_observation=observation)
+@@ -275,8 +296,9 @@
+      chosen_hash=digest(chosen)
+      if held is None or command!=held or chosen_hash!=last_pc_advice_hash:
+       reserved=control.reserve_initial()
+-      accepted=native.apply_advice(chosen,sample,command,paused=control.paused,
++      accepted=pc_rpc_or_arrived(native,result,log,native.apply_advice,chosen,sample,command,paused=control.paused,
+                                    operator_cap_m_s=control.speed_limit())
++      if accepted is None:want_stop=True;continue
+       control.consume_initial(reserved)
+       control.acknowledge_apply(control.operator_generation,control.control_seq,command,
+                                control_ack_allowed=not control.awaiting_resume_ai)

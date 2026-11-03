@@ -1,0 +1,40 @@
+--- frozen884/controller884.py
++++ mode887/controller887.py
+@@ -128,12 +128,21 @@
+   return False
+  return True
+ 
++def selected_mode(config,frozen):
++ """The real pre-start UI selection is immutable after native bind.
++ cfg.admission_mode initializes UI preference only; required is commissioning.
++ """
++ mode=frozen.get('admission_mode','BOARD_PWM')
++ if mode not in ('BOARD_PWM','PC_DIRECT'):raise ValueError('FROZEN_ADMISSION_MODE')
++ required=config.get('required_admission_mode')
++ if required is not None:
++  if required not in ('BOARD_PWM','PC_DIRECT') or mode!=required:
++   raise ValueError('REQUIRED_ADMISSION_MODE')
++ return mode
++
+ def main(run):
+  from command_map import command_for_advice
+  cfg=load(run/'config.json');status=pathlib.Path(cfg['host_status_file']);epoch=cfg['world_epoch']
+- mode=cfg.get('admission_mode','BOARD_PWM')
+- if mode not in ('BOARD_PWM','PC_DIRECT'):raise ValueError('EXPLICIT_ADMISSION_MODE')
+- direct=mode=='PC_DIRECT'
+  operation_id=cfg['operation_id'];board_stage=pathlib.Path(cfg['board_stage_directory'])
+  if not board_stage.is_absolute():board_stage=O/board_stage
+  control=RunControl()
+@@ -154,10 +163,10 @@
+  frozen_path=run/'frozen.json'
+  while not frozen_path.exists():time.sleep(.05)
+  frozen=load(frozen_path);assert frozen['world_epoch']==epoch and frozen['native_install_result']['ok'] is True
+- if frozen.get('admission_mode','BOARD_PWM')!=mode:raise ValueError('FROZEN_ADMISSION_MODE')
++ mode=selected_mode(cfg,frozen);direct=mode=='PC_DIRECT'
++ result['admission_mode']=mode;visible['admission_mode']=mode;visible['action_source']='pc_direct_host' if direct else 'board_capture'
+  gates=frozen['public_gates'];public_goal=dict(exit_center_m=gates['exit']['center'],exit_outward_normal_world=gates['exit']['normal'],gate_radius_m=.25,entry_center_m=gates['entry']['center'],entry_inward_normal_world=[-v for v in gates['entry']['normal']],exit_clearance_m=.65)
+  native=(PcDirectClient.connect(cfg['port'],cfg['token'],world_epoch=epoch) if direct else NativeClient.connect(cfg['port'],cfg['token']));source=None;ai=None;board=None
+- result['admission_mode']=mode;visible['admission_mode']=mode;visible['action_source']='pc_direct_host' if direct else 'board_capture'
+  board_pool=concurrent.futures.ThreadPoolExecutor(max_workers=1,thread_name_prefix=operation_id)
+  def start_board():
+   nonlocal board

@@ -3,6 +3,7 @@ extends Node
 ## No hidden geometry is returned by public state/RPC. No span-boundary stop.
 const Law = preload("res://runtime/canonical_live_motion.gd")
 const Guard = preload("res://runtime/continuous_volume_guard.gd")
+const DirectAdmission = preload("res://runtime/live_pc_direct_admission.gd")
 const ABI := "DEEPEYE-CONTINUOUS-NATIVE-794-v1"
 const LIVE_LAYER := 1073741824
 const MAX_LINE := 8192
@@ -43,16 +44,22 @@ var _geometry: Node3D
 var _doc_generation := -1
 var _lock: RefCounted
 var _operator_request := ""
+var _admission_mode := "BOARD_PWM"
+var _direct: RefCounted
 
 func install(main: Node3D, drill: Node3D, frozen_shapes: Array, entry: Dictionary,
-		exit_gate: Dictionary, port: int, token: String) -> Dictionary:
+		exit_gate: Dictionary, port: int, token: String, admission_mode: String="BOARD_PWM", world_epoch: String="") -> Dictionary:
 	if _main != null or not is_instance_valid(main) or not is_instance_valid(drill) or token.length()<32 or token.length()>128 or port<1024 or port>65535:
 		return {"ok":false,"reason":"install_arguments"}
+	if not admission_mode in ["BOARD_PWM","PC_DIRECT"] or (admission_mode=="PC_DIRECT" and (world_epoch.is_empty() or world_epoch.length()>128)):
+		return {"ok":false,"reason":"frozen_admission_mode_or_epoch"}
 	for gate: Dictionary in [entry,exit_gate]:
 		if not gate.has("center") or not gate.has("normal") or not gate.center is Vector3 or not gate.normal is Vector3 or not gate.normal in Guard.NORMALS:
 			return {"ok":false,"reason":"public_gate"}
 	if _server.listen(port,"127.0.0.1") != OK:return {"ok":false,"reason":"loopback_listen"}
 	_main=main;_drill=drill;_token=token;_entry=entry.duplicate();_exit_gate=exit_gate.duplicate()
+	_admission_mode=admission_mode
+	if _admission_mode=="PC_DIRECT":_direct=DirectAdmission.new(world_epoch)
 	_geometry=Node3D.new();_geometry.name="ContinuousFrozenCollision794"
 	add_child(_geometry)
 	for item: Dictionary in frozen_shapes:
@@ -110,7 +117,7 @@ func _physics_process(_delta: float) -> void:
 			elif not _main._continuous_pose_write(self,_pose,"0"):fail("initial_write")
 			else:_initial_published=true;_accepted_tick_us=now
 	elif _running and _fault.is_empty():
-		if now>=_deadline_us:fail("real_board_grant_expired")
+		if now>=_deadline_us:fail("pc_direct_observation_or_command_expired" if _admission_mode=="PC_DIRECT" else "real_board_grant_expired")
 		elif now-_last_wall_us>250000:fail("native_frame_stall")
 		else:
 			var cursor := _last_wall_us
@@ -169,9 +176,17 @@ func state() -> Dictionary:
 	if _initial_published and (not _main._continuous_owner_valid(self,_lock,_doc_generation) or not observed.is_equal_approx(_pose)):
 		fail("observed_pose_or_owner_changed")
 	var q := observed.basis.get_rotation_quaternion()
-	return {"abi":ABI,"ready":_initial_published and _fault.is_empty(),"tick_usec":str(acquired_us),"read_now_usec":str(Time.get_ticks_usec()),"revision":str(_revision),"position_m":[observed.origin.x,observed.origin.y,observed.origin.z],"orientation_xyzw":[q.x,q.y,q.z,q.w],"speed_m_s":_speed,"target_speed_m_s":_target_speed,"yaw_curvature_per_m":_ky,"pitch_curvature_per_m":_kp,"phase":_phase,"history":_history.duplicate(),"fault":_fault,"running":_running,"board_request_seq":_board_seq,"board_receipt_sha256":_receipt,"deadline_usec":str(_deadline_us),"operator_request":_operator_request,"formal_acceptance":"not_run"}
+	var value := {"abi":ABI,"ready":_initial_published and _fault.is_empty(),"tick_usec":str(acquired_us),"read_now_usec":str(Time.get_ticks_usec()),"revision":str(_revision),"position_m":[observed.origin.x,observed.origin.y,observed.origin.z],"orientation_xyzw":[q.x,q.y,q.z,q.w],"speed_m_s":_speed,"target_speed_m_s":_target_speed,"yaw_curvature_per_m":_ky,"pitch_curvature_per_m":_kp,"phase":_phase,"history":_history.duplicate(),"fault":_fault,"running":_running,"board_request_seq":_board_seq,"board_receipt_sha256":_receipt,"deadline_usec":str(_deadline_us),"operator_request":_operator_request,"formal_acceptance":"not_run"}
+	if _admission_mode=="PC_DIRECT":value.merge(_direct.public_fields())
+	return value
+
+func _rpc_state() -> Dictionary:
+	var value := state()
+	if _admission_mode=="PC_DIRECT":value.source_witness=_direct.make_snapshot(value,Time.get_ticks_usec())
+	return value
 
 func apply_target(r: Dictionary) -> Dictionary:
+	if _admission_mode!="BOARD_PWM":return {"ok":false,"reason":"admission_mode_mismatch"}
 	if not _initial_published or not _fault.is_empty():return {"ok":false,"reason":"not_ready_or_fault"}
 	for key in ["speed_m_s","yaw_curvature_per_m","pitch_curvature_per_m"]:
 		if not Law._number(r.get(key)):return {"ok":false,"reason":"target_numeric"}
@@ -185,7 +200,31 @@ func apply_target(r: Dictionary) -> Dictionary:
 	if not receipt is String or receipt.length()!=64 or not receipt.is_valid_hex_number(false):return {"ok":false,"reason":"actual_receipt_digest"}
 	_target_speed=v;_ky=ky;_kp=kp;_deadline_us=end;_board_seq=int(bs);_receipt=receipt
 	_running=true;_operator_request=""
-	return {"ok":true,"state":state()}
+	return {"ok":true,"state":_rpc_state()}
+
+func observe_pc(r: Dictionary) -> Dictionary:
+	if _admission_mode!="PC_DIRECT":return {"ok":false,"reason":"admission_mode_mismatch"}
+	if _phase=="ARRIVED":return {"ok":false,"reason":"already_arrived","state":_rpc_state()}
+	if not _initial_published or not _fault.is_empty():return {"ok":false,"reason":"not_ready_or_fault"}
+	if r.size()!=DirectAdmission.OBS_FIELDS.size()+4:return {"ok":false,"reason":"pc_observation_fields"}
+	var fields: Dictionary={}
+	for key in DirectAdmission.OBS_FIELDS:
+		if not r.has(key):return {"ok":false,"reason":"pc_observation_fields"}
+		fields[key]=r[key]
+	var checked: Dictionary=_direct.observe(fields,Time.get_ticks_usec())
+	if not checked.ok:return checked
+	return {"ok":true,"state":_rpc_state()}
+
+func apply_pc_direct(r: Dictionary, paused: bool=false) -> Dictionary:
+	if _admission_mode!="PC_DIRECT":return {"ok":false,"reason":"admission_mode_mismatch"}
+	if _phase=="ARRIVED":return {"ok":false,"reason":"already_arrived","state":_rpc_state()}
+	if not _initial_published or not _fault.is_empty():return {"ok":false,"reason":"not_ready_or_fault"}
+	if r.size()!=6 or not r.has("command_json") or not r.has("command_sha256"):return {"ok":false,"reason":"pc_command_fields"}
+	var checked: Dictionary=_direct.admit(r.command_json,r.command_sha256,Time.get_ticks_usec(),paused)
+	if not checked.ok:return checked
+	_target_speed=checked.speed_m_s;_ky=checked.yaw_curvature_per_m;_kp=checked.pitch_curvature_per_m
+	_deadline_us=checked.native_deadline_usec;_running=true;_operator_request=""
+	return {"ok":true,"state":_rpc_state()}
 
 func _dispatch(r: Dictionary) -> Dictionary:
 	if r.get("abi")!=ABI or r.get("token")!=_token:return {"ok":false,"reason":"identity"}
@@ -194,16 +233,19 @@ func _dispatch(r: Dictionary) -> Dictionary:
 	_seq=int(seq)
 	if not _hello:
 		if r.get("op")!="hello":return {"ok":false,"reason":"hello_required"}
-		_hello=true;return {"ok":true,"state":state()}
+		_hello=true;return {"ok":true,"state":_rpc_state()}
 	match r.get("op"):
-		"state":return {"ok":true,"state":state()}
+		"state":return {"ok":true,"state":_rpc_state()}
 		"apply":return apply_target(r)
+		"observe_pc":return observe_pc(r)
+		"apply_pc_direct":return apply_pc_direct(r)
+		"pause_pc_direct":return apply_pc_direct(r,true)
 		"pause":
 			if r.get("speed_m_s")!=0.0:return {"ok":false,"reason":"pause_requires_actual_zero_target"}
 			return apply_target(r)
 		"stop":
 			operator_stop_requested.emit("live_rpc_stop")
-			fail("operator_stop");return {"ok":true,"state":state(),"board_stop_acknowledged":false}
+			fail("operator_stop");return {"ok":true,"state":_rpc_state(),"board_stop_acknowledged":false}
 	return {"ok":false,"reason":"operation"}
 
 func _poll_rpc() -> void:
