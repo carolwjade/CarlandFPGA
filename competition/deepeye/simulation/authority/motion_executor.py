@@ -184,6 +184,7 @@ class OwnedMotionExecutor:
         self._owner=threading.get_ident();self._busy=False;self._pending={}
         self._generation=0;self._used_sessions=set()
         self._offboard_owner=None
+        self._admitted_navigation_profile=None
         self._world_binding=w.digest((initial_state.context,scene.digest,model,budget))
         self._root=_Root(0,0,initial_state.pose,initial_state.pose_revision,initial_state,None,
             None,None,True,False,False,initial_state.monotonic_ns)
@@ -269,6 +270,7 @@ class OwnedMotionExecutor:
         self._pending.clear()
         self._root=replace(root,revision=root.revision+1,revoke_generation=root.revoke_generation+1,
             boot=boot,command=None,stopped=root.trial_failed)
+        self._admitted_navigation_profile=None
 
     @_entry
     def admit_command(self,boot,command_raw,*,navigation_profile=None):
@@ -295,6 +297,24 @@ class OwnedMotionExecutor:
         command=_Command(boot,command_raw,sequence,issue,issue+target['duration_ms']*1_000_000,
             profile,target['speed_code'],target['yaw_q'],target['pitch_q'])
         self._pending.clear();self._root=replace(root,revision=root.revision+1,command=command)
+        self._admitted_navigation_profile=navigation_profile
+
+    def _demo_entry_inward_clearance(self,phase,command):
+        """Only an original route command may request the retained-entry proof."""
+        from .navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
+        if (self._admitted_navigation_profile is not NAV_ROUTE_LONGTTL_600S_V1
+                or self._budget.motion_profile is not horizon.DEMO_100MS
+                or type(command) is not _Command or self._root.command is not command
+                or phase.phase!='INSIDE' or phase.entered is not True
+                or not any(e.kind=='ENTERED' for e in phase.history)
+                or command.profile!='fast_9600' or command.speed_code!=1
+                or command.yaw_q!=0 or command.pitch_q!=0):
+            return False
+        blue=phase.context.layout.blue;inward=tuple(-x for x in blue.normal)
+        depth=sum((F(x)-F(c))*F(n) for x,c,n in zip(phase.pose.position_m,blue.center_m,inward))
+        required=(F(phase.context.envelope.half_segment_m)+F(phase.context.envelope.radius_m)
+                  +self._budget.numeric+self._budget.asset+F(.05))
+        return required-depth>F(4,100)
 
     def _sweep(self,record):
         # CP errors already cover inherited/accumulated numerical position,
@@ -329,7 +349,8 @@ class OwnedMotionExecutor:
         path=cp.CanonicalPath(root.pose,command.profile,command.speed_code,command.yaw_q,command.pitch_q,dt_ns,
             inherited_errors=p.required_inherited_errors(phase,dt_ns,motion_profile=self._budget.motion_profile),
             error_budget_reference=phase.error_budget_reference,motion_profile=self._budget.motion_profile)
-        relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices)
+        relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices,
+            entry_inward_clearance_v1=(not fixture and self._demo_entry_inward_clearance(phase,command)))
         preview=relative.preview
         if preview.status!='SAFE':
             if preview.failure_candidate:self.revoke('proved workspace violation',trial_failed=True)

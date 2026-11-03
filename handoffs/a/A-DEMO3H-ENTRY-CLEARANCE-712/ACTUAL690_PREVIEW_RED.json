@@ -1,0 +1,66 @@
+{
+  "AI_model": false,
+  "PDE": false,
+  "actual_operation": "A-GEN4-BOARD-OUTPUT-NAV-20261103-690-R01",
+  "actual_retained_pose": [
+    11.799999999999999,
+    14.478526388750012,
+    5.797000000000007e-60
+  ],
+  "board": false,
+  "numeric_only": true,
+  "reconstructed_pose": {
+    "orientation_xyzw": [
+      0.7071067811865476,
+      -0.0,
+      -0.0,
+      0.7071067811865476
+    ],
+    "position_m": [
+      11.799999999999999,
+      14.478526388750012,
+      5.797000000000007e-60
+    ],
+    "speed_m_s": 0.0125
+  },
+  "reconstructed_pose_revision": 107,
+  "red_preview": {
+    "failure_candidate": false,
+    "proofs": [
+      {
+        "faces": [
+          {
+            "face": "top",
+            "method": "ENVELOPE_NOT_CLEAR"
+          },
+          {
+            "face": "bottom",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        "reason": "insufficient envelope/aperture/budget evidence",
+        "status": "UNKNOWN"
+      }
+    ],
+    "reason": "insufficient envelope/aperture/budget evidence",
+    "status": "UNKNOWN"
+  },
+  "source_authority_minted": false,
+  "synthetic_relative_time_anchor": 0
+}

@@ -13,6 +13,31 @@ from .g05_csr_channels_v1 import (_Mapping, _need, _raw, _sha, _uint,
                                  validate_raw4_observation)
 
 
+_NAV_ENTRY_CLEARANCES = {}  # Strong original channel/layout/Root refs; one finite run.
+
+
+def _nav_entry_clearance_reached(position,goal,inward):
+    """Public own-pose/blue-plane progress only; no obstacle or preview input."""
+    _need(len(position)==len(goal)==len(inward)==3,'public entry-clearance geometry required')
+    _need(all(type(x) in (int,float,Fraction) and (type(x) is not float or math.isfinite(x))
+              for x in (*position,*goal,*inward)),'finite own/public entry geometry')
+    n=tuple(Fraction(x) for x in inward)
+    _need(all(x in (-1,0,1) for x in n) and sum(abs(x) for x in n)==1,'public inward face normal')
+    remaining=sum((Fraction(g)-Fraction(x))*a for x,g,a in zip(position,goal,n))
+    return remaining<=Fraction(4,100)
+
+
+def _nav_entry_clearance_ready(channel,root,layout,position,goal,inward):
+    prior=_NAV_ENTRY_CLEARANCES.get(channel)
+    if prior is not None:
+        _need(prior[0] is layout and prior[1].phase.context is root.phase.context
+              and prior[1].pose_revision<=root.pose_revision,'original monotone entry-clearance witness')
+        return True
+    if not _nav_entry_clearance_reached(position,goal,inward):return False
+    _NAV_ENTRY_CLEARANCES[channel]=(layout,root)
+    return True
+
+
 def _nav_exit_goal(center,normal,half_segment,radius,numeric,asset,margin):
     """Public red-gate/body clearance target; never arrival or aperture proof."""
     _need(type(center) in (tuple,list) and len(center)==3 and
@@ -227,10 +252,18 @@ def project_original_g05(association, *, max_source_age_ns):
               'original executed whole-entry history required')
         _need((passage.phase in ('INSIDE','EXIT_CROSSING','ARRIVED'))==passage.entered,
               'executed portal stage mismatch')
-        # Never steer back to blue after its committed ENTERED event, even
-        # for same-face gates or after the bounded public action window rolls.
-        gate=values.layout.red if passage.entered else values.layout.blue
-        normal=gate.normal if passage.entered else tuple(-x for x in gate.normal)
+        use_exit=passage.entered
+        if (use_exit and navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
+                and passage.phase=='INSIDE'):
+            blue=values.layout.blue;inward=tuple(-x for x in blue.normal)
+            entry_goal=_nav_exit_goal(blue.center_m,inward,
+                values.envelope.half_segment_m,values.envelope.radius_m,
+                declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)
+            use_exit=_nav_entry_clearance_ready(c,root,values.layout,
+                current['pose']['position_m'],entry_goal,inward)
+        # Once the own Root reaches entry clearance, never return to blue.
+        gate=values.layout.red if use_exit else values.layout.blue
+        normal=gate.normal if use_exit else tuple(-x for x in gate.normal)
         goal=_nav_exit_goal(gate.center_m,normal,
             values.envelope.half_segment_m,values.envelope.radius_m,
             declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)

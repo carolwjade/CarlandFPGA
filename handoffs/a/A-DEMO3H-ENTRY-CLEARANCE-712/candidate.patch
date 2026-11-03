@@ -1,0 +1,187 @@
+--- a/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
++++ b/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
+@@ -11,6 +11,31 @@
+ 
+ from .g05_csr_channels_v1 import (_Mapping, _need, _raw, _sha, _uint,
+                                  validate_raw4_observation)
++
++
++_NAV_ENTRY_CLEARANCES = {}  # Strong original channel/layout/Root refs; one finite run.
++
++
++def _nav_entry_clearance_reached(position,goal,inward):
++    """Public own-pose/blue-plane progress only; no obstacle or preview input."""
++    _need(len(position)==len(goal)==len(inward)==3,'public entry-clearance geometry required')
++    _need(all(type(x) in (int,float,Fraction) and (type(x) is not float or math.isfinite(x))
++              for x in (*position,*goal,*inward)),'finite own/public entry geometry')
++    n=tuple(Fraction(x) for x in inward)
++    _need(all(x in (-1,0,1) for x in n) and sum(abs(x) for x in n)==1,'public inward face normal')
++    remaining=sum((Fraction(g)-Fraction(x))*a for x,g,a in zip(position,goal,n))
++    return remaining<=Fraction(4,100)
++
++
++def _nav_entry_clearance_ready(channel,root,layout,position,goal,inward):
++    prior=_NAV_ENTRY_CLEARANCES.get(channel)
++    if prior is not None:
++        _need(prior[0] is layout and prior[1].phase.context is root.phase.context
++              and prior[1].pose_revision<=root.pose_revision,'original monotone entry-clearance witness')
++        return True
++    if not _nav_entry_clearance_reached(position,goal,inward):return False
++    _NAV_ENTRY_CLEARANCES[channel]=(layout,root)
++    return True
+ 
+ 
+ def _nav_exit_goal(center,normal,half_segment,radius,numeric,asset,margin):
+@@ -227,10 +252,18 @@
+               'original executed whole-entry history required')
+         _need((passage.phase in ('INSIDE','EXIT_CROSSING','ARRIVED'))==passage.entered,
+               'executed portal stage mismatch')
+-        # Never steer back to blue after its committed ENTERED event, even
+-        # for same-face gates or after the bounded public action window rolls.
+-        gate=values.layout.red if passage.entered else values.layout.blue
+-        normal=gate.normal if passage.entered else tuple(-x for x in gate.normal)
++        use_exit=passage.entered
++        if (use_exit and navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
++                and passage.phase=='INSIDE'):
++            blue=values.layout.blue;inward=tuple(-x for x in blue.normal)
++            entry_goal=_nav_exit_goal(blue.center_m,inward,
++                values.envelope.half_segment_m,values.envelope.radius_m,
++                declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)
++            use_exit=_nav_entry_clearance_ready(c,root,values.layout,
++                current['pose']['position_m'],entry_goal,inward)
++        # Once the own Root reaches entry clearance, never return to blue.
++        gate=values.layout.red if use_exit else values.layout.blue
++        normal=gate.normal if use_exit else tuple(-x for x in gate.normal)
+         goal=_nav_exit_goal(gate.center_m,normal,
+             values.envelope.half_segment_m,values.envelope.radius_m,
+             declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)
+--- a/competition/deepeye/simulation/authority/motion/passage_phase.py
++++ b/competition/deepeye/simulation/authority/motion/passage_phase.py
+@@ -151,12 +151,18 @@
+                 if f.face==blue else f.method=='STRICT_INSIDE' for f in proof.faces))
+ 
+ 
+-def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4):
++def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4,entry_inward_clearance_v1=False):
+     if type(path) is not cp.CanonicalPath or type(context) is not RunContext:
+         raise TypeError('canonical path and owner-asserted immutable context required')
+     if not _valid(state):raise ValueError('invalid internal history; no imported arbitrary phase')
+     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
+     if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
++    if type(entry_inward_clearance_v1) is not bool:raise TypeError('explicit internal entry-clearance selection required')
++    if entry_inward_clearance_v1 and (path.provenance.motion_profile is not horizon.DEMO_100MS
++            or path.provenance.raw_command!=('fast_9600',1,0,0)):
++        raise ValueError('retained entry clearance is only the selected100ms minimum-speed straight command')
++    retained_entered=(next((e for e in reversed(state.history) if e.kind=='ENTERED'),None)
++        if entry_inward_clearance_v1 and state.phase=='INSIDE' and state.entered else None)
+     if (context!=state.context or expected_pose_revision!=state.pose_revision
+             or path.provenance.start_state!=state.pose or start_monotonic_ns<state.monotonic_ns):
+         return Preview('UNKNOWN',state,(),'run/scene/gates/epoch/pose/time mismatch')
+@@ -183,9 +189,11 @@
+         role='entry' if phase in ('OUTSIDE_ENTRY','ENTRY_CROSSING') else 'exit'
+         proof=w.check_slice(prepared,index,role);proofs.append(proof)
+         if proof.status!='SAFE':
+-            # No seeded/prior-plan INSIDE capability and no generic UNKNOWN
+-            # fallback. Only the blue conservative role mismatch is eligible.
+-            if not (phase=='INSIDE' and entered_here is not None and _bridge_mismatch(prepared,index,proof)):
++            # Default has no prior-plan INSIDE fallback. The selected retained
++            # entry mode still needs the original ENTERED event, full entry
++            # cast and strict inward proof; only the blue mismatch is eligible.
++            bridge_entered=entered_here if entered_here is not None else retained_entered
++            if not (phase=='INSIDE' and bridge_entered is not None and _bridge_mismatch(prepared,index,proof)):
+                 return reject(proof.status,proof.reason,proof.status=='VIOLATION_PROVED')
+             # Reserve two extra proof calls before executing either: one full
+             # entry six-face check and one analytic uniform-support check.
+@@ -198,8 +206,9 @@
+                 return reject('UNKNOWN','complete entry bridge aperture conjunction missing')
+             support=w.check_inward_support(prepared,index)
+             if not w._valid_inward_support(prepared,index,support):return reject('UNKNOWN','uniform inward-support non-exit proof missing')
+-            binding=w.digest(('same-plan-entry-bridge-v1',prepared.binding,index,entered_here,proof,entry,support))
+-            bridges.append(EntryBridge(index,entered_here,proof,entry,support,binding))
++            domain='same-plan-entry-bridge-v1' if entered_here is not None else 'retained-entry-inward-clearance-demo-v1'
++            binding=w.digest((domain,prepared.binding,index,bridge_entered,proof,entry,support))
++            bridges.append(EntryBridge(index,bridge_entered,proof,entry,support,binding))
+             continue  # Strictly inside all six faces: no new passage event.
+         if phase=='ARRIVED':
+             # This preview's earlier slice proved full-body red exit. Every
+@@ -230,7 +239,8 @@
+     if (strict_suffix or bridges) and plan.covered_ns!=path.provenance.requested_dt_ns:
+         return reject('UNKNOWN','strict suffix/entry bridge requires the complete original duration')
+     trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
+-    trace=w.digest(('same-plan-entry-bridge-v1',trace_values,tuple(bridges)) if bridges else
++    bridge_domain='retained-entry-inward-clearance-demo-v1' if retained_entered is not None else 'same-plan-entry-bridge-v1'
++    trace=w.digest((bridge_domain,trace_values,tuple(bridges)) if bridges else
+         ('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
+     end=plan.end
+     next_state=_state(context=context,pose=end.state,errors=end.errors,
+@@ -253,7 +263,7 @@
+     duration_ns: int
+ 
+ 
+-def prepare_relative_transition(state,path,context,*,max_slices=16):
++def prepare_relative_transition(state,path,context,*,max_slices=16,entry_inward_clearance_v1=False):
+     if not _valid(state) or type(path) is not cp.CanonicalPath:
+         raise ValueError('valid owned history and canonical path required')
+     duration=path.provenance.requested_dt_ns
+@@ -262,7 +272,7 @@
+     # It neither extends nor supplies a real command/AI/heartbeat deadline.
+     result=preview(state,path,context,expected_pose_revision=state.pose_revision,
+         start_monotonic_ns=anchor,deadline_monotonic_ns=anchor+duration+1,
+-        hard_stop=False,max_slices=max_slices)
++        hard_stop=False,max_slices=max_slices,entry_inward_clearance_v1=entry_inward_clearance_v1)
+     return RelativeTransition(state,result,anchor,duration)
+ 
+ 
+--- a/competition/deepeye/simulation/authority/motion_executor.py
++++ b/competition/deepeye/simulation/authority/motion_executor.py
+@@ -184,6 +184,7 @@
+         self._owner=threading.get_ident();self._busy=False;self._pending={}
+         self._generation=0;self._used_sessions=set()
+         self._offboard_owner=None
++        self._admitted_navigation_profile=None
+         self._world_binding=w.digest((initial_state.context,scene.digest,model,budget))
+         self._root=_Root(0,0,initial_state.pose,initial_state.pose_revision,initial_state,None,
+             None,None,True,False,False,initial_state.monotonic_ns)
+@@ -269,6 +270,7 @@
+         self._pending.clear()
+         self._root=replace(root,revision=root.revision+1,revoke_generation=root.revoke_generation+1,
+             boot=boot,command=None,stopped=root.trial_failed)
++        self._admitted_navigation_profile=None
+ 
+     @_entry
+     def admit_command(self,boot,command_raw,*,navigation_profile=None):
+@@ -295,6 +297,24 @@
+         command=_Command(boot,command_raw,sequence,issue,issue+target['duration_ms']*1_000_000,
+             profile,target['speed_code'],target['yaw_q'],target['pitch_q'])
+         self._pending.clear();self._root=replace(root,revision=root.revision+1,command=command)
++        self._admitted_navigation_profile=navigation_profile
++
++    def _demo_entry_inward_clearance(self,phase,command):
++        """Only an original route command may request the retained-entry proof."""
++        from .navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
++        if (self._admitted_navigation_profile is not NAV_ROUTE_LONGTTL_600S_V1
++                or self._budget.motion_profile is not horizon.DEMO_100MS
++                or type(command) is not _Command or self._root.command is not command
++                or phase.phase!='INSIDE' or phase.entered is not True
++                or not any(e.kind=='ENTERED' for e in phase.history)
++                or command.profile!='fast_9600' or command.speed_code!=1
++                or command.yaw_q!=0 or command.pitch_q!=0):
++            return False
++        blue=phase.context.layout.blue;inward=tuple(-x for x in blue.normal)
++        depth=sum((F(x)-F(c))*F(n) for x,c,n in zip(phase.pose.position_m,blue.center_m,inward))
++        required=(F(phase.context.envelope.half_segment_m)+F(phase.context.envelope.radius_m)
++                  +self._budget.numeric+self._budget.asset+F(.05))
++        return required-depth>F(4,100)
+ 
+     def _sweep(self,record):
+         # CP errors already cover inherited/accumulated numerical position,
+@@ -329,7 +349,8 @@
+         path=cp.CanonicalPath(root.pose,command.profile,command.speed_code,command.yaw_q,command.pitch_q,dt_ns,
+             inherited_errors=p.required_inherited_errors(phase,dt_ns,motion_profile=self._budget.motion_profile),
+             error_budget_reference=phase.error_budget_reference,motion_profile=self._budget.motion_profile)
+-        relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices)
++        relative=p.prepare_relative_transition(phase,path,phase.context,max_slices=self._max_slices,
++            entry_inward_clearance_v1=(not fixture and self._demo_entry_inward_clearance(phase,command)))
+         preview=relative.preview
+         if preview.status!='SAFE':
+             if preview.failure_candidate:self.revoke('proved workspace violation',trial_failed=True)

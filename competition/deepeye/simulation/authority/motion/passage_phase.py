@@ -151,12 +151,18 @@ def _bridge_mismatch(prepared,index,proof):
                 if f.face==blue else f.method=='STRICT_INSIDE' for f in proof.faces))
 
 
-def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4):
+def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadline_monotonic_ns,hard_stop,max_slices=16,max_bridge_checks=4,entry_inward_clearance_v1=False):
     if type(path) is not cp.CanonicalPath or type(context) is not RunContext:
         raise TypeError('canonical path and owner-asserted immutable context required')
     if not _valid(state):raise ValueError('invalid internal history; no imported arbitrary phase')
     if type(max_slices) is not int or max_slices<0:raise ValueError('nonnegative slice work budget required')
     if type(max_bridge_checks) is not int or max_bridge_checks<0:raise ValueError('nonnegative bridge proof work budget required')
+    if type(entry_inward_clearance_v1) is not bool:raise TypeError('explicit internal entry-clearance selection required')
+    if entry_inward_clearance_v1 and (path.provenance.motion_profile is not horizon.DEMO_100MS
+            or path.provenance.raw_command!=('fast_9600',1,0,0)):
+        raise ValueError('retained entry clearance is only the selected100ms minimum-speed straight command')
+    retained_entered=(next((e for e in reversed(state.history) if e.kind=='ENTERED'),None)
+        if entry_inward_clearance_v1 and state.phase=='INSIDE' and state.entered else None)
     if (context!=state.context or expected_pose_revision!=state.pose_revision
             or path.provenance.start_state!=state.pose or start_monotonic_ns<state.monotonic_ns):
         return Preview('UNKNOWN',state,(),'run/scene/gates/epoch/pose/time mismatch')
@@ -183,9 +189,11 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
         role='entry' if phase in ('OUTSIDE_ENTRY','ENTRY_CROSSING') else 'exit'
         proof=w.check_slice(prepared,index,role);proofs.append(proof)
         if proof.status!='SAFE':
-            # No seeded/prior-plan INSIDE capability and no generic UNKNOWN
-            # fallback. Only the blue conservative role mismatch is eligible.
-            if not (phase=='INSIDE' and entered_here is not None and _bridge_mismatch(prepared,index,proof)):
+            # Default has no prior-plan INSIDE fallback. The selected retained
+            # entry mode still needs the original ENTERED event, full entry
+            # cast and strict inward proof; only the blue mismatch is eligible.
+            bridge_entered=entered_here if entered_here is not None else retained_entered
+            if not (phase=='INSIDE' and bridge_entered is not None and _bridge_mismatch(prepared,index,proof)):
                 return reject(proof.status,proof.reason,proof.status=='VIOLATION_PROVED')
             # Reserve two extra proof calls before executing either: one full
             # entry six-face check and one analytic uniform-support check.
@@ -198,8 +206,9 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
                 return reject('UNKNOWN','complete entry bridge aperture conjunction missing')
             support=w.check_inward_support(prepared,index)
             if not w._valid_inward_support(prepared,index,support):return reject('UNKNOWN','uniform inward-support non-exit proof missing')
-            binding=w.digest(('same-plan-entry-bridge-v1',prepared.binding,index,entered_here,proof,entry,support))
-            bridges.append(EntryBridge(index,entered_here,proof,entry,support,binding))
+            domain='same-plan-entry-bridge-v1' if entered_here is not None else 'retained-entry-inward-clearance-demo-v1'
+            binding=w.digest((domain,prepared.binding,index,bridge_entered,proof,entry,support))
+            bridges.append(EntryBridge(index,bridge_entered,proof,entry,support,binding))
             continue  # Strictly inside all six faces: no new passage event.
         if phase=='ARRIVED':
             # This preview's earlier slice proved full-body red exit. Every
@@ -230,7 +239,8 @@ def preview(state,path,context,*,expected_pose_revision,start_monotonic_ns,deadl
     if (strict_suffix or bridges) and plan.covered_ns!=path.provenance.requested_dt_ns:
         return reject('UNKNOWN','strict suffix/entry bridge requires the complete original duration')
     trace_values=(state.trace_hash,prepared.binding,tuple(proofs),tuple(history))
-    trace=w.digest(('same-plan-entry-bridge-v1',trace_values,tuple(bridges)) if bridges else
+    bridge_domain='retained-entry-inward-clearance-demo-v1' if retained_entered is not None else 'same-plan-entry-bridge-v1'
+    trace=w.digest((bridge_domain,trace_values,tuple(bridges)) if bridges else
         ('strict-red-outside-suffix-v1',trace_values) if strict_suffix else trace_values)
     end=plan.end
     next_state=_state(context=context,pose=end.state,errors=end.errors,
@@ -253,7 +263,7 @@ class RelativeTransition:
     duration_ns: int
 
 
-def prepare_relative_transition(state,path,context,*,max_slices=16):
+def prepare_relative_transition(state,path,context,*,max_slices=16,entry_inward_clearance_v1=False):
     if not _valid(state) or type(path) is not cp.CanonicalPath:
         raise ValueError('valid owned history and canonical path required')
     duration=path.provenance.requested_dt_ns
@@ -262,7 +272,7 @@ def prepare_relative_transition(state,path,context,*,max_slices=16):
     # It neither extends nor supplies a real command/AI/heartbeat deadline.
     result=preview(state,path,context,expected_pose_revision=state.pose_revision,
         start_monotonic_ns=anchor,deadline_monotonic_ns=anchor+duration+1,
-        hard_stop=False,max_slices=max_slices)
+        hard_stop=False,max_slices=max_slices,entry_inward_clearance_v1=entry_inward_clearance_v1)
     return RelativeTransition(state,result,anchor,duration)
 
 

@@ -1,0 +1,123 @@
+{
+  "AI_model": false,
+  "PDE": false,
+  "actual_entry_risk": 0.2793995320825391,
+  "actual_new_motion": false,
+  "all_prior_strict_gates_unchanged": true,
+  "board": false,
+  "bridge_counts_each_step": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "calculated_original_speed_limit_m_s": 0.01424209668706044,
+  "complete_scene_solid_checks": [
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR",
+    "CLEAR"
+  ],
+  "counterfactual_inward100ms_steps": 8,
+  "entry_goal": [
+    11.799999999999999,
+    14.428997975097376,
+    0.0
+  ],
+  "identical_actual690_turn_target": {
+    "action": 1,
+    "duration_ms": 12000,
+    "pitch_q": 0,
+    "speed_code": 14,
+    "yaw_q": 1607
+  },
+  "new_numeric_start_pose": [
+    11.799999999999999,
+    14.468526388750007,
+    5.797000000000007e-60
+  ],
+  "new_preview": {
+    "faces": [
+      [
+        {
+          "face": "top",
+          "method": "STRICT_INSIDE"
+        },
+        {
+          "face": "bottom",
+          "method": "STRICT_INSIDE"
+        },
+        {
+          "face": "front",
+          "method": "STRICT_INSIDE"
+        },
+        {
+          "face": "back",
+          "method": "STRICT_INSIDE"
+        },
+        {
+          "face": "left",
+          "method": "STRICT_INSIDE"
+        },
+        {
+          "face": "right",
+          "method": "STRICT_INSIDE"
+        }
+      ]
+    ],
+    "reason": "whole plan preview only; owner must recheck STOP/deadline and CAS",
+    "status": "SAFE"
+  },
+  "new_public_remaining_threshold_m": 0.04,
+  "new_remaining_distance_m": 0.039528413652631045,
+  "old_AI_minimum_speed_trap_avoided": true,
+  "original_quantization_minimum_distance_m": 0.03469328860172702,
+  "original_red": {
+    "failure_candidate": false,
+    "proofs": [
+      {
+        "faces": [
+          {
+            "face": "top",
+            "method": "ENVELOPE_NOT_CLEAR"
+          },
+          {
+            "face": "bottom",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "front",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "back",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "left",
+            "method": "STRICT_INSIDE"
+          },
+          {
+            "face": "right",
+            "method": "STRICT_INSIDE"
+          }
+        ],
+        "reason": "insufficient envelope/aperture/budget evidence",
+        "status": "UNKNOWN"
+      }
+    ],
+    "reason": "insufficient envelope/aperture/budget evidence",
+    "status": "UNKNOWN"
+  },
+  "simulation_only_extra_ns": 800000000,
+  "source_authority_minted": false
+}
