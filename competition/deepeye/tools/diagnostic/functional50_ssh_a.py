@@ -19,7 +19,7 @@ _SSH = r'C:\Windows\System32\OpenSSH\ssh.exe'
 _SSH_HASH = '98d447730047f5df91373e852d057928a921c3d1e89938700ab656ba84b19dc8'
 _KNOWN = r'C:\Users\CarlJade\.ssh\pynq_z2_known_hosts'
 _KNOWN_HASH = '31a10124495b85e9b62bbf46418393124888b2f381f9a4d1334521760ada4418'
-_HOST = 'xilinx@fe80::200:5ff:fe6b:1f5%8'
+_HOST = 'xilinx@fe80::200:5ff:fe6b:1f5%9'
 _MAX_NS = 60_000_000_000
 _ID = re.compile(r'[A-Za-z0-9_-]{1,64}\Z')
 

@@ -4,6 +4,24 @@ from types import SimpleNamespace
 from competition.deepeye.tools.diagnostic import functional50_ssh_a as m
 
 class Tests(unittest.TestCase):
+ def test_fixed_current_interface9_route_accepts_only_trusted_original_arguments(self):
+  # Pure validation only: no SSH process, connection, private-key read or board I/O.
+  from unittest.mock import patch
+  route=(m._SSH,'-6','-T','-i',r'C:\Users\CarlJade\.ssh\pynq_z2_ed25519',
+         '-o','BatchMode=yes','-o','IdentitiesOnly=yes','-o','StrictHostKeyChecking=yes',
+         '-o','HostKeyAlias=pynq-z2-local','-o','UserKnownHostsFile='+m._KNOWN,
+         '-o','ConnectTimeout=8','xilinx@fe80::200:5ff:fe6b:1f5%9')
+  with patch.object(m.subprocess,'Popen',side_effect=AssertionError('route validation must not spawn')):
+   try:m._route(route)
+   except ValueError as error:self.fail('current verified interface9 must pass fixed pins: '+str(error))
+   for index,value in ((17,'xilinx@fe80::200:5ff:fe6b:1f5%8'),
+                       (17,'xilinx@fe80::200:5ff:fe6b:1f6%9'),
+                       (17,'root@fe80::200:5ff:fe6b:1f5%9'),
+                       (10,'StrictHostKeyChecking=no'),
+                       (14,'UserKnownHostsFile='+m._KNOWN+'.old')):
+    changed=list(route);changed[index]=value
+    with self.subTest(index=index,value=value),self.assertRaises(ValueError):m._route(tuple(changed))
+   with self.assertRaises(ValueError):m._route(route[:-1])
  def test_fixed_board_environment(self):
   s=SimpleNamespace(remote_python='/usr/local/share/pynq-venv/bin/python3',remote_script='/tmp/a.py',remote_plan='/tmp/a.json')
   self.assertEqual(m._remote_command(s),"/usr/bin/sudo -S -p '' /usr/bin/env BOARD=Pynq-Z2 XILINX_XRT=/usr /usr/local/share/pynq-venv/bin/python3 -I -B /tmp/a.py /tmp/a.json")
