@@ -1,0 +1,51 @@
+{
+  "base_commit": "817b355887c14cfa9c5d830c8589684f994af082",
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "schema": "deepeye_live_canonical_law_v1",
+  "symbols": {
+    "Target": "Target.from_actual_capture_target(exact5field_measured_target_dict); validates unchanged actual FAST ROM mapping, no authorization.",
+    "LiveLaw.create": "(world_epoch,segment_id,control_seq,start_RigidState,target,parent_segment_id=None)",
+    "LiveLaw.sample": "elapsed_ns -> RigidState; no500ms orAI/observation/segment pause; caller obeys actual validity and runtime collision guards.",
+    "LiveLaw.native_packet": "(host_start_qpc_ns,grant_deadline_qpc_ns,clock_map_id) -> exact serializable live law packet; U63 asdecimal strings. One drive span lasts actual original grant remainder, not arbitrary500ms cap.",
+    "snapshot_from_native": "(same_live_law,law_start_qpc_ns,at_qpc_ns,elapsed_ns,native_frame_seq,actual_pose_RigidState,original_readback_ref,read_begin_qpc_ns,read_return_qpc_ns,grant_deadline_qpc_ns) -> immutable SnapshotPose. Root authenticates readback and native whole-volume acceptance first.",
+    "with_field_result_time": "(same_snapshot,actual_field_return_qpc_ns) -> new immutable result; preserves sampling time/actual accepted pose/reference."
+  },
+  "units": "metres,seconds internally; ns U63 timestamps serializeddecimal strings; quaternionxyzw; body+Z; same original right-handed kinematics law.",
+  "native_fields": [
+    "schema",
+    "requirements_sha256",
+    "world_epoch",
+    "segment_id",
+    "parent_segment_id",
+    "control_seq",
+    "host_start_qpc_ns",
+    "clock_map_id",
+    "duration_ns",
+    "drive_deadline_qpc_ns",
+    "spans",
+    "hold_last_target=true",
+    "stop_on_span_boundary=false",
+    "brake_deceleration_m_s2=.25",
+    "formal_geometry_proof=not_run",
+    "runtime_volume_guard_required=true",
+    "law_sha256"
+  ],
+  "span_fields": [
+    "offset_ns",
+    "dt_ns",
+    "start_position_m",
+    "start_orientation_xyzw",
+    "start_speed_m_s",
+    "target_speed_m_s",
+    "acceleration_m_s2",
+    "ramp_ns",
+    "yaw_curvature_per_m",
+    "pitch_curvature_per_m",
+    "proof_sha256=null"
+  ],
+  "native_evaluator": "Same analytic law previously sent; target speed/rate is measured-board FAST mapping. Do not clamp speed tozero at span boundary. Renew actual grant or replace law continuously before original expiry; normal pendingAI keeps previous target. A real fault/expired lease invokes genuine stop behavior.",
+  "pause": "On actual captured speed0/STOP create successor law from actual current accepted RigidState, target0. Position/quaternion/speed join unchanged; deceleration.25m/s2. Emergency native volume STOP may remain at last accepted safe pose; source uses actual accepted snapshot, never predicted future pose.",
+  "safety": "Every actual frame requires Root native complete capsule swept-volume/rotation inflation/portal fullcross guard. Module is numerical mechanics only: packet flags do not authenticate collision/board/source. Whole formal proof/old4pin integration deferred and explicitlynot_run.",
+  "geometry": "New.25m radius policy is Root-owned work to merge later; modules have no hardcoded gate/obstacle geometry or truth access.",
+  "new_source4pin_edits": false
+}

@@ -1,0 +1,180 @@
+{
+  "contract_revision": 2,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "tested_read_head": "817b355887c14cfa9c5d830c8589684f994af082",
+  "status": "first concrete design, no active-source edits or board/native/UI effects",
+  "approaches": [
+    {
+      "id": "A",
+      "recommendation": true,
+      "name": "owner-clock certified live segment with native actual frame evaluation",
+      "why": "Separates finite proof/lease from continuous actual motion and slow observation/AI/board service. Enables causal moving source snapshots and true frame poses under the same law."
+    },
+    {
+      "id": "B",
+      "name": "Python sends certified timed poses each render frame",
+      "tradeoff": "Can be initial integration fallback if same segment/time contract is maintained; IPC/main-thread cadence and bounded renderer lag must be measured. No uncertified between-frame pose or mismatched source pose."
+    },
+    {
+      "id": "C",
+      "name": "keep STEP/getter serialization and render a tween",
+      "rejected": "Endpoint animation does not resolve frozen source custody, inference exactRoot veto or physical paused world; would violate H09/H10 if presented as continuous actual motion."
+    }
+  ],
+  "minimal_first_run": {
+    "protocol": "new live selector defaultNone; keep actual selected FPGA image/PWM capture. Begin with low actual PWM speedcode2=.025m/s, continuously render0.025m/s, not time-lapse.",
+    "why_speed2": "Existing core source-pose applicability is.25m/15deg. Measured6.14s pipeline at.025m/s moves.154m; with margin it fits current pose applicability while .175m/s would move>1m. This is an honest engineering starting cap, not a manufacturer fact or quality pass.",
+    "adaptive_limit": "v<=min(actualAI speedlimit,operator requested speedcap,remaining valid displacement/(measured latency bound+proof+brake reserve)); angular change also fits15deg. Every limited target travels through real board APPLY/capture.",
+    "horizon": "Prepare several seconds of finite certified motion from current captured target plus stop tail, with enough overlap for measured slow pipeline; never exceed real command12s/source/health/actor deadlines. Use finite canonical subspans<=500ms and same full-volume proof each; renderer follows the entire installed law continuously.",
+    "worker_model": "One authority/native owner event loop never blocks on2-6s RPC or source calculation. One Root-owned board worker serializes SDK/TRACE/APPLY in exact request order; one trusted source-only numerical worker consumes immutable sampling snapshots; one AI child works on bounded public input. Only owner thread verifies worker originals and installs grants.",
+    "first_dod": [
+      "Actual native frame readbacks show monotone advancing pose/time while a real TRACE/AI/APPLY is in flight.",
+      "Source EM/ADC receipts tie to actual motion-time SnapshotPose and scoped source computation, with no screen/truth input to AI.",
+      "Observed board PWM target drives speed/direction and user pause/speed request is marked pending until captured; new law joins position/orientation/speed continuously.",
+      "Original whole-body collision/aperture and brake-tail certificates cover every rendered/physical pose; last-safe boundary stops if no valid successor.",
+      "No task-level64/600 cap; finite internal resources roll epochs with custody/terminal evidence. This live path has its own qualification, old batch proofs remain historical."
+    ]
+  },
+  "API": {
+    "LivePolicyV1": {
+      "activation": "defaultNone preserves existing STEP/book/native protocol exactly; explicit new live selector and new source4pins only after Root commits them",
+      "identity": "DEEPEYE-CERTIFIED-LIVE-SEGMENT-V1; bind actual revision2 requirementSHA, world geometry epoch, source/engine/writer/clock policy hashes, hardware build and captured command grant",
+      "limits": "finite per-segment proof complexity, source pose applicability and watchdog leases; no user-task maximum command count or elapsed duration"
+    },
+    "prepare_live_segment": {
+      "input": [
+        "original immutable passage/Root at real anchor",
+        "original current captured FPGA command event and conservative real deadline",
+        "original scene/body/WorldBudget bound to same world epoch",
+        "command mapping plus measured target and requested finite segment horizon",
+        "original clock binding",
+        "certified brake tail"
+      ],
+      "output": "opaque PreparedLiveSegment with complete canonical span chain and all per-span six-face/aperture/solid proofs; never a JSON-created authority",
+      "rule": "certify every point of requested trajectory and pre-planned brake path; proof failure creates no live installation; finite horizon must fit real grant/source/health/actor bounds"
+    },
+    "activate_live_segment_once": {
+      "owner": "Root authority/native owner thread only",
+      "input": "original PreparedLiveSegment + expected active parent/pose cutover + original one-shot CAS fence",
+      "output": "LiveLease whose start actual time is acknowledged and mapped to native monotonic clock; no early endpoint Root commit",
+      "continuity": "parent.sample(cutover) equals successor start position/quaternion/speed within existing checked export bounds; context/layout/stop generation and command lineage exact"
+    },
+    "pose_at": {
+      "input": "exact active lease identity + actual ownerQPC sample time",
+      "output": "SnapshotPose(segment_id,world_epoch,atQPC,elapsed,position,quaternion,speed,canonical_sample_error,proof_chain_hash,original grant ref)",
+      "rule": "sample only within installed certified interval and actual still-valid live/watchdog/native lease; reject before start/after end/retired or changed world; neither snapshots nor labels grant motion"
+    },
+    "sample_source_at": {
+      "input": "original source capability + actual nominal EM/ADC bin + SnapshotPose at that actual source tick",
+      "output": "original sample receipt retains segment/time/pose and readback clock-skew budget; field calculation return latency is separate from sample time",
+      "rule": "instantaneous causal acquisition at attested moving pose, or explicitly integrated over a bounded trajectory interval if physical sensor law requires it. Never freeze the drill or relabel stale fault/held sample as fresh. Kernel truth stays exclusively inside source worker"
+    },
+    "admit_updated_capture": {
+      "input": "new original TRACE observation/AI completion/APPLY capture plus current SnapshotPose",
+      "rule": "revalidate source-to-current displacement<=existing .25m and forward-angle<=15deg; preserve30deg original native direction applicability, risk/C3flags and independent pair verification. Quantize original advice direction_world against actual current own pose with explicit speed request cap; record both source pose and application pose"
+    },
+    "request_speed_pause": {
+      "input": "authenticated operator intent with monotone request identity",
+      "rule": "normal speed change is applied to regular min(AI speedlimit,operator cap) projection and real board command; show pending until actual FPGA output captured. Once captured install certified continuous-velocity acceleration/braking segment. Lost/unknown grant triggers original fail-safe and already-certified brake tail; no grant renewal or unknown APPLY replay"
+    },
+    "rollover": {
+      "rule": "world/passage/goal continuity survives explicit sourcebook/planner/board epochs; each old worker IO has actual terminal/handle/Job evidence before retirement, successor ready before old usable lease ends. No in-place counter reset, reused receipt ID, duplicated board executor, or huge-number claim of infinity."
+    }
+  },
+  "files_and_ownership": [
+    {
+      "file": "competition/deepeye/simulation/authority/_world_loop.py",
+      "must_extend_pin": true,
+      "old_anchor": [
+        "require_source_pose_current",
+        "_EmScopeFactoryCore._check",
+        "_RootWorldOwner._publish/progress_actor_commit"
+      ],
+      "extension": "Explicit live native publication/POSE_READBACK lease and clock mapping; managed updater whitelisted only for drill transform. Keep scene geometry frozen and every other writer forbidden. Existing closedSTEP path untouched."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/original_world_actor_link.py",
+      "must_extend_pin": true,
+      "extension": "Add live activate/replace/finish joint receipts and single-owner cutover CAS. ClosedSTEP remains unchanged; running segment is not a pending incomplete STEP."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/_actor_source_custody.py",
+      "must_extend_pin": true,
+      "old_anchor": [
+        "reserve",
+        "finish_step"
+      ],
+      "extension": "Separate long-lived motion lease from short source snapshot transaction. Reserve snapshots at actual time against active segment without requiring stationary world or a fake closed endpoint."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/root_source_book.py",
+      "must_extend_pin": true,
+      "old_anchor": [
+        "current_pose_interval",
+        "read_pose",
+        "begin_em/end_em",
+        "open_sample"
+      ],
+      "extension": "New live receipt carries segment/time/range/error and native clock/readback witness. Distinguish acquisition instant from calculation/return interval. Retain monotone source bins and no missed-bin backfill."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/motion_executor.py",
+      "extension": "prepare/validate finite canonical span chain plus brake tail, and sample live path from source/live lease; commit segment activation instead of future endpoint. Reuse all existing continuous geometry predicates; scene truth never reaches planner."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/pc_direct_runtime.py",
+      "extension": "Explicit live state/service_tick/pose_at, actual grant limits and certified braking. Existing command/STEP expiry remains default; never extend hardware12s."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py",
+      "old_anchor": [
+        "_root_guard",
+        "_same_root"
+      ],
+      "extension": "Live-only in-flight inference association allows motion on same world/segment lineage, rechecks live sample applicability at RESULT and APPLY. Old exactRoot frozen inference rule untouched."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/g05_csr_channels_v1.py + g05_csr_projection_v1.py",
+      "extension": "Genuine mapped TRACE and captured PWM still sole observation/command authority; source pose time and application pose distinct. Preserve hidden truth isolation, CRC/ARM anti-replay, unknown no-replay."
+    },
+    {
+      "file": "competition/deepeye/simulation/authority/_owned_godot.py + native wire schema + simulator/runtime/world_motion_bridge.gd",
+      "owner": "Root native work",
+      "extension": "New exact LIVE_SEGMENT_INSTALL/REPLACE/POSE_READBACK/STOP protocol, immutable canonical coefficients/span knots and time mapping; engine process evaluates lawful actual pose each frame. No video-only tween or endpoint interpolation with unbound source pose."
+    }
+  ],
+  "source_causality": {
+    "snapshot": "Actual tick t: sample active canonical lease at t. Retain old segment strong ref through any in-flight source calculation, even if replaced later; returning result retains old t/pose rather than being rebased to current.",
+    "native_agreement": "Native QPC mapping is established by bounded ping/bracket and acknowledged segment activation; actual per-frame timestamp/pose readback verified against Python law within declared skew+float/export error. Excess lag or clock uncertainty stops, never silently adjusts time.",
+    "async_result": "At completion check same world epoch/geometry generation/no edits and source applicability to actual current pose; discard stale or retired result without applying it. Do not mint a new sample timestamp.",
+    "source_worker": "Geometry/material/kernel remain source-only. Source output exposes original counts/quality plus already-public own pose metadata, never obstacle coordinates or exact collision queries."
+  },
+  "smoothness": {
+    "position_velocity": "Segment joins require C0position/quaternion and C1speed. Original constant-curvature spans can form a fine bounded-curvature-slew chain; all microspans certified as one installed motion law, not rendered as stop/go commands.",
+    "steering": "If full C1angular-rate smoothness is required, certify an explicit finite curvature blend or very short monotone curvature-slew spans with a declared continuity/error bound; never interpolate an uncertified arc just visually.",
+    "pause": "Normal pause is a real board speed0/STOP intent; after captured output enter pre-certified deceleration to zero and retain stationary live pose. Emergency expiry/loss keeps its real stop protection; no stale drive command is extended to hide gaps."
+  },
+  "lifecycle": {
+    "sourcebook": "Rolling source/book epochs retain active segment and in-flight sample receipts, archive completed records by hash. Same logical world/passage history persists; IDs are epoch-qualified and never reused.",
+    "actor": "Overlapped prepared successor actor/package identity with actual ready/old IO terminal evidence, handoff under live grant reserve. Keep public/source records scoped to process epoch; no old PID lease relabel.",
+    "board": "Persistent Root-owned worker and per-request unknown-effect accounting. A new continuous service ABI may roll receipt/journal windows without task termination; if hardware/session reset needs stop, perform a certified brake/hold/reinit and honestly show hold rather than promise zero-gap rollover.",
+    "native": "Viewer lifetime belongs to explicit user session and heartbeat, not600s. Rolling message/audit epochs with original PID/HWND/exe/creation ownership; no duplicate viewer executor.",
+    "limits": "Per-proof work, memory, one-use IO, validity, watchdog, missed-readback and resource stop limits remain finite and useful. User-task elapsed/count quotas do not terminate a healthy run."
+  },
+  "remaining_real_blockers": [
+    "Current fourpins enforce stationary closedSTEP snapshots and exact frozen Root during inference; no purely private driver/tween can bypass that correctly. Need explicitly revised live profile and updated4pins, preserving old path.",
+    "Current native managed coverage forbids arbitrary processing/writers; Root must implement and inventory only the single canonical live drill updater.",
+    "Current H07 math/native still needs actual radius.25 integration and matching pins before any revision2 run; old .15 proofs are not rewritten.",
+    "Need actual clock/skew/readback and load/speed/pause measurement; pure software contracts cannot prove native/board behavior."
+  ],
+  "proposed_worker_python_ownership": [
+    "New default-off certified_live_segment_v1.py: immutable canonical chain, real-time sampling, finite proof/stop boundaries and token identity. No original4pin source edits.",
+    "New live_snapshot_pose_v1.py: typed segment/time/pose/error/readback bracket contract and original-reference retention; pure controls for expired/wrong-epoch/replaced snapshots and continuity."
+  ],
+  "final_gates": {
+    "all29": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "revision2_live_chain": "not_run"
+  }
+}

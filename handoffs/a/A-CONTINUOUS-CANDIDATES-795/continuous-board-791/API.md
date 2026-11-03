@@ -1,0 +1,127 @@
+791 is a prepare-only independent live demonstration candidate. Scope revision2
+requirements SHA256 is `2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d`.
+No board, network, vendor, UI, native, numerical source, AI, or formal acceptance
+run was performed here. Root alone stages, approves, starts, and stops hardware.
+
+Root stages three executable files together: remote_live_board_a.py,
+load_once_791.py, local_stream_client.py. The remote also needs the frozen project
+Python source closure containing the actual original board loader, G05 helpers,
+G05 output parser, navigation profile dependency and original TRACE codec. B owns
+integration/continuous_wire_v1; none of that directory was changed.
+
+Root's contained command shape, not executed by this worker:
+
+    python3 -I -B remote_live_board_a.py --serve --source-root FROZEN_SOURCE \
+      --plan ROOT_REVIEWED_LOAD_PLAN.json --identity-json IDENTITY13.json \
+      --journal /home/xilinx/OWNED_SD_DIR/live791.jsonl
+
+The plan is exactly the legacy open_from_plan schema, canonical hash checked.
+The derived loader retains initial100 -> 50MHz, exact BIT/HWH/mapping/BOOT,
+vendor-preservation and actual Bitstream/parser/download steps. It returns two
+raw MMIOs before constructing any legacy finite port, session or reducer. It
+does not monkeypatch a class or clear/reset any previous ledger or hardware
+counter. New exclusive operation directory and firmware name remain mandatory.
+Root must verify the journal's real mount is SD, not a bind mount into tmpfs;
+the code rejects RAM/device path names and symlink ancestors, creates exclusively,
+and only retains current request state. Input HWH/BIT identity is not inferred
+from a source commit. Root must bind the actual dc4e long-TTL image explicitly.
+
+ABI is `DEEPEYE-LIVE-BOARD-791-v1`, one JSON object and LF per line. A single
+serial caller/thread owns the provided transport; native and model workers run
+independently. Root owns the contained SSH process, bounded stderr drains,
+read/write deadlines and wait/handle/Job cleanup. The client starts no process,
+opens no socket and never reconnects or retries. A transport failure after a
+write attempt poisons it even if the hardware effect is uncertain.
+
+First stdin line, before any load:
+
+    {"abi":"DEEPEYE-LIVE-BOARD-791-v1","op":"init","request_seq":0,
+     "boot_id":"CURRENT_UUID","build_id":"dc4e89ccf3db18c4f9871575efc399ba",
+     "request_hash":"EXACT_LOAD_PLAN_REQUEST_SHA256"}
+
+It must exactly match the frozen CLI plan. There is one load per process. The
+init response binds that same boot/build/request, scope, and COMPLETE. It does
+not start motion. Load diagnostics go to stderr, not the JSON stdout channel.
+Identity13 is the original nonzero run/nonce/session CSR identity, independently
+reviewed by Root. Default first target is speed_code2 = .025m/s, yaw/pitch0.
+
+Subsequent request_seq values are strictly increasing exact integers, never bool.
+Every response binds the init boot/build/request and exact request_seq/op.
+No mission clock, command count, scan count, cumulative IO, cumulative POP or
+retained-response array exists. Per-request bound is 4s/4096 MMIO calls;
+four E4 frames are at most252B. The remote bounds input16KiB/output32KiB.
+Partial stdin is deadline checked, including while waiting for LF; stdout has
+a1s bounded writer. The Linux MMIO call itself can still hang below Python;
+Root containment and the actual hardware watchdog remain necessary.
+
+sense adds these exact fields:
+
+    {"source_seq":1,"adc_tick_ms":1000,"em_tick_ms":1000,
+     "counts":[3099,2006,2084,null],"quality":7,"source_digest":"64lowerhex"}
+
+source_seq and em_tick_ms strictly increase; adc>=em. Ticks are actual caller
+source-clock milliseconds relative to a single stable source epoch. They are
+not replaced with worker arrival time. Counts are4 uint12-or-null. In this new
+ABI, quality bits0..3 are validity, bits4..7 saturation, bit12 source fault;
+other bits are refused, and original quality must be mapped explicitly by B/Root.
+The raw declared quality is retained. NullC3 remains null; fault4096 must be
+allnull. Held is determined by actual em<adc for a valid sample. The ABI does
+not certify source numerical truth or provenance merely from a supplied digest.
+Root must supply the actual native accepted-pose forward-source sample and
+retain its original snapshot/hash. Original100ms/quality final flags are not
+promoted. The codec's legacy decoded tick_ms keys contain microsecond E4 ticks;
+use returned adc_tick_ms/em_tick_ms for the explicitly named source units.
+
+sense directly performs original TRACE ARM/PUSH/BIND/ACK/POP/CANCEL CSR sequence,
+strictly increasing actual ARMtag, four complete result IDs/RX continuity,
+CRC/E4 header and original codec decoded value/time/flags correlation. It returns
+wire_hex, decoded4, result_rows, tag, source_seq/digest, declared quality/ticks,
+and FOUR_FRAME_CRC_SOURCE_CONSISTENT. No wire is software-generated by the server.
+The pure test register model does generate synthetic golden frames and is
+explicitly not a board measurement.
+
+apply adds exact yaw_q,pitch_q,speed_code,duration_ms. FAST combined ROM curvature
+and speed20 maximum remain unchanged. Duration is1..12000 actual milliseconds
+only with the explicitly selected dc4e image. COMMIT seq/tag use request_seq.
+The original measured positive-speed output decoder is reused; raw32capture,
+three periods/highs and actual hardware applied/deadline/result ticks return.
+The conservative board monotonic grant starts before actual COMMIT. Its remaining
+time at response is reported; Root must map it conservatively to its own clock,
+using the local send time/round trip, never treating board/PC clocks as equal.
+
+Pause is apply(yaw_q=0,pitch_q=0,speed_code=0,duration_ms=12000). It verifies actual
+zero-speed PWM capture with the same complete snapshot/lifetime/period/local
+witness checks. Normal nonzero APPLY is allowed afterwards. Zero-speed lease
+still needs real new-seq updates before TTL expiry if pause lasts longer.
+stop/shutdown are terminal one-shot hardware STOP requests; they are not pause.
+Their response proves the write returned and reports status/fault, explicitly
+physical_zero_capture_proven=false. Root must not call that a measured zero output.
+
+No auto keepalive is implemented: the controller must choose fresh unique-seq
+APPLY of the still-authorized held direction/speed before real TTL expiration.
+That is a new explicit command, not retransmission of an uncertain one. Normal
+sense/AI latency does not itself issue STOP or insert an artificial pause. If
+the link dies or the actual grant reaches the100ms safety guard, the worker
+performs distinct one-shot owned TRACE CANCEL/quiescence when needed, then G05
+STOP, and exits. This is an actual safety failure, not a span-boundary stop.
+Any request exception poisons the worker, preserves journal evidence, never
+emits a second guessed response, and never repeats the uncertain request.
+
+Genuine format/hardware exhaustion is retained: request/ARM/result/POP/RX uint32,
+E4 frame sequence uint16 (4frames/source_seq gives16383samples), and the32-bit
+microsecond acquisition field (~71minutes). The controller must explicitly
+roll to a new owned session before these intrinsic boundaries, with proper
+cleanup and identity; this draft does not claim mathematically infinite hardware
+counters or implement transparent session rollover. Root must design that
+handoff separately rather than reset counters under the same session.
+
+SD JSONL is append-only with exclusive creation. Intent/terminal records fsync;
+each MMIO write intent and read outcome is streamed without a history list.
+Per-IO records are process evidence, not promised power-loss durability. Disk
+failure is a safety fault. Stop/quiescence failures remain UNKNOWN in the log.
+No automatic restoration or metadata cleanup is attempted on exit.
+
+Necessary Root next actions: independently review/freeze these files and import
+closure; pin actual load plan/identity/journal mount and contained SSH command;
+choose source-quality mapper; then one new approved board attempt. No old
+started/failed board operation may be replayed. Formal all29/G03/R03 remain not_run.

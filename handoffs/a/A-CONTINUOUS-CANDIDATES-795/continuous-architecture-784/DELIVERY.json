@@ -1,0 +1,23 @@
+{
+  "frozen": true,
+  "ownership_returned_to_Root": true,
+  "base_commit": "817b355887c14cfa9c5d830c8589684f994af082",
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "files": {
+    "candidate/certified_live_segment_v1.py": "8a29f0b4a237681d8c914942d8f239d043b0ab4239170531a226c0be32d80b7a",
+    "candidate/live_snapshot_pose_v1.py": "57720a32524190bb8a3ccd68d3bd0d72093129bcf9ae9a53c7838d940fdd9d99"
+  },
+  "API_sha256": "cb856d0288797f9c34e220b95f6de01875695409d0bae22d7f419d5f33af649e",
+  "current_scope_sha256": "70885d87855c3c2e7666cff97e57c4b1e7f618b5dd6800ce29cc240b74a87e15",
+  "minimal_controls_passed": true,
+  "minimal_controls": 3,
+  "test_command": "host_python -I -S -B -X utf8 C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-architecture-784\\test_minimal784.py",
+  "red_ref": "RED_MINIMAL.txt",
+  "green_ref": "GREEN_MINIMAL.txt",
+  "old_four_pins_modified": false,
+  "W_modified": false,
+  "geometry_pending": "Root.25 radius native/math change not copied from dirtyW; modules geometry-independent.",
+  "formal": "all29/G03/R03/live formal proofnot_run",
+  "actual_effects": "No board/SSH/UI/model/native/PDE run",
+  "next": "Root integrates packet evaluator/snapshot producer; worker can move to new live streaming board wrapper candidate with no64/600 mission stop."
+}

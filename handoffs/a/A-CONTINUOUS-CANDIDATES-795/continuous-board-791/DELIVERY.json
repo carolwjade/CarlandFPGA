@@ -1,0 +1,65 @@
+{
+  "frozen": true,
+  "candidate_only": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "tests": {
+    "command": [
+      "C:\\Users\\CarlJade\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-791\\test_pure_791.py"
+    ],
+    "exit_code": 0,
+    "controls_passed": 8,
+    "synthetic_only": true
+  },
+  "files": {
+    "API.md": {
+      "sha256": "ca314c6bfe538f8e40e975c1c288aa676cc169913e21a0aec245c03fca976840",
+      "bytes": 8215
+    },
+    "LOADER_DERIVATION.json": {
+      "sha256": "75b3e83d3c65405cd58203497d31f9e1fadd3cbe5c5c80f823d0fe9aae5cb069",
+      "bytes": 475
+    },
+    "load_once_791.py": {
+      "sha256": "912759e7322af7263c159ade5e12f356158b3432f115baece1bed0233fbc55b6",
+      "bytes": 7572
+    },
+    "local_stream_client.py": {
+      "sha256": "3339b8abb515175987732cc550d880c12891ff4ae77552e6a44da47417e60d7a",
+      "bytes": 3684
+    },
+    "PURE_CONTROLS.stderr.txt": {
+      "sha256": "020acc9e3ae67654dec3565fbf8ec14e641678d9f0d41ddabeb81e1ed4efe9e9",
+      "bytes": 111
+    },
+    "PURE_CONTROLS.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "remote_live_board_a.py": {
+      "sha256": "afd0bbafc36b4a51dddc417d6af5a53610e46e63138d6cbf0a3f7090d258e7b0",
+      "bytes": 22170
+    },
+    "test_pure_791.py": {
+      "sha256": "164fba70028682fde7ab315bc326be605417c6e4054d62c1d641d49f6f4f9485",
+      "bytes": 7749
+    }
+  },
+  "board": false,
+  "network": false,
+  "UI": false,
+  "model": false,
+  "formal_acceptance": "not_run",
+  "ownership": "candidate791 only; Root must review/freeze/stage/authorize actual board run",
+  "remaining": [
+    "Root pin load plan/identity/source closure/real SD mount",
+    "Root transport containment/timeouts/cleanup",
+    "source quality mapper",
+    "explicit future natural-counter session rollover; no false infinity claim"
+  ]
+}
