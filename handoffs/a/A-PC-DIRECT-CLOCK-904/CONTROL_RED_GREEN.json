@@ -1,0 +1,22 @@
+{
+  "parent_sha256": "c885de7e849ff4f140ad2cf984f26480356db452bb613e26b5db8e0624b09edf",
+  "candidate_sha256": "3d8724b2d3b462c875f134c99924fa7436dd1bdbf5c6e238625e99a478aa2b41",
+  "red": {
+    "now": 43067744219796,
+    "current_lower": 43067744219797,
+    "guard": false
+  },
+  "green": {
+    "now": 43067760756300,
+    "current_lower": 43067744219797,
+    "guard": true
+  },
+  "source_acquisition_qpc_ns": "43066823249874",
+  "source_times_unmodified": true,
+  "real_loop_now_not_recorded_in_old891": true,
+  "fixture_scope": "authentic old891 sample/advice plus controlled simulated RPC elapsed time, no replay/model/source/board/native/UI",
+  "change": "read clock after state RPC and again directly before direct dispatch; no guard, TTL, source time, target or protected helper change",
+  "protected_functions_unchanged": 6,
+  "actual_new_board": false,
+  "formal_all29": "not_run"
+}

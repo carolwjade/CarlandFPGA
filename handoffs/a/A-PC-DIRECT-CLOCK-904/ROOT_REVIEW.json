@@ -1,0 +1,13 @@
+{
+  "failure_preserved": true,
+  "actual891": "real INIT/5sense/4E4registered/4actualADVISE/1PCcommand; then genuine observation/command expiry; STOP6 returned/SSH0/waited; notcomplete",
+  "root_cause": "old loop now was captured before native.state RPC; strict current-source<=now then rejects newly read future relative to stale loop timestamp; original loop now notlogged, code/slack evidence and controlled clock counterexample retained",
+  "fix": "read now AFTER stateRPC and again immediately before directdispatch",
+  "no_guard_or_TTL_relaxed": true,
+  "no_source_timestamp_changed": true,
+  "no_failed_operation_replay": true,
+  "protected_functions_AST_unchanged": 6,
+  "tests": "actual891 authentic advice/snapshot + simulated elapsed stateRPC clock; oldfalse/newtrue. No model/native/board/UI replay.",
+  "new_actual_pass": "not_run",
+  "full29": "not_run"
+}
