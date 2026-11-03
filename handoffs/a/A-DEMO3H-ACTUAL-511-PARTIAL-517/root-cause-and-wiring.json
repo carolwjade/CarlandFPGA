@@ -1,0 +1,217 @@
+{
+  "readonly": true,
+  "network_board_UI_execution": false,
+  "automatic_replay": false,
+  "phases": [
+    {
+      "index": "01",
+      "id": "a511-init",
+      "kind": "init",
+      "lower_qpc_ns": 13137120131300,
+      "upper_qpc_ns": 13137349342900,
+      "elapsed_ns": 229211600,
+      "status": "COMPLETE",
+      "unknown": false,
+      "error": null,
+      "response_sha256": "bc52c07319fab1908418300e7fbb390c92e8cc11d65662c52d0d8937bd2fa264"
+    },
+    {
+      "index": "02",
+      "id": "a511-scan-1",
+      "kind": "trace_scan",
+      "lower_qpc_ns": 13138004234300,
+      "upper_qpc_ns": 13139921355300,
+      "elapsed_ns": 1917121000,
+      "status": "COMPLETE",
+      "unknown": false,
+      "error": null,
+      "response_sha256": "3dc8457bb6a50d72782e5e7e9a06e195e352b61a9464e0aa4cc0f6ddfa51110b"
+    },
+    {
+      "index": "03",
+      "id": "a511-status-1",
+      "kind": "status",
+      "lower_qpc_ns": 13139938526200,
+      "upper_qpc_ns": 13140071959600,
+      "elapsed_ns": 133433400,
+      "status": "COMPLETE",
+      "unknown": false,
+      "error": null,
+      "response_sha256": "b1d38db22a17dc6c1494507953bd7f6f0ab10693c643096703498ba80e732b83"
+    },
+    {
+      "index": "04",
+      "id": "a511-apply-1",
+      "kind": "apply",
+      "lower_qpc_ns": 13140107842800,
+      "upper_qpc_ns": 13140354583900,
+      "elapsed_ns": 246741100,
+      "status": "UNKNOWN",
+      "unknown": true,
+      "error": "ValueError",
+      "response_sha256": "95111a59f5ae9efa55b39b5a381360436896443d98b0cfec0a9602d912de8ed2"
+    }
+  ],
+  "first_root_cause": "Actual G05 fault register returned4 after COMMIT; host received original UNKNOWN/ValueError in246.7411ms",
+  "secondary_error": "Client marks session_unknown for non-COMPLETE; producer marks_failed; binding checkpoint then rejects original active producer required",
+  "host_2s_timeout": false,
+  "apply_request": {
+    "command_words": [
+      5013,
+      0,
+      1,
+      14,
+      3000,
+      1,
+      1970334409
+    ]
+  },
+  "actual_commit": {
+    "index": 79,
+    "started": {
+      "io": 79,
+      "kind": "write",
+      "monotonic_ns": 10008825433581,
+      "offset": 12,
+      "pid": 15984,
+      "request_id": "tx-99674e0a2ced4678af6f97105fdeaf14",
+      "value": 2
+    },
+    "returned": {
+      "io": 79,
+      "kind": "write",
+      "monotonic_ns": 10008826154744,
+      "request_id": "tx-99674e0a2ced4678af6f97105fdeaf14",
+      "value": null
+    }
+  },
+  "actual_first_fault4": {
+    "index": 90,
+    "started": {
+      "io": 90,
+      "kind": "read",
+      "monotonic_ns": 10008889229803,
+      "offset": 16,
+      "pid": 15984,
+      "request_id": "tx-a90ee8d61bf6486a9220cc82868c8136",
+      "value": null
+    },
+    "returned": {
+      "io": 90,
+      "kind": "read",
+      "monotonic_ns": 10008889947593,
+      "request_id": "tx-a90ee8d61bf6486a9220cc82868c8136",
+      "value": 4
+    }
+  },
+  "commit_return_to_fault_read_return_ns": 63792849,
+  "partial_facts": {
+    "state": "CLOSED_AFTER_FAILURE",
+    "kind": "close",
+    "capture": null,
+    "receipts": 90,
+    "unresolved": 0
+  },
+  "fault4_RTL_meaning": "monitor_q && !pending_q && !atom_applied && edge_tick >= watchdog_q && !joined_good => missing coherent capture join watchdog",
+  "hardware_source_commit": "014c3db05c59861209ca136b2cbec518f49c345e",
+  "actual_HWH": {
+    "path": "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a395-offline-qualified-r01\\artifacts\\functional50_diag.hwh",
+    "sha256": "31f1e0c30a2cdf13a5a1b78738eac0313958d8425827bc725c553161e8f215a5",
+    "g05_ports": [
+      {
+        "DIR": "I",
+        "NAME": "g05_50_candidate_pitch_capture_i",
+        "SIGIS": "undef",
+        "SIGNAME": "External_Ports_pitch_capture_i"
+      },
+      {
+        "DIR": "O",
+        "NAME": "g05_50_candidate_pitch_pwm_o",
+        "SIGIS": "undef",
+        "SIGNAME": "g05_50_0_g05_50_candidate_pitch_pwm_o"
+      },
+      {
+        "DIR": "I",
+        "NAME": "g05_50_candidate_speed_capture_i",
+        "SIGIS": "undef",
+        "SIGNAME": "External_Ports_speed_capture_i"
+      },
+      {
+        "DIR": "O",
+        "NAME": "g05_50_candidate_speed_pwm_o",
+        "SIGIS": "undef",
+        "SIGNAME": "g05_50_0_g05_50_candidate_speed_pwm_o"
+      },
+      {
+        "DIR": "I",
+        "NAME": "g05_50_candidate_yaw_capture_i",
+        "SIGIS": "undef",
+        "SIGNAME": "External_Ports_yaw_capture_i"
+      },
+      {
+        "DIR": "O",
+        "NAME": "g05_50_candidate_yaw_pwm_o",
+        "SIGIS": "undef",
+        "SIGNAME": "g05_50_0_g05_50_candidate_yaw_pwm_o"
+      }
+    ]
+  },
+  "actual_XDC": {
+    "path": "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a395-offline-qualified-r01\\implemented.xdc",
+    "sha256": "953bccbeccdf149d7b1e131a049fcf37ecfc4e7064e572c30739c047a29aa6c4",
+    "output_pins": [
+      "W14",
+      "Y14",
+      "T11"
+    ],
+    "input_pins": [
+      "V16",
+      "W16",
+      "V12"
+    ]
+  },
+  "internal_capture_net_present": false,
+  "external_loopback_required_for_original_capture": true,
+  "physical_cable_inventory": "User/Root supplied only Ethernet+USB; not independently observed by worker",
+  "inference": "Absent external PWM-to-capture bridges is consistent with missing-join fault4; no external waveform was captured or qualified",
+  "new_build_proposal": {
+    "patch": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\actual511-readonly-review\\INTERNAL_LOOPBACK_DEMO_PROPOSAL.patch",
+    "scope": "New internal-loopback demo build, not external-pin/electrical proof",
+    "unchanged": "PWM generation, mapper/ROM, 2FF/capture/join/watchdog/fault logic",
+    "builder": "competition/deepeye/tools/diagnostic/functional50_build98/build_functional50.py",
+    "tcl": "competition/deepeye/fpga/diagnostic/functional50_build98/build_functional50.tcl",
+    "requires": "New canonical source closure/buildID, source pins, actual synthesis/implementation/timing/CDC/RDC/ports and new bit/HWH; original A395 acceptance not inherited"
+  },
+  "files": [
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a511\\nav\\run-result.json",
+      "bytes": 60254,
+      "sha256": "c4c8167fd44f200807b310dbaebcea5422a852ae29aa5a668c2f98db3a1a312e"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a511\\nav\\ssh-evidence\\A-GEN4-BOARD-OUTPUT-NAV-20261103-511-R01\\chain-v2-host\\04-started.json",
+      "bytes": 456,
+      "sha256": "1fc3816c0f81ef9d7e7aa117b59350d5de3d3fbf3e91238ba14d14c22970756d"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a511\\nav\\ssh-evidence\\A-GEN4-BOARD-OUTPUT-NAV-20261103-511-R01\\chain-v2-host\\04-returned.json",
+      "bytes": 117,
+      "sha256": "c96d2d8a21c578047a2b54dd6c09962316c4d89379eee9dcd639b0460052060a"
+    },
+    {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a511\\nav\\ssh-evidence\\A-GEN4-BOARD-OUTPUT-NAV-20261103-511-R01\\chain-v2-host\\04-response.bin",
+      "bytes": 52897,
+      "sha256": "95111a59f5ae9efa55b39b5a381360436896443d98b0cfec0a9602d912de8ed2"
+    },
+    {
+      "path": "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a395-offline-qualified-r01\\artifacts\\functional50_diag.hwh",
+      "bytes": 159076,
+      "sha256": "31f1e0c30a2cdf13a5a1b78738eac0313958d8425827bc725c553161e8f215a5"
+    },
+    {
+      "path": "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a395-offline-qualified-r01\\implemented.xdc",
+      "bytes": 43607,
+      "sha256": "953bccbeccdf149d7b1e131a049fcf37ecfc4e7064e572c30739c047a29aa6c4"
+    }
+  ]
+}
