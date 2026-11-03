@@ -22,7 +22,9 @@ class Limits:
     duration_ns:int
     demo_cycle_profile:object=None
     def __post_init__(self):
-        _need(type(self.max_commands) is int and 1<=self.max_commands<=16,'1..16 commands required')
+        demo.validate_profile(self.demo_cycle_profile)
+        maximum=demo.command_cap(self.demo_cycle_profile) if demo.is_navigation(self.demo_cycle_profile) else 16
+        _need(type(self.max_commands) is int and 1<=self.max_commands<=maximum,'bounded selected command count required')
         _need(type(self.max_polls) is int and 1<=self.max_polls<=1024,'bounded polls required')
         demo.validate_profile(self.demo_cycle_profile)
         _need(type(self.duration_ns) is int and 0<self.duration_ns<=demo.duration_cap(self.demo_cycle_profile),'bounded selected duration required')

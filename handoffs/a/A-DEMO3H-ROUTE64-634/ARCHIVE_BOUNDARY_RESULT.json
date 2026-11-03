@@ -1,0 +1,14 @@
+{
+  "UI": false,
+  "board": false,
+  "cases": [
+    "full_copy_hash_size_and_source_removal_with_original_mapping",
+    "duplicate_attempt_rejected_without_overwrite",
+    "source_change_detected_before_any_RAM_removal",
+    "unknown_scan_refused_before_archive_effect",
+    "one_route_only_archive_call_after_original_APPLY_reply_emission"
+  ],
+  "model": false,
+  "passed": 5,
+  "scope": "Owned634 temporary-file integrity and AST only; no real board/MMIO/model/UI/archive execution"
+}

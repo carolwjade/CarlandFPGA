@@ -114,15 +114,31 @@ class SerialInvocationLimits:
     max_total_output_bytes: int
     max_total_reads: int
     response_mode: str = 'single_frame_v1'
+    navigation_profile: object = None
 
     def __post_init__(self):
-        _uint(self.max_invocations, 2, 32)
-        _uint(self.max_total_request_bytes, 1, 32*16384)
-        _uint(self.max_total_output_bytes, 1, _MAX_OUTPUT)
-        _uint(self.max_total_reads, 1, 65536)
+        route=False
+        if self.navigation_profile is not None:
+            from ..authority import navigation_session_profile as navigation
+            navigation.validate_profile(self.navigation_profile)
+            if self.navigation_profile is not navigation.NAV_ROUTE_LONGTTL_600S_V1:
+                raise ValueError('exact explicit route64 serial profile required')
+            route=True
+        _uint(self.max_invocations, 2, 64 if route else 32)
+        _uint(self.max_total_request_bytes, 1, (64 if route else 32)*16384)
+        _uint(self.max_total_output_bytes, 1, 64*18440 if route else _MAX_OUTPUT)
+        _uint(self.max_total_reads, 1, 4096 if route else 65536)
         if type(self.response_mode) is not str or self.response_mode not in ('single_frame_v1','ready_result_frames_v1'):
             raise ValueError('fixed supported response mode required')
 
+
+
+def _limits_snapshot(limits):
+    result=asdict(limits);result.pop('navigation_profile')
+    if limits.navigation_profile is not None:
+        from ..authority import navigation_session_profile as navigation
+        result['navigation_profile']=navigation.to_wire(limits.navigation_profile)
+    return result
 
 class _Ticket:
     def __init__(self, identity, request_raw, journal_name, options, stream_start):
@@ -307,7 +323,7 @@ class _OriginalSerialSeries:
             authenticated=False,completion_verified=False)
 
     def summary(self):
-        return dict(protocol='DEEPEYE-PRIVATE-FRAMES/1',limits=asdict(self.ledger.limits),
+        return dict(protocol='DEEPEYE-PRIVATE-FRAMES/1',limits=_limits_snapshot(self.ledger.limits),
             failed=self.ledger.failed,request_bytes_reserved=self.ledger.request_bytes,
             output_bytes_reserved=self.ledger.output_reserved,reads_reserved=self.ledger.reads_reserved,
             output_bytes_observed=self.ledger.observed_bytes,

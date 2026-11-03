@@ -16,6 +16,11 @@ _SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-NAVIGATION-PROFILE-V3', *_VALUE
 _LONG_VALUES = (_VALUES[0].replace('ADJACENT','FAST-LONGTTL'), *_VALUES[1:13], 12000, *_VALUES[14:])
 _LONG_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-FAST-LONGTTL-NAVIGATION-V1', *_LONG_VALUES), separators=(',', ':')).encode('ascii')).hexdigest()
 
+_ROUTE_VALUES = ('DEEPEYE-NAV-ROUTE-LONGTTL-600S-V1',600_000_000_000,
+    1_000_000_000,1001,4096,64,64,512,1172,64,194,16_777_216,8192,
+    12000,100_000_000,500_000_000,131072,2000,24,.05,_SOURCE_PINS)
+_ROUTE_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-ROUTE-LONGTTL-NAVIGATION-V1',*_ROUTE_VALUES),separators=(',',':')).encode('ascii')).hexdigest()
+
 @dataclass(frozen=True)
 class NavigationSessionProfile:
     profile_id: str
@@ -43,7 +48,7 @@ class NavigationSessionProfile:
 
     def __post_init__(self):
         values = tuple(getattr(self, name) for name in self.__dataclass_fields__ if name != 'sha256')
-        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA))
+        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA), (_ROUTE_VALUES, _ROUTE_SHA))
                 or any(type(x) is not int for x in values[1:-2])
                 or type(self.exit_clearance_margin_m) is not float
                 or type(self.source_pins) is not tuple
@@ -53,6 +58,7 @@ class NavigationSessionProfile:
 
 NAV_ADJACENT_180S = NavigationSessionProfile(*_VALUES, _SHA)
 NAV_FAST_LONGTTL_180S = NavigationSessionProfile(*_LONG_VALUES, _LONG_SHA)
+NAV_ROUTE_LONGTTL_600S_V1 = NavigationSessionProfile(*_ROUTE_VALUES, _ROUTE_SHA)
 
 
 def validate_profile(value):
@@ -69,7 +75,7 @@ def to_wire(value):
 
 
 def from_wire(value):
-    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S):
+    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S, NAV_ROUTE_LONGTTL_600S_V1):
         if type(value) is dict and value == to_wire(selected):
             return selected
     raise ValueError('exact navigation wire identity required')
@@ -108,15 +114,23 @@ def rolling_refs(value, observations, actions, current_observation):
     return public_observations,tuple(x[3] for x in selected if x[1]==1)
 
 
+def is_longttl(value):
+    validate_profile(value)
+    return value is NAV_FAST_LONGTTL_180S or value is NAV_ROUTE_LONGTTL_600S_V1
+
+
 def longttl_for_g05(policy):
     """Return the exact explicit demo identity, never inferred from a duration."""
     if policy is None:
         return None
     from .g05_csr_channels_v1 import G05CsrPolicy
-    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4
+    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4, NAV_ROUTE_LONGTTL_V5
     if type(policy) is not G05CsrPolicy:
         raise TypeError('exact G05 policy required')
     descriptor = policy.demo_ai_profile
+    if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ROUTE_LONGTTL_V5:
+        policy.check()
+        return NAV_ROUTE_LONGTTL_600S_V1
     if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ENTRY_LONG_TTL_V4:
         policy.check()
         return NAV_FAST_LONGTTL_180S

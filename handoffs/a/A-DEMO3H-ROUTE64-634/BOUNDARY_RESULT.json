@@ -1,0 +1,40 @@
+{
+  "ABI": "c37-owned-em3-cpu-package/v8-route-longttl-demo600s",
+  "actor64_qualified": false,
+  "board_qualified": false,
+  "cases": [
+    "route64_600s_wire_and_complete_finite_budgets",
+    "route_duration_mismatch",
+    "old16_180s_caps_unchanged",
+    "new_factory_pins_same_math_and_longttl_binding",
+    "new_source_age_plus1_rejected",
+    "owned_route64_read64",
+    "owned_route65_rejected",
+    "owned_route_read65_rejected",
+    "owned_default17_rejected",
+    "typed_serial64_and_old32_snapshot_shape",
+    "serial_default64_rejected",
+    "serial_route65_rejected",
+    "serial_route_read4097_rejected",
+    "G05_route64_limits",
+    "G05_default64_rejected",
+    "explicit_route_policy_marker",
+    "route_policy_cannot_bind_old_INIT",
+    "old3field_policy_retains_old_INIT",
+    "old3field_policy_cannot_bind_route",
+    "no_implicit_route_quotas",
+    "new_frozen_Port_keeps_exact_route_marker_no_IO",
+    "route_TTL12000_exact",
+    "route_TTL12001_rejected",
+    "default_FAST3001_rejected",
+    "board_INIT_decode_and_selected_sequence_route64"
+  ],
+  "core_ran": false,
+  "manifest_sha256": "2f374d73d2719e31c407d88e5717b938ad311f6fa744016358125fac0c00aef3",
+  "nav_wire": {
+    "profile_id": "DEEPEYE-NAV-ROUTE-LONGTTL-600S-V1",
+    "sha256": "1cc99816c1fd7577006fe5434ef200399b36ac8da71286115b383d623d73d407"
+  },
+  "passed": 25,
+  "scope": "Pure config/grammar/hash/AST only; no AI/sensor/PDE computation, native actor, MMIO, network or UI"
+}

@@ -144,7 +144,7 @@ class OriginalChainReceiptProducer:
    need(len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids,'original one-use client operation required');self._operation_count+=1
    self._flush_pump()
    need(type(out) is dict and type(out.get('raw_response')) is bytes and type(out.get('lower_qpc_ns')) is int and type(out.get('upper_qpc_ns')) is int and 0<=out['lower_qpc_ns']<=out['upper_qpc_ns'],'original client response brackets')
-   doc=client._response(out['raw_response'],ident,self._operation,kind)
+   doc=client._response(out['raw_response'],ident,self._operation,kind,self._chain.sequence.demo_cycle_profile)
    need(doc==out['response'],'raw original reply mismatch')
    phase=self._phase(out,ident,kind)
    if doc['status']!='COMPLETE':self._failed=True

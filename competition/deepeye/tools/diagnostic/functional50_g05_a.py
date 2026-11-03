@@ -14,6 +14,7 @@ from . import functional50_demo_four_cycle_profile_a as demo
 _ROM=((0,128234,512938,1154111,2051753,3205865,4616446,6283496,8207015,10387004,12823462,15516389,18465785,21671651,25133986,28852790,32828063,37059806,41548017,46292698,51293849),
       (0,8,32,73,131,205,295,402,525,664,820,993,1181,1386,1608,1846,2100,2371,2659,2962,3282))
 _MAX={'begin':1,'commit':16,'stop':1,'latch':16,'release':16,'total_io':2048}
+_ROUTE_MAX={'begin':1,'commit':64,'stop':1,'latch':64,'release':64,'total_io':8192}
 _READ=frozenset((0,4,8,0x10,0x14,0x18,0x1c,0x20,0x24,0x28,0x40,0x44,0x48,0x4c,*range(0x100,0x134,4),*range(0x200,0x21c,4),*range(0x300,0x380,4)))
 _KEY=object()
 _DEADLINE_KEY=object()
@@ -24,14 +25,30 @@ def _need(ok,msg):
 def _canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode('utf8')
 
 def _policy(raw,binding):
+    from ...simulation.authority import navigation_session_profile as navigation
     doc=board._json(raw)
-    _need(type(doc) is dict and set(doc)=={'binding','limits','policy_sha256'},'exact G05 policy')
+    route=(type(doc) is dict and set(doc)=={'binding','limits','policy_sha256','navigation_profile'}
+           and doc['navigation_profile']==navigation.to_wire(navigation.NAV_ROUTE_LONGTTL_600S_V1))
+    _need(route or type(doc) is dict and set(doc)=={'binding','limits','policy_sha256'},'exact G05 policy')
     _need(type(doc['binding']) is dict and doc['binding']==binding,'same load policy binding')
-    limits=doc['limits'];_need(type(limits) is dict and set(limits)==set(_MAX),'exact finite quotas')
-    _need(all(type(limits[k]) is int and 0<=limits[k]<=v for k,v in _MAX.items()) and limits['total_io']>0,'bounded G05 quotas')
+    maximum=_ROUTE_MAX if route else _MAX
+    limits=doc['limits'];_need(type(limits) is dict and set(limits)==set(maximum),'exact finite quotas')
+    _need(all(type(limits[k]) is int and 0<=limits[k]<=v for k,v in maximum.items()) and limits['total_io']>0,'bounded G05 quotas')
     digest=doc['policy_sha256'];_need(type(digest) is str and re.fullmatch('[0-9a-f]{64}',digest) is not None,'policy hash')
-    _need(hashlib.sha256(_canonical(dict(binding=doc['binding'],limits=limits))).hexdigest()==digest,'policy hash mismatch')
+    body=dict(binding=doc['binding'],limits=limits)
+    if route:body['navigation_profile']=doc['navigation_profile']
+    _need(hashlib.sha256(_canonical(body)).hexdigest()==digest,'policy hash mismatch')
     return doc
+
+
+def validate_policy_profile(policy,navigation_profile):
+    from ...simulation.authority import navigation_session_profile as navigation
+    navigation.validate_profile(navigation_profile)
+    marker=policy.get('navigation_profile')
+    if navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1:
+        _need(marker==navigation.to_wire(navigation_profile),'explicit route64 policy marker required')
+    else:_need(marker is None,'route64 policy requires exact route64 INIT selection')
+
 
 def _status_check(status,fault,mode):
     _need(type(status) is int and 0<=status<=0x7f and type(fault) is int and fault==0,'G05 status/fault')
@@ -47,7 +64,7 @@ def _command(words,last_cmd,locked_profile,*,build_id=None,navigation_profile=No
     _need(type(words) is tuple and len(words)==7 and all(type(v) is int and 0<=v<=0xffffffff for v in words),'seven exact unsigned command words')
     from ...simulation.authority import navigation_session_profile as navigation
     navigation.validate_profile(navigation_profile)
-    structural_longttl = navigation_profile is navigation.NAV_FAST_LONGTTL_180S
+    structural_longttl = navigation.is_longttl(navigation_profile)
     longttl = build_id == LONG_TTL_BUILD_ID or structural_longttl
     y,p,profile,speed,ttl,seq,tag=words
     _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 and not longttl else 12000),'G05 encoding and profile')
@@ -65,7 +82,9 @@ class G05Port:
     def __init__(self,key,trace,reg,mmio,directory,policy):
         _need(key is _KEY,'original G05 factory required')
         self._trace,self._reg,self._mmio,self._dir=trace,reg,mmio,directory
-        self._policy=MappingProxyType({'binding':MappingProxyType(dict(policy['binding'])),'limits':MappingProxyType(dict(policy['limits'])),'policy_sha256':policy['policy_sha256']})
+        frozen={'binding':MappingProxyType(dict(policy['binding'])),'limits':MappingProxyType(dict(policy['limits'])),'policy_sha256':policy['policy_sha256']}
+        if 'navigation_profile' in policy:frozen['navigation_profile']=MappingProxyType(dict(policy['navigation_profile']))
+        self._policy=MappingProxyType(frozen)
         self._thread=threading.get_ident();self._pid=os.getpid();self._failed=False;self._count=0;self._ids=set();self._seq=0;self._profile=None;self._identity=None;self._staged=None;self._bound=False;self._stopped=False
         self._used={k:0 for k in _MAX if k!='total_io'};self._deadline_ns=None
     def _check(self):
@@ -78,6 +97,7 @@ class G05Port:
         _need(key is _DEADLINE_KEY and self._deadline_ns is None,'one original deadline binding required')
         now=time.monotonic_ns()
         demo.validate_profile(demo_cycle_profile)
+        validate_policy_profile(self._policy,demo_cycle_profile)
         _need(type(deadline_ns) is int and now<deadline_ns<=now+demo.duration_cap(demo_cycle_profile),'future deadline within selected finite session required')
         self._deadline_ns=deadline_ns
         try:

@@ -62,10 +62,10 @@ class G05CsrPolicy:
 
     def check(self):
         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4
+        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5
         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
         entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
-        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_LONG_TTL_V4)
+        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile in (NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5))
         age_cap=30_000_000_000 if longttl else 12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
         _uint(self.max_source_age_ns, 1, age_cap)
         _uint(self.health_timeout_ns, 1, age_cap)
@@ -668,7 +668,7 @@ class G05CsrChannels:
               and proof.completion_upper_ns<=phase.lower_qpc_ns<=phase.upper_qpc_ns,
               'actual APPLY must follow original AI completion')
         command=tuple(request['payload']['command_words'])
-        words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+        words=_json(phase.response_raw,self._target_navigation.max_reply_bytes if self._target_navigation is not None else 4194304)['result']['capture']['words32']
         target=decode_board_output(words,command,session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
         _need(command[2]==self.refs.legacy_context['transport_profile_id']
               and command[5]>self._board_last_sequence and words[0]>self._board_last_result,
@@ -736,7 +736,7 @@ class G05CsrChannels:
         self.checkpoint();rows=[row for row in self._board_outputs if row[0]==raw]
         _need(len(rows)==1,'original command-bound APPLY required')
         output=rows[0][1];phase=output[1]
-        request=_json(phase.request_raw);words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+        request=_json(phase.request_raw);words=_json(phase.response_raw,self._target_navigation.max_reply_bytes if self._target_navigation is not None else 4194304)['result']['capture']['words32']
         target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
         _need(_raw(target)==output[4] and _json(raw)['target']==target
               and _json(output[2].candidate_raw)['target']==target

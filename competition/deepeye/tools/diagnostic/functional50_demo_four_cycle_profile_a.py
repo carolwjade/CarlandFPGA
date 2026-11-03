@@ -43,7 +43,7 @@ def to_wire(value):
     return None if value is None else dict(profile_id=value.profile_id,sha256=value.sha256)
 
 def from_wire(value):
-    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S)):
+    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S), navigation.to_wire(navigation.NAV_ROUTE_LONGTTL_600S_V1)):
         return navigation.from_wire(value)
     if type(value) is not dict or value!=to_wire(DEMO_FOUR_CYCLE):
         raise ValueError('exact four-cycle wire policy identity required')
@@ -61,10 +61,10 @@ def request_cap(value):
 def validate_caps(value,*,max_commands,max_polls,duration_ns,max_io):
     validate_profile(value)
     if is_navigation(value):
-        if (type(max_commands) is not int or max_commands!=16
-                or type(max_polls) is not int or max_polls!=128
+        if (type(max_commands) is not int or max_commands!=value.max_commands
+                or type(max_polls) is not int or max_polls!=value.capture_polls
                 or type(duration_ns) is not int or duration_ns!=value.duration_ns
-                or type(max_io) is not int or not navigation.prospective_io(value)<=max_io<=2048):
+                or type(max_io) is not int or not navigation.prospective_io(value)<=max_io<=value.max_io):
             raise ValueError('navigation requires16 commands/128 capture polls/180s and complete prospective I/O capacity')
         return navigation.prospective_io(value)
     if not (type(max_commands) is int and 1<=max_commands<=command_cap(value)
@@ -84,16 +84,16 @@ def duration_cap(value):
     return value.duration_ns if is_navigation(value) else 10_000_000_000
 
 def poll_cap(value):
-    return 128 if is_navigation(value) else 64
+    return value.capture_polls if is_navigation(value) else 64
 
 def io_cap(value):
-    return 2048 if is_navigation(value) else 450
+    return value.max_io if is_navigation(value) else 450
 
 def reply_cap(value):
-    return 4_194_304 if is_navigation(value) else 1_048_576
+    return value.max_reply_bytes if is_navigation(value) else 1_048_576
 
 def status_phase_cap(value):
-    return 16 if is_navigation(value) else 4
+    return value.status_phases if is_navigation(value) else 4
 
 def trace_io_cap(value):
     return value.max_trace_io if is_navigation(value) else 5000

@@ -130,6 +130,105 @@ def decode_request(line,operation,g05,state):
   else:raise ValueError('unknown kind')
  return x
 
+# New route-only file evidence migration. No command, MMIO or reply bytes change.
+def _route_ordinary(path,cap):
+ path=Path(path)
+ need(path.is_absolute() and path.is_file() and not path.is_symlink(),'ordinary archive source')
+ need(not any(x.is_symlink() for x in path.parents),'archive path alias')
+ with path.open('rb') as f:
+  before=os.fstat(f.fileno());need(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<=before.st_size<=cap,'bounded single-link archive file')
+  data=f.read(cap+1);after=os.fstat(f.fileno())
+ signature=lambda x:(x.st_dev,x.st_ino,x.st_size,x.st_mtime_ns,x.st_nlink)
+ need(signature(before)==signature(after) and len(data)==before.st_size,'archive source changed during read')
+ return data,signature(before)
+
+
+def _route_migrate_files(source,destination,files,journal,key,checkpoint,*,remove_source_root=False):
+ """Copy/verify before removal; exclusive intent/returned files prohibit replay."""
+ source,destination,journal=Path(source),Path(destination),Path(journal)
+ need(source.is_absolute() and source.is_dir() and not source.is_symlink()
+      and destination.is_absolute() and journal.is_absolute() and journal.is_dir(), 'owned archive roots')
+ need(not any(x.is_symlink() for x in source.parents) and not any(x.is_symlink() for x in destination.parents),'archive root alias')
+ need(re.fullmatch('[A-Za-z0-9_-]{1,80}',key) is not None and type(files) is dict and 0<len(files)<=4096,'bounded archive identity/inventory')
+ need(not destination.exists() and not (journal/(key+'-intent.json')).exists(),'archive attempt already used; no replay')
+ retained={};mapping=[]
+ for name,pin in sorted(files.items()):
+  relative=Path(name)
+  need(type(name) is str and name and '\\' not in name and not relative.is_absolute() and ':' not in name and '..' not in relative.parts,'archive relative path')
+  need(type(pin) is dict and set(pin)=={'bytes','sha256'} and type(pin['bytes']) is int and 0<=pin['bytes']<=16_777_216,'archive file pin')
+  checkpoint();data,identity=_route_ordinary(source/relative,16_777_216)
+  need(len(data)==pin['bytes'] and digest(data)==pin['sha256'],'original archive bytes differ')
+  retained[name]=(data,identity);mapping.append(dict(source=str(source/relative),destination=str(destination/relative),**pin))
+ if remove_source_root:
+  need({x.relative_to(source).as_posix() for x in source.rglob('*') if x.is_file()}==set(files),'closed scan inventory changed')
+ put(journal/(key+'-intent.json'),raw(dict(schema='route_file_archive_v1',key=key,scope='file evidence only; no MMIO',mapping=mapping))+b'\n')
+ checkpoint();destination.mkdir(mode=0o700)
+ for name,(data,identity) in retained.items():
+  checkpoint();target=destination/name;target.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
+  fd=os.open(str(target),os.O_WRONLY|os.O_CREAT|os.O_EXCL|getattr(os,'O_NOFOLLOW',0),0o600)
+  with os.fdopen(fd,'wb') as f:f.write(data);f.flush();os.fsync(f.fileno())
+  copied,_=_route_ordinary(target,16_777_216);need(copied==data,'archive full destination readback differs')
+ for name,(data,identity) in retained.items():
+  checkpoint();again,current=_route_ordinary(source/name,16_777_216)
+  need(current==identity and again==data,'source changed before archive removal')
+ if remove_source_root:
+  need({x.relative_to(source).as_posix() for x in source.rglob('*') if x.is_file()}==set(files),'closed scan inventory changed before removal')
+ put(journal/(key+'-copy-verified.json'),raw(dict(key=key,mapping=mapping,all_full_readbacks_match=True))+b'\n')
+ for name,(data,identity) in retained.items():
+  checkpoint();again,current=_route_ordinary(source/name,16_777_216)
+  need(current==identity and again==data,'source changed at bounded removal')
+  (source/name).unlink()
+ if remove_source_root:
+  directories=[x for x in source.rglob('*') if x.is_dir()]
+  for path in sorted(directories,key=lambda x:len(x.parts),reverse=True):need(not path.is_symlink(),'archive directory alias');path.rmdir()
+  source.rmdir()
+ result=dict(schema='route_file_archive_v1',key=key,mapping=mapping,all_full_readbacks_match=True,source_removed=True,MMIO=False)
+ put(journal/(key+'-returned.json'),raw(result)+b'\n')
+ return result
+
+
+class _RouteEvidenceArchive:
+ def __init__(self,owner,operation,sink_parent=Path('/home/xilinx/deepeye-route-evidence-634')):
+  from . import functional50_trace_cycles_a as cycles
+  from ...simulation.authority import navigation_session_profile as navigation
+  need(type(owner) is cycles.TraceCycles and owner._demo_cycle_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1,'exact route archive owner/profile')
+  self.owner=owner;self.operation=operation;self.done=set()
+  self._checkpoint()
+  need(re.fullmatch('[A-Za-z0-9_-]{1,80}',operation) is not None and owner._port._dir.name==operation,'archive original operation')
+  sink_parent=Path(sink_parent)
+  need(sink_parent.is_absolute() and not sink_parent.is_symlink() and not any(x.is_symlink() for x in sink_parent.parents),'ordinary owned SD sink parent')
+  sink_parent.mkdir(mode=0o700,parents=True,exist_ok=True);self.sink=sink_parent/operation
+  need(not self.sink.exists(),'new unique route SD sink required');self.sink.mkdir(mode=0o700)
+  put(owner._port._dir/'route-archive-sink.json',raw(dict(operation_id=operation,SD_sink=str(self.sink),scope='new route-only verified evidence relocation; original emitted replies retained byte-exact'))+b'\n')
+ def _checkpoint(self):
+  o=self.owner;o._check();o._check_deadline();p=o._port
+  need(not p._cycle_active and p._trace_audit is None,'no active TRACE audit during archive')
+  need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==p._boot,'same original archive boot')
+ def after_apply(self,current_response,sent_response_paths):
+  self._checkpoint();owner=self.owner;port=owner._port
+  for record in owner._records[:-1]:
+   directory=record['directory'];key='scan-'+str(record['index'])
+   if key in self.done:continue
+   self._checkpoint();response=parse(record['response'])
+   need(response['status']=='COMPLETE' and response['terminal']=='QUIESCENT'
+        and response['cleanup_observed'] is True and response['wire_complete'] is True
+        and response['unknown'] is False and record['correlation']['status']=='FOUR_FRAME_CORRELATION_CONSISTENT',
+        'only original complete quiescent correlated old scan may archive')
+   need(directory.parent==owner._directory and directory!=owner._records[-1]['directory'],'only old original scan directory')
+   manifest_path=directory/'evidence-manifest.json';manifest_data,_=_route_ordinary(manifest_path,16_777_216)
+   need(digest(manifest_data)==record['evidence_manifest_sha256'],'original scan manifest pin')
+   manifest=parse(manifest_data);files=dict(manifest['files']);files['evidence-manifest.json']=dict(bytes=len(manifest_data),sha256=digest(manifest_data))
+   _route_migrate_files(directory,self.sink/key,files,self.sink,key,self._checkpoint,remove_source_root=True);self.done.add(key)
+  for path in sent_response_paths:
+   if path==current_response:continue
+   key=path.stem
+   if key in self.done:continue
+   self._checkpoint();need(path.parent==port._dir and re.fullmatch('chain-v2-[0-9]{2,3}-response',key) is not None,'original emitted response path')
+   data,_=_route_ordinary(path,16_777_216);doc=parse(data)
+   need(doc['operation_id']==self.operation and doc['status']=='COMPLETE' and doc['unknown'] is False,'only original already-emitted COMPLETE response may archive')
+   _route_migrate_files(port._dir,self.sink/key,{path.name:dict(bytes=len(data),sha256=digest(data))},self.sink,key,self._checkpoint);self.done.add(key)
+
+
 def put(path,value):
  with path.open('xb') as f:f.write(value);f.flush();os.fsync(f.fileno())
 def write_line(value,demo_cycle_profile=None):
@@ -169,7 +268,7 @@ def main(argv=None):
  custody=board._G05_LOADS.get(port);need(type(port) is board._TracePort and type(custody) is tuple and len(custody)==9 and dict(custody[3])==binding and port._dir.name==plan['operation_id'] and port._boot==plan['boot_id'] and len(str(port._dir))<=900,'original same-load custody and bounded evidence path')
  put(port._dir/'chain-v2-load-plan.json',plan_raw);put(port._dir/'chain-v2-g05-policy.json',policy_raw)
  ready=dict(schema='chain_board_v2',state='ready',operation_id=plan['operation_id'],plan_sha256=digest(plan_raw),load_request_hash=plan['request_sha256'],build_id=plan['build_id'],source_commit=plan['source_commit'],policy_file_sha256=digest(policy_raw),manifest_sha256=argv[3]);put(port._dir/'chain-v2-ready.json',raw(ready)+b'\n');write_line(raw(ready)+b'\n')
- sequence=Sequence();owner=cycles.TraceCycles(port,bundle);gs=None
+ sequence=Sequence();owner=cycles.TraceCycles(port,bundle);gs=None;route_archive=None;sent_response_paths=[]
  step=0
  while step<_demo().request_cap(sequence.demo_cycle_profile):
   line=sys.stdin.buffer.readline(MAX_REQUEST+1)
@@ -181,8 +280,9 @@ def main(argv=None):
     # Factory 4 + init 35, each command <=76 plus two I/Os per
     # selected status poll, four fresh statuses <=60, optional STOP <=3.
     selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
-    from competition.deepeye.simulation.authority.navigation_session_profile import NAV_FAST_LONGTTL_180S
-    if selected is NAV_FAST_LONGTTL_180S:
+    from competition.deepeye.simulation.authority.navigation_session_profile import is_longttl
+    g05.validate_policy_profile(policy,selected)
+    if is_longttl(selected):
      need(plan['build_id']==g05.LONG_TTL_BUILD_ID, 'exact loaded long-TTL hardware build required')
     prospective_io=_demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
     need(prospective_io<=policy['limits']['total_io']<=p['max_io'],'G05 policy cannot cover selected session or exceeds budget')
@@ -210,8 +310,20 @@ def main(argv=None):
     elif kind=='status':facts=gs.observe_status()
     else:facts=gs.close(stop=p['stop'])
     result=facts_json(facts,session,tx,sequence.demo_cycle_profile)
-   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');put(port._dir/('chain-v2-%02d-response.json'%(step+1)),response);write_line(response,sequence.demo_cycle_profile)
+   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');response_path=port._dir/('chain-v2-%02d-response.json'%(step+1));put(response_path,response);write_line(response,sequence.demo_cycle_profile)
    step+=1
+   from ...simulation.authority.navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
+   if sequence.demo_cycle_profile is NAV_ROUTE_LONGTTL_600S_V1:
+    sent_response_paths.append(response_path)
+    if kind=='apply':
+     try:
+      if route_archive is None:route_archive=_RouteEvidenceArchive(owner,plan['operation_id'])
+      route_archive.after_apply(response_path,sent_response_paths)
+     except BaseException as archive_error:
+      # APPLY COMPLETE is already emitted. Never emit a second reply or retry.
+      try:put(port._dir/'route-archive-failed.json',raw(dict(error=type(archive_error).__name__,message=str(archive_error)[:512],APPLY_already_emitted=True,automatic_retry=False,MMIO=False))+b'\n')
+      except BaseException:pass
+      return
    if kind=='close':return
   except BaseException as e:
    partial=None

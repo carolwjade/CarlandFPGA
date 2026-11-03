@@ -1,0 +1,2145 @@
+--- baseline7c/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_entry.py
++++ candidate634/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_entry.py
+@@ -0,0 +1,223 @@
++"""Finite live inherited-handle entry v2; no original actor/SDK imports."""
++import hashlib
++import importlib.util
++import json
++from pathlib import Path
++import sys
++
++
++def load_package():
++    root = Path(__file__).resolve().parent
++    manifest = json.loads((root / 'package-manifest.json').read_text(encoding='utf-8'))
++    names = {'c37_entry.py', 'c37_package.py', 'em3_core.py'}
++    if type(manifest) is not dict or set(manifest) != {'schema_version', 'files'} or manifest['schema_version'] != 1:
++        raise ValueError('invalid package manifest')
++    if type(manifest['files']) is not dict or set(manifest['files']) != names:
++        raise ValueError('fixed package paths required')
++    for name in names:
++        path = root / name
++        if path.is_symlink() or hashlib.sha256(path.read_bytes()).hexdigest() != manifest['files'][name]:
++            raise ValueError('package hash mismatch')
++    spec = importlib.util.spec_from_file_location('_c37_em3_package', root / 'c37_package.py')
++    module = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(module)
++    return module
++
++
++def serve(transport, request_bytes, max_invocations, package):
++    """Serial finite computation; owner alone retires the live initialized child.
++
++    The host must not pipeline. This loop never reads the next request until the
++    prior pair is fully written; after K it does not read or infer again.
++    """
++    if type(max_invocations) is not int or not 1 <= max_invocations <= 64:
++        raise ValueError('prospective invocation count must be 1..64')
++    if type(request_bytes) is not int or request_bytes != 16384:
++        raise ValueError('fixed total request must be 16384')
++    previous = None
++    try:
++        transport.signal_ready()
++        for _ in range(max_invocations):
++            chunks, remaining = [], request_bytes
++            while remaining:
++                data = transport.read(min(8192, remaining))
++                if type(data) is not bytes or not 0 < len(data) <= min(8192, remaining):
++                    raise ValueError('short/invalid request stream')
++                chunks.append(data)
++                remaining -= len(data)
++            wire = b''.join(chunks)
++            identity = package.request_identity(wire)
++            if previous is not None:
++                if (identity['invocation_id'] != previous['invocation_id'] + 1
++                    or any(identity[k] != previous[k] for k in identity if k != 'invocation_id')):
++                    raise ValueError('serial identity mismatch')
++            output = package.process_wire(wire)
++            for offset in range(0, len(output), 8192):
++                chunk = output[offset:offset + 8192]
++                count = transport.write(chunk)
++                if type(count) is not int or count != len(chunk):
++                    raise ValueError('short output; no remainder or replay')
++            previous = identity
++        # No pipe read, output, clock sample, inference, or normal exit after K.
++        # The original owner must enforce its already fixed bounded lifetime.
++        transport.wait_for_owner_teardown()
++        raise RuntimeError('owner teardown wait returned unexpectedly')
++    finally:
++        transport.close()
++
++
++class NativeSetupFailure(Exception):
++    """Fixed local diagnostic only; no handle values or arbitrary error text."""
++    def __init__(self, close_available, attempted, failed):
++        super().__init__('native setup failed')
++        self.close_available = close_available
++        self.close_attempted = tuple(attempted)
++        self.close_failed = tuple(failed)
++
++
++class HandleCloseFailure(Exception):
++    pass
++
++
++def _get_winapi():
++    import _winapi
++    return _winapi
++
++
++def _get_set_event():
++    from _overlapped import SetEvent
++    return SetEvent
++
++
++def _new_wait_event():
++    from threading import Event
++    return Event()
++
++
++class NativeTransport:
++    """One-use inherited handles. Original owner retains custody and lifetime."""
++    def __init__(self, ready, input_handle, output_handle):
++        self._handles = (ready, input_handle, output_handle)
++        self._closed = False
++        self._ready_attempted = False
++        self._ready = False
++        self._wait_started = False
++        self._close_handle = None
++        self.close_attempted = []
++        self.close_failed = []
++        try:
++            if sys.platform != 'win32' or any(type(h) is not int or not 0 < h < (1 << 64) - 1 for h in self._handles) or len(set(self._handles)) != 3:
++                raise ValueError('three distinct Windows handles required')
++            self._api = _get_winapi()
++            self._close_handle = self._api.CloseHandle
++            self._set_event = _get_set_event()
++            # Initialized before readiness/inference; never set or timed here.
++            self._owner_wait = _new_wait_event()
++        except Exception:
++            available = self._close_handle is not None
++            if available:
++                try:
++                    self.close()
++                except HandleCloseFailure:
++                    pass
++            else:
++                self._closed = True
++            raise NativeSetupFailure(available, self.close_attempted, self.close_failed) from None
++
++    def _live(self):
++        if self._closed or self._wait_started:
++            raise RuntimeError('transport already retired')
++
++    def signal_ready(self):
++        self._live()
++        if self._ready_attempted:
++            raise RuntimeError('readiness already attempted')
++        self._ready_attempted = True
++        if self._set_event(self._handles[0]) is not None:
++            raise OSError('invalid readiness result')
++        self._ready = True
++
++    def read(self, size):
++        self._live()
++        if not self._ready or type(size) is not int or not 1 <= size <= 8192:
++            raise ValueError('read state/chunk budget')
++        result = self._api.ReadFile(self._handles[1], size, overlapped=False)
++        if (type(result) is not tuple or len(result) != 2
++            or type(result[0]) is not bytes or not 0 < len(result[0]) <= size
++            or type(result[1]) is not int or result[1] != 0):
++            raise OSError('invalid synchronous read result')
++        # Positive partial byte-stream reads remain legal, as in C40.
++        return result[0]
++
++    def write(self, raw):
++        self._live()
++        if not self._ready or type(raw) is not bytes or not 1 <= len(raw) <= 8192:
++            raise ValueError('write state/chunk budget')
++        result = self._api.WriteFile(self._handles[2], raw, overlapped=False)
++        if (type(result) is not tuple or len(result) != 2
++            or type(result[0]) is not int or result[0] != len(raw)
++            or type(result[1]) is not int or result[1] != 0):
++            raise OSError('short/invalid synchronous write result; no retry')
++        return result[0]
++
++    def wait_for_owner_teardown(self):
++        self._live()
++        if not self._ready:
++            raise RuntimeError('readiness required')
++        self._wait_started = True
++        self._owner_wait.wait()
++        raise RuntimeError('owner teardown wait returned unexpectedly')
++
++    def close(self):
++        if self._closed:
++            return
++        self._closed = True
++        for slot, handle in enumerate(self._handles):
++            self.close_attempted.append(slot)
++            try:
++                if self._close_handle(handle) is not None:
++                    raise OSError('invalid close result')
++            except Exception:
++                self.close_failed.append(slot)
++        if self.close_failed:
++            raise HandleCloseFailure('inherited handle close failed; no retry')
++
++
++def main(argv):
++    # Original ActorOwner appends the final three native handle strings.
++    if len(argv) != 8 or argv[0:2] != ['--actor-stdio-v2', '--max-invocations'] or argv[3] != '--request-bytes':
++        return 64
++    try:
++        values = [int(argv[i]) for i in (2, 4, 5, 6, 7)]
++        if any(str(value) != argv[index] for value, index in zip(values, (2, 4, 5, 6, 7))):
++            return 64
++        count, size, ready, inp, out = values
++        if not 1 <= count <= 64 or size != 16384 or len({ready, inp, out}) != 3:
++            return 64
++        if not all(0 < handle < (1 << 64) - 1 for handle in (ready, inp, out)):
++            return 64
++    except Exception:
++        return 64
++    try:
++        package = load_package()
++    except Exception:
++        return 70
++    try:
++        transport = NativeTransport(ready, inp, out)
++    except NativeSetupFailure as error:
++        # 71: all three closes attempted and succeeded; 74: no close API;
++        # 75: all attempted, at least one failed. OS exit is final cleanup.
++        return (71 if not error.close_failed else 75) if error.close_available else 74
++    except Exception:
++        return 74
++    try:
++        serve(transport, size, count, package)
++        return 72  # A returning serve is not a successful live child.
++    except HandleCloseFailure:
++        return 73
++    except Exception:
++        return 72
++
++
++if __name__ == '__main__':
++    raise SystemExit(main(sys.argv[1:]))
+--- baseline7c/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_package.py
++++ candidate634/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/c37_package.py
+@@ -0,0 +1,356 @@
++"""Finite public-input computation. No source/BOOT authentication or authority.
++
++Only load-time reads of the fixed pinned core; process_wire performs no I/O.
++Full proofs and original provider association remain outside this child.
++"""
++import copy
++from fractions import Fraction
++import hashlib
++import importlib.util
++import json
++import math
++from pathlib import Path
++import re
++import types
++
++ABI = 'c37-owned-em3-cpu-package/v8-route-longttl-demo600s'
++STRICT_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-STRICT-V2', 'sha256': '1f730ddb7739353485db554be39d8cfcb528c97eeb1917b8b0dc1fb18c1d0905'}
++ENTRY_C0_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-LONG-TTL-DEMO30S-V4', 'sha256': '5ee6930f22e29f49bb70fc4239bf58105567d2d899790f61d3d5924fcec93e36'}
++
++CORE_SHA256 = 'fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa'
++UINT63 = (1 << 63) - 1
++MAX_WIRE = 16384
++MAX_PAYLOAD = 16380
++MAX_CHUNK = 8192
++MAX_OUTPUT = 18440
++_PUBLIC = {'schema_version', 'projection_id', 'enabled', 'now_qpc_ns', 'pose',
++           'goal_m', 'observation', 'history', 'executed_actions', 'engineering_profile'}
++_OBS = {'sample_id', 'counts', 'quality', 'missing_feature_mask', 'adc_qpc_ns', 'em_qpc_ns', 'adc_pose', 'em_pose'}
++_IDS = {'operation_id', 'run_id', 'actor_instance_id', 'invocation_id',
++        'tested_commit', 'package_manifest_sha256'}
++
++
++class Rejected(ValueError):
++    """Only fixed public reason codes are emitted to the pipe."""
++
++
++def need(condition, code='INVALID_PROJECTION'):
++    if not condition:
++        raise Rejected(code)
++
++
++def exact(value, keys):
++    need(type(value) is dict and set(value) == keys, 'INVALID_SHAPE')
++
++
++def integer(value, low=0, high=UINT63):
++    need(type(value) is int and low <= value <= high, 'INTEGER_BOUND')
++    return value
++
++
++def tree(value, depth=0, count=None):
++    if count is None:
++        count = [0]
++    count[0] += 1
++    need(depth <= 24 and count[0] <= 4096, 'TREE_BUDGET')
++    kind = type(value)
++    need(kind in (dict, list, str, int, float, bool, type(None)), 'JSON_TYPE')
++    if kind is dict:
++        need(len(value) <= 32 and all(type(k) is str and len(k) <= 96 for k in value), 'TREE_BUDGET')
++        for item in value.values():
++            tree(item, depth + 1, count)
++    elif kind is list:
++        need(len(value) <= 32, 'TREE_BUDGET')
++        for item in value:
++            tree(item, depth + 1, count)
++    elif kind is str:
++        need(len(value) <= 192, 'TREE_BUDGET')
++    elif kind is int:
++        need(abs(value) <= UINT63, 'INTEGER_BOUND')
++    elif kind is float:
++        need(math.isfinite(value), 'NONFINITE')
++
++
++def _pairs(pairs):
++    result = {}
++    for key, value in pairs:
++        need(key not in result, 'DUPLICATE_KEY')
++        result[key] = value
++    return result
++
++
++def _constant(_):
++    raise Rejected('NONFINITE')
++
++
++def _parse(raw):
++    try:
++        result = json.loads(raw.decode('utf-8'), object_pairs_hook=_pairs, parse_constant=_constant)
++    except (UnicodeError, json.JSONDecodeError, RecursionError, ValueError) as error:
++        if isinstance(error, Rejected):
++            raise
++        raise Rejected('INVALID_JSON') from None
++    tree(result)
++    return result
++
++
++def _dump(value):
++    tree(value)
++    return json.dumps(value, ensure_ascii=False, allow_nan=False, sort_keys=True,
++                      separators=(',', ':')).encode('utf-8')
++
++
++def frame(payload, limit=16384):
++    need(type(payload) is bytes and 1 <= len(payload) <= limit, 'FRAME_BUDGET')
++    return len(payload).to_bytes(4, 'little') + payload
++
++
++def fixed_request(payload):
++    """Canonical outer JSON followed by ASCII spaces; hash the whole wire."""
++    need(type(payload) is bytes and 1 <= len(payload) <= MAX_PAYLOAD, 'FRAME_BUDGET')
++    return frame(payload + b' ' * (MAX_PAYLOAD - len(payload)), MAX_PAYLOAD)
++
++
++def decode_request(wire):
++    need(type(wire) is bytes and len(wire) == MAX_WIRE, 'FRAME_BUDGET')
++    need(int.from_bytes(wire[:4], 'little') == MAX_PAYLOAD, 'FRAME_LENGTH')
++    payload = wire[4:]
++    value = _parse(payload)
++    canonical = _dump(value)
++    need(payload.startswith(canonical), 'NONCANONICAL_JSON')
++    need(all(c in b' \t\r\n' for c in payload[len(canonical):]), 'PADDING')
++    return value
++
++
++def request_identity(wire):
++    """Public serial consistency only; not owner/provenance authentication."""
++    value = decode_request(wire)
++    need(type(value) is dict and 'echo_ids' in value, 'INVALID_SHAPE')
++    _ids(value['echo_ids'])
++    return copy.deepcopy(value['echo_ids'])
++
++
++def _number(value, bound):
++    need(type(value) in (int, float), 'NUMBER_TYPE')
++    need(math.isfinite(value) and abs(value) <= bound, 'NUMBER_BOUND')
++
++
++def vector(value, size, bound):
++    need(type(value) is list and len(value) == size, 'VECTOR_SHAPE')
++    for item in value:
++        _number(item, bound)
++
++
++def pose(value):
++    exact(value, {'position_m', 'orientation_xyzw'})
++    vector(value['position_m'], 3, 1000)
++    vector(value['orientation_xyzw'], 4, 1)
++    need(abs(sum(x*x for x in value['orientation_xyzw']) - 1) <= 1e-12, 'POSE_NORM')
++
++
++def _hex(value, width):
++    need(type(value) is str and re.fullmatch('[0-9a-f]{%d}' % width, value) is not None, 'DIGEST_FORMAT')
++
++
++def validate_public(view):
++    """Derived demo consistency only; original full-proof validation is host G05 CSR."""
++    tree(view)
++    exact(view, _PUBLIC)
++    integer(view['schema_version'], 1, 1)
++    need(view['projection_id'] == 'g05_csr_em3_demo_view_v2', 'PROJECTION_VERSION')
++    exact(view['engineering_profile'],{'profile_id','sha256'})
++    need(view['engineering_profile'] in (STRICT_ENGINEERING_PROFILE,ENTRY_C0_ENGINEERING_PROFILE),'ENGINEERING_PROFILE')
++    need(type(view['enabled']) is bool, 'ENABLED_TYPE')
++    now = integer(view['now_qpc_ns'])
++    pose(view['pose']); vector(view['goal_m'], 3, 1000)
++    history, actions = view['history'], view['executed_actions']
++    need(type(history) is list and type(actions) is list, 'ARRAY_TYPE')
++    need(len(history) <= 31 and len(actions) <= 31 and len(history) + 1 + len(actions) <= 32,
++         'COMBINED_BUDGET')
++    observations = history + [view['observation']]
++    seen, native, previous = set(), {}, None
++    for obs in observations:
++        exact(obs, _OBS)
++        _hex(obs['sample_id'], 64)
++        need(obs['sample_id'] not in seen, 'DUPLICATE_SAMPLE')
++        seen.add(obs['sample_id'])
++        adc = integer(obs['adc_qpc_ns'])
++        need(adc <= now, 'FUTURE_SOURCE')
++        if previous is not None:
++            need(adc > previous['adc_qpc_ns'], 'SOURCE_ORDER')
++        pose(obs['adc_pose'])
++        q = integer(obs['quality'], 0, 8191)
++        need(integer(obs['missing_feature_mask'], 0, 15) == ((~q) & 15), 'MISSING_FEATURE_MASK')
++        counts = obs['counts']
++        need(type(counts) is list and len(counts) == 4, 'COUNTS_SHAPE')
++        em_valid = q & 7
++        need(em_valid in (0, 7) and bool(q & 0x1000) == (em_valid == 0), 'EM_FAULT')
++        need(not q & 0x800, 'C3_HELD')
++        for i, count in enumerate(counts):
++            valid, saturated, held = bool(q & (1 << i)), bool(q & (16 << i)), bool(q & (256 << i))
++            need((count is not None) == valid, 'COUNTS_VALIDITY')
++            if count is not None:
++                integer(count, 0, 4095)
++            need(valid or not (saturated or held), 'INVALID_FLAGS')
++            if i < 3 and saturated:
++                need(count in (0, 4095), 'EM_SATURATION')
++        if q & 0x80:
++            need(2*counts[3]/4095 + 1/4095 >= math.sqrt(0.4), 'C3_SATURATION')
++        # Source model startup ticks/admissions are deliberately host-only facts;
++        # an absolute QPC value cannot substitute for a model tick >=90ms.
++        if em_valid:
++            em = integer(obs['em_qpc_ns'])
++            age = adc - em
++            need(0 <= age <= 100_000_000, 'EM_SOURCE_AGE')
++            need(q & 0x700 == (0x700 if age else 0), 'HELD_FLAGS')
++            pose(obs['em_pose'])
++            if not age:
++                need(obs['em_pose'] == obs['adc_pose'], 'NATIVE_POSE')
++                native[em] = obs
++            else:
++                origin = native.get(em)
++                need(origin is not None and previous is not None and previous['em_qpc_ns'] == em,
++                     'HELD_ORIGIN')
++                need(origin['counts'][:3] == counts[:3] and origin['quality'] & 0x70 == q & 0x70
++                     and origin['em_pose'] == obs['em_pose'], 'HELD_MUTATION')
++        else:
++            need(obs['em_qpc_ns'] is None and obs['em_pose'] is None, 'FAULT_ORIGIN')
++        previous = obs
++    ids = set()
++    for action in actions:
++        exact(action, {'action_id', 'from_pose', 'to_pose'})
++        label = action['action_id']
++        need(type(label) is str and re.fullmatch(r'[ -~]{1,192}', label) is not None, 'ACTION_ID')
++        need(label not in ids, 'DUPLICATE_ACTION')
++        ids.add(label)
++        pose(action['from_pose']); pose(action['to_pose'])
++    return observations
++
++
++def _to_internal(public):
++    result = copy.deepcopy(public)
++    result['now_tick_ms'] = Fraction(result.pop('now_qpc_ns'), 1_000_000)
++    for obs in result['history'] + [result['observation']]:
++        for old, new in (('adc_qpc_ns', 'adc_tick_ms'), ('em_qpc_ns', 'em_tick_ms')):
++            ns = obs.pop(old)
++            obs[new] = None if ns is None else Fraction(ns, 1_000_000)
++    return result
++
++
++def _ns(value):
++    need(type(value) is Fraction, 'INTERNAL_TIME_TYPE')
++    ns = value * 1_000_000
++    need(ns.denominator == 1, 'INTERNAL_TIME_LOSS')
++    return integer(ns.numerator)
++
++
++def _from_internal(value):
++    result = copy.deepcopy(value)
++    result['now_qpc_ns'] = _ns(result.pop('now_tick_ms'))
++    for obs in result['history'] + [result['observation']]:
++        for old, new in (('adc_tick_ms', 'adc_qpc_ns'), ('em_tick_ms', 'em_qpc_ns')):
++            ms = obs.pop(old)
++            obs[new] = None if ms is None else _ns(ms)
++    return result
++
++
++def _validate_internal(request):
++    validate_public(_from_internal(request))
++    return request['history'] + [request['observation']]
++
++
++# One fixed startup dependency, verified before executing its original bytes.
++_core_path = Path(__file__).with_name('em3_core.py')
++_raw_core = _core_path.read_bytes()
++need(hashlib.sha256(_raw_core).hexdigest() == CORE_SHA256, 'CORE_HASH_MISMATCH')
++_EM3_CORE = types.ModuleType('_c37_em3_core')
++exec(compile(_raw_core, str(_core_path), 'exec'), _EM3_CORE.__dict__)
++_globals = _EM3_CORE.recommend.__globals__.copy()
++_globals['_validate'] = _validate_internal
++_CORE = types.FunctionType(_EM3_CORE.recommend.__code__, _globals,
++                           _EM3_CORE.recommend.__name__, _EM3_CORE.recommend.__defaults__,
++                           _EM3_CORE.recommend.__closure__)
++del _raw_core
++
++
++def _infer(public, execution):
++    internal = _to_internal(public)
++    execution['core_ran'] = True
++    result = _CORE(internal)
++    # A387 echoes the original nullable counts, quality and derived missing mask.
++    result['observation'] = copy.deepcopy(public['observation'])
++    by_id = {obs['sample_id']: obs for obs in public['history'] + [public['observation']]}
++    for cell in result['map_cells']:
++        ns = _ns(cell.pop('em_tick_ms'))
++        need(ns == by_id[cell['sample_id']]['em_qpc_ns'], 'OUTPUT_TIME_MISMATCH')
++        cell['em_qpc_ns'] = ns
++    tree(result)
++    return result
++
++
++def _ids(value):
++    exact(value, _IDS)
++    for key in ('operation_id', 'run_id', 'actor_instance_id'):
++        need(type(value[key]) is str and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:/-]{0,191}', value[key])
++             is not None, 'LABEL_FORMAT')
++    integer(value['invocation_id'], 1)
++    _hex(value['tested_commit'], 40); _hex(value['package_manifest_sha256'], 64)
++
++
++def process_wire(wire):
++    """One bounded request -> correlated READY+RESULT; never grants completion."""
++    need(type(wire) is bytes and len(wire) <= MAX_WIRE, 'FRAME_BUDGET')
++    wire_hash = hashlib.sha256(wire).hexdigest()
++    ids = None
++    execution = {'core_ran': False}
++    result = None
++    status, reason = 'REJECTED', 'INVALID_REQUEST'
++    try:
++        request = decode_request(wire)
++        need(type(request) is dict, 'INVALID_SHAPE')
++        keys = {'abi', 'kind', 'echo_ids', 'input'}
++        need(set(request) in (keys, keys | {'enabled'}), 'INVALID_SHAPE')
++        need(request['abi'] == ABI and request['kind'] == 'recommend', 'ABI_VERSION')
++        _ids(request['echo_ids'])
++        ids = copy.deepcopy(request['echo_ids'])
++        enabled = request.get('enabled', False)
++        need(type(enabled) is bool, 'ENABLED_TYPE')
++        public = request['input']
++        validate_public(public)
++        need(enabled == public['enabled'], 'ENABLED_CONFLICT')
++        if not enabled:
++            status, reason = 'DISABLED', 'disabled'
++        else:
++            result = _infer(public, execution)
++            status, reason = 'RESULT', result['reason']
++    except Rejected as error:
++        status, reason, result = 'REJECTED', str(error), None
++    except Exception:
++        # Runtime errors are terminal diagnostics, not private traceback output.
++        status, reason, result = 'REJECTED', 'INTERNAL_ERROR', None
++    ready = dict(abi=ABI, kind='READY', echo_ids=ids, request_wire_sha256=wire_hash,
++                 core_sha256=CORE_SHA256, authority='none')
++    response = dict(abi=ABI, kind='RESULT', echo_ids=ids, request_wire_sha256=wire_hash,
++                    status=status, core_ran=execution['core_ran'], authority='none',
++                    completion_grant=False, result=result, reason=reason)
++    try:
++        payload = _dump(response)
++        need(len(payload) <= 16384, 'OUTPUT_TOO_LARGE')
++    except (Rejected, ValueError, OverflowError):
++        response.update(status='REJECTED', result=None, reason='OUTPUT_TOO_LARGE')
++        payload = _dump(response)
++    output = frame(_dump(ready), 2048) + frame(payload)
++    need(len(output) <= MAX_OUTPUT, 'OUTPUT_TOO_LARGE')
++    return output
++
++
++def make_request(echo_ids, public, *, enabled=False):
++    """Serialization only. The caller must be the original host provider.
++
++    This helper does not accept proof booleans and performs no dispatch. A must
++    retain original full-proof/owner association before calling its transport.
++    """
++    value = dict(abi=ABI, kind='recommend', echo_ids=echo_ids, enabled=enabled, input=public)
++    _ids(echo_ids); validate_public(public)
++    need(type(enabled) is bool and enabled == public['enabled'], 'ENABLED_CONFLICT')
++    return fixed_request(_dump(value))
+--- baseline7c/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py
++++ candidate634/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py
+@@ -0,0 +1,430 @@
++"""A490 independent fixed-background EM3/nullable-C3 pure candidate advice; no transport or control authority.
++
++The proposal input is supplied by A's trusted adapter. Structural validation
++does not authenticate board bytes, physical sampling, timing or executed actions.
++Only standard-library math/JSON/copy are used; no source/world/model imports.
++"""
++import copy
++import json
++import math
++import re
++
++MAX_JSON_BYTES = 262144
++MAX_HISTORY = 32
++MAX_CELLS = 32
++MAX_REUSE_DISPLACEMENT_M = 0.25  # Candidate reuse gate, never measured sensor range.
++MAX_REUSE_FORWARD_ANGLE_DEG = 15.0
++MAX_NATIVE_DIRECTION_ANGLE_DEG = 30.0
++_ANGLE_DOT_TOLERANCE = 1e-12  # Floating arithmetic only, not physical uncertainty.
++# A348 derived demo policy only; original EM hold and motion bounds stay fixed.
++# Uncalibrated, explicit engineering assumptions; absent C3 is never zero.
++C3_MISSING_RISK_PENALTY = 0.25
++C3_MISSING_UNCERTAINTY_PENALTY = 0.20
++C3_MISSING_SPEED_CAP_M_S = 0.10
++STRICT_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-STRICT-V2', 'sha256': '1f730ddb7739353485db554be39d8cfcb528c97eeb1917b8b0dc1fb18c1d0905'}
++ENTRY_C0_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-LONG-TTL-DEMO30S-V4', 'sha256': '5ee6930f22e29f49bb70fc4239bf58105567d2d899790f61d3d5924fcec93e36'}
++# Fixed from Root480 actual source.bin [3099,2006,2084,None], quality7.
++# Temporary engineering baseline, not calibration, source truth or adaptive tracking.
++ENTRY_C0_BACKGROUND = 2.3
++DEMO_SOURCE_AGE_MS = 5000
++ENTRY_C0_DEMO_SOURCE_AGE_MS = 30000  # Explicit temporary demo cap; not quality acceptance.
++DEMO_AGE_NORMALIZATION_MS = 5000
++PRODUCER_SHA256 = '6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9'
++PROFILE = 'deepeye_forward_profile_candidate_v1'
++_LIMIT = (1 << 31) - 1
++_REQUEST = {'schema_version', 'enabled', 'binding', 'now_tick_ms', 'pose',
++            'goal_m', 'observation', 'history', 'executed_actions', 'engineering_profile'}
++_BINDING = {'run_id', 'build_sha256', 'boot_sha256', 'session', 'config_epoch',
++            'clock_domain', 'source_id', 'source_mode', 'profile_id',
++            'producer_sha256', 'topology_id'}
++_OBS = {'binding', 'sample_id', 'trigger_id', 'sequence', 'board_frame_sha256',
++        'source_record_sha256', 'adc_tick_ms', 'em_tick_ms', 'em_origin_sample_id',
++        'counts', 'quality', 'missing_feature_mask', 'adc_pose', 'em_pose', 'cause_action_id'}
++_ACTION = {'binding', 'action_id', 'observation_sample_id', 'at_tick_ms',
++           'from_pose', 'to_pose'}
++
++
++class Rejected(ValueError):
++    """Malformed, contradictory or unbounded proposal input."""
++
++
++def _need(condition, reason):
++    if not condition:
++        raise Rejected(reason)
++
++
++def _object(value, keys, name):
++    _need(type(value) is dict and set(value) == keys, name + ': exact keys required')
++
++
++def _integer(value, low, high, name):
++    _need(type(value) is int and low <= value <= high, name + ': integer bound')
++    return value
++
++
++def _number(value, low, high, name):
++    _need(type(value) in (int, float), name + ': finite number required')
++    try:
++        good = math.isfinite(value) and low <= value <= high
++    except OverflowError:
++        good = False
++    _need(good, name + ': finite bound')
++    return float(value)
++
++
++def _label(value, name):
++    _need(type(value) is str and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:/-]{0,95}', value)
++          is not None, name + ': label')
++
++
++def _hash(value):
++    _need(type(value) is str and re.fullmatch('[0-9a-f]{64}', value) is not None, 'hash format')
++
++
++def _vector(value, size, bound, name):
++    _need(type(value) is list and len(value) == size, name + ': array length')
++    return [_number(v, -bound, bound, name) for v in value]
++
++
++def _pose(value):
++    _object(value, {'position_m', 'orientation_xyzw'}, 'pose')
++    _vector(value['position_m'], 3, 1000, 'position_m')
++    q = _vector(value['orientation_xyzw'], 4, 1, 'orientation_xyzw')
++    _need(abs(sum(x*x for x in q) - 1) <= 1e-12, 'quaternion must be normalized')
++
++
++def _binding(value):
++    _object(value, _BINDING, 'binding')
++    for key in ('run_id', 'clock_domain'):
++        _label(value[key], key)
++    for key in ('build_sha256', 'boot_sha256', 'producer_sha256'):
++        _hash(value[key])
++    _integer(value['session'], 0, (1 << 32)-1, 'session')
++    _integer(value['config_epoch'], 0, 255, 'epoch')
++    _integer(value['source_id'], 4, 4, 'source4')
++    _integer(value['topology_id'], 1, 2, 'required H12 topology')
++    _need(value['source_mode'] == 'twin_fixture' and value['profile_id'] == PROFILE
++          and value['producer_sha256'] == PRODUCER_SHA256, 'candidate source/profile pin')
++
++
++def _tick(value, period, name):
++    _integer(value, 0, _LIMIT, name)
++    _need(value % period == 0, name + ': grid')
++
++
++def decode_counts(counts):
++    """Four quantized centre estimates; null stays null, never FORCE features."""
++    _need(type(counts) is list and len(counts) == 4, 'four counts required')
++    lows = (math.log10(0.2), -2.0, -2.0, 0.0)
++    spans = (4.0, 4.0, 4.0, 2.0)
++    result = []
++    for q, low, span in zip(counts, lows, spans):
++        if q is None:
++            result.append(None)
++        else:
++            _integer(q, 0, 4095, 'count')
++            result.append(low + span*q/4095)
++    return result
++
++
++def _observation(obs, binding, now):
++    _object(obs, _OBS, 'observation')
++    _binding(obs['binding'])
++    _need(obs['binding'] == binding, 'observation context/build changed')
++    for key in ('sample_id', 'trigger_id'):
++        _label(obs[key], key)
++    for key in ('board_frame_sha256', 'source_record_sha256'):
++        _hash(obs[key])
++    _integer(obs['sequence'], 0, (1 << 32)-1, 'sequence')
++    _tick(obs['adc_tick_ms'], 10, 'ADC tick')
++    _need(obs['adc_tick_ms'] <= now, 'future ADC observation')
++    _pose(obs['adc_pose'])
++    q = _integer(obs['quality'], 0, 0x1FFF, 'producer quality')
++    _need(_integer(obs['missing_feature_mask'], 0, 15, 'missing feature mask') == ((~q) & 15), 'missing feature mask/quality mismatch')
++    vals = decode_counts(obs['counts'])
++    em_valid = q & 7
++    _need(em_valid in (0, 7) and bool(q & 0x1000) == (em_valid == 0), 'EM validity/fault')
++    _need(not q & 0x800, 'C3 cannot be held')
++    for i, value in enumerate(vals):
++        valid, sat, held = bool(q & (1 << i)), bool(q & (16 << i)), bool(q & (256 << i))
++        _need((value is not None) == valid, 'count/null validity mismatch')
++        _need(valid or not (sat or held), 'invalid saturation/hold')
++        if i < 3 and sat:
++            _need(obs['counts'][i] in (0, 4095), 'saturated EM endpoint')
++    if q & 8:
++        _need(obs['adc_tick_ms'] >= 90, 'C3 startup')
++        if q & 0x80:
++            _need(vals[3] + 1/4095 >= math.sqrt(0.4), 'C3 saturation window')
++    if em_valid:
++        _tick(obs['em_tick_ms'], 50, 'EM tick')
++        age = obs['adc_tick_ms'] - obs['em_tick_ms']
++        _need(0 <= age <= 100, 'EM source age')
++        _need(q & 0x700 == (0x700 if age else 0), 'held/original EM time')
++        _label(obs['em_origin_sample_id'], 'EM origin')
++        _pose(obs['em_pose'])
++        if age == 0:
++            _need(obs['em_origin_sample_id'] == obs['sample_id'] and
++                  obs['em_pose'] == obs['adc_pose'], 'fresh EM origin/pose')
++    else:
++        _need(obs['em_tick_ms'] is None and obs['em_origin_sample_id'] is None
++              and obs['em_pose'] is None, 'invalid EM origin must be null')
++    if obs['cause_action_id'] is not None:
++        _label(obs['cause_action_id'], 'cause action')
++
++
++def _bounded_tree(value, depth=0, count=None):
++    """Bound direct mapping calls before copying/serializing; reject foreign objects."""
++    if count is None:
++        count = [0]
++    count[0] += 1
++    _need(depth <= 10 and count[0] <= 16000, 'JSON tree budget')
++    _need(type(value) in (dict, list, str, int, float, bool, type(None)), 'JSON type')
++    if type(value) is dict:
++        _need(len(value) <= 32 and all(type(k) is str and len(k) <= 96 for k in value), 'object bound')
++        for item in value.values():
++            _bounded_tree(item, depth+1, count)
++    elif type(value) is list:
++        _need(len(value) <= MAX_HISTORY, 'array bound')
++        for item in value:
++            _bounded_tree(item, depth+1, count)
++    elif type(value) is str:
++        _need(len(value) <= 192, 'string bound')
++    elif type(value) is int:
++        _need(abs(value) <= (1 << 64), 'integer budget')
++    elif type(value) is float:
++        _need(math.isfinite(value), 'nonfinite JSON')
++
++
++def _validate(request):
++    _bounded_tree(request)
++    _object(request, _REQUEST, 'request')
++    _integer(request['schema_version'], 1, 1, 'schema_version')
++    _need(type(request['enabled']) is bool, 'enabled bool')
++    _binding(request['binding'])
++    now = _integer(request['now_tick_ms'], 0, _LIMIT, 'same-domain now')
++    _pose(request['pose'])
++    _vector(request['goal_m'], 3, 1000, 'legal goal_m')
++    history, actions = request['history'], request['executed_actions']
++    _need(type(history) is list and type(actions) is list, 'history/action arrays')
++    _need(len(history) + len(actions) + 1 <= MAX_HISTORY, 'combined history budget')
++    observations = history + [request['observation']]
++    seen, previous = {}, None
++    for obs in observations:
++        _observation(obs, request['binding'], now)
++        _need(obs['sample_id'] not in seen, 'duplicate sample identity')
++        if previous is not None:
++            _need(obs['sequence'] > previous['sequence'] and
++                  obs['adc_tick_ms'] > previous['adc_tick_ms'], 'duplicate/reversed observation')
++        if obs['quality'] & 0x700:
++            original = seen.get(obs['em_origin_sample_id'])
++            _need(original is not None and original['adc_tick_ms'] == obs['em_tick_ms']
++                  and original['em_tick_ms'] == obs['em_tick_ms'], 'held origin absent')
++            _need(previous is not None and previous['em_tick_ms'] == obs['em_tick_ms'], 'held revival')
++            _need(original['counts'][:3] == obs['counts'][:3] and
++                  original['quality'] & 0x70 == obs['quality'] & 0x70 and
++                  original['em_pose'] == obs['em_pose'], 'held value/saturation/pose changed')
++        seen[obs['sample_id']] = obs
++        previous = obs
++    action_ids, last_tick = {}, -1
++    for action in actions:
++        _object(action, _ACTION, 'executed action')
++        _binding(action['binding'])
++        _need(action['binding'] == request['binding'], 'action context/build changed')
++        for key in ('action_id', 'observation_sample_id'):
++            _label(action[key], key)
++        _need(action['action_id'] not in action_ids, 'duplicate action')
++        tick = _integer(action['at_tick_ms'], 0, now, 'executed time')
++        _need(tick >= last_tick, 'action time reversed')
++        causal = seen.get(action['observation_sample_id'])
++        _need(causal is not None and causal['adc_tick_ms'] <= tick, 'action observation cause')
++        _pose(action['from_pose']); _pose(action['to_pose'])
++        action_ids[action['action_id']] = action
++        last_tick = tick
++    for obs in observations:
++        if obs['cause_action_id'] is not None:
++            action = action_ids.get(obs['cause_action_id'])
++            _need(action is not None and action['at_tick_ms'] < obs['adc_tick_ms'], 'observation action cause')
++    return observations
++
++
++def _rotate(q, v):
++    x, y, z, w = q
++    return [(1-2*(y*y+z*z))*v[0]+2*(x*y-z*w)*v[1]+2*(x*z+y*w)*v[2],
++            2*(x*y+z*w)*v[0]+(1-2*(x*x+z*z))*v[1]+2*(y*z-x*w)*v[2],
++            2*(x*z-y*w)*v[0]+2*(y*z+x*w)*v[1]+(1-2*(x*x+y*y))*v[2]]
++
++
++def _norm(v):
++    return math.sqrt(sum(x*x for x in v))
++
++
++def _clip(value):
++    return max(0.0, min(1.0, value))
++
++
++def _direction_supported(a, b, angle_degrees):
++    # Normalize the comparison because accepted quaternions have finite norm
++    # tolerance. Roll does not change a pose's forward axis.
++    cosine = sum(x*y for x, y in zip(a, b)) / (_norm(a)*_norm(b))
++    return cosine >= math.cos(math.radians(angle_degrees)) - _ANGLE_DOT_TOLERANCE
++
++
++def _poses_applicable(native, adc, current):
++    """All three own poses stay in one small, explicit candidate reuse envelope.
++
++    Pairwise checks prevent opposing offsets from each being close to native
++    while current and ADC are far apart. This is not physical source validity.
++    """
++    for a, b in ((native, adc), (native, current), (adc, current)):
++        distance = _norm([x-y for x, y in zip(a['position_m'], b['position_m'])])
++        if distance > MAX_REUSE_DISPLACEMENT_M:
++            return False
++        if not _direction_supported(_rotate(a['orientation_xyzw'], [0, 0, 1]),
++                                    _rotate(b['orientation_xyzw'], [0, 0, 1]),
++                                    MAX_REUSE_FORWARD_ANGLE_DEG):
++            return False
++    return True
++
++
++def _contact_penalty(values):
++    return C3_MISSING_RISK_PENALTY if values[3] is None else values[3]/2.0
++
++
++def _risk(values, background_c0=1.0):
++    return _clip(abs(values[0]-background_c0)/2.0 + _contact_penalty(values))
++
++
++def _engineering_nav(request):
++    profile=request['engineering_profile']
++    _need(type(profile) is dict and set(profile)=={'profile_id','sha256'}, 'engineering profile shape')
++    _need(profile in (STRICT_ENGINEERING_PROFILE,ENTRY_C0_ENGINEERING_PROFILE), 'fixed engineering profile')
++    return profile==ENTRY_C0_ENGINEERING_PROFILE
++
++
++def recommend(request):
++    """Return detached bounded advice. Raises Rejected on invalid proposal input.
++
++    Default mode is disabled: callers must explicitly supply enabled=true.
++    No raw bytes/provider boolean can turn this function into authentication.
++    """
++    observations = _validate(request)
++    obs = request['observation']
++    navigation_fast = _engineering_nav(request)
++    background_c0 = ENTRY_C0_BACKGROUND if navigation_fast else 1.0
++    result = {'schema_version': 1, 'planner_id': 'candidate_em3_nullable_c3_entry_planner_v7',
++              'candidate_only': True, 'authorization': 'none', 'status': 'STOP',
++              'reason': 'disabled', 'risk': 1.0, 'uncertainty': 1.0,
++              'direction_world': [0.0, 0.0, 0.0], 'speed_limit_m_s': 0.0,
++              'observation': copy.deepcopy(obs), 'map_cells': [], 'independent_em_count': 0,
++              'missing_feature_mask': obs['missing_feature_mask'], 'c3_observed': bool(obs['quality'] & 8),
++              'engineering_profile': copy.deepcopy(request['engineering_profile'])}
++    if not request['enabled']:
++        return result
++    quality = obs['quality']
++    if quality & 7 != 7 or quality & 0x10F0:
++        result['reason'] = 'invalid_faulted_or_saturated'
++        return result
++    age = request['now_tick_ms'] - obs['em_tick_ms']
++    source_age_cap = ENTRY_C0_DEMO_SOURCE_AGE_MS if navigation_fast else DEMO_SOURCE_AGE_MS
++    if age > source_age_cap or request['now_tick_ms'] - obs['adc_tick_ms'] > source_age_cap:
++        result['reason'] = 'original_sample_expired'
++        return result
++    values = decode_counts(obs['counts'])
++    # Only independent, clean native EM contributes map evidence. Held ADCs
++    # never add cells or lower uncertainty, and map positions are original poses.
++    for old in observations:
++        if old['quality'] & 0x1FFF in (7, 15) and old['adc_tick_ms'] == old['em_tick_ms']:
++            result['map_cells'].append({'sample_id': old['sample_id'],
++                'em_tick_ms': old['em_tick_ms'], 'pose': copy.deepcopy(old['em_pose']),
++                'risk': _risk(decode_counts(old['counts']), background_c0)})
++    result['independent_em_count'] = len(result['map_cells'])
++    result['uncertainty'] = _clip(0.5 + 0.4*age/DEMO_AGE_NORMALIZATION_MS + 2/4095 +
++        (C3_MISSING_UNCERTAINTY_PENALTY if values[3] is None else 0.0))
++    if not navigation_fast and result['uncertainty'] >= 1.0:
++        result['reason'] = 'observation_uncertainty_limit'
++        return result
++    # Old forward measurements are not evidence for arbitrary new positions or
++    # orientations. Keep their original map cells, but refuse to reuse them for
++    # current advice outside this candidate applicability envelope.
++    if not _poses_applicable(obs['em_pose'], obs['adc_pose'], request['pose']):
++        result.update(reason='original_observation_pose_inapplicable', uncertainty=1.0)
++        return result
++    delta = [g-p for g, p in zip(request['goal_m'], request['pose']['position_m'])]
++    distance = _norm(delta)
++    if distance <= 0.02:
++        result['reason'] = 'goal_near_requires_authority_completion'
++        return result
++    if values[3] is not None and values[3] >= 0.8:
++        result['reason'] = 'contact_vibration_risk'
++        return result
++    goal = [v/distance for v in delta]
++    q = request['pose']['orientation_xyzw']
++    # The directional signal belongs to its original native acquisition frame,
++    # not the current drill frame. Compare each candidate in that original frame.
++    native_q = obs['em_pose']['orientation_xyzw']
++    inverse_native = [-native_q[0], -native_q[1], -native_q[2], native_q[3]]
++    candidates = []
++    for x in (-0.35, 0.0, 0.35):
++        for y in (-0.35, 0.0, 0.35):
++            scale = math.sqrt(1+x*x+y*y)
++            direction = _rotate(q, [x/scale, y/scale, 1/scale])
++            progress = sum(a*b for a, b in zip(direction, goal))
++            if progress <= 0:
++                continue
++            native = _rotate(inverse_native, direction)
++            if not _direction_supported(native, [0, 0, 1], MAX_NATIVE_DIRECTION_ANGLE_DEG):
++                continue
++            # Empirical lobe interpolation, explicitly not an inversion/map oracle.
++            predicted = values[0] + 0.5*(values[1]*native[0]/0.35 + values[2]*native[1]/0.35)
++            risk = _clip(abs(predicted-background_c0)/2 + _contact_penalty(values))
++            endpoint = [p+0.25*d for p, d in zip(request['pose']['position_m'], direction)]
++            map_cost = 0.0
++            for cell in result['map_cells']:
++                square = sum((a-b)**2 for a, b in zip(endpoint, cell['pose']['position_m']))
++                map_cost = max(map_cost, cell['risk']/(1+square))
++            # Discourage undoing the last actual displacement, never an imagined action.
++            undo = 0.0
++            if request['executed_actions']:
++                action = request['executed_actions'][-1]
++                displacement = [b-a for a, b in zip(action['from_pose']['position_m'], action['to_pose']['position_m'])]
++                length = _norm(displacement)
++                if length:
++                    undo = max(0.0, -sum(d*v/length for d, v in zip(direction, displacement)))
++            cost = 1-progress + 2*risk + 0.2*map_cost + 0.1*undo
++            candidates.append((cost, abs(x)+abs(y), x, y, risk, direction))
++    if not candidates:
++        result['reason'] = 'no_forward_goal_progress'
++        return result
++    chosen = min(candidates)
++    result['risk'] = chosen[4]
++    if chosen[4] >= 0.8:
++        result['reason'] = 'candidate_risk_limit'
++        return result
++    # Root-selected NAV_FAST changes this engineering speed law only.
++    # The actual uncertainty remains visible; there is no speed floor.
++    attenuation = 1.0 if navigation_fast else 1-result['uncertainty']
++    speed_cap = 0.25 if navigation_fast or values[3] is not None else C3_MISSING_SPEED_CAP_M_S
++    result.update(status='ADVISE', reason='bounded_observation_goal_search',
++                  direction_world=chosen[5],
++                  speed_limit_m_s=min(speed_cap,
++                      0.25*(1-chosen[4])*attenuation*min(1.0, distance/0.5)))
++    return result
++
++
++def recommend_json(raw):
++    """Strict UTF-8 JSON -> canonical JSON bytes. No file/stream access."""
++    _need(type(raw) is bytes and len(raw) <= MAX_JSON_BYTES, 'JSON byte budget/type')
++    def pairs(items):
++        obj = {}
++        for key, value in items:
++            _need(key not in obj, 'duplicate JSON field')
++            obj[key] = value
++        return obj
++    def constant(_):
++        raise Rejected('nonfinite JSON constant')
++    try:
++        request = json.loads(raw.decode('utf-8'), object_pairs_hook=pairs, parse_constant=constant)
++    except (UnicodeError, RecursionError, json.JSONDecodeError, ValueError) as exc:
++        raise Rejected('invalid strict JSON') from exc
++    result = recommend(request)
++    return json.dumps(result, allow_nan=False, sort_keys=True, separators=(',', ':')).encode('utf-8')
+--- baseline7c/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/package-manifest.json
++++ candidate634/competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/package-manifest.json
+@@ -0,0 +1,8 @@
++{
++  "files": {
++    "c37_entry.py": "c21a977c25ac30bb940e5f25ea7b83daeadd0e3f13aac66062615e21de8854f1",
++    "c37_package.py": "7461262f34880d0d3d342557c7580f75e1506f93a1996729b0b9e9f9314398b8",
++    "em3_core.py": "fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa"
++  },
++  "schema_version": 1
++}
+--- baseline7c/competition/deepeye/integration/host_envelope.py
++++ candidate634/competition/deepeye/integration/host_envelope.py
+@@ -355,7 +355,7 @@
+     if navigation_profile is not None:
+         from ..simulation.authority import navigation_session_profile as navigation
+         navigation.validate_profile(navigation_profile)
+-        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or profile_name != 'fast_9600':
++        if not navigation.is_longttl(navigation_profile) or profile_name != 'fast_9600':
+             raise ValueError('exact FAST long-TTL demo navigation required')
+     action = target_document['action']
+     if action == 0:
+@@ -606,7 +606,7 @@
+     if navigation_profile is not None:
+         from ..simulation.authority import navigation_session_profile as navigation
+         navigation.validate_profile(navigation_profile)
+-        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or enable_completion_interval:
++        if not navigation.is_longttl(navigation_profile) or enable_completion_interval:
+             raise ValueError('explicit long-TTL request/grant parsing only')
+     if type(enable_completion_interval) is not bool:
+         raise ValueError('enable_completion_interval must be bool')
+--- baseline7c/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
++++ candidate634/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
+@@ -28,6 +28,10 @@
+ NAV_ENTRY_C0_V1=EM3NavigationProfile(ENTRY_C0_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_ENGINEERING_PROFILE['sha256'])
+ NAV_ENTRY_C0_12S_V3=EM3NavigationProfile(ENTRY_C0_12_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_12_ENGINEERING_PROFILE['sha256'])
+ NAV_ENTRY_LONG_TTL_V4=EM3NavigationProfile(LONG_TTL_ENGINEERING_PROFILE['profile_id'],LONG_TTL_ENGINEERING_PROFILE['sha256'])
++# Operational IO/session selector only: public engineering math remains exact V4.
++_ROUTE_SELECTOR_ID='DEEPEYE-EM3-NAV-ROUTE-LONGTTL-600S-V1'
++_ROUTE_SELECTOR_SHA=hashlib.sha256(json.dumps((_ROUTE_SELECTOR_ID,64,600_000_000_000,12_000_000_000),separators=(',',':')).encode('ascii')).hexdigest()
++NAV_ROUTE_LONGTTL_V5=EM3NavigationProfile(_ROUTE_SELECTOR_ID,_ROUTE_SELECTOR_SHA)
+ 
+ @dataclass(frozen=True, slots=True)
+ class DemoEM3AIProfile:
+@@ -47,15 +51,18 @@
+     prospective_command_max_ns: int = 1_000_000_000  # New typed demo policy only; not a core action change.
+ 
+ def selected_profile(max_source_age_ns, *, navigation_profile=None):
+-    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4)):
++    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5)):
+         raise ValueError('FIXED_EM3_NAV_PROFILE')
+-    longttl=navigation_profile==NAV_ENTRY_LONG_TTL_V4
++    route=navigation_profile is NAV_ROUTE_LONGTTL_V5
++    longttl=navigation_profile==NAV_ENTRY_LONG_TTL_V4 or route
+     entry12=navigation_profile==NAV_ENTRY_C0_12S_V3
+     entry_c0=navigation_profile==NAV_ENTRY_C0_V1
+     cap=LONG_TTL_MAX_SOURCE_AGE_NS if longttl else ENTRY_C0_12_MAX_SOURCE_AGE_NS if entry12 else ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
+     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= cap:
+         raise ValueError('DEMO_AGE_LIMIT')
+-    if longttl:
++    if route:
++        from . import verifier_route_demo_v8 as selected_verifier
++    elif longttl:
+         from . import verifier_longttl_demo_v7 as selected_verifier
+     elif entry12:
+         from . import verifier_c0_demo_v5 as selected_verifier
+@@ -64,7 +71,7 @@
+     else:
+         selected_verifier=verifier
+     engineering=LONG_TTL_ENGINEERING_PROFILE if longttl else ENTRY_C0_12_ENGINEERING_PROFILE if entry12 else ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
+-    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v7' if longttl else 'demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
++    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v8' if route else 'demo30h_owned_em3_package_v7' if longttl else 'demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
+     manifest_path = root/'package-manifest.json'
+     raw = manifest_path.read_bytes()
+     digest = hashlib.sha256(raw).hexdigest()
+--- baseline7c/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/verifier_route_demo_v8.py
++++ candidate634/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/verifier_route_demo_v8.py
+@@ -0,0 +1,560 @@
++"""A490 derived fixed-C0 demo consistency-only pair adapter. No I/O, source imports or core.
++
++Mechanical C40 parsing/input checks below preserve the pinned grammar; they do
++not authenticate source facts or perform inference. Result checks follow them.
++"""
++import hashlib
++import json
++import math
++import re
++from dataclasses import dataclass
++from types import MappingProxyType
++
++ABI = 'c37-owned-em3-cpu-package/v8-route-longttl-demo600s'
++STRICT_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-STRICT-V2', 'sha256': '1f730ddb7739353485db554be39d8cfcb528c97eeb1917b8b0dc1fb18c1d0905'}
++ENTRY_C0_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-LONG-TTL-DEMO30S-V4', 'sha256': '5ee6930f22e29f49bb70fc4239bf58105567d2d899790f61d3d5924fcec93e36'}
++
++
++
++CORE_SHA256 = 'fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa'
++MAX_SOURCE_AGE_NS = 30_000_000_000
++LEGACY_MAX_SOURCE_AGE_NS = 5_000_000_000
++AGE_NORMALIZATION_MS = 5000
++ORIGINAL_QUALITY_AGE_NS = 100_000_000
++
++
++UINT63 = (1 << 63) - 1
++
++
++MAX_WIRE = 16384
++
++
++MAX_PAYLOAD = 16380
++
++
++MAX_CHUNK = 8192
++
++
++MAX_OUTPUT = 18440
++
++
++_PUBLIC = {'schema_version', 'projection_id', 'enabled', 'now_qpc_ns', 'pose',
++           'goal_m', 'observation', 'history', 'executed_actions', 'engineering_profile'}
++
++
++_OBS = {'sample_id', 'counts', 'quality', 'missing_feature_mask', 'adc_qpc_ns', 'em_qpc_ns', 'adc_pose', 'em_pose'}
++
++
++_IDS = {'operation_id', 'run_id', 'actor_instance_id', 'invocation_id',
++        'tested_commit', 'package_manifest_sha256'}
++
++
++class Rejected(ValueError):
++    """Only fixed public reason codes are emitted to the pipe."""
++
++
++def need(condition, code='INVALID_PROJECTION'):
++    if not condition:
++        raise Rejected(code)
++
++
++def exact(value, keys):
++    need(type(value) is dict and set(value) == keys, 'INVALID_SHAPE')
++
++
++def integer(value, low=0, high=UINT63):
++    need(type(value) is int and low <= value <= high, 'INTEGER_BOUND')
++    return value
++
++
++def tree(value, depth=0, count=None):
++    if count is None:
++        count = [0]
++    count[0] += 1
++    need(depth <= 24 and count[0] <= 4096, 'TREE_BUDGET')
++    kind = type(value)
++    need(kind in (dict, list, str, int, float, bool, type(None)), 'JSON_TYPE')
++    if kind is dict:
++        need(len(value) <= 32 and all(type(k) is str and len(k) <= 96 for k in value), 'TREE_BUDGET')
++        for item in value.values():
++            tree(item, depth + 1, count)
++    elif kind is list:
++        need(len(value) <= 32, 'TREE_BUDGET')
++        for item in value:
++            tree(item, depth + 1, count)
++    elif kind is str:
++        need(len(value) <= 192, 'TREE_BUDGET')
++    elif kind is int:
++        need(abs(value) <= UINT63, 'INTEGER_BOUND')
++    elif kind is float:
++        need(math.isfinite(value), 'NONFINITE')
++
++
++def _pairs(pairs):
++    result = {}
++    for key, value in pairs:
++        need(key not in result, 'DUPLICATE_KEY')
++        result[key] = value
++    return result
++
++
++def _constant(_):
++    raise Rejected('NONFINITE')
++
++
++def _parse(raw):
++    try:
++        result = json.loads(raw.decode('utf-8'), object_pairs_hook=_pairs, parse_constant=_constant)
++    except (UnicodeError, json.JSONDecodeError, RecursionError, ValueError) as error:
++        if isinstance(error, Rejected):
++            raise
++        raise Rejected('INVALID_JSON') from None
++    tree(result)
++    return result
++
++
++def _dump(value):
++    tree(value)
++    return json.dumps(value, ensure_ascii=False, allow_nan=False, sort_keys=True,
++                      separators=(',', ':')).encode('utf-8')
++
++
++def frame(payload, limit=16384):
++    need(type(payload) is bytes and 1 <= len(payload) <= limit, 'FRAME_BUDGET')
++    return len(payload).to_bytes(4, 'little') + payload
++
++
++def fixed_request(payload):
++    """Canonical outer JSON followed by ASCII spaces; hash the whole wire."""
++    need(type(payload) is bytes and 1 <= len(payload) <= MAX_PAYLOAD, 'FRAME_BUDGET')
++    return frame(payload + b' ' * (MAX_PAYLOAD - len(payload)), MAX_PAYLOAD)
++
++
++def decode_request(wire):
++    need(type(wire) is bytes and len(wire) == MAX_WIRE, 'FRAME_BUDGET')
++    need(int.from_bytes(wire[:4], 'little') == MAX_PAYLOAD, 'FRAME_LENGTH')
++    payload = wire[4:]
++    value = _parse(payload)
++    canonical = _dump(value)
++    need(payload.startswith(canonical), 'NONCANONICAL_JSON')
++    need(all(c in b' \t\r\n' for c in payload[len(canonical):]), 'PADDING')
++    return value
++
++
++def _number(value, bound):
++    need(type(value) in (int, float), 'NUMBER_TYPE')
++    need(math.isfinite(value) and abs(value) <= bound, 'NUMBER_BOUND')
++
++
++def vector(value, size, bound):
++    need(type(value) is list and len(value) == size, 'VECTOR_SHAPE')
++    for item in value:
++        _number(item, bound)
++
++
++def pose(value):
++    exact(value, {'position_m', 'orientation_xyzw'})
++    vector(value['position_m'], 3, 1000)
++    vector(value['orientation_xyzw'], 4, 1)
++    need(abs(sum(x*x for x in value['orientation_xyzw']) - 1) <= 1e-12, 'POSE_NORM')
++
++
++def _hex(value, width):
++    need(type(value) is str and re.fullmatch('[0-9a-f]{%d}' % width, value) is not None, 'DIGEST_FORMAT')
++
++
++def validate_public(view):
++    """Derived demo consistency only; original full-proof validation is host G05 CSR."""
++    tree(view)
++    exact(view, _PUBLIC)
++    integer(view['schema_version'], 1, 1)
++    need(view['projection_id'] == 'g05_csr_em3_demo_view_v2', 'PROJECTION_VERSION')
++    exact(view['engineering_profile'],{'profile_id','sha256'})
++    need(view['engineering_profile'] in (STRICT_ENGINEERING_PROFILE,ENTRY_C0_ENGINEERING_PROFILE),'ENGINEERING_PROFILE')
++    need(type(view['enabled']) is bool, 'ENABLED_TYPE')
++    now = integer(view['now_qpc_ns'])
++    pose(view['pose']); vector(view['goal_m'], 3, 1000)
++    history, actions = view['history'], view['executed_actions']
++    need(type(history) is list and type(actions) is list, 'ARRAY_TYPE')
++    need(len(history) <= 31 and len(actions) <= 31 and len(history) + 1 + len(actions) <= 32,
++         'COMBINED_BUDGET')
++    observations = history + [view['observation']]
++    seen, native, previous = set(), {}, None
++    for obs in observations:
++        exact(obs, _OBS)
++        _hex(obs['sample_id'], 64)
++        need(obs['sample_id'] not in seen, 'DUPLICATE_SAMPLE')
++        seen.add(obs['sample_id'])
++        adc = integer(obs['adc_qpc_ns'])
++        need(adc <= now, 'FUTURE_SOURCE')
++        if previous is not None:
++            need(adc > previous['adc_qpc_ns'], 'SOURCE_ORDER')
++        pose(obs['adc_pose'])
++        q = integer(obs['quality'], 0, 8191)
++        need(integer(obs['missing_feature_mask'], 0, 15) == ((~q) & 15), 'MISSING_FEATURE_MASK')
++        counts = obs['counts']
++        need(type(counts) is list and len(counts) == 4, 'COUNTS_SHAPE')
++        em_valid = q & 7
++        need(em_valid in (0, 7) and bool(q & 0x1000) == (em_valid == 0), 'EM_FAULT')
++        need(not q & 0x800, 'C3_HELD')
++        for i, count in enumerate(counts):
++            valid, saturated, held = bool(q & (1 << i)), bool(q & (16 << i)), bool(q & (256 << i))
++            need((count is not None) == valid, 'COUNTS_VALIDITY')
++            if count is not None:
++                integer(count, 0, 4095)
++            need(valid or not (saturated or held), 'INVALID_FLAGS')
++            if i < 3 and saturated:
++                need(count in (0, 4095), 'EM_SATURATION')
++        if q & 0x80:
++            need(2*counts[3]/4095 + 1/4095 >= math.sqrt(0.4), 'C3_SATURATION')
++        # Source model startup ticks/admissions are deliberately host-only facts;
++        # an absolute QPC value cannot substitute for a model tick >=90ms.
++        if em_valid:
++            em = integer(obs['em_qpc_ns'])
++            age = adc - em
++            need(0 <= age <= 100_000_000, 'EM_SOURCE_AGE')
++            need(q & 0x700 == (0x700 if age else 0), 'HELD_FLAGS')
++            pose(obs['em_pose'])
++            if not age:
++                need(obs['em_pose'] == obs['adc_pose'], 'NATIVE_POSE')
++                native[em] = obs
++            else:
++                origin = native.get(em)
++                need(origin is not None and previous is not None and previous['em_qpc_ns'] == em,
++                     'HELD_ORIGIN')
++                need(origin['counts'][:3] == counts[:3] and origin['quality'] & 0x70 == q & 0x70
++                     and origin['em_pose'] == obs['em_pose'], 'HELD_MUTATION')
++        else:
++            need(obs['em_qpc_ns'] is None and obs['em_pose'] is None, 'FAULT_ORIGIN')
++        previous = obs
++    ids = set()
++    for action in actions:
++        exact(action, {'action_id', 'from_pose', 'to_pose'})
++        label = action['action_id']
++        need(type(label) is str and re.fullmatch(r'[ -~]{1,192}', label) is not None, 'ACTION_ID')
++        need(label not in ids, 'DUPLICATE_ACTION')
++        ids.add(label)
++        pose(action['from_pose']); pose(action['to_pose'])
++    return observations
++
++
++def _ids(value):
++    exact(value, _IDS)
++    for key in ('operation_id', 'run_id', 'actor_instance_id'):
++        need(type(value[key]) is str and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:/-]{0,191}', value[key])
++             is not None, 'LABEL_FORMAT')
++    integer(value['invocation_id'], 1)
++    _hex(value['tested_commit'], 40); _hex(value['package_manifest_sha256'], 64)
++
++# C41 output verification. No planner/host/native module is loaded.
++PACKAGE_MANIFEST_SHA256 = '2f374d73d2719e31c407d88e5717b938ad311f6fa744016358125fac0c00aef3'
++_READY = {'abi','kind','echo_ids','request_wire_sha256','core_sha256','authority'}
++_RESULT = {'abi','kind','echo_ids','request_wire_sha256','status','core_ran',
++           'authority','completion_grant','result','reason'}
++_ADVICE = {'schema_version','planner_id','candidate_only','authorization','status','reason',
++           'risk','uncertainty','direction_world','speed_limit_m_s','observation',
++           'map_cells','independent_em_count','missing_feature_mask','c3_observed','engineering_profile'}
++_STOP = {'invalid_faulted_or_saturated','original_sample_expired',
++         'observation_uncertainty_limit',
++         'original_observation_pose_inapplicable','goal_near_requires_authority_completion',
++         'contact_vibration_risk','no_forward_goal_progress','candidate_risk_limit'}
++
++
++# Literal C40 Rejected codes reachable through the post-entry validator/output
++# call surface. They remain failure diagnostics, never proof of failed computation.
++_POSTCORE_REJECTED = frozenset(['ACTION_ID', 'ARRAY_TYPE', 'C3_HELD', 'C3_SATURATION', 'COMBINED_BUDGET', 'COUNTS_SHAPE', 'COUNTS_VALIDITY', 'DIGEST_FORMAT', 'DUPLICATE_ACTION', 'DUPLICATE_SAMPLE', 'EM_FAULT', 'EM_SATURATION', 'EM_SOURCE_AGE', 'ENABLED_TYPE', 'FAULT_ORIGIN', 'FUTURE_SOURCE', 'HELD_FLAGS', 'HELD_MUTATION', 'HELD_ORIGIN', 'INTEGER_BOUND', 'INTERNAL_TIME_LOSS', 'INTERNAL_TIME_TYPE', 'INVALID_FLAGS', 'INVALID_SHAPE', 'JSON_TYPE', 'NATIVE_POSE', 'NONFINITE', 'NUMBER_BOUND', 'NUMBER_TYPE', 'OUTPUT_TIME_MISMATCH', 'MISSING_FEATURE_MASK', 'ENGINEERING_PROFILE', 'POSE_NORM', 'PROJECTION_VERSION', 'SOURCE_ORDER', 'TREE_BUDGET', 'VECTOR_SHAPE'])
++
++def _freeze(value):
++    if type(value) is dict:
++        return MappingProxyType({key:_freeze(item) for key,item in value.items()})
++    if type(value) is list:
++        return tuple(_freeze(item) for item in value)
++    return value
++
++
++@dataclass(frozen=True, slots=True)
++class PairConsistency:
++    """Detached immutable consistency data. No authentication or completion grant."""
++    ready: object
++    result: object
++    request_wire_sha256: str
++    response_wire_sha256: str
++    age_quality: object
++
++
++@dataclass(frozen=True, slots=True)
++class HostObservedInterval:
++    """Caller-supplied dispatch-to-full-result observation, not exact CPU finish."""
++    lower_ns: int
++    upper_ns: int
++
++
++def validate_observed_interval(*, dispatch_lower_ns, all_result_observed_upper_ns, now_ns):
++    """Check uint63/order only; cannot prove actual clock, IO, custody or freshness.
++
++    No conversion to completed_monotonic_ns and no new deadline is provided.
++    Original source/dispatch deadlines must independently bound admission.
++    """
++    lower=integer(dispatch_lower_ns);upper=integer(all_result_observed_upper_ns)
++    now=integer(now_ns)
++    need(lower <= upper <= now, 'OBSERVED_INTERVAL_ORDER')
++    return HostObservedInterval(lower,upper)
++
++
++def _two_frames(wire):
++    need(type(wire) is bytes and 10 <= len(wire) <= MAX_OUTPUT, 'PAIR_BUDGET')
++    values=[];offset=0
++    for limit in (2048,16384):
++        need(offset+4 <= len(wire), 'MISSING_FRAME')
++        size=int.from_bytes(wire[offset:offset+4],'little');offset+=4
++        need(1 <= size <= limit and offset+size <= len(wire), 'RESPONSE_FRAME_LENGTH')
++        values.append(_parse(wire[offset:offset+size]));offset+=size
++    need(offset == len(wire), 'EXTRA_FRAME_OR_BYTES')
++    return values
++
++
++def _public_error(request):
++    # Same C40 ordering after correlated outer shape/ABI/IDs. A malformed public
++    # request can still have a valid correlated REJECTED pair; it is not advice.
++    try:
++        enabled=request.get('enabled',False)
++        need(type(enabled) is bool, 'ENABLED_TYPE')
++        validate_public(request['input'])
++        need(enabled == request['input']['enabled'], 'ENABLED_CONFLICT')
++    except Rejected as error:
++        return str(error)
++    return None
++
++
++def _unit_interval(value):
++    _number(value,1)
++    need(value >= 0, 'OUTPUT_NUMBER_BOUND')
++
++
++def _direction(value, *, unit=True):
++    # Quaternion rotation can put a normalized component one ULP outside +/-1.
++    # This output-only tolerance leaves the existing unit-norm test unchanged.
++    vector(value,3,1+1e-12)
++    if unit:
++        need(abs(sum(x*x for x in value)-1) <= 1e-10, 'DIRECTION_NORM')
++
++
++def _advice(value,public,*,max_source_age_ns=MAX_SOURCE_AGE_NS):
++    max_source_age_ns=min(max_source_age_ns,MAX_SOURCE_AGE_NS if public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE else LEGACY_MAX_SOURCE_AGE_NS)
++    exact(value,_ADVICE)
++    integer(value['schema_version'],1,1)
++    need(value['planner_id']=='candidate_em3_nullable_c3_entry_planner_v7', 'PLANNER_ID')
++    need(value['candidate_only'] is True and value['authorization']=='none', 'ADVICE_AUTHORITY')
++    need(value['status'] in ('STOP','ADVISE'), 'ADVICE_STATUS')
++    need(type(value['reason']) is str, 'ADVICE_REASON')
++    _unit_interval(value['risk']);_unit_interval(value['uncertainty'])
++    _direction(value['direction_world'],unit=value['status']=='ADVISE');_number(value['speed_limit_m_s'],0.25)
++    need(value['speed_limit_m_s'] >= 0, 'SPEED_BOUND')
++    # JSON tree + exact grammar checks prevent bool/int equality disguises.
++    exact(value['observation'],_OBS)
++    need(_dump(value['observation'])==_dump(public['observation']), 'OBSERVATION_MISMATCH')
++    exact(value['engineering_profile'],{'profile_id','sha256'})
++    need(_dump(value['engineering_profile'])==_dump(public['engineering_profile']),'ENGINEERING_PROFILE')
++    navigation_fast=public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE
++    integer(value['missing_feature_mask'],0,15)
++    need(value['missing_feature_mask']==public['observation']['missing_feature_mask'],'MISSING_FEATURE_MASK')
++    need(type(value['c3_observed']) is bool and value['c3_observed']==bool(public['observation']['quality'] & 8),'C3_OBSERVED')
++    reason=value['reason']
++    if value['status']=='STOP':
++        need(reason in _STOP, 'STOP_REASON')
++        need(value['direction_world']==[0,0,0] and value['speed_limit_m_s']==0, 'STOP_ACTION')
++    else:
++        need(reason=='bounded_observation_goal_search', 'ADVISE_REASON')
++        need(value['risk'] < 0.8 and 0 < value['speed_limit_m_s'] <= 0.25, 'ADVISE_BOUND')
++        # Global speed cap from the supplied risk/uncertainty, not a second search.
++        attenuation=1.0 if navigation_fast else 1-value['uncertainty']
++        distance=math.sqrt(sum((g-p)**2 for g,p in zip(public['goal_m'],public['pose']['position_m'])))
++        need(value['speed_limit_m_s'] <= 0.25*(1-value['risk'])*attenuation*min(1.0,distance/0.5)+1e-15,
++             'ADVISE_SPEED_RISK_BOUND')
++    obs=public['observation'];quality=obs['quality']
++    bad_quality=quality & 7 != 7 or bool(quality & 0x10F0)
++    expired=(not bad_quality and (public['now_qpc_ns']-obs['em_qpc_ns'] > max_source_age_ns
++                                 or public['now_qpc_ns']-obs['adc_qpc_ns'] > max_source_age_ns))
++    if bad_quality:
++        need(reason=='invalid_faulted_or_saturated','EARLY_QUALITY_REASON')
++    elif expired:
++        need(reason=='original_sample_expired','EARLY_AGE_REASON')
++    else:
++        need(reason not in ('invalid_faulted_or_saturated','original_sample_expired'),'EARLY_REASON_CONFLICT')
++    if value['status']=='ADVISE' and not quality & 8:
++        age_ms=(public['now_qpc_ns']-obs['em_qpc_ns'])/1_000_000
++        need(value['risk']>=0.25,'MISSING_C3_RISK_PENALTY')
++        need(value['uncertainty']>=min(1.0,0.5+0.4*age_ms/AGE_NORMALIZATION_MS+2/4095+0.20)-1e-15,'MISSING_C3_UNCERTAINTY')
++        need(value['speed_limit_m_s']<=(0.25 if navigation_fast else 0.10),'MISSING_C3_SPEED_CAP')
++    cells=value['map_cells'];need(type(cells) is list and len(cells)<=32,'MAP_BUDGET')
++    integer(value['independent_em_count'],0,32)
++    need(value['independent_em_count']==len(cells),'MAP_COUNT')
++    origins=[] if bad_quality or expired else [o for o in public['history']+[obs]
++              if o['quality'] in (7,15) and o['adc_qpc_ns']==o['em_qpc_ns']]
++    need(len(cells)==len(origins),'MAP_ORIGINS')
++    for cell,origin in zip(cells,origins):
++        exact(cell,{'sample_id','em_qpc_ns','pose','risk'})
++        _hex(cell['sample_id'],64);integer(cell['em_qpc_ns']);pose(cell['pose']);_unit_interval(cell['risk'])
++        if not origin['quality'] & 8:need(cell['risk']>=0.25,'MISSING_C3_MAP_RISK')
++        need(cell['sample_id']==origin['sample_id'] and cell['em_qpc_ns']==origin['em_qpc_ns']
++             and _dump(cell['pose'])==_dump(origin['em_pose']),'MAP_ORIGIN_MISMATCH')
++    if bad_quality or expired:
++        need(value['risk']==1 and value['uncertainty']==1,'EARLY_STOP_BOUNDS')
++    elif reason=='original_observation_pose_inapplicable':
++        need(value['risk']==1 and value['uncertainty']==1,'POSE_STOP_BOUNDS')
++    elif reason in ('goal_near_requires_authority_completion','contact_vibration_risk','no_forward_goal_progress'):
++        need(value['risk']==1,'STOP_RISK')
++    elif reason=='candidate_risk_limit':
++        need(value['risk']>=0.8,'RISK_STOP_BOUND')
++    elif reason=='observation_uncertainty_limit':
++        need(value['risk']==1 and value['uncertainty']==1,'UNCERTAINTY_STOP_BOUND')
++
++
++def verify_pair(request_wire, response_wire, *, expected_ids, max_source_age_ns=MAX_SOURCE_AGE_NS):
++    """Verify original bytes against caller expected correlation, no provenance.
++
++    expected_ids must contain exactly the six C40 fields. Manifest/core pins are
++    fixed here, never accepted merely because a child echoes caller labels.
++    Uncorrelated/null-ID diagnostics are refused, not adopted into this result.
++    No inference, source import, clock sample, filesystem or native operation.
++    """
++    _age_limit(max_source_age_ns)
++    tree(expected_ids);_ids(expected_ids)
++    need(expected_ids['package_manifest_sha256']==PACKAGE_MANIFEST_SHA256,'PACKAGE_PIN')
++    request=decode_request(request_wire)
++    keys={'abi','kind','echo_ids','input'}
++    need(type(request) is dict and set(request) in (keys,keys|{'enabled'}),'REQUEST_SHAPE')
++    need(request['abi']==ABI and request['kind']=='recommend','REQUEST_ABI')
++    _ids(request['echo_ids'])
++    need(request['echo_ids']==expected_ids,'REQUEST_CORRELATION')
++    ready,result=_two_frames(response_wire)
++    exact(ready,_READY);exact(result,_RESULT)
++    digest=hashlib.sha256(request_wire).hexdigest()
++    for item,kind in ((ready,'READY'),(result,'RESULT')):
++        need(item['abi']==ABI and item['kind']==kind,'PAIR_ORDER_OR_ABI')
++        _ids(item['echo_ids'])
++        need(item['echo_ids']==expected_ids,'RESPONSE_CORRELATION')
++        _hex(item['request_wire_sha256'],64)
++        need(item['request_wire_sha256']==digest,'REQUEST_WIRE_HASH')
++        need(item['authority']=='none','RESPONSE_AUTHORITY')
++    need(ready['core_sha256']==CORE_SHA256,'CORE_PIN')
++    need(result['completion_grant'] is False,'COMPLETION_GRANT')
++    need(type(result['core_ran']) is bool,'CORE_RAN_TYPE')
++    status,reason=result['status'],result['reason']
++    need(type(status) is str and type(reason) is str,'STATUS_REASON_TYPE')
++    need(status in ('DISABLED','REJECTED','RESULT'),'RESULT_STATUS')
++    error=_public_error(request)
++    if error is not None:
++        need(status=='REJECTED' and reason==error and result['core_ran'] is False
++             and result['result'] is None,'PRECORE_REJECTION_SEMANTICS')
++    elif not request.get('enabled',False):
++        # This bounded disabled response cannot legitimately reach output overflow.
++        need(status=='DISABLED' and reason=='disabled' and result['core_ran'] is False
++             and result['result'] is None,'DISABLED_SEMANTICS')
++    elif status=='REJECTED':
++        need(result['result'] is None,'REJECTED_RESULT')
++        # _to_internal precedes core entry; INTERNAL_ERROR can preserve either flag.
++        # OUTPUT_TOO_LARGE after this bounded valid enabled request preserves true.
++        need(reason=='INTERNAL_ERROR' or (result['core_ran'] is True and
++             (reason=='OUTPUT_TOO_LARGE' or reason in _POSTCORE_REJECTED)),
++             'POSTVALIDATION_REJECTION_SEMANTICS')
++    else:
++        need(status=='RESULT' and result['core_ran'] is True,'RESULT_CORE_SEMANTICS')
++        _advice(result['result'],request['input'],max_source_age_ns=max_source_age_ns)
++        need(reason==result['result']['reason'],'RESULT_REASON_MISMATCH')
++    quality = None if error is not None else _freeze(quality_report(request['input'], max_source_age_ns=max_source_age_ns))
++    return PairConsistency(_freeze(ready),_freeze(result),digest,hashlib.sha256(response_wire).hexdigest(),quality)
++
++
++# Fixed derived-profile helpers: no clock, source, core, transport or authority IO.
++def _age_limit(value):
++    need(type(value) is int and 0 < value <= MAX_SOURCE_AGE_NS, 'DEMO_AGE_LIMIT')
++    return value
++
++def quality_report(public, *, max_source_age_ns=MAX_SOURCE_AGE_NS, observed_now_qpc_ns=None):
++    limit = _age_limit(max_source_age_ns)
++    validate_public(public)
++    limit=min(limit,MAX_SOURCE_AGE_NS if public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE else LEGACY_MAX_SOURCE_AGE_NS)
++    now = public['now_qpc_ns'] if observed_now_qpc_ns is None else integer(observed_now_qpc_ns)
++    need(now >= public['now_qpc_ns'],'OBSERVED_QUALITY_TIME_ORDER')
++    obs = public['observation']
++    adc_age = now - obs['adc_qpc_ns']
++    em_age = None if obs['em_qpc_ns'] is None else now - obs['em_qpc_ns']
++    original = bool(obs['quality'] & 15 == 15 and not obs['quality'] & 0x10F0 and 0 <= adc_age <= ORIGINAL_QUALITY_AGE_NS and em_age is not None and 0 <= em_age <= ORIGINAL_QUALITY_AGE_NS)
++    accepted = bool(0 <= adc_age <= limit and (em_age is None or 0 <= em_age <= limit))
++    return {'profile_id':'demo30h_ai_em3_profile_v2','age_as_of_qpc_ns':now,
++        'age_as_of':'public_input_snapshot' if observed_now_qpc_ns is None else 'caller_original_qpc_observation',
++        'actual_adc_age_ns':adc_age,
++        'source_quality':obs['quality'],'missing_feature_mask':obs['missing_feature_mask'],
++        'engineering_profile':dict(public['engineering_profile']),
++        'NAV_ENTRY_C0_selected':public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE,
++        'EM3_valid':bool(obs['quality'] & 7 == 7 and not obs['quality'] & 0x1070),
++        'C3_valid':bool(obs['quality'] & 8),'C3_contact_observed':obs['counts'][3] is not None,
++        'fixed_background_c0':2.3 if public['engineering_profile']==ENTRY_C0_ENGINEERING_PROFILE else 1.0,
++        'background_basis':'Root480 actual source.bin counts3099,2006,2084,null;q7;temporary uncalibrated fixed engineering baseline',
++        'missing_C3_policy':'risk+0.25,uncertainty+0.20; selected speed law/cap; uncalibrated engineering assumptions',
++        'actual_em_age_ns':em_age,'EM_hold_age_ns':None if em_age is None else obs['adc_qpc_ns']-obs['em_qpc_ns'],
++        'original100ms_quality':original,'target100ms_met':original,
++        'max_source_age_ns':limit,'demo_age_accepted':accepted,'temporary_demo_age_only':True,
++        'final_timing_quality_acceptance':'not_run',
++        'age_normalization_ms':AGE_NORMALIZATION_MS,'normalization_policy':'fixed_demo_cap_5000ms',
++        'authorization':'none','quality_is_not_source_provenance':True}
++
++age_quality = quality_report
++
++def _original_intermediate(public, *, engineering_profile):
++    """Strict original projection precheck; consistency is not provenance.
++
++    Only the bound precheck accepts this intermediate. Final IPC validation
++    still requires the new EM3 schema, with original quality/counts unchanged.
++    """
++    tree(public)
++    exact(public,_PUBLIC-{'engineering_profile'})
++    need(public['projection_id']=='g05_csr_c28_demo_view_v1','PROJECTION_VERSION')
++    need(type(public['history']) is list,'ARRAY_TYPE')
++    result=_parse(_dump(public))
++    for obs in result['history']+[result['observation']]:
++        exact(obs,_OBS-{'missing_feature_mask'})
++        q=integer(obs['quality'],0,8191)
++        obs['missing_feature_mask']=(~q) & 15
++    result['projection_id']='g05_csr_em3_demo_view_v2'
++    result['engineering_profile']=dict(engineering_profile)
++    return result
++
++@dataclass(frozen=True, slots=True)
++class BoundVerifier:
++    max_source_age_ns: int
++    engineering_profile_id: str = STRICT_ENGINEERING_PROFILE['profile_id']
++    engineering_profile_sha256: str = STRICT_ENGINEERING_PROFILE['sha256']
++    ABI = ABI
++    CORE_SHA256 = CORE_SHA256
++    PACKAGE_MANIFEST_SHA256 = PACKAGE_MANIFEST_SHA256
++    PairConsistency = PairConsistency
++    Rejected = Rejected
++    validate_observed_interval = staticmethod(validate_observed_interval)
++    fixed_request = staticmethod(fixed_request)
++    def __post_init__(self):
++        _age_limit(self.max_source_age_ns)
++        need(self._engineering_profile()==ENTRY_C0_ENGINEERING_PROFILE or self.max_source_age_ns<=LEGACY_MAX_SOURCE_AGE_NS,'LEGACY_DEMO_AGE_LIMIT')
++        need(self._engineering_profile() in (STRICT_ENGINEERING_PROFILE,ENTRY_C0_ENGINEERING_PROFILE),'ENGINEERING_PROFILE')
++    def _engineering_profile(self):
++        return dict(profile_id=self.engineering_profile_id,sha256=self.engineering_profile_sha256)
++    def validate_public(self, public):
++        checked=(_original_intermediate(public,engineering_profile=self._engineering_profile()) if type(public) is dict and
++                 public.get('projection_id')=='g05_csr_c28_demo_view_v1' else public)
++        result = validate_public(checked)
++        need(checked['engineering_profile']==self._engineering_profile(),'ENGINEERING_PROFILE_SELECTION')
++        need(quality_report(checked,max_source_age_ns=self.max_source_age_ns)['demo_age_accepted'],'DEMO_SOURCE_AGE')
++        return result
++    def verify_pair(self, request_wire, response_wire, *, expected_ids):
++        parsed=decode_request(request_wire)
++        need(type(parsed) is dict and type(parsed.get('input')) is dict and parsed['input'].get('engineering_profile')==self._engineering_profile(),'ENGINEERING_PROFILE_SELECTION')
++        return verify_pair(request_wire,response_wire,expected_ids=expected_ids,max_source_age_ns=self.max_source_age_ns)
++    def quality_report(self, public, *, observed_now_qpc_ns=None):
++        return quality_report(public,max_source_age_ns=self.max_source_age_ns,observed_now_qpc_ns=observed_now_qpc_ns)
++    age_quality = quality_report
++
++def selected_verifier(max_source_age_ns, *, engineering_profile=None):
++    selected=STRICT_ENGINEERING_PROFILE if engineering_profile is None else engineering_profile
++    need(type(selected) is dict and selected in (STRICT_ENGINEERING_PROFILE,ENTRY_C0_ENGINEERING_PROFILE),'ENGINEERING_PROFILE')
++    return BoundVerifier(_age_limit(max_source_age_ns),selected['profile_id'],selected['sha256'])
+--- baseline7c/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
++++ candidate634/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
+@@ -62,10 +62,10 @@
+ 
+     def check(self):
+         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
+-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4
++        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5
+         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
+         entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
+-        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_LONG_TTL_V4)
++        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile in (NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5))
+         age_cap=30_000_000_000 if longttl else 12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
+         _uint(self.max_source_age_ns, 1, age_cap)
+         _uint(self.health_timeout_ns, 1, age_cap)
+@@ -668,7 +668,7 @@
+               and proof.completion_upper_ns<=phase.lower_qpc_ns<=phase.upper_qpc_ns,
+               'actual APPLY must follow original AI completion')
+         command=tuple(request['payload']['command_words'])
+-        words=_json(phase.response_raw,4194304)['result']['capture']['words32']
++        words=_json(phase.response_raw,self._target_navigation.max_reply_bytes if self._target_navigation is not None else 4194304)['result']['capture']['words32']
+         target=decode_board_output(words,command,session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
+         _need(command[2]==self.refs.legacy_context['transport_profile_id']
+               and command[5]>self._board_last_sequence and words[0]>self._board_last_result,
+@@ -736,7 +736,7 @@
+         self.checkpoint();rows=[row for row in self._board_outputs if row[0]==raw]
+         _need(len(rows)==1,'original command-bound APPLY required')
+         output=rows[0][1];phase=output[1]
+-        request=_json(phase.request_raw);words=_json(phase.response_raw,4194304)['result']['capture']['words32']
++        request=_json(phase.request_raw);words=_json(phase.response_raw,self._target_navigation.max_reply_bytes if self._target_navigation is not None else 4194304)['result']['capture']['words32']
+         target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
+         _need(_raw(target)==output[4] and _json(raw)['target']==target
+               and _json(output[2].candidate_raw)['target']==target
+--- baseline7c/competition/deepeye/simulation/authority/navigation_session_profile.py
++++ candidate634/competition/deepeye/simulation/authority/navigation_session_profile.py
+@@ -15,6 +15,11 @@
+ 
+ _LONG_VALUES = (_VALUES[0].replace('ADJACENT','FAST-LONGTTL'), *_VALUES[1:13], 12000, *_VALUES[14:])
+ _LONG_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-FAST-LONGTTL-NAVIGATION-V1', *_LONG_VALUES), separators=(',', ':')).encode('ascii')).hexdigest()
++
++_ROUTE_VALUES = ('DEEPEYE-NAV-ROUTE-LONGTTL-600S-V1',600_000_000_000,
++    1_000_000_000,1001,4096,64,64,512,1172,64,194,16_777_216,8192,
++    12000,100_000_000,500_000_000,131072,2000,24,.05,_SOURCE_PINS)
++_ROUTE_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-ROUTE-LONGTTL-NAVIGATION-V1',*_ROUTE_VALUES),separators=(',',':')).encode('ascii')).hexdigest()
+ 
+ @dataclass(frozen=True)
+ class NavigationSessionProfile:
+@@ -43,7 +48,7 @@
+ 
+     def __post_init__(self):
+         values = tuple(getattr(self, name) for name in self.__dataclass_fields__ if name != 'sha256')
+-        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA))
++        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA), (_ROUTE_VALUES, _ROUTE_SHA))
+                 or any(type(x) is not int for x in values[1:-2])
+                 or type(self.exit_clearance_margin_m) is not float
+                 or type(self.source_pins) is not tuple
+@@ -53,6 +58,7 @@
+ 
+ NAV_ADJACENT_180S = NavigationSessionProfile(*_VALUES, _SHA)
+ NAV_FAST_LONGTTL_180S = NavigationSessionProfile(*_LONG_VALUES, _LONG_SHA)
++NAV_ROUTE_LONGTTL_600S_V1 = NavigationSessionProfile(*_ROUTE_VALUES, _ROUTE_SHA)
+ 
+ 
+ def validate_profile(value):
+@@ -69,7 +75,7 @@
+ 
+ 
+ def from_wire(value):
+-    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S):
++    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S, NAV_ROUTE_LONGTTL_600S_V1):
+         if type(value) is dict and value == to_wire(selected):
+             return selected
+     raise ValueError('exact navigation wire identity required')
+@@ -108,15 +114,23 @@
+     return public_observations,tuple(x[3] for x in selected if x[1]==1)
+ 
+ 
++def is_longttl(value):
++    validate_profile(value)
++    return value is NAV_FAST_LONGTTL_180S or value is NAV_ROUTE_LONGTTL_600S_V1
++
++
+ def longttl_for_g05(policy):
+     """Return the exact explicit demo identity, never inferred from a duration."""
+     if policy is None:
+         return None
+     from .g05_csr_channels_v1 import G05CsrPolicy
+-    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4
++    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4, NAV_ROUTE_LONGTTL_V5
+     if type(policy) is not G05CsrPolicy:
+         raise TypeError('exact G05 policy required')
+     descriptor = policy.demo_ai_profile
++    if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ROUTE_LONGTTL_V5:
++        policy.check()
++        return NAV_ROUTE_LONGTTL_600S_V1
+     if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ENTRY_LONG_TTL_V4:
+         policy.check()
+         return NAV_FAST_LONGTTL_180S
+--- baseline7c/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
++++ candidate634/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
+@@ -53,8 +53,10 @@
+     navigation_profile:object=None
+     def check(self):
+         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
+-        need(type(self.max_invocations) is int and 2<=self.max_invocations<=16,'original serial K2..16')
+-        need(type(self.max_reads) is int and 1<=self.max_reads<=256,'finite reads1..256')
++        navigation.validate_profile(self.navigation_profile)
++        route=self.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
++        need(type(self.max_invocations) is int and 2<=self.max_invocations<=(64 if route else 16),'explicit finite serial K2..16 or route64')
++        need(type(self.max_reads) is int and 1<=self.max_reads<=(64 if route else 256),'finite default reads1..256 or route reads1..64')
+         need(type(self.max_polls) is int and 1<=self.max_polls<=65536,'finite polls1..65536')
+         need(type(self.demo_duration_v1) is bool,'strict prospective demo duration selection')
+         navigation.validate_profile(self.navigation_profile)
+@@ -154,7 +156,8 @@
+         need(actor._invocation is None and actor._invocation_series is None,'fresh original serial actor only')
+         actor.begin_serial_invocations(SerialInvocationLimits(self.policy.max_invocations,
+             self.policy.max_invocations*16384,self.policy.max_invocations*18440,
+-            self.policy.max_invocations*self.policy.max_reads,'ready_result_frames_v1'))
++            min(self.policy.max_invocations*self.policy.max_reads,4096) if self.policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else self.policy.max_invocations*self.policy.max_reads,'ready_result_frames_v1',
++            navigation_profile=self.policy.navigation_profile if self.policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else None))
+         self.series=actor._invocation_series
+ 
+     def _check(self):
+@@ -309,10 +312,11 @@
+     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
+     selected=_selected_ai_profile(config)
+     if policy.navigation_profile is not None:
+-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4
+-        longttl = policy.navigation_profile is navigation.NAV_FAST_LONGTTL_180S
++        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4, NAV_ROUTE_LONGTTL_V5
++        route = policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
++        longttl = navigation.is_longttl(policy.navigation_profile)
+         need(type(selected) is DemoEM3AIProfile and
+-             ((longttl and selected.navigation_profile is NAV_ENTRY_LONG_TTL_V4
++             ((longttl and selected.navigation_profile is (NAV_ROUTE_LONGTTL_V5 if route else NAV_ENTRY_LONG_TTL_V4)
+                and selected.prospective_command_max_ns == 12_000_000_000) or
+               (not longttl and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
+                and selected.prospective_command_max_ns == 3_000_000_000)),
+--- baseline7c/competition/deepeye/simulation/isolation/actor_invocation_series.py
++++ candidate634/competition/deepeye/simulation/isolation/actor_invocation_series.py
+@@ -114,15 +114,31 @@
+     max_total_output_bytes: int
+     max_total_reads: int
+     response_mode: str = 'single_frame_v1'
++    navigation_profile: object = None
+ 
+     def __post_init__(self):
+-        _uint(self.max_invocations, 2, 32)
+-        _uint(self.max_total_request_bytes, 1, 32*16384)
+-        _uint(self.max_total_output_bytes, 1, _MAX_OUTPUT)
+-        _uint(self.max_total_reads, 1, 65536)
++        route=False
++        if self.navigation_profile is not None:
++            from ..authority import navigation_session_profile as navigation
++            navigation.validate_profile(self.navigation_profile)
++            if self.navigation_profile is not navigation.NAV_ROUTE_LONGTTL_600S_V1:
++                raise ValueError('exact explicit route64 serial profile required')
++            route=True
++        _uint(self.max_invocations, 2, 64 if route else 32)
++        _uint(self.max_total_request_bytes, 1, (64 if route else 32)*16384)
++        _uint(self.max_total_output_bytes, 1, 64*18440 if route else _MAX_OUTPUT)
++        _uint(self.max_total_reads, 1, 4096 if route else 65536)
+         if type(self.response_mode) is not str or self.response_mode not in ('single_frame_v1','ready_result_frames_v1'):
+             raise ValueError('fixed supported response mode required')
+ 
++
++
++def _limits_snapshot(limits):
++    result=asdict(limits);result.pop('navigation_profile')
++    if limits.navigation_profile is not None:
++        from ..authority import navigation_session_profile as navigation
++        result['navigation_profile']=navigation.to_wire(limits.navigation_profile)
++    return result
+ 
+ class _Ticket:
+     def __init__(self, identity, request_raw, journal_name, options, stream_start):
+@@ -307,7 +323,7 @@
+             authenticated=False,completion_verified=False)
+ 
+     def summary(self):
+-        return dict(protocol='DEEPEYE-PRIVATE-FRAMES/1',limits=asdict(self.ledger.limits),
++        return dict(protocol='DEEPEYE-PRIVATE-FRAMES/1',limits=_limits_snapshot(self.ledger.limits),
+             failed=self.ledger.failed,request_bytes_reserved=self.ledger.request_bytes,
+             output_bytes_reserved=self.ledger.output_reserved,reads_reserved=self.ledger.reads_reserved,
+             output_bytes_observed=self.ledger.observed_bytes,
+--- baseline7c/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
+@@ -164,6 +164,7 @@
+           and type(binding['build_id']) is str and 0 < len(binding['build_id']) <= 192,
+           'actual same-operation G05 policy/context required')
+     policy = g05._policy(g05_policy_raw, binding)
++    g05.validate_policy_profile(policy,demo_cycle_profile)
+     limits = policy['limits']
+     prospective = demo.validate_caps(demo_cycle_profile,max_commands=max_commands,max_polls=max_polls,
+                                     duration_ns=duration_ns,max_io=max_io)
+--- baseline7c/competition/deepeye/tools/diagnostic/functional50_chain_v2_board_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/functional50_chain_v2_board_a.py
+@@ -130,6 +130,105 @@
+   else:raise ValueError('unknown kind')
+  return x
+ 
++# New route-only file evidence migration. No command, MMIO or reply bytes change.
++def _route_ordinary(path,cap):
++ path=Path(path)
++ need(path.is_absolute() and path.is_file() and not path.is_symlink(),'ordinary archive source')
++ need(not any(x.is_symlink() for x in path.parents),'archive path alias')
++ with path.open('rb') as f:
++  before=os.fstat(f.fileno());need(stat.S_ISREG(before.st_mode) and before.st_nlink==1 and 0<=before.st_size<=cap,'bounded single-link archive file')
++  data=f.read(cap+1);after=os.fstat(f.fileno())
++ signature=lambda x:(x.st_dev,x.st_ino,x.st_size,x.st_mtime_ns,x.st_nlink)
++ need(signature(before)==signature(after) and len(data)==before.st_size,'archive source changed during read')
++ return data,signature(before)
++
++
++def _route_migrate_files(source,destination,files,journal,key,checkpoint,*,remove_source_root=False):
++ """Copy/verify before removal; exclusive intent/returned files prohibit replay."""
++ source,destination,journal=Path(source),Path(destination),Path(journal)
++ need(source.is_absolute() and source.is_dir() and not source.is_symlink()
++      and destination.is_absolute() and journal.is_absolute() and journal.is_dir(), 'owned archive roots')
++ need(not any(x.is_symlink() for x in source.parents) and not any(x.is_symlink() for x in destination.parents),'archive root alias')
++ need(re.fullmatch('[A-Za-z0-9_-]{1,80}',key) is not None and type(files) is dict and 0<len(files)<=4096,'bounded archive identity/inventory')
++ need(not destination.exists() and not (journal/(key+'-intent.json')).exists(),'archive attempt already used; no replay')
++ retained={};mapping=[]
++ for name,pin in sorted(files.items()):
++  relative=Path(name)
++  need(type(name) is str and name and '\\' not in name and not relative.is_absolute() and ':' not in name and '..' not in relative.parts,'archive relative path')
++  need(type(pin) is dict and set(pin)=={'bytes','sha256'} and type(pin['bytes']) is int and 0<=pin['bytes']<=16_777_216,'archive file pin')
++  checkpoint();data,identity=_route_ordinary(source/relative,16_777_216)
++  need(len(data)==pin['bytes'] and digest(data)==pin['sha256'],'original archive bytes differ')
++  retained[name]=(data,identity);mapping.append(dict(source=str(source/relative),destination=str(destination/relative),**pin))
++ if remove_source_root:
++  need({x.relative_to(source).as_posix() for x in source.rglob('*') if x.is_file()}==set(files),'closed scan inventory changed')
++ put(journal/(key+'-intent.json'),raw(dict(schema='route_file_archive_v1',key=key,scope='file evidence only; no MMIO',mapping=mapping))+b'\n')
++ checkpoint();destination.mkdir(mode=0o700)
++ for name,(data,identity) in retained.items():
++  checkpoint();target=destination/name;target.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
++  fd=os.open(str(target),os.O_WRONLY|os.O_CREAT|os.O_EXCL|getattr(os,'O_NOFOLLOW',0),0o600)
++  with os.fdopen(fd,'wb') as f:f.write(data);f.flush();os.fsync(f.fileno())
++  copied,_=_route_ordinary(target,16_777_216);need(copied==data,'archive full destination readback differs')
++ for name,(data,identity) in retained.items():
++  checkpoint();again,current=_route_ordinary(source/name,16_777_216)
++  need(current==identity and again==data,'source changed before archive removal')
++ if remove_source_root:
++  need({x.relative_to(source).as_posix() for x in source.rglob('*') if x.is_file()}==set(files),'closed scan inventory changed before removal')
++ put(journal/(key+'-copy-verified.json'),raw(dict(key=key,mapping=mapping,all_full_readbacks_match=True))+b'\n')
++ for name,(data,identity) in retained.items():
++  checkpoint();again,current=_route_ordinary(source/name,16_777_216)
++  need(current==identity and again==data,'source changed at bounded removal')
++  (source/name).unlink()
++ if remove_source_root:
++  directories=[x for x in source.rglob('*') if x.is_dir()]
++  for path in sorted(directories,key=lambda x:len(x.parts),reverse=True):need(not path.is_symlink(),'archive directory alias');path.rmdir()
++  source.rmdir()
++ result=dict(schema='route_file_archive_v1',key=key,mapping=mapping,all_full_readbacks_match=True,source_removed=True,MMIO=False)
++ put(journal/(key+'-returned.json'),raw(result)+b'\n')
++ return result
++
++
++class _RouteEvidenceArchive:
++ def __init__(self,owner,operation,sink_parent=Path('/home/xilinx/deepeye-route-evidence-634')):
++  from . import functional50_trace_cycles_a as cycles
++  from ...simulation.authority import navigation_session_profile as navigation
++  need(type(owner) is cycles.TraceCycles and owner._demo_cycle_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1,'exact route archive owner/profile')
++  self.owner=owner;self.operation=operation;self.done=set()
++  self._checkpoint()
++  need(re.fullmatch('[A-Za-z0-9_-]{1,80}',operation) is not None and owner._port._dir.name==operation,'archive original operation')
++  sink_parent=Path(sink_parent)
++  need(sink_parent.is_absolute() and not sink_parent.is_symlink() and not any(x.is_symlink() for x in sink_parent.parents),'ordinary owned SD sink parent')
++  sink_parent.mkdir(mode=0o700,parents=True,exist_ok=True);self.sink=sink_parent/operation
++  need(not self.sink.exists(),'new unique route SD sink required');self.sink.mkdir(mode=0o700)
++  put(owner._port._dir/'route-archive-sink.json',raw(dict(operation_id=operation,SD_sink=str(self.sink),scope='new route-only verified evidence relocation; original emitted replies retained byte-exact'))+b'\n')
++ def _checkpoint(self):
++  o=self.owner;o._check();o._check_deadline();p=o._port
++  need(not p._cycle_active and p._trace_audit is None,'no active TRACE audit during archive')
++  need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==p._boot,'same original archive boot')
++ def after_apply(self,current_response,sent_response_paths):
++  self._checkpoint();owner=self.owner;port=owner._port
++  for record in owner._records[:-1]:
++   directory=record['directory'];key='scan-'+str(record['index'])
++   if key in self.done:continue
++   self._checkpoint();response=parse(record['response'])
++   need(response['status']=='COMPLETE' and response['terminal']=='QUIESCENT'
++        and response['cleanup_observed'] is True and response['wire_complete'] is True
++        and response['unknown'] is False and record['correlation']['status']=='FOUR_FRAME_CORRELATION_CONSISTENT',
++        'only original complete quiescent correlated old scan may archive')
++   need(directory.parent==owner._directory and directory!=owner._records[-1]['directory'],'only old original scan directory')
++   manifest_path=directory/'evidence-manifest.json';manifest_data,_=_route_ordinary(manifest_path,16_777_216)
++   need(digest(manifest_data)==record['evidence_manifest_sha256'],'original scan manifest pin')
++   manifest=parse(manifest_data);files=dict(manifest['files']);files['evidence-manifest.json']=dict(bytes=len(manifest_data),sha256=digest(manifest_data))
++   _route_migrate_files(directory,self.sink/key,files,self.sink,key,self._checkpoint,remove_source_root=True);self.done.add(key)
++  for path in sent_response_paths:
++   if path==current_response:continue
++   key=path.stem
++   if key in self.done:continue
++   self._checkpoint();need(path.parent==port._dir and re.fullmatch('chain-v2-[0-9]{2,3}-response',key) is not None,'original emitted response path')
++   data,_=_route_ordinary(path,16_777_216);doc=parse(data)
++   need(doc['operation_id']==self.operation and doc['status']=='COMPLETE' and doc['unknown'] is False,'only original already-emitted COMPLETE response may archive')
++   _route_migrate_files(port._dir,self.sink/key,{path.name:dict(bytes=len(data),sha256=digest(data))},self.sink,key,self._checkpoint);self.done.add(key)
++
++
+ def put(path,value):
+  with path.open('xb') as f:f.write(value);f.flush();os.fsync(f.fileno())
+ def write_line(value,demo_cycle_profile=None):
+@@ -169,7 +268,7 @@
+  custody=board._G05_LOADS.get(port);need(type(port) is board._TracePort and type(custody) is tuple and len(custody)==9 and dict(custody[3])==binding and port._dir.name==plan['operation_id'] and port._boot==plan['boot_id'] and len(str(port._dir))<=900,'original same-load custody and bounded evidence path')
+  put(port._dir/'chain-v2-load-plan.json',plan_raw);put(port._dir/'chain-v2-g05-policy.json',policy_raw)
+  ready=dict(schema='chain_board_v2',state='ready',operation_id=plan['operation_id'],plan_sha256=digest(plan_raw),load_request_hash=plan['request_sha256'],build_id=plan['build_id'],source_commit=plan['source_commit'],policy_file_sha256=digest(policy_raw),manifest_sha256=argv[3]);put(port._dir/'chain-v2-ready.json',raw(ready)+b'\n');write_line(raw(ready)+b'\n')
+- sequence=Sequence();owner=cycles.TraceCycles(port,bundle);gs=None
++ sequence=Sequence();owner=cycles.TraceCycles(port,bundle);gs=None;route_archive=None;sent_response_paths=[]
+  step=0
+  while step<_demo().request_cap(sequence.demo_cycle_profile):
+   line=sys.stdin.buffer.readline(MAX_REQUEST+1)
+@@ -181,8 +280,9 @@
+     # Factory 4 + init 35, each command <=76 plus two I/Os per
+     # selected status poll, four fresh statuses <=60, optional STOP <=3.
+     selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
+-    from competition.deepeye.simulation.authority.navigation_session_profile import NAV_FAST_LONGTTL_180S
+-    if selected is NAV_FAST_LONGTTL_180S:
++    from competition.deepeye.simulation.authority.navigation_session_profile import is_longttl
++    g05.validate_policy_profile(policy,selected)
++    if is_longttl(selected):
+      need(plan['build_id']==g05.LONG_TTL_BUILD_ID, 'exact loaded long-TTL hardware build required')
+     prospective_io=_demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
+     need(prospective_io<=policy['limits']['total_io']<=p['max_io'],'G05 policy cannot cover selected session or exceeds budget')
+@@ -210,8 +310,20 @@
+     elif kind=='status':facts=gs.observe_status()
+     else:facts=gs.close(stop=p['stop'])
+     result=facts_json(facts,session,tx,sequence.demo_cycle_profile)
+-   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');put(port._dir/('chain-v2-%02d-response.json'%(step+1)),response);write_line(response,sequence.demo_cycle_profile)
++   response=raw(dict(schema=SCHEMA,id=request_id,operation_id=plan['operation_id'],kind=kind,status='COMPLETE',result=result,error=None,unknown=False))+b'\n';need(len(response)<=_demo().reply_cap(sequence.demo_cycle_profile),'bounded response violated');response_path=port._dir/('chain-v2-%02d-response.json'%(step+1));put(response_path,response);write_line(response,sequence.demo_cycle_profile)
+    step+=1
++   from ...simulation.authority.navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
++   if sequence.demo_cycle_profile is NAV_ROUTE_LONGTTL_600S_V1:
++    sent_response_paths.append(response_path)
++    if kind=='apply':
++     try:
++      if route_archive is None:route_archive=_RouteEvidenceArchive(owner,plan['operation_id'])
++      route_archive.after_apply(response_path,sent_response_paths)
++     except BaseException as archive_error:
++      # APPLY COMPLETE is already emitted. Never emit a second reply or retry.
++      try:put(port._dir/'route-archive-failed.json',raw(dict(error=type(archive_error).__name__,message=str(archive_error)[:512],APPLY_already_emitted=True,automatic_retry=False,MMIO=False))+b'\n')
++      except BaseException:pass
++      return
+    if kind=='close':return
+   except BaseException as e:
+    partial=None
+--- baseline7c/competition/deepeye/tools/diagnostic/functional50_demo_four_cycle_profile_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/functional50_demo_four_cycle_profile_a.py
+@@ -43,7 +43,7 @@
+     return None if value is None else dict(profile_id=value.profile_id,sha256=value.sha256)
+ 
+ def from_wire(value):
+-    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S)):
++    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S), navigation.to_wire(navigation.NAV_ROUTE_LONGTTL_600S_V1)):
+         return navigation.from_wire(value)
+     if type(value) is not dict or value!=to_wire(DEMO_FOUR_CYCLE):
+         raise ValueError('exact four-cycle wire policy identity required')
+@@ -61,10 +61,10 @@
+ def validate_caps(value,*,max_commands,max_polls,duration_ns,max_io):
+     validate_profile(value)
+     if is_navigation(value):
+-        if (type(max_commands) is not int or max_commands!=16
+-                or type(max_polls) is not int or max_polls!=128
++        if (type(max_commands) is not int or max_commands!=value.max_commands
++                or type(max_polls) is not int or max_polls!=value.capture_polls
+                 or type(duration_ns) is not int or duration_ns!=value.duration_ns
+-                or type(max_io) is not int or not navigation.prospective_io(value)<=max_io<=2048):
++                or type(max_io) is not int or not navigation.prospective_io(value)<=max_io<=value.max_io):
+             raise ValueError('navigation requires16 commands/128 capture polls/180s and complete prospective I/O capacity')
+         return navigation.prospective_io(value)
+     if not (type(max_commands) is int and 1<=max_commands<=command_cap(value)
+@@ -84,16 +84,16 @@
+     return value.duration_ns if is_navigation(value) else 10_000_000_000
+ 
+ def poll_cap(value):
+-    return 128 if is_navigation(value) else 64
++    return value.capture_polls if is_navigation(value) else 64
+ 
+ def io_cap(value):
+-    return 2048 if is_navigation(value) else 450
++    return value.max_io if is_navigation(value) else 450
+ 
+ def reply_cap(value):
+-    return 4_194_304 if is_navigation(value) else 1_048_576
++    return value.max_reply_bytes if is_navigation(value) else 1_048_576
+ 
+ def status_phase_cap(value):
+-    return 16 if is_navigation(value) else 4
++    return value.status_phases if is_navigation(value) else 4
+ 
+ def trace_io_cap(value):
+     return value.max_trace_io if is_navigation(value) else 5000
+--- baseline7c/competition/deepeye/tools/diagnostic/functional50_g05_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/functional50_g05_a.py
+@@ -14,6 +14,7 @@
+ _ROM=((0,128234,512938,1154111,2051753,3205865,4616446,6283496,8207015,10387004,12823462,15516389,18465785,21671651,25133986,28852790,32828063,37059806,41548017,46292698,51293849),
+       (0,8,32,73,131,205,295,402,525,664,820,993,1181,1386,1608,1846,2100,2371,2659,2962,3282))
+ _MAX={'begin':1,'commit':16,'stop':1,'latch':16,'release':16,'total_io':2048}
++_ROUTE_MAX={'begin':1,'commit':64,'stop':1,'latch':64,'release':64,'total_io':8192}
+ _READ=frozenset((0,4,8,0x10,0x14,0x18,0x1c,0x20,0x24,0x28,0x40,0x44,0x48,0x4c,*range(0x100,0x134,4),*range(0x200,0x21c,4),*range(0x300,0x380,4)))
+ _KEY=object()
+ _DEADLINE_KEY=object()
+@@ -24,14 +25,30 @@
+ def _canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=False,allow_nan=False).encode('utf8')
+ 
+ def _policy(raw,binding):
++    from ...simulation.authority import navigation_session_profile as navigation
+     doc=board._json(raw)
+-    _need(type(doc) is dict and set(doc)=={'binding','limits','policy_sha256'},'exact G05 policy')
++    route=(type(doc) is dict and set(doc)=={'binding','limits','policy_sha256','navigation_profile'}
++           and doc['navigation_profile']==navigation.to_wire(navigation.NAV_ROUTE_LONGTTL_600S_V1))
++    _need(route or type(doc) is dict and set(doc)=={'binding','limits','policy_sha256'},'exact G05 policy')
+     _need(type(doc['binding']) is dict and doc['binding']==binding,'same load policy binding')
+-    limits=doc['limits'];_need(type(limits) is dict and set(limits)==set(_MAX),'exact finite quotas')
+-    _need(all(type(limits[k]) is int and 0<=limits[k]<=v for k,v in _MAX.items()) and limits['total_io']>0,'bounded G05 quotas')
++    maximum=_ROUTE_MAX if route else _MAX
++    limits=doc['limits'];_need(type(limits) is dict and set(limits)==set(maximum),'exact finite quotas')
++    _need(all(type(limits[k]) is int and 0<=limits[k]<=v for k,v in maximum.items()) and limits['total_io']>0,'bounded G05 quotas')
+     digest=doc['policy_sha256'];_need(type(digest) is str and re.fullmatch('[0-9a-f]{64}',digest) is not None,'policy hash')
+-    _need(hashlib.sha256(_canonical(dict(binding=doc['binding'],limits=limits))).hexdigest()==digest,'policy hash mismatch')
++    body=dict(binding=doc['binding'],limits=limits)
++    if route:body['navigation_profile']=doc['navigation_profile']
++    _need(hashlib.sha256(_canonical(body)).hexdigest()==digest,'policy hash mismatch')
+     return doc
++
++
++def validate_policy_profile(policy,navigation_profile):
++    from ...simulation.authority import navigation_session_profile as navigation
++    navigation.validate_profile(navigation_profile)
++    marker=policy.get('navigation_profile')
++    if navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1:
++        _need(marker==navigation.to_wire(navigation_profile),'explicit route64 policy marker required')
++    else:_need(marker is None,'route64 policy requires exact route64 INIT selection')
++
+ 
+ def _status_check(status,fault,mode):
+     _need(type(status) is int and 0<=status<=0x7f and type(fault) is int and fault==0,'G05 status/fault')
+@@ -47,7 +64,7 @@
+     _need(type(words) is tuple and len(words)==7 and all(type(v) is int and 0<=v<=0xffffffff for v in words),'seven exact unsigned command words')
+     from ...simulation.authority import navigation_session_profile as navigation
+     navigation.validate_profile(navigation_profile)
+-    structural_longttl = navigation_profile is navigation.NAV_FAST_LONGTTL_180S
++    structural_longttl = navigation.is_longttl(navigation_profile)
+     longttl = build_id == LONG_TTL_BUILD_ID or structural_longttl
+     y,p,profile,speed,ttl,seq,tag=words
+     _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 and not longttl else 12000),'G05 encoding and profile')
+@@ -65,7 +82,9 @@
+     def __init__(self,key,trace,reg,mmio,directory,policy):
+         _need(key is _KEY,'original G05 factory required')
+         self._trace,self._reg,self._mmio,self._dir=trace,reg,mmio,directory
+-        self._policy=MappingProxyType({'binding':MappingProxyType(dict(policy['binding'])),'limits':MappingProxyType(dict(policy['limits'])),'policy_sha256':policy['policy_sha256']})
++        frozen={'binding':MappingProxyType(dict(policy['binding'])),'limits':MappingProxyType(dict(policy['limits'])),'policy_sha256':policy['policy_sha256']}
++        if 'navigation_profile' in policy:frozen['navigation_profile']=MappingProxyType(dict(policy['navigation_profile']))
++        self._policy=MappingProxyType(frozen)
+         self._thread=threading.get_ident();self._pid=os.getpid();self._failed=False;self._count=0;self._ids=set();self._seq=0;self._profile=None;self._identity=None;self._staged=None;self._bound=False;self._stopped=False
+         self._used={k:0 for k in _MAX if k!='total_io'};self._deadline_ns=None
+     def _check(self):
+@@ -78,6 +97,7 @@
+         _need(key is _DEADLINE_KEY and self._deadline_ns is None,'one original deadline binding required')
+         now=time.monotonic_ns()
+         demo.validate_profile(demo_cycle_profile)
++        validate_policy_profile(self._policy,demo_cycle_profile)
+         _need(type(deadline_ns) is int and now<deadline_ns<=now+demo.duration_cap(demo_cycle_profile),'future deadline within selected finite session required')
+         self._deadline_ns=deadline_ns
+         try:
+--- baseline7c/competition/deepeye/tools/diagnostic/functional50_g05_transaction_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/functional50_g05_transaction_a.py
+@@ -22,7 +22,9 @@
+     duration_ns:int
+     demo_cycle_profile:object=None
+     def __post_init__(self):
+-        _need(type(self.max_commands) is int and 1<=self.max_commands<=16,'1..16 commands required')
++        demo.validate_profile(self.demo_cycle_profile)
++        maximum=demo.command_cap(self.demo_cycle_profile) if demo.is_navigation(self.demo_cycle_profile) else 16
++        _need(type(self.max_commands) is int and 1<=self.max_commands<=maximum,'bounded selected command count required')
+         _need(type(self.max_polls) is int and 1<=self.max_polls<=1024,'bounded polls required')
+         demo.validate_profile(self.demo_cycle_profile)
+         _need(type(self.duration_ns) is int and 0<self.duration_ns<=demo.duration_cap(self.demo_cycle_profile),'bounded selected duration required')
+--- baseline7c/competition/deepeye/tools/diagnostic/original_chain_receipt_producer_a.py
++++ candidate634/competition/deepeye/tools/diagnostic/original_chain_receipt_producer_a.py
+@@ -144,7 +144,7 @@
+    need(len(self._chain.sequence.ids)==self._operation_count+1 and ident in self._chain.sequence.ids,'original one-use client operation required');self._operation_count+=1
+    self._flush_pump()
+    need(type(out) is dict and type(out.get('raw_response')) is bytes and type(out.get('lower_qpc_ns')) is int and type(out.get('upper_qpc_ns')) is int and 0<=out['lower_qpc_ns']<=out['upper_qpc_ns'],'original client response brackets')
+-   doc=client._response(out['raw_response'],ident,self._operation,kind)
++   doc=client._response(out['raw_response'],ident,self._operation,kind,self._chain.sequence.demo_cycle_profile)
+    need(doc==out['response'],'raw original reply mismatch')
+    phase=self._phase(out,ident,kind)
+    if doc['status']!='COMPLETE':self._failed=True

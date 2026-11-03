@@ -28,6 +28,10 @@ NAV_FAST_V1=EM3NavigationProfile(NAV_ENGINEERING_PROFILE['profile_id'],NAV_ENGIN
 NAV_ENTRY_C0_V1=EM3NavigationProfile(ENTRY_C0_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_ENGINEERING_PROFILE['sha256'])
 NAV_ENTRY_C0_12S_V3=EM3NavigationProfile(ENTRY_C0_12_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_12_ENGINEERING_PROFILE['sha256'])
 NAV_ENTRY_LONG_TTL_V4=EM3NavigationProfile(LONG_TTL_ENGINEERING_PROFILE['profile_id'],LONG_TTL_ENGINEERING_PROFILE['sha256'])
+# Operational IO/session selector only: public engineering math remains exact V4.
+_ROUTE_SELECTOR_ID='DEEPEYE-EM3-NAV-ROUTE-LONGTTL-600S-V1'
+_ROUTE_SELECTOR_SHA=hashlib.sha256(json.dumps((_ROUTE_SELECTOR_ID,64,600_000_000_000,12_000_000_000),separators=(',',':')).encode('ascii')).hexdigest()
+NAV_ROUTE_LONGTTL_V5=EM3NavigationProfile(_ROUTE_SELECTOR_ID,_ROUTE_SELECTOR_SHA)
 
 @dataclass(frozen=True, slots=True)
 class DemoEM3AIProfile:
@@ -47,15 +51,18 @@ class DemoEM3AIProfile:
     prospective_command_max_ns: int = 1_000_000_000  # New typed demo policy only; not a core action change.
 
 def selected_profile(max_source_age_ns, *, navigation_profile=None):
-    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4)):
+    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4,NAV_ROUTE_LONGTTL_V5)):
         raise ValueError('FIXED_EM3_NAV_PROFILE')
-    longttl=navigation_profile==NAV_ENTRY_LONG_TTL_V4
+    route=navigation_profile is NAV_ROUTE_LONGTTL_V5
+    longttl=navigation_profile==NAV_ENTRY_LONG_TTL_V4 or route
     entry12=navigation_profile==NAV_ENTRY_C0_12S_V3
     entry_c0=navigation_profile==NAV_ENTRY_C0_V1
     cap=LONG_TTL_MAX_SOURCE_AGE_NS if longttl else ENTRY_C0_12_MAX_SOURCE_AGE_NS if entry12 else ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= cap:
         raise ValueError('DEMO_AGE_LIMIT')
-    if longttl:
+    if route:
+        from . import verifier_route_demo_v8 as selected_verifier
+    elif longttl:
         from . import verifier_longttl_demo_v7 as selected_verifier
     elif entry12:
         from . import verifier_c0_demo_v5 as selected_verifier
@@ -64,7 +71,7 @@ def selected_profile(max_source_age_ns, *, navigation_profile=None):
     else:
         selected_verifier=verifier
     engineering=LONG_TTL_ENGINEERING_PROFILE if longttl else ENTRY_C0_12_ENGINEERING_PROFILE if entry12 else ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
-    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v7' if longttl else 'demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
+    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v8' if route else 'demo30h_owned_em3_package_v7' if longttl else 'demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
     manifest_path = root/'package-manifest.json'
     raw = manifest_path.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()

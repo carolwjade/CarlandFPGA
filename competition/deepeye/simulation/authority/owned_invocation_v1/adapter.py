@@ -53,8 +53,10 @@ class OwnedInvocationPolicy:
     navigation_profile:object=None
     def check(self):
         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
-        need(type(self.max_invocations) is int and 2<=self.max_invocations<=16,'original serial K2..16')
-        need(type(self.max_reads) is int and 1<=self.max_reads<=256,'finite reads1..256')
+        navigation.validate_profile(self.navigation_profile)
+        route=self.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
+        need(type(self.max_invocations) is int and 2<=self.max_invocations<=(64 if route else 16),'explicit finite serial K2..16 or route64')
+        need(type(self.max_reads) is int and 1<=self.max_reads<=(64 if route else 256),'finite default reads1..256 or route reads1..64')
         need(type(self.max_polls) is int and 1<=self.max_polls<=65536,'finite polls1..65536')
         need(type(self.demo_duration_v1) is bool,'strict prospective demo duration selection')
         navigation.validate_profile(self.navigation_profile)
@@ -154,7 +156,8 @@ class _OwnedInvocationAdapter:
         need(actor._invocation is None and actor._invocation_series is None,'fresh original serial actor only')
         actor.begin_serial_invocations(SerialInvocationLimits(self.policy.max_invocations,
             self.policy.max_invocations*16384,self.policy.max_invocations*18440,
-            self.policy.max_invocations*self.policy.max_reads,'ready_result_frames_v1'))
+            min(self.policy.max_invocations*self.policy.max_reads,4096) if self.policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else self.policy.max_invocations*self.policy.max_reads,'ready_result_frames_v1',
+            navigation_profile=self.policy.navigation_profile if self.policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1 else None))
         self.series=actor._invocation_series
 
     def _check(self):
@@ -309,10 +312,11 @@ def _validate_config(config,binding):
     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
     selected=_selected_ai_profile(config)
     if policy.navigation_profile is not None:
-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4
-        longttl = policy.navigation_profile is navigation.NAV_FAST_LONGTTL_180S
+        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4, NAV_ROUTE_LONGTTL_V5
+        route = policy.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
+        longttl = navigation.is_longttl(policy.navigation_profile)
         need(type(selected) is DemoEM3AIProfile and
-             ((longttl and selected.navigation_profile is NAV_ENTRY_LONG_TTL_V4
+             ((longttl and selected.navigation_profile is (NAV_ROUTE_LONGTTL_V5 if route else NAV_ENTRY_LONG_TTL_V4)
                and selected.prospective_command_max_ns == 12_000_000_000) or
               (not longttl and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
                and selected.prospective_command_max_ns == 3_000_000_000)),

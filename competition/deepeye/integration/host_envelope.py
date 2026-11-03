@@ -355,7 +355,7 @@ def _check_target(target_document, profile_name, *, navigation_profile=None):
     if navigation_profile is not None:
         from ..simulation.authority import navigation_session_profile as navigation
         navigation.validate_profile(navigation_profile)
-        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or profile_name != 'fast_9600':
+        if not navigation.is_longttl(navigation_profile) or profile_name != 'fast_9600':
             raise ValueError('exact FAST long-TTL demo navigation required')
     action = target_document['action']
     if action == 0:
@@ -606,7 +606,7 @@ def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
     if navigation_profile is not None:
         from ..simulation.authority import navigation_session_profile as navigation
         navigation.validate_profile(navigation_profile)
-        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or enable_completion_interval:
+        if not navigation.is_longttl(navigation_profile) or enable_completion_interval:
             raise ValueError('explicit long-TTL request/grant parsing only')
     if type(enable_completion_interval) is not bool:
         raise ValueError('enable_completion_interval must be bool')

@@ -164,6 +164,7 @@ def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
           and type(binding['build_id']) is str and 0 < len(binding['build_id']) <= 192,
           'actual same-operation G05 policy/context required')
     policy = g05._policy(g05_policy_raw, binding)
+    g05.validate_policy_profile(policy,demo_cycle_profile)
     limits = policy['limits']
     prospective = demo.validate_caps(demo_cycle_profile,max_commands=max_commands,max_polls=max_polls,
                                     duration_ns=duration_ns,max_io=max_io)
