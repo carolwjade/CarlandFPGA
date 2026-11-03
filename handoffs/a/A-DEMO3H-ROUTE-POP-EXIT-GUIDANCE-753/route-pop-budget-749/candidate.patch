@@ -1,0 +1,31 @@
+--- competition/deepeye/tools/diagnostic/functional50_board_a.py
++++ competition/deepeye/tools/diagnostic/functional50_board_a.py
+@@ -223,6 +223,19 @@
+     return _TraceCyclePolicy(_KEY)
+ 
+ 
++def _global_trace_pop_limit(profile):
++    """Finite selected-session POP cap; original per-scan and I/O caps remain.
++
++    Only the exact pre-work-bound route600 descriptor owns64 scan budgets.
++    Default/old/foreign-equal descriptors never gain the extended global cap.
++    """
++    if profile is None:return 4096
++    from . import functional50_demo_four_cycle_profile_a as demo
++    from ...simulation.authority.navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
++    demo.validate_profile(profile)
++    return demo.scan_cap(profile)*4096 if profile is NAV_ROUTE_LONGTTL_600S_V1 else 4096
++
++
+ class _TracePort:
+     def __init__(self,key,mmio,directory,boot,cycle_policy=None):
+         need(key is _KEY,'internal port only');self._mmio=mmio;self._dir=directory;self._boot=boot;self._pid=os.getpid();self._count=0;self._failed=False;self._ids=set();self._commands={1:0,2:0,3:0,4:0,5:0,8:0}
+@@ -271,7 +284,7 @@
+             limits={1:1,2:4,3:4,4:4,5:1,8:4096}
+             counts=self._cycle_commands if self._cycle_policy is not None and self._cycle_ready else self._commands
+             need(counts[value]<limits[value] and (value==1 or counts[1]==1),'command quota/ARM')
+-            need(value!=8 or self._commands[8]<4096,'global POP limit')
++            need(value!=8 or self._commands[8]<_global_trace_pop_limit(selected),'global POP limit')
+         self._count+=1;n=self._count;self._ids.add(request_id)
+         if self._cycle_active:self._cycle_work_started=True
+         self._record_io(n,'started',{'id':request_id,'kind':kind,'offset':offset,'value':value,'pid':self._pid,'monotonic_ns':time.monotonic_ns()})

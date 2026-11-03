@@ -8,6 +8,7 @@ actual executed actions leave this module; scene truth never enters the view.
 import copy
 import math
 from fractions import Fraction
+from dataclasses import dataclass
 
 from .g05_csr_channels_v1 import (_Mapping, _need, _raw, _sha, _uint,
                                  validate_raw4_observation)
@@ -36,6 +37,81 @@ def _nav_entry_clearance_ready(channel,root,layout,position,goal,inward):
     if not _nav_entry_clearance_reached(position,goal,inward):return False
     _NAV_ENTRY_CLEARANCES[channel]=(layout,root)
     return True
+
+
+@dataclass(frozen=True)
+class _PublicExitNormalProfileV1:
+    profile_id: str
+    sha256: str
+
+
+DEMO_PUBLIC_EXIT_NORMAL_V1 = _PublicExitNormalProfileV1(
+    'DEEPEYE-DEMO-PUBLIC-EXIT-NORMAL-GOAL-V1', '1e21141578d2351e72a576e314564c87e54d498e182d6d00cf727d1282f88dbc')
+_NAV_EXIT_GUIDANCES = {}  # Strong original channel/layout/monotone closed Root.
+
+
+def _public_exit_normal_goal(position,orientation,center,normal,half_segment,
+                             radius,numeric,asset,ordinary_goal,phase,*,active=False):
+    """Pure public geometry guidance only; never a passage/motion certificate."""
+    from .motion.kinematics import _rotate_vector
+    _need(type(active) is bool and type(phase) is str,'strict guidance state required')
+    def vector(value,size):
+        _need(type(value) in (list,tuple) and len(value)==size,'public vector shape')
+        _need(all(type(x) in (int,float) and math.isfinite(x) and abs(x)<=1000
+                  for x in value),'finite public vector required')
+        return tuple(float(x) for x in value)
+    p=vector(position,3);q=vector(orientation,4);c=vector(center,3)
+    n=vector(normal,3);vector(ordinary_goal,3)
+    _need(all(x in (-1,0,1) for x in n) and sum(abs(x) for x in n)==1,
+          'public outward cube-face normal required')
+    _need(all(type(x) in (int,float) and math.isfinite(x) and 0<=x<=10
+              for x in (half_segment,radius,numeric,asset)) and radius>0,
+          'declared public body/error bounds required')
+    qnorm=math.sqrt(sum(x*x for x in q))
+    _need(abs(qnorm-1)<=1e-12,'original normalized public quaternion required')
+    u=_rotate_vector(tuple(x/qnorm for x in q),(0.,0.,1.))
+    if phase not in ('INSIDE','EXIT_CROSSING'):return None
+    dot=lambda a,b:sum(x*y for x,y in zip(a,b))
+    norm=lambda v:math.sqrt(dot(v,v))
+    un=dot(u,n)
+    if un<=0:return None
+    offset=tuple(x-y for x,y in zip(p,c));signed=dot(offset,n)
+    lateral=tuple(-x+signed*a for x,a in zip(offset,n))
+    angle=math.acos(max(-1.,min(1.,un)))
+    extent=half_segment*abs(un)+radius+numeric+asset
+    if not active:
+        if (phase!='INSIDE' or not extent < -signed <=1.5
+                or norm(lateral)>.5 or angle>math.pi/6):return None
+    axis_hit=tuple(x-signed*a-signed*(b-un*a)/un
+                   for x,a,b in zip(offset,n,u))
+    if norm(axis_hit)<=.005 and angle<=math.pi/90:
+        desired=n
+    else:
+        d=tuple(a+e/.5 for a,e in zip(n,lateral));length=norm(d)
+        _need(length>0,'nonzero public alignment direction required')
+        desired=tuple(x/length for x in d)
+    v=tuple(a+4*(b-a) for a,b in zip(u,desired));length=norm(v)
+    if length==0:return None
+    v=tuple(x/length for x in v)
+    if dot(v,u)<=0 or dot(v,n)<=0:return None
+    goal=[x+.5*a for x,a in zip(p,v)]
+    vector(goal,3)
+    return goal
+
+
+def _refine_public_exit_goal(channel,root,layout,pose,gate,ordinary_goal,
+                             half_segment,radius,numeric,asset,phase):
+    prior=_NAV_EXIT_GUIDANCES.get(channel)
+    if prior is not None:
+        _need(prior[0] is layout and prior[1].phase.context is root.phase.context
+              and prior[1].pose_revision<=root.pose_revision,
+              'original monotone public exit-guidance Root required')
+    goal=_public_exit_normal_goal(pose['position_m'],pose['orientation_xyzw'],
+        gate.center_m,gate.normal,half_segment,radius,numeric,asset,ordinary_goal,
+        phase,active=prior is not None)
+    if goal is None:return ordinary_goal
+    _NAV_EXIT_GUIDANCES[channel]=(layout,root)
+    return goal
 
 
 def _nav_exit_goal(center,normal,half_segment,radius,numeric,asset,margin):
@@ -267,6 +343,14 @@ def project_original_g05(association, *, max_source_age_ns):
         goal=_nav_exit_goal(gate.center_m,normal,
             values.envelope.half_segment_m,values.envelope.radius_m,
             declared.numeric_m,declared.asset_m,navigation_profile.exit_clearance_margin_m)
+        public_goal_profile=getattr(c.owner._config.owned_invocation_v1,'public_goal_profile',None)
+        if use_exit and public_goal_profile is not None:
+            _need(public_goal_profile is DEMO_PUBLIC_EXIT_NORMAL_V1
+                  and navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1,
+                  'exact explicit route public exit-guidance profile required')
+            goal=_refine_public_exit_goal(c,root,values.layout,current['pose'],gate,goal,
+                values.envelope.half_segment_m,values.envelope.radius_m,
+                declared.numeric_m,declared.asset_m,passage.phase)
     actions=[]
     for transition in transitions:
         before=transition.before; after=c.refs.book._root

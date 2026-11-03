@@ -52,6 +52,7 @@ class OwnedInvocationPolicy:
     demo_duration_v1:bool=False
     navigation_profile:object=None
     steering_profile:object=None
+    public_goal_profile:object=None
     def check(self):
         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
         navigation.validate_profile(self.navigation_profile)
@@ -67,6 +68,13 @@ class OwnedInvocationPolicy:
                  else 1000 if self.demo_duration_v1 else 100)
         need(type(self.duration_ms) is int and 1<=self.duration_ms<=maximum,'bounded prospective command validity')
         _steering_horizon_ms(self.steering_profile,self.navigation_profile,self.duration_ms)
+        if self.public_goal_profile is not None:
+            from ..g05_csr_projection_v1 import DEMO_PUBLIC_EXIT_NORMAL_V1
+            from .mechanics import DEMO_STEERING_3S_V1
+            need(self.public_goal_profile is DEMO_PUBLIC_EXIT_NORMAL_V1
+                 and self.navigation_profile is navigation.NAV_ROUTE_LONGTTL_600S_V1
+                 and self.steering_profile is DEMO_STEERING_3S_V1 and self.duration_ms==12000,
+                 'exact route600 steering3s public exit-guidance policy required')
         InvocationIdentity(self.operation_id,self.request_hash,self.tested_commit,MANIFEST,'check',1,'check')
 
 class _Association:

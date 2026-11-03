@@ -1,0 +1,25 @@
+{
+  "original_operation": "A-GEN4-BOARD-OUTPUT-NAV-20261103-740-R01",
+  "Root_actual_readonly_proof": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\trace29-journal-748\\driver\\RESULT.json",
+  "Root_actual_proof_sha256": "4fb5ebaac803c6d692f3d7e5c6b6d725e75f93f3946764b287a09830c4136816",
+  "scan29_io_count": 25219,
+  "scan29_batch_io_count": 205,
+  "error_type": "ValueError",
+  "unknown": true,
+  "cleanup_observed": true,
+  "original_failure_wire_hex": "a55a03e417027000",
+  "original_failure_wire_bytes": 8,
+  "complete_four_frame_rx_boundaries": [
+    4088,
+    4125,
+    4162,
+    4199,
+    4234
+  ],
+  "old_global_pop_limit": 4096,
+  "completed_prior_scans": 28,
+  "prior146byte_POP_total": 4088,
+  "first_refused_scan29_POP": 9,
+  "diagnosis": "Original global POP4096 exhausted; total TRACE I/O131072 not exhausted; four frames produced before collect failure.",
+  "status": "Root actual board evidence, not a new board action by worker"
+}
