@@ -1,0 +1,53 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "files": {
+    "API.md": {
+      "sha256": "f6db0c66ccb4cb134eb5c98e00e61c9b3980655472cf3d52e459d2d74cd56915",
+      "bytes": 3969
+    },
+    "BASE.json": {
+      "sha256": "067db64884f8caf4a3462478ff210e452f00e7ccb369dc2418e28b01690ae27e",
+      "bytes": 313
+    },
+    "candidate.patch": {
+      "sha256": "57ba1757add66d66061a61f63f0ef28f0bf2bad259c08c44b420bc6b97b2ebba",
+      "bytes": 13001
+    },
+    "controller847.py": {
+      "sha256": "5886d83488602b2ba7fc7be51230c9736ad25c60e1ad76aa16c4d81100251ec1",
+      "bytes": 22942
+    },
+    "pure847.py": {
+      "sha256": "e23ba02ad0c312d7010891dc28dfae18ec8ecef580aec9aa2b776194e334e998",
+      "bytes": 4404
+    },
+    "PURE_CONTROLS.stderr.txt": {
+      "sha256": "66040329afe9f1483fdbf53a54cf321e4264147bebd516577e3609ea9efafce2",
+      "bytes": 105
+    },
+    "PURE_CONTROLS.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "base_sha256": "6900970c8e49b5a1691ef8aab466eb6c5a481a3f93c05dec3ca3882a701cf79f",
+  "verification": {
+    "Python310_AST": "passed",
+    "narrow_pure_controls": 2,
+    "controls_exit": 0,
+    "tool_chunk": "347f4a",
+    "initial_next_control_methods_AST_unchanged": true,
+    "telemetry_publication_functions_AST_unchanged": true,
+    "first_control_harness_AST_selector_failure": "4e6c70, corrected; no gate relaxation",
+    "tested_controller_sha256": "5886d83488602b2ba7fc7be51230c9736ad25c60e1ad76aa16c4d81100251ec1",
+    "final_pure_run": "exact final bytes; same2narrow controls after STOP-before-host-log ordering adjustment"
+  },
+  "controller_main_executed": false,
+  "board": false,
+  "network": false,
+  "UI": false,
+  "source_AI_PDE_RTL": "not_run",
+  "formal_acceptance": "not_run",
+  "Root_next": "copy exact candidate to O7 root; review new operation config/stage; stop/wait old waiting controller before one new launch"
+}

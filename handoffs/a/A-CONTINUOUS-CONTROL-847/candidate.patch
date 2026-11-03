@@ -1,0 +1,179 @@
+--- a/Root_live_controller833.py
++++ b/Root_live_controller847.py
+@@ -1,4 +1,4 @@
+-"""Root's candidate 833 continuous live demo coordinator. Explicit entry only.
++"""Root's candidate 847 continuous live demo coordinator. Explicit entry only.
+ 
+ Native owns guarded per-physics-frame motion; source/AI/real board IO are separate
+ workers. No precomputed route, private scene in AI, total mission cap or replay.
+@@ -16,6 +16,28 @@
+ def atomic(p,v):
+  tmp=p.with_name(p.name+'.Root833.tmp');tmp.write_bytes(raw(v)+b'\n');os.replace(tmp,p)
+ def load(p):return json.loads(p.read_bytes())
++
++def advice_applicable(advice,state,epoch,now):
++ """Original selected epoch/5s/.25m/15degree guard, including held renewals."""
++ try:
++  if advice is None or advice.get('status')!='ADVISE' or advice['world_epoch']!=epoch:return False
++  age=now-int(advice['source_acquisition_qpc_ns'])
++  if not 0<=age<=5_000_000_000 or math.dist(advice['source_pose']['position_m'],state['position_m'])>.25:return False
++  def forward(q):
++   x,y,z,w=q;return [2*(x*z+y*w),2*(y*z-x*w),1-2*(x*x+y*y)]
++  dot=sum(a*b for a,b in zip(forward(advice['source_pose']['orientation_xyzw']),forward(state['orientation_xyzw'])))
++  return dot>=math.cos(math.radians(15.))
++ except (KeyError,TypeError,ValueError,OverflowError):return False
++
++def stop_native_once(native,result,reason):
++ """Attempt one independent terminal native STOP, even on unknown response.
++ No board acknowledgement is fabricated; physical STOP keeps single-IO order.
++ """
++ if result.get('native_stop_attempted'):return
++ result['native_stop_attempted']=True;result['native_stop_reason']=reason
++ try:result['native_stop']=native.stop()
++ except BaseException as error:
++  result['native_stop_error']=dict(type=type(error).__name__,message=str(error)[:256])
+ 
+ class RunControl:
+  """Initial preference storage is separate from actual ongoing control.
+@@ -79,7 +101,7 @@
+   reason=command['reason']
+   self.current_speed_source=('explicit_pause_via_actual_board' if reason=='explicit_operator_pause'
+                             else 'host_safety_guard_via_actual_board' if reason in
+-                            ('actual_source_stale','original_advice_inapplicable_at_dispatch','resume_waiting_for_fresh_actual_ai')
++                            ('actual_source_stale','original_advice_inapplicable_at_dispatch','resume_waiting_for_fresh_actual_ai','held_original_advice_inapplicable_at_renewal')
+                             else 'actual_pc_ai_and_board')
+  def status_fields(self):
+   stored=self.last_intent_scope=='next_initial_preference'
+@@ -139,7 +161,7 @@
+   return board.start()
+  board_future=board_pool.submit(start_board);board_kind='init';board_meta={}
+  source_future=ai_future=None;source_pending=observation=advice=None
+- held=None;grant=0;last_apply=0;last_source=-1;last_native_poll=0.;last_status=0.;source_seq=0;ai_generation=0;want_stop=False;last_snapshot_at=-1;source_origin=None;native_pause_seen=False
++ held=None;held_advice=None;grant=0;last_apply=0;last_source=-1;last_native_poll=0.;last_status=0.;source_seq=0;ai_generation=0;want_stop=False;last_snapshot_at=-1;source_origin=None;native_pause_seen=False
+  try:
+   display(stage='加载一次实板固件，建立持续连接',board='连接与真实初始化中')
+   while True:
+@@ -148,19 +170,22 @@
+    if state['fault'] and not (want_stop and 'native_stop' in result and state['fault']=='operator_stop'):
+     raise RuntimeError('NATIVE_SAFETY_FAULT:'+state['fault'])
+    if state['phase']=='ARRIVED':result['arrival']=True;result['arrival_native']=sample;want_stop=True
++   if want_stop:stop_native_once(native,result,'arrival_or_terminal_control')
+    op_path=run/'operator_intent.json';operator_resumed=False
+    if op_path.exists():
+     op=load(op_path)
+     if control.accept(op,epoch):
++     operator_resumed=op['action']=='resume'
++     if control.last_intent_scope=='control' and (op['action']=='stop' or op.get('stop_latched',False)):
++      want_stop=True;stop_native_once(native,result,'operator_intent')
+      log('operator-intent',intent=op,scope=control.last_intent_scope)
+-     operator_resumed=op['action']=='resume'
+-     if control.last_intent_scope=='control' and (op['action']=='stop' or op.get('stop_latched',False)):want_stop=True
+      display()
+    if state['operator_request']=='pause':
+     if not native_pause_seen and not control.paused and not operator_resumed:control.paused=True;control.invalidate()
+     native_pause_seen=True
+    else:native_pause_seen=False
+-   if state['operator_request']=='stop':want_stop=True
++   if state['operator_request']=='stop':
++    want_stop=True;stop_native_once(native,result,'native_operator_request')
+    if board_future is not None and board_future.done():
+     actual=board_future.result();kind=board_kind;meta=board_meta;board_future=None
+     if kind=='init':
+@@ -180,19 +205,22 @@
+      log('source-e4-correlated',source=payload,actual_board=actual,public_observation=observation)
+     elif kind=='apply':
+      receipt=actual['response'];grant=actual['host_deadline_qpc_ns'];last_apply=now;held=meta['command']
++     held_advice=meta.get('actual_advice') if held['speed_code']>0 else None
+      control.consume_initial(meta['reserved_initial_speed'])
+-     acknowledged=native.pause(receipt,grant_deadline_qpc_ns=grant) if held['speed_code']==0 else native.apply_pwm(receipt,grant_deadline_qpc_ns=grant)
+-     control.acknowledge_apply(meta['operator_generation'],meta['control_seq'],held,control_ack_allowed=meta['control_ack_allowed'])
+-     display(board_connected=True,actual_speed_m_s=held['speed_code']*.0125,pwm_period=receipt['result']['pwm_period'],pwm_high=receipt['result']['pwm_high'],paused=held['speed_code']==0,stage='实板控制连续运动闭环运行')
+-     log('actual-pwm-native-accepted',board=actual,native=acknowledged,command=held,initial_speed_latched=control.initial_speed_latched,latched_initial_speed_m_s=control.latched_initial_speed)
+-     if control.desired==held:control.desired=None
++     if want_stop or result.get('native_stop_attempted'):
++      log('actual-pwm-terminal-not-admitted',board=actual,command=held,reason='native_terminal_before_inflight_apply_returned')
++     else:
++      acknowledged=native.pause(receipt,grant_deadline_qpc_ns=grant) if held['speed_code']==0 else native.apply_pwm(receipt,grant_deadline_qpc_ns=grant)
++      control.acknowledge_apply(meta['operator_generation'],meta['control_seq'],held,control_ack_allowed=meta['control_ack_allowed'])
++      display(board_connected=True,actual_speed_m_s=held['speed_code']*.0125,pwm_period=receipt['result']['pwm_period'],pwm_high=receipt['result']['pwm_high'],paused=held['speed_code']==0,stage='实板控制连续运动闭环运行')
++      log('actual-pwm-native-accepted',board=actual,native=acknowledged,command=held,initial_speed_latched=control.initial_speed_latched,latched_initial_speed_m_s=control.latched_initial_speed,advice_source_acquisition_qpc_ns=None if held_advice is None else held_advice['source_acquisition_qpc_ns'])
++      if control.desired==held:control.desired=None
+     elif kind=='stop':
+      result['board_stop']=actual;control.control_ack_seq=control.control_seq;control.control_state='applied'
+      display(stop_acknowledged=True);break
+    if want_stop:
++    stop_native_once(native,result,'terminal_control')
+     if board_future is None:
+-     try:result['native_stop']=native.stop()
+-     except Exception as e:result['native_stop_error']=type(e).__name__
+      if board is not None and board.client is not None and board.client.ready and not board.client.unknown:
+       board_future=board_pool.submit(board.request,'stop');board_kind='stop';board_meta={}
+      else:break
+@@ -217,28 +245,35 @@
+    if board is not None and board.client is not None and board.client.ready and board_future is None:
+     if observation is not None and now-int(observation['at_qpc_ns'])>5_000_000_000:
+      control.desired=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='actual_source_stale')
+-    command=None
++    command=None;command_advice=None
+     if control.paused:command=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='explicit_operator_pause')
+     elif control.desired is not None:
+      advice=control.advice
+      if advice is not None and advice.get('status')=='ADVISE':
+-      age=now-int(advice['source_acquisition_qpc_ns'])
+-      distance=math.dist(advice['source_pose']['position_m'],state['position_m'])
+-      aq=advice['source_pose']['orientation_xyzw'];bq=state['orientation_xyzw']
+-      def forward(q):
+-       x,y,z,w=q;return [2*(x*z+y*w),2*(y*z-x*w),1-2*(x*x+y*y)]
+-      angle_dot=sum(a*b for a,b in zip(forward(aq),forward(bq)))
+-      if advice['world_epoch']!=epoch or not 0<=age<=5_000_000_000 or distance>.25 or angle_dot<math.cos(math.radians(15.)):
++      if not advice_applicable(advice,state,epoch,now):
+        control.desired=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='original_advice_inapplicable_at_dispatch')
+-      else:control.desired=command_for_advice(advice,state,control.speed_limit(),control.paused)
++      else:
++       control.desired=command_for_advice(advice,state,control.speed_limit(),control.paused)
++       command_advice=advice
+      command=control.desired
+     elif control.awaiting_resume_ai and held is not None and held['speed_code']!=0:
+      command=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='resume_waiting_for_fresh_actual_ai')
+-    elif held is not None and grant-now<7_000_000_000:command=held
++    elif held is not None and grant-now<7_000_000_000:
++     if held['speed_code']==0:command=held
++     elif advice_applicable(held_advice,state,epoch,now):
++      command=held;command_advice=held_advice
++     elif advice_applicable(control.advice,state,epoch,now):
++      command=command_for_advice(control.advice,state,control.speed_limit(),control.paused)
++      command_advice=control.advice
++     else:command=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='held_original_advice_inapplicable_at_renewal')
++    # Every positive submission retains the actual original applicable ADVISE.
++    if command is not None and command['speed_code']>0:
++     if not advice_applicable(command_advice,state,epoch,now):
++      command=dict(yaw_q=0,pitch_q=0,speed_code=0,reason='held_original_advice_inapplicable_at_renewal');command_advice=None
+     if command is not None and (held is None or command!=held or grant-now<7_000_000_000):
+      fields={k:command[k] for k in ['yaw_q','pitch_q','speed_code']}
+      reserved=control.reserve_initial()
+-     board_meta=dict(command=command,operator_generation=control.operator_generation,control_seq=control.control_seq,reserved_initial_speed=reserved,control_ack_allowed=not control.awaiting_resume_ai)
++     board_meta=dict(command=command,actual_advice=command_advice,operator_generation=control.operator_generation,control_seq=control.control_seq,reserved_initial_speed=reserved,control_ack_allowed=not control.awaiting_resume_ai)
+      board_future=board_pool.submit(board.apply,**fields);board_kind='apply'
+     elif source_pending is not None and ai_future is None:
+      candidate=source_pending;source_pending=None;source_seq+=1
+@@ -249,8 +284,10 @@
+     display(phase=state['phase'],native_speed_m_s=state['speed_m_s'],position_m=state['position_m'],source_age_s=None if observation is None else (now-int(observation['at_qpc_ns']))/1e9);last_status=time.monotonic()
+    time.sleep(.015)
+  except BaseException as e:
++  stop_native_once(native,result,'controller_failure')
+   result['failure']=dict(type=type(e).__name__,message=str(e),traceback=traceback.format_exc());log('failed',failure=result['failure']);display(stage='已停止：'+str(e)[:160])
+  finally:
++  stop_native_once(native,result,'controller_finally')
+   if source is not None:source.close(wait=True)
+   if ai is not None:ai.close(wait=True)
+   if board_future is not None:
+@@ -260,9 +297,6 @@
+    try:result['board_close']=board_pool.submit(board.close).result(timeout=15)
+    except BaseException as e:result['board_close_error']=type(e).__name__
+   board_pool.shutdown(wait=True,cancel_futures=True)
+-  try:
+-   if not native.broken and 'native_stop' not in result:result['native_stop']=native.stop()
+-  except BaseException as e:result.setdefault('native_stop_error',type(e).__name__)
+   native.close();result['complete']=bool(result.get('arrival') and result.get('board_stop') and result.get('board_close',{}).get('wait_confirmed') and not result.get('failure'))
+   result.update(initial_speed_latched=control.initial_speed_latched,latched_initial_speed_m_s=control.latched_initial_speed,next_initial_speed_m_s=control.next_initial_preference)
+   atomic(run/'RESULT.json',result);display(stage='完整出圈已完成' if result['complete'] else '本次运行已结束，待检查',complete=result['complete']);journal.close()
