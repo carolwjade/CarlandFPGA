@@ -89,6 +89,8 @@ def select_original_g05(config, binding):
           'original configuration and G05 operation binding required')
     _need(type(config.g05_csr_v1) is G05CsrPolicy, 'explicit default-off G05 profile required')
     config.g05_csr_v1.check()
+    from .g05_board_output_v1 import check_mode_selection
+    check_mode_selection(config.g05_board_output_v1,config.pc_direct_window_v2,config.g05_csr_v1)
     _need(config.g05_csr_v1.demo_ai_profile is not None, 'fixed new G05 demo AI profile required')
     binding._check()
     if config.g05_csr_v1.max_source_age_ns>100_000_000:
@@ -302,6 +304,9 @@ class G05CsrChannels:
         self.command_quality_reports = []
         self._nav_new_actions = []  # Strong original refs; no progress/clock reset.
         self._source_attached = False
+        self._board_pending = None
+        self._board_outputs = []  # Strong original APPLY -> command associations.
+        self._board_last_sequence = self._board_last_result = 0
 
     def _binding_checkpoint(self):
         """Validate real channel custody without entering an excluded source.
@@ -583,6 +588,8 @@ class G05CsrChannels:
 
     def broker_next(self):
         """Pack only an actual offered owned-AI completion in its original slot."""
+        if self.config.g05_board_output_v1 is not None:
+            return self._broker_board_output()
         from .candidate_owner import _CompletedInference
         now=self.checkpoint(); o=self.owner
         _need(o is not None and not o._busy and o._state=='ACTIVE', 'original idle authority required')
@@ -620,6 +627,105 @@ class G05CsrChannels:
         self._command_pending=event
         return event
 
+    def prepare_board_output(self,event):
+        """Consume actual producer APPLY after AI completion, before broker issue.
+
+        Root first consumes any preceding source-admission events emitted while
+        APPLY was in flight. No status-only event or reconstructed JSON grants
+        this association. TTL begins at the original pre-APPLY host lower bound.
+        """
+        from .candidate_owner import _CompletedInference
+        from .g05_board_output_v1 import G05BoardOutputPolicyV1, decode_board_output, MODE
+        now=self.checkpoint();o=self.owner
+        _need(type(self.config.g05_board_output_v1) is G05BoardOutputPolicyV1
+              and o is not None and not o._busy and o._state=='ACTIVE'
+              and self._board_pending is None,'exclusive idle board-output admission required')
+        proof=o._candidates._pending
+        _need(type(proof) is _CompletedInference and proof.boot is self.boot and proof.source is self,
+              'original completed AI proposal required before APPLY')
+        facts,refs=self._consume(event)
+        _need(facts['kind']=='apply','actual original APPLY output required')
+        self._health(facts,refs)  # Full13, full32, original phase, cumulative receipts.
+        phase=refs['phase_receipt'];request=_json(phase.request_raw)
+        _need(phase.kind=='apply' and request['kind']=='apply'
+              and proof.completion_upper_ns<=phase.lower_qpc_ns<=phase.upper_qpc_ns,
+              'actual APPLY must follow original AI completion')
+        command=tuple(request['payload']['command_words'])
+        words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+        target=decode_board_output(words,command,session=self.refs.chain.identity[12])
+        _need(command[2]==self.refs.legacy_context['transport_profile_id']
+              and command[5]>self._board_last_sequence and words[0]>self._board_last_result,
+              'fresh original board output and fixed profile required')
+        candidate=_json(proof.candidate_raw,16384)
+        _need(target==candidate['target'],'measured FPGA output differs from original AI target')
+        deadline=min(_uint(phase.lower_qpc_ns+target['duration_ms']*1_000_000),
+                     self._health_deadline,self._global_deadline)
+        _need(self.checkpoint()<deadline,'original APPLY TTL expired before admission')
+        self._board_last_sequence,self._board_last_result=command[5],words[0]
+        self._board_pending=(event,phase,proof,deadline,_raw(target))
+        return dict(mode=MODE,genuine_PC_DIRECT=False,command_seq=command[5],tag=command[6],
+                    result_seq=words[0],target=dict(target),deadline_qpc_ns=deadline,
+                    apply_lower_qpc_ns=phase.lower_qpc_ns,apply_upper_qpc_ns=phase.upper_qpc_ns,
+                    capture_sha256=_sha(_raw(words)),pwm_period_words=list(words[12:15]),
+                    pwm_high_words=list(words[15:18]),submitted_echo_words=list(words[3:6]),
+                    submitted_echo_role='echo_only',host_context_encoding='topology2_compatibility_only')
+
+    def _broker_board_output(self):
+        from .g05_board_output_v1 import MODE
+        now=self.checkpoint();o=self.owner
+        _need(o is not None and not o._busy and o._state=='ACTIVE','original idle authority required')
+        output=self._board_pending
+        if output is None:return None
+        proof=output[2]
+        _need(o._candidates._pending is proof and now<output[3],
+              'original pending AI/APPLY association expired or displaced')
+        mailbox=o._candidates._mailbox;policy=mailbox._g05_board_output_v1
+        _need(policy is self.config.g05_board_output_v1 and mailbox._pc_direct_window_v2 is None,
+              'exclusive original board-output window required')
+        relative=now-mailbox._origin-mailbox._window_first
+        if relative<0:return None
+        window=relative//mailbox._window_period
+        if window<=mailbox._last_slot:return None
+        start=mailbox._origin+mailbox._window_first+window*mailbox._window_period
+        if not start<=now<min(start+policy.consume_window_ns,output[3]):return None
+        if proof.completion_upper_ns+self.policy.usb_upper_ns+self.policy.packing_upper_ns>start:return None
+        candidate=_json(proof.candidate_raw,16384)
+        # Construct the motion target from retained actual measured output.
+        target=_json(output[4],4096)
+        self._command_seq+=1;_uint(self._command_seq,1,65535)
+        doc=dict(schema_version=1,kind='motion_request',context=dict(self.refs.legacy_context),
+                 command_seq=self._command_seq,candidate_id=candidate['candidate_id'],
+                 observation=candidate['observation'],target=target,host_issue_monotonic_ns=now)
+        raw=_raw(doc)
+        host_envelope.validate_message(raw,producer='control_broker',consumer='world_authority',
+                                       context=self.refs.legacy_context,now_ns=now)
+        event=_CommandEvent(_KEY);_COMMANDS[event]=(self,raw,proof,window,start,now)
+        self._board_outputs.append((raw,output,event));self._board_pending=None
+        self._command_pending=event
+        self.command_quality_reports.append(dict(command_seq=self._command_seq,
+            invocation_id=proof.invocation_id,broker_issue_qpc_ns=now,mode=MODE,genuine_PC_DIRECT=False,
+            apply_lower_qpc_ns=output[1].lower_qpc_ns,board_deadline_qpc_ns=output[3]))
+        return event
+
+    def verify_board_output(self,event,boot,raw,proof,*,now_ns):
+        """Exact original APPLY and one emitted command; no parsed-proof adoption."""
+        _need(boot is self.boot,'original board-output boot required')
+        rows=[row for row in self._board_outputs if row[0]==raw and row[2] is event]
+        _need(len(rows)==1 and rows[0][1][2] is proof,'original board-output command association required')
+        return self.board_deadline_for(raw,now_ns=now_ns)
+
+    def board_deadline_for(self,raw,*,now_ns):
+        from .g05_board_output_v1 import decode_board_output
+        self.checkpoint();rows=[row for row in self._board_outputs if row[0]==raw]
+        _need(len(rows)==1,'original command-bound APPLY required')
+        output=rows[0][1];phase=output[1]
+        request=_json(phase.request_raw);words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+        target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12])
+        _need(_raw(target)==output[4] and _json(raw)['target']==target
+              and _json(output[2].candidate_raw)['target']==target
+              and _uint(now_ns)<output[3],'original measured output/TTL changed or expired')
+        return output[3]
+
     def latest_quality(self):
         """Detached real observed-time diagnostics; never renews any deadline."""
         self.checkpoint()
@@ -639,7 +745,9 @@ class G05CsrChannels:
         row=_COMMANDS.get(event);now=self.checkpoint()
         _need(boot is self.boot and row is not None and row[0] is self and self._command_pending is event,
               'original broker slot event required')
-        _need(row[4]<=now<row[4]+self.config.pc_direct_window_v2.consume_window_ns,
+        policy=(self.config.pc_direct_window_v2 if self.config.g05_board_output_v1 is None
+                else self.config.g05_board_output_v1)
+        _need(row[4]<=now<row[4]+policy.consume_window_ns,
               'original actual consume window closed')
         self._command_pending=None
         return _VerifiedSlot(boot,self,self.refs.clock,row[3])

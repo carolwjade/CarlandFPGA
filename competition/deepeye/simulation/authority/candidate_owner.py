@@ -69,7 +69,7 @@ class _CandidateOwner:
     """One pending original proof, one committed association; no reset/recovery."""
     def __init__(self, boot, source, clock_domain, model_hash, max_age, started,
                  activation, now, *, pc_direct_window_v2=None,
-                 enable_completion_interval_v2=False):
+                 enable_completion_interval_v2=False,g05_board_output_v1=None):
         self._boot, self._source, self._clock = boot, source, clock_domain
         self._model, self._age, self._started = model_hash, _bounded(max_age,1), _bounded(started)
         if type(enable_completion_interval_v2) is not bool:
@@ -86,6 +86,11 @@ class _CandidateOwner:
         self._context = host_envelope._parse_message(boot.context_json)
         from .g05_csr_channels_v1 import G05CsrChannels
         self._g05_raw4 = type(source) is G05CsrChannels
+        if g05_board_output_v1 is not None:
+            from .g05_board_output_v1 import G05BoardOutputPolicyV1
+            if (type(g05_board_output_v1) is not G05BoardOutputPolicyV1
+                    or not self._g05_raw4 or pc_direct_window_v2 is not None):
+                raise ValueError('exclusive original G05 board-output owner required')
         if self._context['topology_id'] != 2:
             raise ValueError('candidate owner is PC_DIRECT only; no HIL capture authority')
         document = boot_profile.load_document(Path(__file__).resolve().parents[2] / 'docs/boot_profiles.json')
@@ -93,9 +98,11 @@ class _CandidateOwner:
         self._mailbox.activate(boot.context_json,generation=boot.generation,slot_origin_ns=origin,
             source=source,clock_domain=clock_domain,bounds=bounds,now_ns=_bounded(now),
             pc_direct_window_v2=pc_direct_window_v2,
+            g05_board_output_v1=g05_board_output_v1,
             enable_completion_interval_v2=enable_completion_interval_v2,
             g05_source_age_ns=source.policy.max_source_age_ns if self._g05_raw4 else None)
         self._pc_direct_window_v2 = pc_direct_window_v2
+        self._g05_board_output_v1 = g05_board_output_v1
 
     def _active(self):
         if self._retired:
@@ -162,11 +169,14 @@ class _CandidateOwner:
         window = _bounded(grant.window_index)
         consume = (self._mailbox.consume if self._pc_direct_window_v2 is None
                    else self._mailbox.consume_pc_direct_v2)
+        if self._g05_board_output_v1 is not None:
+            consume = self._mailbox.consume_g05_board_output_v1
         selected = consume(now,grant=mailbox.SlotGrant(self._boot.generation,window))
         if selected is None:
             raise ValueError('no proposal at the configured current legal slot/window')
         proof,self._pending = self._pending,None  # Consumption is irreversible.
-        if (proof is None or selected.mode != 'PC_DIRECT'
+        expected_mode = ('PC_DIRECT' if self._g05_board_output_v1 is None else 'G05_CSR_BOARD_OUTPUT')
+        if (proof is None or selected.mode != expected_mode
                 or selected.generation != self._boot.generation
                 or selected.context_raw != self._boot.context_json
                 or selected.candidate_raw != proof.candidate_raw

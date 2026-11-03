@@ -147,6 +147,12 @@ class PcDirectWindowSelection(Selection):
 
 
 @dataclass(frozen=True)
+class G05BoardOutputWindowSelection(Selection):
+    consumed_at_ns: int
+    window_close_ns: int
+
+
+@dataclass(frozen=True)
 class _Observation:
     raw: bytes
     sample_lower_ns: int | None
@@ -185,6 +191,7 @@ class LatestCompletedMailbox:
         self._pending = self._completed = None
         self._last_slot = -1
         self._pc_direct_window_v2 = None
+        self._g05_board_output_v1 = None
 
     def _halt(self, reason):
         self._stopped, self._reason = True, reason
@@ -205,7 +212,8 @@ class LatestCompletedMailbox:
     @_entry
     def activate(self, context_raw, *, generation, slot_origin_ns, source,
                  clock_domain, bounds, now_ns, pc_direct_window_v2=None,
-                  enable_completion_interval_v2=False, g05_source_age_ns=None):
+                  enable_completion_interval_v2=False, g05_source_age_ns=None,
+                  g05_board_output_v1=None):
         self._halt('activation_replaced')
         if type(enable_completion_interval_v2) is not bool:
             raise ValueError('strict interval opt-in required')
@@ -241,12 +249,29 @@ class LatestCompletedMailbox:
             _integer(origin + first + width, 'first window close')
             self._window_first, self._window_period = first, period
         self._pc_direct_window_v2 = pc_direct_window_v2
+        if g05_board_output_v1 is not None:
+            from ..simulation.authority.g05_board_output_v1 import G05BoardOutputPolicyV1, MODE
+            if (type(g05_board_output_v1) is not G05BoardOutputPolicyV1
+                    or pc_direct_window_v2 is not None or context['topology_id'] != 2):
+                raise ValueError('exclusive typed board-output host compatibility mode required')
+            g05_board_output_v1.check()
+            first = _integer(boot.slot_start_ms(self._document, profile, 'control_primary') * NS_PER_MS,
+                             'first board-output slot offset')
+            period = _integer(self._document['profiles'][profile]['window_ms'] * NS_PER_MS,
+                              'board-output window period', 1)
+            if g05_board_output_v1.consume_window_ns >= period:
+                raise ValueError('board-output window must be shorter than fixed period')
+            _integer(origin + first + g05_board_output_v1.consume_window_ns, 'first board-output close')
+            self._window_first, self._window_period = first, period
+        self._g05_board_output_v1 = g05_board_output_v1
         self._sessions.add(context['session'])
         self._generation, self._origin, self._started = generation, origin, now
         self._context_raw, self._context = bytes(context_raw), context
         self._source, self._clock_domain, self._bounds = source, clock_domain, bounds
         self._profile = 'fast_9600' if context['transport_profile_id'] == 1 else 'stress_300'
         self._mode = 'HIL_PC_FPGA' if context['topology_id'] == 1 else 'PC_DIRECT'
+        if g05_board_output_v1 is not None:
+            self._mode = MODE
         self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
         self._g05_raw4 = g05_source_age_ns is not None
         if self._g05_raw4:
@@ -429,12 +454,16 @@ class LatestCompletedMailbox:
 
     @_entry
     def plan(self, now_ns, *, grant=None):
+        if self._g05_board_output_v1 is not None:
+            raise ValueError('board-output activation requires its typed consume')
         if self._pc_direct_window_v2 is not None:
             raise ValueError('legacy plan cannot use a PC_DIRECT v2 activation')
         return self._plan(self._time(now_ns), grant)
 
     @_entry
     def consume(self, now_ns, *, grant=None):
+        if self._g05_board_output_v1 is not None:
+            raise ValueError('board-output activation requires its typed consume')
         if self._pc_direct_window_v2 is not None:
             raise ValueError('legacy consume cannot use a PC_DIRECT v2 activation')
         selected = self._plan(self._time(now_ns), grant)
@@ -443,6 +472,43 @@ class LatestCompletedMailbox:
         self._last_slot = selected.window_index
         self._pending = None
         self._reason = 'completion_consumed'
+        return selected
+
+    @_entry
+    def consume_g05_board_output_v1(self, now_ns, *, grant=None):
+        """Separate board-output selection; original channel still proves APPLY."""
+        now = self._time(now_ns)
+        if self._g05_board_output_v1 is None:
+            raise ValueError('typed G05 board-output activation required')
+        if self._stopped or self._pending is None or grant is None:
+            return None
+        if type(grant) is not SlotGrant:
+            raise ValueError('original board-output window grant required')
+        generation = _integer(grant.generation, 'grant generation', 1)
+        window = _integer(grant.window_index, 'grant window')
+        if (generation != self._generation or self._source is None or self._clock_domain is None
+                or self._bounds is None or window <= self._last_slot):
+            return None
+        start = _integer(self._origin + self._window_first +
+                         _integer(window * self._window_period, 'window offset'), 'window start')
+        close = _integer(start + self._g05_board_output_v1.consume_window_ns, 'window close')
+        entry = self._pending
+        observation = self._observations.get(entry.observed_seq)
+        if observation is None or observation.sample_lower_ns is None:
+            return None
+        record = entry.record
+        deadline = min(record.deadline_ns,
+                       _integer(observation.sample_lower_ns + self._age_cap, 'sample deadline'))
+        ready = _integer(record.completion_upper_ns + self._bounds.usb_upper_ns +
+                         self._bounds.packing_upper_ns, 'ready time')
+        if ready > start or not start <= now < min(close, deadline):
+            return None
+        selected = G05BoardOutputWindowSelection(self._generation,self._context_raw,self._mode,
+            window,start,deadline,ready,observation.sample_lower_ns,entry.candidate_id,
+            record.invocation_id,record.candidate_raw,now,close)
+        self._last_slot = window
+        self._pending = None
+        self._reason = 'board_output_completion_consumed'
         return selected
 
     @_entry

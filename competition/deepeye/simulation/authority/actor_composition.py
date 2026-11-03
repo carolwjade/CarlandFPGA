@@ -43,6 +43,7 @@ class AuthorityConfig:
     enable_completion_interval_v2: bool = False
     owned_invocation_v1: object = None
     g05_csr_v1: object = None
+    g05_board_output_v1: object = None
 
 
 @dataclass(frozen=True)
@@ -183,6 +184,9 @@ class _ProgressGate:
 
 def _production_channels(config, *, host_clock=None, capability=None):
     # No callable/provider supplied by a caller can bypass this gate.
+    if type(config) is AuthorityConfig:
+        from .g05_board_output_v1 import check_mode_selection
+        check_mode_selection(config.g05_board_output_v1, config.pc_direct_window_v2, config.g05_csr_v1)
     if type(config) is AuthorityConfig and config.g05_csr_v1 is not None:
         from .g05_csr_channels_v1 import _create_channels
         return _create_channels(config, capability, host_clock)
@@ -334,6 +338,8 @@ class _Dependencies(AuthorityDependencies):
                 now = owner._progress_time()
                 owner._checkpoint(epoch)
                 proof = owner._candidates.select(record.raw, grant, now)
+            if owner._config.g05_board_output_v1 is not None:
+                owner._channels.verify_board_output(event,boot,record.raw,proof,now_ns=now)
             owner._progress.admit(proof, record.raw, now)
             transaction.selected_proof, transaction.request_raw = proof, record.raw
         owner._checkpoint(epoch)
@@ -362,6 +368,8 @@ class _Dependencies(AuthorityDependencies):
             if command is None or command.raw != record.raw:
                 raise ValueError('runtime command differs from bound progress')
         deadline = gate.deadline_for(record.raw, now_ns)
+        if owner._config.g05_board_output_v1 is not None:
+            deadline = min(deadline,owner._channels.board_deadline_for(record.raw,now_ns=now_ns))
         return AiLease(result.boot, result.instance_id, min(result.deadline_ns, deadline))
 
     def prepare_step(self, boot, command_raw, expected_pose_revision, dt_ns):
@@ -533,6 +541,7 @@ class ActorComposition:
             self._config.ai_model_sha256, self._config.progress_max_age_ns,
             self._progress.started, activation, now,
             pc_direct_window_v2=self._config.pc_direct_window_v2,
+            g05_board_output_v1=self._config.g05_board_output_v1,
             enable_completion_interval_v2=self._config.enable_completion_interval_v2)
         self._progress_time()
         self._checkpoint(epoch)

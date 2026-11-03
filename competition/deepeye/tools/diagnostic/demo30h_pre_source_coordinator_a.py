@@ -113,6 +113,8 @@ def _validate_world_config(world, config):
     if config.pc_direct_window_v2 is not None:
         _need(type(config.pc_direct_window_v2) is PcDirectWindowV2, 'original PC direct policy required')
         _integer(config.pc_direct_window_v2.consume_window_ns, 1, _MAX_NS, 'consume window')
+    from ...simulation.authority.g05_board_output_v1 import check_mode_selection
+    check_mode_selection(config.g05_board_output_v1,config.pc_direct_window_v2,config.g05_csr_v1)
     config.actor_policy._validate()  # Read-only original path/package/budget checks.
     if config.owned_invocation_v1 is not None:
         from ...simulation.authority.owned_invocation_v1.adapter import _validate_config
