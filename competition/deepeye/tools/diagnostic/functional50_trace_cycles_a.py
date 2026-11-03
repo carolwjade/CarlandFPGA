@@ -28,6 +28,12 @@ class _CyclePort:
  def _call(self,kind,offset,value,request_id):
   owner=self._owner;port=owner._port;owner._check();owner._check_deadline();before=port._count
   need(before-owner._scan_io_start<owner._scan_max_io,'explicit per-scan I/O limit')
+  if self._audit is not None:
+   need(port._trace_audit is self._audit,'same original audit before effect')
+   if type(self._audit) is batch._AuditSlabV2:
+    need(self._audit.bound_profile is owner._demo_cycle_profile is port._navigation_trace_profile
+         and self._audit.boot==port._boot and self._audit.trace_limit==owner._demo_cycle_profile.max_trace_io,
+         'same original immutable binary audit binding before effect')
   try:
    result=port._call(kind,offset,value,'cy%d-%s'%(self._index,request_id),_cycle_owner=owner)
    owner._check_deadline()
@@ -71,7 +77,9 @@ class TraceCycles:
  def _check(self):
   p=self._port
   need(threading.get_ident()==self._thread and _OWNERS.get(p) is self and p._cycle_owner is self and board._G05_LOADS.get(p) is self._reg and p._mmio is self._reg[7] and not self._failed and not p._failed,'original active cycle owner required')
-  if demo.is_navigation(self._demo_cycle_profile):
+  audit=p._trace_audit
+  binary=(type(audit) is batch._AuditSlabV2 and audit.bound_profile is self._demo_cycle_profile)
+  if binary or demo.is_navigation(self._demo_cycle_profile):
    need(p._navigation_trace_profile is self._demo_cycle_profile,'original navigation TRACE selection changed')
  def bind_deadline(self,deadline_ns):
   self._check();need(self._deadline is None,'cycle deadline cannot be renewed')
@@ -96,13 +104,16 @@ class TraceCycles:
    proxy=_CyclePort(_KEY,self,directory,index);self._scan_io_start=p._count;self._scan_max_io=max_io;p._cycle_commands={1:0,2:0,3:0,4:0,5:0,8:0};p._cycle_active=True
    if demo.is_navigation(self._demo_cycle_profile):
     need(p._trace_audit is None,'no prior active trace slab')
-    proxy._audit=batch._AuditSlabV1(directory/'trace-audit-v1.bin',base_io=p._count,capacity=max_io,binding=binding,boot=p._boot)
+    need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==p._boot,'original phase boot boundary')
+    proxy._audit=batch._AuditSlabV2(directory/'trace-audit-v2.bin',base_io=p._count,capacity=max_io,binding=binding,boot=p._boot,profile=self._demo_cycle_profile)
     p._trace_audit=proxy._audit
    try:response=batch.run_batch(proxy,self._bundle,line,_Facade,binding)
    finally:
     p._cycle_active=False
     try:
-     if proxy._audit is not None:proxy._audit.finish()
+     if proxy._audit is not None:
+      proxy._audit.finish()
+      need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==p._boot,'original returned phase boot boundary')
     finally:p._trace_audit=None
    result=batch._json(response);need(result['status']=='COMPLETE' and result['terminal']=='QUIESCENT' and result['cleanup_observed'] and result['wire_complete'] and not result['unknown'],'original scan not complete and quiescent')
    need(all(p._cycle_commands[k]==v for k,v in ((1,1),(2,4),(3,4),(4,4),(5,1))),'exact original per-scan command use required')
@@ -112,9 +123,9 @@ class TraceCycles:
    files={}
    for path in sorted(directory.rglob('*')):
     if path.is_dir():continue
-    limit=8_196_096 if path.name=='trace-audit-v1.bin' and proxy._audit is not None else 2*1024*1024
+    limit=8_196_096 if path.name in ('trace-audit-v1.bin','trace-audit-v2.bin') and proxy._audit is not None else 2*1024*1024
     data,_=board._bytes(path,limit);files[path.relative_to(directory).as_posix()]=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
-   schema='trace_cycle_evidence_slab_v1' if proxy._audit is not None else 'trace_cycle_evidence_v1'
+   schema='trace_cycle_evidence_slab_v2' if type(proxy._audit) is batch._AuditSlabV2 else 'trace_cycle_evidence_slab_v1' if proxy._audit is not None else 'trace_cycle_evidence_v1'
    manifest=batch.raw(dict(schema=schema,index=index,files=files))+b'\n'
    batch._put(directory/'evidence-manifest.json',manifest)
    record=dict(index=index,request_sha256=request_hash,source_sha256=source_hash,response=response,correlation=verified,directory=directory,evidence_manifest_sha256=hashlib.sha256(manifest).hexdigest())

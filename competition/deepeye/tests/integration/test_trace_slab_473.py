@@ -64,5 +64,23 @@ class TraceSlabControls(unittest.TestCase):
         self.assertTrue(result['unknown'])
         self.assertEqual(result['io_count'],6000)
 
+    def test_binary_slab_preserves_exact_primitive_receipts_and_deadline_gap(self):
+        import marshal
+        from competition.deepeye.simulation.authority.navigation_session_profile import NAV_ADJACENT_180S
+        self.assertTrue(hasattr(batch,'_AuditSlabV2'),'binary pre-effect journal missing')
+        with tempfile.TemporaryDirectory() as td:
+            slab=batch._AuditSlabV2(Path(td)/'audit.bin',base_io=10,capacity=2,binding={'operation_id':'synthetic'},boot='synthetic',profile=NAV_ADJACENT_180S)
+            intent=dict(call_id=1,kind='read',offset=48,value=None)
+            slab.reserve(1,intent);slab.outcome(1,dict(status='not_attempted'))
+            slab.reserve(2,dict(intent,call_id=2))
+            start=dict(id='cleanup',kind='read',offset=48,value=None)
+            end=dict(id='cleanup',kind='read',value=7)
+            slab.record(11,'started',start);slab.record(11,'returned',end)
+            slab.outcome(2,dict(status='confirmed_read',value=7))
+            pair=slab.pair(11)
+            self.assertEqual(marshal.loads(pair[0])['data'],start)
+            self.assertEqual(marshal.loads(pair[1])['data'],end)
+            slab.finish()
+
 
 if __name__=='__main__':unittest.main()

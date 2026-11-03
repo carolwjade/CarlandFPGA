@@ -248,16 +248,24 @@ class _TracePort:
         self._navigation_trace_profile=profile
     def _call(self,kind,offset,value,request_id,*,_cycle_owner=None):
         validate_io(kind,offset,value)
-        need(not self._failed and os.getpid()==self._pid and Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._boot,'owner/boot changed')
+        audit=self._trace_audit
+        if audit is not None:
+            from .functional50_board_trace_batch_a import _AuditSlabV1,_AuditSlabV2
+            need(type(audit) in (_AuditSlabV1,_AuditSlabV2),'exact original trace journal type')
+        # A running process cannot survive a Linux reboot. The original phase
+        # checks boot_id on both boundaries; each effect retains PID/thread and
+        # the same immutable load/owner/profile identities.
+        binary=(audit is not None and type(audit) is _AuditSlabV2 and audit.bound_profile is self._navigation_trace_profile and audit.boot==self._boot)
+        need(not self._failed and os.getpid()==self._pid and (binary or Path('/proc/sys/kernel/random/boot_id').read_text().strip()==self._boot),'owner/boot changed')
         if self._cycle_policy is not None and self._cycle_ready:
             need(_cycle_owner is not None and _cycle_owner is self._cycle_owner and self._cycle_active and threading.get_ident()==self._cycle_thread,'original active cycle required')
         limit=5000
         selected=getattr(self,'_navigation_trace_profile',None)
         if selected is not None:
             from . import functional50_demo_four_cycle_profile_a as demo
-            need(demo.is_navigation(selected) and self._cycle_owner is _cycle_owner
+            need((binary or demo.is_navigation(selected)) and self._cycle_owner is _cycle_owner
                  and _cycle_owner._demo_cycle_profile is selected,'original typed navigation TRACE binding changed')
-            limit=demo.trace_io_cap(selected)
+            limit=audit.trace_limit if binary else demo.trace_io_cap(selected)
         need(type(request_id) is str and re.fullmatch('[A-Za-z0-9_-]{1,64}',request_id) is not None and request_id not in self._ids and self._count<limit,'one-use request/limit')
         if kind=='write' and offset==0x80:
             limits={1:1,2:4,3:4,4:4,5:1,8:4096}

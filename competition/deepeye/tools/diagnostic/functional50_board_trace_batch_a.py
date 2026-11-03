@@ -2,6 +2,7 @@
 import hashlib
 import importlib.util
 import json
+import marshal
 import mmap
 import os
 from pathlib import Path
@@ -159,16 +160,52 @@ class _AuditSlabV1:
    os.ftruncate(self.fd,(len(self.slots)+1)*4096);os.fsync(self.fd)
   finally:self.closed=True;os.close(self.fd)
 
+class _AuditSlabV2(_AuditSlabV1):
+ """Same flushed regions, primitive binary records and retained exact bytes.
+
+ No journal contents are loaded as authority. Marshal v4 is used only for
+ bounded primitive data produced in this original process, never code objects.
+ """
+ binary_intents=True
+ def __init__(self,path,*,base_io,capacity,binding,boot,profile):
+  from . import functional50_demo_four_cycle_profile_a as demo
+  need(demo.is_navigation(profile),'explicit navigation binary journal required')
+  self.bound_profile=profile;self.trace_limit=demo.trace_io_cap(profile)
+  super().__init__(path,base_io=base_io,capacity=capacity,binding=binding,boot=boot)
+  self._store(0,raw(dict(schema='trace_audit_slab_v2',payload_encoding='python_marshal_v4_primitives',base_io=base_io,capacity=capacity,slot_bytes=4096,binding=self.binding,boot_id=boot,pid=self.pid)),4096)
+ def reserve(self,call_id,intent):
+  self._check();need(type(call_id) is int and call_id>0 and call_id not in self.ids and len(self.slots)<self.capacity,'one-use finite binary intent')
+  need(type(intent) is dict and intent.get('call_id')==call_id and intent.get('kind') in ('read','write') and type(intent.get('offset')) is int,'original primitive intent')
+  parsed=dict(intent);offset=(len(self.slots)+1)*4096;self._store(offset,marshal.dumps(parsed,4))
+  self.ids.add(call_id);self.slots.append(dict(call_id=call_id,intent=parsed,started=False,terminal=None,outcome=False,pair=[None,None],request_id=None))
+ def record(self,io_index,suffix,data):
+  slot,offset=self._slot(io_index,started=suffix=='started');need(type(data) is dict and suffix in ('started','returned','not-attempted'),'original primitive receipt')
+  encoded=marshal.dumps(dict(suffix=suffix,data=data),4)
+  if suffix=='started':
+   need(not slot['started'] and slot['terminal'] is None,'one original binary started receipt')
+   need(data.get('kind')==slot['intent']['kind'] and data.get('offset')==slot['intent']['offset'] and data.get('value')==slot['intent']['value'],'same reserved binary MMIO effect')
+   self._store(offset+2048,encoded);slot['started']=True;slot['request_id']=data['id'];slot['pair'][0]=encoded
+  else:
+   need(slot['started'] and slot['terminal'] is None and data.get('id')==slot['request_id'],'same one-use binary receipt request')
+   self._store(offset+3072,encoded);slot['terminal']=suffix;slot['pair'][1]=encoded
+ def outcome(self,call_id,data):
+  self._check();need(type(data) is dict and self.slots and self.slots[-1]['call_id']==call_id and not self.slots[-1]['outcome'],'one current primitive outcome')
+  self._store(len(self.slots)*4096+1024,marshal.dumps(data,4));self.slots[-1]['outcome']=True
+ def pair(self,io_index):
+  slot,_=self._slot(io_index)
+  return tuple(slot['pair']) if slot['started'] and slot['terminal']=='returned' else None
+
 def _drive(port,reducer,phase,origin,directory,used):
  audit=getattr(port,'_audit',None)
+ binary=type(audit) is _AuditSlabV2
  intent=reducer.advance(phase_elapsed_ns=time.monotonic_ns()-origin)
  while intent is not None:
   try:
    keys={'operation_id','call_id','kind','offset','value','label','poll','window','phase','reserve_and_persist_before_effect_bytes','phase_deadline_ns'}
    need(type(intent) is dict and set(intent)==keys and intent['operation_id']==reducer.operation_id and intent['phase']==phase and intent['window']=='TRACE_HWH_RELATIVE' and intent['reserve_and_persist_before_effect_bytes']==2048,'fixed reducer intent required')
    n=intent['call_id'];need(type(n) is int and n>0,'fixed call ID required')
-   reservation=directory/('intent-%05d.bin'%n);b=raw(intent);cost=4096 if audit is not None else 2048
-   need(len(b)<=(1020 if audit is not None else 1023) and used[phase]+cost+12288<=reducer.limits[phase+'_evidence'],'intent reservation bound')
+   reservation=directory/('intent-%05d.bin'%n);b=intent if binary else raw(intent);cost=4096 if audit is not None else 2048
+   need((binary or len(b)<=(1020 if audit is not None else 1023)) and used[phase]+cost+12288<=reducer.limits[phase+'_evidence'],'intent reservation bound')
    if audit is None:_put(reservation,b+b'\n'+b'\0'*(2047-len(b)))
    else:audit.reserve(n,b)
    used[phase]+=cost
@@ -180,7 +217,7 @@ def _drive(port,reducer,phase,origin,directory,used):
   elapsed=time.monotonic_ns()-origin
   if elapsed>=intent['phase_deadline_ns']:
    observation=_outcome(intent,'not_attempted',None)
-   if audit is not None:audit.outcome(n,raw(dict(observation=observation))+b'\n')
+   if audit is not None:audit.outcome(n,dict(observation=observation) if binary else raw(dict(observation=observation))+b'\n')
    else:
     with reservation.open('r+b') as f:f.seek(1024);f.write(raw(dict(observation=observation))+b'\n');f.flush();os.fsync(f.fileno())
    reducer.advance(observation,phase_elapsed_ns=elapsed)
@@ -191,13 +228,13 @@ def _drive(port,reducer,phase,origin,directory,used):
    observation=_outcome(intent,'confirmed_read' if intent['kind']=='read' else 'confirmed_write',value)
   except BaseException as error:
    observation=_outcome(intent,'unknown',None)
-   if audit is not None:audit.outcome(n,raw(dict(observation=observation,error=type(error).__name__))+b'\n')
+   if audit is not None:audit.outcome(n,dict(observation=observation,error=type(error).__name__) if binary else raw(dict(observation=observation,error=type(error).__name__))+b'\n')
    else:
     with reservation.open('r+b') as f:f.seek(1024);f.write(raw(dict(observation=observation,error=type(error).__name__))+b'\n');f.flush();os.fsync(f.fileno())
    try:reducer.advance(observation,phase_elapsed_ns=time.monotonic_ns()-origin)
    except BaseException:pass
    raise
-  if audit is not None:audit.outcome(n,raw(dict(observation=observation))+b'\n')
+  if audit is not None:audit.outcome(n,dict(observation=observation) if binary else raw(dict(observation=observation))+b'\n')
   else:
    with reservation.open('r+b') as f:f.seek(1024);f.write(raw(dict(observation=observation))+b'\n');f.flush();os.fsync(f.fileno())
   need(port._count==before+1,'original port count changed')
