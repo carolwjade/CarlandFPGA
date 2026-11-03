@@ -13,7 +13,7 @@
   "entry_script": "res://viewer/main.gd",
   "single_writer": {"project.godot": "A-main", "export_presets.cfg": "A-main", "viewer": "A", "ui": "A", "editor": "A", "physics": "A", "export": "A", "world": "B", "assets": "B", "tests/test_asset_contract.gd": "B"},
   "coordinates": {"units": "metre", "cube_min": [-15, -15, -15], "cube_max": [15, 15, 15], "forward_local": "+Z", "up": "+Y", "quaternion_serialization": "xyzw", "asset_origin": "rigid body centre", "physics_hz": 100},
-  "drill": {"diameter_m": 0.24, "length_m": 0.8, "gate_diameter_m": 0.3, "turn_radius_min_m": 2, "acceleration_max_m_s2": 0.25, "asset_pivot_radius_requires_measurement": true},
+  "drill": {"diameter_m": 0.24, "length_m": 0.8, "gate_diameter_m": 0.5, "turn_radius_min_m": 2, "acceleration_max_m_s2": 0.25, "asset_pivot_radius_requires_measurement": true},
   "asset_factory": {
     "script": "res://world/asset_library.gd",
     "class_name": "DeepEyeAssetLibrary",

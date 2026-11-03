@@ -2,8 +2,8 @@ class_name DeepEyeObstacleGeometry
 extends Object
 
 ## DeepEye B geological obstacle kinds as closed solid procedural meshes.
-## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision1, requirements SHA256
-## c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision2, requirements SHA256
+## 2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d.
 ## Resource contract: kind ids "water", "hard_rock", "fault", "void", "casing";
 ## children "Visual" and "Collision"; the collision presentation envelope is
 ## disabled in the viewer and is never authoritative or truth-visible.

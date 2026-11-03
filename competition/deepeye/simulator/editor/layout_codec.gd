@@ -11,16 +11,16 @@ const GateJsonNumbersScript = preload("res://editor/gate_json_numbers.gd")
 ## six-decimal float formatting, not a signature or permission token.
 
 const SCHEMA_VERSION := 1
-const CONTRACT_ID := "DEEPEYE-HUMAN-LOCK-20261014/revision1"
-const REQUIREMENTS_SHA256 := "c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804"
+const CONTRACT_ID := "DEEPEYE-HUMAN-LOCK-20261014/revision2"
+const REQUIREMENTS_SHA256 := "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d"
 const UNITS := "m"
 const MAX_OBJECTS := 30
 const MAX_FILE_BYTES := 1048576
 const MAX_JSON_DEPTH := 32
 const MAX_SAFE_INTEGER := 9007199254740991.0
 const CUBE_HALF := 15.0
-const GATE_EDGE_LIMIT := 14.85
-const MIN_SAME_FACE_SEPARATION := 0.30
+const GATE_EDGE_LIMIT := 14.75
+const MIN_SAME_FACE_SEPARATION := 0.50
 const EPSILON := 0.000000001
 const KINDS := ["water", "hard_rock", "fault", "void", "casing"]
 const FACES := ["top", "bottom", "front", "back", "left", "right"]
@@ -267,13 +267,13 @@ static func _validate_gate_geometry(gates: Dictionary) -> String:
 	for which in ["entry", "exit"]:
 		var gate: Dictionary = gates[which]
 		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
-			return "%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [which, GATE_EDGE_LIMIT]
+			return "%s: 圈心距面边不足0.25m（|u|、|v| 须 ≤ %.2fm）" % [which, GATE_EDGE_LIMIT]
 	if String(gates.entry.face) == String(gates.exit.face):
 		var du := float(gates.entry.u) - float(gates.exit.u)
 		var dv := float(gates.entry.v) - float(gates.exit.v)
 		var separation := sqrt(du * du + dv * dv)
 		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
-			return "同面两圈重叠：圈心距 %.3fm < 0.30m" % separation
+			return "同面两圈重叠：圈心距 %.3fm < 0.50m" % separation
 	return ""
 
 static func _pack_normalized(normalized: Dictionary) -> Dictionary:

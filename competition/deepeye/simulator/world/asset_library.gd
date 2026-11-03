@@ -4,8 +4,8 @@ extends RefCounted
 ## DeepEye B asset factory for the frozen resource contract
 ## (competition/deepeye/docs/resource_contract.json, A-owned boundary; the A
 ## interface file docs/interface.json and this contract are read-only here).
-## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision1, requirements SHA256
-## c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision2, requirements SHA256
+## 2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d.
 ## Static factory only; returned assets are presentation nodes:
 ##   static func create_drill() -> Node3D
 ##   static func create_obstacle(kind: String) -> Node3D

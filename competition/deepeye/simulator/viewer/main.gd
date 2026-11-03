@@ -2,7 +2,7 @@ class_name DeepEyeViewerMain
 extends Node3D
 ## G02 viewer foundation (A-only, viewer baseline):
 ##  - 12-edge hollow cube frame + corner ticks over the frozen [-15,15]^3 work cube,
-##    blue entry / red exit 0.30 m circles with text and direction arrows.
+##    blue entry / red exit 0.50 m circles with text and direction arrows.
 ##  - Editing via the SceneDocument: click select, drag move (0.25 m snap, axis lock),
 ##    R rotate / S scale / F focus, numeric fields, copy/delete, undo/redo, random
 ##    layout, six-face gate picking.
@@ -117,7 +117,7 @@ func _ready() -> void:
 	if not _owned_sync_obstacles_checked() or not _owned_sync_gates_checked():
 		return
 	apply_camera()
-	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.30m；权威未连接、无运动（运行禁用）")
+	document.log_event("系统", "World 观察视图：边框立方体+角标+坐标刻度；蓝/红圈0.50m；权威未连接、无运动（运行禁用）")
 	_owned_ready_completed = true
 
 # Only shell-owned, scriptless Control observers are registered here.
@@ -892,8 +892,8 @@ func _build_gate_visual(which: String) -> bool:
 	var ring := MeshInstance3D.new()
 	ring.name = "Ring"
 	var torus := TorusMesh.new()
-	torus.inner_radius = 0.135
-	torus.outer_radius = 0.165
+	torus.inner_radius = 0.235
+	torus.outer_radius = 0.265
 	ring.mesh = torus
 	ring.material_override = ring_material
 	if not _owned_attach_managed(gate_node, ring, "main_source_attach"):
@@ -901,8 +901,8 @@ func _build_gate_visual(which: String) -> bool:
 	var disc := MeshInstance3D.new()
 	disc.name = "Disc"
 	var disc_mesh := CylinderMesh.new()
-	disc_mesh.top_radius = 0.15
-	disc_mesh.bottom_radius = 0.15
+	disc_mesh.top_radius = 0.25
+	disc_mesh.bottom_radius = 0.25
 	disc_mesh.height = 0.005
 	var disc_material := StandardMaterial3D.new()
 	disc_material.albedo_color = Color(color.r, color.g, color.b, 0.22)
@@ -913,7 +913,7 @@ func _build_gate_visual(which: String) -> bool:
 	if not _owned_attach_managed(gate_node, disc, "main_source_attach"):
 		return false
 	var label := Label3D.new()
-	label.text = "进入（蓝圈 0.30m）" if is_entry else "离开（红圈 0.30m）"
+	label.text = "进入（蓝圈 0.50m）" if is_entry else "离开（红圈 0.50m）"
 	label.font_size = 34
 	label.pixel_size = 0.009
 	label.modulate = color

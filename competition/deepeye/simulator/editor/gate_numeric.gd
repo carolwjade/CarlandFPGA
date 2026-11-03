@@ -4,9 +4,9 @@ extends RefCounted
 ## Coordinates are bounded before arithmetic. Limbs store nonnegative integers
 ## in units of 2^-1074, so subtraction and squared-distance comparison are exact.
 ## Base 2^15 bounds every multiply/add/carry intermediate below 2^30.
-## For |coordinate| <= 14.85, differences need at most 72 limbs and squared
+## For |coordinate| <= 14.75, differences need at most 72 limbs and squared
 ## distances at most 144. No epsilon, sqrt, float subtraction or normalization.
-const EDGE_LIMIT := 14.85
+const EDGE_LIMIT := 14.75
 const BASE := 32768
 const MASK := 32767
 const LIMB_BITS := 15
@@ -20,7 +20,7 @@ static func circles_overlap(au: float, av: float, bu: float, bv: float) -> bool:
 		return true
 	var du := _difference_magnitude(au, bu)
 	var dv := _difference_magnitude(av, bv)
-	var diameter := _magnitude(0.30)
+	var diameter := _magnitude(0.50)
 	return _compare(_add(_multiply(du, du), _multiply(dv, dv)), _multiply(diameter, diameter)) < 0
 
 static func _magnitude(value: float) -> Array[int]:

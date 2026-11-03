@@ -23,7 +23,7 @@ _ZERO = Decimal(0)
 _ONE = Decimal(1)
 _SEPARATION_GUARD = Decimal('1e-12')
 _EXPORT_PADDING = Decimal('1e-20')
-_GATE_RADIUS = Decimal.from_float(.15)
+_GATE_RADIUS = Decimal.from_float(.25)
 _FACE_DATA = {
     'top': (1, 15., (0., 1., 0.), '+Y'),
     'bottom': (1, -15., (0., -1., 0.), '-Y'),
@@ -195,7 +195,7 @@ class Capsule:
 
 @dataclass(frozen=True)
 class Gate:
-    """SceneDocument face/u/v mapping, radius .15 m and cube half-size 15 m."""
+    """SceneDocument face/u/v mapping, radius .25 m and cube half-size 15 m."""
     face: str
     u: float
     v: float
@@ -203,12 +203,12 @@ class Gate:
     def __post_init__(self):
         if type(self.face) is not str or self.face not in _FACE_DATA:
             raise ValueError('unknown SceneDocument face')
-        object.__setattr__(self,'u',_scalar(self.u,14.85,-14.85))
-        object.__setattr__(self,'v',_scalar(self.v,14.85,-14.85))
+        object.__setattr__(self,'u',_scalar(self.u,14.75,-14.75))
+        object.__setattr__(self,'v',_scalar(self.v,14.75,-14.75))
 
     @property
     def radius_m(self):
-        return .15
+        return .25
 
     @property
     def center_m(self):
@@ -242,7 +242,7 @@ def validate_gate_pair(entry,exit):
         # Drill/ring tangency has a separate fail-closed radial predicate.
         du=Fraction(entry.u)-Fraction(exit.u)
         dv=Fraction(entry.v)-Fraction(exit.v)
-        diameter=2*Fraction(.15)
+        diameter=2*Fraction(.25)
         if du*du+dv*dv < diameter*diameter:
             raise ValueError('same-face gate circles overlap')
 

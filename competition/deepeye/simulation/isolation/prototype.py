@@ -18,7 +18,7 @@ import zipfile
 
 from .policy import create_run_directory, minimal_environment, evaluate, parse_fixture
 
-CONTRACT = 'c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
+CONTRACT = '2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d'
 
 
 def digest(data):

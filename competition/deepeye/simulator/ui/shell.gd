@@ -440,7 +440,7 @@ func _build_left(box: VBoxContainer) -> void:
 	rand_row2.add_child(_button("随机生成", _on_random_pressed))
 	rand_row2.add_child(_button("清空空场", _on_clear_pressed))
 
-	box.add_child(_title("入口/离开圈（直径0.30m·贴面·距边≥0.15m）"))
+	box.add_child(_title("入口/离开圈（直径0.50m·贴面·距边≥0.25m）"))
 	_which_option = OptionButton.new()
 	_which_option.add_item("入口（蓝圈）", 0)
 	_which_option.add_item("离开（红圈）", 1)

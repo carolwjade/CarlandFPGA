@@ -28,8 +28,8 @@ from .motion_executor import GeometryBudget
 from . import _solid_pair as pair
 
 
-CONTRACT = 'DEEPEYE-HUMAN-LOCK-20261014/revision1'
-REQUIREMENTS = 'c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804'
+CONTRACT = 'DEEPEYE-HUMAN-LOCK-20261014/revision2'
+REQUIREMENTS = '2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d'
 DOMAIN = 'exact_recorded_finite_affine_model/v1'
 VERSION = 'nominal-convex-envelope-with-finite-affine-residual/v1'
 GUARD = F(1,1000000)  # Root-selected private policy; not a human requirement.

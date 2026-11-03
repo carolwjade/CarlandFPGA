@@ -2,8 +2,8 @@ class_name DeepEyeDrillGeometry
 extends Object
 
 ## DeepEye B procedural PDC drill geometry (editable source; no external assets).
-## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision1, requirements SHA256
-## c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision2, requirements SHA256
+## 2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d.
 ## Resource contract: competition/deepeye/docs/resource_contract.json (A-frozen).
 ## Units metres; +Z forward, +Y up; origin at rigid-body centre (full-length AABB centre).
 ## Outer envelope: diameter 0.24 m, rigid length 0.80 m, z in [-0.40, 0.40];

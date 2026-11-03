@@ -6,9 +6,9 @@ const GateNumericScript = preload("res://editor/gate_numeric.gd")
 ##
 ## Contract: competition/deepeye/docs/resource_contract.json (frozen by A).
 ##  - Work cube is centred [-15, 15]^3 metres, forward is local +Z.
-##  - Gates are blue entry / red exit circles, diameter 0.30 m, on any of the six
-##    faces, circle centre at least 0.15 m from the face edges; same-face circles
-##    must not overlap (centre separation < 0.30 m is rejected).
+##  - Gates are blue entry / red exit circles, diameter 0.50 m, on any of the six
+##    faces, circle centre at least 0.25 m from the face edges; same-face circles
+##    must not overlap (centre separation < 0.50 m is rejected).
 ##  - Edits are allowed only in "editing" and "stopped"; "running", "paused" and
 ##    "locked" reject every mutation. The document never auto-moves the other gate.
 ##  - Run/continue stay disabled until a real authority+mode bridge exists; the
@@ -32,10 +32,10 @@ signal owned_edit_requested(request_kind: String)
 
 const CUBE_HALF := 15.0
 const LayoutCodecScript = preload("res://editor/layout_codec.gd")
-const GATE_DIAMETER_M := 0.30
-const GATE_RADIUS_M := 0.15
-const GATE_EDGE_MARGIN_M := 0.15
-const MIN_SAME_FACE_SEPARATION_M := 0.30
+const GATE_DIAMETER_M := 0.50
+const GATE_RADIUS_M := 0.25
+const GATE_EDGE_MARGIN_M := 0.25
+const MIN_SAME_FACE_SEPARATION_M := 0.50
 const UNDO_CAPACITY := 64
 const MAX_OBJECTS := 30
 const EDITABLE_STATES := ["editing", "stopped"]
@@ -495,13 +495,13 @@ func validate_gates() -> Dictionary:
 			errors.append("%s: 未知面" % label)
 			continue
 		if not GateNumericScript.valid_coordinate(float(gate.u)) or not GateNumericScript.valid_coordinate(float(gate.v)):
-			errors.append("%s: 圈心距面边不足0.15m（|u|、|v| 须 ≤ %.2fm）" % [label, limit])
+			errors.append("%s: 圈心距面边不足0.25m（|u|、|v| 须 ≤ %.2fm）" % [label, limit])
 	if FACES.has(gates.get("entry", {}).get("face", "")) and gates["entry"].face == gates["exit"].face:
 		var du := float(gates.entry.u) - float(gates.exit.u)
 		var dv := float(gates.entry.v) - float(gates.exit.v)
 		var separation := sqrt(du * du + dv * dv)
 		if GateNumericScript.circles_overlap(float(gates.entry.u), float(gates.entry.v), float(gates.exit.u), float(gates.exit.v)):
-			errors.append("同面两圈重叠：圈心距 %.3fm < 0.30m" % separation)
+			errors.append("同面两圈重叠：圈心距 %.3fm < 0.50m" % separation)
 	var pending := [
 		"起止端内侧1m初始化/对准空间与禁入体重叠：待 world_authority 复核",
 		"离线全图路线可达性：编辑器不校验、不提供给控制器",

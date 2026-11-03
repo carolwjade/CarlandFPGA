@@ -4,8 +4,8 @@ extends Object
 ## DeepEye B 30 m workspace frame: cube [-15, 15]^3 shown as exactly 12 edge
 ## prisms with no enclosing face surfaces (no opaque or transparent walls, no
 ## wireframe substitute). Fully three-dimensional, editable geometry.
-## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision1, requirements SHA256
-## c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804.
+## Human contract DEEPEYE-HUMAN-LOCK-20261014/revision2, requirements SHA256
+## 2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d.
 ## Resource contract: coordinates cube_min [-15,-15,-15], cube_max [15,15,15].
 ## Presentation only: the Collision child is a disabled StaticBody3D envelope of
 ## the 12 edge bars (collision_layer 0, collision_mask 0, shapes disabled); no
