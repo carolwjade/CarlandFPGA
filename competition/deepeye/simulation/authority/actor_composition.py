@@ -57,6 +57,15 @@ class StepOutcome:
     pose_revision: int | None
 
 
+@dataclass(frozen=True)
+class _StationaryReplan:
+    command: object
+    progress: object
+    board_output: object
+    entered_ns: int
+    descriptor: object
+
+
 _FACTORY = object()
 _STOPPED = object()
 _RETAINED = []  # Strong recovery ownership before any acquisition; no auto-eviction.
@@ -414,6 +423,8 @@ class ActorComposition:
         self._progress = None
         self._candidates = self._input_transaction = None
         self._owned_invocations = None
+        self._stationary_replan = None
+        self._stationary_replans = []
         self._boot_taken = False
         self._primary_error, self._errors, self._last_step = None, [], None
 
@@ -634,6 +645,7 @@ class ActorComposition:
         if transaction is None or transaction.request_raw != record.raw:
             raise ValueError('original command transaction lost after admission')
         self._candidates.commit(record.raw, transaction.selected_proof)
+        self._stationary_replan = None  # New original command; history remains.
 
     @_entry
     def step(self, *, expected_pose_revision, dt_ns):
@@ -652,6 +664,91 @@ class ActorComposition:
             return StepOutcome(False, None)
         return StepOutcome(True, result.receipt.pose_revision)
 
+    def _entry_stationary_profile(self):
+        """Only the exact prospective entry-demo CSR/board-output selection."""
+        policy=getattr(self._config,'g05_csr_v1',None)
+        if policy is None or getattr(self._config,'g05_board_output_v1',None) is None:return None
+        from .g05_csr_channels_v1 import G05CsrChannels
+        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_C0_V1
+        from .navigation_session_profile import NAV_ADJACENT_180S
+        from .owned_invocation_v1.adapter import _selected_ai_profile
+        c=self._channels
+        if (type(c) is not G05CsrChannels or c.owner is not self or policy is None
+                or c.policy is not policy or self._config.g05_board_output_v1 is None):return None
+        descriptor=policy.demo_ai_profile
+        if (type(descriptor) is not DemoEM3AIProfile
+                or descriptor.navigation_profile is not NAV_ENTRY_C0_V1
+                or c._cycle_profile() is not NAV_ADJACENT_180S):return None
+        held=self._stationary_replan
+        if held is not None:
+            return descriptor if held.descriptor is descriptor else None
+        return descriptor if _selected_ai_profile(self._config)==descriptor else None
+
+    def _stationary_replan_wait(self):
+        """Observe expiry, never renew it; no STEP can use this waiting state."""
+        descriptor=self._entry_stationary_profile()
+        if descriptor is None:return False
+        self._channel_health()  # Actor polling must not conceal health/progress expiry.
+        now=_bounded(self._clock());r=self._runtime;old=r._last_command
+        link=self._world_action_link;owned=self._owned_invocations
+        tx=self._input_transaction
+        settled=(tx is None or (type(tx) is _InputTransaction and tx.kind=='command'
+            and old is not None and tx.request_raw==old.raw and tx.selected_proof is not None
+            and self._progress.bound is not None
+            and tx.selected_proof.candidate_raw==self._progress.bound.candidate_raw))
+        if (old is None or r._command is not None or r._latched or r._stepping or r._busy
+                or now<old.deadline_ns
+                or link is None or link.book._actor_custody.pending is not None
+                or link.slot is None or not link.slot.closed or not link.slot.getter_admitted
+                or owned is None or owned.failed or self._actor.state!='BOUND_ACTIVE'
+                or self._progress.bound is None or now>=self._progress.bound.deadline_ns
+                or self._progress.bound.request_raw!=old.raw
+                or self._command_record is None or self._command_record.raw!=old.raw):return False
+        rows=[row for row in self._channels._board_outputs if row[0]==old.raw]
+        if len(rows)!=1 or type(rows[0][1][3]) is not int or now<rows[0][1][3]:return False
+        held=self._stationary_replan
+        if held is None:
+            if (not settled or owned.pending is not None or owned.ready is not None
+                    or self._candidates._pending is not None or len(self._stationary_replans)>=16):return False
+            held=_StationaryReplan(old,self._progress.bound,rows[0],now,descriptor)
+            self._stationary_replans.append(held);self._stationary_replan=held
+        elif (held.command is not old or held.progress is not self._progress.bound
+                or held.board_output is not rows[0] or held.descriptor is not descriptor):return False
+        pending=owned.pending
+        if pending is None and owned.ready is not None:
+            retained=owned._retained
+            if type(retained) is not tuple or len(retained)!=7 or retained[0] is not owned.ready:return False
+            pending=retained[4]
+            if type(pending) is not dict or pending.get('record') is not retained[1]:return False
+        if pending is None and self._candidates._pending is not None:
+            if not owned.associations or not owned.records:return False
+            proof=self._candidates._pending;record=owned.records[-1]
+            if (proof.source is not self._channels or proof.boot is not self._boot
+                    or proof.clock_domain is not self._clock
+                    or proof.invocation_id!=record.identity.invocation_id):return False
+            pending=dict(association=owned.associations[-1],record=record)
+        association=None
+        if pending is not None:
+            from .owned_invocation_v1.adapter import _Association
+            from .g05_csr_channels_v1 import _Mapping, _OBSERVATIONS
+            a=pending.get('association');m=getattr(a,'g05_mapping',None)
+            if (type(a) is not _Association or a.owner is not self or a.source is not self._channels
+                    or a.clock is not self._clock or a.boot is not self._boot
+                    or a.previous_action is not None or a.previous_deadline_ns is not None
+                    or type(m) is not _Mapping or m.channels is not self._channels or not m.used
+                    or _OBSERVATIONS.get(a.event) is not m
+                    or a.sample_ref is not m.refs['draft'] or a.source_bound_receipt is not m.refs['token']
+                    or a.record.raw!=m.raw or a.observation_bytes!=m.raw
+                    or not any(a is x for x in owned.associations)
+                    or pending.get('record') is not self._actor._invocation):return False
+            association=a
+        if not settled:
+            if (association is None or type(tx) is not _InputTransaction or tx.kind!='observation'
+                    or association.tx is not tx or tx.owned_association is not association
+                    or tx.original_event is not association.event
+                    or tx.observation_record is not association.record):return False
+        return True
+
     @_entry
     def poll(self):
         self._channel_health()
@@ -661,6 +758,8 @@ class ActorComposition:
             # observes stopping only; step() could prepare and publish motion.
             expiry = self._runtime.check_expiry()
             if expiry.stop_required:
+                if expiry.reason=='command_deadline' and self._stationary_replan_wait():
+                    return 'WAITING_FRESH_OBSERVATION'
                 self._retire(expiry.reason)
                 return _STOPPED
 
