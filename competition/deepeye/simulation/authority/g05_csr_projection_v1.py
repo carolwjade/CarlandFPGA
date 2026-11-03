@@ -64,7 +64,7 @@ def _public_exit_normal_goal(position,orientation,center,normal,half_segment,
     n=vector(normal,3);vector(ordinary_goal,3)
     _need(all(x in (-1,0,1) for x in n) and sum(abs(x) for x in n)==1,
           'public outward cube-face normal required')
-    _need(all(type(x) in (int,float) and math.isfinite(x) and 0<=x<=10
+    _need(all(type(x) in (int,float,Fraction) and math.isfinite(x) and 0<=x<=10
               for x in (half_segment,radius,numeric,asset)) and radius>0,
           'declared public body/error bounds required')
     qnorm=math.sqrt(sum(x*x for x in q))
