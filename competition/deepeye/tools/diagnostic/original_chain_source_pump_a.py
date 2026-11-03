@@ -27,6 +27,7 @@ class OriginalChainSourcePump:
         self._book=functional_source.book;self._causal=functional_source.source
         self._owner=functional_source.owner;self._binding=functional_source.binding
         self._enabled=False;self._failed=False;self._ever_enabled=False
+        self._manual_navigation=None
         self._history=[];self._pending=None
         if self._causal.state == 'NEW':
             self._check(False)
@@ -91,12 +92,32 @@ class OriginalChainSourcePump:
         except BaseException:
             self._failed=True;raise
         self._enabled=True
-    def poll_once(self, session, *, _closing=None):
+    def select_navigation_explicit_only(self,profile):
+        """One pre-enable demo schedule; missed nominal bins are never backfilled.
+
+        Actual samples are still acquired by the original owner, scanner and
+        clock. Waiting for board I/O does not launch another expensive sample.
+        """
+        from ...simulation.authority.navigation_session_profile import validate_profile
+        validate_profile(profile);self._check(False)
+        if (profile is None or self._enabled or self._ever_enabled or self._manual_navigation is not None
+            or self._causal._navigation_profile is not profile or self._scanner._demo_cycle_profile is not profile
+            or getattr(self._session,'_chain_reply_profile',None) is not profile):
+            raise ValueError('same original pre-enable navigation scheduling selection required')
+        self._manual_navigation=profile
+    def poll_once(self, session, *, _closing=None, explicit=False):
         if session is not self._session: raise ValueError('same original session required')
         try:
+            if type(explicit) is not bool:raise ValueError('strict explicit sampling flag')
             if _closing is None:self._check(self._enabled)
             else:self._check(self._enabled,_closing=_closing)
             if not self._enabled:return None
+            selected=getattr(self,'_manual_navigation',None)
+            if selected is not None:
+                if (self._causal._navigation_profile is not selected or self._scanner._demo_cycle_profile is not selected
+                    or getattr(self._session,'_chain_reply_profile',None) is not selected):
+                    raise ValueError('original navigation sampling selector changed')
+                if not explicit:return None
             pair=self._source.poll_sample()
             if pair is None:return None
             self._pending=(pair,None)

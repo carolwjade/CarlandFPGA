@@ -97,7 +97,10 @@ class OriginalChainReceiptProducer:
   self._check();need(self._source_pump is not None and self._source_pump.enabled,'enabled original source pump required')
   from .original_chain_source_pump_a import OriginalChainSourcePump
   try:
-   OriginalChainSourcePump.poll_once(self._source_pump,self._session);self._flush_pump()
+   if getattr(self._source_pump,'_manual_navigation',None) is None:
+    OriginalChainSourcePump.poll_once(self._source_pump,self._session)
+   else:OriginalChainSourcePump.poll_once(self._source_pump,self._session,explicit=True)
+   self._flush_pump()
    return self.take_pending_events()
   except BaseException:
    self._session._unknown=True;self._failed=True

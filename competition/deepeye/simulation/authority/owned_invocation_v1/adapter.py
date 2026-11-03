@@ -309,10 +309,10 @@ def _validate_config(config,binding):
     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
     selected=_selected_ai_profile(config)
     if policy.navigation_profile is not None:
-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1
-        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile==NAV_FAST_V1
+        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1
+        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1)
              and selected.prospective_command_max_ns==3_000_000_000,
-             'navigation requires explicit fixed EM3 FAST descriptor with3s validity')
+             'navigation requires explicit fixed EM3 navigation descriptor with3s validity')
     if policy.demo_duration_v1:
         need(getattr(config,'g05_csr_v1',None) is not None and config.g05_csr_v1.demo_ai_profile is not None,
              'longer command validity requires explicit typed demo profile')
