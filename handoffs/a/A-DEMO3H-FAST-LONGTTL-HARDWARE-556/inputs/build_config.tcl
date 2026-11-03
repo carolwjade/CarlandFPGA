@@ -1,0 +1,10 @@
+set run_id {A556-FAST-LONGTTL-DEMO-R01}
+set run_root {D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01}
+set build_authorized_for_run {A556-FAST-LONGTTL-DEMO-R01}
+set max_threads 2
+set clock_period_ns 20.0
+set build_id {dc4e89ccf3db18c4f9871575efc399ba}
+set g05_source_list {D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01/inputs/g05_sources.txt}
+set trace_source_list {D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01/inputs/trace_sources.txt}
+set board_repo {D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01/inputs/board_repo/pynq-z2/A.0}
+set cdc_policy {INTERNAL_PWM_THREE_FF_DEMO_V1}

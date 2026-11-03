@@ -37,7 +37,7 @@ def check_mode_selection(board_policy, pc_direct_policy, csr_policy):
               'board output requires G05 CSR and excludes PC_DIRECT policy')
 
 
-def decode_board_output(words, command_words, *, session):
+def decode_board_output(words, command_words, *, session, build_id=None):
     """Decode actual measured PWM; reject wrong/torn/echo-only captures.
 
     This is a consistency parser, never evidence that hardware ran. All local
@@ -47,7 +47,7 @@ def decode_board_output(words, command_words, *, session):
     _need(type(words) is list and len(words) == 32 and
           all(type(v) is int and 0 <= v <= 0xffffffff for v in words),
           'complete unsigned 32-word G05 output capture required')
-    _command(command_words, 0, None)
+    _command(command_words, 0, None, build_id=build_id)
     yaw, pitch, profile, speed, ttl, seq, tag = command_words
     _need(type(session) is int and 1 <= session <= 0xffffffff and
           words[0] > 0 and words[1:3] == [seq, tag] and

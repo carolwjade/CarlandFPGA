@@ -413,8 +413,10 @@ class PcDirectRuntime:
         def admit():
             record = self._record(self._deps.verify_command(event, self._boot), VerifiedEnvelope)
             now = self._advance(); self._active()
+            from . import navigation_session_profile as navigation
             parsed = envelope.validate_message(record.raw, producer='control_broker',
-                consumer='world_authority', context=self._context, now_ns=now)
+                consumer='world_authority', context=self._context, now_ns=now,
+                navigation_profile=navigation.longttl_for_g05(None if self._g05_channels is None else self._g05_channels.policy))
             if parsed.kind != 'motion_request':
                 raise ValueError('broker channel requires motion_request')
             doc = parsed.document

@@ -271,7 +271,7 @@ class OwnedMotionExecutor:
             boot=boot,command=None,stopped=root.trial_failed)
 
     @_entry
-    def admit_command(self,boot,command_raw):
+    def admit_command(self,boot,command_raw,*,navigation_profile=None):
         """Called only after trusted runtime admission, never as authentication.
 
         The runtime still checks original observation, source, STATE8 and AI at
@@ -284,7 +284,7 @@ class OwnedMotionExecutor:
         doc=envelope._parse_message(command_raw)
         issue=_integer(doc.get('host_issue_monotonic_ns'))
         context=watchdog._context_copy(envelope._parse_message(boot.context_json))
-        parsed=envelope.validate_message(command_raw,producer='control_broker',consumer='world_authority',context=context,now_ns=issue)
+        parsed=envelope.validate_message(command_raw,producer='control_broker',consumer='world_authority',context=context,now_ns=issue,navigation_profile=navigation_profile)
         if parsed.kind!='motion_request' or parsed.document['target']['action']!=1:
             raise ValueError('only admitted non-STOP motion_request accepted')
         doc=parsed.document;target=doc['target'];sequence=doc['command_seq']

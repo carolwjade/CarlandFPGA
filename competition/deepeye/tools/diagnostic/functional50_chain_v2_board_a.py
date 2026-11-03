@@ -123,8 +123,8 @@ def decode_request(line,operation,g05,state):
   if k=='trace_scan':
    need(state.counts[k]<_demo().scan_cap(state.demo_cycle_profile) and set(p)=={'request_hex','source_hex','companions_hex','build_binding','max_io'} and type(p['max_io']) is int and 1<=p['max_io']<=2000,'trace cap/payload')
   elif k=='apply':
-   need(state.counts[k]<state.max_commands and set(p)=={'command_words'} and type(p['command_words']) is list,'apply cap/payload');g05._command(tuple(p['command_words']),state.last,state.profile)
-   if _demo().is_navigation(state.demo_cycle_profile):need(p['command_words'][2]==1,'navigation uses unchanged FAST TTL/ROM')
+   need(state.counts[k]<state.max_commands and set(p)=={'command_words'} and type(p['command_words']) is list,'apply cap/payload');g05._command(tuple(p['command_words']),state.last,state.profile,navigation_profile=state.demo_cycle_profile if _demo().is_navigation(state.demo_cycle_profile) else None)
+   if _demo().is_navigation(state.demo_cycle_profile):need(p['command_words'][2]==1,'navigation uses FAST profile and selected finite TTL')
   elif k=='status':need(state.counts[k]<_demo().status_phase_cap(state.demo_cycle_profile) and not p,'status cap/payload')
   elif k=='close':need(set(p)=={'stop'} and type(p['stop']) is bool,'explicit close')
   else:raise ValueError('unknown kind')
@@ -181,6 +181,9 @@ def main(argv=None):
     # Factory 4 + init 35, each command <=76 plus two I/Os per
     # selected status poll, four fresh statuses <=60, optional STOP <=3.
     selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
+    from competition.deepeye.simulation.authority.navigation_session_profile import NAV_FAST_LONGTTL_180S
+    if selected is NAV_FAST_LONGTTL_180S:
+     need(plan['build_id']==g05.LONG_TTL_BUILD_ID, 'exact loaded long-TTL hardware build required')
     prospective_io=_demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
     need(prospective_io<=policy['limits']['total_io']<=p['max_io'],'G05 policy cannot cover selected session or exceeds budget')
     need(policy['limits']['begin']>=1 and all(policy['limits'][k]>=p['max_commands'] for k in ('commit','latch','release')),'G05 selected command quotas')

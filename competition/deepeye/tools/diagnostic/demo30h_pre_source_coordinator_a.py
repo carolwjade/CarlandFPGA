@@ -139,7 +139,7 @@ def _validate_inputs(*, world, authority_config, legacy_context, c42_context,
         _integer(value, low, high, name)
     _need(type(select_owner_work_v1) is bool, 'strict owner work selection required')
     if max_source_age_ns is not None:
-        _integer(max_source_age_ns, 100_000_001, 12_000_000_000, 'explicit demo age')
+        _integer(max_source_age_ns, 100_000_001, 30_000_000_000, 'explicit demo age')
         _need(max_source_age_ns <= duration_ns, 'demo age must fit fixed board duration')
     _need(type(legacy_context) is dict and type(c42_context) is dict, 'exact original context dictionaries required')
     _validate_context(legacy_context, c42_context)

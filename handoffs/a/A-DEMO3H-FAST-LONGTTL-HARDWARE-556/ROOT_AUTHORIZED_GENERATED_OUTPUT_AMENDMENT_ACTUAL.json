@@ -1,0 +1,19 @@
+{
+  "time_recorded": "2026-11-03T11:54:49.880378+00:00",
+  "original_same_process_continued": true,
+  "actual_generated_hook": "set f50_hook_context {run_root D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01 run_id A556-FAST-LONGTTL-DEMO-R01 build_id dc4e89ccf3db18c4f9871575efc399ba project_directory D:/codex-tmp/a324/.local/a556/p implementation_directory D:/codex-tmp/a324/.local/a556/p/functional50_diag.runs/impl_1}\nsource D:/codex-tmp/a324/competition/deepeye/evidence/diagnostic/functional50/a556-fast-longttl-demo-r01/inputs/functional50_cdc.tcl\nf50_run_pre_opt_hook $f50_hook_context\n",
+  "actual_generated_hook_sha256": "49b4e241d0c7fef795bb9f5514f5553ef81397d5dc6515f016e192e372714409",
+  "launch_manifest_sha256": "21a1105d42493bfe3af84a7f63d82c5e9344aca9dda90723d1c39b5fb7831672",
+  "manifest_differences": [
+    {
+      "file": "inputs/functional50_pre_opt_hook.tcl",
+      "launch_pin": "dd11454ce131e99c21704078921a2ed2a14a66032dfc5b77b6971161e4e1008c",
+      "current_sha256": "49b4e241d0c7fef795bb9f5514f5553ef81397d5dc6515f016e192e372714409"
+    }
+  ],
+  "old_review_not_relabelled": true,
+  "Root_authorized_exact_generated_output_exception": true,
+  "no_RTL_Tcl_buildID_change": true,
+  "no_restart_or_replay": true,
+  "board": false
+}

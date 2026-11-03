@@ -119,7 +119,12 @@ def validate_message(raw_bytes,*,legacy,producer,context,now_ns,consumer=None,
     legacy._check_nested_contexts(document,context)
     legacy._check_intervals(document,kind,now_ns)
     # These are the original candidate's other two gates, without its scalar.
-    legacy._check_target(document['target'],legacy._profile_name(context))
+    from ..simulation.authority import navigation_session_profile as navigation
+    target_navigation = navigation.longttl_for_g05(g05_policy)
+    if target_navigation is None:
+        legacy._check_target(document['target'],legacy._profile_name(context))
+    else:
+        legacy._check_target(document['target'],legacy._profile_name(context),navigation_profile=target_navigation)
     legacy._require_observation(document)
     legacy._check_consumer_argument(consumer,False,schema)
     span=document['completion_observed_interval_ns']

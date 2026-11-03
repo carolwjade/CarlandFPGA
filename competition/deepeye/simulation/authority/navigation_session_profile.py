@@ -13,6 +13,8 @@ _VALUES = ('DEEPEYE-NAV-ADJACENT-180S-V3', 180_000_000_000,
 _SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-NAVIGATION-PROFILE-V3', *_VALUES),
     separators=(',', ':')).encode('ascii')).hexdigest()
 
+_LONG_VALUES = (_VALUES[0].replace('ADJACENT','FAST-LONGTTL'), *_VALUES[1:13], 12000, *_VALUES[14:])
+_LONG_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-FAST-LONGTTL-NAVIGATION-V1', *_LONG_VALUES), separators=(',', ':')).encode('ascii')).hexdigest()
 
 @dataclass(frozen=True)
 class NavigationSessionProfile:
@@ -41,15 +43,16 @@ class NavigationSessionProfile:
 
     def __post_init__(self):
         values = tuple(getattr(self, name) for name in self.__dataclass_fields__ if name != 'sha256')
-        if (type(self.profile_id) is not str or values != _VALUES
+        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA))
                 or any(type(x) is not int for x in values[1:-2])
                 or type(self.exit_clearance_margin_m) is not float
                 or type(self.source_pins) is not tuple
-                or type(self.sha256) is not str or self.sha256 != _SHA):
+                or type(self.sha256) is not str):
             raise ValueError('exact typed/hash-bound navigation revision required')
 
 
 NAV_ADJACENT_180S = NavigationSessionProfile(*_VALUES, _SHA)
+NAV_FAST_LONGTTL_180S = NavigationSessionProfile(*_LONG_VALUES, _LONG_SHA)
 
 
 def validate_profile(value):
@@ -66,9 +69,10 @@ def to_wire(value):
 
 
 def from_wire(value):
-    if type(value) is not dict or value != to_wire(NAV_ADJACENT_180S):
-        raise ValueError('exact navigation wire identity required')
-    return NAV_ADJACENT_180S
+    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S):
+        if type(value) is dict and value == to_wire(selected):
+            return selected
+    raise ValueError('exact navigation wire identity required')
 
 
 def duration_ns(value):
@@ -102,3 +106,18 @@ def rolling_refs(value, observations, actions, current_observation):
     if not any(item is current_observation for item in public_observations):
         raise ValueError('latest original observation fell outside rolling public window')
     return public_observations,tuple(x[3] for x in selected if x[1]==1)
+
+
+def longttl_for_g05(policy):
+    """Return the exact explicit demo identity, never inferred from a duration."""
+    if policy is None:
+        return None
+    from .g05_csr_channels_v1 import G05CsrPolicy
+    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4
+    if type(policy) is not G05CsrPolicy:
+        raise TypeError('exact G05 policy required')
+    descriptor = policy.demo_ai_profile
+    if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ENTRY_LONG_TTL_V4:
+        policy.check()
+        return NAV_FAST_LONGTTL_180S
+    return None

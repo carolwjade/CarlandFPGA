@@ -1,0 +1,134 @@
+{
+  "actual_RTL_compile_elaborate_simulate": true,
+  "toolchain": "Vivado2026.1 xvlog/xelab/xsim",
+  "focused_ttl_cases": [
+    {
+      "profile": 1,
+      "ttl_ms": 0,
+      "accepted": false,
+      "ticks": 0
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 1,
+      "accepted": true,
+      "ticks": 50000
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 3000,
+      "accepted": true,
+      "ticks": 150000000
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 3001,
+      "accepted": true,
+      "ticks": 150050000
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 11999,
+      "accepted": true,
+      "ticks": 599950000
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 12000,
+      "accepted": true,
+      "ticks": 600000000
+    },
+    {
+      "profile": 1,
+      "ttl_ms": 12001,
+      "accepted": false,
+      "ticks": 0
+    },
+    {
+      "profile": 2,
+      "ttl_ms": 0,
+      "accepted": false,
+      "ticks": 0
+    },
+    {
+      "profile": 2,
+      "ttl_ms": 1,
+      "accepted": true,
+      "ticks": 50000
+    },
+    {
+      "profile": 2,
+      "ttl_ms": 3000,
+      "accepted": true,
+      "ticks": 150000000
+    },
+    {
+      "profile": 2,
+      "ttl_ms": 12000,
+      "accepted": true,
+      "ticks": 600000000
+    },
+    {
+      "profile": 2,
+      "ttl_ms": 12001,
+      "accepted": false,
+      "ticks": 0
+    }
+  ],
+  "focused_guard_cases": 5,
+  "focused_total_passed": 17,
+  "original_suite_run": false,
+  "simulation_time_ns": 17,
+  "simulation_is_not_measured_board_TTL": true,
+  "build_id": "dc4e89ccf3db18c4f9871575efc399ba",
+  "source_closure_sha256": "f346fee5273670484d30dfbc17e9b8c7504f52a5969ee71f53d744248dcd73dd",
+  "files": {
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_0_RETURNED.json": {
+      "bytes": 892,
+      "sha256": "4cd9fadb9c6d7ba055df448f50c8c273e813d1664c692c91190dd4f3bdb580f8"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_0_STDERR.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_0_STDOUT.bin": {
+      "bytes": 891,
+      "sha256": "cd6375358932ef8da437a549002b909e5d409deded261e4fc0c6d2fdbf7b3c13"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_1_RETURNED.json": {
+      "bytes": 120,
+      "sha256": "264aa13ef056065bdca928027c26685200856fcbfac051393dea8c7be6e8c17f"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_1_STDERR.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_1_STDOUT.bin": {
+      "bytes": 705,
+      "sha256": "44e07d73385870f145e66c60b2de907939ec29c44cc800db1aa31c497d472055"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_2_RETURNED.json": {
+      "bytes": 102,
+      "sha256": "4e64c679c1bc537a8e3fb99cd4641184a24cd22449fa609fe5a9af2f94647ed2"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_2_STDERR.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_2_STDOUT.bin": {
+      "bytes": 1389,
+      "sha256": "25d3957cb8b7779c1452b27379769d6398d65afec0d707e40ea0bddc4b6a321c"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\RTL_SIM_PASSED.json": {
+      "bytes": 51,
+      "sha256": "053f640c3e72d18879d77dd2915ef16cdc8679cde8aa5306266e7a9bab7293e9"
+    },
+    "D:\\codex-tmp\\a324\\competition\\deepeye\\evidence\\diagnostic\\functional50\\a556-fast-longttl-demo-r01\\inputs\\tb_fast_longttl556.sv": {
+      "bytes": 1873,
+      "sha256": "d07b0f76e4d01b9c1920c71c40122393007f00c7fecff30b72199302ef0086a8"
+    }
+  },
+  "board": false,
+  "physical_validation": "not_run",
+  "final_acceptance": "not_run"
+}

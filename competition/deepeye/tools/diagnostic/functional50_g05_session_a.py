@@ -146,7 +146,7 @@ class G05SessionV2:
         except BaseException:self._state='FAILED';raise
     def apply_one(self,command_words):
         self._active();_need(self._commands<self.issuer.limits.max_commands,'session command quota exhausted')
-        g05._command(command_words,self.issuer.port._seq,self.issuer.port._profile)
+        g05._command(command_words,self.issuer.port._seq,self.issuer.port._profile,build_id=self.issuer.port._policy['binding']['build_id'])
         if demo.is_navigation(self._demo_cycle_profile):
             _need(command_words[2]==1,'navigation uses unchanged FAST TTL/ROM')
         _need(self._polls+10<=self._status_limit,'insufficient status-read budget for one capture')

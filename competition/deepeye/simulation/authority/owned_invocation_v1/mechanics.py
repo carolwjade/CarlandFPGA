@@ -42,7 +42,7 @@ def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=1
         need(max_duration_ms in (100,1000),'explicit original or typed demo command cap')
     else:
         need(max_duration_ms==navigation_profile.max_command_ttl_ms and profile=='fast_9600',
-             'typed navigation requires unchanged FAST ROM and3000ms cap')
+             'typed navigation requires unchanged FAST ROM and selected finite cap')
     uint(duration_ms,1);need(duration_ms<=max_duration_ms,'prospective command duration exceeds selected cap')
     stop=dict(action=0,yaw_q=0,pitch_q=0,speed_code=0,duration_ms=0)
     if advice['status']=='STOP':return stop

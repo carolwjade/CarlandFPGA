@@ -309,10 +309,14 @@ def _validate_config(config,binding):
     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
     selected=_selected_ai_profile(config)
     if policy.navigation_profile is not None:
-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3
-        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
-             and selected.prospective_command_max_ns==3_000_000_000,
-             'navigation requires explicit fixed EM3 navigation descriptor with3s validity')
+        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4
+        longttl = policy.navigation_profile is navigation.NAV_FAST_LONGTTL_180S
+        need(type(selected) is DemoEM3AIProfile and
+             ((longttl and selected.navigation_profile is NAV_ENTRY_LONG_TTL_V4
+               and selected.prospective_command_max_ns == 12_000_000_000) or
+              (not longttl and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
+               and selected.prospective_command_max_ns == 3_000_000_000)),
+             'matching exact finite navigation and EM3 validity identities required')
     if policy.demo_duration_v1:
         need(getattr(config,'g05_csr_v1',None) is not None and config.g05_csr_v1.demo_ai_profile is not None,
              'longer command validity requires explicit typed demo profile')

@@ -62,10 +62,11 @@ class G05CsrPolicy:
 
     def check(self):
         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3
+        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4
         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
         entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
-        age_cap=12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
+        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_LONG_TTL_V4)
+        age_cap=30_000_000_000 if longttl else 12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
         _uint(self.max_source_age_ns, 1, age_cap)
         _uint(self.health_timeout_ns, 1, age_cap)
         _uint(self.usb_upper_ns, 0, 5_000_000_000)
@@ -305,6 +306,12 @@ class G05CsrChannels:
         _need(key is _KEY, 'fixed original factory required')
         self.config, self.binding, self.refs = config,binding,refs
         self.policy = config.g05_csr_v1; self.policy.check()
+        from . import navigation_session_profile as navigation
+        self._target_navigation = navigation.longttl_for_g05(self.policy)
+        self._hardware_build_id = _json(binding.origin[3])['build_id']
+        if self._target_navigation is not None:
+            _need(refs.source.source._navigation_profile is self._target_navigation, 'same explicit long-TTL source identity required')
+            _need(self._hardware_build_id == 'dc4e89ccf3db18c4f9871575efc399ba', 'long-TTL requires exact original loaded hardware build')
         self.thread = threading.get_ident(); self.owner = None; self.boot = None
         self.retired = False; self._boot_attempted = False
         self._csr_receipts = (); self._health_deadline = None; self._global_deadline = None
@@ -632,7 +639,7 @@ class G05CsrChannels:
                  observation=candidate['observation'],target=candidate['target'],host_issue_monotonic_ns=now)
         raw=_raw(doc)
         host_envelope.validate_message(raw,producer='control_broker',consumer='world_authority',
-                                       context=self.refs.legacy_context,now_ns=now)
+                                       context=self.refs.legacy_context,now_ns=now,navigation_profile=self._target_navigation)
         event=_CommandEvent(_KEY);_COMMANDS[event]=(self,raw,proof,window,start,now)
         self._command_pending=event
         return event
@@ -662,7 +669,7 @@ class G05CsrChannels:
               'actual APPLY must follow original AI completion')
         command=tuple(request['payload']['command_words'])
         words=_json(phase.response_raw,4194304)['result']['capture']['words32']
-        target=decode_board_output(words,command,session=self.refs.chain.identity[12])
+        target=decode_board_output(words,command,session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
         _need(command[2]==self.refs.legacy_context['transport_profile_id']
               and command[5]>self._board_last_sequence and words[0]>self._board_last_result,
               'fresh original board output and fixed profile required')
@@ -708,7 +715,7 @@ class G05CsrChannels:
                  observation=candidate['observation'],target=target,host_issue_monotonic_ns=now)
         raw=_raw(doc)
         host_envelope.validate_message(raw,producer='control_broker',consumer='world_authority',
-                                       context=self.refs.legacy_context,now_ns=now)
+                                       context=self.refs.legacy_context,now_ns=now,navigation_profile=self._target_navigation)
         event=_CommandEvent(_KEY);_COMMANDS[event]=(self,raw,proof,window,start,now)
         self._board_outputs.append((raw,output,event));self._board_pending=None
         self._command_pending=event
@@ -730,7 +737,7 @@ class G05CsrChannels:
         _need(len(rows)==1,'original command-bound APPLY required')
         output=rows[0][1];phase=output[1]
         request=_json(phase.request_raw);words=_json(phase.response_raw,4194304)['result']['capture']['words32']
-        target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12])
+        target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
         _need(_raw(target)==output[4] and _json(raw)['target']==target
               and _json(output[2].candidate_raw)['target']==target
               and _uint(now_ns)<output[3],'original measured output/TTL changed or expired')

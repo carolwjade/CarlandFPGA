@@ -1,0 +1,65 @@
+EEEEEE
+======================================================================
+ERROR: test_hardware_default_three_seconds_and_exact_build_twelve (__main__.LongTTLBorders.test_hardware_default_three_seconds_and_exact_build_twelve)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 63, in test_hardware_default_three_seconds_and_exact_build_twelve
+    with self.assertRaises(ValueError):g05._command(words(ttl),0,None,build_id='5764b1c0ecc25fe261812613fc925923')
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _command() got an unexpected keyword argument 'build_id'
+
+======================================================================
+ERROR: test_new_descriptor_and_old_caps (__main__.LongTTLBorders.test_new_descriptor_and_old_caps)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 28, in test_new_descriptor_and_old_caps
+    p = self.selected()
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 25, in selected
+    return em.selected_profile(30_000_000_000, navigation_profile=em.NAV_ENTRY_LONG_TTL_V4)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'competition.deepeye.simulation.authority.demo30h_ai_em3_profile_v2' has no attribute 'NAV_ENTRY_LONG_TTL_V4'
+
+======================================================================
+ERROR: test_owned_prospective_policy (__main__.LongTTLBorders.test_owned_prospective_policy)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 91, in test_owned_prospective_policy
+    p=OwnedInvocationPolicy('new558','a'*64,'b'*40,16,256,65536,12000,navigation_profile=nav.NAV_FAST_LONGTTL_180S)
+                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'competition.deepeye.simulation.authority.navigation_session_profile' has no attribute 'NAV_FAST_LONGTTL_180S'
+
+======================================================================
+ERROR: test_policy_pair_and_original_health_limits (__main__.LongTTLBorders.test_policy_pair_and_original_health_limits)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 79, in test_policy_pair_and_original_health_limits
+    p = self.selected()
+        ^^^^^^^^^^^^^^^
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 25, in selected
+    return em.selected_profile(30_000_000_000, navigation_profile=em.NAV_ENTRY_LONG_TTL_V4)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'competition.deepeye.simulation.authority.demo30h_ai_em3_profile_v2' has no attribute 'NAV_ENTRY_LONG_TTL_V4'
+
+======================================================================
+ERROR: test_target_default_and_explicit_typed_extension (__main__.LongTTLBorders.test_target_default_and_explicit_typed_extension)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 72, in test_target_default_and_explicit_typed_extension
+    envelope._check_target(target,'fast_9600',navigation_profile=nav.NAV_FAST_LONGTTL_180S)
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'competition.deepeye.simulation.authority.navigation_session_profile' has no attribute 'NAV_FAST_LONGTTL_180S'
+
+======================================================================
+ERROR: test_typed_navigation_wire_and_old_hash (__main__.LongTTLBorders.test_typed_navigation_wire_and_old_hash)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\CarlJade\Documents\ChatGPT\FPGA���Э������\.planning\deepeye-resume-20261018\gen4-functional-chain-offboard-20261030-07\longttl-host-558\test_longttl558.py", line 45, in test_typed_navigation_wire_and_old_hash
+    new = nav.NAV_FAST_LONGTTL_180S
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'competition.deepeye.simulation.authority.navigation_session_profile' has no attribute 'NAV_FAST_LONGTTL_180S'
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.120s
+
+FAILED (errors=6)

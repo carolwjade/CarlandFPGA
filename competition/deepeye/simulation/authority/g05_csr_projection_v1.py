@@ -161,7 +161,7 @@ def project_original_g05(association, *, max_source_age_ns):
     """Project only an association retained inside the actual actor transaction."""
     from .owned_invocation_v1.adapter import _Association, _root_guard
     from ...tools.run_causal_functional_chain import _RegistryView, _RegistryHold
-    _uint(max_source_age_ns,1,12_000_000_000)
+    _uint(max_source_age_ns,1,30_000_000_000)
     _need(type(association) is _Association and type(association.g05_mapping) is _Mapping,
           'original typed observation association required')
     a=association; m=a.g05_mapping; c=m.channels; o=c.owner

@@ -1,0 +1,42 @@
+{
+  "status": "NO_STATIC_BLOCKER_FOUND_IN_BOUNDED_READONLY_REVIEW",
+  "reviewer": "482",
+  "source_read_only": true,
+  "models_run": false,
+  "native_run": false,
+  "board": false,
+  "reviewed_diff_sha256": "133641e5ae532117013b1380c64660b87947040cf12478cee6e7f84fd333f75d",
+  "source_manifest_sha256": "547ccd42c732321a608da971642a68090fb09019637c1ec09801b6060b1e07e5",
+  "origin_verified": {
+    "actual_origin_tuple": "(spec,proc,clock,raw,parsed,start_lower,ready_upper,stdin,stdout,stderr)",
+    "origin_index3": "original ready bytes; parsed build_id is present in exact factory ready schema",
+    "sources": [
+      "tools/diagnostic/functional50_ssh_a.py:316-330,359-363",
+      "tools/diagnostic/original_g05_operation_binding_a.py:62,74-77",
+      "simulation/authority/g05_csr_channels_v1.py:306-315"
+    ]
+  },
+  "consumer_chain_checked": [
+    "mechanics selected navigation maxTTL12s retains exact FAST curvature/speed mapping",
+    "completion_interval passes typed selected G05 NAV to target check; schema target maximum12000 already fits",
+    "G05 candidate->request, measured board output->request, command re-read all retain actual hardware buildID",
+    "ProgressGate.source is real self._channels (actor_composition535), so source.policy carries selected G05 longTTL descriptor",
+    "ProgressGate request reparse, composition broker reparse, pc_direct_runtime reparse and motion_executor admit all carry explicit longTTL NAV",
+    "pc_direct_runtime and motion_executor deadline derive actual issued target duration; prior/replay deadline remains min-bound, no blanket renewal",
+    "Board protocol structural parse uses exact typed NAV; init requires actual plan buildID dc4e; G05Port/session/transaction use actual bound policy buildID",
+    "New longTTL profile remains outside old stationary wait guard; driver must acquire/replan before real12s hardware fault2",
+    "Navigation _LONG_VALUES changes correct index13 max_command_ttl_ms, preserves max_step_ns100ms and source pins"
+  ],
+  "old_behavior_retained": [
+    "Default host_envelope FAST duration cap3000 and all default calls retain None",
+    "Old typed NAV_ADJACENT maxTTL3000 remains; new NAV only explicit identity",
+    "Old strict/NAV/source caps remain descriptor-specific5/8/12; new descriptor30s",
+    "Physical board unavailable/disconnected; no model/native/board evidence inferred"
+  ],
+  "remaining_limits": [
+    "Static consumer/source review only, not execution of actual original activation or STEP",
+    "Full driver scheduling/native model/board chain requires its own later named evidence",
+    "Hardware TTL expiry still latches permanent fault2; waiting to expiry cannot authorize another APPLY"
+  ],
+  "material_blockers": []
+}

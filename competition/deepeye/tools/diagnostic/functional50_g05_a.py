@@ -40,10 +40,17 @@ def _status_check(status,fault,mode):
     elif mode=='latched':_need(status&0x21==0x21 and not status&2,'G05 live latch required')
     else:raise ValueError('status mode')
 
-def _command(words,last_cmd,locked_profile):
+LONG_TTL_BUILD_ID = 'dc4e89ccf3db18c4f9871575efc399ba'
+
+
+def _command(words,last_cmd,locked_profile,*,build_id=None,navigation_profile=None):
     _need(type(words) is tuple and len(words)==7 and all(type(v) is int and 0<=v<=0xffffffff for v in words),'seven exact unsigned command words')
+    from ...simulation.authority import navigation_session_profile as navigation
+    navigation.validate_profile(navigation_profile)
+    structural_longttl = navigation_profile is navigation.NAV_FAST_LONGTTL_180S
+    longttl = build_id == LONG_TTL_BUILD_ID or structural_longttl
     y,p,profile,speed,ttl,seq,tag=words
-    _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 else 12000),'G05 encoding and profile')
+    _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 and not longttl else 12000),'G05 encoding and profile')
     y=y if y<0x8000 else y-65536;p=p if p<0x8000 else p-65536
     _need(-15000<=y<=15000 and -15000<=p<=15000 and (speed!=0 or (y==0 and p==0)),'G05 target bounds')
     _need(y*y+p*p<=_ROM[profile-1][speed] and seq>last_cmd and (locked_profile is None or locked_profile==profile),'G05 curvature, sequence or locked profile')
@@ -123,7 +130,7 @@ class G05Port:
         self._status(request_id,'new');self._quota('begin');self._io('write',0x00c,1,request_id)
         self._status(request_id,'bound');self._bound=True
     def stage_command(self,words,request_id):
-        words=_command(words,self._seq,self._profile);self._claim(request_id)
+        words=_command(words,self._seq,self._profile,build_id=self._policy['binding']['build_id']);self._claim(request_id)
         _need(self._bound and not self._stopped and self._staged is None,'live unstaged command required')
         status=self._status(request_id,'bound');_need(not status&0x68,'G05 pending/inflight/latch')
         for i,w in enumerate(words):self._io('write',0x200+4*i,w,request_id)

@@ -1,0 +1,549 @@
+--- 544/competition/deepeye/integration/candidate_mailbox.py
++++ 558/competition/deepeye/integration/candidate_mailbox.py
+@@ -275,7 +275,7 @@
+         self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
+         self._g05_raw4 = g05_source_age_ns is not None
+         if self._g05_raw4:
+-            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 12_000_000_000)
++            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 30_000_000_000)
+         self._observations.clear()
+         self._last_observed = None
+         self._pending = self._completed = None
+--- 544/competition/deepeye/integration/completion_interval.py
++++ 558/competition/deepeye/integration/completion_interval.py
+@@ -119,7 +119,12 @@
+     legacy._check_nested_contexts(document,context)
+     legacy._check_intervals(document,kind,now_ns)
+     # These are the original candidate's other two gates, without its scalar.
+-    legacy._check_target(document['target'],legacy._profile_name(context))
++    from ..simulation.authority import navigation_session_profile as navigation
++    target_navigation = navigation.longttl_for_g05(g05_policy)
++    if target_navigation is None:
++        legacy._check_target(document['target'],legacy._profile_name(context))
++    else:
++        legacy._check_target(document['target'],legacy._profile_name(context),navigation_profile=target_navigation)
+     legacy._require_observation(document)
+     legacy._check_consumer_argument(consumer,False,schema)
+     span=document['completion_observed_interval_ns']
+--- 544/competition/deepeye/integration/host_envelope.py
++++ 558/competition/deepeye/integration/host_envelope.py
+@@ -351,7 +351,12 @@
+     return PROFILE_NAMES[context['transport_profile_id']]
+ 
+ 
+-def _check_target(target_document, profile_name):
++def _check_target(target_document, profile_name, *, navigation_profile=None):
++    if navigation_profile is not None:
++        from ..simulation.authority import navigation_session_profile as navigation
++        navigation.validate_profile(navigation_profile)
++        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or profile_name != 'fast_9600':
++            raise ValueError('exact FAST long-TTL demo navigation required')
+     action = target_document['action']
+     if action == 0:
+         if any(target_document[field] != 0
+@@ -361,7 +366,7 @@
+         duration = target_document['duration_ms']
+         if duration <= 0:
+             raise ValueError('SET_TARGET requires a positive duration_ms')
+-        limit = DURATION_LIMIT_MS[profile_name]
++        limit = DURATION_LIMIT_MS[profile_name] if navigation_profile is None else navigation_profile.max_command_ttl_ms
+         if duration > limit:
+             raise ValueError('SET_TARGET duration_ms {} exceeds the {} ms {} limit'.format(
+                 duration, limit, profile_name))
+@@ -435,15 +440,15 @@
+     _require_observation(document)
+ 
+ 
+-def _check_request(document, context, now_ns):
++def _check_request(document, context, now_ns, *, navigation_profile=None):
+     if document['host_issue_monotonic_ns'] > now_ns:
+         raise ValueError('request issue time is after the current host time')
+-    _check_target(document['target'], _profile_name(context))
++    _check_target(document['target'], _profile_name(context), navigation_profile=navigation_profile)
+     _require_observation(document)
+ 
+ 
+-def _check_grant(document, context, now_ns):
+-    _check_target(document['target'], _profile_name(context))
++def _check_grant(document, context, now_ns, *, navigation_profile=None):
++    _check_target(document['target'], _profile_name(context), navigation_profile=navigation_profile)
+     _require_observation(document)
+     expected_source, capture_required = TOPOLOGY_BINDING[context['topology_id']]
+     if document['action_source'] != expected_source:
+@@ -587,7 +592,7 @@
+ 
+ 
+ def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
+-                     enable_completion_interval=False, completion_bounds=None):
++                     enable_completion_interval=False, completion_bounds=None, navigation_profile=None):
+     """Validate one bounded envelope; raise ValueError on any rejection.
+ 
+     ``producer`` and ``context`` are caller-asserted (authenticated upstream);
+@@ -598,6 +603,11 @@
+     capture, request and observation history and deadlines before any grant,
+     and stale grants stay the caller's responsibility to reject.
+     """
++    if navigation_profile is not None:
++        from ..simulation.authority import navigation_session_profile as navigation
++        navigation.validate_profile(navigation_profile)
++        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or enable_completion_interval:
++            raise ValueError('explicit long-TTL request/grant parsing only')
+     if type(enable_completion_interval) is not bool:
+         raise ValueError('enable_completion_interval must be bool')
+     if enable_completion_interval:
+@@ -631,7 +641,12 @@
+     _check_message_context(document, context)
+     _check_nested_contexts(document, context)
+     _check_intervals(document, kind, now_ns)
+-    _KIND_CHECKS[kind](document, context, now_ns)
++    if navigation_profile is not None:
++        if kind not in ('motion_request','motion_grant'):
++            raise ValueError('long-TTL option only applies to request/grant targets')
++        _KIND_CHECKS[kind](document, context, now_ns, navigation_profile=navigation_profile)
++    else:
++        _KIND_CHECKS[kind](document, context, now_ns)
+     authority_only = kind in schema.get('x-authority-only-kinds', [])
+     _check_consumer_argument(consumer, authority_only, schema)
+     return ValidatedMessage(kind=kind, producer=producer, consumer=consumer,
+--- 544/competition/deepeye/simulation/authority/actor_composition.py
++++ 558/competition/deepeye/simulation/authority/actor_composition.py
+@@ -92,6 +92,9 @@
+     observed_interval_v2: object = None
+ 
+ 
++from . import navigation_session_profile as navigation
++
++
+ class _ProgressGate:
+     """One activation, one current command, irreversible expiry/revocation."""
+     def __init__(self, boot, source, clock_domain, model_hash, max_age, now, *,
+@@ -138,7 +141,8 @@
+                 type(proof.candidate_raw) is not bytes or type(request_raw) is not bytes):
+             raise ValueError('original verified inference association required')
+         request = host_envelope.validate_message(request_raw, producer='control_broker',
+-            consumer='world_authority', context=self.context, now_ns=now)
++            consumer='world_authority', context=self.context, now_ns=now,
++            navigation_profile=navigation.longttl_for_g05(getattr(self.source,'policy',None)))
+         if self.enable_completion_interval_v2:
+             candidate = _validate_interval_candidate(proof, self.context, now, self.max_age)
+         else:
+@@ -333,7 +337,8 @@
+         epoch = owner._veto
+         now = owner._progress_time()
+         command = host_envelope.validate_message(record.raw, producer='control_broker',
+-            consumer='world_authority', context=owner._progress.context, now_ns=now)
++            consumer='world_authority', context=owner._progress.context, now_ns=now,
++            navigation_profile=navigation.longttl_for_g05(owner._config.g05_csr_v1))
+         if command.kind != 'motion_request':
+             raise ValueError('broker command must be a motion request')
+         if command.document['target']['action'] != 0:
+@@ -639,7 +644,7 @@
+             self._retire('broker STOP')
+             return _STOPPED
+         self._runtime_active()
+-        self._executor.admit_command(self._boot, record.raw)
++        self._executor.admit_command(self._boot, record.raw, navigation_profile=navigation.longttl_for_g05(self._config.g05_csr_v1))
+         self._checkpoint()
+         transaction = self._input_transaction
+         if transaction is None or transaction.request_raw != record.raw:
+--- 544/competition/deepeye/simulation/authority/g05_board_output_v1.py
++++ 558/competition/deepeye/simulation/authority/g05_board_output_v1.py
+@@ -37,7 +37,7 @@
+               'board output requires G05 CSR and excludes PC_DIRECT policy')
+ 
+ 
+-def decode_board_output(words, command_words, *, session):
++def decode_board_output(words, command_words, *, session, build_id=None):
+     """Decode actual measured PWM; reject wrong/torn/echo-only captures.
+ 
+     This is a consistency parser, never evidence that hardware ran. All local
+@@ -47,7 +47,7 @@
+     _need(type(words) is list and len(words) == 32 and
+           all(type(v) is int and 0 <= v <= 0xffffffff for v in words),
+           'complete unsigned 32-word G05 output capture required')
+-    _command(command_words, 0, None)
++    _command(command_words, 0, None, build_id=build_id)
+     yaw, pitch, profile, speed, ttl, seq, tag = command_words
+     _need(type(session) is int and 1 <= session <= 0xffffffff and
+           words[0] > 0 and words[1:3] == [seq, tag] and
+--- 544/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
++++ 558/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
+@@ -62,10 +62,11 @@
+ 
+     def check(self):
+         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
+-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3
++        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4
+         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
+         entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
+-        age_cap=12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
++        longttl=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_LONG_TTL_V4)
++        age_cap=30_000_000_000 if longttl else 12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
+         _uint(self.max_source_age_ns, 1, age_cap)
+         _uint(self.health_timeout_ns, 1, age_cap)
+         _uint(self.usb_upper_ns, 0, 5_000_000_000)
+@@ -305,6 +306,12 @@
+         _need(key is _KEY, 'fixed original factory required')
+         self.config, self.binding, self.refs = config,binding,refs
+         self.policy = config.g05_csr_v1; self.policy.check()
++        from . import navigation_session_profile as navigation
++        self._target_navigation = navigation.longttl_for_g05(self.policy)
++        self._hardware_build_id = _json(binding.origin[3])['build_id']
++        if self._target_navigation is not None:
++            _need(refs.source.source._navigation_profile is self._target_navigation, 'same explicit long-TTL source identity required')
++            _need(self._hardware_build_id == 'dc4e89ccf3db18c4f9871575efc399ba', 'long-TTL requires exact original loaded hardware build')
+         self.thread = threading.get_ident(); self.owner = None; self.boot = None
+         self.retired = False; self._boot_attempted = False
+         self._csr_receipts = (); self._health_deadline = None; self._global_deadline = None
+@@ -632,7 +639,7 @@
+                  observation=candidate['observation'],target=candidate['target'],host_issue_monotonic_ns=now)
+         raw=_raw(doc)
+         host_envelope.validate_message(raw,producer='control_broker',consumer='world_authority',
+-                                       context=self.refs.legacy_context,now_ns=now)
++                                       context=self.refs.legacy_context,now_ns=now,navigation_profile=self._target_navigation)
+         event=_CommandEvent(_KEY);_COMMANDS[event]=(self,raw,proof,window,start,now)
+         self._command_pending=event
+         return event
+@@ -662,7 +669,7 @@
+               'actual APPLY must follow original AI completion')
+         command=tuple(request['payload']['command_words'])
+         words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+-        target=decode_board_output(words,command,session=self.refs.chain.identity[12])
++        target=decode_board_output(words,command,session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
+         _need(command[2]==self.refs.legacy_context['transport_profile_id']
+               and command[5]>self._board_last_sequence and words[0]>self._board_last_result,
+               'fresh original board output and fixed profile required')
+@@ -708,7 +715,7 @@
+                  observation=candidate['observation'],target=target,host_issue_monotonic_ns=now)
+         raw=_raw(doc)
+         host_envelope.validate_message(raw,producer='control_broker',consumer='world_authority',
+-                                       context=self.refs.legacy_context,now_ns=now)
++                                       context=self.refs.legacy_context,now_ns=now,navigation_profile=self._target_navigation)
+         event=_CommandEvent(_KEY);_COMMANDS[event]=(self,raw,proof,window,start,now)
+         self._board_outputs.append((raw,output,event));self._board_pending=None
+         self._command_pending=event
+@@ -730,7 +737,7 @@
+         _need(len(rows)==1,'original command-bound APPLY required')
+         output=rows[0][1];phase=output[1]
+         request=_json(phase.request_raw);words=_json(phase.response_raw,4194304)['result']['capture']['words32']
+-        target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12])
++        target=decode_board_output(words,tuple(request['payload']['command_words']),session=self.refs.chain.identity[12],build_id=self._hardware_build_id)
+         _need(_raw(target)==output[4] and _json(raw)['target']==target
+               and _json(output[2].candidate_raw)['target']==target
+               and _uint(now_ns)<output[3],'original measured output/TTL changed or expired')
+--- 544/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
++++ 558/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
+@@ -161,7 +161,7 @@
+     """Project only an association retained inside the actual actor transaction."""
+     from .owned_invocation_v1.adapter import _Association, _root_guard
+     from ...tools.run_causal_functional_chain import _RegistryView, _RegistryHold
+-    _uint(max_source_age_ns,1,12_000_000_000)
++    _uint(max_source_age_ns,1,30_000_000_000)
+     _need(type(association) is _Association and type(association.g05_mapping) is _Mapping,
+           'original typed observation association required')
+     a=association; m=a.g05_mapping; c=m.channels; o=c.owner
+--- 544/competition/deepeye/simulation/authority/motion_executor.py
++++ 558/competition/deepeye/simulation/authority/motion_executor.py
+@@ -271,7 +271,7 @@
+             boot=boot,command=None,stopped=root.trial_failed)
+ 
+     @_entry
+-    def admit_command(self,boot,command_raw):
++    def admit_command(self,boot,command_raw,*,navigation_profile=None):
+         """Called only after trusted runtime admission, never as authentication.
+ 
+         The runtime still checks original observation, source, STATE8 and AI at
+@@ -284,7 +284,7 @@
+         doc=envelope._parse_message(command_raw)
+         issue=_integer(doc.get('host_issue_monotonic_ns'))
+         context=watchdog._context_copy(envelope._parse_message(boot.context_json))
+-        parsed=envelope.validate_message(command_raw,producer='control_broker',consumer='world_authority',context=context,now_ns=issue)
++        parsed=envelope.validate_message(command_raw,producer='control_broker',consumer='world_authority',context=context,now_ns=issue,navigation_profile=navigation_profile)
+         if parsed.kind!='motion_request' or parsed.document['target']['action']!=1:
+             raise ValueError('only admitted non-STOP motion_request accepted')
+         doc=parsed.document;target=doc['target'];sequence=doc['command_seq']
+--- 544/competition/deepeye/simulation/authority/navigation_session_profile.py
++++ 558/competition/deepeye/simulation/authority/navigation_session_profile.py
+@@ -13,6 +13,8 @@
+ _SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-NAVIGATION-PROFILE-V3', *_VALUES),
+     separators=(',', ':')).encode('ascii')).hexdigest()
+ 
++_LONG_VALUES = (_VALUES[0].replace('ADJACENT','FAST-LONGTTL'), *_VALUES[1:13], 12000, *_VALUES[14:])
++_LONG_SHA = hashlib.sha256(json.dumps(('DEEPEYE-TYPED-FAST-LONGTTL-NAVIGATION-V1', *_LONG_VALUES), separators=(',', ':')).encode('ascii')).hexdigest()
+ 
+ @dataclass(frozen=True)
+ class NavigationSessionProfile:
+@@ -41,15 +43,16 @@
+ 
+     def __post_init__(self):
+         values = tuple(getattr(self, name) for name in self.__dataclass_fields__ if name != 'sha256')
+-        if (type(self.profile_id) is not str or values != _VALUES
++        if (type(self.profile_id) is not str or (values, self.sha256) not in ((_VALUES, _SHA), (_LONG_VALUES, _LONG_SHA))
+                 or any(type(x) is not int for x in values[1:-2])
+                 or type(self.exit_clearance_margin_m) is not float
+                 or type(self.source_pins) is not tuple
+-                or type(self.sha256) is not str or self.sha256 != _SHA):
++                or type(self.sha256) is not str):
+             raise ValueError('exact typed/hash-bound navigation revision required')
+ 
+ 
+ NAV_ADJACENT_180S = NavigationSessionProfile(*_VALUES, _SHA)
++NAV_FAST_LONGTTL_180S = NavigationSessionProfile(*_LONG_VALUES, _LONG_SHA)
+ 
+ 
+ def validate_profile(value):
+@@ -66,9 +69,10 @@
+ 
+ 
+ def from_wire(value):
+-    if type(value) is not dict or value != to_wire(NAV_ADJACENT_180S):
+-        raise ValueError('exact navigation wire identity required')
+-    return NAV_ADJACENT_180S
++    for selected in (NAV_ADJACENT_180S, NAV_FAST_LONGTTL_180S):
++        if type(value) is dict and value == to_wire(selected):
++            return selected
++    raise ValueError('exact navigation wire identity required')
+ 
+ 
+ def duration_ns(value):
+@@ -102,3 +106,18 @@
+     if not any(item is current_observation for item in public_observations):
+         raise ValueError('latest original observation fell outside rolling public window')
+     return public_observations,tuple(x[3] for x in selected if x[1]==1)
++
++
++def longttl_for_g05(policy):
++    """Return the exact explicit demo identity, never inferred from a duration."""
++    if policy is None:
++        return None
++    from .g05_csr_channels_v1 import G05CsrPolicy
++    from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_LONG_TTL_V4
++    if type(policy) is not G05CsrPolicy:
++        raise TypeError('exact G05 policy required')
++    descriptor = policy.demo_ai_profile
++    if type(descriptor) is DemoEM3AIProfile and descriptor.navigation_profile is NAV_ENTRY_LONG_TTL_V4:
++        policy.check()
++        return NAV_FAST_LONGTTL_180S
++    return None
+--- 544/competition/deepeye/simulation/authority/pc_direct_runtime.py
++++ 558/competition/deepeye/simulation/authority/pc_direct_runtime.py
+@@ -413,8 +413,10 @@
+         def admit():
+             record = self._record(self._deps.verify_command(event, self._boot), VerifiedEnvelope)
+             now = self._advance(); self._active()
++            from . import navigation_session_profile as navigation
+             parsed = envelope.validate_message(record.raw, producer='control_broker',
+-                consumer='world_authority', context=self._context, now_ns=now)
++                consumer='world_authority', context=self._context, now_ns=now,
++                navigation_profile=navigation.longttl_for_g05(None if self._g05_channels is None else self._g05_channels.policy))
+             if parsed.kind != 'motion_request':
+                 raise ValueError('broker channel requires motion_request')
+             doc = parsed.document
+--- 544/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/projection.py
++++ 558/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/projection.py
+@@ -1,7 +1,7 @@
+ """Original authenticated G05 projection plus explicit missing-feature metadata."""
+ import copy
+ import importlib
+-MAX_SOURCE_AGE_NS=12_000_000_000
++MAX_SOURCE_AGE_NS=30_000_000_000
+ def project_original_g05(association, *, max_source_age_ns):
+     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= MAX_SOURCE_AGE_NS:
+         raise ValueError('DEMO_AGE_LIMIT')
+--- 544/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
++++ 558/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
+@@ -16,6 +16,9 @@
+ ENTRY_C0_12_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-C0-DEMO12S-V3', 'sha256': 'a69f7a8330ddeb3bc07278be28f6eea9b1f692c4b5076e4ea70c28664d3406dd'}
+ ENTRY_C0_12_MAX_SOURCE_AGE_NS = 12_000_000_000
+ 
++LONG_TTL_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-LONG-TTL-DEMO30S-V4', 'sha256': '5ee6930f22e29f49bb70fc4239bf58105567d2d899790f61d3d5924fcec93e36'}
++LONG_TTL_MAX_SOURCE_AGE_NS = 30_000_000_000
++
+ @dataclass(frozen=True, slots=True)
+ class EM3NavigationProfile:
+     profile_id: str
+@@ -24,6 +27,7 @@
+ NAV_FAST_V1=EM3NavigationProfile(NAV_ENGINEERING_PROFILE['profile_id'],NAV_ENGINEERING_PROFILE['sha256'])
+ NAV_ENTRY_C0_V1=EM3NavigationProfile(ENTRY_C0_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_ENGINEERING_PROFILE['sha256'])
+ NAV_ENTRY_C0_12S_V3=EM3NavigationProfile(ENTRY_C0_12_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_12_ENGINEERING_PROFILE['sha256'])
++NAV_ENTRY_LONG_TTL_V4=EM3NavigationProfile(LONG_TTL_ENGINEERING_PROFILE['profile_id'],LONG_TTL_ENGINEERING_PROFILE['sha256'])
+ 
+ @dataclass(frozen=True, slots=True)
+ class DemoEM3AIProfile:
+@@ -43,21 +47,24 @@
+     prospective_command_max_ns: int = 1_000_000_000  # New typed demo policy only; not a core action change.
+ 
+ def selected_profile(max_source_age_ns, *, navigation_profile=None):
+-    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)):
++    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3,NAV_ENTRY_LONG_TTL_V4)):
+         raise ValueError('FIXED_EM3_NAV_PROFILE')
++    longttl=navigation_profile==NAV_ENTRY_LONG_TTL_V4
+     entry12=navigation_profile==NAV_ENTRY_C0_12S_V3
+     entry_c0=navigation_profile==NAV_ENTRY_C0_V1
+-    cap=ENTRY_C0_12_MAX_SOURCE_AGE_NS if entry12 else ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
++    cap=LONG_TTL_MAX_SOURCE_AGE_NS if longttl else ENTRY_C0_12_MAX_SOURCE_AGE_NS if entry12 else ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
+     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= cap:
+         raise ValueError('DEMO_AGE_LIMIT')
+-    if entry12:
++    if longttl:
++        from . import verifier_longttl_demo_v7 as selected_verifier
++    elif entry12:
+         from . import verifier_c0_demo_v5 as selected_verifier
+     elif entry_c0:
+         from . import verifier_c0_demo_v3 as selected_verifier
+     else:
+         selected_verifier=verifier
+-    engineering=ENTRY_C0_12_ENGINEERING_PROFILE if entry12 else ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
+-    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
++    engineering=LONG_TTL_ENGINEERING_PROFILE if longttl else ENTRY_C0_12_ENGINEERING_PROFILE if entry12 else ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
++    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v7' if longttl else 'demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
+     manifest_path = root/'package-manifest.json'
+     raw = manifest_path.read_bytes()
+     digest = hashlib.sha256(raw).hexdigest()
+@@ -77,4 +84,4 @@
+     files['package-manifest.json']=digest
+     return DemoEM3AIProfile(PROFILE_ID,digest,MappingProxyType(files),selected_verifier.CORE_SHA256,
+         projection,selected_verifier.selected_verifier(max_source_age_ns,engineering_profile=engineering),max_source_age_ns,
+-        str(root),str(manifest_path),selected_verifier.AGE_NORMALIZATION_MS,selected_verifier.ORIGINAL_QUALITY_AGE_NS,navigation_profile=navigation_profile,engineering_profile=MappingProxyType(dict(engineering)),prospective_command_max_ns=3_000_000_000 if navigation_profile is not None else 1_000_000_000)
++        str(root),str(manifest_path),selected_verifier.AGE_NORMALIZATION_MS,selected_verifier.ORIGINAL_QUALITY_AGE_NS,navigation_profile=navigation_profile,engineering_profile=MappingProxyType(dict(engineering)),prospective_command_max_ns=12_000_000_000 if longttl else 3_000_000_000 if navigation_profile is not None else 1_000_000_000)
+--- 544/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
++++ 558/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
+@@ -309,10 +309,14 @@
+     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
+     selected=_selected_ai_profile(config)
+     if policy.navigation_profile is not None:
+-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3
+-        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
+-             and selected.prospective_command_max_ns==3_000_000_000,
+-             'navigation requires explicit fixed EM3 navigation descriptor with3s validity')
++        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3, NAV_ENTRY_LONG_TTL_V4
++        longttl = policy.navigation_profile is navigation.NAV_FAST_LONGTTL_180S
++        need(type(selected) is DemoEM3AIProfile and
++             ((longttl and selected.navigation_profile is NAV_ENTRY_LONG_TTL_V4
++               and selected.prospective_command_max_ns == 12_000_000_000) or
++              (not longttl and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
++               and selected.prospective_command_max_ns == 3_000_000_000)),
++             'matching exact finite navigation and EM3 validity identities required')
+     if policy.demo_duration_v1:
+         need(getattr(config,'g05_csr_v1',None) is not None and config.g05_csr_v1.demo_ai_profile is not None,
+              'longer command validity requires explicit typed demo profile')
+--- 544/competition/deepeye/simulation/authority/owned_invocation_v1/mechanics.py
++++ 558/competition/deepeye/simulation/authority/owned_invocation_v1/mechanics.py
+@@ -42,7 +42,7 @@
+         need(max_duration_ms in (100,1000),'explicit original or typed demo command cap')
+     else:
+         need(max_duration_ms==navigation_profile.max_command_ttl_ms and profile=='fast_9600',
+-             'typed navigation requires unchanged FAST ROM and3000ms cap')
++             'typed navigation requires unchanged FAST ROM and selected finite cap')
+     uint(duration_ms,1);need(duration_ms<=max_duration_ms,'prospective command duration exceeds selected cap')
+     stop=dict(action=0,yaw_q=0,pitch_q=0,speed_code=0,duration_ms=0)
+     if advice['status']=='STOP':return stop
+--- 544/competition/deepeye/tools/diagnostic/demo30h_age_budget_a.py
++++ 558/competition/deepeye/tools/diagnostic/demo30h_age_budget_a.py
+@@ -3,7 +3,7 @@
+ 
+ _KEY=object()
+ _SELECTED={}
+-_MAX_NS=12_000_000_000
++_MAX_NS=30_000_000_000
+ _MAX_SELECTIONS=16
+ 
+ class DemoAgeBudget:
+--- 544/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
++++ 558/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
+@@ -139,7 +139,7 @@
+         _integer(value, low, high, name)
+     _need(type(select_owner_work_v1) is bool, 'strict owner work selection required')
+     if max_source_age_ns is not None:
+-        _integer(max_source_age_ns, 100_000_001, 12_000_000_000, 'explicit demo age')
++        _integer(max_source_age_ns, 100_000_001, 30_000_000_000, 'explicit demo age')
+         _need(max_source_age_ns <= duration_ns, 'demo age must fit fixed board duration')
+     _need(type(legacy_context) is dict and type(c42_context) is dict, 'exact original context dictionaries required')
+     _validate_context(legacy_context, c42_context)
+--- 544/competition/deepeye/tools/diagnostic/functional50_chain_v2_board_a.py
++++ 558/competition/deepeye/tools/diagnostic/functional50_chain_v2_board_a.py
+@@ -123,8 +123,8 @@
+   if k=='trace_scan':
+    need(state.counts[k]<_demo().scan_cap(state.demo_cycle_profile) and set(p)=={'request_hex','source_hex','companions_hex','build_binding','max_io'} and type(p['max_io']) is int and 1<=p['max_io']<=2000,'trace cap/payload')
+   elif k=='apply':
+-   need(state.counts[k]<state.max_commands and set(p)=={'command_words'} and type(p['command_words']) is list,'apply cap/payload');g05._command(tuple(p['command_words']),state.last,state.profile)
+-   if _demo().is_navigation(state.demo_cycle_profile):need(p['command_words'][2]==1,'navigation uses unchanged FAST TTL/ROM')
++   need(state.counts[k]<state.max_commands and set(p)=={'command_words'} and type(p['command_words']) is list,'apply cap/payload');g05._command(tuple(p['command_words']),state.last,state.profile,navigation_profile=state.demo_cycle_profile if _demo().is_navigation(state.demo_cycle_profile) else None)
++   if _demo().is_navigation(state.demo_cycle_profile):need(p['command_words'][2]==1,'navigation uses FAST profile and selected finite TTL')
+   elif k=='status':need(state.counts[k]<_demo().status_phase_cap(state.demo_cycle_profile) and not p,'status cap/payload')
+   elif k=='close':need(set(p)=={'stop'} and type(p['stop']) is bool,'explicit close')
+   else:raise ValueError('unknown kind')
+@@ -181,6 +181,9 @@
+     # Factory 4 + init 35, each command <=76 plus two I/Os per
+     # selected status poll, four fresh statuses <=60, optional STOP <=3.
+     selected=_demo().from_wire(p['demo_cycle_profile']) if 'demo_cycle_profile' in p else None
++    from competition.deepeye.simulation.authority.navigation_session_profile import NAV_FAST_LONGTTL_180S
++    if selected is NAV_FAST_LONGTTL_180S:
++     need(plan['build_id']==g05.LONG_TTL_BUILD_ID, 'exact loaded long-TTL hardware build required')
+     prospective_io=_demo().validate_caps(selected,max_commands=p['max_commands'],max_polls=p['max_polls'],duration_ns=p['duration_ns'],max_io=p['max_io'])
+     need(prospective_io<=policy['limits']['total_io']<=p['max_io'],'G05 policy cannot cover selected session or exceeds budget')
+     need(policy['limits']['begin']>=1 and all(policy['limits'][k]>=p['max_commands'] for k in ('commit','latch','release')),'G05 selected command quotas')
+--- 544/competition/deepeye/tools/diagnostic/functional50_demo_four_cycle_profile_a.py
++++ 558/competition/deepeye/tools/diagnostic/functional50_demo_four_cycle_profile_a.py
+@@ -43,7 +43,7 @@
+     return None if value is None else dict(profile_id=value.profile_id,sha256=value.sha256)
+ 
+ def from_wire(value):
+-    if type(value) is dict and value==navigation.to_wire(navigation.NAV_ADJACENT_180S):
++    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S)):
+         return navigation.from_wire(value)
+     if type(value) is not dict or value!=to_wire(DEMO_FOUR_CYCLE):
+         raise ValueError('exact four-cycle wire policy identity required')
+--- 544/competition/deepeye/tools/diagnostic/functional50_g05_a.py
++++ 558/competition/deepeye/tools/diagnostic/functional50_g05_a.py
+@@ -40,10 +40,17 @@
+     elif mode=='latched':_need(status&0x21==0x21 and not status&2,'G05 live latch required')
+     else:raise ValueError('status mode')
+ 
+-def _command(words,last_cmd,locked_profile):
++LONG_TTL_BUILD_ID = 'dc4e89ccf3db18c4f9871575efc399ba'
++
++
++def _command(words,last_cmd,locked_profile,*,build_id=None,navigation_profile=None):
+     _need(type(words) is tuple and len(words)==7 and all(type(v) is int and 0<=v<=0xffffffff for v in words),'seven exact unsigned command words')
++    from ...simulation.authority import navigation_session_profile as navigation
++    navigation.validate_profile(navigation_profile)
++    structural_longttl = navigation_profile is navigation.NAV_FAST_LONGTTL_180S
++    longttl = build_id == LONG_TTL_BUILD_ID or structural_longttl
+     y,p,profile,speed,ttl,seq,tag=words
+-    _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 else 12000),'G05 encoding and profile')
++    _need(y<=0xffff and p<=0xffff and profile in (1,2) and speed<=20 and 1<=ttl<=(3000 if profile==1 and not longttl else 12000),'G05 encoding and profile')
+     y=y if y<0x8000 else y-65536;p=p if p<0x8000 else p-65536
+     _need(-15000<=y<=15000 and -15000<=p<=15000 and (speed!=0 or (y==0 and p==0)),'G05 target bounds')
+     _need(y*y+p*p<=_ROM[profile-1][speed] and seq>last_cmd and (locked_profile is None or locked_profile==profile),'G05 curvature, sequence or locked profile')
+@@ -123,7 +130,7 @@
+         self._status(request_id,'new');self._quota('begin');self._io('write',0x00c,1,request_id)
+         self._status(request_id,'bound');self._bound=True
+     def stage_command(self,words,request_id):
+-        words=_command(words,self._seq,self._profile);self._claim(request_id)
++        words=_command(words,self._seq,self._profile,build_id=self._policy['binding']['build_id']);self._claim(request_id)
+         _need(self._bound and not self._stopped and self._staged is None,'live unstaged command required')
+         status=self._status(request_id,'bound');_need(not status&0x68,'G05 pending/inflight/latch')
+         for i,w in enumerate(words):self._io('write',0x200+4*i,w,request_id)
+--- 544/competition/deepeye/tools/diagnostic/functional50_g05_session_a.py
++++ 558/competition/deepeye/tools/diagnostic/functional50_g05_session_a.py
+@@ -146,7 +146,7 @@
+         except BaseException:self._state='FAILED';raise
+     def apply_one(self,command_words):
+         self._active();_need(self._commands<self.issuer.limits.max_commands,'session command quota exhausted')
+-        g05._command(command_words,self.issuer.port._seq,self.issuer.port._profile)
++        g05._command(command_words,self.issuer.port._seq,self.issuer.port._profile,build_id=self.issuer.port._policy['binding']['build_id'])
+         if demo.is_navigation(self._demo_cycle_profile):
+             _need(command_words[2]==1,'navigation uses unchanged FAST TTL/ROM')
+         _need(self._polls+10<=self._status_limit,'insufficient status-read budget for one capture')
+--- 544/competition/deepeye/tools/diagnostic/functional50_g05_transaction_a.py
++++ 558/competition/deepeye/tools/diagnostic/functional50_g05_transaction_a.py
+@@ -109,7 +109,7 @@
+         _need(type(commands) is tuple and 1<=len(commands)<=self.limits.max_commands,'bounded immutable commands required')
+         last=0;profile=None
+         for cmd in commands:
+-            g05._command(cmd,last,profile);last,profile=cmd[5],cmd[2]
++            g05._command(cmd,last,profile,build_id=self.port._policy['binding']['build_id']);last,profile=cmd[5],cmd[2]
+         quotas=self.port._policy['limits'];n=len(commands)
+         _need(quotas['begin']>=1 and (not stop or quotas['stop']>=1) and all(quotas[k]>=n for k in ('commit','latch','release')),'original G05 policy insufficient')
+         self._issued=True;start=time.monotonic_ns();self._deadline=start+self.limits.duration_ns

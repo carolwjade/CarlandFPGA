@@ -1,0 +1,22 @@
+{
+  "schema": "A556_G05P_TTL_DECLARATION_V1",
+  "build_id": "dc4e89ccf3db18c4f9871575efc399ba",
+  "g05_magic": "0x47303550",
+  "g05_layout": 2,
+  "trace_layout": 1,
+  "profile1": {
+    "ttl_max_ms": 12000,
+    "ttl_ticks_per_ms": 50000
+  },
+  "profile2": {
+    "ttl_max_ms": 12000,
+    "unchanged": true
+  },
+  "curvature_rom_sha256": "d462859e6893cd90fb33ad9ddd481aaa7ee46937ba3d197431f81b602357a83c",
+  "curvature_rom_changed_words": [],
+  "ttl_readback_rom_words_changed": [],
+  "explanation": "Actual G05P layout2 has no TTL/profile ROM CSR window. TTL changes are mapper comparison and profile-package declaration only. Host exact selected ROM/profile metadata must identify this build and changed TTL field; do not claim curvature ROM bytes changed.",
+  "old_default_profile1_ms": 3000,
+  "qualified_for_load": false,
+  "board": false
+}

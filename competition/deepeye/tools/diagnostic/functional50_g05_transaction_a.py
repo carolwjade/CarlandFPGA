@@ -109,7 +109,7 @@ class TransactionIssuer:
         _need(type(commands) is tuple and 1<=len(commands)<=self.limits.max_commands,'bounded immutable commands required')
         last=0;profile=None
         for cmd in commands:
-            g05._command(cmd,last,profile);last,profile=cmd[5],cmd[2]
+            g05._command(cmd,last,profile,build_id=self.port._policy['binding']['build_id']);last,profile=cmd[5],cmd[2]
         quotas=self.port._policy['limits'];n=len(commands)
         _need(quotas['begin']>=1 and (not stop or quotas['stop']>=1) and all(quotas[k]>=n for k in ('commit','latch','release')),'original G05 policy insufficient')
         self._issued=True;start=time.monotonic_ns();self._deadline=start+self.limits.duration_ns

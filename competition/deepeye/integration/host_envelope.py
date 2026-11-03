@@ -351,7 +351,12 @@ def _profile_name(context):
     return PROFILE_NAMES[context['transport_profile_id']]
 
 
-def _check_target(target_document, profile_name):
+def _check_target(target_document, profile_name, *, navigation_profile=None):
+    if navigation_profile is not None:
+        from ..simulation.authority import navigation_session_profile as navigation
+        navigation.validate_profile(navigation_profile)
+        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or profile_name != 'fast_9600':
+            raise ValueError('exact FAST long-TTL demo navigation required')
     action = target_document['action']
     if action == 0:
         if any(target_document[field] != 0
@@ -361,7 +366,7 @@ def _check_target(target_document, profile_name):
         duration = target_document['duration_ms']
         if duration <= 0:
             raise ValueError('SET_TARGET requires a positive duration_ms')
-        limit = DURATION_LIMIT_MS[profile_name]
+        limit = DURATION_LIMIT_MS[profile_name] if navigation_profile is None else navigation_profile.max_command_ttl_ms
         if duration > limit:
             raise ValueError('SET_TARGET duration_ms {} exceeds the {} ms {} limit'.format(
                 duration, limit, profile_name))
@@ -435,15 +440,15 @@ def _check_candidate(document, context, now_ns):
     _require_observation(document)
 
 
-def _check_request(document, context, now_ns):
+def _check_request(document, context, now_ns, *, navigation_profile=None):
     if document['host_issue_monotonic_ns'] > now_ns:
         raise ValueError('request issue time is after the current host time')
-    _check_target(document['target'], _profile_name(context))
+    _check_target(document['target'], _profile_name(context), navigation_profile=navigation_profile)
     _require_observation(document)
 
 
-def _check_grant(document, context, now_ns):
-    _check_target(document['target'], _profile_name(context))
+def _check_grant(document, context, now_ns, *, navigation_profile=None):
+    _check_target(document['target'], _profile_name(context), navigation_profile=navigation_profile)
     _require_observation(document)
     expected_source, capture_required = TOPOLOGY_BINDING[context['topology_id']]
     if document['action_source'] != expected_source:
@@ -587,7 +592,7 @@ _KIND_CHECKS = {
 
 
 def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
-                     enable_completion_interval=False, completion_bounds=None):
+                     enable_completion_interval=False, completion_bounds=None, navigation_profile=None):
     """Validate one bounded envelope; raise ValueError on any rejection.
 
     ``producer`` and ``context`` are caller-asserted (authenticated upstream);
@@ -598,6 +603,11 @@ def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
     capture, request and observation history and deadlines before any grant,
     and stale grants stay the caller's responsibility to reject.
     """
+    if navigation_profile is not None:
+        from ..simulation.authority import navigation_session_profile as navigation
+        navigation.validate_profile(navigation_profile)
+        if navigation_profile is not navigation.NAV_FAST_LONGTTL_180S or enable_completion_interval:
+            raise ValueError('explicit long-TTL request/grant parsing only')
     if type(enable_completion_interval) is not bool:
         raise ValueError('enable_completion_interval must be bool')
     if enable_completion_interval:
@@ -631,7 +641,12 @@ def validate_message(raw_bytes, *, producer, context, now_ns, consumer=None,
     _check_message_context(document, context)
     _check_nested_contexts(document, context)
     _check_intervals(document, kind, now_ns)
-    _KIND_CHECKS[kind](document, context, now_ns)
+    if navigation_profile is not None:
+        if kind not in ('motion_request','motion_grant'):
+            raise ValueError('long-TTL option only applies to request/grant targets')
+        _KIND_CHECKS[kind](document, context, now_ns, navigation_profile=navigation_profile)
+    else:
+        _KIND_CHECKS[kind](document, context, now_ns)
     authority_only = kind in schema.get('x-authority-only-kinds', [])
     _check_consumer_argument(consumer, authority_only, schema)
     return ValidatedMessage(kind=kind, producer=producer, consumer=consumer,

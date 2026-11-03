@@ -43,7 +43,7 @@ def to_wire(value):
     return None if value is None else dict(profile_id=value.profile_id,sha256=value.sha256)
 
 def from_wire(value):
-    if type(value) is dict and value==navigation.to_wire(navigation.NAV_ADJACENT_180S):
+    if type(value) is dict and value in (navigation.to_wire(navigation.NAV_ADJACENT_180S), navigation.to_wire(navigation.NAV_FAST_LONGTTL_180S)):
         return navigation.from_wire(value)
     if type(value) is not dict or value!=to_wire(DEMO_FOUR_CYCLE):
         raise ValueError('exact four-cycle wire policy identity required')

@@ -92,6 +92,9 @@ class _BoundProgress:
     observed_interval_v2: object = None
 
 
+from . import navigation_session_profile as navigation
+
+
 class _ProgressGate:
     """One activation, one current command, irreversible expiry/revocation."""
     def __init__(self, boot, source, clock_domain, model_hash, max_age, now, *,
@@ -138,7 +141,8 @@ class _ProgressGate:
                 type(proof.candidate_raw) is not bytes or type(request_raw) is not bytes):
             raise ValueError('original verified inference association required')
         request = host_envelope.validate_message(request_raw, producer='control_broker',
-            consumer='world_authority', context=self.context, now_ns=now)
+            consumer='world_authority', context=self.context, now_ns=now,
+            navigation_profile=navigation.longttl_for_g05(getattr(self.source,'policy',None)))
         if self.enable_completion_interval_v2:
             candidate = _validate_interval_candidate(proof, self.context, now, self.max_age)
         else:
@@ -333,7 +337,8 @@ class _Dependencies(AuthorityDependencies):
         epoch = owner._veto
         now = owner._progress_time()
         command = host_envelope.validate_message(record.raw, producer='control_broker',
-            consumer='world_authority', context=owner._progress.context, now_ns=now)
+            consumer='world_authority', context=owner._progress.context, now_ns=now,
+            navigation_profile=navigation.longttl_for_g05(owner._config.g05_csr_v1))
         if command.kind != 'motion_request':
             raise ValueError('broker command must be a motion request')
         if command.document['target']['action'] != 0:
@@ -639,7 +644,7 @@ class ActorComposition:
             self._retire('broker STOP')
             return _STOPPED
         self._runtime_active()
-        self._executor.admit_command(self._boot, record.raw)
+        self._executor.admit_command(self._boot, record.raw, navigation_profile=navigation.longttl_for_g05(self._config.g05_csr_v1))
         self._checkpoint()
         transaction = self._input_transaction
         if transaction is None or transaction.request_raw != record.raw:
