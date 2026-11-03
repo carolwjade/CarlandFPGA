@@ -79,6 +79,7 @@ class FastObservedProfile:
     cross_track_gain_per_m: float = 1.
     terminal_speed_m_s: float = .125
     quiet_sources_to_rearm: int = 3
+    public_gate_control_external: bool = False
     baseline_samples: int = 3
     # Sensitive digital-proxy trigger for the explicitly noiseless793 EM source;
     # approximately three ADC counts, not calibrated range/free-space evidence.
@@ -88,7 +89,8 @@ class FastObservedProfile:
     max_current_pose_age_s: float = .25
 
     def __post_init__(self):
-        if (self.profile_id != PROFILE_ID or type(self.baseline_samples) is not int
+        if (self.profile_id != PROFILE_ID or type(self.public_gate_control_external) is not bool
+                or type(self.baseline_samples) is not int
                 or not 2 <= self.baseline_samples <= 8
                 or type(self.quiet_sources_to_rearm) is not int
                 or not 2 <= self.quiet_sources_to_rearm <= 8):
@@ -169,6 +171,8 @@ class ObservedAvoidance:
             episode_number=self._episode, episode_armed=self._episode_armed,
             quiet_source_count=self._quiet_sources, lane_amplitude_m=self._lane_amplitude,
             episode_digest_chain=self._episode_chain)
+        policy['gate_control_mode'] = ('external_public_dynamic' if
+            self.profile.public_gate_control_external else 'internal_quintic_975')
         result['policy'] = policy
 
         def stop(reason):
@@ -289,6 +293,9 @@ class ObservedAvoidance:
         slope = -self._lane_amplitude*30.*u*u*(1.-u)*(1.-u)/(
             self.profile.return_start_m-self.profile.return_end_m)
         offset = self._lane_amplitude*blend
+        if self.profile.public_gate_control_external:
+            offset = self._lane_amplitude
+            slope = 0.
         along = _dot([p-e for p, e in zip(position, entry)], axis)
         side = self._side or [0.,0.,0.]
         lateral_position = [p-e-along*a for p,e,a in zip(position,entry,axis)]
@@ -298,11 +305,12 @@ class ObservedAvoidance:
         vector = [t-self.profile.cross_track_gain_per_m*e for t,e in zip(tangent,error)]
         # Diagnostic one-metre vector endpoint, NOT an endpoint/lookahead law.
         target = [p+v for p,v in zip(position,vector)]
-        terminal_guidance = remaining <= self.profile.return_end_m
+        terminal_guidance = (not self.profile.public_gate_control_external
+                             and remaining <= self.profile.return_end_m)
         direction = _unit(vector)
         body = _rotate([-q[0],-q[1],-q[2],q[3]], direction)
         speed = min(cap, self.profile.avoid_m_s if self._side else self.profile.cruise_m_s)
-        if remaining <= self.profile.return_start_m:
+        if not self.profile.public_gate_control_external and remaining <= self.profile.return_start_m:
             speed = min(speed,self.profile.terminal_speed_m_s)
         policy.update(baseline_samples=len(self._baseline), baseline_c0=baseline,
             lane_latched=self._side is not None, lane_side_world=copy.deepcopy(self._side),
@@ -317,6 +325,8 @@ class ObservedAvoidance:
             public_remaining_m=remaining, public_target_m=target,
             terminal_public_guidance=terminal_guidance,
             source_age_s=(now-acquired)/1e9, no_observed_free_space_claim=True)
+        if self.profile.public_gate_control_external:
+            policy['observed_signal_anomaly'] = trigger
         result.update(status='ADVISE', reason='observed_multiple_lane_fast_demo',
             target_direction_world=direction, direction_world=list(direction),
             yaw_delta_deg=math.degrees(math.atan2(body[0],body[2])),

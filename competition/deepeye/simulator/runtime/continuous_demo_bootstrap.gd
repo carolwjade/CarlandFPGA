@@ -10,6 +10,7 @@ const REQUIREMENTS_SHA256 := "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d42
 const CLAIM := ".continuous-bootstrap-801.claim"
 const MATERIALS := ["water", "hard_rock", "fault", "void", "casing"]
 const HOST_MAX_AGE_MS := 3000
+const Dashboard = preload("res://runtime/continuous_dashboard_view.gd")
 
 class MouseWitness extends Node:
 	var host: Object
@@ -21,6 +22,9 @@ var _config: Dictionary = {}
 var _main: Node
 var _layer: CanvasLayer
 var _panel: PanelContainer
+var _toggle: Button
+var _scroll: ScrollContainer
+var _dashboard = Dashboard.new()
 var _body: VBoxContainer
 var _labels: Dictionary = {}
 var _start: Button
@@ -47,10 +51,11 @@ var _stop_latched := false
 var _intent_seq := 0
 var _last_intent_tick := 0
 var _host_seq := -1
-var _pending_text := "先用鼠标拖拽障碍、设置蓝红门，再确认并开始。"
+var _pending_text := "拖动障碍并设置蓝红圈，然后开始"
 var _fatal := ""
 var _source_objects := 0
 var _source_pieces := 0
+var _editor_text_simplified := false
 
 func _initialize() -> void:
 	call_deferred("_boot")
@@ -342,7 +347,7 @@ func _on_gates_changed() -> void:
 func _refresh_setup() -> void:
 	if _start == null:
 		return
-	_labels.setup.text = "鼠标拖拽障碍：%s    蓝红门设置：%s" % ["已观察" if _drag_seen else "等待操作","已观察" if _gate_setup_seen else "等待操作"]
+	_labels.setup.text = "障碍拖动 %s   蓝红圈设置 %s" % ["✓" if _drag_seen else "—","✓" if _gate_setup_seen else "—"]
 	_start.disabled = _start_attempted or not _drag_seen or not _gate_setup_seen or not _confirm.button_pressed
 
 func _on_start() -> void:
@@ -386,7 +391,7 @@ func _on_start() -> void:
 	_pause.disabled = false
 	_resume.disabled = false
 	_stop.disabled = false
-	_pending_text = "已冻结PC直控模式；等待真实板观测与PC命令。尚未开始前进。" if admission_mode=="PC_DIRECT" else "已冻结原生场景；等待 Root 的真实板卡回执。尚未开始前进。"
+	_pending_text = "准备采样"
 	_emit_intent("start")
 	_refresh_status()
 
@@ -402,7 +407,7 @@ func _emit_intent(action: String) -> void:
 		return
 	_intent_seq = next_seq
 	_last_intent_tick = tick
-	_pending_text = "操作请求 #%d 已提交，等待 Root 实板确认。" % _intent_seq
+	_pending_text = "设置已提交"
 
 func request_speed(value: float) -> void:
 	if _stop_latched or not is_finite(value) or value < 0.0 or value > 0.25:
@@ -452,7 +457,7 @@ func _on_window_close() -> void:
 
 func _latch_error(reason: String) -> void:
 	_fatal = reason
-	_pending_text = "启动/交接失败，保留现场；由 Root 处理，不能重试此输出目录。"
+	_pending_text = "无法继续，请检查设置"
 	if _claimed:
 		write_json_atomic(_config.output_directory,"bootstrap_error.json",{"abi":ABI,"world_epoch":_config.world_epoch,"reason":reason,"native_bind_attempted":_bind_called,"formal_acceptance":"not_run"},false)
 	if _start != null:
@@ -471,7 +476,7 @@ func _apply_optional_camera() -> void:
 
 func _build_panel() -> void:
 	_layer = CanvasLayer.new()
-	_layer.name = "ContinuousLivePanel801"
+	_layer.name = "ContinuousDashboard990"
 	_layer.layer = 50
 	_layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	root.add_child(_layer)
@@ -487,8 +492,11 @@ func _build_panel() -> void:
 	font.font_names = PackedStringArray(["Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC"])
 	var theme := Theme.new()
 	theme.default_font = font
-	theme.default_font_size = 20
+	theme.default_font_size = 18
 	surface.theme = theme
+	_toggle = _button("收起面板",_toggle_dashboard)
+	_toggle.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	surface.add_child(_toggle)
 	_panel = PanelContainer.new()
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	surface.add_child(_panel)
@@ -497,35 +505,33 @@ func _build_panel() -> void:
 	style.border_color = Color(0.15,0.65,0.8)
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(10)
-	style.content_margin_left = 16
-	style.content_margin_right = 16
-	style.content_margin_top = 10
+	style.content_margin_left = 14
+	style.content_margin_right = 14
+	style.content_margin_top = 12
 	style.content_margin_bottom = 12
 	_panel.add_theme_stylebox_override("panel",style)
-	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation",7)
-	_panel.add_child(column)
-	var collapse := Button.new()
-	collapse.text = "实板闭环演示  ·  点击折叠 / 展开"
-	collapse.add_theme_font_size_override("font_size",22)
-	column.add_child(collapse)
+	_scroll = ScrollContainer.new()
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_panel.add_child(_scroll)
 	_body = VBoxContainer.new()
-	_body.add_theme_constant_override("separation",7)
-	column.add_child(_body)
-	collapse.pressed.connect(func(): _body.visible = not _body.visible; _fit_panel())
-	_add_label("connection","Root：未连接  |  实板：等待")
+	_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_body.add_theme_constant_override("separation",8)
+	_scroll.add_child(_body)
+	_add_label("connection","准备")
 	_add_label("setup","")
 	_mode_choice = OptionButton.new()
-	_mode_choice.add_item("实板输出执行 · PC AI → FPGA → 钻头")
-	_mode_choice.add_item("PC 直接控制 · 真实板观测 → PC AI → 钻头")
+	_mode_choice.add_item("实板控制")
+	_mode_choice.add_item("PC直控")
 	_mode_choice.select(1 if _config.get("admission_mode","BOARD_PWM")=="PC_DIRECT" else 0)
 	_body.add_child(_mode_choice)
 	_mode_choice.item_selected.connect(func(_index: int): _refresh_status())
 	_confirm = CheckBox.new()
-	_confirm.text = "已完成鼠标摆放和蓝红圈设置，确认开始"
+	_confirm.text = "确认当前障碍和蓝红圈设置"
 	_body.add_child(_confirm)
 	_confirm.toggled.connect(func(_value: bool): _refresh_setup())
-	_start = _button("开始实板闭环演示",_on_start)
+	_start = _button("开始",_on_start)
 	_body.add_child(_start)
 	var speed_row := HBoxContainer.new()
 	_body.add_child(speed_row)
@@ -539,29 +545,77 @@ func _build_panel() -> void:
 	_speed.step = 0.005
 	_speed.value = _requested_speed
 	_speed.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_speed.custom_minimum_size.x = 230
+	_speed.custom_minimum_size.x = 190
 	speed_row.add_child(_speed)
 	_labels.speed_request = Label.new()
 	speed_row.add_child(_labels.speed_request)
 	_speed.value_changed.connect(request_speed)
+	_add_label("initial","")
 	var actions := HBoxContainer.new()
 	_body.add_child(actions)
-	_pause = _button("请求暂停",request_pause)
-	_resume = _button("请求继续",request_resume)
-	_stop = _button("停止实板演示",request_stop)
+	_pause = _button("暂停",request_pause)
+	_resume = _button("继续",request_resume)
+	_stop = _button("停止",request_stop)
 	for button: Button in [_pause,_resume,_stop]:
 		button.disabled = true
 		actions.add_child(button)
-	_add_label("motion","实际速度：等待  |  阶段：等待")
-	_add_label("source","传感源：等待真实采样；E4 / 原始 / 压缩字节：等待")
-	_add_label("board","板卡 PWM：等待  |  AI 风险 / 方向：等待")
-	_add_label("pending",_pending_text)
-	var note := _add_label("note","模拟传感器 → 实板编码上传 → PC AI → 实板控制 → 虚拟钻头")
-	note.add_theme_font_size_override("font_size",16)
-	note.modulate = Color(0.75,0.82,0.9)
+	_add_label("pending","")
+	_add_label("edit_error","")
+	for group: Array in [["motion","运动"],["channel","通道"],["source","传感"],["codec","编码"],["ai","AI"],["gate","出口进近"],["board","指令与实板"],["latency","链路耗时"]]:
+		var title := Label.new()
+		title.text = group[1]
+		title.modulate = Color(0.4,0.85,0.95)
+		title.add_theme_font_size_override("font_size",20)
+		_body.add_child(title)
+		_add_label(group[0],"—")
 	surface.resized.connect(_fit_panel)
+	_suppress_legacy_status()
 	_refresh_setup()
 	call_deferred("_fit_panel")
+
+func _toggle_dashboard() -> void:
+	_panel.visible = not _panel.visible
+	_toggle.text = "收起面板" if _panel.visible else "展开面板"
+
+func _suppress_legacy_status() -> void:
+	var shell: Object = _main.get("shell")
+	if shell == null: return
+	for key in ["_right_scroll","_right_panel","_top_band","_bottom_band","_gate_status_label","_presentation_label","_action_status_label","_layout_source_label","_run_button","_pause_button","_continue_button","_stop_button","_lock_button","_unlock_button","_demo_root"]:
+		var node: Variant = shell.get(key)
+		if node is CanvasItem: node.visible = false
+	if not _editor_text_simplified:
+		_simplify_editor_text(shell)
+		_editor_text_simplified = true
+
+func _simplify_editor_text(node: Node) -> void:
+	if node is Label:
+		var names := {
+			"地质体类型（允许尺寸见任务书8.4）":"地质体类型",
+			"选中对象（数值编辑）":"对象编辑",
+			"撤销 / 重做（≥50步）":"撤销 / 重做",
+			"私有布局文件（仅几何）":"布局文件",
+			"随机布局（仅查看器内保留种子）":"随机布局",
+			"入口/离开圈（直径0.50m·贴面·距边≥0.25m）":"钻入 / 钻出位置 · 直径0.50m"}
+		if names.has(node.text):node.text=names[node.text]
+	if node is OptionButton:
+		for i in range(node.item_count):
+			if node.get_item_text(i)=="入口（蓝圈）":node.set_item_text(i,"钻入位置")
+			elif node.get_item_text(i)=="离开（红圈）":node.set_item_text(i,"钻出位置")
+	for child in node.get_children():_simplify_editor_text(child)
+
+func _editing_error() -> String:
+	var document: Object = _main.get("document")
+	if document != null:
+		var validation: Dictionary = document.validate_gates()
+		var errors: Array = validation.get("errors",[])
+		if not errors.is_empty(): return _safe_text(errors[0])
+	var shell: Object = _main.get("shell")
+	if shell != null:
+		for key in ["_gate_status_label","_action_status_label"]:
+			var label: Variant = shell.get(key)
+			if label is Label and ("拒绝" in label.text or "失败" in label.text or "无效" in label.text):
+				return _safe_text(label.text)
+	return ""
 
 func _button(text: String, callback: Callable) -> Button:
 	var button := Button.new()
@@ -580,21 +634,25 @@ func _add_label(key: String, text: String) -> Label:
 	return label
 
 func _fit_panel() -> void:
-	if _panel == null:
-		return
+	if _panel == null: return
 	var viewport_size := root.get_visible_rect().size
 	var width := minf(560.0,maxf(320.0,viewport_size.x-32.0))
 	_panel.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	_panel.offset_left = -width-16.0
-	_panel.offset_right = -16.0
-	_panel.offset_top = 82.0
-	_panel.offset_bottom = 82.0+maxf(_panel.get_combined_minimum_size().y,46.0)
+	_panel.offset_left = -width-12.0
+	_panel.offset_right = -12.0
+	_panel.offset_top = 68.0
+	_panel.offset_bottom = maxf(120.0,viewport_size.y-12.0)
+	_toggle.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_toggle.offset_left = -80.0
+	_toggle.offset_right = 80.0
+	_toggle.offset_top = 12.0
+	_toggle.offset_bottom = 52.0
 
 func _safe_text(value: Variant) -> String:
 	if value == null or not typeof(value) in [TYPE_STRING,TYPE_INT,TYPE_FLOAT,TYPE_BOOL]:
-		return "等待"
+		return "—"
 	if typeof(value) == TYPE_FLOAT and not is_finite(value):
-		return "等待"
+		return "—"
 	var result := str(value)
 	var secret: String = _config.get("token","")
 	if not secret.is_empty():
@@ -602,87 +660,54 @@ func _safe_text(value: Variant) -> String:
 	return result.replace("\n"," ").replace("\r"," ").substr(0,96)
 
 func _host_status() -> Dictionary:
-	if not ordinary_absolute_path(_config.host_status_file,false):
-		return {}
+	if not ordinary_absolute_path(_config.host_status_file,false): return {}
 	var loaded := read_json_file(_config.host_status_file,65536)
-	if not loaded.ok or not loaded.value is Dictionary:
-		return {}
-	var host: Dictionary = loaded.value
-	if host.get("abi") != HOST_ABI or host.get("world_epoch") != _config.world_epoch or not integer_number(host.get("status_seq")) or host.status_seq < _host_seq or not integer_number(host.get("updated_unix_ms")):
-		return {}
-	var age := int(Time.get_unix_time_from_system()*1000.0)-int(host.updated_unix_ms)
-	if age < -1000 or age > HOST_MAX_AGE_MS:
-		return {}
-	_host_seq = int(host.status_seq)
-	return host
+	# Identity/freshness/terminal validation belongs to the display-only model.
+	# Pass a foreign record through so it can invalidate a previously cached end.
+	return loaded.value if loaded.ok and loaded.value is Dictionary else {}
 
 func _selected_admission_mode() -> String:
 	return "PC_DIRECT" if _mode_choice!=null and _mode_choice.selected==1 else "BOARD_PWM"
 
 func _refresh_status() -> void:
-	if _labels.is_empty():
-		return
+	if _labels.is_empty(): return
+	_suppress_legacy_status()
 	_labels.speed_request.text = "%.3f m/s" % _requested_speed
 	var native: Dictionary = _main.read_continuous_live_state() if _bound else {}
-	var host := _host_status()
-	var direct := _selected_admission_mode()=="PC_DIRECT"
-	var fresh: bool = not host.is_empty() and host.get("connected",false) == true
-	if fresh and host.get("initial_speed_latched",false) == true:
+	var metrics: Dictionary = {}
+	if _main.has_method("read_continuous_visual_metrics"):
+		metrics = _main.read_continuous_visual_metrics()
+	var view: Dictionary = _dashboard.update(str(_config.world_epoch),str(_config.get("operation_id","")),_host_status(),native,int(Time.get_unix_time_from_system()*1000.0),metrics,not _fatal.is_empty())
+	var host: Dictionary = view.host
+	var fresh: bool = view.fresh
+	if (fresh or view.complete) and host.get("initial_speed_latched",false) == true:
 		_initial_speed_latched = true
 		if finite_number(host.get("latched_initial_speed_m_s")):
 			_latched_initial_speed = float(host.latched_initial_speed_m_s)
 	_labels.speed_title.text = "下次初始" if _initial_speed_latched else "初始速度"
-	var board: Dictionary = host.get("board",{}) if fresh and host.get("board") is Dictionary else {}
-	_labels.connection.text = "模式：%s\nRoot：%s  |  实板观测：%s" % ["PC 直接控制" if direct else "FPGA 输出执行","已连接" if fresh else "未连接 / 等待新状态","已连接" if board.get("connected",false) == true else "未连接 / 等待"]
-	var actual := "等待原生就绪"
-	var phase := "等待开始"
-	# ready=false after a planned STOP does not erase actual terminal readback.
-	if not native.is_empty():
-		if finite_number(native.get("speed_m_s")):
-			actual = "%.4f m/s" % float(native.speed_m_s)
-		phase = _safe_text(native.get("phase"))
-	_labels.motion.text = "本次初始设置：%.3f m/s%s\n当前：%s（%s）  |  阶段：%s" % [_latched_initial_speed if _initial_speed_latched else _requested_speed,"（暂停）" if _requested_paused else "",actual,"PC AI 直控" if direct else "PC AI / 实板",phase]
-	var source: Dictionary = host.get("source",{}) if fresh and host.get("source") is Dictionary else {}
-	var counts := "等待"
-	if source.get("channel_counts") is Array and source.channel_counts.size() == 4:
-		var valid := true
-		var values: Array[String] = []
-		for number in source.channel_counts:
-			if number == null: values.append("—")
-			elif integer_number(number) and number >= 0 and number <= 4095: values.append(str(int(number)))
-			else: valid = false
-		if valid: counts = " / ".join(values)
-	_labels.source.text = "源采样：%s  |  C0 / C1 / C2 / C3：%s\n编码上传：%s B  /  还原：%s  /  模式：%s" % [_safe_text(source.get("sample_count")),counts,_safe_text(source.get("e4_bytes")),_safe_text(source.get("raw_bytes")),_safe_text(source.get("compressed_bytes"))]
-	var ai: Dictionary = host.get("ai",{}) if fresh and host.get("ai") is Dictionary else {}
-	var actuator := "PC 指令 #%s" % _safe_text(host.get("pc_command_seq")) if direct else "板卡 PWM：%s" % (_safe_text(board.get("pwm")) if board.get("connected",false) == true else "等待")
-	_labels.board.text = "%s  |  AI 风险：%s  /  方向：%s" % [actuator,_safe_text(ai.get("risk")),_safe_text(ai.get("direction"))]
-	var pending := _pending_text
-	var operator: Dictionary = host.get("operator",{}) if fresh and host.get("operator") is Dictionary else {}
-	if integer_number(operator.get("ack_seq")) and int(operator.ack_seq) == _intent_seq and _intent_seq > 0:
-		if operator.get("state") == "applied":
-			pending = "Root 已确认请求 #%d；实际速度见原生读数。" % _intent_seq
-		elif operator.get("state") in ["preference_saved","next_initial_stored"]:
-			pending = "下次初始速度已保存；本次继续由 PC AI / 实板控制。"
-		elif operator.get("state") == "failed":
-			pending = "Root 报告请求 #%d 失败：%s" % [_intent_seq,_safe_text(operator.get("detail"))]
-	if _stop_latched:
-		pending = "已请求停止；等待 Root 实板 STOP 回执。"
-		if board.get("stop_acknowledged",false) == true and operator.get("state") == "applied" and operator.get("ack_seq") == _intent_seq:
-			pending = "Root 报告实板 STOP 已确认。此场景不再重启。"
-	var native_fault := str(native.get("fault",""))
-	var terminal_arrived: bool = native.get("phase") == "ARRIVED" and native_fault in ["","operator_stop"]
-	if terminal_arrived and fresh and host.get("complete",false) == true and board.get("stop_acknowledged",false) == true:
+	_labels.initial.text = "本次初始 %.3f m/s   下次初始 %.3f m/s" % [_latched_initial_speed if _initial_speed_latched else _requested_speed,_requested_speed]
+	_labels.connection.text = "%s · %s\n%s" % ["PC直控" if _selected_admission_mode()=="PC_DIRECT" else "实板控制",view.state,view.connection]
+	for key in ["motion","channel","source","codec","ai","gate","board","latency"]:
+		_labels[key].text = view.rows[key]
+	var pending := ""
+	var operator: Dictionary = Dashboard.dictionary(host.get("operator"))
+	if Dashboard.integer(operator.get("ack_seq")) and int(operator.ack_seq)==_intent_seq and _intent_seq>0:
+		if operator.get("state") in ["preference_saved","next_initial_stored"]:
+			pending = "下次初始速度已保存"
+		elif operator.get("state") == "failed": pending = "设置未完成"
+	if _requested_paused and _bound and not _stop_latched:
+		pending = "已暂停" if Dashboard.finite(native.get("speed_m_s")) and native.speed_m_s==0 else "暂停中"
+	if _stop_latched: pending = "已停止" if Dashboard.dictionary(host.get("board")).get("stop_acknowledged")==true else "停止中"
+	if view.complete:
 		_terminal_complete_observed = true
-	# Retain an actually observed final receipt after the host has exited and
-	# live telemetry ages out. This flag is display-only and never drives motion.
-	var terminal_complete: bool = terminal_arrived and _terminal_complete_observed
-	if terminal_complete:
-		pending = "完整出圈已完成；实板STOP已确认"
-	if not native_fault.is_empty() and not (terminal_complete and native_fault == "operator_stop"):
-		pending = "原生保护停止：%s；实板状态由 Root 单独确认。" % _safe_text(native.fault)
-	if not _fatal.is_empty():
-		pending = "交接失败：%s。保留现场，由 Root 处理。" % _safe_text(_fatal)
+		pending = "已完成 · 实板已停止"
+	elif not str(native.get("fault","")).is_empty(): pending = "已停止"
+	if not _fatal.is_empty(): pending = "无法继续，请检查设置"
 	_labels.pending.text = pending
-	var pipeline := "模拟传感器 → 实板编码上传 → PC AI → PC直控钻头" if direct else "模拟传感器 → 实板编码上传 → PC AI → 实板控制 → 虚拟钻头"
-	_labels.note.text = (pipeline+"（%d 障碍 / %d 源体）" % [_source_objects,_source_pieces]) if _bound else "布局未冻结；源几何为名义工程包络，非精确网格 / PDE 合格结果。G03 / all29：not_run"
+	_labels.pending.visible = not pending.is_empty()
+	_labels.edit_error.text = _editing_error()
+	_labels.edit_error.visible = not _labels.edit_error.text.is_empty()
+	_labels.setup.visible = not _start_attempted
+	_confirm.visible = not _start_attempted
+	_start.visible = not _start_attempted
 	_fit_panel()

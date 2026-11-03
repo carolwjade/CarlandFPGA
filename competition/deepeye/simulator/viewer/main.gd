@@ -17,6 +17,7 @@ extends Node3D
 const DocScript = preload("res://editor/scene_document.gd")
 const PresenterScript = preload("res://viewer/asset_presenter.gd")
 const AuthorityPoseBridgeScript = preload("res://viewer/authority_pose_bridge.gd")
+const DrillGeometryScript = preload("res://world/drill_geometry.gd")
 
 signal demo30h_run_requested
 
@@ -31,6 +32,7 @@ var _ticks_root: Node3D
 var _drill_root: Node3D
 var _authority_pose_bridge = null
 var _continuous_live: Node = null
+var _continuous_channel: Node3D = null
 var _selection_box: MeshInstance3D
 var _material_cache: Dictionary = {}
 var _asset_presenter: RefCounted
@@ -665,7 +667,7 @@ func _build_drill() -> bool:
 		return false
 	if not _owned_attach_managed(_drill_root, drill, "main_source_attach"):
 		return false
-	var label := _asset_label("实体钻头·静态观察（权威未连接）")
+	var label := _asset_label("钻头")
 	label.position = Vector3(0,.8,0)
 	if not _owned_attach_managed(_drill_root, label, "main_source_attach"):
 		return false
@@ -706,7 +708,7 @@ func _build_drill_greybox() -> bool:
 	if not _owned_attach_managed(_drill_root, tip, "main_source_attach"):
 		return false
 	var label := Label3D.new()
-	label.text = "资源加载失败·开发灰盒·钻头（静态；无运动）"
+	label.text = "钻头"
 	label.font_size = 30
 	label.pixel_size = 0.009
 	label.modulate = Color(0.95, 0.9, 0.6)
@@ -914,7 +916,7 @@ func _build_gate_visual(which: String) -> bool:
 	if not _owned_attach_managed(gate_node, disc, "main_source_attach"):
 		return false
 	var label := Label3D.new()
-	label.text = "进入（蓝圈 0.50m）" if is_entry else "离开（红圈 0.50m）"
+	label.text = "钻入位置" if is_entry else "钻出位置"
 	label.font_size = 34
 	label.pixel_size = 0.009
 	label.modulate = color
@@ -1486,7 +1488,13 @@ func bind_continuous_live(port: int, token: String, admission_mode: String="BOAR
 	var installed: Dictionary=runner.install(self,_drill_root,shapes,{"center":document.gate_position("entry"),"normal":document.gate_normal("entry")},{"center":document.gate_position("exit"),"normal":document.gate_normal("exit")},port,token,admission_mode,world_epoch)
 	if installed.get("ok",false):
 		for child in _drill_root.get_children():
-			if child is Label3D:child.text="实体钻头·PC直控模式" if admission_mode=="PC_DIRECT" else "实体钻头·实板输出模式"
+			if child is Label3D:child.text="钻头"
+		var channel_script: Script=load("res://runtime/continuous_drilled_channel.gd")
+		_continuous_channel=channel_script.new()
+		_continuous_channel.name="DrilledChannel"
+		# Visual-only sibling stays outside frozen sensor and collision geometry.
+		get_tree().root.add_child(_continuous_channel)
+		_continuous_channel.reset_channel(world_epoch,DrillGeometryScript.ENVELOPE_MAX_RADIUS_M,DrillGeometryScript.ENVELOPE_HALF_LENGTH_M)
 	return installed
 
 func _continuous_collect_shapes(node: Node, result: Array) -> void:
@@ -1501,7 +1509,15 @@ func _continuous_pose_write(runner: Node, desired: Transform3D, revision: String
 	if runner!=_continuous_live or not desired.is_finite() or not document._owned_is_locked(runner,runner._lock):return false
 	_drill_root.global_transform=desired
 	_owned_pose_revision=revision
-	return _drill_root.global_transform.is_equal_approx(desired)
+	var accepted := _drill_root.global_transform.is_equal_approx(desired)
+	if accepted and is_instance_valid(_continuous_channel):_continuous_channel.record_accepted_center(desired.origin)
+	return accepted
 
 func read_continuous_live_state() -> Dictionary:
 	return {} if _continuous_live==null else _continuous_live.state()
+
+func read_continuous_visual_metrics() -> Dictionary:
+	return {"travelled_m":0.0,"channel_length_m":0.0,"channel_diameter_m":2.0*DrillGeometryScript.ENVELOPE_MAX_RADIUS_M} if not is_instance_valid(_continuous_channel) else _continuous_channel.metrics()
+
+func _exit_tree() -> void:
+	if is_instance_valid(_continuous_channel):_continuous_channel.queue_free()
