@@ -1,0 +1,23 @@
+{
+  "files": {
+    ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+    "ACTUAL906_CLOSED.json": "032ac989988bef3bea14ca02842a12daa8d77d97beff3b252490b03af267a5d2",
+    "ACTUAL906_PARTIAL_VIDEO.json": "306c0a8255b4ed7d593f6b48ad0d9473d36b5d23b42eae5232a0e0b63035a27a",
+    "ACTUAL906_RESULT.json": "e9a5bf0c08bd8fb7746781c7140b5c3acaa18d1900a8d8f2091e2aff19ffc1b0",
+    "ACTUAL907_RECOVERY.json": "1727eb270c0e48bfefdc3e2c5d65ab35046d64adda9ccd004742575cfcb8b292",
+    "controller921.py": "05a974e60ef005917af652cb00db6e4a96864280402eb40e28b20a9a398c9336",
+    "DISPATCH_CONTROL.json": "ec05e1eba58f2a2f67bac3fca0c6f1630821393e57faa1535cecfd0873726f9e",
+    "HOST_DELIVERY.json": "50d34d50e001b9e77791c99eebc9806cc159bfd8aa4a82133e9f356871be3c95",
+    "HOST_TARGETED_CONTROLS.py": "f78cf6f938c9805c0dc69784e9fe4049ce8c5955a333b5277f2833b57d09fe3b",
+    "HOST_TARGETED_GREEN.json": "b859da5cfe418107fd7f48c7861408e3e0ccf55fe5006ba86e46f4e553c5062e",
+    "NATIVE_GREEN.txt": "d2aede08a370ef83d618a4afb2e3c2f0db9e74ee3ec26493682c90536f33c3ce",
+    "NATIVE_GREEN_PROCESS.json": "c9098fb62af8faec0b0ad6eb923a5a89e9d76bf9dccef72b6468d517a17b27a0",
+    "NATIVE_RED.txt": "7869c57e37588201152da6a3389b3d4a1d86f920422bb6bff3b42e8955af5fc7",
+    "NATIVE_RED_PROCESS.json": "5597942ea349b7674687e9d3e672ae1d7101a64559598a8bce32bcfe1bbb3dad"
+  },
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "source_operation": "906/907 failed, preserved; neverreplay",
+  "changes": "only genuinely new AI/control decision dispatch; explicit no-admission headroom defer while prior unchanged grant remains live; original FAST1500/TTL3000 and source timestamps unchanged",
+  "actual_new922": "in progress, no completion claim",
+  "formal_all29": "not_run"
+}

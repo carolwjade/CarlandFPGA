@@ -11,13 +11,14 @@ import math
 import struct
 import time
 
-from .continuous_native_client import (NativeClient, canonical, hex64, need, tick,
-                                       uint)
+from .continuous_native_client import (NativeClient, NativeRejected, canonical,
+                                       hex64, need, tick, uint)
 from .motion import validate
 
 COMMAND_ABI = 'DEEPEYE-LIVE-PC-DIRECT-COMMAND-884-v1'
 SOURCE_AGE_NS = 1_500_000_000
 TTL_MAX_MS = 3000
+NATIVE_ADMISSION_MARGIN_NS = 100_000_000
 EXTRA_STATE = frozenset(('admission_mode', 'action_source', 'world_epoch',
     'source_witness', 'board_observation_seq', 'board_observation_sha256',
     'source_record_sha256', 'observation_native_tick_usec', 'pc_command_seq',
@@ -121,6 +122,8 @@ class PcDirectClient(NativeClient):
     def __init__(self, connected_socket, token, *, world_epoch, **kwargs):
         self.world_epoch = _label(world_epoch)
         self.observation = None; self.observations = {}; self.pc_seq = 0; self.last_pc_command = None
+        self.last_accepted_pc_command = None
+        self.last_pc_rejection = None
         super().__init__(connected_socket, token, **kwargs)
 
     def _validate_state(self, state):
@@ -176,8 +179,37 @@ class PcDirectClient(NativeClient):
         self.observations[refs['board_sense_seq']] = self.observation
         return response
 
+    def _admission_headroom(self, native_deadline_usec, now):
+        """Conservative native-now upper bound plus the last actual RPC RTT.
+
+        RTT is scheduling headroom, not a guarantee about the next request.
+        Native still independently refuses a late request without applying it.
+        """
+        bracket = self.bracket
+        uint(now, bracket.receive_qpc_ns)
+        rtt = bracket.receive_qpc_ns-bracket.send_qpc_ns
+        future = now+rtt
+        native_upper_ns = (future+bracket.offset_max_ns+
+                           bracket._drift(future-bracket.send_qpc_ns))
+        return native_deadline_usec*1000 > native_upper_ns+NATIVE_ADMISSION_MARGIN_NS
+
+    def _accepted_unchanged_and_active(self, state):
+        accepted = self.last_accepted_pc_command
+        need(accepted is not None, 'ORIGINAL_ACCEPTED_PC_COMMAND_REQUIRED')
+        self._validate_state(state)
+        target = accepted['target']
+        need(_native_uint(state['pc_command_seq']) == accepted['command']['command_seq'] and
+             state['pc_command_sha256'] == accepted['command_sha256'] and
+             state['deadline_usec'] == accepted['native_deadline_usec'] and
+             state['target_speed_m_s'] == target['speed_m_s'] and
+             state['yaw_curvature_per_m'] == target['yaw_curvature_per_m'] and
+             state['pitch_curvature_per_m'] == target['pitch_curvature_per_m'] and
+             state['ready'] is True and state['running'] is True and not state['fault'] and
+             tick(state['read_now_usec']) < tick(state['deadline_usec']),
+             'ORIGINAL_ACCEPTED_PC_COMMAND_NOT_LIVE_UNCHANGED')
+
     def apply_advice(self, advice, current, command, *, ttl_ms=3000, paused=False,
-                     operator_cap_m_s=.25):
+                     operator_cap_m_s=.25, attempt_callback=None):
         need(type(paused) is bool and self.observation is not None and self.bracket is not None,
              'ADMITTED_REAL_OBSERVATION_REQUIRED')
         ttl_ms = uint(ttl_ms, 1, TTL_MAX_MS); now = self.clock()
@@ -205,19 +237,42 @@ class PcDirectClient(NativeClient):
         if speed:
             need(advice['status'] == 'ADVISE' and mapped.target_speed_m_s <= advice['speed_limit_m_s'],
                  'TARGET_WITHIN_ACTUAL_AI_LIMIT')
-        self.pc_seq += 1; uint(self.pc_seq,1,(1 << 53)-1)
+        need(attempt_callback is None or callable(attempt_callback), 'ATTEMPT_CALLBACK')
+        next_seq = uint(self.pc_seq+1,1,(1 << 53)-1)
         deadline = min(now+ttl_ms*1_000_000,tick(source['at_qpc_ns'])+SOURCE_AGE_NS)
-        native_end = self.bracket.conservative_native_deadline_usec(deadline)
+        try:
+            native_end = self.bracket.conservative_native_deadline_usec(deadline)
+        except ValueError as error:
+            if str(error) != 'NO_CONSERVATIVE_GRANT_REMAINS': raise
+            return dict(deferred=True,reason='pc_preflight_headroom',state=copy.deepcopy(current['native']))
+        if not self._admission_headroom(native_end,self.clock()):
+            return dict(deferred=True,reason='pc_preflight_headroom',state=copy.deepcopy(current['native']))
         doc = dict(abi=COMMAND_ABI,mode='PC_DIRECT',world_epoch=self.world_epoch,profile='fast_9600',
-            command_seq=self.pc_seq,first_send_qpc_ns=str(now),source_acquisition_qpc_ns=source['at_qpc_ns'],
+            command_seq=next_seq,first_send_qpc_ns=str(now),source_acquisition_qpc_ns=source['at_qpc_ns'],
             **{k:obs[k] for k in ('board_sense_seq','board_receipt_sha256','board_frame_sha256','source_record_sha256')},
             ai_result_sha256=digest(advice),speed_code=speed,yaw_q=yaw,pitch_q=pitch,
             ttl_ms=ttl_ms,native_deadline_usec=str(native_end))
         command_bytes = canonical(doc); need(command_bytes.isascii(), 'CANONICAL_ASCII_COMMAND')
-        self.last_pc_command = dict(command=doc,command_json=command_bytes.decode('ascii'),
+        attempt = dict(command=doc,command_json=command_bytes.decode('ascii'),
             command_sha256=hashlib.sha256(command_bytes).hexdigest(),host_deadline_qpc_ns=deadline)
-        response = self._exchange('pause_pc_direct' if paused else 'apply_pc_direct',
-            command_json=self.last_pc_command['command_json'],command_sha256=self.last_pc_command['command_sha256'])
+        if attempt_callback is not None: attempt_callback(copy.deepcopy(attempt))
+        # A slow intent logger cannot consume a sequence or create a late send.
+        if not self._admission_headroom(native_end,self.clock()):
+            return dict(deferred=True,reason='pc_preflight_headroom',state=copy.deepcopy(current['native']))
+        self.pc_seq = next_seq
+        self.last_pc_command = attempt
+        self.last_pc_rejection = None
+        try:
+            response = self._exchange('pause_pc_direct' if paused else 'apply_pc_direct',
+                command_json=attempt['command_json'],command_sha256=attempt['command_sha256'])
+        except NativeRejected as error:
+            self.last_pc_rejection = copy.deepcopy(error.response)
+            if (error.response.get('reason') != 'pc_admission_headroom' or
+                    error.response.get('admission_applied') is not False or
+                    self.last_accepted_pc_command is None): raise
+            self._accepted_unchanged_and_active(error.response.get('state'))
+            return dict(deferred=True,reason='pc_admission_headroom',
+                        state=copy.deepcopy(error.response['state']))
         s = response['state']
         try:
             need(_native_uint(s['pc_command_seq']) == self.pc_seq and
@@ -228,6 +283,10 @@ class PcDirectClient(NativeClient):
                  abs(s['pitch_curvature_per_m']-mapped.curvature_pitch_per_m) < 1e-12,
                  'EXECUTABLE_PC_RECEIPT_CORRELATION')
         except BaseException: self.broken = True; raise
+        self.last_accepted_pc_command = copy.deepcopy(attempt)
+        self.last_accepted_pc_command.update(native_deadline_usec=s['deadline_usec'],target=dict(
+            speed_m_s=s['target_speed_m_s'],yaw_curvature_per_m=s['yaw_curvature_per_m'],
+            pitch_curvature_per_m=s['pitch_curvature_per_m']))
         return response
 
     def apply_pwm(self, *args, **kwargs):

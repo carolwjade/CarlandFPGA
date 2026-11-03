@@ -114,12 +114,15 @@ func admit(text: Variant, digest: Variant, now: int, paused: bool) -> Dictionary
 	var deadline := _time(command.get("native_deadline_usec"))
 	if acquired<0 or issued<acquired or issued-acquired>MAX_AGE_US*1000 or not _integer(command.get("ttl_ms"),1,MAX_TTL_MS):return _bad("pc_original_issue_or_ttl")
 	var ttl: int=int(command.ttl_ms)
-	if now<int(observation.native_tick) or deadline<=now+100000 or deadline>int(observation.native_tick)+MAX_AGE_US or deadline>now+ttl*1000:return _bad("pc_original_observation_deadline")
+	if now<int(observation.native_tick) or deadline<0 or deadline>int(observation.native_tick)+MAX_AGE_US or deadline>now+ttl*1000:return _bad("pc_original_observation_deadline")
 	if not _integer(command.get("speed_code"),0,20) or not _integer(command.get("yaw_q"),-15000,15000) or not _integer(command.get("pitch_q"),-15000,15000):return _bad("pc_motion_codes")
 	var code: int=int(command.speed_code)
 	var yaw: int=int(command.yaw_q)
 	var pitch: int=int(command.pitch_q)
 	if yaw*yaw+pitch*pitch>FAST_ROM[code] or (paused and (code!=0 or yaw!=0 or pitch!=0)):return _bad("pc_combined_curvature_or_pause")
+	# A valid but late update has no admission side effect. The caller may keep
+	# its previous live grant; this does not renew it or relax the original age.
+	if deadline<=now+100000:return {"ok":false,"reason":"pc_admission_headroom","admission_applied":false}
 	var speed := float(code)/80.0
 	var ky := 0.0 if code==0 else float(yaw)*PI/(180000.0*speed)
 	var kp := 0.0 if code==0 else float(pitch)*PI/(180000.0*speed)

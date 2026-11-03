@@ -221,7 +221,9 @@ func apply_pc_direct(r: Dictionary, paused: bool=false) -> Dictionary:
 	if not _initial_published or not _fault.is_empty():return {"ok":false,"reason":"not_ready_or_fault"}
 	if r.size()!=6 or not r.has("command_json") or not r.has("command_sha256"):return {"ok":false,"reason":"pc_command_fields"}
 	var checked: Dictionary=_direct.admit(r.command_json,r.command_sha256,Time.get_ticks_usec(),paused)
-	if not checked.ok:return checked
+	if not checked.ok:
+		if checked.get("reason")=="pc_admission_headroom":checked["state"]=_rpc_state()
+		return checked
 	_target_speed=checked.speed_m_s;_ky=checked.yaw_curvature_per_m;_kp=checked.pitch_curvature_per_m
 	_deadline_us=checked.native_deadline_usec;_running=true;_operator_request=""
 	return {"ok":true,"state":_rpc_state()}
