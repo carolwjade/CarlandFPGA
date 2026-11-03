@@ -228,7 +228,10 @@ class _TracePort:
         need(key is _KEY,'internal port only');self._mmio=mmio;self._dir=directory;self._boot=boot;self._pid=os.getpid();self._count=0;self._failed=False;self._ids=set();self._commands={1:0,2:0,3:0,4:0,5:0,8:0}
         need(cycle_policy is None or type(cycle_policy) is _TraceCyclePolicy,'exact prospective cycle policy required')
         self._cycle_policy=cycle_policy;self._cycle_owner=None;self._cycle_ready=False;self._cycle_active=False;self._cycle_commands=None;self._cycle_thread=threading.get_ident();self._cycle_deadline=None
-        self._navigation_trace_profile=None;self._cycle_work_started=False
+        self._navigation_trace_profile=None;self._cycle_work_started=False;self._trace_audit=None
+    def _record_io(self,n,suffix,data):
+        if self._trace_audit is None:_record(self._dir,'io-%05d-%s.json'%(n,suffix),data)
+        else:self._trace_audit.record(n,suffix,data)
     def _bind_navigation_trace_profile(self,owner,profile):
         """One typed selection before TRACE work; retains the original counter."""
         from . import functional50_demo_four_cycle_profile_a as demo
@@ -263,16 +266,16 @@ class _TracePort:
             need(value!=8 or self._commands[8]<4096,'global POP limit')
         self._count+=1;n=self._count;self._ids.add(request_id)
         if self._cycle_active:self._cycle_work_started=True
-        _record(self._dir,'io-%05d-started.json'%n,{'id':request_id,'kind':kind,'offset':offset,'value':value,'pid':self._pid,'monotonic_ns':time.monotonic_ns()})
+        self._record_io(n,'started',{'id':request_id,'kind':kind,'offset':offset,'value':value,'pid':self._pid,'monotonic_ns':time.monotonic_ns()})
         if self._cycle_policy is not None and self._cycle_ready and time.monotonic_ns()>=self._cycle_deadline:
-            _record(self._dir,'io-%05d-not-attempted.json'%n,{'id':request_id,'monotonic_ns':time.monotonic_ns()})
+            self._record_io(n,'not-attempted',{'id':request_id,'monotonic_ns':time.monotonic_ns()})
             self._failed=True;raise TimeoutError('cycle deadline passed before MMIO')
         if kind=='write' and offset==0x80:
             self._commands[value]+=1
             if self._cycle_policy is not None and self._cycle_ready:self._cycle_commands[value]+=1
         try:
             output=self._mmio.read(offset) if kind=='read' else self._mmio.write(offset,value)
-            _record(self._dir,'io-%05d-returned.json'%n,{'id':request_id,'kind':kind,'value':output,'monotonic_ns':time.monotonic_ns()})
+            self._record_io(n,'returned',{'id':request_id,'kind':kind,'value':output,'monotonic_ns':time.monotonic_ns()})
             return output
         except BaseException:
             self._failed=True

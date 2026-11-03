@@ -66,7 +66,7 @@ def _execute(job):
                 client.need(type(result) is dict and set(result)==keys and result['schema']=='trace_cycle_v2' and result['index']==index and result['authority']=='not_evaluated' and result['request_sha256']==protocol.digest(request) and result['source_sha256']==protocol.digest(source),'original trace result')
                 client.need(result['correlation_status']=='FOUR_FRAME_CORRELATION_CONSISTENT' and type(result['directory']) is str and result['directory'].startswith('/') and len(result['directory'])<=1024 and type(result['evidence_manifest_sha256']) is str and client.re.fullmatch('[0-9a-f]{64}',result['evidence_manifest_sha256']) is not None,'board evidence manifest reference')
                 first=result['phase_io_first'];last=result['phase_io_last'];client.need(type(first) is int and type(last) is int and 1<=first<=last<=client.demo.trace_io_cap(getattr(job,'demo_cycle_profile',None)) and last-first+1<=max_io,'actual TRACE phase')
-                observed,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,operation,protocol.digest(request),binding['request_hash']);client.need(observed['status']=='COMPLETE','complete trace required')
+                observed,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,operation,protocol.digest(request),binding['request_hash'],demo_cycle_profile=getattr(job,'demo_cycle_profile',None));client.need(observed['status']=='COMPLETE','complete trace required')
                 correlation=bundle.adapter.correlate_collected(fixed.plan,wire,companions,observed['results']);client.need(correlation['status']=='FOUR_FRAME_CORRELATION_CONSISTENT','host correlation required')
             job.value=(doc,correlation)
         elif job.kind=='g05_post':

@@ -19,12 +19,14 @@ def put(path,data):
   import os
   f.write(data);f.flush();os.fsync(f.fileno())
 
-def _response(data,request_id,operation,request_hash,lineage_hash):
+def _response(data,request_id,operation,request_hash,lineage_hash,*,demo_cycle_profile=None):
+ from .functional50_demo_four_cycle_profile_a import trace_io_cap
+ io_cap=trace_io_cap(demo_cycle_profile)
  need(type(data) is bytes and 0<len(data)<=4096 and data.endswith(b'\n') and data.count(b'\n')==1,'bounded batch response required')
  doc=protocol._json(data);keys={'schema','id','operation_id','request_sha256','lineage_request_hash','status','raw_wire_hex','wire_complete','results','io_count','batch_io_count','cleanup_observed','terminal','unknown'}
  need(type(doc) is dict and set(doc) in (keys,keys|{'error_type'}) and doc['schema']==protocol.SCHEMA and doc['id']==request_id and doc['operation_id']==operation and doc['request_sha256']==request_hash and doc['lineage_request_hash']==lineage_hash,'batch response identity')
  if 'error_type' in doc:need(type(doc['error_type']) is str and 0<len(doc['error_type'])<=96,'bounded error type required')
- need(doc['status'] in ('COMPLETE','REFUSED','FAILED','UNKNOWN') and type(doc['unknown']) is bool and type(doc['wire_complete']) is bool and type(doc['cleanup_observed']) is bool and type(doc['io_count']) is int and 0<=doc['io_count']<=5000 and type(doc['batch_io_count']) is int and 0<=doc['batch_io_count']<=doc['io_count'] and type(doc['results']) is list and len(doc['results'])<=4 and doc['terminal'] in ('QUIESCENT','NOT_PROVEN','UNKNOWN','NOT_STARTED'),'batch response shape')
+ need(doc['status'] in ('COMPLETE','REFUSED','FAILED','UNKNOWN') and type(doc['unknown']) is bool and type(doc['wire_complete']) is bool and type(doc['cleanup_observed']) is bool and type(doc['io_count']) is int and 0<=doc['io_count']<=io_cap and type(doc['batch_io_count']) is int and 0<=doc['batch_io_count']<=doc['io_count'] and type(doc['results']) is list and len(doc['results'])<=4 and doc['terminal'] in ('QUIESCENT','NOT_PROVEN','UNKNOWN','NOT_STARTED'),'batch response shape')
  if doc['terminal']=='QUIESCENT':need(doc['cleanup_observed'],'cleanup observation missing')
  need((doc['status']=='UNKNOWN')==doc['unknown'] and (doc['terminal']=='UNKNOWN')==doc['unknown'],'batch unknown state mismatch')
  value=doc['raw_wire_hex']

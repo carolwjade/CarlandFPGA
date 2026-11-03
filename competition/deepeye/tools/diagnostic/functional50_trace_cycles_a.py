@@ -20,7 +20,7 @@ def need(ok,msg):
 class _CyclePort:
  """Fixed 198 adapter retaining copies of each original port I/O record."""
  def __init__(self,key,owner,directory,index):
-  need(key is _KEY,'fixed cycle adapter required');self._owner=owner;self._dir=directory;self._index=index;self._copies=0
+  need(key is _KEY,'fixed cycle adapter required');self._owner=owner;self._dir=directory;self._index=index;self._copies=0;self._audit=None
  @property
  def _count(self):return self._owner._port._count
  @property
@@ -36,12 +36,16 @@ class _CyclePort:
    if port._count>before:
     try:
      need(port._count==before+1,'original I/O count changed')
-     saved=set()
-     for suffix in ('started','returned'):
-      name='io-%05d-%s.json'%(port._count,suffix);source=port._dir/name
-      if source.exists():
-       data,_=board._bytes(source,8192);batch._put(self._dir/name,data);saved.add(suffix)
-     if saved=={'started','returned'}:self._copies+=1
+     if self._audit is not None:
+      need(port._trace_audit is self._audit,'same original finite trace journal')
+      if self._audit.pair(port._count) is not None:self._copies+=1
+     else:
+      saved=set()
+      for suffix in ('started','returned'):
+       name='io-%05d-%s.json'%(port._count,suffix);source=port._dir/name
+       if source.exists():
+        data,_=board._bytes(source,8192);batch._put(self._dir/name,data);saved.add(suffix)
+      if saved=={'started','returned'}:self._copies+=1
     except BaseException:
      port._failed=True;raise
 
@@ -90,8 +94,16 @@ class TraceCycles:
    self._used_requests.add(request_hash);self._used_sources.add(source_hash)
    index=len(self._records)+1;directory=self._directory/('scan-%02d'%index);directory.mkdir(mode=0o700)
    proxy=_CyclePort(_KEY,self,directory,index);self._scan_io_start=p._count;self._scan_max_io=max_io;p._cycle_commands={1:0,2:0,3:0,4:0,5:0,8:0};p._cycle_active=True
+   if demo.is_navigation(self._demo_cycle_profile):
+    need(p._trace_audit is None,'no prior active trace slab')
+    proxy._audit=batch._AuditSlabV1(directory/'trace-audit-v1.bin',base_io=p._count,capacity=max_io,binding=binding,boot=p._boot)
+    p._trace_audit=proxy._audit
    try:response=batch.run_batch(proxy,self._bundle,line,_Facade,binding)
-   finally:p._cycle_active=False
+   finally:
+    p._cycle_active=False
+    try:
+     if proxy._audit is not None:proxy._audit.finish()
+    finally:p._trace_audit=None
    result=batch._json(response);need(result['status']=='COMPLETE' and result['terminal']=='QUIESCENT' and result['cleanup_observed'] and result['wire_complete'] and not result['unknown'],'original scan not complete and quiescent')
    need(all(p._cycle_commands[k]==v for k,v in ((1,1),(2,4),(3,4),(4,4),(5,1))),'exact original per-scan command use required')
    need(proxy._copies==result['batch_io_count']<=max_io,'every original I/O receipt required')
@@ -100,8 +112,10 @@ class TraceCycles:
    files={}
    for path in sorted(directory.rglob('*')):
     if path.is_dir():continue
-    data,_=board._bytes(path,2*1024*1024);files[path.relative_to(directory).as_posix()]=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
-   manifest=batch.raw(dict(schema='trace_cycle_evidence_v1',index=index,files=files))+b'\n'
+    limit=8_196_096 if path.name=='trace-audit-v1.bin' and proxy._audit is not None else 2*1024*1024
+    data,_=board._bytes(path,limit);files[path.relative_to(directory).as_posix()]=dict(bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+   schema='trace_cycle_evidence_slab_v1' if proxy._audit is not None else 'trace_cycle_evidence_v1'
+   manifest=batch.raw(dict(schema=schema,index=index,files=files))+b'\n'
    batch._put(directory/'evidence-manifest.json',manifest)
    record=dict(index=index,request_sha256=request_hash,source_sha256=source_hash,response=response,correlation=verified,directory=directory,evidence_manifest_sha256=hashlib.sha256(manifest).hexdigest())
    self._records.append(record)

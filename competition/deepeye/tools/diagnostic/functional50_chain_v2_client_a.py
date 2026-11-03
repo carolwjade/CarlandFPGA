@@ -241,7 +241,7 @@ class ChainSessionV2:
     need(type(result) is dict and set(result)==keys and result['schema']=='trace_cycle_v2' and result['index']==self.sequence.counts['trace_scan'] and result['authority']=='not_evaluated' and result['request_sha256']==protocol.digest(original.request) and result['source_sha256']==protocol.digest(original.source),'original trace result')
     need(result['correlation_status']=='FOUR_FRAME_CORRELATION_CONSISTENT' and type(result['directory']) is str and result['directory'].startswith('/') and len(result['directory'])<=1024 and type(result['evidence_manifest_sha256']) is str and re.fullmatch('[0-9a-f]{64}',result['evidence_manifest_sha256']) is not None,'board evidence manifest reference')
     first=result['phase_io_first'];last=result['phase_io_last'];need(type(first) is int and type(last) is int and 1<=first<=last<=demo.trace_io_cap(self.sequence.demo_cycle_profile) and last-first+1<=max_io,'actual TRACE phase')
-    doc,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,self.s._dir.name,protocol.digest(original.request),build_binding['request_hash']);need(doc['status']=='COMPLETE','complete trace required')
+    doc,wire=trace._response(protocol.raw(result['response'])+b'\n',ident,self.s._dir.name,protocol.digest(original.request),build_binding['request_hash'],demo_cycle_profile=self.sequence.demo_cycle_profile);need(doc['status']=='COMPLETE','complete trace required')
     out['correlation']=self.bundle.adapter.correlate_collected(fixed.plan,wire,original.companions,doc['results']);need(out['correlation']['status']=='FOUR_FRAME_CORRELATION_CONSISTENT','host correlation required')
    return out
   except BaseException:self.s._unknown=True;raise
