@@ -138,6 +138,10 @@ def facts_json(facts,session,tx,demo_cycle_profile=None):
  need(type(facts) is session.SessionFacts and facts.schema=='g05_csr_session_v2' and facts.authority=='not_evaluated','original facts required')
  cap=facts.capture
  capture=None if cap is None else dict(status_before_latch=cap.status_before_latch,fault_before_latch=cap.fault_before_latch,words32=list(cap.words32),status_before_snapshot=cap.status_before_snapshot,status_after_snapshot=cap.status_after_snapshot,result_seq=cap.result_seq,tick_unit=cap.tick_unit)
+ if cap is not None and getattr(cap,'capture_kind',None)=='g05_held_bank_v2':
+  need(type(cap) is session.HeldCaptureFactsV2 and _demo().is_navigation(demo_cycle_profile),'held-bank v2 requires original type and explicit navigation selection')
+  capture.update(capture_kind=cap.capture_kind,held_before_seq=cap.held_before_seq,held_after_seq=cap.held_after_seq,
+                 latest_before_seq=cap.latest_before_seq,latest_after_seq=cap.latest_after_seq)
  receipts=[]
  for r in facts.receipts:
   need(type(r) is tx.IOReceipt and len(r.started_raw)<=512 and len(r.returned_raw)<=512,'bounded original receipts')

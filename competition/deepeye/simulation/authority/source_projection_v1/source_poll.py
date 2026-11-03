@@ -5,10 +5,14 @@ from .._actor_source_custody import _Transition
 _STEP = 10_000_000
 _MAX = (1 << 63) - 1
 
-def _not_before(origin, completion):
+def _not_before(origin, completion, *, pre_source_boot=False):
     if (type(origin) is not int or type(completion) is not int
-            or not 0 <= origin <= completion <= _MAX):
+            or type(pre_source_boot) is not bool
+            or not 0 <= origin <= _MAX or not 0 <= completion <= _MAX
+            or (completion < origin and not pre_source_boot)):
         raise ValueError('bounded original transition time required')
+    if completion < origin:
+        return origin  # The original BOOT finishes before source.start().
     result = origin + ((completion-origin + _STEP-1)//_STEP)*_STEP
     if result > _MAX:
         raise ValueError('original source grid overflow')
@@ -33,7 +37,8 @@ def poll_after_finished_transition(session, transition):
             or not any(entry[0] is transition and entry[1] is book._root
                        for entry in session._producer._actions)):
         raise ValueError('observed latest completed original transition required')
-    target = _not_before(source._origin, transition.record.get('completion_observed_qpc_ns'))
+    target = _not_before(source._origin, transition.record.get('completion_observed_qpc_ns'),
+                         pre_source_boot=transition.kind == 'BOOT')
     now = source._clock()
     if type(now) is not int or not source._high <= now <= _MAX:
         raise ValueError('original clock regressed')

@@ -2,6 +2,24 @@ import hashlib,json,unittest
 from competition.deepeye.tools.diagnostic import functional50_g05_a as g
 
 class Tests(unittest.TestCase):
+ def test_held_capture_v2_keeps_advancing_latest_separate(self):
+  def port(held_after=65539,latest_after=65541):
+   p=object.__new__(g.G05Port);p._bound=True;p._stopped=False;p._identity=(1,)*12+(7,);p._failed=False
+   p._claim=lambda ident:None;p._status=lambda ident,mode:0x31
+   seen={}
+   def io(kind,off,value,ident):
+    seen[off]=seen.get(off,0)+1
+    if off==0x1c:return 65540 if seen[off]==1 else latest_after
+    if off==0x300:return held_after if seen[off]==3 else 65539
+    if off==0x378:return 7
+    if off==0x37c:return 0x47303550
+    return 0
+   p._io=io;return p
+  result=port().read_snapshot_v2('software-only')
+  self.assertEqual(result['result_seq'],65539)
+  self.assertEqual((result['latest_before_seq'],result['latest_after_seq']),(65540,65541))
+  for held,latest in ((65538,65541),(65539,65538)):
+   with self.assertRaises(ValueError):port(held,latest).read_snapshot_v2('software-only')
  def test_exact_mapper_bounds(self):
   self.assertEqual(g._command((0,0,1,1,100,1,7),0,None),(0,0,1,1,100,1,7))
   self.assertEqual(g._command((0,0,1,0,100,1,7),0,None)[3],0)

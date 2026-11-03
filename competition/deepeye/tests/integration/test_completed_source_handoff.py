@@ -50,6 +50,14 @@ class Tests(unittest.TestCase):
   self.assertEqual(_not_before(0,201_000_000),210_000_000)
   self.assertEqual(_not_before(7,20_000_007),20_000_007)
   with self.assertRaises(ValueError):_not_before(10,9)
+ def test_only_original_boot_can_precede_source_origin(self):
+  from competition.deepeye.simulation.authority.source_projection_v1.source_poll import _not_before
+  self.assertEqual(_not_before(100,90,pre_source_boot=True),100)
+  self.assertEqual(_not_before(100,101,pre_source_boot=True),10_000_100)
+  for flag in (False,):
+   with self.assertRaises(ValueError):_not_before(100,90,pre_source_boot=flag)
+  for origin,completed,flag in ((True,1,True),(100,-1,True),(100,90,1)):
+   with self.assertRaises(ValueError):_not_before(origin,completed,pre_source_boot=flag)
  def test_foreign_thread_rejected(self):
   import threading
   s,b,t=self.make();p=s.poll();errors=[]
@@ -65,7 +73,7 @@ class Tests(unittest.TestCase):
   from competition.deepeye.simulation.authority._actor_source_custody import _Transition
   s,b,clock=self.make();root=object();custody=SimpleNamespace(pending=None,transitions=[])
   b._actor_custody=custody;b._root=root
-  tr=object.__new__(_Transition);tr.custody=custody;tr.closed=True;tr.record={'state':'COMPLETE','completion_observed_qpc_ns':201_000_000};custody.transitions.append(tr)
+  tr=object.__new__(_Transition);tr.kind='STEP';tr.custody=custody;tr.closed=True;tr.record={'state':'COMPLETE','completion_observed_qpc_ns':201_000_000};custody.transitions.append(tr)
   session=object.__new__(ProjectionSession);session._book=b;session._link=SimpleNamespace(source=s);session._producer=SimpleNamespace(_actions=[(tr,root,None,{})]);session._check=lambda:None
   clock[0]=202_000_000;self.assertIsNone(poll_after_finished_transition(session,tr));self.assertEqual(s._count,0)
   clock[0]=210_000_000;p,token=poll_after_finished_transition(session,tr);self.assertEqual(p['tick'],210);self.assertIs(token,b.tokens[0]);s.release_completed_sample(p)

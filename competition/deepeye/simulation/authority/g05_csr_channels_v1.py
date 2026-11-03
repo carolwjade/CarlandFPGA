@@ -186,10 +186,16 @@ def validate_csr_facts(facts, *, identity_words, operation_id, previous=(),demo_
         capture=facts['capture']; words=capture['words32']
         snapshots=[(a['offset'],z['value']) for a,z in phase
                    if a['kind']=='read' and 0x300<=a['offset']<=0x37c]
-        _need(snapshots==[(0x300+4*i,word) for i,word in enumerate(words)],
+        expected_snapshot=[(0x300+4*i,word) for i,word in enumerate(words)]
+        held=capture.get('capture_kind')=='g05_held_bank_v2'
+        if held:
+            expected_snapshot=[(0x300,capture['held_before_seq'])]+expected_snapshot+[(0x300,capture['held_after_seq'])]
+        _need(snapshots==expected_snapshot,
               'original complete32-word snapshot missing or torn')
         seqs=[z['value'] for a,z in phase if a['kind']=='read' and a['offset']==0x1c]
-        _need(len(seqs)==2 and seqs[0]==seqs[1]==capture['result_seq']==words[0]
+        _need(len(seqs)==2 and ((seqs==[capture['latest_before_seq'],capture['latest_after_seq']]
+              and 0<words[0]==capture['held_before_seq']==capture['held_after_seq']==capture['result_seq']<=seqs[0]<=seqs[1])
+              if held else seqs[0]==seqs[1]==capture['result_seq']==words[0])
               and words[30]==identity_words[12] and words[31]==0x47303550,
               'actual latched snapshot identity mismatch')
     return dict(deadline_board_ns=deadline, receipts=tuple(copy.deepcopy(rows)),

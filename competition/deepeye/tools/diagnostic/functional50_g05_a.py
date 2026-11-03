@@ -153,6 +153,25 @@ class G05Port:
         self._claim(request_id);self._status(request_id,'latched');self._quota('release');self._io('write',0x00c,5,request_id)
         status=self._status(request_id,'bound')
         if status&0x20:self._failed=True;raise ValueError('latch release not observed')
+
+    def read_snapshot_v2(self,request_id):
+        """Explicit held-bank proof; the independent live result may advance."""
+        self._claim(request_id);_need(self._bound and not self._stopped,'live G05 required')
+        before=self._status(request_id,'latched')
+        latest_before=self._io('read',0x1c,None,request_id)
+        held_before=self._io('read',0x300,None,request_id)
+        words=tuple(self._io('read',0x300+4*i,None,request_id) for i in range(32))
+        held_after=self._io('read',0x300,None,request_id)
+        latest_after=self._io('read',0x1c,None,request_id)
+        after=self._status(request_id,'latched')
+        if (words[31]!=0x47303550 or words[30]!=self._identity[12]
+                or not 0<held_before==words[0]==held_after<=latest_before<=latest_after):
+            self._failed=True;raise ValueError('original held bank or live sequence association changed')
+        return dict(words=words,status_before=before,status_after=after,result_seq=held_before,
+                    held_before_seq=held_before,held_after_seq=held_after,
+                    latest_before_seq=latest_before,latest_after_seq=latest_after,
+                    tick_unit='50MHz_cycles',capture_kind='g05_held_bank_v2',
+                    native_atomic_interval=False,authority='not_evaluated')
     def stop(self,request_id):
         self._claim(request_id);_need(not self._stopped,'STOP already consumed');self._quota('stop');self._stopped=True
         self._io('write',0x00c,3,request_id)

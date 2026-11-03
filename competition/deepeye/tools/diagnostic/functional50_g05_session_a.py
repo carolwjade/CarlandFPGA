@@ -20,6 +20,20 @@ class UnresolvedIO:
     returned_raw:bytes | None
     not_attempted_raw:bytes | None
 @dataclass(frozen=True)
+class HeldCaptureFactsV2:
+    status_before_latch:int
+    fault_before_latch:int
+    words32:tuple
+    status_before_snapshot:int
+    status_after_snapshot:int
+    result_seq:int
+    held_before_seq:int
+    held_after_seq:int
+    latest_before_seq:int
+    latest_after_seq:int
+    tick_unit:str='50MHz_cycles'
+    capture_kind:str='g05_held_bank_v2'
+@dataclass(frozen=True)
 class SessionFacts:
     schema:str
     kind:str
@@ -87,7 +101,7 @@ class G05SessionV2:
     def _step(self,name,*args):
         # Count even the status reads hidden inside original 197 high-level methods.
         costs={'stage_identity':1,'begin':2,'stage_command':1,'commit':2,
-               'latch':2,'read_snapshot':2,'release':2,'stop':0}
+               'latch':2,'read_snapshot':2,'read_snapshot_v2':2,'release':2,'stop':0}
         cost=(1 if name=='read32' and args[0]==0x08 else 0) if name=='read32' else costs[name]
         if self._demo_cycle_profile is not None and name=='read32' and 0x300<=args[0]<=0x37c:cost=1
         _need(self._polls+cost<=self._status_limit,'session status-read budget exhausted')
@@ -148,9 +162,15 @@ class G05SessionV2:
                     self._capture_polls+=1
                 status,fault=self._live_status()
                 if status&0x10:break
-            self._step('latch');snap=self._step('read_snapshot');self._step('release')
+            self._step('latch')
+            snap=self._step('read_snapshot_v2' if demo.is_navigation(self._demo_cycle_profile) else 'read_snapshot')
+            self._step('release')
             words=snap['words'];_need(type(words) is tuple and len(words)==32 and words[1]==command_words[5] and words[2]==command_words[6],'actual captured command/tag mismatch')
-            capture=transaction.CaptureFacts(status,fault,words,snap['status_before'],snap['status_after'],snap['result_seq'])
+            if demo.is_navigation(self._demo_cycle_profile):
+                capture=HeldCaptureFactsV2(status,fault,words,snap['status_before'],snap['status_after'],snap['result_seq'],
+                    snap['held_before_seq'],snap['held_after_seq'],snap['latest_before_seq'],snap['latest_after_seq'])
+            else:
+                capture=transaction.CaptureFacts(status,fault,words,snap['status_before'],snap['status_after'],snap['result_seq'])
             result=self._facts(n,before,'apply',identity=actual,status=status,fault=fault,capture=capture)
             self._state='ACTIVE';return result
         except BaseException:self._state='FAILED';raise

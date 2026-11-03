@@ -80,7 +80,7 @@ def prospective_io(value):
     validate_profile(value)
     if value is None:
         raise ValueError('explicit navigation revision required')
-    return 42 + 76*value.max_commands + 2*value.capture_polls + 15*value.status_phases
+    return 42 + 78*value.max_commands + 2*value.capture_polls + 15*value.status_phases
 
 
 def rolling_refs(value, observations, actions, current_observation):

@@ -68,8 +68,15 @@ def _facts(x,kind,operation,identity,deadline,demo_cycle_profile=None):
  for k in ('status','fault'):need(x[k] is None or (type(x[k]) is int and 0<=x[k]<=0xffffffff),'observed status')
  c=x['capture']
  if kind=='apply':
-  need(type(c) is dict and set(c)=={'status_before_latch','fault_before_latch','words32','status_before_snapshot','status_after_snapshot','result_seq','tick_unit'} and c['tick_unit']=='50MHz_cycles' and type(c['words32']) is list and len(c['words32'])==32 and all(type(w) is int and 0<=w<=0xffffffff for w in c['words32']),'capture facts')
+  fields={'status_before_latch','fault_before_latch','words32','status_before_snapshot','status_after_snapshot','result_seq','tick_unit'}
+  held=type(c) is dict and c.get('capture_kind')=='g05_held_bank_v2'
+  if held:
+   need(demo.is_navigation(demo_cycle_profile),'explicit navigation held-bank v2 required')
+   fields|={'capture_kind','held_before_seq','held_after_seq','latest_before_seq','latest_after_seq'}
+  need(type(c) is dict and set(c)==fields and c['tick_unit']=='50MHz_cycles' and type(c['words32']) is list and len(c['words32'])==32 and all(type(w) is int and 0<=w<=0xffffffff for w in c['words32']),'capture facts')
   need(all(type(c[k]) is int and 0<=c[k]<=0xffffffff for k in ('status_before_latch','fault_before_latch','status_before_snapshot','status_after_snapshot','result_seq')),'capture fields')
+  if held:
+   need(all(type(c[k]) is int and 0<=c[k]<=0xffffffff for k in ('held_before_seq','held_after_seq','latest_before_seq','latest_after_seq')) and 0<c['held_before_seq']==c['held_after_seq']==c['words32'][0]==c['result_seq']<=c['latest_before_seq']<=c['latest_after_seq'],'held-bank v2 sequence facts')
  else:need(c is None,'unexpected capture')
  return (a,b)
 

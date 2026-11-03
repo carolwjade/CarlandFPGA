@@ -64,8 +64,8 @@ def validate_caps(value,*,max_commands,max_polls,duration_ns,max_io):
         if (type(max_commands) is not int or max_commands!=16
                 or type(max_polls) is not int or max_polls!=128
                 or type(duration_ns) is not int or duration_ns!=value.duration_ns
-                or type(max_io) is not int or not 1754<=max_io<=2048):
-            raise ValueError('navigation requires16 commands/128 capture polls/180s/1754..2048 I/Os')
+                or type(max_io) is not int or not navigation.prospective_io(value)<=max_io<=2048):
+            raise ValueError('navigation requires16 commands/128 capture polls/180s and complete prospective I/O capacity')
         return navigation.prospective_io(value)
     if not (type(max_commands) is int and 1<=max_commands<=command_cap(value)
             and type(max_polls) is int and 4<=max_polls<=64
