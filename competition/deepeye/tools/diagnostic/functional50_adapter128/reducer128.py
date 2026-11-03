@@ -1,10 +1,22 @@
-"""Bounded TRACE-relative intent/reducer; A alone persists and executes effects."""
+"""B131-derived primitive-copy reducer; A alone persists and executes effects.
+
+Original reducer SHA256: 590f004fb7ae9a743c4ac56d65663248dcf0223d218c02b93a78ce324f9aaf2d.
+Only flat immutable primitive records use shallow copies; other structures
+retain recursive isolation. All protocol, budget and failure checks remain.
+"""
 import copy
 from adapter128 import Plan, Refused, need, U32, AUTHORITY, validated_plan
 
 LIMITS = {'csr':65536, 'polls':2048, 'writes':128, 'pops':4096, 'pop_stages':4096,
           'cleanup_polls':256, 'work_ns':10000000000, 'cleanup_ns':2000000000,
           'work_evidence':6291456, 'cleanup_evidence':1048576, 'final_evidence':1048576}
+
+def _primitive_record(value):
+    """Prove the complete grammar before taking an independent flat copy."""
+    need(type(value) is dict, 'PLAIN_PRIMITIVE_RECORD_REQUIRED')
+    need(all(type(k) is str and type(v) in (str,int,bool,type(None))
+             for k,v in value.items()), 'FLAT_IMMUTABLE_PRIMITIVES_REQUIRED')
+    return value.copy()
 
 def read(off, label, poll=False):
     return {'kind':'read','offset':off,'value':None,'label':label,'poll':poll}
@@ -90,7 +102,7 @@ class Reducer:
                 need(intent['kind'] == 'write' and observation['value'] is None and observation['error_code'] is None, 'CONFIRMED_WRITE_FIELDS')
             else:
                 need(observation['value'] is None, 'FAILURE_VALUE_MUST_BE_NULL')
-            self.events.append({'observation':copy.deepcopy(observation)})
+            self.events.append({'observation':_primitive_record(observation)})
             self.pending = None
             if intent['kind'] == 'write' and intent['offset'] == 0x080 and intent['value'] == 1 and status != 'not_attempted':
                 self.arm_attempt_owned = True
@@ -129,8 +141,8 @@ class Reducer:
                            'window':'TRACE_HWH_RELATIVE','phase':self.phase,
                            'reserve_and_persist_before_effect_bytes':2048,
                            'phase_deadline_ns':self.limits[self.phase+'_ns']})
-            self.pending = copy.deepcopy(intent)
-            self.events.append({'intent':copy.deepcopy(intent)})
+            self.pending = _primitive_record(intent)
+            self.events.append({'intent':self.pending.copy()})
             return intent
         except StopIteration:
             self.generator = None
@@ -149,7 +161,8 @@ class Reducer:
                 'failed':self.failed,'errors':list(self.errors),'results':copy.deepcopy(self.results),
                 'confirmed_wire_prefix':bytes(self.prefix),'pending_peek':self.pending_peek,
                 'last_confirmed_pop_id':self.last_pop_id,'last_observed_unread_count':self.unread_count,
-                'outstanding_intent':copy.deepcopy(self.pending),'events':copy.deepcopy(self.events),
+                'outstanding_intent':None if self.pending is None else self.pending.copy(),
+                'events':[{k:v.copy() for k,v in event.items()} for event in self.events],
                 'time_observations':'CALLER_REPORTED_NOT_HUNG_MMIO_PROOF'}
 
     def _quiet(self):
