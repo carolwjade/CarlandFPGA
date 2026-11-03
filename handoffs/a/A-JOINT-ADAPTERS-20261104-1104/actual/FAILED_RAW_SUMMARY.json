@@ -1,0 +1,25 @@
+{
+  "scope": "MCU_TO_FPGA_RAW_FIXTURE",
+  "operation_id": "A-GEN4-UART-PATTERN-20261104-1092-R01",
+  "complete_RX_bytes": 0,
+  "A_TX_bytes": 0,
+  "status_values": {
+    "4": 5566
+  },
+  "status_samples": 5566,
+  "last_error": "raw phase deadline expired; no replay",
+  "physical_after": "same_actual_parent",
+  "journal_sha256": "855d917979f6ee460a4fcef7dacb627e112ab7440ab833a6e5fcb568835a196b",
+  "journal_bytes": 8719524,
+  "actual_process": {
+    "A_TX_frames": 0,
+    "automatic_retry": false,
+    "reader_thread_stopped": true,
+    "returncode": 2,
+    "wait_confirmed": true
+  },
+  "PS_actors": [],
+  "same_lock_acquired_released": true,
+  "wrapper_correlation_error_recovered": true,
+  "hardware_or_byte_retry": false
+}

@@ -1,0 +1,44 @@
+{
+  "status": "in_process_readback_and_input_pins_verified",
+  "reader_source_sha256": "4a23dcf5bc38c07bbc9459d9abd741c0faf86730c1efd3277a68def4a8f0046f",
+  "physical_reader1031_sha256": "d3be22472808418cc9fef164fe8ca3021987b84ecde1cef9261568155e6da57b",
+  "service_sha256": "6404ce0b0be4b1d1f85615f083c63b6d1df9fef2bd55bbaea022a35032acab13",
+  "design_sha256": "304d5587d4c1e1db2a805e99d49aa8ab943eb7c978b2afbb1eda288ce76ad49e",
+  "actual_closed_evidence": {
+    "events_sha256": "32c3d13b7ed3a31a01f7002902566dcd465d973dc989692920b4cc66227bb51b",
+    "binding_sha256": "74a26eab6f8e4a4c0b5580bb7d74bd3c6b73005fb503806c2713db3c2d06bfd5",
+    "sequence_sha256": "51856780abc2c36f207cb8df9215f05dd6cc8abd1e05295eb9131a2c123a37c8",
+    "PS_readback_sha256": "70abd9282f72131a7f07726d728b01a5dc126055b8b16559e1e1473d28115495",
+    "SSH_result_sha256": "f58d4900fdf1803d647c8cd2c01c628d9059c10b40d000db01f3484b170cbd60"
+  },
+  "Python_source_boundary_controls": "new Root execution pending after necessary measured fix",
+  "worker_process_launch": false,
+  "physical_reader_constructed": false,
+  "board": false,
+  "UART": false,
+  "network": false,
+  "old_tests_rerun": false,
+  "actual1068_compatibility": {
+    "status": "actual_prepared1070_JSON_metadata_compatible",
+    "child_file_sha256": "60d7b4f0074f24eccbe0dbf8a31672eb248ca33e4edc76bb3baabfc26e127b58",
+    "child_request_sha256": "9ea8eb9204302d2613990ddea11315515c4f6b1ae5401abfb96af4ca9784d429",
+    "closed_file_sha256": "646233d66e78a1750c399a9a52ab859b9d6a67b088bd93322565d47618648b99",
+    "purpose": "DIAGNOSTIC_ONLY",
+    "transfer_scope_required": "DIAGNOSTIC_ONLY",
+    "physical_request_sha256": "c5d09eb3c9ef754fc5996d27f1e89dd1345faf37bd81de6bb470aa2cc57ddd19",
+    "STOP": "UNCERTAIN",
+    "MCU_last_seq": "unknown; never inferred from A next_seq2",
+    "child_activated": false,
+    "permission_granted": false,
+    "reader_constructed": false,
+    "board": false,
+    "UART": false
+  },
+  "first_Root_pure_run": {
+    "exit_code": 1,
+    "preserved": "red-first-pure-run",
+    "cause": "measured Python3.12.14 Windows fstat/lstat ctime semantics; stable bytes/identity/mtime",
+    "diagnostic": "Root actual exit0; ROOT_DIAGNOSTIC_REPORTED.json"
+  },
+  "necessary_fix": "full fd stability + full path stability + cross dev/ino/mode/nlink/size/mtime; POSIX cross-ctime remains required"
+}

@@ -1,0 +1,237 @@
+{
+  "task_id": "DEEPEYE-IMPLEMENTATION-20261014",
+  "task_version": 1,
+  "work_id": "B-MCU-TX-FIXTURE-20261104-345",
+  "operation_id": "B-MCU-TX-FIXTURE-20261104-345",
+  "main_thread": "01a18824-4172-74e2-a13f-f3e3d1e3ed99",
+  "actual_turn": "01a1a3a7-d75a-7181-a610-7c00ffef0d5a",
+  "started_utc": "2026-11-03T23:17:25.987Z",
+  "script_sha256": "e314bb696c5d975cf3e8a954923d5ba0c62ca15dd66e9095aa72017e3051cc00",
+  "A_ready_proof_sha256": "e1a3102cd65b98de5fda7a2de8a3b5c747497058f272ef68c2496285c2e9906c",
+  "pattern_hex": "55a533cc0ff06996",
+  "byte_spacing_ms": 200,
+  "status": "eight_TXDATA_writes_returned_hardware_TX_drained_A_RX_unproven",
+  "reset_requested": false,
+  "flash_programmed": false,
+  "RXDATA_read": false,
+  "PDBGCTL_written": false,
+  "actuator_command_written": false,
+  "TXDATA_writes_requested": 8,
+  "TXDATA_writes_returned": 8,
+  "pre_connect_cpu_state": "unknown; connect may halt",
+  "samples": [
+    {
+      "label": "after_connect_before_any_TX",
+      "at_utc": "2026-11-03T23:17:30.303Z",
+      "cpu_halted": true,
+      "signature": "0x4d545234",
+      "state": 4,
+      "last_seq": 0,
+      "have_seq": 0,
+      "armed": 0,
+      "motor": {
+        "duty": 0,
+        "active": 0,
+        "commands": 0
+      },
+      "motor_pwm_applied": 0,
+      "pc_tx": {
+        "head": 0,
+        "tail": 0
+      },
+      "ticks": 6357822,
+      "PDBGCTL": 3,
+      "CTL0": 131129,
+      "LCRH": 48,
+      "STAT": 68,
+      "IBRD": 17,
+      "FBRD": 23,
+      "raw_free_sha256": "86051a688125b17a84db7e3bc9dc5db0d4238ceb88ec08d0bf4930153f8b27cc",
+      "raw_motor_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "label": "running_before_fixture",
+      "at_utc": "2026-11-03T23:17:30.456Z",
+      "cpu_halted": false,
+      "signature": "0x4d545234",
+      "state": 4,
+      "last_seq": 0,
+      "have_seq": 0,
+      "armed": 0,
+      "motor": {
+        "duty": 0,
+        "active": 0,
+        "commands": 0
+      },
+      "motor_pwm_applied": 0,
+      "pc_tx": {
+        "head": 0,
+        "tail": 0
+      },
+      "ticks": 6357950,
+      "PDBGCTL": 3,
+      "CTL0": 131129,
+      "LCRH": 48,
+      "STAT": 68,
+      "IBRD": 17,
+      "FBRD": 23,
+      "raw_free_sha256": "86051a688125b17a84db7e3bc9dc5db0d4238ceb88ec08d0bf4930153f8b27cc",
+      "raw_motor_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "label": "after_eight_fixture_writes",
+      "at_utc": "2026-11-03T23:17:32.799Z",
+      "cpu_halted": false,
+      "signature": "0x4d545234",
+      "state": 4,
+      "last_seq": 0,
+      "have_seq": 0,
+      "armed": 0,
+      "motor": {
+        "duty": 0,
+        "active": 0,
+        "commands": 0
+      },
+      "motor_pwm_applied": 0,
+      "pc_tx": {
+        "head": 0,
+        "tail": 0
+      },
+      "ticks": 6360320,
+      "PDBGCTL": 3,
+      "CTL0": 131129,
+      "LCRH": 48,
+      "STAT": 68,
+      "IBRD": 17,
+      "FBRD": 23,
+      "raw_free_sha256": "86051a688125b17a84db7e3bc9dc5db0d4238ceb88ec08d0bf4930153f8b27cc",
+      "raw_motor_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    }
+  ],
+  "writes": [
+    {
+      "index": 0,
+      "value": 85,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:30.589Z",
+      "write_returned_utc": "2026-11-03T23:17:30.600Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:30.616Z"
+    },
+    {
+      "index": 1,
+      "value": 165,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:30.891Z",
+      "write_returned_utc": "2026-11-03T23:17:30.901Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:30.922Z"
+    },
+    {
+      "index": 2,
+      "value": 51,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:31.193Z",
+      "write_returned_utc": "2026-11-03T23:17:31.199Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:31.221Z"
+    },
+    {
+      "index": 3,
+      "value": 204,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:31.505Z",
+      "write_returned_utc": "2026-11-03T23:17:31.512Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:31.533Z"
+    },
+    {
+      "index": 4,
+      "value": 15,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:31.810Z",
+      "write_returned_utc": "2026-11-03T23:17:31.817Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:31.839Z"
+    },
+    {
+      "index": 5,
+      "value": 240,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:32.134Z",
+      "write_returned_utc": "2026-11-03T23:17:32.140Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:32.155Z"
+    },
+    {
+      "index": 6,
+      "value": 105,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:32.428Z",
+      "write_returned_utc": "2026-11-03T23:17:32.435Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:32.453Z"
+    },
+    {
+      "index": 7,
+      "value": 150,
+      "address": "0x40101120",
+      "STAT_before": 68,
+      "write_intent_utc": "2026-11-03T23:17:32.732Z",
+      "write_returned_utc": "2026-11-03T23:17:32.743Z",
+      "STAT_drained": 68,
+      "drained_utc": "2026-11-03T23:17:32.764Z"
+    }
+  ],
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "connect_intent_utc": "2026-11-03T23:17:29.105Z",
+  "connect_returned": true,
+  "PDBGCTL_original": 3,
+  "PDBG_FREE_actual": true,
+  "PDBG_behavior": "Recorded only; CPU will run original quiescentFAULT during TX, so no debugFREE change needed",
+  "resume_intent": {
+    "at_utc": "2026-11-03T23:17:30.313Z",
+    "reason": "Explicit one continuation of actualFAULT/unarmed/motor0/emptyUART, no reset/startup/home"
+  },
+  "resume_returned": true,
+  "final": {
+    "label": "after_eight_fixture_writes",
+    "at_utc": "2026-11-03T23:17:32.799Z",
+    "cpu_halted": false,
+    "signature": "0x4d545234",
+    "state": 4,
+    "last_seq": 0,
+    "have_seq": 0,
+    "armed": 0,
+    "motor": {
+      "duty": 0,
+      "active": 0,
+      "commands": 0
+    },
+    "motor_pwm_applied": 0,
+    "pc_tx": {
+      "head": 0,
+      "tail": 0
+    },
+    "ticks": 6360320,
+    "PDBGCTL": 3,
+    "CTL0": 131129,
+    "LCRH": 48,
+    "STAT": 68,
+    "IBRD": 17,
+    "FBRD": 23,
+    "raw_free_sha256": "86051a688125b17a84db7e3bc9dc5db0d4238ceb88ec08d0bf4930153f8b27cc",
+    "raw_motor_sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+  },
+  "MCU_READY": false,
+  "cpu_halted_before_shutdown": false,
+  "shutdown_returned": true,
+  "closed_utc": "2026-11-03T23:17:32.872Z"
+}
