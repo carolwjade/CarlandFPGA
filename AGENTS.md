@@ -29,8 +29,8 @@
 
 For every DeepEye proposal, fusion, implementation, review, new main/work chat,
 and subagent, read `docs/competition/deepeye-2026/immutable_scope.md` and `.json`
-before work. Contract `DEEPEYE-HUMAN-LOCK-20261014/revision1`, requirements SHA256
-`c229834bfc2292f5fe4411fc9f12c68487008f9d1adaf31f0144ee7a98173804`.
+before work. Contract `DEEPEYE-HUMAN-LOCK-20261014/revision2`, requirements SHA256
+`2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d`.
 Preserve every H01-H15 requirement. This direct human scope overrides AI plans,
 scores, deadlines, budgets and fallback suggestions. Only a new explicit human
 instruction can amend it. Preserve game-level 3D/UI, framed hollow cube, solid
