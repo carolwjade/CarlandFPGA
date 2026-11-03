@@ -62,9 +62,10 @@ class G05CsrPolicy:
 
     def check(self):
         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1
+        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3
         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
-        age_cap=8_000_000_000 if entry_demo else 5_000_000_000
+        entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
+        age_cap=12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
         _uint(self.max_source_age_ns, 1, age_cap)
         _uint(self.health_timeout_ns, 1, age_cap)
         _uint(self.usb_upper_ns, 0, 5_000_000_000)

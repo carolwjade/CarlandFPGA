@@ -1,7 +1,7 @@
 """Original authenticated G05 projection plus explicit missing-feature metadata."""
 import copy
 import importlib
-MAX_SOURCE_AGE_NS=8_000_000_000
+MAX_SOURCE_AGE_NS=12_000_000_000
 def project_original_g05(association, *, max_source_age_ns):
     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= MAX_SOURCE_AGE_NS:
         raise ValueError('DEMO_AGE_LIMIT')

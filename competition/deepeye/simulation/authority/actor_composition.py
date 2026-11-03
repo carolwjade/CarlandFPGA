@@ -669,7 +669,7 @@ class ActorComposition:
         policy=getattr(self._config,'g05_csr_v1',None)
         if policy is None or getattr(self._config,'g05_board_output_v1',None) is None:return None
         from .g05_csr_channels_v1 import G05CsrChannels
-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_C0_V1
+        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3
         from .navigation_session_profile import NAV_ADJACENT_180S
         from .owned_invocation_v1.adapter import _selected_ai_profile
         c=self._channels
@@ -677,7 +677,7 @@ class ActorComposition:
                 or c.policy is not policy or self._config.g05_board_output_v1 is None):return None
         descriptor=policy.demo_ai_profile
         if (type(descriptor) is not DemoEM3AIProfile
-                or descriptor.navigation_profile is not NAV_ENTRY_C0_V1
+                or not (descriptor.navigation_profile is NAV_ENTRY_C0_V1 or descriptor.navigation_profile is NAV_ENTRY_C0_12S_V3)
                 or c._cycle_profile() is not NAV_ADJACENT_180S):return None
         held=self._stationary_replan
         if held is not None:

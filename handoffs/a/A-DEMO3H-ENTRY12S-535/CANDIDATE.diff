@@ -1,0 +1,150 @@
+--- 515/competition/deepeye/integration/candidate_mailbox.py
++++ 535/competition/deepeye/integration/candidate_mailbox.py
+@@ -275,7 +275,7 @@
+         self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
+         self._g05_raw4 = g05_source_age_ns is not None
+         if self._g05_raw4:
+-            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 8_000_000_000)
++            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 12_000_000_000)
+         self._observations.clear()
+         self._last_observed = None
+         self._pending = self._completed = None
+--- 515/competition/deepeye/simulation/authority/actor_composition.py
++++ 535/competition/deepeye/simulation/authority/actor_composition.py
+@@ -669,7 +669,7 @@
+         policy=getattr(self._config,'g05_csr_v1',None)
+         if policy is None or getattr(self._config,'g05_board_output_v1',None) is None:return None
+         from .g05_csr_channels_v1 import G05CsrChannels
+-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_C0_V1
++        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3
+         from .navigation_session_profile import NAV_ADJACENT_180S
+         from .owned_invocation_v1.adapter import _selected_ai_profile
+         c=self._channels
+@@ -677,7 +677,7 @@
+                 or c.policy is not policy or self._config.g05_board_output_v1 is None):return None
+         descriptor=policy.demo_ai_profile
+         if (type(descriptor) is not DemoEM3AIProfile
+-                or descriptor.navigation_profile is not NAV_ENTRY_C0_V1
++                or not (descriptor.navigation_profile is NAV_ENTRY_C0_V1 or descriptor.navigation_profile is NAV_ENTRY_C0_12S_V3)
+                 or c._cycle_profile() is not NAV_ADJACENT_180S):return None
+         held=self._stationary_replan
+         if held is not None:
+--- 515/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
++++ 535/competition/deepeye/simulation/authority/g05_csr_channels_v1.py
+@@ -62,9 +62,10 @@
+ 
+     def check(self):
+         _need(type(self) is G05CsrPolicy, 'exact G05 CSR policy required')
+-        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1
++        from .demo30h_ai_em3_profile_v2 import DemoEM3AIProfile,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3
+         entry_demo=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile==NAV_ENTRY_C0_V1)
+-        age_cap=8_000_000_000 if entry_demo else 5_000_000_000
++        entry12=(type(self.demo_ai_profile) is DemoEM3AIProfile and self.demo_ai_profile.navigation_profile is NAV_ENTRY_C0_12S_V3)
++        age_cap=12_000_000_000 if entry12 else 8_000_000_000 if entry_demo else 5_000_000_000
+         _uint(self.max_source_age_ns, 1, age_cap)
+         _uint(self.health_timeout_ns, 1, age_cap)
+         _uint(self.usb_upper_ns, 0, 5_000_000_000)
+--- 515/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
++++ 535/competition/deepeye/simulation/authority/g05_csr_projection_v1.py
+@@ -161,7 +161,7 @@
+     """Project only an association retained inside the actual actor transaction."""
+     from .owned_invocation_v1.adapter import _Association, _root_guard
+     from ...tools.run_causal_functional_chain import _RegistryView, _RegistryHold
+-    _uint(max_source_age_ns,1,8_000_000_000)
++    _uint(max_source_age_ns,1,12_000_000_000)
+     _need(type(association) is _Association and type(association.g05_mapping) is _Mapping,
+           'original typed observation association required')
+     a=association; m=a.g05_mapping; c=m.channels; o=c.owner
+--- 515/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/projection.py
++++ 535/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/projection.py
+@@ -1,7 +1,7 @@
+ """Original authenticated G05 projection plus explicit missing-feature metadata."""
+ import copy
+ import importlib
+-MAX_SOURCE_AGE_NS=8_000_000_000
++MAX_SOURCE_AGE_NS=12_000_000_000
+ def project_original_g05(association, *, max_source_age_ns):
+     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= MAX_SOURCE_AGE_NS:
+         raise ValueError('DEMO_AGE_LIMIT')
+--- 515/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
++++ 535/competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py
+@@ -13,6 +13,9 @@
+ NAV_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-FAST-V1', 'sha256': '11ff1d2895c46ab7135e18835e06afa5b4251665341f215eda1ede6e4969e861'}
+ ENTRY_C0_ENGINEERING_PROFILE = {'profile_id':'DEEPEYE-EM3-NAV-ENTRY-C0-DEMO8S-V1','sha256':'678386c5ba8fec15dd9c6f0bb19daa18e3d86af55b8b3789991b3a99be98c47f'}
+ 
++ENTRY_C0_12_ENGINEERING_PROFILE = {'profile_id': 'DEEPEYE-EM3-NAV-ENTRY-C0-DEMO12S-V3', 'sha256': 'a69f7a8330ddeb3bc07278be28f6eea9b1f692c4b5076e4ea70c28664d3406dd'}
++ENTRY_C0_12_MAX_SOURCE_AGE_NS = 12_000_000_000
++
+ @dataclass(frozen=True, slots=True)
+ class EM3NavigationProfile:
+     profile_id: str
+@@ -20,6 +23,7 @@
+ 
+ NAV_FAST_V1=EM3NavigationProfile(NAV_ENGINEERING_PROFILE['profile_id'],NAV_ENGINEERING_PROFILE['sha256'])
+ NAV_ENTRY_C0_V1=EM3NavigationProfile(ENTRY_C0_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_ENGINEERING_PROFILE['sha256'])
++NAV_ENTRY_C0_12S_V3=EM3NavigationProfile(ENTRY_C0_12_ENGINEERING_PROFILE['profile_id'],ENTRY_C0_12_ENGINEERING_PROFILE['sha256'])
+ 
+ @dataclass(frozen=True, slots=True)
+ class DemoEM3AIProfile:
+@@ -39,18 +43,21 @@
+     prospective_command_max_ns: int = 1_000_000_000  # New typed demo policy only; not a core action change.
+ 
+ def selected_profile(max_source_age_ns, *, navigation_profile=None):
+-    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1)):
++    if navigation_profile is not None and (type(navigation_profile) is not EM3NavigationProfile or navigation_profile not in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)):
+         raise ValueError('FIXED_EM3_NAV_PROFILE')
++    entry12=navigation_profile==NAV_ENTRY_C0_12S_V3
+     entry_c0=navigation_profile==NAV_ENTRY_C0_V1
+-    cap=ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
++    cap=ENTRY_C0_12_MAX_SOURCE_AGE_NS if entry12 else ENTRY_C0_MAX_SOURCE_AGE_NS if entry_c0 else MAX_SOURCE_AGE_NS
+     if type(max_source_age_ns) is not int or not 0 < max_source_age_ns <= cap:
+         raise ValueError('DEMO_AGE_LIMIT')
+-    if entry_c0:
++    if entry12:
++        from . import verifier_c0_demo_v5 as selected_verifier
++    elif entry_c0:
+         from . import verifier_c0_demo_v3 as selected_verifier
+     else:
+         selected_verifier=verifier
+-    engineering=ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
+-    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
++    engineering=ENTRY_C0_12_ENGINEERING_PROFILE if entry12 else ENTRY_C0_ENGINEERING_PROFILE if entry_c0 else NAV_ENGINEERING_PROFILE if navigation_profile is not None else STRICT_ENGINEERING_PROFILE
++    root = Path(__file__).resolve().parents[3]/'ai_pc'/('demo30h_owned_em3_package_v5' if entry12 else 'demo30h_owned_em3_package_v3' if entry_c0 else 'demo30h_owned_em3_package_v2')
+     manifest_path = root/'package-manifest.json'
+     raw = manifest_path.read_bytes()
+     digest = hashlib.sha256(raw).hexdigest()
+--- 515/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
++++ 535/competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py
+@@ -309,8 +309,8 @@
+     policy.check();need(type(binding) is host_clock.QpcHostClock,'original fixed QPC required')
+     selected=_selected_ai_profile(config)
+     if policy.navigation_profile is not None:
+-        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1
+-        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1)
++        from ..demo30h_ai_em3_profile_v2 import DemoEM3AIProfile, NAV_FAST_V1, NAV_ENTRY_C0_V1, NAV_ENTRY_C0_12S_V3
++        need(type(selected) is DemoEM3AIProfile and selected.navigation_profile in (NAV_FAST_V1,NAV_ENTRY_C0_V1,NAV_ENTRY_C0_12S_V3)
+              and selected.prospective_command_max_ns==3_000_000_000,
+              'navigation requires explicit fixed EM3 navigation descriptor with3s validity')
+     if policy.demo_duration_v1:
+--- 515/competition/deepeye/tools/diagnostic/demo30h_age_budget_a.py
++++ 535/competition/deepeye/tools/diagnostic/demo30h_age_budget_a.py
+@@ -3,7 +3,7 @@
+ 
+ _KEY=object()
+ _SELECTED={}
+-_MAX_NS=8_000_000_000
++_MAX_NS=12_000_000_000
+ _MAX_SELECTIONS=16
+ 
+ class DemoAgeBudget:
+--- 515/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
++++ 535/competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py
+@@ -139,7 +139,7 @@
+         _integer(value, low, high, name)
+     _need(type(select_owner_work_v1) is bool, 'strict owner work selection required')
+     if max_source_age_ns is not None:
+-        _integer(max_source_age_ns, 100_000_001, 8_000_000_000, 'explicit demo age')
++        _integer(max_source_age_ns, 100_000_001, 12_000_000_000, 'explicit demo age')
+         _need(max_source_age_ns <= duration_ns, 'demo age must fit fixed board duration')
+     _need(type(legacy_context) is dict and type(c42_context) is dict, 'exact original context dictionaries required')
+     _validate_context(legacy_context, c42_context)

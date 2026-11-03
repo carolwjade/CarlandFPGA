@@ -275,7 +275,7 @@ class LatestCompletedMailbox:
         self._age_cap = (1500 if context['transport_profile_id'] == 1 else 12000) * NS_PER_MS
         self._g05_raw4 = g05_source_age_ns is not None
         if self._g05_raw4:
-            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 8_000_000_000)
+            self._age_cap = _integer(g05_source_age_ns, 'explicit G05 source age', 1, 12_000_000_000)
         self._observations.clear()
         self._last_observed = None
         self._pending = self._completed = None

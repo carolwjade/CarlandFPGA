@@ -1,0 +1,48 @@
+{
+  "frozen": true,
+  "prepare_only": true,
+  "source_count": 174,
+  "base_count": 169,
+  "changed": [
+    "competition/deepeye/integration/candidate_mailbox.py",
+    "competition/deepeye/simulation/authority/actor_composition.py",
+    "competition/deepeye/simulation/authority/g05_csr_channels_v1.py",
+    "competition/deepeye/simulation/authority/g05_csr_projection_v1.py",
+    "competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/projection.py",
+    "competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/__init__.py",
+    "competition/deepeye/simulation/authority/owned_invocation_v1/adapter.py",
+    "competition/deepeye/tools/diagnostic/demo30h_age_budget_a.py",
+    "competition/deepeye/tools/diagnostic/demo30h_pre_source_coordinator_a.py"
+  ],
+  "added": [
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v5/c37_entry.py",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v5/c37_package.py",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v5/em3_core.py",
+    "competition/deepeye/ai_pc/demo30h_owned_em3_package_v5/package-manifest.json",
+    "competition/deepeye/simulation/authority/demo30h_ai_em3_profile_v2/verifier_c0_demo_v5.py"
+  ],
+  "core_sha256": "a116e848b04e2d6e511b427b7e507a1943206afd8959792c0155c88bfc265ce8",
+  "package_manifest_sha256": "7bccae7171fc01cf013715de9e5e945693a1ddbe6417590003391382b0334972",
+  "engineering_profile_sha256": "a69f7a8330ddeb3bc07278be28f6eea9b1f692c4b5076e4ea70c28664d3406dd",
+  "syntax_python_files": 160,
+  "focused_unique_cases_verified": 15,
+  "focused_evidence": "12 controls passed in initial15 run;3 import errors jsonschema due harness -I excluding hostdeps; only failed3 rerun fresh with explicit hostdeps path passed3/3. Original failure preserved. No product modifications after first test.",
+  "CPU9": "not_run",
+  "actor16": "not_run",
+  "board": false,
+  "final_acceptance": "not_run",
+  "old_v2_v3_packages_and_verifiers_byte_identical": true,
+  "prospective_command_max_ns": 3000000000,
+  "normalization_ms": 5000,
+  "original_quality_age_ns": 100000000,
+  "source_health_cap_ns": 12000000000,
+  "files": {
+    "SOURCE_MANIFEST.json": "cd60c344dd341cf967813180291a219ac6e980c0d13a45ae6267529f1b95436c",
+    "CANDIDATE.diff": "f493103938af2307c83a39119b6604bdd2bda4c3113dbec396e021505da6bf34",
+    "ENGINEERING_PROFILE_DEFINITION.json": "11b7995f1ca391d935e1f6abafe4c108c5ea3473692e23f3fb2be9e51580cdaf",
+    "focused-first-missing-hostdeps.log": "22126051584e18b1c3f3591c58f16a6ec35e353751e6969291a2a9a172b22a8d",
+    "focused-three-with-hostdeps.log": "358eb219e744abd2a16d63599882236122ce19bf4e0db49c1d1e93f32d0b30c2",
+    "test_candidate535.py": "442b2555040297359d3572a509b549de22a582e8658f1efa4907e1fdf305a3c2",
+    "QUALIFICATION_ADAPTATION.txt": "f48a267213e11921dd9872f3551f4bfcf57814fe232e91498ba860310522fc78"
+  }
+}

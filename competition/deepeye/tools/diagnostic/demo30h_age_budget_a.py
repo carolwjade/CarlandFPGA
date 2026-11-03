@@ -3,7 +3,7 @@ import threading
 
 _KEY=object()
 _SELECTED={}
-_MAX_NS=8_000_000_000
+_MAX_NS=12_000_000_000
 _MAX_SELECTIONS=16
 
 class DemoAgeBudget:
