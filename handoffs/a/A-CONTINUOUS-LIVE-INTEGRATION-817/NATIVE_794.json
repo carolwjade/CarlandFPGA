@@ -1,0 +1,138 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "candidate_only": true,
+  "headless_controls": {
+    "passed": 12,
+    "actual_exit": 0,
+    "wait_confirmed": true,
+    "UI": false,
+    "board": false
+  },
+  "main_check_only": {
+    "exit": 0,
+    "wait_confirmed": true
+  },
+  "files": {
+    "API.md": {
+      "sha256": "9ef4ebc0fd2891527f7a33bb2f82c89b91460679e1db35220cfcfcb30586e74f",
+      "bytes": 7045
+    },
+    "BASE_PINS.json": {
+      "sha256": "00de548fda3400685646c5e15ea3b87c867c96ee945b35d63c93c5f195749057",
+      "bytes": 358
+    },
+    "HEADLESS.first-failure.process.json": {
+      "sha256": "076dadf4262246896db5dc8e3903c406400a47bbc3a1e1122f4903f9102e1bcc",
+      "bytes": 630
+    },
+    "HEADLESS.first-failure.stdout.txt": {
+      "sha256": "5599f17aa43a434442fa7006ffb9ecb3ec1a41f790a017fadbfd46f7497aaaff",
+      "bytes": 261
+    },
+    "HEADLESS.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "HEADLESS.stdout.txt": {
+      "sha256": "b973103494b74e3674a8d12f799b5193e126f2b30369d1181bbf7bd91044b06f",
+      "bytes": 262
+    },
+    "HEADLESS_PROCESS.json": {
+      "sha256": "73dccf129bc5343af4cdbf53de427e236e89cea0b6aa764c64e9d5d53a9af119",
+      "bytes": 593
+    },
+    "Main.integration.patch": {
+      "sha256": "45d53520a4f56ac3dc153c582e0414fd4be16ba9a0d3fee6fb89cb795263e9b5",
+      "bytes": 4327
+    },
+    "MAIN_PARSE.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "MAIN_PARSE.stdout.txt": {
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "bytes": 75
+    },
+    "MAIN_PARSE_PROCESS.json": {
+      "sha256": "77f6ba4a4fef23717cba1aedf8b27e8b6eb2a09ff47982feca69de320047ed76",
+      "bytes": 618
+    },
+    "headless/project.godot": {
+      "sha256": "0b12a2978e254938880f9dfa7475f499e5de6f32a2c5ab800a82b84208f23164",
+      "bytes": 115
+    },
+    "headless/test794.gd": {
+      "sha256": "25db0d7789222af805d3885ed0fad5b85453d4c64025581320edff007d0eed53",
+      "bytes": 3702
+    },
+    "candidate/runtime/continuous_live_runner.gd": {
+      "sha256": "823b9ce0b4a1d3260d2c2c9aab36140c83d398d291ee5f8f03946bc7c90e94a4",
+      "bytes": 11912
+    },
+    "candidate/runtime/continuous_volume_guard.gd": {
+      "sha256": "45d91209519537d2e9942c50361a0bd2170c2b33c84ff58fc40c9a2e21034e39",
+      "bytes": 3495
+    },
+    "candidate/viewer/main.gd": {
+      "sha256": "30345a99355854481f151bd39909f0c988838cd9c1fa273a8400c9d0c84b9aee",
+      "bytes": 63172
+    },
+    "headless/editor/gate_json_numbers.gd": {
+      "sha256": "8554c99c1d8b70c9ef7471b3eb06ee994aef6f33397a2612f09d5c55aa73a3fa",
+      "bytes": 4504
+    },
+    "headless/editor/gate_numeric.gd": {
+      "sha256": "2d24309cf21a907ca655bf89a920aa9c442bef31966eee392807cb747dd9be73",
+      "bytes": 8929
+    },
+    "headless/editor/layout_codec.gd": {
+      "sha256": "3e4108e4b3d0b8de0976dd8b335cb46d01cf61e3bba52b67f44b1a8522263757",
+      "bytes": 15440
+    },
+    "headless/editor/scene_document.gd": {
+      "sha256": "fec09464c16df18d7c9b8703188d518e5f5233e6e393c411684c709247ca0b2e",
+      "bytes": 34995
+    },
+    "headless/physics/motion_cast.gd": {
+      "sha256": "c71d8123bb8b48e16692faa45623d9075f4ebd00efd86d6bb199ca94bfd3d1b3",
+      "bytes": 6112
+    },
+    "headless/runtime/canonical_live_motion.gd": {
+      "sha256": "0baf6dead564153aa939203c258307cbcd52eb194d4fe3e8f7bfccf895f5df7e",
+      "bytes": 3472
+    },
+    "headless/runtime/continuous_live_runner.gd": {
+      "sha256": "823b9ce0b4a1d3260d2c2c9aab36140c83d398d291ee5f8f03946bc7c90e94a4",
+      "bytes": 11912
+    },
+    "headless/runtime/continuous_volume_guard.gd": {
+      "sha256": "45d91209519537d2e9942c50361a0bd2170c2b33c84ff58fc40c9a2e21034e39",
+      "bytes": 3495
+    },
+    "headless/viewer/asset_presenter.gd": {
+      "sha256": "37bd5bd15a8436ca8d2a9e65eabfa8e7ffd0f7b4f66aca337026d90777923207",
+      "bytes": 17570
+    },
+    "headless/viewer/authority_pose_bridge.gd": {
+      "sha256": "be808f791ea2839204d5071709b427c6603b0d13f7595ca13a2673600ccb5873",
+      "bytes": 7068
+    },
+    "headless/viewer/main.gd": {
+      "sha256": "ff3c1ace9a651bb7847a3c2337a52a6ffd994352f8d33819f7d5386e613754b1",
+      "bytes": 61669
+    }
+  },
+  "changed_product_candidates": [
+    "runtime/continuous_live_runner.gd",
+    "runtime/continuous_volume_guard.gd",
+    "viewer/main.gd via Main.integration.patch"
+  ],
+  "unchanged_dependencies": [
+    "runtime/canonical_live_motion.gd",
+    "physics/motion_cast.gd"
+  ],
+  "formal_acceptance": "not_run",
+  "integrated_install_tcp_source_board_run": "not_run",
+  "remaining": "Root review/apply Main seam preserving concurrent edits, startup/token/clock mapping/real receipt validation/UI control wiring/lifecycle; real board Root only"
+}

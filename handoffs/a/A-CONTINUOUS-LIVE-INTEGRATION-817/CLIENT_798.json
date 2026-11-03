@@ -1,0 +1,39 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "files": {
+    "native_client.py": {
+      "sha256": "946ed6c0f857776ae18c5b493d98b588c4a4312a172f3a16ade84cbc584322ec",
+      "bytes": 13593
+    },
+    "PURE_CONTROLS.stderr.txt": {
+      "sha256": "ccdeed50397d60467aa49189c1602a123cebda7c5779e234842581ae9a8410b7",
+      "bytes": 106
+    },
+    "PURE_CONTROLS.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "README.md": {
+      "sha256": "71498d0a0a2a5a2010a84ae5fcd2fc87654766697d61ea9d407615e0fd8b5772",
+      "bytes": 6951
+    },
+    "test_pure_798.py": {
+      "sha256": "0a1a1f5bd8ceed2fdcb71dc46069967fd63ec2ac6c688aca202fa6122390b36c",
+      "bytes": 4400
+    }
+  },
+  "tests": {
+    "pure_controls": 3,
+    "exit_code": 0,
+    "AST": "passed",
+    "socket": "fake_only"
+  },
+  "native_started": false,
+  "board": false,
+  "UI": false,
+  "network_connection": false,
+  "model": false,
+  "formal_acceptance": "not_run",
+  "integration_scope": "Root supplies actual native endpoint/token, real791receipt, conservative SAME-host-QPC grant and lifecycle; no existing794/source/product changed"
+}

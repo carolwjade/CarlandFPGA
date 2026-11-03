@@ -1,0 +1,139 @@
+{
+  "work_id": "A-CONTINUOUS-AI-797",
+  "status": "candidate_only",
+  "contract": {
+    "contract_id": "DEEPEYE-HUMAN-LOCK-20261014",
+    "revision": 2,
+    "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+    "source_path": "C:\\Users\\CarlJade\\.codex\\worktrees\\a-demo-production-channel\\FPGA多机协作开发\\docs\\competition\\deepeye-2026\\immutable_scope.json",
+    "file_sha256": "095c7d07e7b02de671ebd63074f057c654e222a8cb7cee788fc7eb9785249c39"
+  },
+  "numeric_source": {
+    "path": "C:\\Users\\CarlJade\\.codex\\worktrees\\a-demo-production-channel\\FPGA多机协作开发\\competition\\deepeye\\ai_pc\\demo30h_owned_em3_package_v8\\em3_core.py",
+    "relative_path": "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py",
+    "sha256": "fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa",
+    "unchanged_original_package": true
+  },
+  "numeric_ast_reuse": {
+    "_clip": {
+      "source_line_start": 261,
+      "source_line_end": 262,
+      "ast_sha256": "ab22a6a4022c366a4f5e6e7e41016145bee160f9bae78f9689e30e123a241a26"
+    },
+    "_contact_penalty": {
+      "source_line_start": 289,
+      "source_line_end": 290,
+      "ast_sha256": "fc0bc5fff4efea8fb44f3db30c9403457ddda8c04255c2cffdf9145ce2090437"
+    },
+    "_direction_supported": {
+      "source_line_start": 265,
+      "source_line_end": 269,
+      "ast_sha256": "b246118678aa79f8bc5681e09b86fe717c938355f294bb33758b2e14c07606bd"
+    },
+    "_integer": {
+      "source_line_start": 60,
+      "source_line_end": 62,
+      "ast_sha256": "10f46b68521308b54284a1780de0ed904b10a1ca0551dae18896a88c84666cf4"
+    },
+    "_need": {
+      "source_line_start": 51,
+      "source_line_end": 53,
+      "ast_sha256": "3bcc091a42c900b862d0179bd44379b0c026bbd9a9ee7e87df9e306d09feda0d"
+    },
+    "_norm": {
+      "source_line_start": 257,
+      "source_line_end": 258,
+      "ast_sha256": "7c7c6fa173880a65c04232828fb2eedae87ab8b87defd97c3f95a9471ad9845a"
+    },
+    "_poses_applicable": {
+      "source_line_start": 272,
+      "source_line_end": 286,
+      "ast_sha256": "fa60fe9e02ab65c1fd2e81a593c230d005ae15208c7add1158073314b886666d"
+    },
+    "_risk": {
+      "source_line_start": 293,
+      "source_line_end": 294,
+      "ast_sha256": "ac7bb17660a9b03ea5cd6976d55da8a67272adbe8e1c3d409fe0679f276831ce"
+    },
+    "_rotate": {
+      "source_line_start": 250,
+      "source_line_end": 254,
+      "ast_sha256": "f60568d4b95f769257be6eed43902a841225dee9cac24152eebcb0a6eb43c74d"
+    },
+    "decode_counts": {
+      "source_line_start": 115,
+      "source_line_end": 127,
+      "ast_sha256": "74ec08a5b2122654853c9cc68a1d9df09e7e28dee3e74d73b65655201417d7d0"
+    },
+    "recommend_original_ranking_loop": {
+      "source_line_start": 365,
+      "source_line_end": 394,
+      "ast_sha256": "49c1331e154ff4bcd13206f7c28afa47d5fdd0222c0c2c65f9a18c573960a8cc"
+    },
+    "recommend_original_direction_risk": {
+      "source_line_start": 378,
+      "source_line_end": 379,
+      "ast_sha256": "1ded03eb925cdc545a5ed4afb37150d530a39c535364f68f3d46be0e3869ec1a"
+    }
+  },
+  "new_profile": "deepeye_continuous_em3_advice_candidate_797_v1",
+  "prior_package_qualification": "not_inherited",
+  "dependencies": {
+    "python_minimum": "3.10",
+    "verified_python": "3.12.14",
+    "third_party": [],
+    "runtime_stdlib": [
+      "ast",
+      "concurrent.futures",
+      "copy",
+      "dataclasses",
+      "hashlib",
+      "json",
+      "math",
+      "pathlib",
+      "re",
+      "threading",
+      "time",
+      "types"
+    ],
+    "read_only_source_files": [
+      "competition/deepeye/ai_pc/demo30h_owned_em3_package_v8/em3_core.py",
+      "docs/competition/deepeye-2026/immutable_scope.json"
+    ],
+    "sensor793_runtime_import": false
+  },
+  "authorization": "none; Root alone owns hardware/native/controller integration and acceptance",
+  "artifacts": {
+    "live_ai_worker.py": {
+      "sha256": "263c2bf0dbf0de2f5dcd2f497481f727a7e3524a729130300b3c83a0ea7e9f0e",
+      "bytes": 21585
+    },
+    "controls797.py": {
+      "sha256": "ac7ee122e81cedc18104f62b4357d59aa1b0618b3f3c8fa81badc618cdf3d9b7",
+      "bytes": 7244
+    },
+    "README.md": {
+      "sha256": "090acfc3152a1a05439946f8bd55a8933b2ca13c8054cc9b872059928076fe1f",
+      "bytes": 7179
+    },
+    "API.md": {
+      "sha256": "e3051484b2d6a660ea6119651fb1eb6b6714c9f296448399dd754e3aa5803852",
+      "bytes": 6675
+    },
+    "requirements.txt": {
+      "sha256": "b77f1f2f07b3f1d74c09de5b2ffba4f9776362d5bdef8a67ad8cb90dd3167f52",
+      "bytes": 135
+    },
+    "VERIFICATION.json": {
+      "sha256": "d2b691ba13f028660a0dc905f76927e474ebb15ee22dcfbe0d0d04b27ddd0540",
+      "bytes": 1629
+    }
+  },
+  "preserved_evidence": [
+    "DISPATCH.json",
+    "PROMPT.txt",
+    "STARTED.json",
+    "events.jsonl",
+    "stderr.bin"
+  ]
+}

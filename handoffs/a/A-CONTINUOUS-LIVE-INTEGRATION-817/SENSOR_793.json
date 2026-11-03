@@ -1,0 +1,78 @@
+{
+  "work_id": "A-LIVE-SENSOR-793",
+  "owner": "A-owned native implementation child; candidate directory only",
+  "status": "source_candidate_controls_passed; live_integration_not_run",
+  "contract": "DEEPEYE-HUMAN-LOCK-20261014/revision2",
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "requirements_canonicalization": "UTF-8;ensure_ascii=False;sort_keys=True;separators=(',',':')",
+  "source_root": "C:\\Users\\CarlJade\\.codex\\worktrees\\a-demo-production-channel\\FPGA多机协作开发",
+  "source_dependencies": [
+    {
+      "path": "competition/deepeye/simulation/sensors/forward_profile.py",
+      "sha256": "6a5f70a6acdaa6de52fc72d678d452956861370e1d143b70219ced107c5a04c9",
+      "reuse": "unchanged pure module; Pose, _kernel_channels, _counts_from_value and constants"
+    },
+    {
+      "path": "competition/deepeye/simulation/sensors/owned_world_field.py",
+      "sha256": "c7eec4a9fe5e57434d11a0d807d15fcf7dc215ab55db7b01700bf0d9bf5d4c37",
+      "reuse": "unchanged ASTs _number and OwnedWorldField._sample_sigma_pure; new isolated _SnapshotSigma, no old owner instance"
+    }
+  ],
+  "runtime_dependencies": {
+    "python_minimum": "3.10",
+    "python_verified": "3.12.14",
+    "third_party_packages": [],
+    "default_clock": "time.perf_counter_ns; QueryPerformanceCounter() verified on this host"
+  },
+  "api": {
+    "construct": "LiveSensorWorker(source_root=...,world_epoch=...,private_pieces=...,background_sigma=...,material_sigma=...)",
+    "existing_scene": "LiveSensorWorker.from_private_scene(private_scene=complete_scene, ...)",
+    "input": "frozen flat SnapshotPose or original 784-shaped frozen SnapshotPose; Root authenticates native acceptance",
+    "submit": "submit(snapshot) -> Future[SensorResult] or None when busy; no queue",
+    "read": "latest(world_epoch) -> SensorResult or None; does not refresh acquisition time",
+    "serialize": "SensorResult.to_payload(); exact whitelist; ns as decimal strings",
+    "retire": "close(wait=True); wait=False does not terminate an already executing numeric call"
+  },
+  "provenance": {
+    "source_mode": "candidate_simulated_sensor",
+    "scope": "spatial EM kernel only; legacy temporal/filter/noise/contact semantics not applied",
+    "C3": "null; no contact history supplied",
+    "layout_truth": "private source worker only; no obstacle/map/seed/material class/collision oracle output",
+    "old_receipts_forged": false,
+    "source_files_modified": false,
+    "original4pins_modified": false
+  },
+  "validation": {
+    "command": "python -B controls793.py",
+    "focused_controls": 3,
+    "passed": 3,
+    "elapsed_s": 0.286,
+    "numeric_kernel_calls": 1,
+    "numeric_evidence": "NUMERIC_SMOKE.json",
+    "numeric_scope": "new source numeric software fixture only",
+    "acquisition_to_completion_ms": 249.3344,
+    "initial_red": "3 expected failures: candidate module absent",
+    "broad_regressions": "not_run",
+    "native": "not_run",
+    "board": "not_run",
+    "G03": "not_run",
+    "G09": "not_run",
+    "PDE_CPU_RTL_acceptance": "not_run",
+    "final_qualification": "not_run"
+  },
+  "remaining_integration": [
+    "Root supplies authenticated actual accepted snapshots and complete same-epoch private scene/material inputs",
+    "Root rejects stale/old-epoch results using original acquisition time; pending numerical work must not gate continuous motion",
+    "Root and B own native/control/live-wire integration; not performed by this child",
+    "Single scalar cold fixture took 249.3344ms; 100ms or 20Hz not established"
+  ],
+  "instructional_access_limitation": "Advertised W project skills absent; advertised original project skill paths denied. Explicit child dispatch and revision2 were read and obeyed.",
+  "artifact_sha256": {
+    "live_sensor_worker.py": "3d338dbcc85ebaa3f14087903744634deca1889a0b8b2213477bed7daca92c3d",
+    "controls793.py": "bf9aca5ba43655c8567b4939e1a62df91ba620c538d01b90a08b7b808d1786c4",
+    "IMPLEMENTATION.md": "15c6d9b422dac0d115476352a241225399f8099c9df278d9f3e970ad948963bd",
+    "README.md": "ac62a5c3683263a1665d342a5954c624116d047760d644b0fb29f85528f1d45a",
+    "CONTROLS.log": "c994456c696b868afda73fa298967e71998854b057c3d6f32af4003551652c73",
+    "NUMERIC_SMOKE.json": "c16fbf04ceef1ed3929fa751ed5fb19e040c7d774f16f8f1561ed5d82e96083b"
+  }
+}

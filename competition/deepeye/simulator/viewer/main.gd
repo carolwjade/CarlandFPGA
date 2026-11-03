@@ -30,6 +30,7 @@ var _gate_root: Node3D
 var _ticks_root: Node3D
 var _drill_root: Node3D
 var _authority_pose_bridge = null
+var _continuous_live: Node = null
 var _selection_box: MeshInstance3D
 var _material_cache: Dictionary = {}
 var _asset_presenter: RefCounted
@@ -149,7 +150,7 @@ func _authority_renderer_allowed(target: Node3D) -> bool:
 		return false
 	if not _owned_startup_status().get("ok", false):
 		return false
-	return _owned_world_bridge == null and _owned_geometry_token == null and target.get_parent() == _world and _world.get_parent() == self
+	return _continuous_live == null and _owned_world_bridge == null and _owned_geometry_token == null and target.get_parent() == _world and _world.get_parent() == self
 
 func bind_authority_renderer(run_id: String) -> bool:
 	if _authority_pose_bridge != null or not _authority_renderer_allowed(_drill_root):
@@ -942,7 +943,7 @@ func _build_gate_visual(which: String) -> bool:
 	return true
 
 func _owned_attach_world_bridge(bridge: Object) -> bool:
-	if not is_instance_valid(bridge) or _owned_world_bridge != null or _authority_pose_bridge != null or not _owned_startup_status().ok:
+	if _continuous_live != null or not is_instance_valid(bridge) or _owned_world_bridge != null or _authority_pose_bridge != null or not _owned_startup_status().ok:
 		return false
 	if not document._owned_attach_bridge(bridge):
 		return _owned_fail("bridge", "document_bind_refused")
@@ -1466,3 +1467,37 @@ func _owned_frozen_fingerprint(bridge: Object, token: RefCounted) -> Dictionary:
 	for retained: Dictionary in _owned_resources.values():
 		resources.append({"resource":retained.resource,"fingerprint":validation.resource_fingerprints[retained.resource],"consumers":retained.consumers.duplicate()})
 	return {"nodes":nodes,"resources":resources,"document_generation":document._owned_generation(bridge),"geometry_generation":_owned_geometry_generation,"presenter":_asset_presenter._owned_frozen_state(self, bridge, token)}
+
+# Explicit opt-in live demo; old owned publication/renderer entry remains exclusive.
+func bind_continuous_live(port: int, token: String) -> Dictionary:
+	if _continuous_live != null or _owned_world_bridge != null or _owned_geometry_token != null or _authority_pose_bridge != null or not _owned_startup_status().ok:
+		return {"ok":false,"reason":"exclusive_live_owner_required"}
+	if not document.can_edit():return {"ok":false,"reason":"editable_layout_required"}
+	var shapes: Array=[]
+	_continuous_collect_shapes(_obstacle_root,shapes)
+	if shapes.size()!=document.obstacles.size():return {"ok":false,"reason":"complete_obstacle_envelopes_required"}
+	var script: Script=load("res://runtime/continuous_live_runner.gd")
+	if script==null:return {"ok":false,"reason":"live_script_missing"}
+	var runner: Node=script.new()
+	# Independent new entry: legacy custody deliberately forbids scripted children.
+	# Do not bypass its validation or present this as an old managed publication.
+	_continuous_live=runner
+	add_child(runner)
+	return runner.install(self,_drill_root,shapes,{"center":document.gate_position("entry"),"normal":document.gate_normal("entry")},{"center":document.gate_position("exit"),"normal":document.gate_normal("exit")},port,token)
+
+func _continuous_collect_shapes(node: Node, result: Array) -> void:
+	if node is CollisionShape3D and node.shape!=null:
+		result.append({"shape":node.shape,"transform":node.global_transform})
+	for child in node.get_children():_continuous_collect_shapes(child,result)
+
+func _continuous_owner_valid(runner: Node, token: RefCounted, generation: int) -> bool:
+	return runner==_continuous_live and _owned_world_bridge==null and _owned_geometry_token==null and _authority_pose_bridge==null and is_instance_valid(_drill_root) and _drill_root.get_parent()==_world and document._owned_is_locked(runner,token) and document._owned_generation(runner)==generation
+
+func _continuous_pose_write(runner: Node, desired: Transform3D, revision: String) -> bool:
+	if runner!=_continuous_live or not desired.is_finite() or not document._owned_is_locked(runner,runner._lock):return false
+	_drill_root.global_transform=desired
+	_owned_pose_revision=revision
+	return _drill_root.global_transform.is_equal_approx(desired)
+
+func read_continuous_live_state() -> Dictionary:
+	return {} if _continuous_live==null else _continuous_live.state()

@@ -1,0 +1,42 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "files": {
+    "command_map.py": {
+      "sha256": "56eed72ac505e025801674a0f5f79479286b51fe3c8e07b2bee17599363fbc28",
+      "bytes": 5051
+    },
+    "PURE_CONTROLS.stderr.txt": {
+      "sha256": "383a12fba9b5b327054a24ce7e5739569c4f0b6621facd981f2d6a4271063b3c",
+      "bytes": 106
+    },
+    "PURE_CONTROLS.stdout.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "README.md": {
+      "sha256": "7e40b2985fd5061d0d0e28154966359e346941e16e81e8587e1cdb43aecdc2c1",
+      "bytes": 3581
+    },
+    "test_pure810.py": {
+      "sha256": "d2b08eb0e3394460705fc9ae053c5edab96d157059761ba1953d21f021d82efd",
+      "bytes": 2926
+    }
+  },
+  "API": "command_for_advice(advice,current_native,operatorcap,paused)->{yaw_q,pitch_q,speed_code,reason}",
+  "profile": "continuous_command_map_810_horizon035_v1",
+  "horizon_m": 0.35,
+  "combined_curvature_max_per_m": 0.5,
+  "tests": {
+    "pure_count": 3,
+    "exit_code": 0,
+    "AST": "passed"
+  },
+  "board": false,
+  "network": false,
+  "UI": false,
+  "native": false,
+  "AI": false,
+  "formal_acceptance": "not_run",
+  "dependency": "original competition.deepeye.integration.motion validate/curvature_limit_squared, unchanged"
+}

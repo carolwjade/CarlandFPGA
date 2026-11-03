@@ -1,0 +1,80 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "controller_reviewed_sha256": "16aa629ffb734a89857cac191f1a7467d2ae724c45e8da405e5d53afa1f89aa1",
+  "controller_source_snapshot": "controller808.reviewed.py",
+  "anchors": {
+    "NATIVE_SAFETY_FAULT": [
+      55
+    ],
+    "operator_generation+=1": [
+      61,
+      67
+    ],
+    "native.stop()": [
+      95,
+      167
+    ],
+    "board_pool.submit(board.request": [
+      98
+    ],
+    "if source_future is None and source_pending is None": [
+      104
+    ],
+    "command_for_advice(advice,state": [
+      111,
+      133
+    ],
+    "actual_source_stale": [
+      120
+    ],
+    "elif held is not None": [
+      135,
+      142
+    ],
+    "elif source_pending is not None": [
+      146
+    ]
+  },
+  "findings": [
+    {
+      "id": "planned-native-stop-veto",
+      "status": "Root_fixed_and_exact_guard_pure_checked",
+      "impact": "Normal ARRIVED native.stop sets operator_stop; unqualified next-loop fault check prevented recording the unique board STOP future and completion",
+      "fix": "Allow only want_stop + existing original native_stop result + exact operator_stop; all other faults still veto"
+    },
+    {
+      "id": "positive-user-cap-held-renewal",
+      "status": "Root_notified_private_fix_suggested",
+      "impact": "After cap reduction clears desired/advice, held can continue and be renewed above the new cap while waiting for AI",
+      "minimum_fix": "At board dispatch, absent a newer valid desired command, shrink already measured held speed downward to new exact cap code, scale angular codes toward zero preserving curvature, run original ROM validate; cap below minimum sends real zero"
+    },
+    {
+      "id": "AI-output-waits-next-TRACE-and-body-projection",
+      "status": "Root_notified_private_fix_suggested",
+      "impact": "A returned E4 submits AI then immediately starts a pending second TRACE; desired can wait a full TRACE with an old body-frame mapping. Current stale check references latest observation rather than desired advice own original acquisition.",
+      "minimum_fix": "Do not start a new SENSE while ai_future is pending; keep native held motion. Before dispatch, verify actual advice epoch/original acquisition and remap same world advice through810 using latest state/current cap. No fake timestamps or source authority."
+    }
+  ],
+  "positive_scope": [
+    "single board ThreadPool worker constructs BoardSession in correct IO thread",
+    "raw decoded E4 values and source digest correlate before building the AI observation whitelist",
+    "source private geometry is not included in AI request or status/native state",
+    "actual raw791 PWM response and actual conservative Host-QPC deadline pass to798",
+    "pause/stop use actual board requests, no unknown automatic replay",
+    "no mission duration/count ceiling introduced"
+  ],
+  "pure_controls": {
+    "count": 2,
+    "exit_code": 0,
+    "tool_output_chunk": "8f1e58",
+    "scope": "actual Root stop guard expression and held-cap arithmetic counterexample/downward mapping only"
+  },
+  "network": false,
+  "board": false,
+  "UI": false,
+  "numeric_source": false,
+  "AI": false,
+  "formal_acceptance": "not_run",
+  "patch_suggestion": "SUGGESTED_PRIVATE_EDITS.md"
+}

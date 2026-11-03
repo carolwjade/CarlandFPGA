@@ -1,0 +1,123 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "verdict": "no_critical_blocker_found_in_narrow_review",
+  "scope": [
+    "Root_prepare_live800.py stage/loader plan/source closure pins",
+    "host_board_session.py serial transport/response/QPC/cleanup",
+    "exact791 and798 field/clock handoff"
+  ],
+  "files": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\Root_prepare_live800.py": "64d8df06b30ecf5ac245f9eea4c106bfb9597a266ad4b785d38e9160bd61793c",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\source\\host_board_session.py": "e18fce0b686bab218e07915e1fe6c9af46124599a50b0927129a8e17a7b8d3db",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\source\\local_stream_client.py": "3339b8abb515175987732cc550d880c12891ff4ae77552e6a44da47417e60d7a",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\source\\remote_live_board_a.py": "afd0bbafc36b4a51dddc417d6af5a53610e46e63138d6cbf0a3f7090d258e7b0",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\source\\load_once_791.py": "912759e7322af7263c159ade5e12f356158b3432f115baece1bed0233fbc55b6",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\MANIFEST.json": "69f4f370ade61005fd9887b526057c1501d6cfa5297d58c98718497b025040e1",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-board-session-800\\UPLOAD_ACTUAL.json": "d2d81d1e42a3476c325e4e7c48399a8e46fa2948c6aea35cd139674db278e980",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-native-client-798\\native_client.py": "946ed6c0f857776ae18c5b493d98b588c4a4312a172f3a16ade84cbc584322ec"
+  },
+  "references": {
+    "Root_prepare_live800.py": [
+      {
+        "line": 7,
+        "text": "def prepare():"
+      },
+      {
+        "line": 52,
+        "text": "print(json.dumps(dict(operation_id=p['operation_id'],boot_id=p['boot_id'],files=readback,mount=dict(device=mount[1],fs=mount[2],target=mount[3]),known_workers=workers,PL_loaded=False,PYNQ_imported=False,MMIO=False),sort_keys=True))"
+      },
+      {
+        "line": 54,
+        "text": "def upload():"
+      },
+      {
+        "line": 64,
+        "text": "receipt=json.loads(p.stdout);manifest=json.loads((D/'MANIFEST.json').read_bytes());assert receipt['files']==manifest['files'];(D/'UPLOAD_ACTUAL.json').write_bytes(raw(receipt)+b'\\n');print(json.dumps(dict(uploaded=True,file_count=len(receipt['files']),mount=receipt['mount'],MMIO=False)))"
+      }
+    ],
+    "host_board_session.py": [
+      {
+        "line": 34,
+        "text": "self.owner=threading.get_ident();self.last=None"
+      },
+      {
+        "line": 36,
+        "text": "def _owned(self):"
+      },
+      {
+        "line": 65,
+        "text": "credential_path=self.root/'.local/a429/sudo-line.private.bin'"
+      },
+      {
+        "line": 66,
+        "text": "credential=credential_path.read_bytes()"
+      },
+      {
+        "line": 68,
+        "text": "assert self.proc.stdin.write(credential)==len(credential);self.proc.stdin.flush();del credential"
+      },
+      {
+        "line": 70,
+        "text": "result=self.client.initialize();self.lines.timeout=6.;self.record(dict(event='init-returned',response=result,host_qpc_ns=time.perf_counter_ns()));return result"
+      },
+      {
+        "line": 71,
+        "text": "def request(self,op,**fields):"
+      },
+      {
+        "line": 73,
+        "text": "before=time.perf_counter_ns();self.record(dict(event='request-intent',op=op,fields=fields,host_before_ns=before))"
+      },
+      {
+        "line": 74,
+        "text": "response=self.client.request(op,**fields);returned=time.perf_counter_ns()"
+      },
+      {
+        "line": 81,
+        "text": "self.last['host_deadline_qpc_ns']=min(before+ttl,before+r['remaining_ns'])"
+      },
+      {
+        "line": 96,
+        "text": "try:self.proc.stdin.close()"
+      },
+      {
+        "line": 98,
+        "text": "try:self.proc.wait(timeout=5);waited=True"
+      },
+      {
+        "line": 100,
+        "text": "self.proc.kill();killed=True;self.proc.wait(timeout=5);waited=True"
+      }
+    ]
+  },
+  "observations": [
+    "800 uses Windows perf_counter_ns for before/returned/deadline; StreamClient internal monotonic_ns is not used as Host QPC deadline",
+    "before+remaining is earlier than actual commit+TTL; reply latency is not added to the lease",
+    "798 receives raw last.response plus last.host_deadline_qpc_ns, not the entire wrapper",
+    "21files packet/actual upload receipt/pins agree; three791 staged modules preserve frozen bytes",
+    "native/board stream client poison uncertain effects and do not automatically reconnect/resend",
+    "private input source consumes one local byte line then deletes variable; no value print/hash/copy instruction found; reviewer never opened private input"
+  ],
+  "necessary_integration_contract": [
+    "Construct/start/request/close BoardSession in the same sole IO thread",
+    "Root owns actual transport/native/board startup, actual init outcome and physical STOP",
+    "No actual init/PYNQ/MMIO run was performed by reviewer"
+  ],
+  "controls": {
+    "count": 2,
+    "exit_code": 0,
+    "tool_output_chunk_id": "a42548",
+    "synthetic_only": true,
+    "names": [
+      "conservative before+remaining wrapper calculation",
+      "actual21 packet/readback/pins/Python3.10 AST and staged791 bytes"
+    ]
+  },
+  "network": false,
+  "UI": false,
+  "board": false,
+  "model": false,
+  "formal_acceptance": "not_run",
+  "subsequent_parent_state_note": "Parent proposed a new real native pose-read acquisition timestamp for stationary freshness. Agreed: keep physics accepted timestamp internal, perform owner+actual readback equality checks, new read tick only, no revision increment;798 exact state schema needs no added field. This is outside800 reviewed source and not an observed execution."
+}

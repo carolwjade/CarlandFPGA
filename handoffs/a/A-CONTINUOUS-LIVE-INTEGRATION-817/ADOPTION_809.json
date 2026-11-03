@@ -1,0 +1,7 @@
+{
+  "source_sha256": "263c2bf0dbf0de2f5dcd2f497481f727a7e3524a729130300b3c83a0ea7e9f0e",
+  "product_sha256": "6d0b43ea04d26a62b1c8244fd2c5db3e1da4da636d1f10543a44deb8af2cf4b1",
+  "change": "Allow explicit profile speed ceiling up to actual .25m/s. Default .025 retained; Root selects .1 so risk reduction can leave at least physical speed code1=.0125. Real missing-C3 .1 cap and user cap still apply. No upward quantization above advice limit.",
+  "numeric_core_unchanged": true,
+  "formal_acceptance": "not_run"
+}
