@@ -1,0 +1,12 @@
+# Before the existing acquire_functional_world call, inside the same private driver:
+from competition.deepeye.simulation.sensors.owned_world_field import DEMO_KNOWN_BOX_CLOSED_BOUNDARY_V1
+need(plan['field_policy']['demo_boundary_profile']=={'profile_id': 'DEEPEYE-DEMO-KNOWN-BOX-CLOSED-BOUNDARY-V1', 'sha256': '9fbf86b82317c26034003febc9e72d500d965b8db2bbab2e21e730a04c8a7086'},
+     'explicit new nominal known-box boundary demo commitment')
+selected_field_policy=dict(plan['field_policy'])
+selected_field_policy['demo_boundary_profile']=DEMO_KNOWN_BOX_CLOSED_BOUNDARY_V1
+# Pass field_policy=selected_field_policy instead of plan['field_policy']; all other args unchanged.
+# In the Root-local final result, before/after normal close, without forwarding to AI/UI:
+result['Root_private_sigma_boundary']=world.source.field.demo_boundary_evidence()
+
+# Verified existing factory path: run_causal_functional_chain.py244 sets lifecycle.source=FunctionalSource(...).
+# FunctionalSource.__init__275 sets self.field=OwnedWorldField(...). Therefore world.source.field is exact.

@@ -34,6 +34,25 @@ def _sigma(value):
     return result
 
 
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class DemoSigmaBoundaryProfile:
+    profile_id: str
+    sha256: str
+
+
+DEMO_KNOWN_BOX_CLOSED_BOUNDARY_V1 = DemoSigmaBoundaryProfile(
+    'DEEPEYE-DEMO-KNOWN-BOX-CLOSED-BOUNDARY-V1', '9fbf86b82317c26034003febc9e72d500d965b8db2bbab2e21e730a04c8a7086')
+
+
+def validate_demo_boundary_profile(profile):
+    if profile is not None and profile is not DEMO_KNOWN_BOX_CLOSED_BOUNDARY_V1:
+        raise TypeError('exact explicit known-box closed-boundary demo singleton required')
+    return profile
+
+
 class OwnedWorldField:
     """Bind once to all pieces of one exact owner scene; no rebind or adoption.
 
@@ -44,10 +63,16 @@ class OwnedWorldField:
     """
     __slots__ = ('_executor', '_scene', '_scene_id', '_scene_digest', '_binding',
                  '_run', '_epoch', '_retired', '_pieces', '_background', '_epsilon',
-                 '_em_scope_factory')
+                 '_em_scope_factory', '_demo_boundary_profile', '_boundary_count', '_boundary_records')
+
+    def __setattr__(self, name, value):
+        if name == '_demo_boundary_profile' and hasattr(self, name):
+            raise AttributeError('source boundary profile is fixed at original construction')
+        object.__setattr__(self, name, value)
 
     def __init__(self, executor, *, material_sigma, background_sigma, max_pieces,
-                 sample_epsilon_m=None):
+                 sample_epsilon_m=None, demo_boundary_profile=None):
+        validate_demo_boundary_profile(demo_boundary_profile)
         if hasattr(self, '_executor'):
             raise ValueError('field is already bound; no source restart/adoption')
         if type(executor) is not OwnedMotionExecutor:
@@ -66,6 +91,8 @@ class OwnedWorldField:
         epsilon = 0. if sample_epsilon_m is None else _number(sample_epsilon_m)
         if sample_epsilon_m is not None and epsilon <= 0:
             raise ValueError('explicit sample epsilon must be positive')
+        if demo_boundary_profile is not None and epsilon != 0.:
+            raise ValueError('closed-boundary demo does not replace a nonzero uncertainty band')
         if len(scene.objects) > 30 or sum(len(o.parts) for o in scene.objects) > max_pieces:
             raise ValueError('whole scene exceeds object/piece budget')
         pieces = []
@@ -96,6 +123,9 @@ class OwnedWorldField:
         self._pieces = tuple(pieces)  # Complete read-only compiled scalar tuples.
         self._background = background
         self._epsilon = epsilon
+        self._demo_boundary_profile = demo_boundary_profile
+        self._boundary_count = 0
+        self._boundary_records = []
 
     def _check(self):
         root = self._executor.authority_snapshot()
@@ -131,7 +161,7 @@ class OwnedWorldField:
             return None
         priority = 0
         result = self._background
-        for rank, sigma, kind, centre, dimensions, matrix in self._pieces:
+        for piece_index, (rank, sigma, kind, centre, dimensions, matrix) in enumerate(self._pieces):
             try:
                 delta = tuple(v - c for v, c in zip(point, centre))
                 local = tuple(math.fsum(matrix[i][j] * delta[i] for i in range(3)) for j in range(3))
@@ -154,7 +184,29 @@ class OwnedWorldField:
             if outside:
                 continue
             if not inside:
-                return None  # No quiet background substitution at any ambiguity.
+                if (self._demo_boundary_profile is DEMO_KNOWN_BOX_CLOSED_BOUNDARY_V1
+                        and self._epsilon == 0. and kind == 'box' and sigma is not None
+                        and all(gap <= 0. for gap in gaps)):
+                    # Explicit candidate approximation at nominal surfaces only.
+                    # Unknown materials, finite bands and non-boxes stay strict.
+                    self._boundary_count += 1
+                    if len(self._boundary_records) < 16:
+                        factory=self._em_scope_factory
+                        scope=None if factory is None else factory._active
+                        self._boundary_records.append(dict(piece_index=piece_index,
+                            point_m=point,tick_ms=None if scope is None else scope._tick,
+                            rule='known box closed nominal boundary'))
+                else:
+                    return None  # Strict source fault; never substitute background.
             if rank > priority:
                 priority, result = rank, sigma
         return result
+
+    def demo_boundary_evidence(self):
+        """Detached bounded Root-only diagnostics; never AI/UI/source authority."""
+        profile=self._demo_boundary_profile
+        return dict(profile=None if profile is None else dict(profile_id=profile.profile_id,
+            sha256=profile.sha256),query_boundary_approximations=self._boundary_count,
+            first_records=[dict(piece_index=r['piece_index'],point_m=list(r['point_m']),
+                tick_ms=r['tick_ms'],rule=r['rule']) for r in self._boundary_records],
+            record_cap=16,quality_scope='temporary nominal-boundary engineering approximation; final not_run')

@@ -1,0 +1,199 @@
+{
+  "AI_model": false,
+  "PDE": false,
+  "UI": false,
+  "authority_minted": false,
+  "board": false,
+  "boundary_evidence": {
+    "first_records": [
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.822726481041387,
+          12.405126191687607,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.822726481041387,
+          12.405126191687607,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.822726481041387,
+          12.405126191687607,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.82551864591841,
+          12.155141784543282,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.82551864591841,
+          12.155141784543282,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.82831081079543,
+          11.905157377398957,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.82831081079543,
+          11.905157377398957,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.83110297567245,
+          11.655172970254633,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.83110297567245,
+          11.655172970254633,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          12.072710888185712,
+          12.407918356564629,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.572742073897063,
+          12.402334026810585,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          12.072710888185712,
+          12.407918356564629,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.572742073897063,
+          12.402334026810585,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          12.075503053062734,
+          12.157933949420304,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          11.575534238774084,
+          12.15234961966626,
+          0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      },
+      {
+        "piece_index": 1,
+        "point_m": [
+          12.075503053062734,
+          12.157933949420304,
+          -0.5
+        ],
+        "rule": "known box closed nominal boundary",
+        "tick_ms": null
+      }
+    ],
+    "profile": {
+      "profile_id": "DEEPEYE-DEMO-KNOWN-BOX-CLOSED-BOUNDARY-V1",
+      "sha256": "9fbf86b82317c26034003febc9e72d500d965b8db2bbab2e21e730a04c8a7086"
+    },
+    "quality_scope": "temporary nominal-boundary engineering approximation; final not_run",
+    "query_boundary_approximations": 53,
+    "record_cap": 16
+  },
+  "checks": [
+    "actual692 first invalid point: old and new strict both None",
+    "actual692 known rock boundary new typed mode ->0.01",
+    "same actual692 full scalar kernel recomputes finite channels",
+    "nonzero uncertainty band remains None in pure body",
+    "unknown material remains None",
+    "one representable value outside box returns original background; no band fill",
+    "one representable inside unchanged conductivity",
+    "cylinder boundary remains strict None",
+    "dict/bool/foreign exact-value profile rejected",
+    "default/demo profile cannot be rebound after original construction",
+    "diagnostics bounded16 and detached"
+  ],
+  "new_kernel_channels": [
+    2.281626567610171,
+    -0.00465227058797435,
+    0.0
+  ],
+  "original680_fault_preserved": true,
+  "passed": true,
+  "quality_scope": "new offline fresh calculation under explicit engineering approximation; no real source/board qualification claimed"
+}

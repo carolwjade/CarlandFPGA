@@ -1,0 +1,110 @@
+{
+  "AI_UI_export": false,
+  "AI_model": false,
+  "PDE": false,
+  "Root_private_only": true,
+  "actual_closed_pose_revision": 115,
+  "all29": "not_run",
+  "board": false,
+  "epsilon_m": 0.0,
+  "field_policy": {
+    "background_sigma": 0.005,
+    "material_sigma": {
+      "casing": null,
+      "fault": 0.02,
+      "hard_rock": 0.01,
+      "void": null,
+      "water": 0.1
+    },
+    "max_pieces": 128
+  },
+  "first_invalid": {
+    "branch": "owned_world_field.py157 boundary ambiguity",
+    "pieces": [
+      {
+        "axial": 7.0,
+        "dimensions": [
+          3.0,
+          2.0,
+          1.0
+        ],
+        "gaps": [
+          12.072726481041387,
+          10.405126191687607,
+          7.0
+        ],
+        "inside": false,
+        "kind": "box",
+        "local": [
+          15.072726481041387,
+          12.405126191687607,
+          -8.0
+        ],
+        "material": "water",
+        "object_id": 1,
+        "outside": true,
+        "piece": 0,
+        "radial": null,
+        "sigma_is_unknown": false
+      },
+      {
+        "axial": 0.0,
+        "dimensions": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "gaps": [
+          -0.32272648104138746,
+          -0.09487380831239278,
+          0.0
+        ],
+        "inside": false,
+        "kind": "box",
+        "local": [
+          -0.17727351895861254,
+          0.4051261916876072,
+          0.5
+        ],
+        "material": "hard_rock",
+        "object_id": 2,
+        "outside": false,
+        "piece": 1,
+        "radial": null,
+        "sigma_is_unknown": false
+      }
+    ],
+    "point_m": [
+      11.822726481041387,
+      12.405126191687607,
+      0.5
+    ],
+    "query_index": 108
+  },
+  "inputs": {
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a680\\nav\\n\\original-snapshot.json": "de24244e7efa3b2b98e04fc69f5b1d5b6cd00a10b5e926dd6325f0bf56e148ff",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a680\\nav\\p\\owned-input\\layout.json": "d475a484046dd65d45f458f49a2062f39b233feecd2033313a3abe7e01e8876f",
+    "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a680\\nav\\run-result.json": "b69a95d2ea6f9e47d583b15556fff582acd2d017e147778377927ffcbf636486"
+  },
+  "kernel_returned_none": true,
+  "last_directly_saved_pose_revision": 108,
+  "original_operation": "A-GEN4-BOARD-OUTPUT-NAV-20261103-680-R01",
+  "pose_method": "Deterministic original canonical numeric reconstruction of seven already closed100ms steps from actual rev108 public pose; prior speed1 settled by >=.95s earlier commands; no new authority/collision result",
+  "queries_until_first_invalid": 108,
+  "reconstructed_pose": {
+    "orientation_xyzw": [
+      0.7070957552865982,
+      0.003948779010686549,
+      0.003948779010686549,
+      0.7070957552865982
+    ],
+    "position_m": [
+      11.800389162025217,
+      14.405001448842205,
+      5.667468471000005e-60
+    ],
+    "speed_m_s": 0.175
+  },
+  "source_authority_minted": false,
+  "source_state": "RUNNING"
+}
