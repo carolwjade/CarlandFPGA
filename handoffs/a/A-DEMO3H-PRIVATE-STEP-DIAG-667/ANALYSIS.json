@@ -1,0 +1,89 @@
+{
+  "UI": false,
+  "actual_capture": {
+    "deadline_qpc_ns": 25616735984600,
+    "pwm_high_words": [
+      137856,
+      125000,
+      32000
+    ],
+    "pwm_period_words": [
+      1000000,
+      1000000,
+      1000000
+    ]
+  },
+  "actual_target": {
+    "action": 1,
+    "duration_ms": 12000,
+    "pitch_q": 0,
+    "speed_code": 14,
+    "yaw_q": 1607
+  },
+  "all29": "not_run",
+  "board": false,
+  "deadline_margin_at_last_close_ns": 8668518400,
+  "helper_sha256": "82d99590f88cff4b968b1ddb54cc46a04b99cece54b61edc8709f0681950e4e2",
+  "last_closed_step": {
+    "actual_completion_qpc_ns": 25608067466200,
+    "dt_ns": 100000000,
+    "getter_admitted": true,
+    "phase": "INSIDE",
+    "pose_revision": 114,
+    "transaction_closed": true
+  },
+  "last_saved_public_pose": {
+    "orientation_xyzw": [
+      0.7071067811865476,
+      -0.0,
+      -0.0,
+      0.7071067811865476
+    ],
+    "position_m": [
+      11.799999999999999,
+      14.469665602499992,
+      5.588500000000008E-60
+    ]
+  },
+  "last_saved_public_pose_revision": 111,
+  "limitations": [
+    "Full collision vs UNKNOWN cannot be separated from StepOutcome or retained coarse reason alone.",
+    "No actual rev114 numeric pose was exported; do not label an analytic reconstruction as actual readback.",
+    "Last-close margins bound an earlier instant; no precise failed-step timestamp is persisted."
+  ],
+  "model": false,
+  "motion_cutoff_margin_at_last_close_ns": 2539349400,
+  "ordered_diagnostic_categories": [
+    {
+      "category": "geometry preparation rejection; coarse message only",
+      "conditions": [
+        "relative preview status not SAFE",
+        "path coverage/slice registry inconsistent -> UNKNOWN",
+        "solid capsule scene certificate not CLEAR"
+      ],
+      "source": "motion_executor.py334-347; PreparationRejected112-117"
+    },
+    {
+      "category": "runtime/final fence validity or original liveness",
+      "conditions": [
+        "watchdog/AI lease expiry after prepare",
+        "checked interval crosses actual deadline",
+        "original binding/liveness changed"
+      ],
+      "source": "pc_direct_runtime.py480-508,535-572"
+    },
+    {
+      "category": "atomic handle/fence identity or passage materialization",
+      "conditions": [
+        "passage materialization failed",
+        "consumed/foreign/stale prepared handle",
+        "owner root revoked or invalid final fence"
+      ],
+      "source": "motion_executor.py211-225,368-402"
+    }
+  ],
+  "pure_field_access_test_passed": true,
+  "rev114_exact_pose_persisted": false,
+  "source_age_at_last_close_ns": 6460650600,
+  "unique_cause_proven": false
+}

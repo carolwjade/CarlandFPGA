@@ -181,6 +181,18 @@ class _Command:
     deadline_ns: int
 
 
+def _step_exception_diagnostic(error):
+    """Private Root evidence only; never affects public reason or admission."""
+    status=getattr(error,'status',None)
+    checked=getattr(error,'checked_slices',None)
+    trace=error.__traceback__
+    while trace is not None and trace.tb_next is not None:trace=trace.tb_next
+    origin=None if trace is None else dict(function=trace.tb_frame.f_code.co_name,line=trace.tb_lineno)
+    return dict(type=type(error).__name__,message=str(error)[:1024],origin=origin,
+        status=status if type(status) is str else None,
+        checked_slices=checked if type(checked) is int and checked>=0 else None)
+
+
 class PcDirectRuntime:
     """Serialize channel events and every synchronous physics step on one thread.
 
@@ -206,6 +218,7 @@ class PcDirectRuntime:
         self._boot = None
         self._guard = None
         self._latched = True
+        self._last_step_exception = None  # Root-only diagnostic; no authority.
         self._reason = 'missing_boot'
         self._veto_generation = 0
         self._guard_latch_observed = False
@@ -514,6 +527,7 @@ class PcDirectRuntime:
         committed=True reports the trusted executor receipt only. The adapter
         supplies no physics, no grant envelope and no independent motion proof.
         """
+        self._last_step_exception = None
         entered = False
         try:
             if self._busy or self._stepping:
@@ -565,9 +579,11 @@ class PcDirectRuntime:
             self._executed_until_ns = receipt.end_ns
             return StepResult(True, 'trusted_executor_receipt', receipt)
         except _NoActiveCommand as error:
+            self._last_step_exception = _step_exception_diagnostic(error)
             # Only actual idle/normal command expiry is a non-latching poll.
             return StepResult(False, str(error))
         except Exception as error:
+            self._last_step_exception = _step_exception_diagnostic(error)
             self._trip('step_veto')
             return StepResult(False, str(error))
         finally:

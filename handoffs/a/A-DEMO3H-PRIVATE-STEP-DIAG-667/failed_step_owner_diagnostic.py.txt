@@ -1,0 +1,24 @@
+def failed_step_owner_diagnostic(composition, expected_revision, dt_ns, observed_qpc_ns):
+    """Root local evidence only; never route this record into AI/UI/public sensors."""
+    step=composition._last_step
+    root=composition._executor._root
+    runtime=composition._runtime
+    pose=root.pose
+    model=composition._executor._model
+    last=runtime._last_command
+    return dict(scope='ROOT_ONLY_AUTHORITY_STEP_DIAGNOSTIC_V1',
+        source='original retained fields only; no re-prepare or collision query',
+        observed_qpc_ns=observed_qpc_ns,expected_pose_revision=expected_revision,dt_ns=dt_ns,
+        retained_step=None if step is None else dict(committed=step.committed,reason=step.reason),
+        runtime_latched=runtime._latched,runtime_reason=runtime._reason,
+        runtime_step_exception=None if runtime._last_step_exception is None else dict(runtime._last_step_exception),
+        root_revision=root.revision,root_pose_revision=root.pose_revision,
+        root_stopped=root.stopped,root_trial_failed=root.trial_failed,
+        root_world_invalid=root.world_invalid,
+        position_m=list(pose.position_m),orientation_xyzw=list(pose.orientation_xyzw),
+        speed_m_s=pose.speed_m_s,
+        capsule_half_segment_m=float(model.half_segment),capsule_radius_m=float(model.radius),
+        capsule_pivot_radius_m=float(model.pivot_radius),
+        retained_command=None if last is None else dict(sequence=last.sequence,deadline_ns=last.deadline_ns))
+
+
