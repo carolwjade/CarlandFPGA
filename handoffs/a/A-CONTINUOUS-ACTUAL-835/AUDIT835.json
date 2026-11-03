@@ -1,0 +1,114 @@
+{
+  "schema": "continuous_demo_basic_evidence_audit_815_v1",
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "basic_evidence_ready": true,
+  "actual_visual_review_pending": true,
+  "visual_verified": false,
+  "errors": {},
+  "counts": {
+    "native": 3744,
+    "e4": 500,
+    "ai": 499,
+    "pwm": 335,
+    "board_requests": 836
+  },
+  "phase_host_qpc_ns": {
+    "INITIAL_OUTSIDE": 40043116894000,
+    "ENTRY_CROSSING": 40064930562100,
+    "INSIDE": 40106995898500,
+    "EXIT_CROSSING": 40234685794300,
+    "ARRIVED": 40262210011600
+  },
+  "representative_real_chain": {
+    "e4": {
+      "source_sha": "07703f0a8da8815968bb59edfc875e4ca71ca318da1234656a00196da2968672",
+      "wire_sha": "4f52c71d830744bce1f80867b8eaf68f4983f43c5a552ca898a39ee2eb82c1e2",
+      "acquired": "40060158262485",
+      "epoch": "A-CONTINUOUS-WORLD-835-R01",
+      "response_sha": "015f9b9e3b97e631bd4e0212a666e2a52ec557401005145215ae711e72eb4802",
+      "board_seq": 1,
+      "session": 3391668678
+    },
+    "pwm": {
+      "speed": 2,
+      "response_sha": "4177c3e332c234b9963784aaa073090adcf1ea5d9e8aeef88739934c61c1d569",
+      "board_seq": 2,
+      "session": 3391668678
+    },
+    "ai_source_sha": "fad1eda8c0d9e31f35d2f4c98d48dbd0678d49b283cbb0e10051ac003b9cb8fa",
+    "host_qpc_ns": 40060873663400
+  },
+  "video": {
+    "target": {
+      "pid": 10428,
+      "hwnd": 14091564,
+      "hwnd_hex": "0xd7052c",
+      "exe": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-implementation-a\\app-worker-ui\\godot\\Godot_v4.7.2-stable_win64.exe",
+      "creation_filetime": 134382016579289301,
+      "client_width": 960,
+      "client_height": 540,
+      "window_class": "Engine"
+    },
+    "video": {
+      "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA多机协作开发\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\continuous-recorder-818\\recordings\\20261103T180443Z-4a10538293c3\\demo.mp4",
+      "sha256": "8c448ec7f0cf48031737fbfb89e4881fbb33ee474521493a5f23216c7abffca7",
+      "bytes": 37391302,
+      "duration_s": 386.266667,
+      "decoded_frames": 11413,
+      "codec": "h264",
+      "width": 1920,
+      "height": 1080,
+      "avg_frame_rate": "171195/5794"
+    },
+    "metadata_verified": true,
+    "time_coverage": {
+      "bound": true,
+      "clock_anchor_sha256": "d87a4e182ef5e64eb82f01151758e50260352b1a02e83b2139692c623bd5637f",
+      "clock_rate_assumption_ppm": 1000,
+      "entry_utc_interval_ns": [
+        1793729247742778026,
+        1793729250630470773
+      ],
+      "arrival_utc_interval_ns": [
+        1793729445022227526,
+        1793729447909920273
+      ],
+      "capture_process_utc_ns": [
+        1793729083033881000,
+        1793729469565883000
+      ],
+      "process_interval_covers": true,
+      "frame_visual_coverage_verified": false
+    },
+    "actual_visual_review_pending": true,
+    "pixel_verified": false
+  },
+  "files": {
+    "RESULT.json": "09958ede729dbdcb08ccf514bd78e25ab8c1ab168a6b43d64bb0c9c1a071abcf",
+    "frozen.json": "959c58f5c28c1efd2925ce33ed3fffa61c6e98905b5b4b012011e7b0070c6b54",
+    "board/CLOSED.json": "580c93f1125b8d0725ccb977614956befc2b0d8d058bc0ba6c118b947adf3b2a",
+    "host-events.jsonl": "110c89652e1f79cc0a6854d3d5160ce1ac3d20e0384921c16725d3d801d8f6f6",
+    "board/requests.jsonl": "63cefc6963d7e010b9d179ca99a6e690d04cde8879f7512afc03cf652f90752a",
+    "NATIVE_STARTED.json": "46dd94fbcd6aef2584cf08c6c396fe26ca90b11dca52440bb81bb41668232910"
+  },
+  "operator_setup": {
+    "gate_change_observed": true,
+    "human_confirmation": true,
+    "mouse_drag_change_observed": true,
+    "note": "UI event observation, not a hardware-input attestation"
+  },
+  "ui_setup_evidence_scope": "native UI event observation; Root realmouse/video review still required",
+  "terminal_scope": "actual STOP write returned/SSH exited; physical zero capture not promoted",
+  "formal": {
+    "quality_error": "not_run",
+    "latency": "not_run",
+    "compression_ratio": "not_run",
+    "100MHz": "not_run",
+    "G03": "not_run",
+    "R03": "not_run",
+    "H12_PC_DIRECT": "not_run",
+    "H12_PC_AI_FPGA": "not_run",
+    "original29": "not_run",
+    "all29": "not_run"
+  }
+}

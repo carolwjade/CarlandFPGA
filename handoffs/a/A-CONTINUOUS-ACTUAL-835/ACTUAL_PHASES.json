@@ -1,0 +1,306 @@
+{
+  "first": {
+    "INITIAL_OUTSIDE": {
+      "event": "native-observed",
+      "host_qpc_ns": "40043116894000",
+      "sample": {
+        "host": {
+          "accepted_tick_qpc_interval_ns": [
+            40043095932579,
+            40043116712321
+          ],
+          "receive_qpc_ns": 40043116732300,
+          "request_sha256": "cc80619fa80309843de2f75994aee0042bc5152f46a3ca6c5862f0834f3e4221",
+          "send_qpc_ns": 40043095954600
+        },
+        "native": {
+          "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+          "board_receipt_sha256": "",
+          "board_request_seq": 0,
+          "deadline_usec": "0",
+          "fault": "",
+          "formal_acceptance": "not_run",
+          "history": [
+            "INITIAL_OUTSIDE"
+          ],
+          "operator_request": "",
+          "orientation_xyzw": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "phase": "INITIAL_OUTSIDE",
+          "pitch_curvature_per_m": 0.0,
+          "position_m": [
+            12.0500001907349,
+            10.0,
+            15.6199998855591
+          ],
+          "read_now_usec": "1169400069",
+          "ready": true,
+          "revision": "0",
+          "running": false,
+          "speed_m_s": 0.0,
+          "target_speed_m_s": 0.0,
+          "tick_usec": "1169400048",
+          "yaw_curvature_per_m": 0.0
+        }
+      }
+    },
+    "ENTRY_CROSSING": {
+      "event": "native-observed",
+      "host_qpc_ns": "40064930562100",
+      "sample": {
+        "host": {
+          "accepted_tick_qpc_interval_ns": [
+            40064913020997,
+            40064930419703
+          ],
+          "receive_qpc_ns": 40064930421700,
+          "request_sha256": "7c16ac0b06cefb3fc035e46a4b8423018f24982e69603961712768be48e305f6",
+          "send_qpc_ns": 40064913025000
+        },
+        "native": {
+          "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+          "board_receipt_sha256": "4177c3e332c234b9963784aaa073090adcf1ea5d9e8aeef88739934c61c1d569",
+          "board_request_seq": 2,
+          "deadline_usec": "1198973447",
+          "fault": "",
+          "formal_acceptance": "not_run",
+          "history": [
+            "INITIAL_OUTSIDE",
+            "ENTRY_CROSSING"
+          ],
+          "operator_request": "",
+          "orientation_xyzw": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "phase": "ENTRY_CROSSING",
+          "pitch_curvature_per_m": 0.0,
+          "position_m": [
+            12.0500001907349,
+            10.0,
+            15.5198850631714
+          ],
+          "read_now_usec": "1191214411",
+          "ready": true,
+          "revision": "676",
+          "running": true,
+          "speed_m_s": 0.025,
+          "target_speed_m_s": 0.025,
+          "tick_usec": "1191214408",
+          "yaw_curvature_per_m": 0.0
+        }
+      }
+    },
+    "INSIDE": {
+      "event": "native-observed",
+      "host_qpc_ns": "40106995898500",
+      "sample": {
+        "host": {
+          "accepted_tick_qpc_interval_ns": [
+            40106979495196,
+            40106995753104
+          ],
+          "receive_qpc_ns": 40106995756100,
+          "request_sha256": "5fe1e0b639a30c3a07d1b9e50c33958332bbcfff8f23b6178617384f8e749c55",
+          "send_qpc_ns": 40106979500200
+        },
+        "native": {
+          "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+          "board_receipt_sha256": "6f37e46f40f5c8075c7329161fab545367728b7d0aaa7bc303ea4a85d333ad8a",
+          "board_request_seq": 134,
+          "deadline_usec": "1239962098",
+          "fault": "",
+          "formal_acceptance": "not_run",
+          "history": [
+            "INITIAL_OUTSIDE",
+            "ENTRY_CROSSING",
+            "ENTERED"
+          ],
+          "operator_request": "",
+          "orientation_xyzw": [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "phase": "INSIDE",
+          "pitch_curvature_per_m": 0.0,
+          "position_m": [
+            12.0500001907349,
+            10.0,
+            14.4695281982422
+          ],
+          "read_now_usec": "1233278993",
+          "ready": true,
+          "revision": "7768",
+          "running": true,
+          "speed_m_s": 0.025,
+          "target_speed_m_s": 0.025,
+          "tick_usec": "1233278989",
+          "yaw_curvature_per_m": 0.0
+        }
+      }
+    },
+    "EXIT_CROSSING": {
+      "event": "native-observed",
+      "host_qpc_ns": "40234685794300",
+      "sample": {
+        "host": {
+          "accepted_tick_qpc_interval_ns": [
+            40234591671696,
+            40234685653604
+          ],
+          "receive_qpc_ns": 40234685656600,
+          "request_sha256": "b8d30ea6c0d41115e8974676d4d5abb828b725d557f8604191d6dadd0880c11d",
+          "send_qpc_ns": 40234591676700
+        },
+        "native": {
+          "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+          "board_receipt_sha256": "c78d73a2f839520de0c8b76e0ee44a4d19e7d79db234e510756f84178b9a901e",
+          "board_request_seq": 725,
+          "deadline_usec": "1372561472",
+          "fault": "",
+          "formal_acceptance": "not_run",
+          "history": [
+            "INITIAL_OUTSIDE",
+            "ENTRY_CROSSING",
+            "ENTERED",
+            "EXIT_CROSSING"
+          ],
+          "operator_request": "",
+          "orientation_xyzw": [
+            0.0,
+            0.749792873859406,
+            0.0,
+            0.661672651767731
+          ],
+          "phase": "EXIT_CROSSING",
+          "pitch_curvature_per_m": 0.0,
+          "position_m": [
+            14.4880723953247,
+            10.0,
+            11.9163160324097
+          ],
+          "read_now_usec": "1360924691",
+          "ready": true,
+          "revision": "29399",
+          "running": true,
+          "speed_m_s": 0.0375,
+          "target_speed_m_s": 0.0375,
+          "tick_usec": "1360924687",
+          "yaw_curvature_per_m": -0.397469648320842
+        }
+      }
+    },
+    "ARRIVED": {
+      "event": "native-observed",
+      "host_qpc_ns": "40262210011600",
+      "sample": {
+        "host": {
+          "accepted_tick_qpc_interval_ns": [
+            40262197562597,
+            40262209861703
+          ],
+          "receive_qpc_ns": 40262209863700,
+          "request_sha256": "4d04bb245b3f84beb4a781c2a0fab2c0d7d39fbb5e9ce315d578b3392b21f83f",
+          "send_qpc_ns": 40262197566600
+        },
+        "native": {
+          "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+          "board_receipt_sha256": "f9f9dd09ec564824b4c4a84079a40f06de580b1f57ef014deac080cd9b332a8a",
+          "board_request_seq": 820,
+          "deadline_usec": "1395624052",
+          "fault": "",
+          "formal_acceptance": "not_run",
+          "history": [
+            "INITIAL_OUTSIDE",
+            "ENTRY_CROSSING",
+            "ENTERED",
+            "EXIT_CROSSING",
+            "ARRIVED"
+          ],
+          "operator_request": "",
+          "orientation_xyzw": [
+            0.0,
+            0.693040549755096,
+            0.0,
+            0.720898628234863
+          ],
+          "phase": "ARRIVED",
+          "pitch_curvature_per_m": 0.0,
+          "position_m": [
+            15.5200757980347,
+            10.0,
+            11.9056921005249
+          ],
+          "read_now_usec": "1388497435",
+          "ready": true,
+          "revision": "34055",
+          "running": true,
+          "speed_m_s": 0.0375,
+          "target_speed_m_s": 0.0375,
+          "tick_usec": "1388497432",
+          "yaw_curvature_per_m": 0.0
+        }
+      }
+    }
+  },
+  "last": {
+    "event": "native-observed",
+    "host_qpc_ns": "40262509664800",
+    "sample": {
+      "host": {
+        "accepted_tick_qpc_interval_ns": [
+          40262494570260,
+          40262509479240
+        ],
+        "receive_qpc_ns": 40262509518200,
+        "request_sha256": "34e7721ba03542cc230c838a4d03e29536274561665a79de1aa9f36151331b62",
+        "send_qpc_ns": 40262494611300
+      },
+      "native": {
+        "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+        "board_receipt_sha256": "f9f9dd09ec564824b4c4a84079a40f06de580b1f57ef014deac080cd9b332a8a",
+        "board_request_seq": 820,
+        "deadline_usec": "1395624052",
+        "fault": "operator_stop",
+        "formal_acceptance": "not_run",
+        "history": [
+          "INITIAL_OUTSIDE",
+          "ENTRY_CROSSING",
+          "ENTERED",
+          "EXIT_CROSSING",
+          "ARRIVED"
+        ],
+        "operator_request": "",
+        "orientation_xyzw": [
+          0.0,
+          0.693040549755096,
+          0.0,
+          0.720898628234863
+        ],
+        "phase": "ARRIVED",
+        "pitch_curvature_per_m": 0.0,
+        "position_m": [
+          15.5208501815796,
+          10.0,
+          11.905722618103
+        ],
+        "read_now_usec": "1388792964",
+        "ready": false,
+        "revision": "34058",
+        "running": false,
+        "speed_m_s": 0.0,
+        "target_speed_m_s": 0.0375,
+        "tick_usec": "1388792924",
+        "yaw_curvature_per_m": 0.0
+      }
+    }
+  }
+}

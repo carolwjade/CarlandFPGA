@@ -1,0 +1,38 @@
+--- a/competition/deepeye/simulator/runtime/continuous_demo_bootstrap.gd
++++ b/competition/deepeye/simulator/runtime/continuous_demo_bootstrap.gd
+@@ -40,6 +40,7 @@
+ var _requested_speed := 0.1
+ var _latched_initial_speed := 0.1
+ var _initial_speed_latched := false
++var _terminal_complete_observed := false
+ var _requested_paused := true
+ var _stop_latched := false
+ var _intent_seq := 0
+@@ -620,7 +621,8 @@
+ 	_labels.connection.text = "Root：%s  |  实板：%s" % ["已连接" if fresh else "未连接 / 等待新状态","已连接" if board.get("connected",false) == true else "未连接 / 等待"]
+ 	var actual := "等待原生就绪"
+ 	var phase := "等待开始"
+-	if native.get("ready",false) == true:
++	# ready=false after a planned STOP does not erase actual terminal readback.
++	if not native.is_empty():
+ 		if finite_number(native.get("speed_m_s")):
+ 			actual = "%.4f m/s" % float(native.speed_m_s)
+ 		phase = _safe_text(native.get("phase"))
+@@ -651,7 +653,16 @@
+ 		pending = "已请求停止；等待 Root 实板 STOP 回执。"
+ 		if board.get("stop_acknowledged",false) == true and operator.get("state") == "applied" and operator.get("ack_seq") == _intent_seq:
+ 			pending = "Root 报告实板 STOP 已确认。此场景不再重启。"
+-	if not str(native.get("fault","")).is_empty():
++	var native_fault := str(native.get("fault",""))
++	var terminal_arrived: bool = native.get("phase") == "ARRIVED" and native_fault in ["","operator_stop"]
++	if terminal_arrived and fresh and host.get("complete",false) == true and board.get("stop_acknowledged",false) == true:
++		_terminal_complete_observed = true
++	# Retain an actually observed final receipt after the host has exited and
++	# live telemetry ages out. This flag is display-only and never drives motion.
++	var terminal_complete: bool = terminal_arrived and _terminal_complete_observed
++	if terminal_complete:
++		pending = "完整出圈已完成；实板STOP已确认"
++	if not native_fault.is_empty() and not (terminal_complete and native_fault == "operator_stop"):
+ 		pending = "原生保护停止：%s；实板状态由 Root 单独确认。" % _safe_text(native.fault)
+ 	if not _fatal.is_empty():
+ 		pending = "交接失败：%s。保留现场，由 Root 处理。" % _safe_text(_fatal)

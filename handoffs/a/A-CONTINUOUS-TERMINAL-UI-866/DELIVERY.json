@@ -1,0 +1,86 @@
+{
+  "frozen": true,
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "changed_product_file": "C:\\Users\\CarlJade\\.codex\\worktrees\\a-demo-production-channel\\FPGA多机协作开发\\competition\\deepeye\\simulator\\runtime\\continuous_demo_bootstrap.gd",
+  "before_sha256": "259ae1c580e305f82c2e0ac2e1baf03619249dc1502febc5aa4e2ab68ba92c4c",
+  "after_sha256": "18919450ba9d9b99a46a052b400627d677608f435388438e296d9d5be60ae3ee",
+  "files": {
+    "ACTUAL835.display-input.json": {
+      "sha256": "6eae2fbe14276c6e958ea898df53b2788b145f48ce5c48b42cec785c8c69ff76",
+      "bytes": 3509
+    },
+    "bootstrap.before.gd": {
+      "sha256": "259ae1c580e305f82c2e0ac2e1baf03619249dc1502febc5aa4e2ab68ba92c4c",
+      "bytes": 30717
+    },
+    "candidate.patch": {
+      "sha256": "2188820c28498a1a51a1c5ed3cab633d4bfdffbf1213d009b50e5802cbfa5840",
+      "bytes": 2294
+    },
+    "DISPLAY_CONTROL.process.json": {
+      "sha256": "52d0d3a730c89ac2155e205f37c81b5b71421596ccc5535c92cc3d05b60ed443",
+      "bytes": 667
+    },
+    "DISPLAY_CONTROL.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "DISPLAY_CONTROL.stdout.txt": {
+      "sha256": "46a92da0baf1de12dc0c31e86f4939349bfedb67998c981615ccfe17ec02ead9",
+      "bytes": 649
+    },
+    "FIRST_HARNESS_FAILURE.DISPLAY_CONTROL.process.json": {
+      "sha256": "9d87f9ecb443ea0b3ec0dec2c3bccae2a2dd6de19f8dec79b72cbcc89958bbee",
+      "bytes": 665
+    },
+    "FIRST_HARNESS_FAILURE.DISPLAY_CONTROL.stderr.txt": {
+      "sha256": "815501b44274b609fca936804dda5c5a938af4d4c28e557afec950353d954bdc",
+      "bytes": 812
+    },
+    "FIRST_HARNESS_FAILURE.DISPLAY_CONTROL.stdout.txt": {
+      "sha256": "83cf0b082206af2aa236c83064fbcfa76be1e00a4aa3558574b2f65965d9481c",
+      "bytes": 75
+    },
+    "check/actual.json": {
+      "sha256": "6eae2fbe14276c6e958ea898df53b2788b145f48ce5c48b42cec785c8c69ff76",
+      "bytes": 3509
+    },
+    "check/control866.gd": {
+      "sha256": "c7592ba59ae6bb2292ebea5a320ef3227ee5a8fb5f2d28c721563e64b0a3d19a",
+      "bytes": 2127
+    },
+    "check/fixture.gd": {
+      "sha256": "20c2e40f9f0dfe8e16d291bdb73a6db01fd688c646bf59c7bc8416855a8bf990",
+      "bytes": 5993
+    },
+    "check/fixture_before.gd": {
+      "sha256": "9daa7a38b1b779cc4ba332fd8faa34d1cbd0b1937866f99efddadc9665b070a0",
+      "bytes": 5244
+    },
+    "check/project.godot": {
+      "sha256": "91328374ffffeb9a23d4bd23a63b90bf2129187e73cd8080008f96f77c5ed0fa",
+      "bytes": 122
+    }
+  },
+  "scope": "display-only actual terminal phase/speed plus confirmed-complete display latch; all other function bodies unchanged",
+  "verified": {
+    "one_isolated_actual835_display_control": "passed",
+    "old_terminal_red": "reproduced",
+    "new_terminal_green": "passed",
+    "missing_stop_ack_not_complete": true,
+    "genuine_fault_not_masked": true,
+    "confirmed_terminal_survives_host_telemetry_stale": true,
+    "Godot_headless_exit": 0,
+    "wait_confirmed": true,
+    "other_functions_exact_equal": 35
+  },
+  "harness_first_failure": "RefCounted stub pending_text lacked String type; own process5056 killed/waited at20s, records preserved; no product gate changed",
+  "actual_UI": false,
+  "board": false,
+  "RPC": false,
+  "network": false,
+  "motion_source_AI": false,
+  "actual835_motion_result": "complete=true unchanged; original problem was terminal labels only",
+  "formal_all29": "not_run",
+  "ownership": "Root may now take product write ownership; no commit/push by child"
+}

@@ -1,0 +1,41 @@
+{
+  "world_epoch": "A-CONTINUOUS-WORLD-835-R01",
+  "requirements_sha256": "2afd4515da6f03dad47d453fb3692c5f67fa2fb09084665d425de1340648bf4d",
+  "operator_setup": {
+    "gate_change_observed": true,
+    "human_confirmation": true,
+    "mouse_drag_change_observed": true,
+    "note": "UI event observation, not a hardware-input attestation"
+  },
+  "public_gates": {
+    "entry": {
+      "center": [
+        12.0500001907349,
+        10.0,
+        15.0
+      ],
+      "diameter_m": 0.5,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius_m": 0.25
+    },
+    "exit": {
+      "center": [
+        15.0,
+        10.0,
+        11.9499998092651
+      ],
+      "diameter_m": 0.5,
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "radius_m": 0.25
+    }
+  },
+  "object_count": 2
+}

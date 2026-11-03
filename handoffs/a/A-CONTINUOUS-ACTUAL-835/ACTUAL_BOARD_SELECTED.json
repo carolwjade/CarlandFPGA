@@ -1,0 +1,352 @@
+[
+  {
+    "event": "request-returned",
+    "host_before_ns": 40060442853700,
+    "host_returned_ns": 40060724950900,
+    "response": {
+      "abi": "DEEPEYE-LIVE-BOARD-791-v1",
+      "boot_id": "1dc765dc-6e81-412d-b350-9f6691749e48",
+      "build_id": "dc4e89ccf3db18c4f9871575efc399ba",
+      "io_count": 887,
+      "op": "sense",
+      "request_hash": "a24fb9d5daa3cdfb85da93b3c992f0243e906f4c0f67717803abfe543b521e0b",
+      "request_seq": 1,
+      "result": {
+        "adc_tick_ms": 1000,
+        "correlation": "FOUR_FRAME_CRC_SOURCE_CONSISTENT",
+        "decoded": [
+          {
+            "channel": 0,
+            "count": 1,
+            "e": 0,
+            "first_index": 1,
+            "first_tick_ms": 1000000,
+            "held": false,
+            "held_origin_tick_ms": null,
+            "index_stride": null,
+            "k": 0,
+            "ledger": {
+              "count": 1,
+              "frame_bytes": 37,
+              "line_bits_8n1": 370,
+              "metadata_bytes": 21,
+              "outer_overhead_bytes": 14,
+              "padding_bits": 0,
+              "payload_bytes": 23,
+              "selected_raw_bytes": 2,
+              "significant_bits": 16,
+              "stored_code_bytes": 2,
+              "value_count": 1
+            },
+            "long_source_tick": false,
+            "mode": "raw",
+            "points": [
+              {
+                "held": false,
+                "index": 1,
+                "saturated": false,
+                "source_fault": false,
+                "source_tick_ms": 1000000,
+                "tick_ms": 1000000,
+                "valid": true,
+                "value": 3066
+              }
+            ],
+            "quality_byte": 4,
+            "saturated": false,
+            "settings_byte": 8,
+            "significant_bits": 16,
+            "source_fault": false,
+            "tick_stride_ms": null,
+            "valid": true
+          },
+          {
+            "channel": 1,
+            "count": 1,
+            "e": 0,
+            "first_index": 1,
+            "first_tick_ms": 1000000,
+            "held": false,
+            "held_origin_tick_ms": null,
+            "index_stride": null,
+            "k": 0,
+            "ledger": {
+              "count": 1,
+              "frame_bytes": 37,
+              "line_bits_8n1": 370,
+              "metadata_bytes": 21,
+              "outer_overhead_bytes": 14,
+              "padding_bits": 0,
+              "payload_bytes": 23,
+              "selected_raw_bytes": 2,
+              "significant_bits": 16,
+              "stored_code_bytes": 2,
+              "value_count": 1
+            },
+            "long_source_tick": false,
+            "mode": "raw",
+            "points": [
+              {
+                "held": false,
+                "index": 1,
+                "saturated": false,
+                "source_fault": false,
+                "source_tick_ms": 1000000,
+                "tick_ms": 1000000,
+                "valid": true,
+                "value": 2046
+              }
+            ],
+            "quality_byte": 5,
+            "saturated": false,
+            "settings_byte": 8,
+            "significant_bits": 16,
+            "source_fault": false,
+            "tick_stride_ms": null,
+            "valid": true
+          },
+          {
+            "channel": 2,
+            "count": 1,
+            "e": 0,
+            "first_index": 1,
+            "first_tick_ms": 1000000,
+            "held": false,
+            "held_origin_tick_ms": null,
+            "index_stride": null,
+            "k": 0,
+            "ledger": {
+              "count": 1,
+              "frame_bytes": 37,
+              "line_bits_8n1": 370,
+              "metadata_bytes": 21,
+              "outer_overhead_bytes": 14,
+              "padding_bits": 0,
+              "payload_bytes": 23,
+              "selected_raw_bytes": 2,
+              "significant_bits": 16,
+              "stored_code_bytes": 2,
+              "value_count": 1
+            },
+            "long_source_tick": false,
+            "mode": "raw",
+            "points": [
+              {
+                "held": false,
+                "index": 1,
+                "saturated": false,
+                "source_fault": false,
+                "source_tick_ms": 1000000,
+                "tick_ms": 1000000,
+                "valid": true,
+                "value": 2048
+              }
+            ],
+            "quality_byte": 6,
+            "saturated": false,
+            "settings_byte": 8,
+            "significant_bits": 16,
+            "source_fault": false,
+            "tick_stride_ms": null,
+            "valid": true
+          },
+          {
+            "channel": 3,
+            "count": 1,
+            "e": 0,
+            "first_index": 1,
+            "first_tick_ms": 1000000,
+            "held": false,
+            "held_origin_tick_ms": null,
+            "index_stride": null,
+            "k": 0,
+            "ledger": {
+              "count": 1,
+              "frame_bytes": 35,
+              "line_bits_8n1": 350,
+              "metadata_bytes": 21,
+              "outer_overhead_bytes": 14,
+              "padding_bits": 0,
+              "payload_bytes": 21,
+              "selected_raw_bytes": 0,
+              "significant_bits": 0,
+              "stored_code_bytes": 0,
+              "value_count": 0
+            },
+            "long_source_tick": false,
+            "mode": "raw",
+            "points": [
+              {
+                "held": false,
+                "index": 1,
+                "saturated": false,
+                "source_fault": false,
+                "source_tick_ms": null,
+                "tick_ms": 1000000,
+                "valid": false,
+                "value": null
+              }
+            ],
+            "quality_byte": 3,
+            "saturated": false,
+            "settings_byte": 8,
+            "significant_bits": 0,
+            "source_fault": false,
+            "tick_stride_ms": null,
+            "valid": false
+          }
+        ],
+        "em_tick_ms": 1000,
+        "quality": 7,
+        "result_rows": [
+          {
+            "bytes": 37,
+            "error": 0,
+            "id": 1,
+            "refusal": 0,
+            "rx_before": 0,
+            "rx_end": 37
+          },
+          {
+            "bytes": 37,
+            "error": 0,
+            "id": 2,
+            "refusal": 0,
+            "rx_before": 37,
+            "rx_end": 74
+          },
+          {
+            "bytes": 37,
+            "error": 0,
+            "id": 3,
+            "refusal": 0,
+            "rx_before": 74,
+            "rx_end": 111
+          },
+          {
+            "bytes": 35,
+            "error": 0,
+            "id": 4,
+            "refusal": 0,
+            "rx_before": 111,
+            "rx_end": 146
+          }
+        ],
+        "source_digest": "07703f0a8da8815968bb59edfc875e4ca71ca318da1234656a00196da2968672",
+        "source_seq": 1,
+        "tag": 1,
+        "wire_hex": "a55a03e41701010040420f000208040110c6c128ca0100000040420f0000000000fa0bf780a55a03e41701020040420f000208050110c6c128ca0100000040420f0000000000fe074259a55a03e41701030040420f000208060110c6c128ca0100000040420f00000000000008be06a55a03e41501040040420f000208030100c6c128ca0100000040420f000000000026d6"
+      },
+      "status": "COMPLETE",
+      "unknown": false
+    },
+    "response_sha256": "015f9b9e3b97e631bd4e0212a666e2a52ec557401005145215ae711e72eb4802"
+  },
+  {
+    "event": "request-returned",
+    "host_before_ns": 40060757150600,
+    "host_deadline_qpc_ns": 40072703417092,
+    "host_returned_ns": 40060833619800,
+    "response": {
+      "abi": "DEEPEYE-LIVE-BOARD-791-v1",
+      "boot_id": "1dc765dc-6e81-412d-b350-9f6691749e48",
+      "build_id": "dc4e89ccf3db18c4f9871575efc399ba",
+      "io_count": 211,
+      "op": "apply",
+      "request_hash": "a24fb9d5daa3cdfb85da93b3c992f0243e906f4c0f67717803abfe543b521e0b",
+      "request_seq": 2,
+      "result": {
+        "capture_words": [
+          1,
+          2,
+          2,
+          513,
+          0,
+          12000,
+          42563175,
+          0,
+          642563175,
+          0,
+          44563180,
+          0,
+          1000000,
+          1000000,
+          1000000,
+          125000,
+          125000,
+          26000,
+          999998,
+          0,
+          999998,
+          0,
+          999998,
+          0,
+          1999998,
+          0,
+          1999998,
+          0,
+          1999998,
+          0,
+          3391668678,
+          1194341712
+        ],
+        "command_words": [
+          0,
+          0,
+          1,
+          2,
+          12000,
+          2,
+          2
+        ],
+        "commit_before_monotonic_ns": 20219891845306,
+        "conservative_deadline_monotonic_ns": 20231891845306,
+        "measured": {
+          "action": 1,
+          "duration_ms": 12000,
+          "pitch_q": 0,
+          "speed_code": 2,
+          "yaw_q": 0
+        },
+        "pwm_high": [
+          125000,
+          125000,
+          26000
+        ],
+        "pwm_period": [
+          1000000,
+          1000000,
+          1000000
+        ],
+        "remaining_ns": 11946266492,
+        "returned_monotonic_ns": 20219945578814
+      },
+      "status": "COMPLETE",
+      "unknown": false
+    },
+    "response_sha256": "4177c3e332c234b9963784aaa073090adcf1ea5d9e8aeef88739934c61c1d569"
+  },
+  {
+    "event": "request-returned",
+    "host_before_ns": 40262474379600,
+    "host_returned_ns": 40262487525400,
+    "response": {
+      "abi": "DEEPEYE-LIVE-BOARD-791-v1",
+      "boot_id": "1dc765dc-6e81-412d-b350-9f6691749e48",
+      "build_id": "dc4e89ccf3db18c4f9871575efc399ba",
+      "io_count": 3,
+      "op": "stop",
+      "request_hash": "a24fb9d5daa3cdfb85da93b3c992f0243e906f4c0f67717803abfe543b521e0b",
+      "request_seq": 836,
+      "result": {
+        "fault": 6,
+        "physical_zero_capture_proven": false,
+        "status": 3,
+        "stop_write_returned": true
+      },
+      "status": "COMPLETE",
+      "unknown": false
+    },
+    "response_sha256": "ff4ee6bf0f5176cb57184b7dc12fee609d37451580fd09acf2762cbebfa72584"
+  }
+]

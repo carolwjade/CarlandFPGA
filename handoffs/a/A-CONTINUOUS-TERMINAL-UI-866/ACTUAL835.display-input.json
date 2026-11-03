@@ -1,0 +1,132 @@
+{
+  "native": {
+    "abi": "DEEPEYE-CONTINUOUS-NATIVE-794-v1",
+    "board_receipt_sha256": "f9f9dd09ec564824b4c4a84079a40f06de580b1f57ef014deac080cd9b332a8a",
+    "board_request_seq": 820,
+    "deadline_usec": "1395624052",
+    "fault": "operator_stop",
+    "formal_acceptance": "not_run",
+    "history": [
+      "INITIAL_OUTSIDE",
+      "ENTRY_CROSSING",
+      "ENTERED",
+      "EXIT_CROSSING",
+      "ARRIVED"
+    ],
+    "operator_request": "",
+    "orientation_xyzw": [
+      0.0,
+      0.693040549755096,
+      0.0,
+      0.720898628234863
+    ],
+    "phase": "ARRIVED",
+    "pitch_curvature_per_m": 0.0,
+    "position_m": [
+      15.5208501815796,
+      10.0,
+      11.905722618103
+    ],
+    "read_now_usec": "1388518033",
+    "ready": false,
+    "revision": "34058",
+    "running": false,
+    "speed_m_s": 0.0,
+    "target_speed_m_s": 0.0375,
+    "tick_usec": "1388518030",
+    "yaw_curvature_per_m": 0.0
+  },
+  "host": {
+    "abi": "DEEPEYE-CONTINUOUS-HOST-801-v1",
+    "actual_speed_m_s": 0.037500000000000006,
+    "ai": {
+      "direction": "[0.9992239289000817, 0.0, 0.039389591435867115]",
+      "risk": 0.2503928977098906
+    },
+    "ai_direction": [
+      0.9992239289000817,
+      0.0,
+      0.039389591435867115
+    ],
+    "ai_speed_limit_m_s": 0.04651667330314402,
+    "board": {
+      "connected": true,
+      "pwm": "[125000, 125000, 26500]",
+      "stop_acknowledged": true
+    },
+    "board_connected": true,
+    "codec": "FPGA E4无损还原，允许RAW回退",
+    "complete": true,
+    "connected": true,
+    "counts": [
+      3071,
+      2048,
+      2048,
+      null
+    ],
+    "current_speed_source": "actual_pc_ai_and_board",
+    "initial_request_m_s": 0.1,
+    "initial_speed_latched": true,
+    "latched_initial_speed_m_s": 0.1,
+    "lossless_match": true,
+    "native_speed_m_s": 0.0375,
+    "next_initial_speed_m_s": 0.185,
+    "operation_id": "A-GEN4-CONTINUOUS-BOARD-20261104-834-R01",
+    "operator": {
+      "ack_seq": 19,
+      "state": "next_initial_stored"
+    },
+    "operator_ack_kind": "preference_storage",
+    "operator_ack_seq": 19,
+    "operator_control_ack_seq": 1,
+    "operator_control_pending_seq": 1,
+    "operator_pause_requested": false,
+    "operator_preference_ack_seq": 19,
+    "operator_state": "next_initial_stored",
+    "paused": false,
+    "phase": "EXIT_CROSSING",
+    "position_m": [
+      15.5094652175903,
+      10.0,
+      11.9052734375
+    ],
+    "pwm_high": [
+      125000,
+      125000,
+      26500
+    ],
+    "pwm_period": [
+      1000000,
+      1000000,
+      1000000
+    ],
+    "quality": 7,
+    "requested_speed_m_s": 0.1,
+    "reserved_initial_speed_m_s": 0.1,
+    "risk": 0.2503928977098906,
+    "sample_count": 500,
+    "source": {
+      "channel_counts": [
+        3071,
+        2048,
+        2048,
+        null
+      ],
+      "compressed_bytes": "RAW回退或无损块",
+      "e4_bytes": 146,
+      "raw_bytes": "4通道值",
+      "sample_count": 500
+    },
+    "source_age_s": 0.672082004,
+    "stage": "完整出圈已完成",
+    "status_seq": 2151,
+    "stop_acknowledged": true,
+    "uncertainty": 0.7509537938484006,
+    "updated_qpc_ns": "40263545585500",
+    "updated_unix_ms": 1793729447801,
+    "wire_bytes": 146,
+    "world_epoch": "A-CONTINUOUS-WORLD-835-R01"
+  },
+  "result_complete": true,
+  "source_RESULT_sha256": "09958ede729dbdcb08ccf514bd78e25ab8c1ab168a6b43d64bb0c9c1a071abcf"
+}
