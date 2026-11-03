@@ -1,0 +1,28 @@
+--- driver511.py::arrived-current
++++ new-driver::arrived-candidate
+@@ -1,14 +1,18 @@
+         def arrived():
+-            root=world.source.link.executor._root;slot=world.source.link.slot
+-            if root.phase=='ARRIVED':
+-                need(root.entered and passage._valid(root),'genuine sealed ordered passage state')
++            executor=world.source.link.executor;root=executor._root;slot=world.source.link.slot
++            state=executor.passage_state()
++            need(executor._root is root is world.source.book._root and state.pose==root.pose
++                 and state.pose_revision==root.pose_revision,
++                 'same committed Root and actual passage state required')
++            if state.phase=='ARRIVED':
++                need(state.entered and passage._valid(state),'genuine sealed ordered passage state')
+                 need(slot is not None and slot.closed and slot.getter_admitted,'original final STEP/getter closed')
+-                kinds=[event.kind for event in root.history]
++                kinds=[event.kind for event in state.history]
+                 need(kinds[0]=='INITIAL_OUTSIDE' and 'ENTERED' in kinds and 'ARRIVED' in kinds and kinds.index('ENTERED')<kinds.index('ARRIVED'),'ordered whole-body entry and exit')
+                 result['navigation_complete']=True
+-                result['arrival_evidence']=dict(phase=root.phase,entered=root.entered,
+-                    pose_revision=root.pose_revision,monotonic_ns=root.monotonic_ns,
+-                    trace_hash=root.trace_hash,event_kinds=kinds,
++                result['arrival_evidence']=dict(phase=state.phase,entered=state.entered,
++                    pose_revision=root.pose_revision,monotonic_ns=state.monotonic_ns,
++                    trace_hash=state.trace_hash,event_kinds=kinds,
+                     getter_admitted=slot.getter_admitted,completion_observed_qpc_ns=slot.completion_observed_qpc_ns)
+                 return True
+             return False

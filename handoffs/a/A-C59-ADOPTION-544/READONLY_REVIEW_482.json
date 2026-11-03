@@ -1,0 +1,21 @@
+{
+  "source_read_only": true,
+  "models_run": false,
+  "board": false,
+  "goal_patch": "NO_STATIC_BLOCKER",
+  "passage_state_correct": true,
+  "passage_type": "PassageState",
+  "phase_names_match_valid": true,
+  "hidden_obstacle_truth_read": false,
+  "closed_getter_root_revision_bound": true,
+  "old_driver_bug": "Root.phase is a PassageState object, not string, and commit stores relative.previous. root.phase==ARRIVED is always false; entered/history are not Root fields. Use executor.passage_state() and validate same Root/pose revision plus existing sealed ordered history and closed getter.",
+  "telemetry_optional_fix": "driver511:634 phase=world.source.link.executor.passage_state().phase instead of executor._root.phase",
+  "qualification_scope": "Source-only review; materialization runtime and same-face numerical passage not rerun.",
+  "patch_sha256": "671f1be7cfed7a9b4f330b291475adf74b959bdf7d96b8c32f69db334c0c803c",
+  "source_refs": {
+    "motion_executor.py": "_Root.phase87; passage_state211-224; _prepare_geometry328; commit384-407",
+    "motion/passage_phase.py": "_valid97-110; materialize_committed_transition269-297",
+    "g05_csr_projection_v1.py": "original getter Root binding175-190; C59 extends at210",
+    "driver511.py": "arrived457-469; telemetry634"
+  }
+}
