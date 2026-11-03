@@ -1,0 +1,42 @@
+--- a/competition/deepeye/simulation/authority/motion/certified_path.py
++++ b/competition/deepeye/simulation/authority/motion/certified_path.py
+@@ -71,14 +71,19 @@
+     return tuple(part.divide(norm) for part in parts)
+ 
+ 
+-def _trig_from_square(square, *, cosine=False):
+-    """Enclose sinc(sqrt(z)) or cos(sqrt(z)) on the proved whole domain.
+-
+-    Here z <= .00125**2 < .0000015626. Alternating terms decrease, so
+-    the polynomial ending at j=4 is above the function; subtracting the
+-    magnitude of j=5 is below it. Directed arithmetic encloses both bounds.
++def _trig_from_square(square, *, cosine=False, motion_profile=None):
++    """Enclose sinc(sqrt(z)) or cos(sqrt(z)) on the selected proved domain.
++
++    Default10ms retains z <= .00125**2 < .0000015626. The exact typed
++    DEMO_100MS permits z <= (.5/m * .25m/s * .1s)**2 < .00015626.
++    In both domains alternating terms strictly decrease: even the largest
++    first cosine ratio is z/2 < .000079. Ending at j=4 is above the
++    function; subtracting the magnitude of j=5 is below it. Directed
++    arithmetic encloses the polynomial and remainder without changing them.
+     """
+-    if square.lo < 0 or square.hi > Decimal('.0000015626'):
++    horizon.validate_profile(motion_profile)
++    maximum=Decimal('.0000015626') if motion_profile is None else Decimal('.00015626')
++    if square.lo < 0 or square.hi > maximum:
+         raise ValueError('trigonometric argument outside proved domain')
+     total = term = _ONE
+     for j in range(1, 5):
+@@ -242,8 +247,10 @@
+         length = _fraction_interval(distance)
+         squared = self._curvature_squared*length.square()
+         half_squared = squared.divide(_FOUR)
+-        sinc, sinc_half = _trig_from_square(squared), _trig_from_square(half_squared)
+-        cos_half = _trig_from_square(half_squared, cosine=True)
++        profile=self.provenance.motion_profile
++        sinc = _trig_from_square(squared,motion_profile=profile)
++        sinc_half = _trig_from_square(half_squared,motion_profile=profile)
++        cos_half = _trig_from_square(half_squared,cosine=True,motion_profile=profile)
+         half_length = length.divide(_TWO)
+         dq = (-self._pitch*half_length*sinc_half, self._yaw*half_length*sinc_half, _ZERO, cos_half)
+         q = _multiply_q(self._q0, dq)

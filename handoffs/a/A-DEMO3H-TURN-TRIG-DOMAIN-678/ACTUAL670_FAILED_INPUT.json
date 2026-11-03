@@ -1,0 +1,42 @@
+{
+  "dt_ns": 100000000,
+  "origin_actual_result": {
+    "path": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.local\\a670\\nav\\run-result.json",
+    "sha256": "c3c94ba0cca31decd4903d200b7f85db07702a9af7b534f7331f042edf84db3d"
+  },
+  "original_exception": {
+    "checked_slices": null,
+    "message": "trigonometric argument outside proved domain",
+    "origin": {
+      "function": "_trig_from_square",
+      "line": 82
+    },
+    "status": null,
+    "type": "ValueError"
+  },
+  "pose_revision": 101,
+  "scope": "One actual failed canonical numerical input; no board replay/model AI/PDE/collision proof",
+  "source_head": "21ce099e29d5b31fe2534a6bb5ae59b921f769b0",
+  "source_stage": "C:\\Users\\CarlJade\\Documents\\ChatGPT\\FPGA\u591a\u673a\u534f\u4f5c\u5f00\u53d1\\.planning\\deepeye-resume-20261018\\gen4-functional-chain-offboard-20261030-07\\step-diagnostic-integration-667\\python-source",
+  "state": {
+    "orientation_xyzw": [
+      0.7071065541449765,
+      0.000566643818846688,
+      0.000566643818846688,
+      0.7071065541449765
+    ],
+    "position_m": [
+      11.800008013552878,
+      14.466875004281135,
+      5.674547934000007e-60
+    ],
+    "speed_m_s": 0.075
+  },
+  "target": {
+    "action": 1,
+    "duration_ms": 12000,
+    "pitch_q": 0,
+    "speed_code": 14,
+    "yaw_q": 1607
+  }
+}
