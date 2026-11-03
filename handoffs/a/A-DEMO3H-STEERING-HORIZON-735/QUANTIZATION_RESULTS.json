@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "controls": [
+    "six_actual710_public_direction_fixtures_old_exact_new_ROM_bounded",
+    "old180_profile_rejects_new_marker",
+    "foreign_equal_marker_rejected",
+    "untyped_marker_rejected",
+    "marker_requires_actual12s_target",
+    "STOP_unchanged",
+    "actual_policy_constructor_new_and_old_default",
+    "actual_policy_rejects_wrong_navigation",
+    "original_completion_projection_calls_typed_quantizer_once",
+    "all_steering_signs_and_combined_ROM_preserved",
+    "small_unsaturated_error_gain4_target_TTL_unchanged",
+    "legacy_default100ms_target_exact"
+  ],
+  "actual710_fixtures": [
+    {
+      "cycle": 16,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 5013,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.25671931956262894
+    },
+    {
+      "cycle": 17,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 1523,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 3638,
+        "pitch_q": 3448,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.25770040942127337
+    },
+    {
+      "cycle": 18,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 5013,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.27323154375798264
+    },
+    {
+      "cycle": 19,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 5013,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.2712890753961321
+    },
+    {
+      "cycle": 20,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 1523,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 3638,
+        "pitch_q": 3448,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.26434437247603015
+    },
+    {
+      "cycle": 21,
+      "old": {
+        "action": 1,
+        "yaw_q": 1607,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "new": {
+        "action": 1,
+        "yaw_q": 5013,
+        "pitch_q": 0,
+        "speed_code": 14,
+        "duration_ms": 12000
+      },
+      "risk": 0.2707398545263069
+    }
+  ],
+  "model": false,
+  "board": false,
+  "native": false,
+  "PDE": false
+}

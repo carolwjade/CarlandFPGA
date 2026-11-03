@@ -6,7 +6,7 @@ Default composition production channels remain unavailable.
 """
 from dataclasses import dataclass
 import hashlib,json,threading
-from .mechanics import need,uint,encode,pair_state,quantize_target,BASIS
+from .mechanics import need,uint,encode,pair_state,quantize_target,BASIS,_steering_horizon_ms
 from .fixed import projection,verifier
 from ....integration import host_clock,host_envelope,completion_interval,motion,candidate_mailbox
 from ....integration.cpu_invocation_transcript import InvocationIdentity,_ActorRecord
@@ -51,6 +51,7 @@ class OwnedInvocationPolicy:
     duration_ms:int
     demo_duration_v1:bool=False
     navigation_profile:object=None
+    steering_profile:object=None
     def check(self):
         need(type(self) is OwnedInvocationPolicy,'exact owned policy')
         navigation.validate_profile(self.navigation_profile)
@@ -65,6 +66,7 @@ class OwnedInvocationPolicy:
         maximum=(self.navigation_profile.max_command_ttl_ms if self.navigation_profile is not None
                  else 1000 if self.demo_duration_v1 else 100)
         need(type(self.duration_ms) is int and 1<=self.duration_ms<=maximum,'bounded prospective command validity')
+        _steering_horizon_ms(self.steering_profile,self.navigation_profile,self.duration_ms)
         InvocationIdentity(self.operation_id,self.request_hash,self.tested_commit,MANIFEST,'check',1,'check')
 
 class _Association:
@@ -252,7 +254,7 @@ class _OwnedInvocationAdapter:
             now=self._check();need(lower<=read_lower<=upper<=now,'actual original ordered observation interval')
             maximum=(self.policy.navigation_profile.max_command_ttl_ms if self.policy.navigation_profile is not None
                      else 1000 if self.policy.demo_duration_v1 else 100)
-            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion,max_duration_ms=maximum,navigation_profile=self.policy.navigation_profile)
+            public=json.loads(p['public']);target=quantize_target(pair.result['result'],public,host_envelope._profile_name(json.loads(self.owner._boot.context_json)),self.policy.duration_ms,motion,max_duration_ms=maximum,navigation_profile=self.policy.navigation_profile,steering_profile=self.policy.steering_profile)
             if a.g05_mapping is not None:
                 result_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=upper)
                 admitted_quality=self.ai_profile.verifier.quality_report(public,observed_now_qpc_ns=now)

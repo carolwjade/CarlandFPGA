@@ -1,5 +1,6 @@
 """C46 finite public mechanics; no origin authentication, IO or planner."""
 import json,math
+from dataclasses import dataclass
 from fractions import Fraction
 
 UINT63=(1<<63)-1
@@ -27,11 +28,37 @@ def _body_direction(q,v):
     tx,ty,tz=2*(y*c-z*b),2*(z*a-x*c),2*(x*b-y*a)
     return (a+w*tx+y*tz-z*ty,b+w*ty+z*tx-x*tz,c+w*tz+x*ty-y*tx)
 
+@dataclass(frozen=True)
+class _DemoSteeringHorizonV1:
+    profile_id: str
+    sha256: str
+    horizon_ms: int
+
+
+DEMO_STEERING_3S_V1 = _DemoSteeringHorizonV1(
+    'DEEPEYE-DEMO-STEERING-HORIZON-3000MS-V1',
+    'd7c34545ccdea1cc67c2570a1ed4b41d6ac7494831af166b4cf771ca0ca0c0e4', 3000)
+
+
+def _steering_horizon_ms(profile, navigation_profile, duration_ms):
+    # Identity selection is independent from the unchanged command/FPGA TTL.
+    if profile is None:
+        return duration_ms
+    from ..navigation_session_profile import NAV_ROUTE_LONGTTL_600S_V1
+    need(profile is DEMO_STEERING_3S_V1
+         and navigation_profile is NAV_ROUTE_LONGTTL_600S_V1
+         and duration_ms == 12000,
+         'exact route600 12s-target demo steering profile required')
+    return profile.horizon_ms
+
+
 def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=100,
-                    navigation_profile=None):
+                    navigation_profile=None,steering_profile=None):
     """Explicit fixed-duration candidate, not authority or a trajectory oracle.
 
-    Angular error is pursued over that duration then clipped to the original
+    Angular error is pursued over the selected steering horizon, then clipped
+    to the original ROM. Defaults retain the command-duration pursuit horizon.
+    Actual target duration and FPGA TTL are never changed by steering selection.
     combined curvature ROM. Truncation is toward zero, never a larger speed.
     Saturation/quantization can leave heading error; no accuracy claim is made.
     """
@@ -44,6 +71,7 @@ def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=1
         need(max_duration_ms==navigation_profile.max_command_ttl_ms and profile=='fast_9600',
              'typed navigation requires unchanged FAST ROM and selected finite cap')
     uint(duration_ms,1);need(duration_ms<=max_duration_ms,'prospective command duration exceeds selected cap')
+    horizon_ms=_steering_horizon_ms(steering_profile,navigation_profile,duration_ms)
     stop=dict(action=0,yaw_q=0,pitch_q=0,speed_code=0,duration_ms=0)
     if advice['status']=='STOP':return stop
     need(advice['status']=='ADVISE','unsupported result status')
@@ -53,8 +81,8 @@ def quantize_target(advice,public,profile,duration_ms,motion,*,max_duration_ms=1
     x,y,z=_body_direction(public['pose']['orientation_xyzw'],advice['direction_world'])
     need(all(math.isfinite(t) for t in (x,y,z)) and z>0,'forward body direction required')
     # Positive yaw steers +X; positive pitch steers +Y (body rotation -pitch,+yaw,0).
-    yaw=math.degrees(math.atan2(x,z))*1_000_000/duration_ms
-    pitch=math.degrees(math.atan2(y,math.hypot(x,z)))*1_000_000/duration_ms
+    yaw=math.degrees(math.atan2(x,z))*1_000_000/horizon_ms
+    pitch=math.degrees(math.atan2(y,math.hypot(x,z)))*1_000_000/horizon_ms
     n=math.hypot(yaw,pitch);rom=motion.curvature_limit_squared(profile,code)
     cap=min(15000,math.sqrt(rom))
     factor=1 if n<=cap or n==0 else cap/n
