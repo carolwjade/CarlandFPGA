@@ -1,0 +1,133 @@
+{
+  "task_id": "COMP-20261013-DEEPEYE",
+  "task_version": 3,
+  "checked_at_utc": "2026-10-13T18:17:54.131180+00:00",
+  "checked_source_sha256": "735a3b9a3f2b9c7c3ad6a53b15eb0d70f90a7aa3b0d205d1532c3b8fc210e14e",
+  "crc_reference_vector": "29b1",
+  "frame_lengths": {
+    "TELEM": 32,
+    "EVENT": 20,
+    "CONTROL": 28,
+    "ACK": 32,
+    "CONFIG": 24,
+    "HELLO": 18,
+    "STATE": 32,
+    "CONFIG_ACK": 32,
+    "GAIN": 24,
+    "GAIN_ACK": 32,
+    "BOOT": 41,
+    "BOOT_ACK": 41,
+    "TRACE_MAX": 46
+  },
+  "fixed_window_planning": {
+    "normal": {
+      "bytes": 144,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 62.5
+    },
+    "config": {
+      "bytes": 200,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 85.833333
+    },
+    "retry": {
+      "bytes": 204,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 87.5
+    },
+    "gain": {
+      "bytes": 140,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 60.833333
+    },
+    "gain_retry": {
+      "bytes": 196,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 84.166667
+    },
+    "event_retry_normal": {
+      "bytes": 164,
+      "baud": 300,
+      "line_bits_per_byte": 10,
+      "window_s": 8,
+      "guard_s": 0.2,
+      "occupancy_percent": 70.833333
+    }
+  },
+  "task_cards": {
+    "R01": "规则 数据与既有报名登记",
+    "R02": "设备和采集夹具",
+    "R03": "协议 寄存器和编排器",
+    "R04": "最小真实任务和传感前端",
+    "B01": "编码和独立回解",
+    "C01": "因果数据和模型输入",
+    "A01": "自动激励和传感基线",
+    "B02": "实际采样与时间戳",
+    "B03": "流水线 FIFO和复位",
+    "B04": "线速 调度与恢复",
+    "B05": "控制确认与保守状态",
+    "B06": "实现和模块板测",
+    "C02": "模型与公平基线",
+    "C03": "ROCm主栈和NPU增强",
+    "C04": "受约束反馈策略",
+    "C05": "孪生和故障显示",
+    "A02": "盲场景全链路",
+    "A05": "真实自动量程任务",
+    "A03": "消融 故障与持续运行",
+    "A04": "复现 Skill与提交包"
+  },
+  "checks": "document_structure_crc_and_planning_arithmetic_only",
+  "simulation": "not_run",
+  "synthesis": "not_run",
+  "implementation": "not_run",
+  "board": "not_run",
+  "rocm_project": "not_run",
+  "physical_task_qualification": "not_verified",
+  "pdf_sha256": "65170a8de38bce1a5beedcc8eb888a3b5cf893ec2e89b922ecf36df2b73f1167",
+  "pdf_pages": 15,
+  "pdf_text_characters_per_page": [
+    912,
+    1524,
+    1513,
+    1681,
+    1812,
+    1866,
+    2531,
+    1860,
+    1294,
+    1495,
+    1747,
+    2049,
+    1702,
+    1113,
+    725
+  ],
+  "rendered_pages": 15,
+  "dag": "20 cards, acyclic, all not_run",
+  "visual_qa": "passed: all15 pages checked; final changed pages7,8,9,12,13,14 re-reviewed; remaining final PNG hashes equal reviewed pages",
+  "result": "passed_document_integrity_structure_crc_arithmetic_rendering_only",
+  "late_first_ack_planning_counterexample": {
+    "first_send_s": 0,
+    "ttl_s": 12,
+    "late_receipt_s": 9.267,
+    "unsafe_cached_deadline_s": 19.980333333333334,
+    "reencoded_and_first_send_bounded_deadline_s": 11.980333333333334,
+    "pass": "new deadline cannot exceed first_send+TTL; planning math only"
+  },
+  "task_revision": 1
+}
