@@ -62,4 +62,6 @@ static func sample_span(span: Dictionary, elapsed_ns: int) -> Dictionary:
 	var initial: Array = span.start_position_m
 	var position := Vector3(initial[0],initial[1],initial[2]) + q0*local_delta
 	var orientation := (q0*delta_q).normalized()
-	return {"ok": true,"elapsed_ns":str(elapsed_ns),"position_m":[position.x,position.y,position.z],"orientation_xyzw":[orientation.x,orientation.y,orientation.z,orientation.w],"speed_m_s":v0+acceleration*r}
+	# The completed ramp owns its exact validated endpoint, including pause=0.
+	var speed := vt if elapsed_ns>=ramp else v0+acceleration*r
+	return {"ok": true,"elapsed_ns":str(elapsed_ns),"position_m":[position.x,position.y,position.z],"orientation_xyzw":[orientation.x,orientation.y,orientation.z,orientation.w],"speed_m_s":speed}

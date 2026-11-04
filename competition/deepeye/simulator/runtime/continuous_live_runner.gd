@@ -128,16 +128,23 @@ func _physics_process(_delta: float) -> void:
 	_last_wall_us=now
 	_poll_rpc()
 
+static func _speed_ramp(speed: float, target: float, seconds: float) -> Dictionary:
+	var acceleration := 0.0 if target==speed else (0.25 if target>speed else -0.25)
+	var ramp := absf(target-speed)/0.25
+	var dt_ns := int(round(seconds*1000000000.0))
+	var ramp_ns := int(round(minf(seconds,ramp)*1000000000.0))
+	var reached := speed+acceleration*float(ramp_ns)*0.000000001
+	# Quantization must not pass an already-admitted endpoint or retain a residual.
+	reached = target if seconds>=ramp else clampf(reached,minf(speed,target),maxf(speed,target))
+	return {"dt_ns":str(dt_ns),"start_speed_m_s":speed,"target_speed_m_s":reached,"acceleration_m_s2":acceleration,"ramp_ns":str(ramp_ns)}
+
 func _advance(seconds: float, tick: int) -> bool:
 	if not is_instance_valid(_drill) or not _main._continuous_owner_valid(self,_lock,_doc_generation):
 		fail("owner_or_geometry_changed");return false
-	var acceleration := 0.0 if is_equal_approx(_target_speed,_speed) else (0.25 if _target_speed>_speed else -0.25)
-	var ramp := absf(_target_speed-_speed)/0.25
-	var dt_ns := int(round(seconds*1000000000.0))
-	var ramp_ns := int(round(minf(seconds,ramp)*1000000000.0))
-	var reached := _speed+acceleration*float(ramp_ns)*0.000000001
+	var span := _speed_ramp(_speed,_target_speed,seconds)
+	var dt_ns := int(span.dt_ns)
 	var q := _pose.basis.get_rotation_quaternion()
-	var span := {"dt_ns":str(dt_ns),"start_position_m":[_pose.origin.x,_pose.origin.y,_pose.origin.z],"start_orientation_xyzw":[q.x,q.y,q.z,q.w],"start_speed_m_s":_speed,"target_speed_m_s":reached,"acceleration_m_s2":acceleration,"ramp_ns":str(ramp_ns),"yaw_curvature_per_m":_ky,"pitch_curvature_per_m":_kp}
+	span.merge({"start_position_m":[_pose.origin.x,_pose.origin.y,_pose.origin.z],"start_orientation_xyzw":[q.x,q.y,q.z,q.w],"yaw_curvature_per_m":_ky,"pitch_curvature_per_m":_kp})
 	var sampled: Dictionary=Law.sample_span(span,dt_ns)
 	if not sampled.get("ok",false):fail("canonical_law_"+str(sampled.get("reason")));return false
 	var p: Array=sampled.position_m;var rot: Array=sampled.orientation_xyzw
